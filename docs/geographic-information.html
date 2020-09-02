@@ -1,0 +1,1254 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 1 Geographic Information | CASA0005 Geographic Information Systems and Science</title>
+  <meta name="description" content="The CASA0005 Geographic Information Systems and Science practical book" />
+  <meta name="generator" content="bookdown 0.20.2 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 1 Geographic Information | CASA0005 Geographic Information Systems and Science" />
+  <meta property="og:type" content="book" />
+  <meta property="og:url" content="https://andrewmaclachlan.github.io/CASA0005repo/" />
+  <meta property="og:image" content="https://andrewmaclachlan.github.io/CASA0005repo/general_images/casa_logo.png" />
+  <meta property="og:description" content="The CASA0005 Geographic Information Systems and Science practical book" />
+  <meta name="github-repo" content="andrewmaclachlan/CASA0005repo" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 1 Geographic Information | CASA0005 Geographic Information Systems and Science" />
+  
+  <meta name="twitter:description" content="The CASA0005 Geographic Information Systems and Science practical book" />
+  <meta name="twitter:image" content="https://andrewmaclachlan.github.io/CASA0005repo/general_images/casa_logo.png" />
+
+<meta name="author" content="Andy MacLachlan and Adam Dennett" />
+
+
+<meta name="date" content="2020-09-02" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  <link rel="apple-touch-icon-precomposed" sizes="120x120" href="assets/apple-touch-icon.png" />
+  <link rel="shortcut icon" href="assets/favicon.ico" type="image/x-icon" />
+<link rel="prev" href="external-usage.html"/>
+<link rel="next" href="introduction-to-r.html"/>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<link href="libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
+<link href="libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
+<script src="libs/htmlwidgets-1.5.1/htmlwidgets.js"></script>
+<link href="libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet" />
+<script src="libs/datatables-binding-0.14/datatables.js"></script>
+<link href="libs/dt-core-1.10.20/css/jquery.dataTables.min.css" rel="stylesheet" />
+<link href="libs/dt-core-1.10.20/css/jquery.dataTables.extra.css" rel="stylesheet" />
+<script src="libs/dt-core-1.10.20/js/jquery.dataTables.min.js"></script>
+<link href="libs/nouislider-7.0.10/jquery.nouislider.min.css" rel="stylesheet" />
+<script src="libs/nouislider-7.0.10/jquery.nouislider.min.js"></script>
+<link href="libs/selectize-0.12.0/selectize.bootstrap3.css" rel="stylesheet" />
+<script src="libs/selectize-0.12.0/selectize.min.js"></script>
+<link href="libs/crosstalk-1.1.0.1/css/crosstalk.css" rel="stylesheet" />
+<script src="libs/crosstalk-1.1.0.1/js/crosstalk.min.js"></script>
+<script src="libs/plotly-binding-4.9.2.1/plotly.js"></script>
+<script src="libs/typedarray-0.1/typedarray.min.js"></script>
+<link href="libs/plotly-htmlwidgets-css-1.52.2/plotly-htmlwidgets.css" rel="stylesheet" />
+<script src="libs/plotly-main-1.52.2/plotly-latest.min.js"></script>
+<link href="libs/leaflet-1.3.1/leaflet.css" rel="stylesheet" />
+<script src="libs/leaflet-1.3.1/leaflet.js"></script>
+<link href="libs/leafletfix-1.0.0/leafletfix.css" rel="stylesheet" />
+<script src="libs/Proj4Leaflet-1.0.1/proj4-compressed.js"></script>
+<script src="libs/Proj4Leaflet-1.0.1/proj4leaflet.js"></script>
+<link href="libs/rstudio_leaflet-1.3.1/rstudio_leaflet.css" rel="stylesheet" />
+<script src="libs/leaflet-binding-2.0.3/leaflet.js"></script>
+<script src="libs/leaflet-providers-1.9.0/leaflet-providers_1.9.0.js"></script>
+<script src="libs/leaflet-providers-plugin-2.0.3/leaflet-providers-plugin.js"></script>
+<script src="libs/clipboard-0.0.1/setClipboardText.js"></script>
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-151934476-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-151934476-1');
+</script>
+<script src="assets/book.js"></script>
+
+
+<style type="text/css">
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(title);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  { background-color: #f8f8f8; }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ef2929; } /* Alert */
+code span.an { color: #8f5902; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #c4a000; } /* Attribute */
+code span.bn { color: #0000cf; } /* BaseN */
+code span.cf { color: #204a87; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4e9a06; } /* Char */
+code span.cn { color: #000000; } /* Constant */
+code span.co { color: #8f5902; font-style: italic; } /* Comment */
+code span.cv { color: #8f5902; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #8f5902; font-weight: bold; font-style: italic; } /* Documentation */
+code span.dt { color: #204a87; } /* DataType */
+code span.dv { color: #0000cf; } /* DecVal */
+code span.er { color: #a40000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #0000cf; } /* Float */
+code span.fu { color: #000000; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #204a87; font-weight: bold; } /* Keyword */
+code span.op { color: #ce5c00; font-weight: bold; } /* Operator */
+code span.ot { color: #8f5902; } /* Other */
+code span.pp { color: #8f5902; font-style: italic; } /* Preprocessor */
+code span.sc { color: #000000; } /* SpecialChar */
+code span.ss { color: #4e9a06; } /* SpecialString */
+code span.st { color: #4e9a06; } /* String */
+code span.va { color: #000000; } /* Variable */
+code span.vs { color: #4e9a06; } /* VerbatimString */
+code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<link rel="stylesheet" href="assets\style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="toc-logo"><a href="https://www.ucl.ac.uk/module-catalogue/modules/geographic-information-systems-and-science-CASA0005"><img src="general_images/casa_logo.jpg"></a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Welcome</a><ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#acknowledgement"><i class="fa fa-check"></i>Acknowledgement</a></li>
+</ul></li>
+<li class="part"><span><b>Course information</b></span></li>
+<li class="chapter" data-level="" data-path="hello-gis.html"><a href="hello-gis.html"><i class="fa fa-check"></i>Hello GIS</a><ul>
+<li class="chapter" data-level="" data-path="hello-gis.html"><a href="hello-gis.html#intended-course-learning-outcomes"><i class="fa fa-check"></i>Intended course learning outcomes</a></li>
+<li class="chapter" data-level="" data-path="hello-gis.html"><a href="hello-gis.html#how-to-use-this-book"><i class="fa fa-check"></i>How to use this book</a></li>
+<li class="chapter" data-level="" data-path="hello-gis.html"><a href="hello-gis.html#getting-started"><i class="fa fa-check"></i>Getting started</a></li>
+<li class="chapter" data-level="" data-path="hello-gis.html"><a href="hello-gis.html#how-to-download-data-and-files-from-github"><i class="fa fa-check"></i>How to download data and files from GitHub</a><ul>
+<li class="chapter" data-level="" data-path="hello-gis.html"><a href="hello-gis.html#option-1"><i class="fa fa-check"></i>Option 1</a></li>
+<li class="chapter" data-level="" data-path="hello-gis.html"><a href="hello-gis.html#option-2"><i class="fa fa-check"></i>Option 2</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="hello-gis.html"><a href="hello-gis.html#self-guided-learning"><i class="fa fa-check"></i>Self guided learning</a></li>
+<li class="chapter" data-level="" data-path="hello-gis.html"><a href="hello-gis.html#interactive-lectures"><i class="fa fa-check"></i>Interactive lectures</a></li>
+<li class="chapter" data-level="" data-path="hello-gis.html"><a href="hello-gis.html#more-help"><i class="fa fa-check"></i>More help</a></li>
+<li class="chapter" data-level="" data-path="hello-gis.html"><a href="hello-gis.html#noticed-a-mistake"><i class="fa fa-check"></i>Noticed a mistake?</a></li>
+<li class="chapter" data-level="" data-path="hello-gis.html"><a href="hello-gis.html#assignment-resources"><i class="fa fa-check"></i>Assignment resources</a></li>
+<li class="chapter" data-level="" data-path="hello-gis.html"><a href="hello-gis.html#reading-list"><i class="fa fa-check"></i>Reading list</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="software-installation.html"><a href="software-installation.html"><i class="fa fa-check"></i>Software installation</a><ul>
+<li class="chapter" data-level="" data-path="software-installation.html"><a href="software-installation.html#qgis"><i class="fa fa-check"></i>QGIS</a></li>
+<li class="chapter" data-level="" data-path="software-installation.html"><a href="software-installation.html#r"><i class="fa fa-check"></i>R</a><ul>
+<li class="chapter" data-level="" data-path="software-installation.html"><a href="software-installation.html#setup-1"><i class="fa fa-check"></i>Setup 1</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="software-installation.html"><a href="software-installation.html#arcgis"><i class="fa fa-check"></i>ArcGIS</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="external-usage.html"><a href="external-usage.html"><i class="fa fa-check"></i>External usage</a><ul>
+<li class="chapter" data-level="" data-path="external-usage.html"><a href="external-usage.html#how-to-adopt-this-course"><i class="fa fa-check"></i>How to adopt this course</a></li>
+<li class="chapter" data-level="" data-path="external-usage.html"><a href="external-usage.html#issues-contributions"><i class="fa fa-check"></i>Issues / contributions</a></li>
+<li class="chapter" data-level="" data-path="external-usage.html"><a href="external-usage.html#license"><i class="fa fa-check"></i>License</a></li>
+<li class="chapter" data-level="" data-path="external-usage.html"><a href="external-usage.html#version"><i class="fa fa-check"></i>Version</a></li>
+<li class="chapter" data-level="" data-path="external-usage.html"><a href="external-usage.html#packages"><i class="fa fa-check"></i>Packages</a></li>
+</ul></li>
+<li class="part"><span><b>I GIS tools</b></span></li>
+<li class="chapter" data-level="1" data-path="geographic-information.html"><a href="geographic-information.html"><i class="fa fa-check"></i><b>1</b> Geographic Information</a><ul>
+<li class="chapter" data-level="1.1" data-path="geographic-information.html"><a href="geographic-information.html#learning-outcomes"><i class="fa fa-check"></i><b>1.1</b> Learning outcomes</a></li>
+<li class="chapter" data-level="1.2" data-path="geographic-information.html"><a href="geographic-information.html#homework"><i class="fa fa-check"></i><b>1.2</b> Homework</a></li>
+<li class="chapter" data-level="1.3" data-path="geographic-information.html"><a href="geographic-information.html#recommended-listening"><i class="fa fa-check"></i><b>1.3</b> Recommended listening 🎧</a></li>
+<li class="chapter" data-level="1.4" data-path="geographic-information.html"><a href="geographic-information.html#the-basics-of-geographic-information"><i class="fa fa-check"></i><b>1.4</b> The Basics of Geographic Information</a><ul>
+<li class="chapter" data-level="1.4.1" data-path="geographic-information.html"><a href="geographic-information.html#data-types-in-statistics"><i class="fa fa-check"></i><b>1.4.1</b> Data types in statistics</a></li>
+<li class="chapter" data-level="1.4.2" data-path="geographic-information.html"><a href="geographic-information.html#important-gis-data-formats"><i class="fa fa-check"></i><b>1.4.2</b> Important GIS data formats</a></li>
+</ul></li>
+<li class="chapter" data-level="1.5" data-path="geographic-information.html"><a href="geographic-information.html#general-data-flow"><i class="fa fa-check"></i><b>1.5</b> General data flow</a></li>
+<li class="chapter" data-level="1.6" data-path="geographic-information.html"><a href="geographic-information.html#data"><i class="fa fa-check"></i><b>1.6</b> Data</a><ul>
+<li class="chapter" data-level="1.6.1" data-path="geographic-information.html"><a href="geographic-information.html#file-paths"><i class="fa fa-check"></i><b>1.6.1</b> File paths</a></li>
+<li class="chapter" data-level="1.6.2" data-path="geographic-information.html"><a href="geographic-information.html#data-download"><i class="fa fa-check"></i><b>1.6.2</b> Data download</a></li>
+<li class="chapter" data-level="1.6.3" data-path="geographic-information.html"><a href="geographic-information.html#data-pre-processing"><i class="fa fa-check"></i><b>1.6.3</b> Data pre-processing</a></li>
+<li class="chapter" data-level="1.6.4" data-path="geographic-information.html"><a href="geographic-information.html#qgis-1"><i class="fa fa-check"></i><b>1.6.4</b> QGIS</a></li>
+<li class="chapter" data-level="1.6.5" data-path="geographic-information.html"><a href="geographic-information.html#r-1"><i class="fa fa-check"></i><b>1.6.5</b> R</a></li>
+<li class="chapter" data-level="1.6.6" data-path="geographic-information.html"><a href="geographic-information.html#export-data-1"><i class="fa fa-check"></i><b>1.6.6</b> Export data</a></li>
+<li class="chapter" data-level="1.6.7" data-path="geographic-information.html"><a href="geographic-information.html#what-will-i-use-1"><i class="fa fa-check"></i><b>1.6.7</b> What will I use</a></li>
+</ul></li>
+<li class="chapter" data-level="1.7" data-path="geographic-information.html"><a href="geographic-information.html#data-sources-and-task"><i class="fa fa-check"></i><b>1.7</b> Data sources and task</a><ul>
+<li class="chapter" data-level="1.7.1" data-path="geographic-information.html"><a href="geographic-information.html#uk-data-service"><i class="fa fa-check"></i><b>1.7.1</b> UK Data Service</a></li>
+<li class="chapter" data-level="1.7.2" data-path="geographic-information.html"><a href="geographic-information.html#ons"><i class="fa fa-check"></i><b>1.7.2</b> ONS</a></li>
+<li class="chapter" data-level="1.7.3" data-path="geographic-information.html"><a href="geographic-information.html#nomis"><i class="fa fa-check"></i><b>1.7.3</b> nomis</a></li>
+<li class="chapter" data-level="1.7.4" data-path="geographic-information.html"><a href="geographic-information.html#os"><i class="fa fa-check"></i><b>1.7.4</b> OS</a></li>
+<li class="chapter" data-level="1.7.5" data-path="geographic-information.html"><a href="geographic-information.html#edina-digimap"><i class="fa fa-check"></i><b>1.7.5</b> Edina Digimap</a></li>
+<li class="chapter" data-level="1.7.6" data-path="geographic-information.html"><a href="geographic-information.html#osm"><i class="fa fa-check"></i><b>1.7.6</b> OSM</a></li>
+<li class="chapter" data-level="1.7.7" data-path="geographic-information.html"><a href="geographic-information.html#defra"><i class="fa fa-check"></i><b>1.7.7</b> DEFRA</a></li>
+<li class="chapter" data-level="1.7.8" data-path="geographic-information.html"><a href="geographic-information.html#data-lists"><i class="fa fa-check"></i><b>1.7.8</b> Data lists</a></li>
+</ul></li>
+<li class="chapter" data-level="1.8" data-path="geographic-information.html"><a href="geographic-information.html#summary"><i class="fa fa-check"></i><b>1.8</b> Summary</a></li>
+<li class="chapter" data-level="1.9" data-path="geographic-information.html"><a href="geographic-information.html#feedback"><i class="fa fa-check"></i><b>1.9</b> Feedback</a></li>
+<li class="chapter" data-level="1.10" data-path="geographic-information.html"><a href="geographic-information.html#mac-r-issues"><i class="fa fa-check"></i><b>1.10</b> Mac R issues</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="introduction-to-r.html"><a href="introduction-to-r.html"><i class="fa fa-check"></i><b>2</b> Introduction to R</a><ul>
+<li class="chapter" data-level="2.1" data-path="introduction-to-r.html"><a href="introduction-to-r.html#learning-outcomes-1"><i class="fa fa-check"></i><b>2.1</b> Learning outcomes</a></li>
+<li class="chapter" data-level="2.2" data-path="introduction-to-r.html"><a href="introduction-to-r.html#homework-1"><i class="fa fa-check"></i><b>2.2</b> Homework</a></li>
+<li class="chapter" data-level="2.3" data-path="introduction-to-r.html"><a href="introduction-to-r.html#recommended-listening-1"><i class="fa fa-check"></i><b>2.3</b> Recommended listening 🎧</a></li>
+<li class="chapter" data-level="2.4" data-path="introduction-to-r.html"><a href="introduction-to-r.html#introduction-1"><i class="fa fa-check"></i><b>2.4</b> Introduction</a><ul>
+<li class="chapter" data-level="2.4.1" data-path="introduction-to-r.html"><a href="introduction-to-r.html#online-forums-are-your-friend"><i class="fa fa-check"></i><b>2.4.1</b> Online forums are your friend!!</a></li>
+<li class="chapter" data-level="2.4.2" data-path="introduction-to-r.html"><a href="introduction-to-r.html#health-warning"><i class="fa fa-check"></i><b>2.4.2</b> Health warning</a></li>
+<li class="chapter" data-level="2.4.3" data-path="introduction-to-r.html"><a href="introduction-to-r.html#r-and-rstudio"><i class="fa fa-check"></i><b>2.4.3</b> R and RStudio</a></li>
+<li class="chapter" data-level="2.4.4" data-path="introduction-to-r.html"><a href="introduction-to-r.html#getting-started-1"><i class="fa fa-check"></i><b>2.4.4</b> Getting started</a></li>
+<li class="chapter" data-level="2.4.5" data-path="introduction-to-r.html"><a href="introduction-to-r.html#basics"><i class="fa fa-check"></i><b>2.4.5</b> Basics</a></li>
+<li class="chapter" data-level="2.4.6" data-path="introduction-to-r.html"><a href="introduction-to-r.html#scripts-and-some-basic-commands"><i class="fa fa-check"></i><b>2.4.6</b> Scripts and some basic commands</a></li>
+<li class="chapter" data-level="2.4.7" data-path="introduction-to-r.html"><a href="introduction-to-r.html#functions"><i class="fa fa-check"></i><b>2.4.7</b> Functions</a></li>
+<li class="chapter" data-level="2.4.8" data-path="introduction-to-r.html"><a href="introduction-to-r.html#basic-plotting"><i class="fa fa-check"></i><b>2.4.8</b> Basic plotting</a></li>
+<li class="chapter" data-level="2.4.9" data-path="introduction-to-r.html"><a href="introduction-to-r.html#help"><i class="fa fa-check"></i><b>2.4.9</b> Help</a></li>
+<li class="chapter" data-level="2.4.10" data-path="introduction-to-r.html"><a href="introduction-to-r.html#data-structures"><i class="fa fa-check"></i><b>2.4.10</b> Data structures</a></li>
+<li class="chapter" data-level="2.4.11" data-path="introduction-to-r.html"><a href="introduction-to-r.html#elements-of-a-data-frame"><i class="fa fa-check"></i><b>2.4.11</b> Elements of a data frame</a></li>
+</ul></li>
+<li class="chapter" data-level="2.5" data-path="introduction-to-r.html"><a href="introduction-to-r.html#reading-data-into-r"><i class="fa fa-check"></i><b>2.5</b> Reading data into R</a><ul>
+<li class="chapter" data-level="2.5.1" data-path="introduction-to-r.html"><a href="introduction-to-r.html#old-skool-cleaning"><i class="fa fa-check"></i><b>2.5.1</b> Old skool cleaning</a></li>
+<li class="chapter" data-level="2.5.2" data-path="introduction-to-r.html"><a href="introduction-to-r.html#here"><i class="fa fa-check"></i><b>2.5.2</b> Here</a></li>
+<li class="chapter" data-level="2.5.3" data-path="introduction-to-r.html"><a href="introduction-to-r.html#new-skool-cleaning"><i class="fa fa-check"></i><b>2.5.3</b> New skool cleaning</a></li>
+<li class="chapter" data-level="2.5.4" data-path="introduction-to-r.html"><a href="introduction-to-r.html#examining-your-new-data"><i class="fa fa-check"></i><b>2.5.4</b> Examining your new data</a></li>
+<li class="chapter" data-level="2.5.5" data-path="introduction-to-r.html"><a href="introduction-to-r.html#data-manipulation-in-r"><i class="fa fa-check"></i><b>2.5.5</b> Data manipulation in R</a></li>
+<li class="chapter" data-level="2.5.6" data-path="introduction-to-r.html"><a href="introduction-to-r.html#plotting"><i class="fa fa-check"></i><b>2.5.6</b> Plotting</a></li>
+<li class="chapter" data-level="2.5.7" data-path="introduction-to-r.html"><a href="introduction-to-r.html#pimp-my-graph"><i class="fa fa-check"></i><b>2.5.7</b> Pimp my graph!</a></li>
+<li class="chapter" data-level="2.5.8" data-path="introduction-to-r.html"><a href="introduction-to-r.html#spatial-data-in-r"><i class="fa fa-check"></i><b>2.5.8</b> Spatial Data in R</a></li>
+<li class="chapter" data-level="2.5.9" data-path="introduction-to-r.html"><a href="introduction-to-r.html#simple-mapping"><i class="fa fa-check"></i><b>2.5.9</b> Simple mapping</a></li>
+</ul></li>
+<li class="chapter" data-level="2.6" data-path="introduction-to-r.html"><a href="introduction-to-r.html#tidying-data"><i class="fa fa-check"></i><b>2.6</b> Tidying data</a></li>
+<li class="chapter" data-level="2.7" data-path="introduction-to-r.html"><a href="introduction-to-r.html#feedback-1"><i class="fa fa-check"></i><b>2.7</b> Feedback</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="rasters-descriptive-statistics-and-interpolation.html"><a href="rasters-descriptive-statistics-and-interpolation.html"><i class="fa fa-check"></i><b>3</b> Rasters, descriptive statistics and interpolation</a><ul>
+<li class="chapter" data-level="3.1" data-path="rasters-descriptive-statistics-and-interpolation.html"><a href="rasters-descriptive-statistics-and-interpolation.html#learning-outcomes-2"><i class="fa fa-check"></i><b>3.1</b> Learning outcomes</a></li>
+<li class="chapter" data-level="3.2" data-path="rasters-descriptive-statistics-and-interpolation.html"><a href="rasters-descriptive-statistics-and-interpolation.html#homework-2"><i class="fa fa-check"></i><b>3.2</b> Homework</a></li>
+<li class="chapter" data-level="3.3" data-path="rasters-descriptive-statistics-and-interpolation.html"><a href="rasters-descriptive-statistics-and-interpolation.html#recommended-listening-2"><i class="fa fa-check"></i><b>3.3</b> Recommended listening 🎧</a></li>
+<li class="chapter" data-level="3.4" data-path="rasters-descriptive-statistics-and-interpolation.html"><a href="rasters-descriptive-statistics-and-interpolation.html#introduction-2"><i class="fa fa-check"></i><b>3.4</b> Introduction</a></li>
+<li class="chapter" data-level="3.5" data-path="rasters-descriptive-statistics-and-interpolation.html"><a href="rasters-descriptive-statistics-and-interpolation.html#part-1-projections"><i class="fa fa-check"></i><b>3.5</b> Part 1 projections</a><ul>
+<li class="chapter" data-level="3.5.1" data-path="rasters-descriptive-statistics-and-interpolation.html"><a href="rasters-descriptive-statistics-and-interpolation.html#changing-projections"><i class="fa fa-check"></i><b>3.5.1</b> Changing projections</a></li>
+<li class="chapter" data-level="3.5.2" data-path="rasters-descriptive-statistics-and-interpolation.html"><a href="rasters-descriptive-statistics-and-interpolation.html#worldclim-data"><i class="fa fa-check"></i><b>3.5.2</b> WorldClim data</a></li>
+<li class="chapter" data-level="3.5.3" data-path="rasters-descriptive-statistics-and-interpolation.html"><a href="rasters-descriptive-statistics-and-interpolation.html#worldclim-data-loading-efficiently"><i class="fa fa-check"></i><b>3.5.3</b> WorldClim data loading efficiently</a></li>
+<li class="chapter" data-level="3.5.4" data-path="rasters-descriptive-statistics-and-interpolation.html"><a href="rasters-descriptive-statistics-and-interpolation.html#location-data-from-a-raster"><i class="fa fa-check"></i><b>3.5.4</b> Location data from a raster</a></li>
+</ul></li>
+<li class="chapter" data-level="3.6" data-path="rasters-descriptive-statistics-and-interpolation.html"><a href="rasters-descriptive-statistics-and-interpolation.html#part-2-descriptive-statistics"><i class="fa fa-check"></i><b>3.6</b> Part 2 descriptive statistics</a><ul>
+<li class="chapter" data-level="3.6.1" data-path="rasters-descriptive-statistics-and-interpolation.html"><a href="rasters-descriptive-statistics-and-interpolation.html#data-preparation"><i class="fa fa-check"></i><b>3.6.1</b> Data preparation</a></li>
+<li class="chapter" data-level="3.6.2" data-path="rasters-descriptive-statistics-and-interpolation.html"><a href="rasters-descriptive-statistics-and-interpolation.html#histogram"><i class="fa fa-check"></i><b>3.6.2</b> Histogram</a></li>
+<li class="chapter" data-level="3.6.3" data-path="rasters-descriptive-statistics-and-interpolation.html"><a href="rasters-descriptive-statistics-and-interpolation.html#using-more-data"><i class="fa fa-check"></i><b>3.6.3</b> Using more data</a></li>
+<li class="chapter" data-level="3.6.4" data-path="rasters-descriptive-statistics-and-interpolation.html"><a href="rasters-descriptive-statistics-and-interpolation.html#histogram-with-ggplot"><i class="fa fa-check"></i><b>3.6.4</b> Histogram with ggplot</a></li>
+</ul></li>
+<li class="chapter" data-level="3.7" data-path="rasters-descriptive-statistics-and-interpolation.html"><a href="rasters-descriptive-statistics-and-interpolation.html#part-3-interpolation"><i class="fa fa-check"></i><b>3.7</b> Part 3 interpolation</a></li>
+<li class="chapter" data-level="3.8" data-path="rasters-descriptive-statistics-and-interpolation.html"><a href="rasters-descriptive-statistics-and-interpolation.html#auto-data-download"><i class="fa fa-check"></i><b>3.8</b> Auto data download</a></li>
+<li class="chapter" data-level="3.9" data-path="rasters-descriptive-statistics-and-interpolation.html"><a href="rasters-descriptive-statistics-and-interpolation.html#advanced-analysis"><i class="fa fa-check"></i><b>3.9</b> Advanced analysis</a></li>
+<li class="chapter" data-level="3.10" data-path="rasters-descriptive-statistics-and-interpolation.html"><a href="rasters-descriptive-statistics-and-interpolation.html#feedback-2"><i class="fa fa-check"></i><b>3.10</b> Feedback</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="git-github-and-rmarkdown.html"><a href="git-github-and-rmarkdown.html"><i class="fa fa-check"></i><b>4</b> Git, GitHub and RMarkdown</a><ul>
+<li class="chapter" data-level="4.1" data-path="git-github-and-rmarkdown.html"><a href="git-github-and-rmarkdown.html#learning-outcomes-3"><i class="fa fa-check"></i><b>4.1</b> Learning outcomes</a></li>
+<li class="chapter" data-level="4.2" data-path="git-github-and-rmarkdown.html"><a href="git-github-and-rmarkdown.html#homework-3"><i class="fa fa-check"></i><b>4.2</b> Homework</a></li>
+<li class="chapter" data-level="4.3" data-path="git-github-and-rmarkdown.html"><a href="git-github-and-rmarkdown.html#recommended-listening-3"><i class="fa fa-check"></i><b>4.3</b> Recommended listening 🎧</a></li>
+<li class="chapter" data-level="4.4" data-path="git-github-and-rmarkdown.html"><a href="git-github-and-rmarkdown.html#introduction-3"><i class="fa fa-check"></i><b>4.4</b> Introduction</a></li>
+<li class="chapter" data-level="4.5" data-path="git-github-and-rmarkdown.html"><a href="git-github-and-rmarkdown.html#git-and-github"><i class="fa fa-check"></i><b>4.5</b> Git and GitHub</a><ul>
+<li class="chapter" data-level="4.5.1" data-path="git-github-and-rmarkdown.html"><a href="git-github-and-rmarkdown.html#the-three-ways"><i class="fa fa-check"></i><b>4.5.1</b> The three ways</a></li>
+<li class="chapter" data-level="4.5.2" data-path="git-github-and-rmarkdown.html"><a href="git-github-and-rmarkdown.html#set-up-your-github"><i class="fa fa-check"></i><b>4.5.2</b> Set up your GitHub</a></li>
+<li class="chapter" data-level="4.5.3" data-path="git-github-and-rmarkdown.html"><a href="git-github-and-rmarkdown.html#using-rstudio-with-git"><i class="fa fa-check"></i><b>4.5.3</b> Using RStudio with Git</a></li>
+<li class="chapter" data-level="4.5.4" data-path="git-github-and-rmarkdown.html"><a href="git-github-and-rmarkdown.html#using-the-git-gui---way-1"><i class="fa fa-check"></i><b>4.5.4</b> Using the Git GUI - way 1</a></li>
+<li class="chapter" data-level="4.5.5" data-path="git-github-and-rmarkdown.html"><a href="git-github-and-rmarkdown.html#create-a-new-version-control-in-rstudio---way-2"><i class="fa fa-check"></i><b>4.5.5</b> Create a new version control in RStudio - way 2</a></li>
+<li class="chapter" data-level="4.5.6" data-path="git-github-and-rmarkdown.html"><a href="git-github-and-rmarkdown.html#if-have-have-an-existing-project---way-3"><i class="fa fa-check"></i><b>4.5.6</b> If have have an existing project - way 3</a></li>
+<li class="chapter" data-level="4.5.7" data-path="git-github-and-rmarkdown.html"><a href="git-github-and-rmarkdown.html#commiting-to-git"><i class="fa fa-check"></i><b>4.5.7</b> Commiting to Git</a></li>
+<li class="chapter" data-level="4.5.8" data-path="git-github-and-rmarkdown.html"><a href="git-github-and-rmarkdown.html#using-git-outside-rstudio"><i class="fa fa-check"></i><b>4.5.8</b> Using Git outside RStudio</a></li>
+<li class="chapter" data-level="4.5.9" data-path="git-github-and-rmarkdown.html"><a href="git-github-and-rmarkdown.html#push-to-github"><i class="fa fa-check"></i><b>4.5.9</b> Push to Github</a></li>
+<li class="chapter" data-level="4.5.10" data-path="git-github-and-rmarkdown.html"><a href="git-github-and-rmarkdown.html#pull-from-github"><i class="fa fa-check"></i><b>4.5.10</b> Pull from GitHub</a></li>
+<li class="chapter" data-level="4.5.11" data-path="git-github-and-rmarkdown.html"><a href="git-github-and-rmarkdown.html#troubleshooting"><i class="fa fa-check"></i><b>4.5.11</b> Troubleshooting</a></li>
+<li class="chapter" data-level="4.5.12" data-path="git-github-and-rmarkdown.html"><a href="git-github-and-rmarkdown.html#fork-a-repository"><i class="fa fa-check"></i><b>4.5.12</b> Fork a repository</a></li>
+<li class="chapter" data-level="4.5.13" data-path="git-github-and-rmarkdown.html"><a href="git-github-and-rmarkdown.html#branches"><i class="fa fa-check"></i><b>4.5.13</b> Branches</a></li>
+<li class="chapter" data-level="4.5.14" data-path="git-github-and-rmarkdown.html"><a href="git-github-and-rmarkdown.html#back-in-time"><i class="fa fa-check"></i><b>4.5.14</b> Back in time</a></li>
+<li class="chapter" data-level="4.5.15" data-path="git-github-and-rmarkdown.html"><a href="git-github-and-rmarkdown.html#health-warning-1"><i class="fa fa-check"></i><b>4.5.15</b> Health warning</a></li>
+</ul></li>
+<li class="chapter" data-level="4.6" data-path="git-github-and-rmarkdown.html"><a href="git-github-and-rmarkdown.html#rmarkdown"><i class="fa fa-check"></i><b>4.6</b> RMarkdown</a><ul>
+<li class="chapter" data-level="4.6.1" data-path="git-github-and-rmarkdown.html"><a href="git-github-and-rmarkdown.html#html"><i class="fa fa-check"></i><b>4.6.1</b> HTML</a></li>
+<li class="chapter" data-level="4.6.2" data-path="git-github-and-rmarkdown.html"><a href="git-github-and-rmarkdown.html#flexdashboard"><i class="fa fa-check"></i><b>4.6.2</b> Flexdashboard</a></li>
+<li class="chapter" data-level="4.6.3" data-path="git-github-and-rmarkdown.html"><a href="git-github-and-rmarkdown.html#word-document"><i class="fa fa-check"></i><b>4.6.3</b> Word document</a></li>
+<li class="chapter" data-level="4.6.4" data-path="git-github-and-rmarkdown.html"><a href="git-github-and-rmarkdown.html#knit-options"><i class="fa fa-check"></i><b>4.6.4</b> Knit options</a></li>
+<li class="chapter" data-level="4.6.5" data-path="git-github-and-rmarkdown.html"><a href="git-github-and-rmarkdown.html#shortcuts"><i class="fa fa-check"></i><b>4.6.5</b> Shortcuts</a></li>
+<li class="chapter" data-level="4.6.6" data-path="git-github-and-rmarkdown.html"><a href="git-github-and-rmarkdown.html#adding-references"><i class="fa fa-check"></i><b>4.6.6</b> Adding references</a></li>
+</ul></li>
+<li class="chapter" data-level="4.7" data-path="git-github-and-rmarkdown.html"><a href="git-github-and-rmarkdown.html#binder"><i class="fa fa-check"></i><b>4.7</b> Binder</a></li>
+<li class="chapter" data-level="4.8" data-path="git-github-and-rmarkdown.html"><a href="git-github-and-rmarkdown.html#further-reading"><i class="fa fa-check"></i><b>4.8</b> Further reading</a></li>
+<li class="chapter" data-level="4.9" data-path="git-github-and-rmarkdown.html"><a href="git-github-and-rmarkdown.html#feedback-3"><i class="fa fa-check"></i><b>4.9</b> Feedback</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="map-making.html"><a href="map-making.html"><i class="fa fa-check"></i><b>5</b> Map making</a><ul>
+<li class="chapter" data-level="5.1" data-path="map-making.html"><a href="map-making.html#learning-outcomes-4"><i class="fa fa-check"></i><b>5.1</b> Learning outcomes</a></li>
+<li class="chapter" data-level="5.2" data-path="map-making.html"><a href="map-making.html#homework-4"><i class="fa fa-check"></i><b>5.2</b> Homework</a></li>
+<li class="chapter" data-level="5.3" data-path="map-making.html"><a href="map-making.html#recommended-listening-4"><i class="fa fa-check"></i><b>5.3</b> Recommended listening 🎧</a></li>
+<li class="chapter" data-level="5.4" data-path="map-making.html"><a href="map-making.html#introduction-4"><i class="fa fa-check"></i><b>5.4</b> Introduction</a><ul>
+<li class="chapter" data-level="5.4.1" data-path="map-making.html"><a href="map-making.html#osm-1"><i class="fa fa-check"></i><b>5.4.1</b> OSM</a></li>
+<li class="chapter" data-level="5.4.2" data-path="map-making.html"><a href="map-making.html#airbnb"><i class="fa fa-check"></i><b>5.4.2</b> Airbnb</a></li>
+</ul></li>
+<li class="chapter" data-level="5.5" data-path="map-making.html"><a href="map-making.html#data-1"><i class="fa fa-check"></i><b>5.5</b> Data</a><ul>
+<li class="chapter" data-level="5.5.1" data-path="map-making.html"><a href="map-making.html#osm-2"><i class="fa fa-check"></i><b>5.5.1</b> OSM</a></li>
+<li class="chapter" data-level="5.5.2" data-path="map-making.html"><a href="map-making.html#london-boroughs"><i class="fa fa-check"></i><b>5.5.2</b> London boroughs</a></li>
+<li class="chapter" data-level="5.5.3" data-path="map-making.html"><a href="map-making.html#world-cities"><i class="fa fa-check"></i><b>5.5.3</b> World cities</a></li>
+</ul></li>
+<li class="chapter" data-level="5.6" data-path="map-making.html"><a href="map-making.html#qgis-2"><i class="fa fa-check"></i><b>5.6</b> QGIS</a><ul>
+<li class="chapter" data-level="5.6.1" data-path="map-making.html"><a href="map-making.html#load-data-2"><i class="fa fa-check"></i><b>5.6.1</b> Load data</a></li>
+<li class="chapter" data-level="5.6.2" data-path="map-making.html"><a href="map-making.html#manipulate-data"><i class="fa fa-check"></i><b>5.6.2</b> Manipulate data</a></li>
+<li class="chapter" data-level="5.6.3" data-path="map-making.html"><a href="map-making.html#map-data"><i class="fa fa-check"></i><b>5.6.3</b> Map data</a></li>
+<li class="chapter" data-level="5.6.4" data-path="map-making.html"><a href="map-making.html#export-map"><i class="fa fa-check"></i><b>5.6.4</b> Export map</a></li>
+<li class="chapter" data-level="5.6.5" data-path="map-making.html"><a href="map-making.html#graphical-modeler"><i class="fa fa-check"></i><b>5.6.5</b> Graphical modeler</a></li>
+</ul></li>
+<li class="chapter" data-level="5.7" data-path="map-making.html"><a href="map-making.html#r-2"><i class="fa fa-check"></i><b>5.7</b> R</a><ul>
+<li class="chapter" data-level="5.7.1" data-path="map-making.html"><a href="map-making.html#static-map"><i class="fa fa-check"></i><b>5.7.1</b> Static map</a></li>
+<li class="chapter" data-level="5.7.2" data-path="map-making.html"><a href="map-making.html#export"><i class="fa fa-check"></i><b>5.7.2</b> Export</a></li>
+<li class="chapter" data-level="5.7.3" data-path="map-making.html"><a href="map-making.html#basic-interactive-map"><i class="fa fa-check"></i><b>5.7.3</b> Basic interactive map</a></li>
+<li class="chapter" data-level="5.7.4" data-path="map-making.html"><a href="map-making.html#advanced-interactive-map"><i class="fa fa-check"></i><b>5.7.4</b> Advanced interactive map</a></li>
+</ul></li>
+<li class="chapter" data-level="5.8" data-path="map-making.html"><a href="map-making.html#bad-maps"><i class="fa fa-check"></i><b>5.8</b> Bad maps</a></li>
+<li class="chapter" data-level="5.9" data-path="map-making.html"><a href="map-making.html#feedback-4"><i class="fa fa-check"></i><b>5.9</b> Feedback</a></li>
+</ul></li>
+<li class="part"><span><b>II GIS analysis</b></span></li>
+<li class="chapter" data-level="6" data-path="analysing-spatial-patterns.html"><a href="analysing-spatial-patterns.html"><i class="fa fa-check"></i><b>6</b> Analysing spatial patterns</a><ul>
+<li class="chapter" data-level="6.1" data-path="analysing-spatial-patterns.html"><a href="analysing-spatial-patterns.html#learning-outcomes-5"><i class="fa fa-check"></i><b>6.1</b> Learning outcomes</a></li>
+<li class="chapter" data-level="6.2" data-path="analysing-spatial-patterns.html"><a href="analysing-spatial-patterns.html#homework-5"><i class="fa fa-check"></i><b>6.2</b> Homework</a></li>
+<li class="chapter" data-level="6.3" data-path="analysing-spatial-patterns.html"><a href="analysing-spatial-patterns.html#recommended-listening-5"><i class="fa fa-check"></i><b>6.3</b> Recommended listening 🎧</a></li>
+<li class="chapter" data-level="6.4" data-path="analysing-spatial-patterns.html"><a href="analysing-spatial-patterns.html#introduction-5"><i class="fa fa-check"></i><b>6.4</b> Introduction</a></li>
+<li class="chapter" data-level="6.5" data-path="analysing-spatial-patterns.html"><a href="analysing-spatial-patterns.html#setting-up-your-data"><i class="fa fa-check"></i><b>6.5</b> Setting up your data</a><ul>
+<li class="chapter" data-level="6.5.1" data-path="analysing-spatial-patterns.html"><a href="analysing-spatial-patterns.html#data-cleaning"><i class="fa fa-check"></i><b>6.5.1</b> Data cleaning</a></li>
+<li class="chapter" data-level="6.5.2" data-path="analysing-spatial-patterns.html"><a href="analysing-spatial-patterns.html#study-area"><i class="fa fa-check"></i><b>6.5.2</b> Study area</a></li>
+</ul></li>
+<li class="chapter" data-level="6.6" data-path="analysing-spatial-patterns.html"><a href="analysing-spatial-patterns.html#point-pattern-analysis"><i class="fa fa-check"></i><b>6.6</b> Point pattern analysis</a><ul>
+<li class="chapter" data-level="6.6.1" data-path="analysing-spatial-patterns.html"><a href="analysing-spatial-patterns.html#kernel-density-estimation"><i class="fa fa-check"></i><b>6.6.1</b> Kernel Density Estimation</a></li>
+<li class="chapter" data-level="6.6.2" data-path="analysing-spatial-patterns.html"><a href="analysing-spatial-patterns.html#quadrat-analysis"><i class="fa fa-check"></i><b>6.6.2</b> Quadrat Analysis</a></li>
+<li class="chapter" data-level="6.6.3" data-path="analysing-spatial-patterns.html"><a href="analysing-spatial-patterns.html#try-experimenting"><i class="fa fa-check"></i><b>6.6.3</b> Try experimenting…</a></li>
+<li class="chapter" data-level="6.6.4" data-path="analysing-spatial-patterns.html"><a href="analysing-spatial-patterns.html#ripleys-k"><i class="fa fa-check"></i><b>6.6.4</b> Ripley’s K</a></li>
+<li class="chapter" data-level="6.6.5" data-path="analysing-spatial-patterns.html"><a href="analysing-spatial-patterns.html#alternatives-to-ripleys-k"><i class="fa fa-check"></i><b>6.6.5</b> Alternatives to Ripley’s K</a></li>
+</ul></li>
+<li class="chapter" data-level="6.7" data-path="analysing-spatial-patterns.html"><a href="analysing-spatial-patterns.html#density-based-spatial-clustering-of-applications-with-noise-dbscan"><i class="fa fa-check"></i><b>6.7</b> Density-based spatial clustering of applications with noise: DBSCAN</a></li>
+<li class="chapter" data-level="6.8" data-path="analysing-spatial-patterns.html"><a href="analysing-spatial-patterns.html#point-pattern-analysis-summary"><i class="fa fa-check"></i><b>6.8</b> Point pattern analysis summary</a></li>
+<li class="chapter" data-level="6.9" data-path="analysing-spatial-patterns.html"><a href="analysing-spatial-patterns.html#analysing-spatial-autocorrelation-with-morans-i-lisa-and-friends"><i class="fa fa-check"></i><b>6.9</b> Analysing Spatial Autocorrelation with Moran’s I, LISA and friends</a><ul>
+<li class="chapter" data-level="6.9.1" data-path="analysing-spatial-patterns.html"><a href="analysing-spatial-patterns.html#data-download-1"><i class="fa fa-check"></i><b>6.9.1</b> Data download</a></li>
+<li class="chapter" data-level="6.9.2" data-path="analysing-spatial-patterns.html"><a href="analysing-spatial-patterns.html#data-cleaning-1"><i class="fa fa-check"></i><b>6.9.2</b> Data cleaning</a></li>
+<li class="chapter" data-level="6.9.3" data-path="analysing-spatial-patterns.html"><a href="analysing-spatial-patterns.html#data-manipulation"><i class="fa fa-check"></i><b>6.9.3</b> Data manipulation</a></li>
+<li class="chapter" data-level="6.9.4" data-path="analysing-spatial-patterns.html"><a href="analysing-spatial-patterns.html#spatial-autocorrelation"><i class="fa fa-check"></i><b>6.9.4</b> Spatial autocorrelation</a></li>
+<li class="chapter" data-level="6.9.5" data-path="analysing-spatial-patterns.html"><a href="analysing-spatial-patterns.html#mapping-outputs"><i class="fa fa-check"></i><b>6.9.5</b> Mapping outputs</a></li>
+<li class="chapter" data-level="6.9.6" data-path="analysing-spatial-patterns.html"><a href="analysing-spatial-patterns.html#other-variables"><i class="fa fa-check"></i><b>6.9.6</b> Other variables</a></li>
+</ul></li>
+<li class="chapter" data-level="6.10" data-path="analysing-spatial-patterns.html"><a href="analysing-spatial-patterns.html#extension"><i class="fa fa-check"></i><b>6.10</b> Extension</a></li>
+<li class="chapter" data-level="6.11" data-path="analysing-spatial-patterns.html"><a href="analysing-spatial-patterns.html#feedback-5"><i class="fa fa-check"></i><b>6.11</b> Feedback</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="advanced-raster-analysis.html"><a href="advanced-raster-analysis.html"><i class="fa fa-check"></i><b>7</b> Advanced raster analysis</a><ul>
+<li class="chapter" data-level="7.1" data-path="advanced-raster-analysis.html"><a href="advanced-raster-analysis.html#learning-objectives"><i class="fa fa-check"></i><b>7.1</b> Learning objectives</a></li>
+<li class="chapter" data-level="7.2" data-path="advanced-raster-analysis.html"><a href="advanced-raster-analysis.html#homework-6"><i class="fa fa-check"></i><b>7.2</b> Homework</a></li>
+<li class="chapter" data-level="7.3" data-path="advanced-raster-analysis.html"><a href="advanced-raster-analysis.html#recommended-listening-6"><i class="fa fa-check"></i><b>7.3</b> Recommended listening 🎧</a></li>
+<li class="chapter" data-level="7.4" data-path="advanced-raster-analysis.html"><a href="advanced-raster-analysis.html#introduction-6"><i class="fa fa-check"></i><b>7.4</b> Introduction</a></li>
+<li class="chapter" data-level="7.5" data-path="advanced-raster-analysis.html"><a href="advanced-raster-analysis.html#gitignore"><i class="fa fa-check"></i><b>7.5</b> .gitignore</a><ul>
+<li class="chapter" data-level="7.5.1" data-path="advanced-raster-analysis.html"><a href="advanced-raster-analysis.html#remote-sensing-background-required"><i class="fa fa-check"></i><b>7.5.1</b> Remote sensing background (required)</a></li>
+</ul></li>
+<li class="chapter" data-level="7.6" data-path="advanced-raster-analysis.html"><a href="advanced-raster-analysis.html#data-2"><i class="fa fa-check"></i><b>7.6</b> Data</a><ul>
+<li class="chapter" data-level="7.6.1" data-path="advanced-raster-analysis.html"><a href="advanced-raster-analysis.html#shapefile"><i class="fa fa-check"></i><b>7.6.1</b> Shapefile</a></li>
+<li class="chapter" data-level="7.6.2" data-path="advanced-raster-analysis.html"><a href="advanced-raster-analysis.html#raster-data-landsat"><i class="fa fa-check"></i><b>7.6.2</b> Raster data (Landsat)</a></li>
+</ul></li>
+<li class="chapter" data-level="7.7" data-path="advanced-raster-analysis.html"><a href="advanced-raster-analysis.html#processing-raster-data"><i class="fa fa-check"></i><b>7.7</b> Processing raster data</a><ul>
+<li class="chapter" data-level="7.7.1" data-path="advanced-raster-analysis.html"><a href="advanced-raster-analysis.html#loading"><i class="fa fa-check"></i><b>7.7.1</b> Loading</a></li>
+<li class="chapter" data-level="7.7.2" data-path="advanced-raster-analysis.html"><a href="advanced-raster-analysis.html#resampling"><i class="fa fa-check"></i><b>7.7.2</b> Resampling</a></li>
+<li class="chapter" data-level="7.7.3" data-path="advanced-raster-analysis.html"><a href="advanced-raster-analysis.html#clipping"><i class="fa fa-check"></i><b>7.7.3</b> Clipping</a></li>
+</ul></li>
+<li class="chapter" data-level="7.8" data-path="advanced-raster-analysis.html"><a href="advanced-raster-analysis.html#data-exploration"><i class="fa fa-check"></i><b>7.8</b> Data exploration</a><ul>
+<li class="chapter" data-level="7.8.1" data-path="advanced-raster-analysis.html"><a href="advanced-raster-analysis.html#more-loading-and-manipulating"><i class="fa fa-check"></i><b>7.8.1</b> More loading and manipulating</a></li>
+<li class="chapter" data-level="7.8.2" data-path="advanced-raster-analysis.html"><a href="advanced-raster-analysis.html#plotting-data"><i class="fa fa-check"></i><b>7.8.2</b> Plotting data</a></li>
+<li class="chapter" data-level="7.8.3" data-path="advanced-raster-analysis.html"><a href="advanced-raster-analysis.html#data-similarity"><i class="fa fa-check"></i><b>7.8.3</b> Data similarity</a></li>
+</ul></li>
+<li class="chapter" data-level="7.9" data-path="advanced-raster-analysis.html"><a href="advanced-raster-analysis.html#basic-raster-calculations"><i class="fa fa-check"></i><b>7.9</b> Basic raster calculations</a><ul>
+<li class="chapter" data-level="7.9.1" data-path="advanced-raster-analysis.html"><a href="advanced-raster-analysis.html#ndvi"><i class="fa fa-check"></i><b>7.9.1</b> NDVI</a></li>
+<li class="chapter" data-level="7.9.2" data-path="advanced-raster-analysis.html"><a href="advanced-raster-analysis.html#ndvi-function"><i class="fa fa-check"></i><b>7.9.2</b> NDVI function</a></li>
+</ul></li>
+<li class="chapter" data-level="7.10" data-path="advanced-raster-analysis.html"><a href="advanced-raster-analysis.html#advanced-raster-calculations"><i class="fa fa-check"></i><b>7.10</b> Advanced raster calculations</a><ul>
+<li class="chapter" data-level="7.10.1" data-path="advanced-raster-analysis.html"><a href="advanced-raster-analysis.html#calucating-tempearture-from-landsat-data"><i class="fa fa-check"></i><b>7.10.1</b> Calucating tempearture from Landsat data</a></li>
+</ul></li>
+<li class="chapter" data-level="7.11" data-path="advanced-raster-analysis.html"><a href="advanced-raster-analysis.html#calucating-urban-area-from-landsat-data"><i class="fa fa-check"></i><b>7.11</b> Calucating urban area from Landsat data</a></li>
+<li class="chapter" data-level="7.12" data-path="advanced-raster-analysis.html"><a href="advanced-raster-analysis.html#urban-area-and-temperature-relationship"><i class="fa fa-check"></i><b>7.12</b> Urban area and temperature relationship</a></li>
+<li class="chapter" data-level="7.13" data-path="advanced-raster-analysis.html"><a href="advanced-raster-analysis.html#statistical-summary"><i class="fa fa-check"></i><b>7.13</b> Statistical summary</a></li>
+<li class="chapter" data-level="7.14" data-path="advanced-raster-analysis.html"><a href="advanced-raster-analysis.html#considerations"><i class="fa fa-check"></i><b>7.14</b> Considerations</a></li>
+<li class="chapter" data-level="7.15" data-path="advanced-raster-analysis.html"><a href="advanced-raster-analysis.html#extension-1"><i class="fa fa-check"></i><b>7.15</b> Extension</a></li>
+<li class="chapter" data-level="7.16" data-path="advanced-raster-analysis.html"><a href="advanced-raster-analysis.html#references"><i class="fa fa-check"></i><b>7.16</b> References</a></li>
+<li class="chapter" data-level="7.17" data-path="advanced-raster-analysis.html"><a href="advanced-raster-analysis.html#remote-sensing-background-optional"><i class="fa fa-check"></i><b>7.17</b> Remote sensing background (optional)</a></li>
+<li class="chapter" data-level="7.18" data-path="advanced-raster-analysis.html"><a href="advanced-raster-analysis.html#feedback-6"><i class="fa fa-check"></i><b>7.18</b> Feedback</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="online-mapping-descriptive-statistics.html"><a href="online-mapping-descriptive-statistics.html"><i class="fa fa-check"></i><b>8</b> Online mapping / descriptive statistics</a><ul>
+<li class="chapter" data-level="8.1" data-path="online-mapping-descriptive-statistics.html"><a href="online-mapping-descriptive-statistics.html#homework-7"><i class="fa fa-check"></i><b>8.1</b> Homework</a></li>
+<li class="chapter" data-level="8.2" data-path="online-mapping-descriptive-statistics.html"><a href="online-mapping-descriptive-statistics.html#recommended-listening-7"><i class="fa fa-check"></i><b>8.2</b> Recommended listening 🎧</a></li>
+<li class="chapter" data-level="8.3" data-path="online-mapping-descriptive-statistics.html"><a href="online-mapping-descriptive-statistics.html#part-a-spatial-descriptive-statistics"><i class="fa fa-check"></i><b>8.3</b> Part A spatial descriptive statistics</a><ul>
+<li class="chapter" data-level="8.3.1" data-path="online-mapping-descriptive-statistics.html"><a href="online-mapping-descriptive-statistics.html#learning-objectives-1"><i class="fa fa-check"></i><b>8.3.1</b> Learning objectives</a></li>
+<li class="chapter" data-level="8.3.2" data-path="online-mapping-descriptive-statistics.html"><a href="online-mapping-descriptive-statistics.html#getting-started-2"><i class="fa fa-check"></i><b>8.3.2</b> Getting Started</a></li>
+<li class="chapter" data-level="8.3.3" data-path="online-mapping-descriptive-statistics.html"><a href="online-mapping-descriptive-statistics.html#main-tasks"><i class="fa fa-check"></i><b>8.3.3</b> Main Tasks</a></li>
+<li class="chapter" data-level="8.3.4" data-path="online-mapping-descriptive-statistics.html"><a href="online-mapping-descriptive-statistics.html#task-1---descriptive-statistics"><i class="fa fa-check"></i><b>8.3.4</b> Task 1 - Descriptive Statistics</a></li>
+<li class="chapter" data-level="8.3.5" data-path="online-mapping-descriptive-statistics.html"><a href="online-mapping-descriptive-statistics.html#extension-1-1"><i class="fa fa-check"></i><b>8.3.5</b> Extension 1</a></li>
+<li class="chapter" data-level="8.3.6" data-path="online-mapping-descriptive-statistics.html"><a href="online-mapping-descriptive-statistics.html#task-2---function-to-recode-data"><i class="fa fa-check"></i><b>8.3.6</b> Task 2 - Function to recode data</a></li>
+<li class="chapter" data-level="8.3.7" data-path="online-mapping-descriptive-statistics.html"><a href="online-mapping-descriptive-statistics.html#whats-going-on-in-this-function"><i class="fa fa-check"></i><b>8.3.7</b> What’s going on in this function?</a></li>
+<li class="chapter" data-level="8.3.8" data-path="online-mapping-descriptive-statistics.html"><a href="online-mapping-descriptive-statistics.html#task-3-mapping-location-quotients"><i class="fa fa-check"></i><b>8.3.8</b> Task 3 – Mapping Location Quotients</a></li>
+<li class="chapter" data-level="8.3.9" data-path="online-mapping-descriptive-statistics.html"><a href="online-mapping-descriptive-statistics.html#task-4-creating-a-basic-geodemographic-classification"><i class="fa fa-check"></i><b>8.3.9</b> Task 4 – Creating a Basic Geodemographic Classification</a></li>
+</ul></li>
+<li class="chapter" data-level="8.4" data-path="online-mapping-descriptive-statistics.html"><a href="online-mapping-descriptive-statistics.html#part-b-online-mapping"><i class="fa fa-check"></i><b>8.4</b> Part B Online mapping</a><ul>
+<li class="chapter" data-level="8.4.1" data-path="online-mapping-descriptive-statistics.html"><a href="online-mapping-descriptive-statistics.html#learning-objectives-2"><i class="fa fa-check"></i><b>8.4.1</b> Learning objectives</a></li>
+<li class="chapter" data-level="8.4.2" data-path="online-mapping-descriptive-statistics.html"><a href="online-mapping-descriptive-statistics.html#introduction-7"><i class="fa fa-check"></i><b>8.4.2</b> Introduction</a></li>
+<li class="chapter" data-level="8.4.3" data-path="online-mapping-descriptive-statistics.html"><a href="online-mapping-descriptive-statistics.html#rpubs"><i class="fa fa-check"></i><b>8.4.3</b> RPubs</a></li>
+<li class="chapter" data-level="8.4.4" data-path="online-mapping-descriptive-statistics.html"><a href="online-mapping-descriptive-statistics.html#rmarkdown-site-generator"><i class="fa fa-check"></i><b>8.4.4</b> RMarkdown site generator</a></li>
+<li class="chapter" data-level="8.4.5" data-path="online-mapping-descriptive-statistics.html"><a href="online-mapping-descriptive-statistics.html#warning"><i class="fa fa-check"></i><b>8.4.5</b> Warning</a></li>
+<li class="chapter" data-level="8.4.6" data-path="online-mapping-descriptive-statistics.html"><a href="online-mapping-descriptive-statistics.html#advanced-online-publishing"><i class="fa fa-check"></i><b>8.4.6</b> Advanced online publishing</a></li>
+</ul></li>
+<li class="chapter" data-level="8.5" data-path="online-mapping-descriptive-statistics.html"><a href="online-mapping-descriptive-statistics.html#feedback-7"><i class="fa fa-check"></i><b>8.5</b> Feedback</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="gwr-and-spatially-lagged-regression.html"><a href="gwr-and-spatially-lagged-regression.html"><i class="fa fa-check"></i><b>9</b> GWR and spatially lagged regression</a><ul>
+<li class="chapter" data-level="9.1" data-path="gwr-and-spatially-lagged-regression.html"><a href="gwr-and-spatially-lagged-regression.html#learning-objectives-3"><i class="fa fa-check"></i><b>9.1</b> Learning objectives</a></li>
+<li class="chapter" data-level="9.2" data-path="gwr-and-spatially-lagged-regression.html"><a href="gwr-and-spatially-lagged-regression.html#homework-8"><i class="fa fa-check"></i><b>9.2</b> Homework</a></li>
+<li class="chapter" data-level="9.3" data-path="gwr-and-spatially-lagged-regression.html"><a href="gwr-and-spatially-lagged-regression.html#recommended-listening-8"><i class="fa fa-check"></i><b>9.3</b> Recommended listening 🎧</a></li>
+<li class="chapter" data-level="9.4" data-path="gwr-and-spatially-lagged-regression.html"><a href="gwr-and-spatially-lagged-regression.html#introduction-8"><i class="fa fa-check"></i><b>9.4</b> Introduction</a><ul>
+<li class="chapter" data-level="9.4.1" data-path="gwr-and-spatially-lagged-regression.html"><a href="gwr-and-spatially-lagged-regression.html#setting-up-your-data-1"><i class="fa fa-check"></i><b>9.4.1</b> Setting up your Data</a></li>
+</ul></li>
+<li class="chapter" data-level="9.5" data-path="gwr-and-spatially-lagged-regression.html"><a href="gwr-and-spatially-lagged-regression.html#analysing-gcse-exam-performance---testing-a-research-hypothesis"><i class="fa fa-check"></i><b>9.5</b> Analysing GCSE exam performance - testing a research hypothesis</a><ul>
+<li class="chapter" data-level="9.5.1" data-path="gwr-and-spatially-lagged-regression.html"><a href="gwr-and-spatially-lagged-regression.html#research-question-and-hypothesis"><i class="fa fa-check"></i><b>9.5.1</b> Research Question and Hypothesis</a></li>
+<li class="chapter" data-level="9.5.2" data-path="gwr-and-spatially-lagged-regression.html"><a href="gwr-and-spatially-lagged-regression.html#regression-basics"><i class="fa fa-check"></i><b>9.5.2</b> Regression Basics</a></li>
+<li class="chapter" data-level="9.5.3" data-path="gwr-and-spatially-lagged-regression.html"><a href="gwr-and-spatially-lagged-regression.html#running-a-regression-model-in-r"><i class="fa fa-check"></i><b>9.5.3</b> Running a Regression Model in R</a></li>
+<li class="chapter" data-level="9.5.4" data-path="gwr-and-spatially-lagged-regression.html"><a href="gwr-and-spatially-lagged-regression.html#bootstrap-resampling"><i class="fa fa-check"></i><b>9.5.4</b> Bootstrap resampling</a></li>
+<li class="chapter" data-level="9.5.5" data-path="gwr-and-spatially-lagged-regression.html"><a href="gwr-and-spatially-lagged-regression.html#assumptions-underpinning-linear-regression"><i class="fa fa-check"></i><b>9.5.5</b> Assumptions Underpinning Linear Regression</a></li>
+<li class="chapter" data-level="9.5.6" data-path="gwr-and-spatially-lagged-regression.html"><a href="gwr-and-spatially-lagged-regression.html#assumption-1---there-is-a-linear-relationship-between-the-dependent-and-independent-variables"><i class="fa fa-check"></i><b>9.5.6</b> Assumption 1 - There is a linear relationship between the dependent and independent variables</a></li>
+<li class="chapter" data-level="9.5.7" data-path="gwr-and-spatially-lagged-regression.html"><a href="gwr-and-spatially-lagged-regression.html#assumption-2---the-residuals-in-your-model-should-be-normally-distributed"><i class="fa fa-check"></i><b>9.5.7</b> Assumption 2 - The residuals in your model should be normally distributed</a></li>
+<li class="chapter" data-level="9.5.8" data-path="gwr-and-spatially-lagged-regression.html"><a href="gwr-and-spatially-lagged-regression.html#assumption-3---no-multicolinearity-in-the-independent-variables"><i class="fa fa-check"></i><b>9.5.8</b> Assumption 3 - No Multicolinearity in the independent variables</a></li>
+<li class="chapter" data-level="9.5.9" data-path="gwr-and-spatially-lagged-regression.html"><a href="gwr-and-spatially-lagged-regression.html#assumption-4---homoscedasticity"><i class="fa fa-check"></i><b>9.5.9</b> Assumption 4 - Homoscedasticity</a></li>
+<li class="chapter" data-level="9.5.10" data-path="gwr-and-spatially-lagged-regression.html"><a href="gwr-and-spatially-lagged-regression.html#assumption-5---independence-of-errors"><i class="fa fa-check"></i><b>9.5.10</b> Assumption 5 - Independence of Errors</a></li>
+</ul></li>
+<li class="chapter" data-level="9.6" data-path="gwr-and-spatially-lagged-regression.html"><a href="gwr-and-spatially-lagged-regression.html#spatial-regression-models"><i class="fa fa-check"></i><b>9.6</b> Spatial Regression Models</a><ul>
+<li class="chapter" data-level="9.6.1" data-path="gwr-and-spatially-lagged-regression.html"><a href="gwr-and-spatially-lagged-regression.html#dealing-with-spatially-autocorrelated-residuals---spatial-lag-and-spatial-error-models"><i class="fa fa-check"></i><b>9.6.1</b> Dealing with Spatially Autocorrelated Residuals - Spatial Lag and Spatial Error models</a></li>
+<li class="chapter" data-level="9.6.2" data-path="gwr-and-spatially-lagged-regression.html"><a href="gwr-and-spatially-lagged-regression.html#spatial-regression-model-in-r"><i class="fa fa-check"></i><b>9.6.2</b> Spatial regression model in R</a></li>
+<li class="chapter" data-level="9.6.3" data-path="gwr-and-spatially-lagged-regression.html"><a href="gwr-and-spatially-lagged-regression.html#extending-your-regression-model---dummy-variables"><i class="fa fa-check"></i><b>9.6.3</b> Extending your regression model - Dummy Variables</a></li>
+<li class="chapter" data-level="9.6.4" data-path="gwr-and-spatially-lagged-regression.html"><a href="gwr-and-spatially-lagged-regression.html#task-investigating-further---adding-more-explanatory-variables-into-a-multiple-regression-model"><i class="fa fa-check"></i><b>9.6.4</b> TASK: Investigating Further - Adding More Explanatory Variables into a multiple regression model</a></li>
+</ul></li>
+<li class="chapter" data-level="9.7" data-path="gwr-and-spatially-lagged-regression.html"><a href="gwr-and-spatially-lagged-regression.html#task-3---spatial-non-stationarity-and-geographically-weighted-regression-models-gwr"><i class="fa fa-check"></i><b>9.7</b> Task 3 - Spatial Non-stationarity and Geographically Weighted Regression Models (GWR)</a></li>
+<li class="chapter" data-level="9.8" data-path="gwr-and-spatially-lagged-regression.html"><a href="gwr-and-spatially-lagged-regression.html#feedback-8"><i class="fa fa-check"></i><b>9.8</b> Feedback</a></li>
+</ul></li>
+<li class="part"><span><b>Assignment</b></span></li>
+<li class="chapter" data-level="10" data-path="assignment-requirements.html"><a href="assignment-requirements.html"><i class="fa fa-check"></i><b>10</b> Assignment requirements</a><ul>
+<li class="chapter" data-level="10.1" data-path="assignment-requirements.html"><a href="assignment-requirements.html#requirements"><i class="fa fa-check"></i><b>10.1</b> Requirements</a></li>
+<li class="chapter" data-level="10.2" data-path="assignment-requirements.html"><a href="assignment-requirements.html#marking-scheme"><i class="fa fa-check"></i><b>10.2</b> Marking scheme</a></li>
+<li class="chapter" data-level="10.3" data-path="assignment-requirements.html"><a href="assignment-requirements.html#expected-timeline"><i class="fa fa-check"></i><b>10.3</b> Expected timeline</a></li>
+<li class="chapter" data-level="10.4" data-path="assignment-requirements.html"><a href="assignment-requirements.html#penalities"><i class="fa fa-check"></i><b>10.4</b> Penalities</a></li>
+<li class="chapter" data-level="10.5" data-path="assignment-requirements.html"><a href="assignment-requirements.html#frequently-asked-questions"><i class="fa fa-check"></i><b>10.5</b> Frequently Asked Questions</a></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="assignment-resources-1.html"><a href="assignment-resources-1.html"><i class="fa fa-check"></i><b>11</b> Assignment resources</a><ul>
+<li class="chapter" data-level="11.1" data-path="assignment-resources-1.html"><a href="assignment-resources-1.html#timeline"><i class="fa fa-check"></i><b>11.1</b> Timeline</a></li>
+<li class="chapter" data-level="11.2" data-path="assignment-resources-1.html"><a href="assignment-resources-1.html#markscheme"><i class="fa fa-check"></i><b>11.2</b> Markscheme</a></li>
+<li class="chapter" data-level="11.3" data-path="assignment-resources-1.html"><a href="assignment-resources-1.html#examples-of-previous-work"><i class="fa fa-check"></i><b>11.3</b> Examples of previous work</a></li>
+<li class="chapter" data-level="11.4" data-path="assignment-resources-1.html"><a href="assignment-resources-1.html#events-meet-other-spatial-data-professionals"><i class="fa fa-check"></i><b>11.4</b> Events / meet other spatial data professionals</a></li>
+<li class="chapter" data-level="11.5" data-path="assignment-resources-1.html"><a href="assignment-resources-1.html#cool-stuff-to-explore"><i class="fa fa-check"></i><b>11.5</b> Cool stuff to explore</a></li>
+<li class="chapter" data-level="11.6" data-path="assignment-resources-1.html"><a href="assignment-resources-1.html#booksreading-resources"><i class="fa fa-check"></i><b>11.6</b> Books/reading resources</a></li>
+<li class="chapter" data-level="11.7" data-path="assignment-resources-1.html"><a href="assignment-resources-1.html#new-developments"><i class="fa fa-check"></i><b>11.7</b> New developments</a><ul>
+<li class="chapter" data-level="11.7.1" data-path="assignment-resources-1.html"><a href="assignment-resources-1.html#twitter"><i class="fa fa-check"></i><b>11.7.1</b> Twitter</a></li>
+</ul></li>
+<li class="chapter" data-level="11.8" data-path="assignment-resources-1.html"><a href="assignment-resources-1.html#data-3"><i class="fa fa-check"></i><b>11.8</b> Data</a></li>
+<li class="chapter" data-level="11.9" data-path="assignment-resources-1.html"><a href="assignment-resources-1.html#data-lists-1"><i class="fa fa-check"></i><b>11.9</b> Data lists</a></li>
+<li class="chapter" data-level="11.10" data-path="assignment-resources-1.html"><a href="assignment-resources-1.html#reading-and-writing-critically"><i class="fa fa-check"></i><b>11.10</b> Reading and writing critically</a></li>
+<li class="chapter" data-level="11.11" data-path="assignment-resources-1.html"><a href="assignment-resources-1.html#free-flow-diagram-tools"><i class="fa fa-check"></i><b>11.11</b> Free flow diagram tools</a></li>
+<li class="chapter" data-level="11.12" data-path="assignment-resources-1.html"><a href="assignment-resources-1.html#basics-1"><i class="fa fa-check"></i><b>11.12</b> Basics</a><ul>
+<li class="chapter" data-level="11.12.1" data-path="assignment-resources-1.html"><a href="assignment-resources-1.html#introduction-9"><i class="fa fa-check"></i><b>11.12.1</b> Introduction</a></li>
+<li class="chapter" data-level="11.12.2" data-path="assignment-resources-1.html"><a href="assignment-resources-1.html#literature-review"><i class="fa fa-check"></i><b>11.12.2</b> Literature review</a></li>
+<li class="chapter" data-level="11.12.3" data-path="assignment-resources-1.html"><a href="assignment-resources-1.html#methodology"><i class="fa fa-check"></i><b>11.12.3</b> Methodology</a></li>
+<li class="chapter" data-level="11.12.4" data-path="assignment-resources-1.html"><a href="assignment-resources-1.html#results"><i class="fa fa-check"></i><b>11.12.4</b> Results</a></li>
+<li class="chapter" data-level="11.12.5" data-path="assignment-resources-1.html"><a href="assignment-resources-1.html#discussion"><i class="fa fa-check"></i><b>11.12.5</b> Discussion</a></li>
+<li class="chapter" data-level="11.12.6" data-path="assignment-resources-1.html"><a href="assignment-resources-1.html#conclusion"><i class="fa fa-check"></i><b>11.12.6</b> Conclusion</a></li>
+</ul></li>
+</ul></li>
+<li class="divider"></li>
+<li><center>
+  <a rel="license" href="./external-usage.html#license">
+    License: CC-BY-SA<br>
+    <i class = "fab fa-creative-commons fa-2x"></i>
+    <i class = "fab fa-creative-commons-by fa-2x"></i>
+    <i class = "fab fa-creative-commons-sa fa-2x"></i>
+  </a>
+</li></center>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">CASA0005 Geographic Information Systems and Science</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="geographic-information" class="section level1">
+<h1><span class="header-section-number">Chapter 1</span> Geographic Information</h1>
+<div id="learning-outcomes" class="section level2">
+<h2><span class="header-section-number">1.1</span> Learning outcomes</h2>
+<p>By the end of this practical you should be able to:</p>
+<ol style="list-style-type: decimal">
+<li>Describe and explain GIS data formats and databases</li>
+<li>Source and pre-process spatial data</li>
+<li>Load and undertaken some basic manipulation of spatial data in QGIS and R</li>
+<li>Evaluate the (dis)advantages of each GIS you have used</li>
+</ol>
+</div>
+<div id="homework" class="section level2">
+<h2><span class="header-section-number">1.2</span> Homework</h2>
+<p>Outside of our schedulded sessions you should be doing around 12 hours of extra study per week. Feel free to follow your own GIS interests, but good places to start include the following:</p>
+<div class="infobox assignment">
+<p><strong>Assignment</strong></p>
+<p>This week you should undertake wider data exploration and reading to find a topic you might be interested in progressing with. I’d recommend starting with a data search first to avoid proposing a research area then forcing potentially unsuitable data to fit it.</p>
+</div>
+<div class="infobox note">
+<p><strong>Reading</strong></p>
+<p>Each week i’ll provide a core chapter to support the skills taught here. However, <strong>you are free to read whatever interests you</strong> and Adam and I strongly encourage this, so please don’t be constrained to this recommendation. Consult the <a href="https://rl.talis.com/3/ucl/lists/139FBAF8-DACD-60FB-8BDC-E9C9E09BA885.html?lang=en-GB&amp;login=1">reading list</a>, practical and lecture each week for more ideas.</p>
+<p>This week:</p>
+<ul>
+<li><a href="https://geocompr.robinlovelace.net/spatial-class.html">Chapter 2 “Geographic data in R”</a> from Geocomputation with R by Lovelace, Nowosad and Muenchow (2020).</li>
+</ul>
+<p><strong>Watching</strong></p>
+<ul>
+<li><a href="https://www.youtube.com/watch?v=osAbJeTho5w">What is Spatial Data Science</a> from some of our friends at CARTO</li>
+</ul>
+</div>
+</div>
+<div id="recommended-listening" class="section level2">
+<h2><span class="header-section-number">1.3</span> Recommended listening 🎧</h2>
+<p>Some of these practicals are long, take regular breaks and have a listen to some of our fav tunes each week.</p>
+<p><a href="https://www.youtube.com/watch?v=1egwdCGi_dA&amp;list=OLAK5uy_lGype0gR4vyIE0J2hvNYtpifSbNynJTNk&amp;index=1">Andy</a></p>
+<p><a href="https://open.spotify.com/album/0XXI8pxXeS9cvpBX9bB3hh">Adam</a>… This week, wrap your ears around this piece of liquid gold from Japan’s finest, Makoto.</p>
+</div>
+<div id="the-basics-of-geographic-information" class="section level2">
+<h2><span class="header-section-number">1.4</span> The Basics of Geographic Information</h2>
+<p>Geographic data, geospatial data or geographic information is data that identifies the location of features on Earth. There are two main types of data which are used in GIS applications to represent the real world. <strong>Vectors</strong> that are composed of points, lines and polygons and <strong>rasters</strong> that are grids of cells with individual values…</p>
+<p><img src="prac1_images/rasvec.jpg" width="300pt" style="display: block; margin: auto;" /></p>
+<p>In the above example the features in the real world (e.g. lake, forest, marsh and grassland) have been represented by points, lines and polygons (vector) or discrete grid cells (raster) of a certain size (e.g. 1 x 1m) specifying land cover type.</p>
+<div id="data-types-in-statistics" class="section level3">
+<h3><span class="header-section-number">1.4.1</span> Data types in statistics</h3>
+<p>Before we go any further let’s just quick go over the different types of data you might encounter</p>
+<p>Continuous data can be measured on some sort of scale and can have any value on it such as height and weight.</p>
+<p>Discrete data have finite values. It can be numeric such as number of shoes or categorial such as positive or negative.</p>
+<p>Foot length would be continuous data but shoe size would be discrete data.</p>
+<p><img src="allisonhorst_images/continuous_discrete.png" width="450" style="display: block; margin: auto;" /></p>
+<p>Nominal data has labels without any quantitative value such as hair colour or type of animal.</p>
+<p>Oridnal data has an order or scale, for example if you have ever seen the chilli rating system on food labels or filled a happiness survey with a range between 1 and 10 — that’s ordinal. Here the order matters, but not the difference between them.</p>
+<p>Binary data is that that can have only two possible outcomes, yes and no or shark and not shark.</p>
+<p><img src="allisonhorst_images/nominal_ordinal_binary.png" width="550pt" style="display: block; margin: auto;" /></p>
+</div>
+<div id="important-gis-data-formats" class="section level3">
+<h3><span class="header-section-number">1.4.2</span> Important GIS data formats</h3>
+<p>There are a number of commonly used geographic data formats that store vector and raster data that you will come across during this course and it’s important to understand what they are, how they represent data and how you can use them.</p>
+<div id="shapefiles" class="section level4">
+<h4><span class="header-section-number">1.4.2.1</span> Shapefiles</h4>
+<p>Perhaps the most commonly used GIS data format is the shapefile. Shapefiles were developed by <a href="http://www.esri.com/">ESRI</a>, one of the first and now certainly the largest commercial GIS company in the world. Despite being developed by a commercial company, they are mostly an open format and can be used (read and written) by a host of GIS Software applications.</p>
+<p>A shapefile is actually a collection of files –– at least three of which are needed for the shapefile to be displayed by GIS software. They are:</p>
+<ol style="list-style-type: decimal">
+<li><code>.shp</code> - the file which contains the feature geometry</li>
+<li><code>.shx</code> - an index file which stores the position of the feature IDs in the <code>.shp</code> file</li>
+<li><code>.dbf</code> - the file that stores all of the attribute information associated with the coordinates – this might be the name of the shape or some other information associated with the feature</li>
+<li><code>.prj</code> - the file which contains all of the coordinate system information (the location of the shape on Earth’s surface). Data can be displayed without a projection, but the <code>.prj</code> file allows software to display the data correctly where data with different projections might be being used</li>
+</ol>
+<p>On Twitter and want to see the love for shapefiles….have a look at <a href="https://twitter.com/shapefiIe">the shapefile account</a></p>
+</div>
+<div id="geojson" class="section level4">
+<h4><span class="header-section-number">1.4.2.2</span> GeoJSON</h4>
+<p>GeoJSON <a href="http://geojson.org/">Geospatial Data Interchange format for JavaScript Object Notation</a> is becoming an increasingly popular spatial data format, particularly for web-based mapping as it is based on JavaScript Object Notation. Unlike a shapefile in a GeoJSON, the attributes, boundaries and projection information are all contained in the same file.</p>
+</div>
+<div id="shapefile-and-geojson" class="section level4">
+<h4><span class="header-section-number">1.4.2.3</span> Shapefile and GeoJSON</h4>
+<p>We’re now going to explore a shapefile (<code>.shp</code> ) and GeoJSON (<code>.geojson</code>) in action.</p>
+<p>Go to: <a href="http://geojson.io/#map=16/51.5247/-0.1339" class="uri">http://geojson.io/#map=16/51.5247/-0.1339</a></p>
+<p><img src="prac1_images/JSONwebsite.png" width="500pt" style="display: block; margin: auto;" /></p>
+<ol style="list-style-type: decimal">
+<li>Using the drawing tools to the right of the map window, create 3 objects: a point, line and a polygon as I have done above. Click on your polygon and colour it red and colour your point green</li>
+<li>Using the ‘Save’ option at the top of the map, save two copies of your new data – one in <code>.geojson</code> format and one in <code>.shp</code> format</li>
+<li>Open your two newly saved files in a text editor such as notepad or notepad++. For the shapefile you might have to unzip the folder then open each file individually. What do you notice about the similarities or differences between the two ways that the data are encoded?</li>
+</ol>
+</div>
+<div id="raster-data" class="section level4">
+<h4><span class="header-section-number">1.4.2.4</span> Raster data</h4>
+<p>Most raster data is now provided in GeoTIFF (<code>.tiff</code>) format, which stands for Geostarionary Earth Orbit Tagged Image File. The GeoTIFF data format was created by NASA and is a standard public domain format. All necesary information to establish the location of the data on Earth’s surface is embedded into the image. This includes: map projection, coordinate system, ellipsoid and datum type.</p>
+</div>
+<div id="other-data-formats" class="section level4">
+<h4><span class="header-section-number">1.4.2.5</span> Other data formats</h4>
+<p>Aforementioned data types and formats are likely to be the ones you predominately encounter. However there are several more used within spatial analysis. These include:</p>
+<p><strong>Vector</strong></p>
+<ul>
+<li>GML (Geography Markup Language –– gave birth to Keyhold Markup Language (KML))</li>
+</ul>
+<p><strong>Raster</strong></p>
+<ul>
+<li>Band SeQuential (BSQ) - technically a method for encoding data but commonly referred to as BSQ.</li>
+<li>Hierarchical Data Format (HDF)</li>
+<li>Arc Grid</li>
+</ul>
+<p>There are normally valid reasons for storing data in one of these other formats. For example, BSQ are raster data with a separate text header file (<code>.hdr</code>) providing geographic spatial reference information. Earth observation data often monitors the electromagnetic spectrum in bands. Humans see in the visible range of the spectrum and our vision is composed of red, green and blue wavelengths. If we wanted to analyse just the red wavelength the BSQ format would let us <em>read in</em> only that data. In comparison a GeoTIFF might come with all the data ‘packaged’ in one file and when doing analysis over thousands of images would significantly slow things down. That said you can now often find GeoTIFFs separated in a similar format to BSQ and it’s fairly straightforward to convert between raster formats.</p>
+</div>
+<div id="geodatabase" class="section level4">
+<h4><span class="header-section-number">1.4.2.6</span> Geodatabase</h4>
+<p>A geodatabase is a collection of geographic data held within a database. Geodatabases were developed by ESRI to overcome some of the limitations of shapefiles. They come in two main types: Personal (up to 1 TB) and File (limited to 250 - 500 MB), with Personal Geodatabases storing everything in a Microsoft Access database (<code>.mdb</code>) file and File Geodatabases offering more flexibility, storing everything as a series of folders in a file system. In the example below we can see that the FCC_Geodatabase (left hand pane) holds multiple points, lines, polygons, tables and raster layers in the contents tab.</p>
+<p><img src="prac1_images/geodatabase.png" width="500pt" style="display: block; margin: auto;" /></p>
+</div>
+<div id="geopackage" class="section level4">
+<h4><span class="header-section-number">1.4.2.7</span> GeoPackage</h4>
+<p><img src="prac1_images/geopkg.png" width="100pt" style="display: block; margin: auto;" /></p>
+<p>A GeoPackage is an open, standards-based, platform-independent, portable, self-describing, compact format for transferring geospatial data. It stores spatial data layers (vector and raster) as a single file, and is based upon an SQLite database, a widely used relational database management system, permitting code based, reproducible and transparent workflows. As it stores data in a single file it is very easy to share, copy or move.</p>
+</div>
+<div id="spatialite" class="section level4">
+<h4><span class="header-section-number">1.4.2.8</span> SpatiaLite</h4>
+<p><img src="prac1_images/spatialite.png" width="100pt" style="display: block; margin: auto;" /></p>
+<p>SpatialLite is an open-source library that extends SQLite core. Support is fairly limited and most software that supports SpatiaLite also supports GeoPackage, as they both build upon SQLite. It doesn’t have any clear advantage over GeoPackage, however it is unable to support raster data.</p>
+</div>
+<div id="postgis" class="section level4">
+<h4><span class="header-section-number">1.4.2.9</span> PostGIS</h4>
+<p><img src="prac1_images/postGIS.jpg" width="100pt" style="display: block; margin: auto;" /></p>
+<p>PostGIS is an opensource database extender for PostrgeSQL. Essentially PostgreSQL is a database and PostGIS is an add on which permits spatial functions. The advantages of using PostGIS over a GeoPackage are that it allows users to access the data at the same time, can handle large data more efficiently and reduces processing time. In <a href="https://medium.com/@GispoLearning/learn-spatial-sql-and-master-geopackage-with-qgis-3-16b1e17f0291">this example</a> calculating the number of bars per neighbourhood in Leon, Mexico the processing time reduced from 1.443 seconds (SQLite) to 0.08 seconds in PostGIS. However, data stored in PostGIS is much harder to share, move or copy.</p>
+</div>
+<div id="what-will-i-use" class="section level4">
+<h4><span class="header-section-number">1.4.2.10</span> What will I use</h4>
+<p>The variety of data formats can see a bit overwhelming. I still have to check how to load some of these data formats that I don’t use frequently. But don’t worry, most of the time you’ll be using shapefiles, GeoPackages or raster data.</p>
+</div>
+</div>
+</div>
+<div id="general-data-flow" class="section level2">
+<h2><span class="header-section-number">1.5</span> General data flow</h2>
+<p>As Grolemund and Wickham state in <a href="https://r4ds.had.co.nz/">R for Data Science</a>…</p>
+<blockquote>
+<p>“Data science is a huge field, and there’s no way you can master it by reading a single book.”</p>
+</blockquote>
+<p>However, a nice place to start is looking at the typical workflow of a data science (or GIS) project which you will see throuhgout these practicals, which is summarised nicely in this diagram produced by <a href="https://twitter.com/juliesquid">Dr. Julia Lowndes</a> adpted from Grolemund and Wickham.</p>
+<p><img src="allisonhorst_images/environmental_data_science_r4ds_general.png" width="600pt" style="display: block; margin: auto;" /></p>
+<p>To being you have to <strong>import</strong> your data (not necessarily environmental) into R or someother kind of GIS to acatually be able to do any kind of analysis on it.</p>
+<p>Once imported you might need to <strong>tidy</strong> the data. This really depends on what kind of data it is and we cover this later on in the course. However, putting all of your data into a consistent structure will be very beneficial when you have to do analysis on it — as you can treat it all in the same way. Grolemund and Wickham state that data is tidy when “each column is a variable, and each row is an observation”, we cover this more in next week in the <a href="introduction-to-r.html#tidying-data">Tidying data</a> section.</p>
+<p>When you have (or haven’t) tidied data you then will most likely want to <strong>transform</strong> it. Grolemund and Wickham define this as “narrowing in on observations of interest (like all people in one city, or all data from the last year), creating new variables that are functions of existing variables (like computing speed from distance and time), and calculating a set of summary statistics (like counts or means)”. However, from a GIS point of view I would also include putting all of your data into a similar projection, covered next week in <a href="rasters-descriptive-statistics-and-interpolation.html#changing-projections">Changing projections</a> and any other basic process you might do before the core analysis. Arguably these processes could include things such as: clipping (cookie cutting your study area), buffering (making areas within a distance of a point) and intersecting (where two datasets overlap).</p>
+<p>Tidying and transfrom = data wrangling. Remember from the introduction this could be 50-80% of a data science job!</p>
+<p><img src="allisonhorst_images/dplyr_wrangling.png" width="450pt" style="display: block; margin: auto;" /></p>
+<p>After you have transformed the data the next best thing to do is <strong>visualise</strong> it — even with some basic summary statistics. This simple step will often let you look at your data in a different way and select more appropraite analysis.</p>
+<p>Next up is <strong>modelling</strong>. Personally within GIS i’d say a better term is processing as the very data itself is usually a computer model of reality. The modelling or processing section is where you conduct the core analysis (more than the basic analysis already mentioned) and try to provide an answer to your research question.</p>
+<p>Fianlly you have to <strong>communicate</strong> your study and outputs, it doesn’t matter how good your data wrangling, modelling or processing is, if your intended audience can’t interpret it, well, it’s pretty much useless.</p>
+<div class="infobox tip">
+<p>In a few weeks come back and revisit this data flow section to see how what you have learnt fits the framework presented.</p>
+</div>
+</div>
+<div id="data" class="section level2">
+<h2><span class="header-section-number">1.6</span> Data</h2>
+<p>The volume of geographic information which is freely available for use in the UK is increasing exponentially and spatially referenced data can often be found in many different places. In this practical we’re going to use data from the London data store — a free and open data-sharing portal provided by the Greater London Authority (GLA), also known as City Hall that is the devolved regional governance body of London.</p>
+<p>We are going to get spatial data of the London boroughs and join flytipping (the illegal deposit of waste, commonly on road verges) data that is provided as a <code>.csv</code> file. <code>.csv</code> stands for comma-separated values (CSV) — it uses a comma to separate each value.</p>
+<p>At the end of this document I’ll also run through some common sources of data that will stand you in good stead (be advantageous) for the rest of the course.</p>
+<div id="file-paths" class="section level3">
+<h3><span class="header-section-number">1.6.1</span> File paths</h3>
+<p>In your N drive: create a new folder called GIS and within this a sub folder called wk1. It is up to you how you organise your files. Make sure you change the file paths where appropriate to your own.</p>
+</div>
+<div id="data-download" class="section level3">
+<h3><span class="header-section-number">1.6.2</span> Data download</h3>
+<p>Firstly we need to get a spatial outline of the London boroughs. The geographic boundaries that are used in the UK are a complex, often inter-related, but ever changing mass of areas. For anyone new to the UK (or indeed not a trained quantitative geographer), it can be quite a daunting task to attempt to understand all of the boundaries that are in use. Fortunately the Office for National Statistics (ONS) has an online beginners guide to UK geography. If you need more information on the vast array of different UK geographies, go and explore these resources:</p>
+<ul>
+<li><a href="http://geoportal.statistics.gov.uk/datasets/a-beginners-guide-to-uk-geography-2018-v1-0" class="uri">http://geoportal.statistics.gov.uk/datasets/a-beginners-guide-to-uk-geography-2018-v1-0</a></li>
+<li><a href="https://data.gov.uk/dataset/d7dd9437-20d0-448f-a61b-6e0939dcc642/hierarchical-representation-of-uk-statistical-geographies-december-2017" class="uri">https://data.gov.uk/dataset/d7dd9437-20d0-448f-a61b-6e0939dcc642/hierarchical-representation-of-uk-statistical-geographies-december-2017</a></li>
+</ul>
+<p>Let’s download some data..</p>
+<ul>
+<li>Spatial Data</li>
+</ul>
+<ol style="list-style-type: decimal">
+<li><p>To get the data go to: <a href="https://data.london.gov.uk/" class="uri">https://data.london.gov.uk/</a></p></li>
+<li><p>Search for Statistical GIS Boundary Files for London</p></li>
+<li><p>Download the statistical-gis-boundaries-london.zip</p></li>
+<li><p>Unzip the data and save it to your wk1 folder.</p></li>
+</ol>
+<ul>
+<li>CSV data</li>
+</ul>
+<ol style="list-style-type: decimal">
+<li><p>On the same website search for fly-tipping incidents</p></li>
+<li><p>Download the <code>.csv</code> file</p></li>
+</ol>
+</div>
+<div id="data-pre-processing" class="section level3">
+<h3><span class="header-section-number">1.6.3</span> Data pre-processing</h3>
+<p><strong>Question</strong> Open the <code>.csv</code> in Excel, what do you notice about how the data is stored?</p>
+<p><strong>Answer</strong> The year is a column and for each area the values are repeated for different years. In our analysis it is easier to have the different years as a column and populated for each area. So, we want to go from this…</p>
+<p><img src="prac1_images/csv_original.png" width="600pt" style="display: block; margin: auto;" /></p>
+<p>To this…</p>
+<p><img src="prac1_images/csv_pivot.png" width="600pt" style="display: block; margin: auto;" /></p>
+<p>As we are going to use this dataset in QGIS and R I’ve done it in Excel using a pivot table. In future we’ll use R to automate tasks like this.</p>
+<ol style="list-style-type: decimal">
+<li><p>Go to Insert &gt; PivotTable</p></li>
+<li><p>Select the original table and create a PivotTable in a new worksheet</p></li>
+<li><p>The PivotTable Field box will appear, experiment with the different fields in each of the areas</p></li>
+</ol>
+<p>I’ve used the following:</p>
+<p><img src="prac1_images/pivot_example.png" width="200pt" style="display: block; margin: auto;" />
+Note how I’ve altered the total_action_taken to the sum of… as the original was displaying incorrectly, to do so:</p>
+<ol style="list-style-type: decimal">
+<li>Click on drop down button for total_action_taken &gt; Value Field Settings &gt; select Sum</li>
+</ol>
+<p>It’s important to think about what data we actually need in the next step and it’s good practice to avoid data redundancy where possible.</p>
+<p><strong>Spoiler</strong> The spatial data we have downloaded already contains borough name, so we don’t need it twice. However, we do need a field to link the two datasets on. You could use borough name, but when using text fields sometimes input variations can affect joins. For example, if you had the University of Manchester in one dataset and Manchester University in another the join would fail. Consequently it’s usually best to join datasets on a code field.</p>
+<p>Now save the Excel sheet that contains the pivot table as a new <code>.csv</code>. Make sure that the first row of data holds the column titles. Remove all empty rows.</p>
+<p>When saving the file also avoid any special characters (e.g. -) and spaces, use an underscore instead of spaces.</p>
+<p><strong>Warning</strong> Spatial software does not like file names with spaces or special characters.</p>
+<p>Now it’s time to load, inspect and do some basic manipulation of this data. As mentioned in the lecture there are several GIS software ‘types’, here we will repeat the same process across QGIS and R.</p>
+</div>
+<div id="qgis-1" class="section level3">
+<h3><span class="header-section-number">1.6.4</span> QGIS</h3>
+<div id="load-data" class="section level4">
+<h4><span class="header-section-number">1.6.4.1</span> Load data</h4>
+<ol style="list-style-type: decimal">
+<li>Search for and open QGIS</li>
+<li>Click on the open data source manager. Just above the word <strong>browser</strong> in the top left of the screen</li>
+</ol>
+<p><img src="prac1_images/qgis_datamanager.png" width="700pt" style="display: block; margin: auto;" /></p>
+<ol style="list-style-type: decimal">
+<li>Navigate to the <code>London_Borough_Excluding_MHW.shp</code> and add it, you then have to close the data source manager.</li>
+</ol>
+<p>You can right click on the layer to view the attribute table, however the <code>.csv</code> file must be loaded nto QGIS in order to join it to a shapefile.</p>
+<ol style="list-style-type: decimal">
+<li>Open the data source manager and select Delimited Text</li>
+<li>Navigate to our <code>.csv</code> file and provide a suitable layer name</li>
+<li>Under Record and Fields Options make sure the number of header lines to discard is 0 and the First record has field names box is selected (this is assuming you left a title for each column in your <code>.csv</code>)</li>
+<li>Under Geometry Definition select No geometry (attribute table only)</li>
+</ol>
+<p><img src="prac1_images/csv_datamanager.png" width="700pt" style="display: block; margin: auto;" /></p>
+<p>Does the sample data seem right?</p>
+<ol style="list-style-type: decimal">
+<li>If so, click add then close</li>
+</ol>
+</div>
+<div id="join-data" class="section level4">
+<h4><span class="header-section-number">1.6.4.2</span> Join data</h4>
+<ol style="list-style-type: decimal">
+<li>Right click on the London boroughs layer &gt; Properties &gt; Joins</li>
+<li>Click the plus button at the bottom of the box</li>
+<li>Complete the dialogue box</li>
+</ol>
+<p><img src="prac1_images/qgis_join.png" width="500pt" style="display: block; margin: auto;" /></p>
+</div>
+<div id="export-data" class="section level4">
+<h4><span class="header-section-number">1.6.4.3</span> Export data</h4>
+<p>Now let’s export to a GeoPackage.</p>
+<ol style="list-style-type: decimal">
+<li>Right click on the London boroughs layer &gt; Export &gt; Save Feature As</li>
+<li>Select the GeoPackage format and complete the File name (the saved file name for the GeoPackage) and the Layer name (the name for this layer within the GeoPackage). Recall that a GeoPackage can store many data layers as a single file</li>
+<li>The new layer will be added to the map, so you can remove the old one (Right click on the layer &gt; Remove Layer). Make sure you remove the right one!</li>
+</ol>
+<p><img src="prac1_images/make_geopkg.png" width="500pt" style="display: block; margin: auto;" /></p>
+<p>We’ve now made a GeoPackage that we can connect our map project to.</p>
+<ol style="list-style-type: decimal">
+<li>Under <strong>Browser</strong>, Right click on GeoPackage &gt; New Connection &gt; Navigate to your GeoPackage</li>
+<li>Click the down arrow left to GeoPackage and you should see the one you just navigated to. Click the down arrow on the database and you can see your layer.</li>
+<li>Now we are going to import our <code>.csv</code> into our GeoPackage. To do so go: Database &gt; DB Manager</li>
+<li>Select your GeoPackage in the left hand pane</li>
+<li>Import layer/file then select the <code>.csv</code>. Click Ok.</li>
+</ol>
+<p>Again, remember that the <code>.csv</code> in the Layers tab (bottom left) is the original. Remove it, then from the GeoPackage just click, hold and drag the <code>.csv</code> into the layer pane.</p>
+<p>Now let’s make a quick thematic map…</p>
+<ol style="list-style-type: decimal">
+<li>Right click on your London boroughs layer &gt; Properties &gt; Symbology</li>
+<li>Select categorised and choose a data column and color ramp &gt; click Classify</li>
+</ol>
+<p>You could also select graduated, however our joined data fields are in the wrong data type. If you wish to change them follow <a href="https://wiki.tuflow.com/index.php?title=QGIS_Change_Attribute_Type">this guide</a></p>
+<ol style="list-style-type: decimal">
+<li>Save your QGIS project</li>
+</ol>
+<p>You should have produced something like this:</p>
+<p><img src="prac1_images/QGIS_final.png" width="800pt" style="display: block; margin: auto;" /></p>
+<p><strong>We haven’t talked about the Coordiante Reference System (CRS) (or Spatial Reference System (SRS)) of our map document</strong></p>
+<p>A coordinate reference system is a series of parameters that define the coordinate system. Within GIS we use geographic or projected coordinate systems. The former uses a three-dimensional spherical surface to define locations of Earth, whereas the latter is defined on a flat, two-dimensional surface giving it constant lengths, angles and areas. We cover this in more detail later on.</p>
+<p>QGIS defaults to the Coordinate Reference System (CRS) WGS 84, or known by its European Petroleum Survey Group (EPSG) code 4326. However, when you add your first layer it will default the CRS of the layer. We’ll go into the background of EPSG next time.</p>
+<p>You can change the CRS by going Project &gt; Properties and selecting CRS in the left hand pane.</p>
+<p><img src="prac1_images/QGIS_CRS.png" width="500pt" style="display: block; margin: auto;" /></p>
+<div class="infobox tip">
+<p>You can also access the project CRS by just clicking on the EPSG code in the bottom right of your QGIS window, in the screenshot above click EPSG:27700.</p>
+</div>
+<div class="infobox warning">
+<p><strong>Note</strong> As we are going to open the same files in difference GIS systems it is important to close the software before moving on. If you don’t then files can be <em>locked</em> and unreadable as they are still considered to be in use.</p>
+</div>
+<p>We cover coordinate reference systems in much more detail later on in the course.</p>
+</div>
+</div>
+<div id="r-1" class="section level3">
+<h3><span class="header-section-number">1.6.5</span> R</h3>
+<div id="introduction" class="section level4">
+<h4><span class="header-section-number">1.6.5.1</span> Introduction</h4>
+<p>R is both a programming language and software environment, originally designed for statistical computing and graphics. R’s great strength is that it is open-source, can be used on any computer operating system and free for anyone to use and contribute to. Because of this, it is rapidly becoming the statistical language of choice for many academics and has a huge user community with people constantly contributing new packages to carry out all manner of statistical, graphical and importantly for us, geographical tasks.</p>
+<p>The purpose of this practical is just to demonstrate data loading and manipulation in different software. The next practical will provide much more detail on R, so don’t worry about that.</p>
+<p>In RStudio go:</p>
+<ol style="list-style-type: decimal">
+<li>File &gt; New File &gt; R Script</li>
+</ol>
+<p>You should be able to see these quadrants (without the code):</p>
+<p><img src="prac1_images/RStudio.png" width="800pt" style="display: block; margin: auto;" /></p>
+<p>Below are bits of code, to start we will work using the <strong>console</strong>. So just copy the bits of code into the console window, changing the file names to where your data is stored. Then at the end of this section I’ll show you how to make a script.</p>
+<p>R works on packages that are collections of functions and data. Packages are bits of code that extend R beyond the basic statistical functionality it was originally designed for. For spatial data, they enable R to process spatial data formats, carry out analysis tasks and create some of the maps that follow. Most pacakges are easily recognisable through a hexagon (hex) logo, or sticker. <a href="https://www.mitchelloharawild.com/blog/hexwall/">Mitchell O’Hara-Wild has even produced some code to make your own</a>!</p>
+<p><img src="prac1_images/hex_stickers.png" width="500px" style="display: block; margin: auto;" /></p>
+<p>Bascially, without packages, R would be very limited. With packages, you can do virtually anything! One of the issues you will come across is that packages are being continually developed and updated and unless you keep your version of R updated and your packages updated, there may be some functions and options not available to you. This can be a problem, particularly with University installations which (at best) may only get updated once a year. Therefore, apologies in advance if things don’t work as intended, but there is often a work around.</p>
+<p>For this practical we will need the ones listed in the code chunk below. Whilst we’ve installed them (with the code below), we haven’t yet loaded them. It’s best practice to do all this at the start of your code, however, for demonstration purposes I’ll load each one as we need it.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" title="1"><span class="kw">install.packages</span>(<span class="kw">c</span>(<span class="st">&quot;sf&quot;</span>, <span class="st">&quot;tmap&quot;</span>, <span class="st">&quot;tmaptools&quot;</span>, <span class="st">&quot;RSQLite&quot;</span>, <span class="st">&quot;tidyverse&quot;</span>), </a>
+<a class="sourceLine" id="cb3-2" title="2">                 <span class="dt">repos =</span> <span class="st">&quot;https://www.stats.bris.ac.uk/R/&quot;</span>)</a></code></pre></div>
+<ol style="list-style-type: decimal">
+<li>We can also install and load packages through RStudio. If you can see the package listed in the package tab it is installed and a tick means it is loaded.</li>
+</ol>
+<p><img src="prac2_images/r_packages.png" width="500px" style="display: block; margin: auto;" /></p>
+<p>Packages we’ve installed with our code:</p>
+<ul>
+<li><code>sf</code>: simple features, standard way to encode spatial vector data</li>
+<li><code>tmap</code>: layer-based and easy approach to make thematic maps</li>
+<li><code>tmaptools</code>: set of tools for reading and processing spatial data</li>
+<li><code>RSQLite</code>: embeds the SQLite database engine in R</li>
+</ul>
+<p>Here, <code>repos</code> stands for repository where we will download the packages from. Once you have set it, you shouldn’t need to specify it again. Whilst we’ve installed the packages we haven’t loaded them…this is done through using <code>library()</code> function. Thanks to <a href="https://twitter.com/visnut">Dianne Cook</a> for this image…</p>
+<p><img src="prac1_images/install_library.jfif" width="600pt" style="display: block; margin: auto;" /></p>
+<p>If you are <strong>using a Mac</strong> you might also need <code>rgdal</code>… this is because a lot of packages are dependent on it and it might not properly install…</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" title="1"><span class="kw">install.packages</span>(<span class="st">&quot;rgdal&quot;</span>)</a></code></pre></div>
+<p>Then load <code>rgdal</code>…</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" title="1"><span class="kw">library</span>(rgdal)</a></code></pre></div>
+<p>If you still have issues the check out the <a href="geographic-information.html#mac-r-issues">Mac R issues</a> section</p>
+</div>
+<div id="load-data-1" class="section level4">
+<h4><span class="header-section-number">1.6.5.2</span> Load data</h4>
+<p>Load the <code>sf</code> package so we can read our shapefile in — remember to change to filepath to your shapefile.</p>
+<p><img src="allisonhorst_images/sf.png" width="450pt" style="display: block; margin: auto;" /></p>
+<p>For this first practical we’ll just leave the data where it is, next week we’ll show you how to use projects to make calling data much easier.</p>
+<blockquote>
+<p><strong>Note</strong> by default in R, the file path should be defined with <code>/</code> but on a windows file system it is defined with <code>\</code>. Using <code>\\</code> instead allows R to read the path correctly – alternatively, just use <code>/</code></p>
+</blockquote>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" title="1"><span class="kw">library</span>(sf)</a>
+<a class="sourceLine" id="cb6-2" title="2"><span class="co"># change this to your file path!!!</span></a>
+<a class="sourceLine" id="cb6-3" title="3">shape &lt;-<span class="st"> </span><span class="kw">st_read</span>(<span class="st">&quot;Prac1_data/statistical-gis-boundaries-london/ESRI/London_Borough_Excluding_MHW.shp&quot;</span>)</a></code></pre></div>
+<pre><code>## Reading layer `London_Borough_Excluding_MHW&#39; from data source `C:\Users\Andy\OneDrive - University College London\Teaching\CASA0005\2020_2021\CASA0005repo\Prac1_data\statistical-gis-boundaries-london\ESRI\London_Borough_Excluding_MHW.shp&#39; using driver `ESRI Shapefile&#39;
+## Simple feature collection with 33 features and 7 fields
+## geometry type:  MULTIPOLYGON
+## dimension:      XY
+## bbox:           xmin: 503568.2 ymin: 155850.8 xmax: 561957.5 ymax: 200933.9
+## projected CRS:  OSGB 1936 / British National Grid</code></pre>
+<blockquote>
+<p><strong>Note</strong> If you are working on RStudio cloud and have a shapefile (along with all the other relevant files required) you will just need to use…</p>
+</blockquote>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" title="1">shape &lt;-<span class="st"> </span><span class="kw">st_read</span>(<span class="st">&quot;London_Borough_Excluding_MHW.shp&quot;</span>)</a></code></pre></div>
+<p>As RStudio cloud knows you have setup a project and to look for files within it…we cover this very soon for RStudio desktop.</p>
+<p>To get a summary of the data held within the shapefile data (attribute table) enter the following:</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" title="1"><span class="kw">summary</span>(shape)</a></code></pre></div>
+<pre><code>##                    NAME         GSS_CODE     HECTARES         NONLD_AREA    
+##  Barking and Dagenham: 1   E09000001: 1   Min.   :  314.9   Min.   :  0.00  
+##  Barnet              : 1   E09000002: 1   1st Qu.: 2724.9   1st Qu.:  0.00  
+##  Bexley              : 1   E09000003: 1   Median : 3857.8   Median :  2.30  
+##  Brent               : 1   E09000004: 1   Mean   : 4832.4   Mean   : 64.22  
+##  Bromley             : 1   E09000005: 1   3rd Qu.: 5658.5   3rd Qu.: 95.60  
+##  Camden              : 1   E09000006: 1   Max.   :15013.5   Max.   :370.62  
+##  (Other)             :27   (Other)  :27                                     
+##  ONS_INNER SUB_2009  SUB_2006           geometry 
+##  F:19      NA&#39;s:33   NA&#39;s:33   MULTIPOLYGON :33  
+##  T:14                          epsg:NA      : 0  
+##                                +proj=tmer...: 0  
+##                                                  
+##                                                  
+##                                                  
+## </code></pre>
+<p>To have a quick look what the shapefile looks like enter the following:</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" title="1"><span class="kw">plot</span>(shape)</a></code></pre></div>
+<p><img src="CASA0005_files/figure-html/unnamed-chunk-39-1.png" width="672" /></p>
+<p>That plots everything in the shapefile (all the attitbues) if you just wanted the geometry (outline of the shape) you could use…</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" title="1"><span class="kw">library</span>(sf)</a>
+<a class="sourceLine" id="cb12-2" title="2">shape <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb12-3" title="3"><span class="st">  </span><span class="kw">st_geometry</span>() <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb12-4" title="4"><span class="st">  </span><span class="kw">plot</span>()</a></code></pre></div>
+<p><img src="CASA0005_files/figure-html/unnamed-chunk-40-1.png" width="672" /></p>
+<p>From what we did in QGIS this should look familiar.</p>
+<p>We now need to load our <code>.csv</code> file:</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" title="1"><span class="kw">library</span>(tidyverse)</a>
+<a class="sourceLine" id="cb13-2" title="2">mycsv &lt;-<span class="st">  </span><span class="kw">read_csv</span>(<span class="st">&quot;Prac1_data/fly_tipping_borough_edit.csv&quot;</span>)  </a></code></pre></div>
+<pre><code>## Parsed with column specification:
+## cols(
+##   `Row Labels` = col_character(),
+##   `2011_12` = col_double(),
+##   `2012_13` = col_double(),
+##   `2013_14` = col_double(),
+##   `2014_15` = col_double(),
+##   `2015_16` = col_double(),
+##   `2016_17` = col_double(),
+##   `2017_18` = col_double(),
+##   Grand_Total = col_double()
+## )</code></pre>
+<p>When you load <code>tidyverse</code> you might get a list of conflicts, this basically means that several packages have functions named the same thing. For example there is a function named <code>filter()</code> in the packages <code>dplyr</code> and <code>stats</code>. If you wanted to use the <code>dplyr</code> version you would use <code>dplyr::filter()</code> or for the <code>stats</code> version it would be <code>stats::filter()</code>…</p>
+<p>To view the data just input:</p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb15-1" title="1">mycsv </a></code></pre></div>
+<pre><code>## # A tibble: 34 x 9
+##    `Row Labels` `2011_12` `2012_13` `2013_14` `2014_15` `2015_16` `2016_17`
+##    &lt;chr&gt;            &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;
+##  1 E09000001          563      1492       433       347       587      1944
+##  2 E09000002         2687      2122      1399      3100      2672      1130
+##  3 E09000003         2356      1828       890       219       615       130
+##  4 E09000004          505       627       732       399       262       439
+##  5 E09000005         6713      2232      3189      3926      3980      4366
+##  6 E09000006          306       479       653       462       326       228
+##  7 E09000007         5541      5962      8281      4837      4719      4656
+##  8 E09000008           31       108       460       712      1707       637
+##  9 E09000009         6727      5679      6543      5521      6067     12688
+## 10 E09000010         7262      3595      3269      4937      5292     10894
+## # ... with 24 more rows, and 2 more variables: `2017_18` &lt;dbl&gt;,
+## #   Grand_Total &lt;dbl&gt;</code></pre>
+</div>
+<div id="join-data-1" class="section level4">
+<h4><span class="header-section-number">1.6.5.3</span> Join data</h4>
+<p>In R we’ve given our London boroughs shapefile the name <code>shape</code> and our flytipping <code>.csv</code> the name <code>mycsv</code>. If you look in the Environment quadrant you should see them both listed.</p>
+<p>Join the <code>.csv</code> to the shapefile. Here, replace Row Labels with whatever your GSS_CODE is called in the <code>.csv</code>:</p>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb17-1" title="1">shape &lt;-<span class="st"> </span>shape<span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb17-2" title="2"><span class="st">  </span><span class="kw">merge</span>(.,</a>
+<a class="sourceLine" id="cb17-3" title="3">        mycsv,</a>
+<a class="sourceLine" id="cb17-4" title="4">        <span class="dt">by.x=</span><span class="st">&quot;GSS_CODE&quot;</span>, </a>
+<a class="sourceLine" id="cb17-5" title="5">        <span class="dt">by.y=</span><span class="st">&quot;Row Labels&quot;</span>)</a></code></pre></div>
+<p>Let’s break this down a bit. We just created a tibble of <code>mycsv</code> (this is a new form of a dataframe) where each column has a variable and each row contains a set of values — so basically a normal table. We did this simply by using <code>read_csv()</code> to read the data in. We then matched our <code>csv</code> to our <code>shape</code> based on the <code>GSS_CODE</code> values in both.</p>
+<p>Check the merge was successful, this is just going to show the top 10 rows:</p>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb18-1" title="1">shape<span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb18-2" title="2"><span class="st">  </span><span class="kw">head</span>(., <span class="dt">n=</span><span class="dv">10</span>)</a></code></pre></div>
+<pre><code>## Simple feature collection with 10 features and 15 fields
+## geometry type:  MULTIPOLYGON
+## dimension:      XY
+## bbox:           xmin: 509702.4 ymin: 155850.8 xmax: 554089.2 ymax: 200933.9
+## projected CRS:  OSGB 1936 / British National Grid
+##     GSS_CODE                 NAME  HECTARES NONLD_AREA ONS_INNER SUB_2009
+## 1  E09000001       City of London   314.942     24.546         T     &lt;NA&gt;
+## 2  E09000002 Barking and Dagenham  3779.934    169.150         F     &lt;NA&gt;
+## 3  E09000003               Barnet  8674.837      0.000         F     &lt;NA&gt;
+## 4  E09000004               Bexley  6428.649    370.619         F     &lt;NA&gt;
+## 5  E09000005                Brent  4323.270      0.000         F     &lt;NA&gt;
+## 6  E09000006              Bromley 15013.487      0.000         F     &lt;NA&gt;
+## 7  E09000007               Camden  2178.932      0.000         T     &lt;NA&gt;
+## 8  E09000008              Croydon  8649.441      0.000         F     &lt;NA&gt;
+## 9  E09000009               Ealing  5554.428      0.000         F     &lt;NA&gt;
+## 10 E09000010              Enfield  8220.025      0.000         F     &lt;NA&gt;
+##    SUB_2006 2011_12 2012_13 2013_14 2014_15 2015_16 2016_17 2017_18 Grand_Total
+## 1      &lt;NA&gt;     563    1492     433     347     587    1944    2579        7945
+## 2      &lt;NA&gt;    2687    2122    1399    3100    2672    1130    1066       14176
+## 3      &lt;NA&gt;    2356    1828     890     219     615     130     503        6541
+## 4      &lt;NA&gt;     505     627     732     399     262     439     327        3291
+## 5      &lt;NA&gt;    6713    2232    3189    3926    3980    4366    7483       31889
+## 6      &lt;NA&gt;     306     479     653     462     326     228     258        2712
+## 7      &lt;NA&gt;    5541    5962    8281    4837    4719    4656   12671       46667
+## 8      &lt;NA&gt;      31     108     460     712    1707     637    2684        6339
+## 9      &lt;NA&gt;    6727    5679    6543    5521    6067   12688    5471       48696
+## 10     &lt;NA&gt;    7262    3595    3269    4937    5292   10894    5855       41104
+##                          geometry
+## 1  MULTIPOLYGON (((531145.1 18...
+## 2  MULTIPOLYGON (((543905.4 18...
+## 3  MULTIPOLYGON (((524579.9 19...
+## 4  MULTIPOLYGON (((547226.2 18...
+## 5  MULTIPOLYGON (((525201 1825...
+## 6  MULTIPOLYGON (((540373.6 15...
+## 7  MULTIPOLYGON (((528840.2 18...
+## 8  MULTIPOLYGON (((535009.2 15...
+## 9  MULTIPOLYGON (((510253.5 18...
+## 10 MULTIPOLYGON (((531023.5 20...</code></pre>
+<p>Now, let’s make a quick thematic map (or a qtm) using the package <code>tmap</code>. I’ve made mine for flytipping between 2011 and 2012 (column 2011_12). But check what your coloumn name is from the adove code <code>head(shape, n=10)</code> it might be slightly different like 2011-2012 or x2011_2012….</p>
+<p><img src="prac1_images/colname.png" width="600pt" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb20-1" title="1"><span class="kw">library</span>(tmap)</a>
+<a class="sourceLine" id="cb20-2" title="2"><span class="kw">tmap_mode</span>(<span class="st">&quot;plot&quot;</span>)</a></code></pre></div>
+<pre><code>## tmap mode set to plotting</code></pre>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb22-1" title="1"><span class="co"># change the fill to your column name if different</span></a>
+<a class="sourceLine" id="cb22-2" title="2">shape <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb22-3" title="3"><span class="st">  </span><span class="kw">qtm</span>(.,<span class="dt">fill =</span> <span class="st">&quot;2011_12&quot;</span>)</a></code></pre></div>
+<p><img src="CASA0005_files/figure-html/unnamed-chunk-46-1.png" width="672" /></p>
+</div>
+</div>
+<div id="export-data-1" class="section level3">
+<h3><span class="header-section-number">1.6.6</span> Export data</h3>
+<p>Finally write shape to a new GeoPackage (<code>.gpkg</code>) giving it the layer name of your choice:</p>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb23-1" title="1">shape <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb23-2" title="2"><span class="st">  </span><span class="kw">st_write</span>(.,<span class="st">&quot;Prac1_data/Rwk1.gpkg&quot;</span>,</a>
+<a class="sourceLine" id="cb23-3" title="3">           <span class="st">&quot;london_boroughs_fly_tipping&quot;</span>,</a>
+<a class="sourceLine" id="cb23-4" title="4">           <span class="dt">delete_layer=</span><span class="ot">TRUE</span>)</a></code></pre></div>
+<pre><code>## Deleting layer `london_boroughs_fly_tipping&#39; using driver `GPKG&#39;
+## Writing layer `london_boroughs_fly_tipping&#39; to data source `Prac1_data/Rwk1.gpkg&#39; using driver `GPKG&#39;
+## Writing 33 features with 15 fields and geometry type Multi Polygon.</code></pre>
+<p>So here, we are saying the shape is the object we want to save, then to the GeoPackage file path, with the layer name of <code>london_boroughs_fly_tipping</code>. I’ve set <code>delete_layer</code> to true so I could overwrite mine when I developed this practical. Changing it to false would generate an error message if you ever tried to re-run the code.</p>
+<p>Let’s also add the <code>.csv</code> as we did in QGIS. This is a bit more complicated as we have to use the SQLite database package. Firstly, connect to the <code>.gpkg</code> we just made:</p>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb25-1" title="1"><span class="kw">library</span>(readr)</a>
+<a class="sourceLine" id="cb25-2" title="2"><span class="kw">library</span>(RSQLite)</a>
+<a class="sourceLine" id="cb25-3" title="3"></a>
+<a class="sourceLine" id="cb25-4" title="4">con &lt;-<span class="st"> </span><span class="kw">dbConnect</span>(RSQLite<span class="op">::</span><span class="kw">SQLite</span>(),<span class="dt">dbname=</span><span class="st">&quot;Prac1_data/Rwk1.gpkg&quot;</span>)</a></code></pre></div>
+<p>Now examine what is in the <code>.gpkg</code>…you can see that i’ve already got my <code>original_csv</code> stored within the <code>.gpkg</code> as when i developed this practical i made sure it was working!</p>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb26-1" title="1">con <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb26-2" title="2"><span class="st">  </span><span class="kw">dbListTables</span>()</a></code></pre></div>
+<pre><code>##  [1] &quot;gpkg_contents&quot;                                
+##  [2] &quot;gpkg_extensions&quot;                              
+##  [3] &quot;gpkg_geometry_columns&quot;                        
+##  [4] &quot;gpkg_metadata&quot;                                
+##  [5] &quot;gpkg_metadata_reference&quot;                      
+##  [6] &quot;gpkg_ogr_contents&quot;                            
+##  [7] &quot;gpkg_spatial_ref_sys&quot;                         
+##  [8] &quot;gpkg_tile_matrix&quot;                             
+##  [9] &quot;gpkg_tile_matrix_set&quot;                         
+## [10] &quot;london_boroughs_fly_tipping&quot;                  
+## [11] &quot;original_csv&quot;                                 
+## [12] &quot;rtree_london_boroughs_fly_tipping_geom&quot;       
+## [13] &quot;rtree_london_boroughs_fly_tipping_geom_node&quot;  
+## [14] &quot;rtree_london_boroughs_fly_tipping_geom_parent&quot;
+## [15] &quot;rtree_london_boroughs_fly_tipping_geom_rowid&quot; 
+## [16] &quot;sqlite_sequence&quot;</code></pre>
+<p>Add your <code>.csv</code> and disconnect from the <code>.gpkg</code>:</p>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb28-1" title="1">con <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb28-2" title="2"><span class="st">  </span><span class="kw">dbWriteTable</span>(.,</a>
+<a class="sourceLine" id="cb28-3" title="3">               <span class="st">&quot;original_csv&quot;</span>,</a>
+<a class="sourceLine" id="cb28-4" title="4">               mycsv,</a>
+<a class="sourceLine" id="cb28-5" title="5">               <span class="dt">overwrite=</span><span class="ot">TRUE</span>)</a>
+<a class="sourceLine" id="cb28-6" title="6"></a>
+<a class="sourceLine" id="cb28-7" title="7">con <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb28-8" title="8"><span class="st">  </span><span class="kw">dbDisconnect</span>()</a></code></pre></div>
+<p>Here <code>overwrite</code> let’s you well..overwrite the exisiting file…if this wasn’t specified as true you would get an error saying the file already existed if you tried to run this code again.</p>
+<div id="making-a-script" class="section level4">
+<h4><span class="header-section-number">1.6.6.1</span> Making a script</h4>
+<p>To convert this bit of analysis into a script that we could save and run again in future, I would write the following in the script quadrant:</p>
+<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb29-1" title="1"><span class="kw">library</span>(sf)</a>
+<a class="sourceLine" id="cb29-2" title="2"><span class="kw">library</span>(tmap) </a>
+<a class="sourceLine" id="cb29-3" title="3"><span class="kw">library</span>(tmaptools)</a>
+<a class="sourceLine" id="cb29-4" title="4"><span class="kw">library</span>(RSQLite)</a>
+<a class="sourceLine" id="cb29-5" title="5"><span class="kw">library</span>(tidyverse)</a>
+<a class="sourceLine" id="cb29-6" title="6"><span class="co">#read in the shapefile</span></a>
+<a class="sourceLine" id="cb29-7" title="7"></a>
+<a class="sourceLine" id="cb29-8" title="8">shape &lt;-<span class="st"> </span><span class="kw">st_read</span>(</a>
+<a class="sourceLine" id="cb29-9" title="9">  <span class="st">&quot;Prac1_data/statistical-gis-boundaries-london/ESRI/London_Borough_Excluding_MHW.shp&quot;</span>)</a>
+<a class="sourceLine" id="cb29-10" title="10"><span class="co"># read in the csv</span></a>
+<a class="sourceLine" id="cb29-11" title="11">mycsv &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="st">&quot;Prac1_data/fly_tipping_borough_edit.csv&quot;</span>)  </a>
+<a class="sourceLine" id="cb29-12" title="12"><span class="co"># merge csv and shapefile</span></a>
+<a class="sourceLine" id="cb29-13" title="13">shape &lt;-<span class="st"> </span>shape<span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb29-14" title="14"><span class="st">  </span><span class="kw">merge</span>(.,</a>
+<a class="sourceLine" id="cb29-15" title="15">        mycsv,</a>
+<a class="sourceLine" id="cb29-16" title="16">        <span class="dt">by.x=</span><span class="st">&quot;GSS_CODE&quot;</span>, </a>
+<a class="sourceLine" id="cb29-17" title="17">        <span class="dt">by.y=</span><span class="st">&quot;Row Labels&quot;</span>)</a>
+<a class="sourceLine" id="cb29-18" title="18"><span class="co"># set tmap to plot</span></a>
+<a class="sourceLine" id="cb29-19" title="19"><span class="kw">tmap_mode</span>(<span class="st">&quot;plot&quot;</span>)</a>
+<a class="sourceLine" id="cb29-20" title="20"><span class="co"># have a look at the map</span></a>
+<a class="sourceLine" id="cb29-21" title="21"><span class="kw">qtm</span>(shape, <span class="dt">fill =</span> <span class="st">&quot;2011_12&quot;</span>)</a>
+<a class="sourceLine" id="cb29-22" title="22"><span class="co"># write to a .gpkg</span></a>
+<a class="sourceLine" id="cb29-23" title="23">shape <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb29-24" title="24"><span class="st">  </span><span class="kw">st_write</span>(.,<span class="st">&quot;Prac1_data/Rwk1.gpkg&quot;</span>,</a>
+<a class="sourceLine" id="cb29-25" title="25">           <span class="st">&quot;london_boroughs_fly_tipping&quot;</span>,</a>
+<a class="sourceLine" id="cb29-26" title="26">           <span class="dt">delete_layer=</span><span class="ot">TRUE</span>)</a>
+<a class="sourceLine" id="cb29-27" title="27"><span class="co"># connect to the .gpkg</span></a>
+<a class="sourceLine" id="cb29-28" title="28">con &lt;-<span class="st"> </span><span class="kw">dbConnect</span>(<span class="kw">SQLite</span>(),<span class="dt">dbname=</span><span class="st">&quot;Prac1_data/Rwk1.gpkg&quot;</span>)</a>
+<a class="sourceLine" id="cb29-29" title="29"><span class="co"># list what is in it</span></a>
+<a class="sourceLine" id="cb29-30" title="30">con <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb29-31" title="31"><span class="st">  </span><span class="kw">dbListTables</span>()</a>
+<a class="sourceLine" id="cb29-32" title="32"><span class="co"># add the original .csv</span></a>
+<a class="sourceLine" id="cb29-33" title="33">con <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb29-34" title="34"><span class="st">  </span><span class="kw">dbWriteTable</span>(.,</a>
+<a class="sourceLine" id="cb29-35" title="35">               <span class="st">&quot;original_csv&quot;</span>,</a>
+<a class="sourceLine" id="cb29-36" title="36">               mycsv,</a>
+<a class="sourceLine" id="cb29-37" title="37">               <span class="dt">overwrite=</span><span class="ot">TRUE</span>)</a>
+<a class="sourceLine" id="cb29-38" title="38"><span class="co"># disconnect from it</span></a>
+<a class="sourceLine" id="cb29-39" title="39">con <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb29-40" title="40"><span class="st">  </span><span class="kw">dbDisconnect</span>()</a></code></pre></div>
+<p>You can then save your script through File &gt; Save As.</p>
+<p>If you are on a Mac you might also need to load <code>rgdal</code>…just add the following at the top of the script.</p>
+<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb30-1" title="1"><span class="kw">library</span>(rgdal)</a></code></pre></div>
+</div>
+</div>
+<div id="what-will-i-use-1" class="section level3">
+<h3><span class="header-section-number">1.6.7</span> What will I use</h3>
+<p>Well… it depends. If you wanted to quickly open a dataset to explore its contents then I’d use QGIS. However, if you had 100 raster images that you wanted to clip to your study area, I’d automate it in R. There are also specific packages developed for each type of software that might dictate what you use, for example I recently made use of the Urban Multi-scale Environmental Predictor (UMEP) plugin in QGIS. That said, as I needed to match different hourly meteorological variables over a three year period I automated the first part of the analysis in R and loaded a <code>.csv</code> into QGIS. Recent advancments have also closed the gap somewhat between Graphic User Interface (GUI) GIS software (such as QGIS) and programming languages (such as R) with ‘bridges’ that allow you to control GUI software through code. To learn more about these bridges read <a href="https://geocompr.robinlovelace.net/gis.html#introduction-6">Lovelace et al. (2019) chapter 9</a>.</p>
+</div>
+</div>
+<div id="data-sources-and-task" class="section level2">
+<h2><span class="header-section-number">1.7</span> Data sources and task</h2>
+<p>Below I’ve listed a few good data sources. Explore these and any others you can find and get an interesting dataset (e.g. in this practical our flytipping <code>.csv</code>) that you could join to some spatial data (e.g. in this practical the London boroughs <code>.shp</code>). This could be for any location in the world.</p>
+<div id="uk-data-service" class="section level3">
+<h3><span class="header-section-number">1.7.1</span> UK Data Service</h3>
+<p>The UK Data Service geography service (<a href="https://census.edina.ac.uk/" class="uri">https://census.edina.ac.uk/</a>) has a library of hundreds of current and former boundary datasets for which attribute data are produced in the UK.</p>
+</div>
+<div id="ons" class="section level3">
+<h3><span class="header-section-number">1.7.2</span> ONS</h3>
+<p>The Office for National Statistics (ONS) are the national statistical agency for England and Wales and have recently started to provide access to boundary data for the statistics they produce for various geographic areas.</p>
+<p>Many of the boundaries on the <a href="http://geoportal.statistics.gov.uk/">ONS Geoportal</a> are also available from the Edina Census Geography website in a more flexible fashion, however the ONS website provides very quick access to bulk-downloads — something which can be very useful when reading data directly from the web using computer software. From the ONS website you can also extract the URL at which the data is stored to use directly within your future code…</p>
+</div>
+<div id="nomis" class="section level3">
+<h3><span class="header-section-number">1.7.3</span> nomis</h3>
+<p>Nomis is provided by the ONS giving free access to UK labour market statistics. You can also <a href="https://www.nomisweb.co.uk/census/2011/bulk/r2_2">bulk download census data</a> from the site too!</p>
+</div>
+<div id="os" class="section level3">
+<h3><span class="header-section-number">1.7.4</span> OS</h3>
+<p>The Ordnance Survey (OS) are the national mapping agency for the UK. A few years ago, they opened up a number of their data products for public use including greenspace, OS Open Map and OS Terrain.</p>
+<p>For the full range see: <a href="https://www.ordnancesurvey.co.uk/business-and-government/products/finder.html?Licensed%20for=OpenData%20(Free)&amp;withdrawn=on" class="uri">https://www.ordnancesurvey.co.uk/business-and-government/products/finder.html?Licensed%20for=OpenData%20(Free)&amp;withdrawn=on</a></p>
+</div>
+<div id="edina-digimap" class="section level3">
+<h3><span class="header-section-number">1.7.5</span> Edina Digimap</h3>
+<p>Before the Ordnance Survey opened up much of its data for public use, academics and students in the UK could access OS data using the Edina Digimap Service –– this service is still available today and provides access to a number of products in addition to those available from OS Open Data.</p>
+<p>Perhaps the most exciting of the additional OS data products available from Digimap is OS MasterMap. MasterMap is a framework for all OS data and contains layers of data that include details of real world objects such as buildings, roads, paths, rivers, physical structures and land parcels, as well as the complete UK transport network. Whilst we still are required to go through Edina OS have recently announced plans to make this dataset free in the near future under the new Geospatial Commission.</p>
+<p><img src="prac1_images/mastermap.png" width="500pt" style="display: block; margin: auto;" /></p>
+</div>
+<div id="osm" class="section level3">
+<h3><span class="header-section-number">1.7.6</span> OSM</h3>
+<p>Open Street Map (OSM) is a fantastic resource –– as the name suggests, all data contained in Open Street Map are open and free for anyone to use. Much like Wikipedia, anyone can contribute content to OSM and this brings with it its own benefits (frequent updates, very large user-base) and problems (data quality and patch coverage). OSM is a very good example of Volunteered Geographic Information (VGI).</p>
+<p>It’s possible to download OSM data straight from the website, although the interface can be a little unreliable (it works better for small areas). There are, however, a number of websites that allow OSM data to be downloaded more easily and are directly linked to from the ‘Export’ option in OSM. Geofabrik (<a href="https://www.geofabrik.de/data/download.html" class="uri">https://www.geofabrik.de/data/download.html</a>) allows you to download frequently updated Shapefiles for various global subdivisions.</p>
+</div>
+<div id="defra" class="section level3">
+<h3><span class="header-section-number">1.7.7</span> DEFRA</h3>
+<p>The Department for Environment and Rural Affairs (DEFRA) have recently created the Data Services Platform to openly distribute environmental data. See: <a href="https://environment.data.gov.uk/" class="uri">https://environment.data.gov.uk/</a></p>
+</div>
+<div id="data-lists" class="section level3">
+<h3><span class="header-section-number">1.7.8</span> Data lists</h3>
+<p>Another good place to start searching for data are data lists. They simply provide a comprehensive overview of all available data conveniently categorised by discipline and country.</p>
+<p>I normally use this one: <a href="https://freegisdata.rtwilson.com/" class="uri">https://freegisdata.rtwilson.com/</a></p>
+</div>
+</div>
+<div id="summary" class="section level2">
+<h2><span class="header-section-number">1.8</span> Summary</h2>
+<p>Within this practical we have explored the different types, formats and software used to store, analyse and manipulate spatial data. In reflecting upon this practical you should consider the (dis)advantages of each, where and when they might be appropriate and the overall practicality. Next week we will delve further into R and RStudio.</p>
+</div>
+<div id="feedback" class="section level2">
+<h2><span class="header-section-number">1.9</span> Feedback</h2>
+<p>Was anything that we explained unclear this week or was something really clear…let us know using the <a href="https://forms.gle/w2GUDYc7tSavGy7r6">feedback form</a>. It’s anonymous and we’ll use the responses to clear any issues up in the future / adapt the material.</p>
+</div>
+<div id="mac-r-issues" class="section level2">
+<h2><span class="header-section-number">1.10</span> Mac R issues</h2>
+<p>If you have a Mac and run into issues using R, try this…</p>
+<p>It seems that a lot of the packages are dependent on rgdal, which might not properly install…</p>
+<p><strong>Order of operations</strong></p>
+<ol style="list-style-type: decimal">
+<li><p>Install java JDK (to respond to error Unable to find any JVMs matching version “(null)”, which occurred when we tried to load <code>OpenStreetMap</code> package in RStudio)</p></li>
+<li><p>Download and install the appropriate <code>.dmg</code> from <a href="https://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html">Java SE Development Kit 11.0.1</a></p></li>
+<li><p>Run sudo R CMD javareconf in Terminal as described <a href="http://conjugateprior.org/2014/12/r-java8-osx/">here</a>(though don’t follow this tutorial exactly, just up to that terminal command).</p></li>
+<li><p>(Maybe) restart your computer (not really sure when this is necessary).</p></li>
+</ol>
+<p><strong>Install GDAL</strong></p>
+<p>GDAL, the Geospatial Data Abstraction Library, appears to be a massively important package / library / whatever that a lot of the spatial tools we use depends on. This is where things might be sticky — we already installed GDAL for QGIS, but obviously RStudio can’t find that install … dunno how to update the pointers, but we found that installing GDAL (again?) solved it. We HOPE that this didn’t ruin or break any other software we’ve installed, only time will tell :grimacing:</p>
+<ol style="list-style-type: decimal">
+<li>To install GDAL on a mac, first (if you haven’t) install <a href="https://brew.sh/">homebrew</a>, the mac package manager</li>
+</ol>
+<p>This can be done by executing <code>/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"</code> in Terminal, inputting password etc.</p>
+<ol style="list-style-type: decimal">
+<li>Now we’re ready to brew install gdal (also in Terminal), which will run through and install a massive list of dependencies etc.</li>
+</ol>
+<p><strong>Set up RStudio</strong></p>
+<ol style="list-style-type: decimal">
+<li><p>Restart RStudio (if the following doesn’t work on first go…)</p></li>
+<li><p>Run through all the <code>install.packages()</code> commands one by one in RStudio and check to make sure that they install.</p></li>
+<li><p>Check if <code>rgdal</code> package is working.</p></li>
+<li><p>Check the other packages <code>OpenStreetMap</code>, <code>tmap</code>, etc.</p></li>
+</ol>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="external-usage.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="introduction-to-r.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": true,
+"facebook": false,
+"twitter": false,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": false
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/andrewmaclachlan/CASA0005repo/edit/master/01-prac1.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": null,
+"toc": {
+"collapse": "section",
+"scroll_highlight": true
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

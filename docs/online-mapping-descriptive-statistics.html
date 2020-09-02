@@ -1,0 +1,1310 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 8 Online mapping / descriptive statistics | CASA0005 Geographic Information Systems and Science</title>
+  <meta name="description" content="The CASA0005 Geographic Information Systems and Science practical book" />
+  <meta name="generator" content="bookdown 0.20.2 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 8 Online mapping / descriptive statistics | CASA0005 Geographic Information Systems and Science" />
+  <meta property="og:type" content="book" />
+  <meta property="og:url" content="https://andrewmaclachlan.github.io/CASA0005repo/" />
+  <meta property="og:image" content="https://andrewmaclachlan.github.io/CASA0005repo/general_images/casa_logo.png" />
+  <meta property="og:description" content="The CASA0005 Geographic Information Systems and Science practical book" />
+  <meta name="github-repo" content="andrewmaclachlan/CASA0005repo" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 8 Online mapping / descriptive statistics | CASA0005 Geographic Information Systems and Science" />
+  
+  <meta name="twitter:description" content="The CASA0005 Geographic Information Systems and Science practical book" />
+  <meta name="twitter:image" content="https://andrewmaclachlan.github.io/CASA0005repo/general_images/casa_logo.png" />
+
+<meta name="author" content="Andy MacLachlan and Adam Dennett" />
+
+
+<meta name="date" content="2020-09-02" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  <link rel="apple-touch-icon-precomposed" sizes="120x120" href="assets/apple-touch-icon.png" />
+  <link rel="shortcut icon" href="assets/favicon.ico" type="image/x-icon" />
+<link rel="prev" href="advanced-raster-analysis.html"/>
+<link rel="next" href="gwr-and-spatially-lagged-regression.html"/>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<link href="libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
+<link href="libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
+<script src="libs/htmlwidgets-1.5.1/htmlwidgets.js"></script>
+<link href="libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet" />
+<script src="libs/datatables-binding-0.14/datatables.js"></script>
+<link href="libs/dt-core-1.10.20/css/jquery.dataTables.min.css" rel="stylesheet" />
+<link href="libs/dt-core-1.10.20/css/jquery.dataTables.extra.css" rel="stylesheet" />
+<script src="libs/dt-core-1.10.20/js/jquery.dataTables.min.js"></script>
+<link href="libs/nouislider-7.0.10/jquery.nouislider.min.css" rel="stylesheet" />
+<script src="libs/nouislider-7.0.10/jquery.nouislider.min.js"></script>
+<link href="libs/selectize-0.12.0/selectize.bootstrap3.css" rel="stylesheet" />
+<script src="libs/selectize-0.12.0/selectize.min.js"></script>
+<link href="libs/crosstalk-1.1.0.1/css/crosstalk.css" rel="stylesheet" />
+<script src="libs/crosstalk-1.1.0.1/js/crosstalk.min.js"></script>
+<script src="libs/plotly-binding-4.9.2.1/plotly.js"></script>
+<script src="libs/typedarray-0.1/typedarray.min.js"></script>
+<link href="libs/plotly-htmlwidgets-css-1.52.2/plotly-htmlwidgets.css" rel="stylesheet" />
+<script src="libs/plotly-main-1.52.2/plotly-latest.min.js"></script>
+<link href="libs/leaflet-1.3.1/leaflet.css" rel="stylesheet" />
+<script src="libs/leaflet-1.3.1/leaflet.js"></script>
+<link href="libs/leafletfix-1.0.0/leafletfix.css" rel="stylesheet" />
+<script src="libs/Proj4Leaflet-1.0.1/proj4-compressed.js"></script>
+<script src="libs/Proj4Leaflet-1.0.1/proj4leaflet.js"></script>
+<link href="libs/rstudio_leaflet-1.3.1/rstudio_leaflet.css" rel="stylesheet" />
+<script src="libs/leaflet-binding-2.0.3/leaflet.js"></script>
+<script src="libs/leaflet-providers-1.9.0/leaflet-providers_1.9.0.js"></script>
+<script src="libs/leaflet-providers-plugin-2.0.3/leaflet-providers-plugin.js"></script>
+<script src="libs/clipboard-0.0.1/setClipboardText.js"></script>
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-151934476-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-151934476-1');
+</script>
+<script src="assets/book.js"></script>
+
+
+<style type="text/css">
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(title);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  { background-color: #f8f8f8; }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ef2929; } /* Alert */
+code span.an { color: #8f5902; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #c4a000; } /* Attribute */
+code span.bn { color: #0000cf; } /* BaseN */
+code span.cf { color: #204a87; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4e9a06; } /* Char */
+code span.cn { color: #000000; } /* Constant */
+code span.co { color: #8f5902; font-style: italic; } /* Comment */
+code span.cv { color: #8f5902; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #8f5902; font-weight: bold; font-style: italic; } /* Documentation */
+code span.dt { color: #204a87; } /* DataType */
+code span.dv { color: #0000cf; } /* DecVal */
+code span.er { color: #a40000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #0000cf; } /* Float */
+code span.fu { color: #000000; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #204a87; font-weight: bold; } /* Keyword */
+code span.op { color: #ce5c00; font-weight: bold; } /* Operator */
+code span.ot { color: #8f5902; } /* Other */
+code span.pp { color: #8f5902; font-style: italic; } /* Preprocessor */
+code span.sc { color: #000000; } /* SpecialChar */
+code span.ss { color: #4e9a06; } /* SpecialString */
+code span.st { color: #4e9a06; } /* String */
+code span.va { color: #000000; } /* Variable */
+code span.vs { color: #4e9a06; } /* VerbatimString */
+code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<link rel="stylesheet" href="assets\style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="toc-logo"><a href="https://www.ucl.ac.uk/module-catalogue/modules/geographic-information-systems-and-science-CASA0005"><img src="general_images/casa_logo.jpg"></a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Welcome</a><ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#acknowledgement"><i class="fa fa-check"></i>Acknowledgement</a></li>
+</ul></li>
+<li class="part"><span><b>Course information</b></span></li>
+<li class="chapter" data-level="" data-path="hello-gis.html"><a href="hello-gis.html"><i class="fa fa-check"></i>Hello GIS</a><ul>
+<li class="chapter" data-level="" data-path="hello-gis.html"><a href="hello-gis.html#intended-course-learning-outcomes"><i class="fa fa-check"></i>Intended course learning outcomes</a></li>
+<li class="chapter" data-level="" data-path="hello-gis.html"><a href="hello-gis.html#how-to-use-this-book"><i class="fa fa-check"></i>How to use this book</a></li>
+<li class="chapter" data-level="" data-path="hello-gis.html"><a href="hello-gis.html#getting-started"><i class="fa fa-check"></i>Getting started</a></li>
+<li class="chapter" data-level="" data-path="hello-gis.html"><a href="hello-gis.html#how-to-download-data-and-files-from-github"><i class="fa fa-check"></i>How to download data and files from GitHub</a><ul>
+<li class="chapter" data-level="" data-path="hello-gis.html"><a href="hello-gis.html#option-1"><i class="fa fa-check"></i>Option 1</a></li>
+<li class="chapter" data-level="" data-path="hello-gis.html"><a href="hello-gis.html#option-2"><i class="fa fa-check"></i>Option 2</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="hello-gis.html"><a href="hello-gis.html#self-guided-learning"><i class="fa fa-check"></i>Self guided learning</a></li>
+<li class="chapter" data-level="" data-path="hello-gis.html"><a href="hello-gis.html#interactive-lectures"><i class="fa fa-check"></i>Interactive lectures</a></li>
+<li class="chapter" data-level="" data-path="hello-gis.html"><a href="hello-gis.html#more-help"><i class="fa fa-check"></i>More help</a></li>
+<li class="chapter" data-level="" data-path="hello-gis.html"><a href="hello-gis.html#noticed-a-mistake"><i class="fa fa-check"></i>Noticed a mistake?</a></li>
+<li class="chapter" data-level="" data-path="hello-gis.html"><a href="hello-gis.html#assignment-resources"><i class="fa fa-check"></i>Assignment resources</a></li>
+<li class="chapter" data-level="" data-path="hello-gis.html"><a href="hello-gis.html#reading-list"><i class="fa fa-check"></i>Reading list</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="software-installation.html"><a href="software-installation.html"><i class="fa fa-check"></i>Software installation</a><ul>
+<li class="chapter" data-level="" data-path="software-installation.html"><a href="software-installation.html#qgis"><i class="fa fa-check"></i>QGIS</a></li>
+<li class="chapter" data-level="" data-path="software-installation.html"><a href="software-installation.html#r"><i class="fa fa-check"></i>R</a><ul>
+<li class="chapter" data-level="" data-path="software-installation.html"><a href="software-installation.html#setup-1"><i class="fa fa-check"></i>Setup 1</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="software-installation.html"><a href="software-installation.html#arcgis"><i class="fa fa-check"></i>ArcGIS</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="external-usage.html"><a href="external-usage.html"><i class="fa fa-check"></i>External usage</a><ul>
+<li class="chapter" data-level="" data-path="external-usage.html"><a href="external-usage.html#how-to-adopt-this-course"><i class="fa fa-check"></i>How to adopt this course</a></li>
+<li class="chapter" data-level="" data-path="external-usage.html"><a href="external-usage.html#issues-contributions"><i class="fa fa-check"></i>Issues / contributions</a></li>
+<li class="chapter" data-level="" data-path="external-usage.html"><a href="external-usage.html#license"><i class="fa fa-check"></i>License</a></li>
+<li class="chapter" data-level="" data-path="external-usage.html"><a href="external-usage.html#version"><i class="fa fa-check"></i>Version</a></li>
+<li class="chapter" data-level="" data-path="external-usage.html"><a href="external-usage.html#packages"><i class="fa fa-check"></i>Packages</a></li>
+</ul></li>
+<li class="part"><span><b>I GIS tools</b></span></li>
+<li class="chapter" data-level="1" data-path="geographic-information.html"><a href="geographic-information.html"><i class="fa fa-check"></i><b>1</b> Geographic Information</a><ul>
+<li class="chapter" data-level="1.1" data-path="geographic-information.html"><a href="geographic-information.html#learning-outcomes"><i class="fa fa-check"></i><b>1.1</b> Learning outcomes</a></li>
+<li class="chapter" data-level="1.2" data-path="geographic-information.html"><a href="geographic-information.html#homework"><i class="fa fa-check"></i><b>1.2</b> Homework</a></li>
+<li class="chapter" data-level="1.3" data-path="geographic-information.html"><a href="geographic-information.html#recommended-listening"><i class="fa fa-check"></i><b>1.3</b> Recommended listening 🎧</a></li>
+<li class="chapter" data-level="1.4" data-path="geographic-information.html"><a href="geographic-information.html#the-basics-of-geographic-information"><i class="fa fa-check"></i><b>1.4</b> The Basics of Geographic Information</a><ul>
+<li class="chapter" data-level="1.4.1" data-path="geographic-information.html"><a href="geographic-information.html#data-types-in-statistics"><i class="fa fa-check"></i><b>1.4.1</b> Data types in statistics</a></li>
+<li class="chapter" data-level="1.4.2" data-path="geographic-information.html"><a href="geographic-information.html#important-gis-data-formats"><i class="fa fa-check"></i><b>1.4.2</b> Important GIS data formats</a></li>
+</ul></li>
+<li class="chapter" data-level="1.5" data-path="geographic-information.html"><a href="geographic-information.html#general-data-flow"><i class="fa fa-check"></i><b>1.5</b> General data flow</a></li>
+<li class="chapter" data-level="1.6" data-path="geographic-information.html"><a href="geographic-information.html#data"><i class="fa fa-check"></i><b>1.6</b> Data</a><ul>
+<li class="chapter" data-level="1.6.1" data-path="geographic-information.html"><a href="geographic-information.html#file-paths"><i class="fa fa-check"></i><b>1.6.1</b> File paths</a></li>
+<li class="chapter" data-level="1.6.2" data-path="geographic-information.html"><a href="geographic-information.html#data-download"><i class="fa fa-check"></i><b>1.6.2</b> Data download</a></li>
+<li class="chapter" data-level="1.6.3" data-path="geographic-information.html"><a href="geographic-information.html#data-pre-processing"><i class="fa fa-check"></i><b>1.6.3</b> Data pre-processing</a></li>
+<li class="chapter" data-level="1.6.4" data-path="geographic-information.html"><a href="geographic-information.html#qgis-1"><i class="fa fa-check"></i><b>1.6.4</b> QGIS</a></li>
+<li class="chapter" data-level="1.6.5" data-path="geographic-information.html"><a href="geographic-information.html#r-1"><i class="fa fa-check"></i><b>1.6.5</b> R</a></li>
+<li class="chapter" data-level="1.6.6" data-path="geographic-information.html"><a href="geographic-information.html#export-data-1"><i class="fa fa-check"></i><b>1.6.6</b> Export data</a></li>
+<li class="chapter" data-level="1.6.7" data-path="geographic-information.html"><a href="geographic-information.html#what-will-i-use-1"><i class="fa fa-check"></i><b>1.6.7</b> What will I use</a></li>
+</ul></li>
+<li class="chapter" data-level="1.7" data-path="geographic-information.html"><a href="geographic-information.html#data-sources-and-task"><i class="fa fa-check"></i><b>1.7</b> Data sources and task</a><ul>
+<li class="chapter" data-level="1.7.1" data-path="geographic-information.html"><a href="geographic-information.html#uk-data-service"><i class="fa fa-check"></i><b>1.7.1</b> UK Data Service</a></li>
+<li class="chapter" data-level="1.7.2" data-path="geographic-information.html"><a href="geographic-information.html#ons"><i class="fa fa-check"></i><b>1.7.2</b> ONS</a></li>
+<li class="chapter" data-level="1.7.3" data-path="geographic-information.html"><a href="geographic-information.html#nomis"><i class="fa fa-check"></i><b>1.7.3</b> nomis</a></li>
+<li class="chapter" data-level="1.7.4" data-path="geographic-information.html"><a href="geographic-information.html#os"><i class="fa fa-check"></i><b>1.7.4</b> OS</a></li>
+<li class="chapter" data-level="1.7.5" data-path="geographic-information.html"><a href="geographic-information.html#edina-digimap"><i class="fa fa-check"></i><b>1.7.5</b> Edina Digimap</a></li>
+<li class="chapter" data-level="1.7.6" data-path="geographic-information.html"><a href="geographic-information.html#osm"><i class="fa fa-check"></i><b>1.7.6</b> OSM</a></li>
+<li class="chapter" data-level="1.7.7" data-path="geographic-information.html"><a href="geographic-information.html#defra"><i class="fa fa-check"></i><b>1.7.7</b> DEFRA</a></li>
+<li class="chapter" data-level="1.7.8" data-path="geographic-information.html"><a href="geographic-information.html#data-lists"><i class="fa fa-check"></i><b>1.7.8</b> Data lists</a></li>
+</ul></li>
+<li class="chapter" data-level="1.8" data-path="geographic-information.html"><a href="geographic-information.html#summary"><i class="fa fa-check"></i><b>1.8</b> Summary</a></li>
+<li class="chapter" data-level="1.9" data-path="geographic-information.html"><a href="geographic-information.html#feedback"><i class="fa fa-check"></i><b>1.9</b> Feedback</a></li>
+<li class="chapter" data-level="1.10" data-path="geographic-information.html"><a href="geographic-information.html#mac-r-issues"><i class="fa fa-check"></i><b>1.10</b> Mac R issues</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="introduction-to-r.html"><a href="introduction-to-r.html"><i class="fa fa-check"></i><b>2</b> Introduction to R</a><ul>
+<li class="chapter" data-level="2.1" data-path="introduction-to-r.html"><a href="introduction-to-r.html#learning-outcomes-1"><i class="fa fa-check"></i><b>2.1</b> Learning outcomes</a></li>
+<li class="chapter" data-level="2.2" data-path="introduction-to-r.html"><a href="introduction-to-r.html#homework-1"><i class="fa fa-check"></i><b>2.2</b> Homework</a></li>
+<li class="chapter" data-level="2.3" data-path="introduction-to-r.html"><a href="introduction-to-r.html#recommended-listening-1"><i class="fa fa-check"></i><b>2.3</b> Recommended listening 🎧</a></li>
+<li class="chapter" data-level="2.4" data-path="introduction-to-r.html"><a href="introduction-to-r.html#introduction-1"><i class="fa fa-check"></i><b>2.4</b> Introduction</a><ul>
+<li class="chapter" data-level="2.4.1" data-path="introduction-to-r.html"><a href="introduction-to-r.html#online-forums-are-your-friend"><i class="fa fa-check"></i><b>2.4.1</b> Online forums are your friend!!</a></li>
+<li class="chapter" data-level="2.4.2" data-path="introduction-to-r.html"><a href="introduction-to-r.html#health-warning"><i class="fa fa-check"></i><b>2.4.2</b> Health warning</a></li>
+<li class="chapter" data-level="2.4.3" data-path="introduction-to-r.html"><a href="introduction-to-r.html#r-and-rstudio"><i class="fa fa-check"></i><b>2.4.3</b> R and RStudio</a></li>
+<li class="chapter" data-level="2.4.4" data-path="introduction-to-r.html"><a href="introduction-to-r.html#getting-started-1"><i class="fa fa-check"></i><b>2.4.4</b> Getting started</a></li>
+<li class="chapter" data-level="2.4.5" data-path="introduction-to-r.html"><a href="introduction-to-r.html#basics"><i class="fa fa-check"></i><b>2.4.5</b> Basics</a></li>
+<li class="chapter" data-level="2.4.6" data-path="introduction-to-r.html"><a href="introduction-to-r.html#scripts-and-some-basic-commands"><i class="fa fa-check"></i><b>2.4.6</b> Scripts and some basic commands</a></li>
+<li class="chapter" data-level="2.4.7" data-path="introduction-to-r.html"><a href="introduction-to-r.html#functions"><i class="fa fa-check"></i><b>2.4.7</b> Functions</a></li>
+<li class="chapter" data-level="2.4.8" data-path="introduction-to-r.html"><a href="introduction-to-r.html#basic-plotting"><i class="fa fa-check"></i><b>2.4.8</b> Basic plotting</a></li>
+<li class="chapter" data-level="2.4.9" data-path="introduction-to-r.html"><a href="introduction-to-r.html#help"><i class="fa fa-check"></i><b>2.4.9</b> Help</a></li>
+<li class="chapter" data-level="2.4.10" data-path="introduction-to-r.html"><a href="introduction-to-r.html#data-structures"><i class="fa fa-check"></i><b>2.4.10</b> Data structures</a></li>
+<li class="chapter" data-level="2.4.11" data-path="introduction-to-r.html"><a href="introduction-to-r.html#elements-of-a-data-frame"><i class="fa fa-check"></i><b>2.4.11</b> Elements of a data frame</a></li>
+</ul></li>
+<li class="chapter" data-level="2.5" data-path="introduction-to-r.html"><a href="introduction-to-r.html#reading-data-into-r"><i class="fa fa-check"></i><b>2.5</b> Reading data into R</a><ul>
+<li class="chapter" data-level="2.5.1" data-path="introduction-to-r.html"><a href="introduction-to-r.html#old-skool-cleaning"><i class="fa fa-check"></i><b>2.5.1</b> Old skool cleaning</a></li>
+<li class="chapter" data-level="2.5.2" data-path="introduction-to-r.html"><a href="introduction-to-r.html#here"><i class="fa fa-check"></i><b>2.5.2</b> Here</a></li>
+<li class="chapter" data-level="2.5.3" data-path="introduction-to-r.html"><a href="introduction-to-r.html#new-skool-cleaning"><i class="fa fa-check"></i><b>2.5.3</b> New skool cleaning</a></li>
+<li class="chapter" data-level="2.5.4" data-path="introduction-to-r.html"><a href="introduction-to-r.html#examining-your-new-data"><i class="fa fa-check"></i><b>2.5.4</b> Examining your new data</a></li>
+<li class="chapter" data-level="2.5.5" data-path="introduction-to-r.html"><a href="introduction-to-r.html#data-manipulation-in-r"><i class="fa fa-check"></i><b>2.5.5</b> Data manipulation in R</a></li>
+<li class="chapter" data-level="2.5.6" data-path="introduction-to-r.html"><a href="introduction-to-r.html#plotting"><i class="fa fa-check"></i><b>2.5.6</b> Plotting</a></li>
+<li class="chapter" data-level="2.5.7" data-path="introduction-to-r.html"><a href="introduction-to-r.html#pimp-my-graph"><i class="fa fa-check"></i><b>2.5.7</b> Pimp my graph!</a></li>
+<li class="chapter" data-level="2.5.8" data-path="introduction-to-r.html"><a href="introduction-to-r.html#spatial-data-in-r"><i class="fa fa-check"></i><b>2.5.8</b> Spatial Data in R</a></li>
+<li class="chapter" data-level="2.5.9" data-path="introduction-to-r.html"><a href="introduction-to-r.html#simple-mapping"><i class="fa fa-check"></i><b>2.5.9</b> Simple mapping</a></li>
+</ul></li>
+<li class="chapter" data-level="2.6" data-path="introduction-to-r.html"><a href="introduction-to-r.html#tidying-data"><i class="fa fa-check"></i><b>2.6</b> Tidying data</a></li>
+<li class="chapter" data-level="2.7" data-path="introduction-to-r.html"><a href="introduction-to-r.html#feedback-1"><i class="fa fa-check"></i><b>2.7</b> Feedback</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="rasters-descriptive-statistics-and-interpolation.html"><a href="rasters-descriptive-statistics-and-interpolation.html"><i class="fa fa-check"></i><b>3</b> Rasters, descriptive statistics and interpolation</a><ul>
+<li class="chapter" data-level="3.1" data-path="rasters-descriptive-statistics-and-interpolation.html"><a href="rasters-descriptive-statistics-and-interpolation.html#learning-outcomes-2"><i class="fa fa-check"></i><b>3.1</b> Learning outcomes</a></li>
+<li class="chapter" data-level="3.2" data-path="rasters-descriptive-statistics-and-interpolation.html"><a href="rasters-descriptive-statistics-and-interpolation.html#homework-2"><i class="fa fa-check"></i><b>3.2</b> Homework</a></li>
+<li class="chapter" data-level="3.3" data-path="rasters-descriptive-statistics-and-interpolation.html"><a href="rasters-descriptive-statistics-and-interpolation.html#recommended-listening-2"><i class="fa fa-check"></i><b>3.3</b> Recommended listening 🎧</a></li>
+<li class="chapter" data-level="3.4" data-path="rasters-descriptive-statistics-and-interpolation.html"><a href="rasters-descriptive-statistics-and-interpolation.html#introduction-2"><i class="fa fa-check"></i><b>3.4</b> Introduction</a></li>
+<li class="chapter" data-level="3.5" data-path="rasters-descriptive-statistics-and-interpolation.html"><a href="rasters-descriptive-statistics-and-interpolation.html#part-1-projections"><i class="fa fa-check"></i><b>3.5</b> Part 1 projections</a><ul>
+<li class="chapter" data-level="3.5.1" data-path="rasters-descriptive-statistics-and-interpolation.html"><a href="rasters-descriptive-statistics-and-interpolation.html#changing-projections"><i class="fa fa-check"></i><b>3.5.1</b> Changing projections</a></li>
+<li class="chapter" data-level="3.5.2" data-path="rasters-descriptive-statistics-and-interpolation.html"><a href="rasters-descriptive-statistics-and-interpolation.html#worldclim-data"><i class="fa fa-check"></i><b>3.5.2</b> WorldClim data</a></li>
+<li class="chapter" data-level="3.5.3" data-path="rasters-descriptive-statistics-and-interpolation.html"><a href="rasters-descriptive-statistics-and-interpolation.html#worldclim-data-loading-efficiently"><i class="fa fa-check"></i><b>3.5.3</b> WorldClim data loading efficiently</a></li>
+<li class="chapter" data-level="3.5.4" data-path="rasters-descriptive-statistics-and-interpolation.html"><a href="rasters-descriptive-statistics-and-interpolation.html#location-data-from-a-raster"><i class="fa fa-check"></i><b>3.5.4</b> Location data from a raster</a></li>
+</ul></li>
+<li class="chapter" data-level="3.6" data-path="rasters-descriptive-statistics-and-interpolation.html"><a href="rasters-descriptive-statistics-and-interpolation.html#part-2-descriptive-statistics"><i class="fa fa-check"></i><b>3.6</b> Part 2 descriptive statistics</a><ul>
+<li class="chapter" data-level="3.6.1" data-path="rasters-descriptive-statistics-and-interpolation.html"><a href="rasters-descriptive-statistics-and-interpolation.html#data-preparation"><i class="fa fa-check"></i><b>3.6.1</b> Data preparation</a></li>
+<li class="chapter" data-level="3.6.2" data-path="rasters-descriptive-statistics-and-interpolation.html"><a href="rasters-descriptive-statistics-and-interpolation.html#histogram"><i class="fa fa-check"></i><b>3.6.2</b> Histogram</a></li>
+<li class="chapter" data-level="3.6.3" data-path="rasters-descriptive-statistics-and-interpolation.html"><a href="rasters-descriptive-statistics-and-interpolation.html#using-more-data"><i class="fa fa-check"></i><b>3.6.3</b> Using more data</a></li>
+<li class="chapter" data-level="3.6.4" data-path="rasters-descriptive-statistics-and-interpolation.html"><a href="rasters-descriptive-statistics-and-interpolation.html#histogram-with-ggplot"><i class="fa fa-check"></i><b>3.6.4</b> Histogram with ggplot</a></li>
+</ul></li>
+<li class="chapter" data-level="3.7" data-path="rasters-descriptive-statistics-and-interpolation.html"><a href="rasters-descriptive-statistics-and-interpolation.html#part-3-interpolation"><i class="fa fa-check"></i><b>3.7</b> Part 3 interpolation</a></li>
+<li class="chapter" data-level="3.8" data-path="rasters-descriptive-statistics-and-interpolation.html"><a href="rasters-descriptive-statistics-and-interpolation.html#auto-data-download"><i class="fa fa-check"></i><b>3.8</b> Auto data download</a></li>
+<li class="chapter" data-level="3.9" data-path="rasters-descriptive-statistics-and-interpolation.html"><a href="rasters-descriptive-statistics-and-interpolation.html#advanced-analysis"><i class="fa fa-check"></i><b>3.9</b> Advanced analysis</a></li>
+<li class="chapter" data-level="3.10" data-path="rasters-descriptive-statistics-and-interpolation.html"><a href="rasters-descriptive-statistics-and-interpolation.html#feedback-2"><i class="fa fa-check"></i><b>3.10</b> Feedback</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="git-github-and-rmarkdown.html"><a href="git-github-and-rmarkdown.html"><i class="fa fa-check"></i><b>4</b> Git, GitHub and RMarkdown</a><ul>
+<li class="chapter" data-level="4.1" data-path="git-github-and-rmarkdown.html"><a href="git-github-and-rmarkdown.html#learning-outcomes-3"><i class="fa fa-check"></i><b>4.1</b> Learning outcomes</a></li>
+<li class="chapter" data-level="4.2" data-path="git-github-and-rmarkdown.html"><a href="git-github-and-rmarkdown.html#homework-3"><i class="fa fa-check"></i><b>4.2</b> Homework</a></li>
+<li class="chapter" data-level="4.3" data-path="git-github-and-rmarkdown.html"><a href="git-github-and-rmarkdown.html#recommended-listening-3"><i class="fa fa-check"></i><b>4.3</b> Recommended listening 🎧</a></li>
+<li class="chapter" data-level="4.4" data-path="git-github-and-rmarkdown.html"><a href="git-github-and-rmarkdown.html#introduction-3"><i class="fa fa-check"></i><b>4.4</b> Introduction</a></li>
+<li class="chapter" data-level="4.5" data-path="git-github-and-rmarkdown.html"><a href="git-github-and-rmarkdown.html#git-and-github"><i class="fa fa-check"></i><b>4.5</b> Git and GitHub</a><ul>
+<li class="chapter" data-level="4.5.1" data-path="git-github-and-rmarkdown.html"><a href="git-github-and-rmarkdown.html#the-three-ways"><i class="fa fa-check"></i><b>4.5.1</b> The three ways</a></li>
+<li class="chapter" data-level="4.5.2" data-path="git-github-and-rmarkdown.html"><a href="git-github-and-rmarkdown.html#set-up-your-github"><i class="fa fa-check"></i><b>4.5.2</b> Set up your GitHub</a></li>
+<li class="chapter" data-level="4.5.3" data-path="git-github-and-rmarkdown.html"><a href="git-github-and-rmarkdown.html#using-rstudio-with-git"><i class="fa fa-check"></i><b>4.5.3</b> Using RStudio with Git</a></li>
+<li class="chapter" data-level="4.5.4" data-path="git-github-and-rmarkdown.html"><a href="git-github-and-rmarkdown.html#using-the-git-gui---way-1"><i class="fa fa-check"></i><b>4.5.4</b> Using the Git GUI - way 1</a></li>
+<li class="chapter" data-level="4.5.5" data-path="git-github-and-rmarkdown.html"><a href="git-github-and-rmarkdown.html#create-a-new-version-control-in-rstudio---way-2"><i class="fa fa-check"></i><b>4.5.5</b> Create a new version control in RStudio - way 2</a></li>
+<li class="chapter" data-level="4.5.6" data-path="git-github-and-rmarkdown.html"><a href="git-github-and-rmarkdown.html#if-have-have-an-existing-project---way-3"><i class="fa fa-check"></i><b>4.5.6</b> If have have an existing project - way 3</a></li>
+<li class="chapter" data-level="4.5.7" data-path="git-github-and-rmarkdown.html"><a href="git-github-and-rmarkdown.html#commiting-to-git"><i class="fa fa-check"></i><b>4.5.7</b> Commiting to Git</a></li>
+<li class="chapter" data-level="4.5.8" data-path="git-github-and-rmarkdown.html"><a href="git-github-and-rmarkdown.html#using-git-outside-rstudio"><i class="fa fa-check"></i><b>4.5.8</b> Using Git outside RStudio</a></li>
+<li class="chapter" data-level="4.5.9" data-path="git-github-and-rmarkdown.html"><a href="git-github-and-rmarkdown.html#push-to-github"><i class="fa fa-check"></i><b>4.5.9</b> Push to Github</a></li>
+<li class="chapter" data-level="4.5.10" data-path="git-github-and-rmarkdown.html"><a href="git-github-and-rmarkdown.html#pull-from-github"><i class="fa fa-check"></i><b>4.5.10</b> Pull from GitHub</a></li>
+<li class="chapter" data-level="4.5.11" data-path="git-github-and-rmarkdown.html"><a href="git-github-and-rmarkdown.html#troubleshooting"><i class="fa fa-check"></i><b>4.5.11</b> Troubleshooting</a></li>
+<li class="chapter" data-level="4.5.12" data-path="git-github-and-rmarkdown.html"><a href="git-github-and-rmarkdown.html#fork-a-repository"><i class="fa fa-check"></i><b>4.5.12</b> Fork a repository</a></li>
+<li class="chapter" data-level="4.5.13" data-path="git-github-and-rmarkdown.html"><a href="git-github-and-rmarkdown.html#branches"><i class="fa fa-check"></i><b>4.5.13</b> Branches</a></li>
+<li class="chapter" data-level="4.5.14" data-path="git-github-and-rmarkdown.html"><a href="git-github-and-rmarkdown.html#back-in-time"><i class="fa fa-check"></i><b>4.5.14</b> Back in time</a></li>
+<li class="chapter" data-level="4.5.15" data-path="git-github-and-rmarkdown.html"><a href="git-github-and-rmarkdown.html#health-warning-1"><i class="fa fa-check"></i><b>4.5.15</b> Health warning</a></li>
+</ul></li>
+<li class="chapter" data-level="4.6" data-path="git-github-and-rmarkdown.html"><a href="git-github-and-rmarkdown.html#rmarkdown"><i class="fa fa-check"></i><b>4.6</b> RMarkdown</a><ul>
+<li class="chapter" data-level="4.6.1" data-path="git-github-and-rmarkdown.html"><a href="git-github-and-rmarkdown.html#html"><i class="fa fa-check"></i><b>4.6.1</b> HTML</a></li>
+<li class="chapter" data-level="4.6.2" data-path="git-github-and-rmarkdown.html"><a href="git-github-and-rmarkdown.html#flexdashboard"><i class="fa fa-check"></i><b>4.6.2</b> Flexdashboard</a></li>
+<li class="chapter" data-level="4.6.3" data-path="git-github-and-rmarkdown.html"><a href="git-github-and-rmarkdown.html#word-document"><i class="fa fa-check"></i><b>4.6.3</b> Word document</a></li>
+<li class="chapter" data-level="4.6.4" data-path="git-github-and-rmarkdown.html"><a href="git-github-and-rmarkdown.html#knit-options"><i class="fa fa-check"></i><b>4.6.4</b> Knit options</a></li>
+<li class="chapter" data-level="4.6.5" data-path="git-github-and-rmarkdown.html"><a href="git-github-and-rmarkdown.html#shortcuts"><i class="fa fa-check"></i><b>4.6.5</b> Shortcuts</a></li>
+<li class="chapter" data-level="4.6.6" data-path="git-github-and-rmarkdown.html"><a href="git-github-and-rmarkdown.html#adding-references"><i class="fa fa-check"></i><b>4.6.6</b> Adding references</a></li>
+</ul></li>
+<li class="chapter" data-level="4.7" data-path="git-github-and-rmarkdown.html"><a href="git-github-and-rmarkdown.html#binder"><i class="fa fa-check"></i><b>4.7</b> Binder</a></li>
+<li class="chapter" data-level="4.8" data-path="git-github-and-rmarkdown.html"><a href="git-github-and-rmarkdown.html#further-reading"><i class="fa fa-check"></i><b>4.8</b> Further reading</a></li>
+<li class="chapter" data-level="4.9" data-path="git-github-and-rmarkdown.html"><a href="git-github-and-rmarkdown.html#feedback-3"><i class="fa fa-check"></i><b>4.9</b> Feedback</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="map-making.html"><a href="map-making.html"><i class="fa fa-check"></i><b>5</b> Map making</a><ul>
+<li class="chapter" data-level="5.1" data-path="map-making.html"><a href="map-making.html#learning-outcomes-4"><i class="fa fa-check"></i><b>5.1</b> Learning outcomes</a></li>
+<li class="chapter" data-level="5.2" data-path="map-making.html"><a href="map-making.html#homework-4"><i class="fa fa-check"></i><b>5.2</b> Homework</a></li>
+<li class="chapter" data-level="5.3" data-path="map-making.html"><a href="map-making.html#recommended-listening-4"><i class="fa fa-check"></i><b>5.3</b> Recommended listening 🎧</a></li>
+<li class="chapter" data-level="5.4" data-path="map-making.html"><a href="map-making.html#introduction-4"><i class="fa fa-check"></i><b>5.4</b> Introduction</a><ul>
+<li class="chapter" data-level="5.4.1" data-path="map-making.html"><a href="map-making.html#osm-1"><i class="fa fa-check"></i><b>5.4.1</b> OSM</a></li>
+<li class="chapter" data-level="5.4.2" data-path="map-making.html"><a href="map-making.html#airbnb"><i class="fa fa-check"></i><b>5.4.2</b> Airbnb</a></li>
+</ul></li>
+<li class="chapter" data-level="5.5" data-path="map-making.html"><a href="map-making.html#data-1"><i class="fa fa-check"></i><b>5.5</b> Data</a><ul>
+<li class="chapter" data-level="5.5.1" data-path="map-making.html"><a href="map-making.html#osm-2"><i class="fa fa-check"></i><b>5.5.1</b> OSM</a></li>
+<li class="chapter" data-level="5.5.2" data-path="map-making.html"><a href="map-making.html#london-boroughs"><i class="fa fa-check"></i><b>5.5.2</b> London boroughs</a></li>
+<li class="chapter" data-level="5.5.3" data-path="map-making.html"><a href="map-making.html#world-cities"><i class="fa fa-check"></i><b>5.5.3</b> World cities</a></li>
+</ul></li>
+<li class="chapter" data-level="5.6" data-path="map-making.html"><a href="map-making.html#qgis-2"><i class="fa fa-check"></i><b>5.6</b> QGIS</a><ul>
+<li class="chapter" data-level="5.6.1" data-path="map-making.html"><a href="map-making.html#load-data-2"><i class="fa fa-check"></i><b>5.6.1</b> Load data</a></li>
+<li class="chapter" data-level="5.6.2" data-path="map-making.html"><a href="map-making.html#manipulate-data"><i class="fa fa-check"></i><b>5.6.2</b> Manipulate data</a></li>
+<li class="chapter" data-level="5.6.3" data-path="map-making.html"><a href="map-making.html#map-data"><i class="fa fa-check"></i><b>5.6.3</b> Map data</a></li>
+<li class="chapter" data-level="5.6.4" data-path="map-making.html"><a href="map-making.html#export-map"><i class="fa fa-check"></i><b>5.6.4</b> Export map</a></li>
+<li class="chapter" data-level="5.6.5" data-path="map-making.html"><a href="map-making.html#graphical-modeler"><i class="fa fa-check"></i><b>5.6.5</b> Graphical modeler</a></li>
+</ul></li>
+<li class="chapter" data-level="5.7" data-path="map-making.html"><a href="map-making.html#r-2"><i class="fa fa-check"></i><b>5.7</b> R</a><ul>
+<li class="chapter" data-level="5.7.1" data-path="map-making.html"><a href="map-making.html#static-map"><i class="fa fa-check"></i><b>5.7.1</b> Static map</a></li>
+<li class="chapter" data-level="5.7.2" data-path="map-making.html"><a href="map-making.html#export"><i class="fa fa-check"></i><b>5.7.2</b> Export</a></li>
+<li class="chapter" data-level="5.7.3" data-path="map-making.html"><a href="map-making.html#basic-interactive-map"><i class="fa fa-check"></i><b>5.7.3</b> Basic interactive map</a></li>
+<li class="chapter" data-level="5.7.4" data-path="map-making.html"><a href="map-making.html#advanced-interactive-map"><i class="fa fa-check"></i><b>5.7.4</b> Advanced interactive map</a></li>
+</ul></li>
+<li class="chapter" data-level="5.8" data-path="map-making.html"><a href="map-making.html#bad-maps"><i class="fa fa-check"></i><b>5.8</b> Bad maps</a></li>
+<li class="chapter" data-level="5.9" data-path="map-making.html"><a href="map-making.html#feedback-4"><i class="fa fa-check"></i><b>5.9</b> Feedback</a></li>
+</ul></li>
+<li class="part"><span><b>II GIS analysis</b></span></li>
+<li class="chapter" data-level="6" data-path="analysing-spatial-patterns.html"><a href="analysing-spatial-patterns.html"><i class="fa fa-check"></i><b>6</b> Analysing spatial patterns</a><ul>
+<li class="chapter" data-level="6.1" data-path="analysing-spatial-patterns.html"><a href="analysing-spatial-patterns.html#learning-outcomes-5"><i class="fa fa-check"></i><b>6.1</b> Learning outcomes</a></li>
+<li class="chapter" data-level="6.2" data-path="analysing-spatial-patterns.html"><a href="analysing-spatial-patterns.html#homework-5"><i class="fa fa-check"></i><b>6.2</b> Homework</a></li>
+<li class="chapter" data-level="6.3" data-path="analysing-spatial-patterns.html"><a href="analysing-spatial-patterns.html#recommended-listening-5"><i class="fa fa-check"></i><b>6.3</b> Recommended listening 🎧</a></li>
+<li class="chapter" data-level="6.4" data-path="analysing-spatial-patterns.html"><a href="analysing-spatial-patterns.html#introduction-5"><i class="fa fa-check"></i><b>6.4</b> Introduction</a></li>
+<li class="chapter" data-level="6.5" data-path="analysing-spatial-patterns.html"><a href="analysing-spatial-patterns.html#setting-up-your-data"><i class="fa fa-check"></i><b>6.5</b> Setting up your data</a><ul>
+<li class="chapter" data-level="6.5.1" data-path="analysing-spatial-patterns.html"><a href="analysing-spatial-patterns.html#data-cleaning"><i class="fa fa-check"></i><b>6.5.1</b> Data cleaning</a></li>
+<li class="chapter" data-level="6.5.2" data-path="analysing-spatial-patterns.html"><a href="analysing-spatial-patterns.html#study-area"><i class="fa fa-check"></i><b>6.5.2</b> Study area</a></li>
+</ul></li>
+<li class="chapter" data-level="6.6" data-path="analysing-spatial-patterns.html"><a href="analysing-spatial-patterns.html#point-pattern-analysis"><i class="fa fa-check"></i><b>6.6</b> Point pattern analysis</a><ul>
+<li class="chapter" data-level="6.6.1" data-path="analysing-spatial-patterns.html"><a href="analysing-spatial-patterns.html#kernel-density-estimation"><i class="fa fa-check"></i><b>6.6.1</b> Kernel Density Estimation</a></li>
+<li class="chapter" data-level="6.6.2" data-path="analysing-spatial-patterns.html"><a href="analysing-spatial-patterns.html#quadrat-analysis"><i class="fa fa-check"></i><b>6.6.2</b> Quadrat Analysis</a></li>
+<li class="chapter" data-level="6.6.3" data-path="analysing-spatial-patterns.html"><a href="analysing-spatial-patterns.html#try-experimenting"><i class="fa fa-check"></i><b>6.6.3</b> Try experimenting…</a></li>
+<li class="chapter" data-level="6.6.4" data-path="analysing-spatial-patterns.html"><a href="analysing-spatial-patterns.html#ripleys-k"><i class="fa fa-check"></i><b>6.6.4</b> Ripley’s K</a></li>
+<li class="chapter" data-level="6.6.5" data-path="analysing-spatial-patterns.html"><a href="analysing-spatial-patterns.html#alternatives-to-ripleys-k"><i class="fa fa-check"></i><b>6.6.5</b> Alternatives to Ripley’s K</a></li>
+</ul></li>
+<li class="chapter" data-level="6.7" data-path="analysing-spatial-patterns.html"><a href="analysing-spatial-patterns.html#density-based-spatial-clustering-of-applications-with-noise-dbscan"><i class="fa fa-check"></i><b>6.7</b> Density-based spatial clustering of applications with noise: DBSCAN</a></li>
+<li class="chapter" data-level="6.8" data-path="analysing-spatial-patterns.html"><a href="analysing-spatial-patterns.html#point-pattern-analysis-summary"><i class="fa fa-check"></i><b>6.8</b> Point pattern analysis summary</a></li>
+<li class="chapter" data-level="6.9" data-path="analysing-spatial-patterns.html"><a href="analysing-spatial-patterns.html#analysing-spatial-autocorrelation-with-morans-i-lisa-and-friends"><i class="fa fa-check"></i><b>6.9</b> Analysing Spatial Autocorrelation with Moran’s I, LISA and friends</a><ul>
+<li class="chapter" data-level="6.9.1" data-path="analysing-spatial-patterns.html"><a href="analysing-spatial-patterns.html#data-download-1"><i class="fa fa-check"></i><b>6.9.1</b> Data download</a></li>
+<li class="chapter" data-level="6.9.2" data-path="analysing-spatial-patterns.html"><a href="analysing-spatial-patterns.html#data-cleaning-1"><i class="fa fa-check"></i><b>6.9.2</b> Data cleaning</a></li>
+<li class="chapter" data-level="6.9.3" data-path="analysing-spatial-patterns.html"><a href="analysing-spatial-patterns.html#data-manipulation"><i class="fa fa-check"></i><b>6.9.3</b> Data manipulation</a></li>
+<li class="chapter" data-level="6.9.4" data-path="analysing-spatial-patterns.html"><a href="analysing-spatial-patterns.html#spatial-autocorrelation"><i class="fa fa-check"></i><b>6.9.4</b> Spatial autocorrelation</a></li>
+<li class="chapter" data-level="6.9.5" data-path="analysing-spatial-patterns.html"><a href="analysing-spatial-patterns.html#mapping-outputs"><i class="fa fa-check"></i><b>6.9.5</b> Mapping outputs</a></li>
+<li class="chapter" data-level="6.9.6" data-path="analysing-spatial-patterns.html"><a href="analysing-spatial-patterns.html#other-variables"><i class="fa fa-check"></i><b>6.9.6</b> Other variables</a></li>
+</ul></li>
+<li class="chapter" data-level="6.10" data-path="analysing-spatial-patterns.html"><a href="analysing-spatial-patterns.html#extension"><i class="fa fa-check"></i><b>6.10</b> Extension</a></li>
+<li class="chapter" data-level="6.11" data-path="analysing-spatial-patterns.html"><a href="analysing-spatial-patterns.html#feedback-5"><i class="fa fa-check"></i><b>6.11</b> Feedback</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="advanced-raster-analysis.html"><a href="advanced-raster-analysis.html"><i class="fa fa-check"></i><b>7</b> Advanced raster analysis</a><ul>
+<li class="chapter" data-level="7.1" data-path="advanced-raster-analysis.html"><a href="advanced-raster-analysis.html#learning-objectives"><i class="fa fa-check"></i><b>7.1</b> Learning objectives</a></li>
+<li class="chapter" data-level="7.2" data-path="advanced-raster-analysis.html"><a href="advanced-raster-analysis.html#homework-6"><i class="fa fa-check"></i><b>7.2</b> Homework</a></li>
+<li class="chapter" data-level="7.3" data-path="advanced-raster-analysis.html"><a href="advanced-raster-analysis.html#recommended-listening-6"><i class="fa fa-check"></i><b>7.3</b> Recommended listening 🎧</a></li>
+<li class="chapter" data-level="7.4" data-path="advanced-raster-analysis.html"><a href="advanced-raster-analysis.html#introduction-6"><i class="fa fa-check"></i><b>7.4</b> Introduction</a></li>
+<li class="chapter" data-level="7.5" data-path="advanced-raster-analysis.html"><a href="advanced-raster-analysis.html#gitignore"><i class="fa fa-check"></i><b>7.5</b> .gitignore</a><ul>
+<li class="chapter" data-level="7.5.1" data-path="advanced-raster-analysis.html"><a href="advanced-raster-analysis.html#remote-sensing-background-required"><i class="fa fa-check"></i><b>7.5.1</b> Remote sensing background (required)</a></li>
+</ul></li>
+<li class="chapter" data-level="7.6" data-path="advanced-raster-analysis.html"><a href="advanced-raster-analysis.html#data-2"><i class="fa fa-check"></i><b>7.6</b> Data</a><ul>
+<li class="chapter" data-level="7.6.1" data-path="advanced-raster-analysis.html"><a href="advanced-raster-analysis.html#shapefile"><i class="fa fa-check"></i><b>7.6.1</b> Shapefile</a></li>
+<li class="chapter" data-level="7.6.2" data-path="advanced-raster-analysis.html"><a href="advanced-raster-analysis.html#raster-data-landsat"><i class="fa fa-check"></i><b>7.6.2</b> Raster data (Landsat)</a></li>
+</ul></li>
+<li class="chapter" data-level="7.7" data-path="advanced-raster-analysis.html"><a href="advanced-raster-analysis.html#processing-raster-data"><i class="fa fa-check"></i><b>7.7</b> Processing raster data</a><ul>
+<li class="chapter" data-level="7.7.1" data-path="advanced-raster-analysis.html"><a href="advanced-raster-analysis.html#loading"><i class="fa fa-check"></i><b>7.7.1</b> Loading</a></li>
+<li class="chapter" data-level="7.7.2" data-path="advanced-raster-analysis.html"><a href="advanced-raster-analysis.html#resampling"><i class="fa fa-check"></i><b>7.7.2</b> Resampling</a></li>
+<li class="chapter" data-level="7.7.3" data-path="advanced-raster-analysis.html"><a href="advanced-raster-analysis.html#clipping"><i class="fa fa-check"></i><b>7.7.3</b> Clipping</a></li>
+</ul></li>
+<li class="chapter" data-level="7.8" data-path="advanced-raster-analysis.html"><a href="advanced-raster-analysis.html#data-exploration"><i class="fa fa-check"></i><b>7.8</b> Data exploration</a><ul>
+<li class="chapter" data-level="7.8.1" data-path="advanced-raster-analysis.html"><a href="advanced-raster-analysis.html#more-loading-and-manipulating"><i class="fa fa-check"></i><b>7.8.1</b> More loading and manipulating</a></li>
+<li class="chapter" data-level="7.8.2" data-path="advanced-raster-analysis.html"><a href="advanced-raster-analysis.html#plotting-data"><i class="fa fa-check"></i><b>7.8.2</b> Plotting data</a></li>
+<li class="chapter" data-level="7.8.3" data-path="advanced-raster-analysis.html"><a href="advanced-raster-analysis.html#data-similarity"><i class="fa fa-check"></i><b>7.8.3</b> Data similarity</a></li>
+</ul></li>
+<li class="chapter" data-level="7.9" data-path="advanced-raster-analysis.html"><a href="advanced-raster-analysis.html#basic-raster-calculations"><i class="fa fa-check"></i><b>7.9</b> Basic raster calculations</a><ul>
+<li class="chapter" data-level="7.9.1" data-path="advanced-raster-analysis.html"><a href="advanced-raster-analysis.html#ndvi"><i class="fa fa-check"></i><b>7.9.1</b> NDVI</a></li>
+<li class="chapter" data-level="7.9.2" data-path="advanced-raster-analysis.html"><a href="advanced-raster-analysis.html#ndvi-function"><i class="fa fa-check"></i><b>7.9.2</b> NDVI function</a></li>
+</ul></li>
+<li class="chapter" data-level="7.10" data-path="advanced-raster-analysis.html"><a href="advanced-raster-analysis.html#advanced-raster-calculations"><i class="fa fa-check"></i><b>7.10</b> Advanced raster calculations</a><ul>
+<li class="chapter" data-level="7.10.1" data-path="advanced-raster-analysis.html"><a href="advanced-raster-analysis.html#calucating-tempearture-from-landsat-data"><i class="fa fa-check"></i><b>7.10.1</b> Calucating tempearture from Landsat data</a></li>
+</ul></li>
+<li class="chapter" data-level="7.11" data-path="advanced-raster-analysis.html"><a href="advanced-raster-analysis.html#calucating-urban-area-from-landsat-data"><i class="fa fa-check"></i><b>7.11</b> Calucating urban area from Landsat data</a></li>
+<li class="chapter" data-level="7.12" data-path="advanced-raster-analysis.html"><a href="advanced-raster-analysis.html#urban-area-and-temperature-relationship"><i class="fa fa-check"></i><b>7.12</b> Urban area and temperature relationship</a></li>
+<li class="chapter" data-level="7.13" data-path="advanced-raster-analysis.html"><a href="advanced-raster-analysis.html#statistical-summary"><i class="fa fa-check"></i><b>7.13</b> Statistical summary</a></li>
+<li class="chapter" data-level="7.14" data-path="advanced-raster-analysis.html"><a href="advanced-raster-analysis.html#considerations"><i class="fa fa-check"></i><b>7.14</b> Considerations</a></li>
+<li class="chapter" data-level="7.15" data-path="advanced-raster-analysis.html"><a href="advanced-raster-analysis.html#extension-1"><i class="fa fa-check"></i><b>7.15</b> Extension</a></li>
+<li class="chapter" data-level="7.16" data-path="advanced-raster-analysis.html"><a href="advanced-raster-analysis.html#references"><i class="fa fa-check"></i><b>7.16</b> References</a></li>
+<li class="chapter" data-level="7.17" data-path="advanced-raster-analysis.html"><a href="advanced-raster-analysis.html#remote-sensing-background-optional"><i class="fa fa-check"></i><b>7.17</b> Remote sensing background (optional)</a></li>
+<li class="chapter" data-level="7.18" data-path="advanced-raster-analysis.html"><a href="advanced-raster-analysis.html#feedback-6"><i class="fa fa-check"></i><b>7.18</b> Feedback</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="online-mapping-descriptive-statistics.html"><a href="online-mapping-descriptive-statistics.html"><i class="fa fa-check"></i><b>8</b> Online mapping / descriptive statistics</a><ul>
+<li class="chapter" data-level="8.1" data-path="online-mapping-descriptive-statistics.html"><a href="online-mapping-descriptive-statistics.html#homework-7"><i class="fa fa-check"></i><b>8.1</b> Homework</a></li>
+<li class="chapter" data-level="8.2" data-path="online-mapping-descriptive-statistics.html"><a href="online-mapping-descriptive-statistics.html#recommended-listening-7"><i class="fa fa-check"></i><b>8.2</b> Recommended listening 🎧</a></li>
+<li class="chapter" data-level="8.3" data-path="online-mapping-descriptive-statistics.html"><a href="online-mapping-descriptive-statistics.html#part-a-spatial-descriptive-statistics"><i class="fa fa-check"></i><b>8.3</b> Part A spatial descriptive statistics</a><ul>
+<li class="chapter" data-level="8.3.1" data-path="online-mapping-descriptive-statistics.html"><a href="online-mapping-descriptive-statistics.html#learning-objectives-1"><i class="fa fa-check"></i><b>8.3.1</b> Learning objectives</a></li>
+<li class="chapter" data-level="8.3.2" data-path="online-mapping-descriptive-statistics.html"><a href="online-mapping-descriptive-statistics.html#getting-started-2"><i class="fa fa-check"></i><b>8.3.2</b> Getting Started</a></li>
+<li class="chapter" data-level="8.3.3" data-path="online-mapping-descriptive-statistics.html"><a href="online-mapping-descriptive-statistics.html#main-tasks"><i class="fa fa-check"></i><b>8.3.3</b> Main Tasks</a></li>
+<li class="chapter" data-level="8.3.4" data-path="online-mapping-descriptive-statistics.html"><a href="online-mapping-descriptive-statistics.html#task-1---descriptive-statistics"><i class="fa fa-check"></i><b>8.3.4</b> Task 1 - Descriptive Statistics</a></li>
+<li class="chapter" data-level="8.3.5" data-path="online-mapping-descriptive-statistics.html"><a href="online-mapping-descriptive-statistics.html#extension-1-1"><i class="fa fa-check"></i><b>8.3.5</b> Extension 1</a></li>
+<li class="chapter" data-level="8.3.6" data-path="online-mapping-descriptive-statistics.html"><a href="online-mapping-descriptive-statistics.html#task-2---function-to-recode-data"><i class="fa fa-check"></i><b>8.3.6</b> Task 2 - Function to recode data</a></li>
+<li class="chapter" data-level="8.3.7" data-path="online-mapping-descriptive-statistics.html"><a href="online-mapping-descriptive-statistics.html#whats-going-on-in-this-function"><i class="fa fa-check"></i><b>8.3.7</b> What’s going on in this function?</a></li>
+<li class="chapter" data-level="8.3.8" data-path="online-mapping-descriptive-statistics.html"><a href="online-mapping-descriptive-statistics.html#task-3-mapping-location-quotients"><i class="fa fa-check"></i><b>8.3.8</b> Task 3 – Mapping Location Quotients</a></li>
+<li class="chapter" data-level="8.3.9" data-path="online-mapping-descriptive-statistics.html"><a href="online-mapping-descriptive-statistics.html#task-4-creating-a-basic-geodemographic-classification"><i class="fa fa-check"></i><b>8.3.9</b> Task 4 – Creating a Basic Geodemographic Classification</a></li>
+</ul></li>
+<li class="chapter" data-level="8.4" data-path="online-mapping-descriptive-statistics.html"><a href="online-mapping-descriptive-statistics.html#part-b-online-mapping"><i class="fa fa-check"></i><b>8.4</b> Part B Online mapping</a><ul>
+<li class="chapter" data-level="8.4.1" data-path="online-mapping-descriptive-statistics.html"><a href="online-mapping-descriptive-statistics.html#learning-objectives-2"><i class="fa fa-check"></i><b>8.4.1</b> Learning objectives</a></li>
+<li class="chapter" data-level="8.4.2" data-path="online-mapping-descriptive-statistics.html"><a href="online-mapping-descriptive-statistics.html#introduction-7"><i class="fa fa-check"></i><b>8.4.2</b> Introduction</a></li>
+<li class="chapter" data-level="8.4.3" data-path="online-mapping-descriptive-statistics.html"><a href="online-mapping-descriptive-statistics.html#rpubs"><i class="fa fa-check"></i><b>8.4.3</b> RPubs</a></li>
+<li class="chapter" data-level="8.4.4" data-path="online-mapping-descriptive-statistics.html"><a href="online-mapping-descriptive-statistics.html#rmarkdown-site-generator"><i class="fa fa-check"></i><b>8.4.4</b> RMarkdown site generator</a></li>
+<li class="chapter" data-level="8.4.5" data-path="online-mapping-descriptive-statistics.html"><a href="online-mapping-descriptive-statistics.html#warning"><i class="fa fa-check"></i><b>8.4.5</b> Warning</a></li>
+<li class="chapter" data-level="8.4.6" data-path="online-mapping-descriptive-statistics.html"><a href="online-mapping-descriptive-statistics.html#advanced-online-publishing"><i class="fa fa-check"></i><b>8.4.6</b> Advanced online publishing</a></li>
+</ul></li>
+<li class="chapter" data-level="8.5" data-path="online-mapping-descriptive-statistics.html"><a href="online-mapping-descriptive-statistics.html#feedback-7"><i class="fa fa-check"></i><b>8.5</b> Feedback</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="gwr-and-spatially-lagged-regression.html"><a href="gwr-and-spatially-lagged-regression.html"><i class="fa fa-check"></i><b>9</b> GWR and spatially lagged regression</a><ul>
+<li class="chapter" data-level="9.1" data-path="gwr-and-spatially-lagged-regression.html"><a href="gwr-and-spatially-lagged-regression.html#learning-objectives-3"><i class="fa fa-check"></i><b>9.1</b> Learning objectives</a></li>
+<li class="chapter" data-level="9.2" data-path="gwr-and-spatially-lagged-regression.html"><a href="gwr-and-spatially-lagged-regression.html#homework-8"><i class="fa fa-check"></i><b>9.2</b> Homework</a></li>
+<li class="chapter" data-level="9.3" data-path="gwr-and-spatially-lagged-regression.html"><a href="gwr-and-spatially-lagged-regression.html#recommended-listening-8"><i class="fa fa-check"></i><b>9.3</b> Recommended listening 🎧</a></li>
+<li class="chapter" data-level="9.4" data-path="gwr-and-spatially-lagged-regression.html"><a href="gwr-and-spatially-lagged-regression.html#introduction-8"><i class="fa fa-check"></i><b>9.4</b> Introduction</a><ul>
+<li class="chapter" data-level="9.4.1" data-path="gwr-and-spatially-lagged-regression.html"><a href="gwr-and-spatially-lagged-regression.html#setting-up-your-data-1"><i class="fa fa-check"></i><b>9.4.1</b> Setting up your Data</a></li>
+</ul></li>
+<li class="chapter" data-level="9.5" data-path="gwr-and-spatially-lagged-regression.html"><a href="gwr-and-spatially-lagged-regression.html#analysing-gcse-exam-performance---testing-a-research-hypothesis"><i class="fa fa-check"></i><b>9.5</b> Analysing GCSE exam performance - testing a research hypothesis</a><ul>
+<li class="chapter" data-level="9.5.1" data-path="gwr-and-spatially-lagged-regression.html"><a href="gwr-and-spatially-lagged-regression.html#research-question-and-hypothesis"><i class="fa fa-check"></i><b>9.5.1</b> Research Question and Hypothesis</a></li>
+<li class="chapter" data-level="9.5.2" data-path="gwr-and-spatially-lagged-regression.html"><a href="gwr-and-spatially-lagged-regression.html#regression-basics"><i class="fa fa-check"></i><b>9.5.2</b> Regression Basics</a></li>
+<li class="chapter" data-level="9.5.3" data-path="gwr-and-spatially-lagged-regression.html"><a href="gwr-and-spatially-lagged-regression.html#running-a-regression-model-in-r"><i class="fa fa-check"></i><b>9.5.3</b> Running a Regression Model in R</a></li>
+<li class="chapter" data-level="9.5.4" data-path="gwr-and-spatially-lagged-regression.html"><a href="gwr-and-spatially-lagged-regression.html#bootstrap-resampling"><i class="fa fa-check"></i><b>9.5.4</b> Bootstrap resampling</a></li>
+<li class="chapter" data-level="9.5.5" data-path="gwr-and-spatially-lagged-regression.html"><a href="gwr-and-spatially-lagged-regression.html#assumptions-underpinning-linear-regression"><i class="fa fa-check"></i><b>9.5.5</b> Assumptions Underpinning Linear Regression</a></li>
+<li class="chapter" data-level="9.5.6" data-path="gwr-and-spatially-lagged-regression.html"><a href="gwr-and-spatially-lagged-regression.html#assumption-1---there-is-a-linear-relationship-between-the-dependent-and-independent-variables"><i class="fa fa-check"></i><b>9.5.6</b> Assumption 1 - There is a linear relationship between the dependent and independent variables</a></li>
+<li class="chapter" data-level="9.5.7" data-path="gwr-and-spatially-lagged-regression.html"><a href="gwr-and-spatially-lagged-regression.html#assumption-2---the-residuals-in-your-model-should-be-normally-distributed"><i class="fa fa-check"></i><b>9.5.7</b> Assumption 2 - The residuals in your model should be normally distributed</a></li>
+<li class="chapter" data-level="9.5.8" data-path="gwr-and-spatially-lagged-regression.html"><a href="gwr-and-spatially-lagged-regression.html#assumption-3---no-multicolinearity-in-the-independent-variables"><i class="fa fa-check"></i><b>9.5.8</b> Assumption 3 - No Multicolinearity in the independent variables</a></li>
+<li class="chapter" data-level="9.5.9" data-path="gwr-and-spatially-lagged-regression.html"><a href="gwr-and-spatially-lagged-regression.html#assumption-4---homoscedasticity"><i class="fa fa-check"></i><b>9.5.9</b> Assumption 4 - Homoscedasticity</a></li>
+<li class="chapter" data-level="9.5.10" data-path="gwr-and-spatially-lagged-regression.html"><a href="gwr-and-spatially-lagged-regression.html#assumption-5---independence-of-errors"><i class="fa fa-check"></i><b>9.5.10</b> Assumption 5 - Independence of Errors</a></li>
+</ul></li>
+<li class="chapter" data-level="9.6" data-path="gwr-and-spatially-lagged-regression.html"><a href="gwr-and-spatially-lagged-regression.html#spatial-regression-models"><i class="fa fa-check"></i><b>9.6</b> Spatial Regression Models</a><ul>
+<li class="chapter" data-level="9.6.1" data-path="gwr-and-spatially-lagged-regression.html"><a href="gwr-and-spatially-lagged-regression.html#dealing-with-spatially-autocorrelated-residuals---spatial-lag-and-spatial-error-models"><i class="fa fa-check"></i><b>9.6.1</b> Dealing with Spatially Autocorrelated Residuals - Spatial Lag and Spatial Error models</a></li>
+<li class="chapter" data-level="9.6.2" data-path="gwr-and-spatially-lagged-regression.html"><a href="gwr-and-spatially-lagged-regression.html#spatial-regression-model-in-r"><i class="fa fa-check"></i><b>9.6.2</b> Spatial regression model in R</a></li>
+<li class="chapter" data-level="9.6.3" data-path="gwr-and-spatially-lagged-regression.html"><a href="gwr-and-spatially-lagged-regression.html#extending-your-regression-model---dummy-variables"><i class="fa fa-check"></i><b>9.6.3</b> Extending your regression model - Dummy Variables</a></li>
+<li class="chapter" data-level="9.6.4" data-path="gwr-and-spatially-lagged-regression.html"><a href="gwr-and-spatially-lagged-regression.html#task-investigating-further---adding-more-explanatory-variables-into-a-multiple-regression-model"><i class="fa fa-check"></i><b>9.6.4</b> TASK: Investigating Further - Adding More Explanatory Variables into a multiple regression model</a></li>
+</ul></li>
+<li class="chapter" data-level="9.7" data-path="gwr-and-spatially-lagged-regression.html"><a href="gwr-and-spatially-lagged-regression.html#task-3---spatial-non-stationarity-and-geographically-weighted-regression-models-gwr"><i class="fa fa-check"></i><b>9.7</b> Task 3 - Spatial Non-stationarity and Geographically Weighted Regression Models (GWR)</a></li>
+<li class="chapter" data-level="9.8" data-path="gwr-and-spatially-lagged-regression.html"><a href="gwr-and-spatially-lagged-regression.html#feedback-8"><i class="fa fa-check"></i><b>9.8</b> Feedback</a></li>
+</ul></li>
+<li class="part"><span><b>Assignment</b></span></li>
+<li class="chapter" data-level="10" data-path="assignment-requirements.html"><a href="assignment-requirements.html"><i class="fa fa-check"></i><b>10</b> Assignment requirements</a><ul>
+<li class="chapter" data-level="10.1" data-path="assignment-requirements.html"><a href="assignment-requirements.html#requirements"><i class="fa fa-check"></i><b>10.1</b> Requirements</a></li>
+<li class="chapter" data-level="10.2" data-path="assignment-requirements.html"><a href="assignment-requirements.html#marking-scheme"><i class="fa fa-check"></i><b>10.2</b> Marking scheme</a></li>
+<li class="chapter" data-level="10.3" data-path="assignment-requirements.html"><a href="assignment-requirements.html#expected-timeline"><i class="fa fa-check"></i><b>10.3</b> Expected timeline</a></li>
+<li class="chapter" data-level="10.4" data-path="assignment-requirements.html"><a href="assignment-requirements.html#penalities"><i class="fa fa-check"></i><b>10.4</b> Penalities</a></li>
+<li class="chapter" data-level="10.5" data-path="assignment-requirements.html"><a href="assignment-requirements.html#frequently-asked-questions"><i class="fa fa-check"></i><b>10.5</b> Frequently Asked Questions</a></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="assignment-resources-1.html"><a href="assignment-resources-1.html"><i class="fa fa-check"></i><b>11</b> Assignment resources</a><ul>
+<li class="chapter" data-level="11.1" data-path="assignment-resources-1.html"><a href="assignment-resources-1.html#timeline"><i class="fa fa-check"></i><b>11.1</b> Timeline</a></li>
+<li class="chapter" data-level="11.2" data-path="assignment-resources-1.html"><a href="assignment-resources-1.html#markscheme"><i class="fa fa-check"></i><b>11.2</b> Markscheme</a></li>
+<li class="chapter" data-level="11.3" data-path="assignment-resources-1.html"><a href="assignment-resources-1.html#examples-of-previous-work"><i class="fa fa-check"></i><b>11.3</b> Examples of previous work</a></li>
+<li class="chapter" data-level="11.4" data-path="assignment-resources-1.html"><a href="assignment-resources-1.html#events-meet-other-spatial-data-professionals"><i class="fa fa-check"></i><b>11.4</b> Events / meet other spatial data professionals</a></li>
+<li class="chapter" data-level="11.5" data-path="assignment-resources-1.html"><a href="assignment-resources-1.html#cool-stuff-to-explore"><i class="fa fa-check"></i><b>11.5</b> Cool stuff to explore</a></li>
+<li class="chapter" data-level="11.6" data-path="assignment-resources-1.html"><a href="assignment-resources-1.html#booksreading-resources"><i class="fa fa-check"></i><b>11.6</b> Books/reading resources</a></li>
+<li class="chapter" data-level="11.7" data-path="assignment-resources-1.html"><a href="assignment-resources-1.html#new-developments"><i class="fa fa-check"></i><b>11.7</b> New developments</a><ul>
+<li class="chapter" data-level="11.7.1" data-path="assignment-resources-1.html"><a href="assignment-resources-1.html#twitter"><i class="fa fa-check"></i><b>11.7.1</b> Twitter</a></li>
+</ul></li>
+<li class="chapter" data-level="11.8" data-path="assignment-resources-1.html"><a href="assignment-resources-1.html#data-3"><i class="fa fa-check"></i><b>11.8</b> Data</a></li>
+<li class="chapter" data-level="11.9" data-path="assignment-resources-1.html"><a href="assignment-resources-1.html#data-lists-1"><i class="fa fa-check"></i><b>11.9</b> Data lists</a></li>
+<li class="chapter" data-level="11.10" data-path="assignment-resources-1.html"><a href="assignment-resources-1.html#reading-and-writing-critically"><i class="fa fa-check"></i><b>11.10</b> Reading and writing critically</a></li>
+<li class="chapter" data-level="11.11" data-path="assignment-resources-1.html"><a href="assignment-resources-1.html#free-flow-diagram-tools"><i class="fa fa-check"></i><b>11.11</b> Free flow diagram tools</a></li>
+<li class="chapter" data-level="11.12" data-path="assignment-resources-1.html"><a href="assignment-resources-1.html#basics-1"><i class="fa fa-check"></i><b>11.12</b> Basics</a><ul>
+<li class="chapter" data-level="11.12.1" data-path="assignment-resources-1.html"><a href="assignment-resources-1.html#introduction-9"><i class="fa fa-check"></i><b>11.12.1</b> Introduction</a></li>
+<li class="chapter" data-level="11.12.2" data-path="assignment-resources-1.html"><a href="assignment-resources-1.html#literature-review"><i class="fa fa-check"></i><b>11.12.2</b> Literature review</a></li>
+<li class="chapter" data-level="11.12.3" data-path="assignment-resources-1.html"><a href="assignment-resources-1.html#methodology"><i class="fa fa-check"></i><b>11.12.3</b> Methodology</a></li>
+<li class="chapter" data-level="11.12.4" data-path="assignment-resources-1.html"><a href="assignment-resources-1.html#results"><i class="fa fa-check"></i><b>11.12.4</b> Results</a></li>
+<li class="chapter" data-level="11.12.5" data-path="assignment-resources-1.html"><a href="assignment-resources-1.html#discussion"><i class="fa fa-check"></i><b>11.12.5</b> Discussion</a></li>
+<li class="chapter" data-level="11.12.6" data-path="assignment-resources-1.html"><a href="assignment-resources-1.html#conclusion"><i class="fa fa-check"></i><b>11.12.6</b> Conclusion</a></li>
+</ul></li>
+</ul></li>
+<li class="divider"></li>
+<li><center>
+  <a rel="license" href="./external-usage.html#license">
+    License: CC-BY-SA<br>
+    <i class = "fab fa-creative-commons fa-2x"></i>
+    <i class = "fab fa-creative-commons-by fa-2x"></i>
+    <i class = "fab fa-creative-commons-sa fa-2x"></i>
+  </a>
+</li></center>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">CASA0005 Geographic Information Systems and Science</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="online-mapping-descriptive-statistics" class="section level1">
+<h1><span class="header-section-number">Chapter 8</span> Online mapping / descriptive statistics</h1>
+<p>This practical is formed of two parts, you can pick one you are more intersted in or complete both.</p>
+<ul>
+<li><p>Part A looks at some more spatial descriptive statistics</p></li>
+<li><p>Part B focuses on online mapping</p></li>
+</ul>
+<div id="homework-7" class="section level2">
+<h2><span class="header-section-number">8.1</span> Homework</h2>
+<p>Outside of our schedulded sessions you should be doing around 12 hours of extra study per week. Feel free to follow your own GIS interests, but good places to start include the following:</p>
+<div class="infobox assignment">
+<p><strong>Assignment</strong></p>
+<p>From weeks 6-9, learn and practice analysis from the course and identify appropriate techniques (from wider research) that might be applicable/relevant to your data. Conduct an extensive methodological review – this could include analysis from within academic literature and/or government departments (or any reputable source).</p>
+</div>
+<div class="infobox note">
+<p><strong>Reading</strong></p>
+<ul>
+<li><p>For k-means clustering and exploratory data analysis read <a href="https://bookdown.org/rdpeng/exdata/k-means-clustering.html">Chapter 12 “K-Means Clustering”</a> from Exploratory Data Analysis with R by Peng (2016).</p></li>
+<li><p>For interative maps re-read <a href="https://geocompr.robinlovelace.net/adv-map.html">Chapter 8: “Making maps with R”</a> Geocomputation with R by Lovelace, Nowosad and Muenchow (2020), especially setion 8.4.</p></li>
+</ul>
+<p>Remember this is just a starting point, explore the <a href="https://rl.talis.com/3/ucl/lists/139FBAF8-DACD-60FB-8BDC-E9C9E09BA885.html?lang=en-GB&amp;login=1">reading list</a>, practical and lecture for more ideas.</p>
+</div>
+</div>
+<div id="recommended-listening-7" class="section level2">
+<h2><span class="header-section-number">8.2</span> Recommended listening 🎧</h2>
+<p>Some of these practicals are long, take regular breaks and have a listen to some of our fav tunes each week.</p>
+<p><a href="https://www.youtube.com/watch?v=6Bh6IL1mNfc">Andy</a></p>
+<p><a href="https://open.spotify.com/track/3BGF4XAm8jaEi2LcGR57O3?si=gfYc6LS6Tgy9M9oXVVG4SQ">Adam</a>
+Bit different from me this week - I’m not all about drum and bass (although I mostly am). Stumbled across these recently and I should have known about them for much longer. The Joy Formidable - this is a 10th Anniversary revisit of their first EP and is ace. If you like Welsh, you’re in for a treat!</p>
+</div>
+<div id="part-a-spatial-descriptive-statistics" class="section level2">
+<h2><span class="header-section-number">8.3</span> Part A spatial descriptive statistics</h2>
+<div id="learning-objectives-1" class="section level3">
+<h3><span class="header-section-number">8.3.1</span> Learning objectives</h3>
+<p>By the end of this practical you should be able to:</p>
+<ol style="list-style-type: decimal">
+<li>Create descriptive plots (histograms and boxplots) to help understand the frequency distributions of your data</li>
+<li>Write custom functions to process your data</li>
+<li>Produce a location quotient map to highlight interesting (above and below average) patterns in your data</li>
+<li>Write a function in R to produce a range of different maps based on user inputs</li>
+<li>Perform a very basic cluster analysis and output the results of a basic geodemographic classification</li>
+</ol>
+</div>
+<div id="getting-started-2" class="section level3">
+<h3><span class="header-section-number">8.3.2</span> Getting Started</h3>
+<p>Before we begin this week’s practical, we need to load our packages and carry out some data preparation…</p>
+<div class="sourceCode" id="cb417"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb417-1" title="1"><span class="kw">library</span>(highcharter)</a>
+<a class="sourceLine" id="cb417-2" title="2"><span class="kw">library</span>(tidyverse)</a>
+<a class="sourceLine" id="cb417-3" title="3"><span class="kw">library</span>(downloader)</a>
+<a class="sourceLine" id="cb417-4" title="4"><span class="kw">library</span>(rgdal)</a>
+<a class="sourceLine" id="cb417-5" title="5"><span class="kw">library</span>(sf)</a>
+<a class="sourceLine" id="cb417-6" title="6"><span class="kw">library</span>(ggplot2)</a>
+<a class="sourceLine" id="cb417-7" title="7"><span class="kw">library</span>(reshape2)</a>
+<a class="sourceLine" id="cb417-8" title="8"><span class="kw">library</span>(plotly)</a>
+<a class="sourceLine" id="cb417-9" title="9"><span class="kw">library</span>(raster)</a>
+<a class="sourceLine" id="cb417-10" title="10"><span class="kw">library</span>(downloader)</a>
+<a class="sourceLine" id="cb417-11" title="11"><span class="kw">library</span>(rgdal)</a></code></pre></div>
+<p>There is a problem with our London Wards data — we are missing some data relating to housing tenure. The housing tenure data in this file comes from the 2011 Census and visiting <a href="http://www.nomisweb.co.uk/" class="uri">http://www.nomisweb.co.uk/</a> and interrogating Table KS402EW (the Tenure table), we can discover that data for the percentage of shared owners and those living in accommodation rent free are missing.</p>
+<p>Rather than making you go off to Nomisweb and fetch this data, because I’m really nice, I’ve posted on GitHub a file containing this and extra categorical, ratio and geographical data that we will need to add to our existing London data file. To download this consult <a href="hello-gis.html#how-to-download-data-and-files-from-github">How to download data and files from GitHub</a>, i’d used Option 1 and it’s the prac8_data folder you want to download.</p>
+<p>We can easily join this new data to our original data in R.</p>
+<div class="sourceCode" id="cb418"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb418-1" title="1">LondonWards &lt;-<span class="st"> </span><span class="kw">st_read</span>(here<span class="op">::</span><span class="kw">here</span>(<span class="st">&quot;prac8_data&quot;</span>, </a>
+<a class="sourceLine" id="cb418-2" title="2">                                  <span class="st">&quot;New_ward_data&quot;</span>,</a>
+<a class="sourceLine" id="cb418-3" title="3">                                  <span class="st">&quot;NewLondonWard.shp&quot;</span>))</a></code></pre></div>
+<pre><code>## Reading layer `NewLondonWard&#39; from data source `C:\Users\Andy\OneDrive - University College London\Teaching\CASA0005\2020_2021\CASA0005repo\prac8_data\New_ward_data\NewLondonWard.shp&#39; using driver `ESRI Shapefile&#39;
+## Simple feature collection with 625 features and 76 fields
+## geometry type:  MULTIPOLYGON
+## dimension:      XY
+## bbox:           xmin: 503575 ymin: 155850.8 xmax: 561956.7 ymax: 200933.6
+## projected CRS:  OSGB 1936 / British National Grid</code></pre>
+<div class="sourceCode" id="cb420"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb420-1" title="1">extradata &lt;-<span class="st"> </span><span class="kw">read_csv</span>(here<span class="op">::</span><span class="kw">here</span>(<span class="st">&quot;prac8_data&quot;</span>, <span class="st">&quot;LondonAdditionalDataFixed.csv&quot;</span>))</a></code></pre></div>
+<pre><code>## Parsed with column specification:
+## cols(
+##   WardName = col_character(),
+##   WardCode = col_character(),
+##   Wardcode = col_character(),
+##   PctSharedOwnership2011 = col_double(),
+##   PctRentFree2011 = col_double(),
+##   Candidate = col_character(),
+##   InnerOuter = col_character(),
+##   x = col_double(),
+##   y = col_double(),
+##   AvgGCSE2011 = col_double(),
+##   UnauthAbsenceSchools11 = col_double()
+## )</code></pre>
+<div class="sourceCode" id="cb422"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb422-1" title="1">LondonWardsleftjoin &lt;-<span class="st"> </span>LondonWards <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb422-2" title="2"><span class="st">  </span><span class="kw">left_join</span>(.,extradata,</a>
+<a class="sourceLine" id="cb422-3" title="3">            <span class="dt">by =</span> <span class="kw">c</span>(<span class="st">&quot;WD11CD&quot;</span> =<span class="st"> &quot;Wardcode&quot;</span>))</a>
+<a class="sourceLine" id="cb422-4" title="4"></a>
+<a class="sourceLine" id="cb422-5" title="5"><span class="co">#LondonWardsSF &lt;- merge(LondonWards, extradata, by.x = &quot;WD11CD&quot;, by.y = &quot;Wardcode&quot;)</span></a></code></pre></div>
+</div>
+<div id="main-tasks" class="section level3">
+<h3><span class="header-section-number">8.3.3</span> Main Tasks</h3>
+</div>
+<div id="task-1---descriptive-statistics" class="section level3">
+<h3><span class="header-section-number">8.3.4</span> Task 1 - Descriptive Statistics</h3>
+<p>Using the lecture notes for guidance, you should generate the following graphs and descriptive statistics using standard functions and ggplot2 in R. Each element should be copied and saved to a word document or something similar:</p>
+<p>Generate the following from your <code>LondonWardsSF</code> data frame:</p>
+<ul>
+<li>A simple histogram for a scale/ratio variable of your choice</li>
+<li>A simple histogram for a scale/ratio variable of your with a different frequency bin-width
+<ul>
+<li>The same histogram with vertical lines for the mean, median and mode (the mode will be the mid value for the bin with the largest count) and the inter-quartile range. <em>hint – use summary(table$variable) to find the values if you are not sure</em></li>
+<li>The same histogram with three different kernel density smoothed frequency gradients</li>
+</ul></li>
+<li>A boxplot of the same variable</li>
+<li>A faceted grid of histograms with for every variable in your London Wards data file. In order to do this, you will need to remove Factor (non-numeric) variables from your dataset and re-shape your data using the <code>melt()</code> function in the <code>reshape2</code> package (hint – check the help file for <code>melt.data.frame()</code> to understand what the code below is doing). The code below will help you:</li>
+</ul>
+<div class="sourceCode" id="cb423"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb423-1" title="1"><span class="co">#check which variables are numeric first</span></a>
+<a class="sourceLine" id="cb423-2" title="2"></a>
+<a class="sourceLine" id="cb423-3" title="3">Datatypelist &lt;-<span class="st"> </span>LondonWardsleftjoin <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb423-4" title="4"><span class="st">  </span><span class="kw">st_drop_geometry</span>()<span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb423-5" title="5"><span class="st">  </span><span class="kw">summarise_all</span>(class) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb423-6" title="6"><span class="st">  </span><span class="kw">pivot_longer</span>(<span class="kw">everything</span>(), </a>
+<a class="sourceLine" id="cb423-7" title="7">               <span class="dt">names_to=</span><span class="st">&quot;All_variables&quot;</span>, </a>
+<a class="sourceLine" id="cb423-8" title="8">               <span class="dt">values_to=</span><span class="st">&quot;Variable_class&quot;</span>)</a>
+<a class="sourceLine" id="cb423-9" title="9"></a>
+<a class="sourceLine" id="cb423-10" title="10"><span class="co">#make groups based on types of variables</span></a>
+<a class="sourceLine" id="cb423-11" title="11">Groups &lt;-<span class="st"> </span>LondonWardsleftjoin <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb423-12" title="12"><span class="st">  </span><span class="kw">st_drop_geometry</span>()<span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb423-13" title="13"><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">select</span>(is.numeric)<span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb423-14" title="14"><span class="st">  </span><span class="kw">pivot_longer</span>(<span class="kw">everything</span>(),</a>
+<a class="sourceLine" id="cb423-15" title="15">               <span class="dt">names_to=</span><span class="st">&quot;All_variables&quot;</span>, </a>
+<a class="sourceLine" id="cb423-16" title="16">               <span class="dt">values_to=</span><span class="st">&quot;val&quot;</span>)<span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb423-17" title="17"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">All_variables =</span> <span class="kw">tolower</span>(All_variables))<span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb423-18" title="18"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">group =</span> <span class="kw">case_when</span>(<span class="kw">str_detect</span>(All_variables, <span class="st">&quot;age&quot;</span>) <span class="op">~</span><span class="st"> &quot;Age&quot;</span>,</a>
+<a class="sourceLine" id="cb423-19" title="19">                           <span class="kw">str_detect</span>(All_variables, <span class="st">&quot;employ|income|job|jsa&quot;</span>) <span class="op">~</span><span class="st"> &quot;Employment&quot;</span>,</a>
+<a class="sourceLine" id="cb423-20" title="20">                           <span class="kw">str_detect</span>(All_variables,</a>
+<a class="sourceLine" id="cb423-21" title="21">                                      <span class="st">&quot;house|rent|detatched|flat|terrace|owned|social|private|share|tax|mortgage&quot;</span>) <span class="op">~</span><span class="st"> &quot;Housing&quot;</span>, <span class="ot">TRUE</span><span class="op">~</span><span class="st">&quot;Other&quot;</span>))</a>
+<a class="sourceLine" id="cb423-22" title="22"></a>
+<a class="sourceLine" id="cb423-23" title="23">Agehist &lt;-<span class="st"> </span>Groups<span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb423-24" title="24"><span class="st">  </span><span class="kw">filter</span>(group<span class="op">==</span><span class="st">&quot;Age&quot;</span>)<span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb423-25" title="25"><span class="st">  </span><span class="kw">ggplot</span>(., <span class="kw">aes</span>(<span class="dt">x=</span>val)) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb423-26" title="26"><span class="st">  </span><span class="kw">geom_histogram</span>(<span class="kw">aes</span>(<span class="dt">x =</span> val, <span class="dt">y =</span> ..density..))<span class="op">+</span></a>
+<a class="sourceLine" id="cb423-27" title="27"><span class="st">  </span><span class="kw">geom_density</span>(<span class="dt">colour=</span><span class="st">&quot;red&quot;</span>, <span class="dt">size=</span><span class="dv">1</span>, <span class="dt">adjust=</span><span class="dv">1</span>)<span class="op">+</span></a>
+<a class="sourceLine" id="cb423-28" title="28"><span class="st">  </span><span class="kw">facet_wrap</span>(<span class="op">~</span>All_variables, <span class="dt">scales =</span> <span class="st">&#39;free&#39;</span>)</a></code></pre></div>
+<p>To change which group we are plotting, simply alter the <code>filter()</code> argument.</p>
+<p>Make a note of which variables appear normally distributed and which appear to be skewed. What do the histograms for nominal and ordinal data look like?</p>
+<p>Try performing a log10() transformation on the x variables and plotting a similar facet grid of histograms –– what does this do to some of the skewed variables? For example…</p>
+<div class="sourceCode" id="cb424"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb424-1" title="1">Agehist &lt;-<span class="st"> </span>Groups<span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb424-2" title="2"><span class="st">  </span><span class="kw">filter</span>(group<span class="op">==</span><span class="st">&quot;Age&quot;</span>)<span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb424-3" title="3"><span class="st">  </span><span class="kw">ggplot</span>(., <span class="kw">aes</span>(<span class="dt">x=</span><span class="kw">log10</span>(val))) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb424-4" title="4"><span class="st">  </span><span class="kw">geom_histogram</span>(<span class="kw">aes</span>(<span class="dt">x =</span> val, <span class="dt">y =</span> ..density..))<span class="op">+</span></a>
+<a class="sourceLine" id="cb424-5" title="5"><span class="st">  </span><span class="kw">geom_density</span>(<span class="dt">colour=</span><span class="st">&quot;red&quot;</span>, <span class="dt">size=</span><span class="dv">1</span>, <span class="dt">adjust=</span><span class="dv">1</span>)<span class="op">+</span></a>
+<a class="sourceLine" id="cb424-6" title="6"><span class="st">  </span><span class="kw">facet_wrap</span>(<span class="op">~</span>All_variables, <span class="dt">scales =</span> <span class="st">&#39;free&#39;</span>)</a></code></pre></div>
+<ul>
+<li>Create a 2D histogram and 2D kernel density estimate of ward centroids in London using the Eastings and Northings data in the x and y columns of your dataset. For example:</li>
+</ul>
+<div class="sourceCode" id="cb425"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb425-1" title="1">Londonpoint &lt;-<span class="st"> </span><span class="kw">ggplot</span>(LondonWardsleftjoin, <span class="kw">aes</span>(<span class="dt">x=</span>x.y,<span class="dt">y=</span>y.y))<span class="op">+</span><span class="kw">geom_point</span>()<span class="op">+</span><span class="kw">coord_equal</span>()</a>
+<a class="sourceLine" id="cb425-2" title="2">Londonpoint</a></code></pre></div>
+<p><img src="CASA0005_files/figure-html/prac8_ggplot-1.png" width="672" /></p>
+<div class="sourceCode" id="cb426"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb426-1" title="1">Londonpoint&lt;-<span class="kw">ggplot</span>(LondonWardsleftjoin, <span class="kw">aes</span>(<span class="dt">x=</span>x.y,<span class="dt">y=</span>y.y))<span class="op">+</span><span class="kw">stat_bin2d</span>(<span class="dt">bins=</span><span class="dv">10</span>)</a>
+<a class="sourceLine" id="cb426-2" title="2">Londonpoint</a></code></pre></div>
+<p><img src="CASA0005_files/figure-html/prac8_ggplot-2.png" width="672" /></p>
+<div class="sourceCode" id="cb427"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb427-1" title="1">Londonpoint&lt;-<span class="kw">ggplot</span>(LondonWardsleftjoin, <span class="kw">aes</span>(<span class="dt">x=</span>x.y,<span class="dt">y=</span>y.y))<span class="op">+</span><span class="kw">geom_point</span>()<span class="op">+</span><span class="kw">coord_equal</span>()</a>
+<a class="sourceLine" id="cb427-2" title="2">Londonpoint</a></code></pre></div>
+<p><img src="CASA0005_files/figure-html/prac8_ggplot-3.png" width="672" /></p>
+<div class="sourceCode" id="cb428"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb428-1" title="1">Londonpoint<span class="op">+</span><span class="kw">stat_density2d</span>(<span class="kw">aes</span>(<span class="dt">fill =</span> ..level..), <span class="dt">geom=</span><span class="st">&quot;polygon&quot;</span>)</a></code></pre></div>
+<p><img src="CASA0005_files/figure-html/prac8_ggplot-4.png" width="672" /></p>
+</div>
+<div id="extension-1-1" class="section level3">
+<h3><span class="header-section-number">8.3.5</span> Extension 1</h3>
+<p>If you really want to go down the road of carrying out KDE in a range of different ways, then this <a href="http://egallic.fr/R/sKDE/smooth-maps/kde.html">Kernel Density Estimation tutorial</a> — perhaps try it with some of the Blue Plaques data from previous weeks.</p>
+</div>
+<div id="task-2---function-to-recode-data" class="section level3">
+<h3><span class="header-section-number">8.3.6</span> Task 2 - Function to recode data</h3>
+<p>In the lecture, it was mentioned that sometimes we should recode variables to reduce the amount of information contained in order that different tests can be carried out on the data. Here we will recode some of our scale/ratio data into some nominal/weak-ordinal data to carry out some basic analysis on.</p>
+<p>A function to recode data in our dataset might look like the one below:</p>
+<div class="sourceCode" id="cb429"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb429-1" title="1">newvar&lt;-<span class="dv">0</span></a>
+<a class="sourceLine" id="cb429-2" title="2">recode&lt;-<span class="cf">function</span>(variable,high,medium,low){</a>
+<a class="sourceLine" id="cb429-3" title="3">  newvar[variable<span class="op">&lt;=</span>high]&lt;-<span class="st">&quot;High&quot;</span></a>
+<a class="sourceLine" id="cb429-4" title="4">  newvar[variable<span class="op">&lt;=</span>medium]&lt;-<span class="st">&quot;Medium&quot;</span></a>
+<a class="sourceLine" id="cb429-5" title="5">  newvar[variable<span class="op">&lt;=</span>low]&lt;-<span class="st">&quot;Low&quot;</span></a>
+<a class="sourceLine" id="cb429-6" title="6">  <span class="kw">return</span>(newvar)</a>
+<a class="sourceLine" id="cb429-7" title="7">}</a></code></pre></div>
+</div>
+<div id="whats-going-on-in-this-function" class="section level3">
+<h3><span class="header-section-number">8.3.7</span> What’s going on in this function?</h3>
+<ul>
+<li><p>First we initialise a new variable called <code>newvar</code> and set it to = 0. We then define a new function called <code>recode</code>. This takes in 4 pieces of information: A variable (called <code>variable</code> but I could have called it anything) and three values called <code>high</code>, <code>medium</code> and <code>low</code>. It outputs a value to the new string variable <code>newvar</code> based on the values of high, medium and low that are given to the function.</p></li>
+<li><p>To create the function in R, highlight the all of the code in the function and then run the whole block (ctrl-Return in R-Studio). You will see that the function is stored in the workspace.</p></li>
+<li><p>We can now use this function to recode any of our continuous variables into high, medium and low values based on the values we enter into the function.</p></li>
+<li><p>We are going to recode the Average GCSE Score variable into High, Medium and Low values – High will be anything above the 3rd Quartile, Low will be anything below the 1st Quartile and Medium – anything in between.</p></li>
+</ul>
+<p><em>Note, if your data doesn’t have the 2013 GCSE scores but 2014, it will have different figures to these figures below and you will need to call the column by the column header you have</em></p>
+<div class="sourceCode" id="cb430"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb430-1" title="1"><span class="kw">attach</span>(LondonWards)</a>
+<a class="sourceLine" id="cb430-2" title="2"><span class="co">#Check the name of your column, there could be a slight error and it might be called &#39;AvgGCSED201&#39;</span></a>
+<a class="sourceLine" id="cb430-3" title="3"><span class="kw">summary</span>(AvgGCSE201) </a></code></pre></div>
+<pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+##   245.0   332.3   343.7   345.8   358.3   409.1</code></pre>
+<p>Create a new column in your data frame and fill it with recoded data for the Average GCSE Score in 2013. To do this, pass the AvgGCSE2013 variable to the <code>recode()</code> function, along with and the three values for high, medium and low. You should create a new variable called gcse_recode and use the function to fill it with values</p>
+<p>If you wanted to be really fancy, you could try altering the function to calculate these “High”, “Medium” and “Low”</p>
+<div class="sourceCode" id="cb432"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb432-1" title="1">LondonWards<span class="op">$</span>GCSE_recode &lt;-<span class="st"> </span><span class="kw">recode</span>(AvgGCSE201,<span class="fl">409.1</span>,<span class="fl">358.3</span>,<span class="fl">332.3</span>)</a>
+<a class="sourceLine" id="cb432-2" title="2"></a>
+<a class="sourceLine" id="cb432-3" title="3"><span class="co">#or</span></a>
+<a class="sourceLine" id="cb432-4" title="4"></a>
+<a class="sourceLine" id="cb432-5" title="5">LondonWards<span class="op">$</span>GCSE_recode &lt;-<span class="st"> </span><span class="kw">recode</span>(AvgGCSE201,<span class="fl">409.1</span>,<span class="fl">358.3</span>,<span class="fl">332.3</span>)</a></code></pre></div>
+<p>You should also create a second re-coded variable from the unauthorised absence variable using the same function – call this variable <code>unauth_recode</code> and again, used the 3rd and 1st quartiles to define your high, medium and low values.</p>
+<p>On to another function. This time, we will calculate some location quotients for housing tenure in London. If you remember, a location quotient is simply the ratio of a local distribution to the ratio of a global distribution. In our case, our global distribution will be London.</p>
+<div class="sourceCode" id="cb433"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb433-1" title="1"><span class="co">#Location Quotient function 1</span></a>
+<a class="sourceLine" id="cb433-2" title="2">LQ1&lt;-<span class="cf">function</span>(pctVariable){</a>
+<a class="sourceLine" id="cb433-3" title="3">  pctVariable <span class="op">/</span><span class="kw">mean</span>(pctVariable)</a>
+<a class="sourceLine" id="cb433-4" title="4">}</a>
+<a class="sourceLine" id="cb433-5" title="5"><span class="co">#Location Quotient function 2</span></a>
+<a class="sourceLine" id="cb433-6" title="6">LQ2&lt;-<span class="cf">function</span>(variable,rowtotal){</a>
+<a class="sourceLine" id="cb433-7" title="7">  localprop&lt;-variable<span class="op">/</span>rowtotal</a>
+<a class="sourceLine" id="cb433-8" title="8">  globalprop&lt;-<span class="kw">sum</span>(variable)<span class="op">/</span><span class="kw">sum</span>(rowtotal)</a>
+<a class="sourceLine" id="cb433-9" title="9">  <span class="kw">return</span>(localprop<span class="op">/</span>globalprop)</a>
+<a class="sourceLine" id="cb433-10" title="10">}</a></code></pre></div>
+<p>The two functions above calculate the same Location Quotient, but the first one works on variables which have already been converted into row percentages, the second will work on raw variables where an additional column for the row totals is stored in a separate column – e.g. “age 0-15”, “age 16-64” and “age 65 plus” all sum to the “Pop2013” column in our data London Wards data set:</p>
+<div class="sourceCode" id="cb434"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb434-1" title="1"><span class="kw">head</span>(LondonWards[,<span class="dv">1</span><span class="op">:</span><span class="dv">7</span>])</a></code></pre></div>
+<pre><code>## Simple feature collection with 6 features and 7 fields
+## geometry type:  MULTIPOLYGON
+## dimension:      XY
+## bbox:           xmin: 507996.8 ymin: 170317.9 xmax: 533838 ymax: 182206.1
+## projected CRS:  OSGB 1936 / British National Grid
+##      WD11CD WD11CDO         WD11NM WD11NMW                  WardName WardCode
+## 1 E09000001    00AA City of London    &lt;NA&gt;            City of London     00AA
+## 2 E05000352  00ATGE   Feltham West    &lt;NA&gt;   Hounslow - Feltham West   00ATGE
+## 3 E05000353  00ATGF       Hanworth    &lt;NA&gt;       Hounslow - Hanworth   00ATGF
+## 4 E05000354  00ATGG  Hanworth Park    &lt;NA&gt;  Hounslow - Hanworth Park   00ATGG
+## 5 E05000355  00ATGH Heston Central    &lt;NA&gt; Hounslow - Heston Central   00ATGH
+## 6 E05000356  00ATGJ    Heston East    &lt;NA&gt;    Hounslow - Heston East   00ATGJ
+##   Wardcode1                       geometry
+## 1      &lt;NA&gt; MULTIPOLYGON (((532134.9 18...
+## 2 E05000352 MULTIPOLYGON (((509740 1736...
+## 3 E05000353 MULTIPOLYGON (((513585.1 17...
+## 4 E05000354 MULTIPOLYGON (((512142.6 17...
+## 5 E05000355 MULTIPOLYGON (((513098.5 17...
+## 6 E05000356 MULTIPOLYGON (((513467.2 17...</code></pre>
+<p>Calculate Location Quotients for the 5 Housing tenure variables (Owner Occupied, Private Rent, Social Rent, Shared Ownership, Rent Free) in your data set using either of the functions above. Save these as 5 new variables in your dataset. *Hint – use the function to create the variable directly, for example:</p>
+<div class="sourceCode" id="cb436"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb436-1" title="1"><span class="co">#this is pseudo code, but you should see how this works</span></a>
+<a class="sourceLine" id="cb436-2" title="2">dataframe<span class="op">$</span>newLQVariable &lt;-<span class="st"> </span><span class="kw">LQ1</span>(originalPercentageVariable)</a>
+<a class="sourceLine" id="cb436-3" title="3"><span class="co">#or</span></a>
+<a class="sourceLine" id="cb436-4" title="4">dataframe<span class="op">$</span>newLQVariable &lt;-<span class="st"> </span><span class="kw">LQ2</span>(originalVariable,rowTotalVariable)</a></code></pre></div>
+</div>
+<div id="task-3-mapping-location-quotients" class="section level3">
+<h3><span class="header-section-number">8.3.8</span> Task 3 – Mapping Location Quotients</h3>
+<p>You should now try and create a map or series of maps of your housing tenure location quotients using <code>tmap</code> or <code>ggplot</code>. Try to create a map by referring back earlier practicals in this course and follow the steps from there (or, indeed, use your memory)</p>
+</div>
+<div id="task-4-creating-a-basic-geodemographic-classification" class="section level3">
+<h3><span class="header-section-number">8.3.9</span> Task 4 – Creating a Basic Geodemographic Classification</h3>
+<p>As we saw in the lecture, geodemographic classifications are widely used to classify areas according to the characteristics of the population that inhabits them. All geodemographic classifications are created using cluster analysis algorithms. Many of these algorithms exist, but one of the most commonly used is k-means.</p>
+<p><img src="allisonhorst_images/kmeans_1.jpg" width="450pt" style="display: block; margin: auto;" /></p>
+<p>One of the pitfalls of these algorithms is that they will always find a solution, whether the variables have been selected appropriately or standardised correctly. This means that it’s very easy to create a classification which is misleading.</p>
+<p>All of that said, it is useful to see how straightforward it is to create a classification yourself to describe some spatial data you have.</p>
+<p>In a cluster analysis, you should select variables that are:</p>
+<ul>
+<li><p>Ranged on the same scale</p></li>
+<li><p>Normally distributed</p></li>
+<li><p>Not highly correlated</p></li>
+</ul>
+<p>To make this task easier, we will just select two variables to make our classification from. In a real geodemographic classification, hundreds of variables are often used.</p>
+<div class="sourceCode" id="cb437"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb437-1" title="1">LondonWardsData &lt;-<span class="st"> </span>LondonWards <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb437-2" title="2"><span class="st">  </span><span class="co">#drop geometry</span></a>
+<a class="sourceLine" id="cb437-3" title="3"><span class="st">  </span><span class="kw">st_drop_geometry</span>()<span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb437-4" title="4"><span class="st">  </span><span class="co">#display list of variables</span></a>
+<a class="sourceLine" id="cb437-5" title="5"><span class="st">  </span><span class="kw">summarise_all</span>(class) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb437-6" title="6"><span class="st">  </span><span class="kw">pivot_longer</span>(<span class="kw">everything</span>(), </a>
+<a class="sourceLine" id="cb437-7" title="7">               <span class="dt">names_to=</span><span class="st">&quot;All_variables&quot;</span>, </a>
+<a class="sourceLine" id="cb437-8" title="8">               <span class="dt">values_to=</span><span class="st">&quot;Variable_class&quot;</span>)</a>
+<a class="sourceLine" id="cb437-9" title="9"></a>
+<a class="sourceLine" id="cb437-10" title="10"><span class="kw">slice_head</span>(LondonWardsData, <span class="dt">n=</span><span class="dv">5</span>)</a></code></pre></div>
+<pre><code>## # A tibble: 5 x 2
+##   All_variables Variable_class
+##   &lt;chr&gt;         &lt;chr&gt;         
+## 1 WD11CD        factor        
+## 2 WD11CDO       factor        
+## 3 WD11NM        factor        
+## 4 WD11NMW       factor        
+## 5 WardName      factor</code></pre>
+<div class="sourceCode" id="cb439"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb439-1" title="1"><span class="co"># Create a new data frame just containing the two variables we are interested in</span></a>
+<a class="sourceLine" id="cb439-2" title="2">mydata &lt;-<span class="st"> </span>LondonWards <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb439-3" title="3"><span class="st">      </span><span class="kw">st_drop_geometry</span>()<span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb439-4" title="4"><span class="st">      </span>dplyr<span class="op">::</span><span class="kw">select</span>(<span class="kw">c</span>(PctOwned20, PctNoEngli))</a>
+<a class="sourceLine" id="cb439-5" title="5"></a>
+<a class="sourceLine" id="cb439-6" title="6"><span class="co">#– check variable distributions first</span></a>
+<a class="sourceLine" id="cb439-7" title="7">histplot &lt;-<span class="st"> </span><span class="kw">ggplot</span>(<span class="dt">data=</span>mydata, <span class="kw">aes</span>(<span class="dt">x=</span>PctOwned20))</a>
+<a class="sourceLine" id="cb439-8" title="8">histplot <span class="op">+</span><span class="kw">geom_histogram</span>()</a></code></pre></div>
+<pre><code>## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</code></pre>
+<p><img src="CASA0005_files/figure-html/prac8_cluster-1.png" width="672" /></p>
+<div class="sourceCode" id="cb441"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb441-1" title="1">histplot &lt;-<span class="st"> </span><span class="kw">ggplot</span>(<span class="dt">data=</span>mydata, <span class="kw">aes</span>(<span class="dt">x=</span> PctNoEngli))</a>
+<a class="sourceLine" id="cb441-2" title="2">histplot <span class="op">+</span><span class="kw">geom_histogram</span>()</a></code></pre></div>
+<pre><code>## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</code></pre>
+<p><img src="CASA0005_files/figure-html/prac8_cluster-2.png" width="672" /></p>
+<p>Let’s make our k-means find 3 clusters with 25 iterations. The graphics below by <a href="https://twitter.com/allison_horst">Allison Horst</a> will help explain the process…</p>
+<p><img src="allisonhorst_images/kmeans_2.jpg" width="450pt" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb443"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb443-1" title="1">fit &lt;-<span class="st"> </span>mydata <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb443-2" title="2"><span class="st">  </span><span class="kw">kmeans</span>(., <span class="dv">3</span>, <span class="dt">nstart=</span><span class="dv">25</span>)</a></code></pre></div>
+<p><img src="allisonhorst_images/kmeans_3.jpg" width="450pt" style="display: block; margin: auto;" /></p>
+<p><img src="allisonhorst_images/kmeans_4.jpg" width="450pt" style="display: block; margin: auto;" /></p>
+<p><img src="allisonhorst_images/kmeans_5.jpg" width="450pt" style="display: block; margin: auto;" /></p>
+<p><img src="allisonhorst_images/kmeans_6.jpg" width="450pt" style="display: block; margin: auto;" /></p>
+<p><img src="allisonhorst_images/kmeans_7.jpg" width="450pt" style="display: block; margin: auto;" /></p>
+<p><img src="allisonhorst_images/kmeans_8.jpg" width="450pt" style="display: block; margin: auto;" /></p>
+<p><img src="allisonhorst_images/kmeans_9.jpg" width="450pt" style="display: block; margin: auto;" /></p>
+<p><img src="allisonhorst_images/kmeans_10.jpg" width="450pt" style="display: block; margin: auto;" /></p>
+<p><img src="allisonhorst_images/kmeans_11.jpg" width="450pt" style="display: block; margin: auto;" /></p>
+<p>Now let’s get out cluster means using <code>tidy()</code> from the <code>tidymodels</code> package. Tidy creates a tibble that summarizes the model.</p>
+<p>Then plot them and then add them to our London wards…</p>
+<div class="sourceCode" id="cb444"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb444-1" title="1"><span class="co"># get cluster means</span></a>
+<a class="sourceLine" id="cb444-2" title="2"><span class="kw">library</span>(tidymodels)</a></code></pre></div>
+<pre><code>## Registered S3 methods overwritten by &#39;lme4&#39;:
+##   method                          from
+##   cooks.distance.influence.merMod car 
+##   influence.merMod                car 
+##   dfbeta.influence.merMod         car 
+##   dfbetas.influence.merMod        car</code></pre>
+<pre><code>## -- Attaching packages --------- tidymodels 0.1.0 --</code></pre>
+<pre><code>## v broom     0.7.0      v rsample   0.0.7 
+## v dials     0.0.8      v tune      0.1.1 
+## v infer     0.5.2      v workflows 0.1.2 
+## v parsnip   0.1.2      v yardstick 0.0.7 
+## v recipes   0.1.13</code></pre>
+<pre><code>## -- Conflicts ------------ tidymodels_conflicts() --
+## x recipes::check()      masks devtools::check()
+## x infer::chisq_test()   masks rstatix::chisq_test()
+## x nlme::collapse()      masks dplyr::collapse()
+## x scales::discard()     masks purrr::discard()
+## x rstatix::filter()     masks plotly::filter(), dplyr::filter(), stats::filter()
+## x recipes::fixed()      masks stringr::fixed()
+## x dplyr::lag()          masks stats::lag()
+## x latticeExtra::layer() masks ggplot2::layer()
+## x tune::parameters()    masks dials::parameters(), spatstat::parameters()
+## x infer::prop_test()    masks rstatix::prop_test()
+## x dials::prune()        masks rpart::prune()
+## x .GlobalEnv::recode()  masks dplyr::recode()
+## x rstatix::select()     masks MASS::select(), raster::select(), plotly::select(), dplyr::select()
+## x yardstick::spec()     masks readr::spec()
+## x recipes::step()       masks stats::step()
+## x infer::t_test()       masks rstatix::t_test()
+## x parsnip::translate()  masks rgeos::translate()</code></pre>
+<div class="sourceCode" id="cb449"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb449-1" title="1">centroid &lt;-<span class="st"> </span><span class="kw">tidy</span>(fit)<span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb449-2" title="2"><span class="st">  </span><span class="co">#print the results of the cluster groupings</span></a>
+<a class="sourceLine" id="cb449-3" title="3"><span class="st">  </span><span class="kw">print</span>()<span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb449-4" title="4"><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">select</span>(PctOwned20, PctNoEngli)</a></code></pre></div>
+<pre><code>## # A tibble: 3 x 5
+##   PctOwned20 PctNoEngli  size withinss cluster
+##        &lt;dbl&gt;      &lt;dbl&gt; &lt;int&gt;    &lt;dbl&gt; &lt;fct&gt;  
+## 1       27.5      17.0    187   13365. 1      
+## 2       72.4       6.38   191   17086. 2      
+## 3       48.9      14.7    247   21793. 3</code></pre>
+<div class="sourceCode" id="cb451"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb451-1" title="1"><span class="co"># as we only have variable two dimensions we can plot the clusters on a graph</span></a>
+<a class="sourceLine" id="cb451-2" title="2">p &lt;-<span class="st"> </span><span class="kw">ggplot</span>(mydata,<span class="kw">aes</span>(PctOwned20, PctNoEngli))<span class="op">+</span></a>
+<a class="sourceLine" id="cb451-3" title="3"><span class="st">  </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">colour=</span><span class="kw">factor</span>(fit<span class="op">$</span>cluster)))<span class="op">+</span></a>
+<a class="sourceLine" id="cb451-4" title="4"><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">data=</span>centroid,<span class="kw">aes</span>(PctOwned20, PctNoEngli), <span class="dt">size=</span><span class="dv">7</span>, <span class="dt">shape=</span><span class="dv">18</span>)<span class="op">+</span><span class="st"> </span><span class="kw">theme</span>(<span class="dt">legend.position=</span><span class="st">&quot;none&quot;</span>)</a>
+<a class="sourceLine" id="cb451-5" title="5"></a>
+<a class="sourceLine" id="cb451-6" title="6">LondonWards &lt;-<span class="st"> </span>fit <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb451-7" title="7"><span class="st">  </span><span class="co"># </span></a>
+<a class="sourceLine" id="cb451-8" title="8"><span class="st">  </span><span class="kw">augment</span>(., LondonWards)<span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb451-9" title="9"><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">select</span>(WD11CD, .cluster)<span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb451-10" title="10"><span class="st">  </span><span class="co">#make sure the .cluster column is numeric</span></a>
+<a class="sourceLine" id="cb451-11" title="11"><span class="st">  </span><span class="kw">mutate</span>(<span class="kw">across</span>(.cluster, as.numeric))<span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb451-12" title="12"><span class="st">  </span><span class="co"># join the .cluster to our sf layer</span></a>
+<a class="sourceLine" id="cb451-13" title="13"><span class="st">  </span><span class="kw">left_join</span>(LondonWards, </a>
+<a class="sourceLine" id="cb451-14" title="14">            .,</a>
+<a class="sourceLine" id="cb451-15" title="15">            <span class="dt">by =</span> <span class="kw">c</span>(<span class="st">&quot;WD11CD&quot;</span> =<span class="st"> &quot;WD11CD&quot;</span>))</a>
+<a class="sourceLine" id="cb451-16" title="16"></a>
+<a class="sourceLine" id="cb451-17" title="17"></a>
+<a class="sourceLine" id="cb451-18" title="18"><span class="co">#now map our geodeomographic classification</span></a>
+<a class="sourceLine" id="cb451-19" title="19">map &lt;-<span class="st"> </span><span class="kw">ggplot</span>(LondonWards) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb451-20" title="20"><span class="st">  </span><span class="kw">geom_sf</span>(<span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">fill=</span>.cluster))<span class="op">+</span></a>
+<a class="sourceLine" id="cb451-21" title="21"><span class="st">  </span><span class="kw">scale_fill_continuous</span>(<span class="dt">breaks=</span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>))</a>
+<a class="sourceLine" id="cb451-22" title="22">map</a></code></pre></div>
+<p><img src="CASA0005_files/figure-html/unnamed-chunk-391-1.png" width="672" /></p>
+<p><img src="allisonhorst_images/kmeans_12.jpg" width="450pt" style="display: block; margin: auto;" /></p>
+<p>Now of course this is just the most basic of classifications, but you can easily see how you could include more variables or different variables to create a different classification - this is perhaps something you could try.</p>
+<p>I haven’t even gone into using different clustering algorithms, how to decide on the appropriate number of clusters, using silhoutte plots to assess the strength of the clusters or creating pen-portraits using the variable z-scores for each cluster - this is practically a whole course in its own right… or indeed a dissertation topic!</p>
+</div>
+</div>
+<div id="part-b-online-mapping" class="section level2">
+<h2><span class="header-section-number">8.4</span> Part B Online mapping</h2>
+<div id="learning-objectives-2" class="section level3">
+<h3><span class="header-section-number">8.4.1</span> Learning objectives</h3>
+<p>By the end of this practical you should be able to:</p>
+<ol style="list-style-type: decimal">
+<li>Descrbie and explain different methods for producing online maps</li>
+<li>Create interative maps using RPubs, RMarkdown site generator and Shiny</li>
+<li>Critically appraise the appropriateness of mapping technqiues based on the dataset and purpose of the output map</li>
+</ol>
+</div>
+<div id="introduction-7" class="section level3">
+<h3><span class="header-section-number">8.4.2</span> Introduction</h3>
+<p>In this practical we are going to preliminary stages of a mini-investigation. Since 2015 the law has capped short-term lets in London at 90 nights per year. However, this is very hard to enforce due to a lack of data and extensive evidence required to prove that the limit has been exceeded. This has been recently reflected in the <a href="https://www.london.gov.uk/sites/default/files/housing_research_note_4-_short-term_and_holiday_letting_in_london.pdf">Housing Research Note 2020/04: Short-term and holiday letting in London</a> by the Greater London Authority (GLA):</p>
+<blockquote>
+<p>“there are signs that short-term letting platforms are becoming increasingly commercialised and there are concerns that removing housing supply from the market to offer it for short-term letting could be exacerbating London’s housing shortage.”</p>
+</blockquote>
+<p>The author, Georgie Cosh, was also kind enough to share some of the code used for this report. Guess what! They used R! Have a look at their code in the R file called GLA_airbnb_analysis in the prac8_data folder.</p>
+<p>Whilst Air bnb have implemented a system the removes listings once they have been rented for 90 days per year unless an appropraite permit is in place we want to interactively visualise the the number of air bnb lettings (and hotels for comparison) per borough as a starting point. This could then be used to undertake further investigation into boroughs with high short term lets, for example exploring other websites to see if the properties are listed and jointly exceed 90 days or optimising localised monitoring. As these rules only apply to entire homes we will only extract only these, and for monitoring purposes (e.g. random annual inspections) those are availbale for 365 days of the year.</p>
+<p>We will now explore several ways to do this…</p>
+<div class="infobox tip">
+<p>The report by Cosh (2020) goes a bit further than this and implements an occupancy model (based on a number of assumptions) to estimate the number of nights a Air bnb is rented out for, so check it out, perhaps an idea for your final project.</p>
+</div>
+</div>
+<div id="rpubs" class="section level3">
+<h3><span class="header-section-number">8.4.3</span> RPubs</h3>
+<p>One of the most straight forward publishing tools is RPubs. It takes an <code>.Rmd</code> and directly uploads it to rpubs.com — all files are publically available on this website.</p>
+<ol style="list-style-type: decimal">
+<li><p>To start with you need to make a free account. Go to: <a href="https://rpubs.com/users/new" class="uri">https://rpubs.com/users/new</a> and register</p></li>
+<li><p>Create a new project in RStudio and open a new R Markdown file (File &gt; New File &gt; R Markdown)</p></li>
+<li><p>You’ll see that the file is automatically populated with some information, have a read through it then click the Knit icon …</p></li>
+</ol>
+<p><img src="prac8_images/knitt.png" width="800pt" style="display: block; margin: auto;" /></p>
+<ol style="list-style-type: decimal">
+<li><p>Let’s make some changes to your <code>.Rmd</code>. Delete all the text and code except from header inforamtion (that is enclosed by three dashes at the top of the file)</p></li>
+<li><p>Insert a new code chunk (go back to <a href="git-github-and-rmarkdown.html#rmarkdown">RMarkdown</a> if you need a refresher)…</p></li>
+</ol>
+<p><img src="allisonhorst_images/rmarkdown_wizards.png" width="450pt" style="display: block; margin: auto;" /></p>
+<p>…Add add some code of your choice from either a previous practical or your own work. As it’s a new project you’ll have to either copy the data into your project folder or set the working directory <code>setwd()</code>. If it’s all online data that you’ve loaded directly from the web into R, this shouldn’t be an issue. I’m going to use the interactive map we made in practical 5 (the <a href="map-making.html#advanced-interactive-map">Advanced interactive map</a> section)…..Here is the code i’ve put in my chunk:</p>
+<div class="sourceCode" id="cb452"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb452-1" title="1"><span class="kw">library</span>(sf)</a>
+<a class="sourceLine" id="cb452-2" title="2"><span class="kw">library</span>(tmap)</a>
+<a class="sourceLine" id="cb452-3" title="3"><span class="kw">library</span>(leafpop)</a>
+<a class="sourceLine" id="cb452-4" title="4"><span class="kw">library</span>(leaflet)</a>
+<a class="sourceLine" id="cb452-5" title="5"><span class="kw">library</span>(tmaptools)</a>
+<a class="sourceLine" id="cb452-6" title="6"><span class="kw">library</span>(tidyverse)</a>
+<a class="sourceLine" id="cb452-7" title="7"></a>
+<a class="sourceLine" id="cb452-8" title="8">OSM &lt;-<span class="st"> </span><span class="kw">st_read</span>(here<span class="op">::</span><span class="kw">here</span>(<span class="st">&quot;prac5_data&quot;</span>,</a>
+<a class="sourceLine" id="cb452-9" title="9">                          <span class="st">&quot;greater-london-latest-free.shp&quot;</span>, </a>
+<a class="sourceLine" id="cb452-10" title="10">                          <span class="st">&quot;gis_osm_pois_a_free_1.shp&quot;</span>)) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb452-11" title="11"><span class="st">  </span><span class="kw">st_transform</span>(., <span class="dv">27700</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb452-12" title="12"><span class="st">  </span><span class="co">#select hotels only</span></a>
+<a class="sourceLine" id="cb452-13" title="13"><span class="st">  </span><span class="kw">filter</span>(fclass <span class="op">==</span><span class="st"> &#39;hotel&#39;</span>)</a>
+<a class="sourceLine" id="cb452-14" title="14"></a>
+<a class="sourceLine" id="cb452-15" title="15">Londonborough &lt;-<span class="st"> </span><span class="kw">st_read</span>(here<span class="op">::</span><span class="kw">here</span>(<span class="st">&quot;Prac1_data&quot;</span>,</a>
+<a class="sourceLine" id="cb452-16" title="16">                                    <span class="st">&quot;statistical-gis-boundaries-london&quot;</span>, </a>
+<a class="sourceLine" id="cb452-17" title="17">                                    <span class="st">&quot;ESRI&quot;</span>, </a>
+<a class="sourceLine" id="cb452-18" title="18">                                    <span class="st">&quot;London_Borough_Excluding_MHW.shp&quot;</span>))<span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb452-19" title="19"><span class="st">  </span><span class="kw">st_transform</span>(., <span class="dv">27700</span>)</a>
+<a class="sourceLine" id="cb452-20" title="20"></a>
+<a class="sourceLine" id="cb452-21" title="21">Airbnb &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="st">&quot;prac5_data/listings.csv&quot;</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb452-22" title="22"><span class="st">  </span><span class="kw">st_as_sf</span>(., <span class="dt">coords =</span> <span class="kw">c</span>(<span class="st">&quot;longitude&quot;</span>, <span class="st">&quot;latitude&quot;</span>), </a>
+<a class="sourceLine" id="cb452-23" title="23">                   <span class="dt">crs =</span> <span class="dv">4326</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb452-24" title="24"><span class="st">    </span><span class="kw">st_transform</span>(., <span class="dv">27700</span>)<span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb452-25" title="25"><span class="st">    </span><span class="co">#select entire places that are available all year</span></a>
+<a class="sourceLine" id="cb452-26" title="26"><span class="st">    </span><span class="kw">filter</span>(room_type <span class="op">==</span><span class="st"> &#39;Entire home/apt&#39;</span> <span class="op">&amp;</span><span class="st"> </span>availability_<span class="dv">365</span> <span class="op">==</span><span class="st">&#39;365&#39;</span>)</a>
+<a class="sourceLine" id="cb452-27" title="27"></a>
+<a class="sourceLine" id="cb452-28" title="28"></a>
+<a class="sourceLine" id="cb452-29" title="29"><span class="co"># make a function for the join</span></a>
+<a class="sourceLine" id="cb452-30" title="30"><span class="co"># hint all you have to do is replace data1 and data2</span></a>
+<a class="sourceLine" id="cb452-31" title="31"><span class="co"># with the data you want to use</span></a>
+<a class="sourceLine" id="cb452-32" title="32"></a>
+<a class="sourceLine" id="cb452-33" title="33">Joinfun &lt;-<span class="st"> </span><span class="cf">function</span>(data1, data2){</a>
+<a class="sourceLine" id="cb452-34" title="34"></a>
+<a class="sourceLine" id="cb452-35" title="35">output&lt;-<span class="st"> </span>data1<span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb452-36" title="36"><span class="st">  </span><span class="kw">st_join</span>(Londonborough,.)<span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb452-37" title="37"><span class="st">  </span><span class="kw">add_count</span>(GSS_CODE, <span class="dt">name=</span><span class="st">&quot;hotels_in_borough&quot;</span>) </a>
+<a class="sourceLine" id="cb452-38" title="38"></a>
+<a class="sourceLine" id="cb452-39" title="39">  <span class="kw">return</span>(output)</a>
+<a class="sourceLine" id="cb452-40" title="40">}</a>
+<a class="sourceLine" id="cb452-41" title="41"></a>
+<a class="sourceLine" id="cb452-42" title="42"><span class="co"># use the function for hotels</span></a>
+<a class="sourceLine" id="cb452-43" title="43">Hotels &lt;-<span class="st"> </span><span class="kw">Joinfun</span>(OSM, Londonborough)</a>
+<a class="sourceLine" id="cb452-44" title="44"></a>
+<a class="sourceLine" id="cb452-45" title="45"><span class="co"># then for airbnb</span></a>
+<a class="sourceLine" id="cb452-46" title="46">Airbnb &lt;-<span class="st"> </span><span class="kw">Joinfun</span>(Airbnb, Londonborough)</a>
+<a class="sourceLine" id="cb452-47" title="47"></a>
+<a class="sourceLine" id="cb452-48" title="48"><span class="co"># now try to arrange the plots with tmap</span></a>
+<a class="sourceLine" id="cb452-49" title="49">breaks =<span class="st"> </span><span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">5</span>, <span class="dv">12</span>, <span class="dv">26</span>, <span class="dv">57</span>, <span class="dv">286</span>) </a>
+<a class="sourceLine" id="cb452-50" title="50"></a>
+<a class="sourceLine" id="cb452-51" title="51"><span class="co">#change the column name from hotels_in_borough for the legend</span></a>
+<a class="sourceLine" id="cb452-52" title="52">Hotels &lt;-<span class="st"> </span>Hotels <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb452-53" title="53"><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">rename</span>(<span class="st">`</span><span class="dt">Accomodation count</span><span class="st">`</span> =<span class="st"> </span>hotels_in_borough)</a>
+<a class="sourceLine" id="cb452-54" title="54"></a>
+<a class="sourceLine" id="cb452-55" title="55">Airbnb &lt;-<span class="st"> </span>Airbnb <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb452-56" title="56"><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">rename</span>(<span class="st">`</span><span class="dt">Accomodation count</span><span class="st">`</span> =<span class="st"> </span>hotels_in_borough)</a>
+<a class="sourceLine" id="cb452-57" title="57"></a>
+<a class="sourceLine" id="cb452-58" title="58"></a>
+<a class="sourceLine" id="cb452-59" title="59">Airbnb_count &lt;-<span class="st"> </span>Airbnb <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb452-60" title="60"><span class="st">  </span><span class="kw">count</span>(GSS_CODE)</a>
+<a class="sourceLine" id="cb452-61" title="61">Hotels_count &lt;-<span class="st"> </span>Hotels <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb452-62" title="62"><span class="st">  </span><span class="kw">count</span>(NAME)</a>
+<a class="sourceLine" id="cb452-63" title="63"></a>
+<a class="sourceLine" id="cb452-64" title="64"><span class="co">#join data</span></a>
+<a class="sourceLine" id="cb452-65" title="65">Joined &lt;-<span class="st"> </span>Airbnb_count<span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb452-66" title="66"><span class="st">  </span><span class="kw">st_join</span>(., Hotels_count, <span class="dt">join =</span> st_equals)<span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb452-67" title="67"><span class="st">  </span><span class="kw">st_transform</span>(., <span class="dv">4326</span>)<span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb452-68" title="68"><span class="st">  </span><span class="kw">rename</span>(<span class="st">`</span><span class="dt">Airbnb count</span><span class="st">`</span> =<span class="st"> `</span><span class="dt">n.x</span><span class="st">`</span>, </a>
+<a class="sourceLine" id="cb452-69" title="69">         <span class="st">`</span><span class="dt">GSS Code</span><span class="st">`</span>=<span class="st"> </span>GSS_CODE,</a>
+<a class="sourceLine" id="cb452-70" title="70">         <span class="st">`</span><span class="dt">Borough</span><span class="st">`</span>=NAME,</a>
+<a class="sourceLine" id="cb452-71" title="71">         <span class="st">`</span><span class="dt">Hotel count</span><span class="st">`</span> =<span class="st"> `</span><span class="dt">n.y</span><span class="st">`</span>) </a>
+<a class="sourceLine" id="cb452-72" title="72"></a>
+<a class="sourceLine" id="cb452-73" title="73">popupairbnb &lt;-Joined <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb452-74" title="74"><span class="st">  </span><span class="kw">st_drop_geometry</span>()<span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb452-75" title="75"><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">select</span>(<span class="st">`</span><span class="dt">Airbnb count</span><span class="st">`</span>, Borough)<span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb452-76" title="76"><span class="st">  </span><span class="kw">popupTable</span>()</a>
+<a class="sourceLine" id="cb452-77" title="77"></a>
+<a class="sourceLine" id="cb452-78" title="78">popuphotel &lt;-Joined <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb452-79" title="79"><span class="st">  </span><span class="kw">st_drop_geometry</span>()<span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb452-80" title="80"><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">select</span>(<span class="st">`</span><span class="dt">Hotel count</span><span class="st">`</span>, Borough)<span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb452-81" title="81"><span class="st">  </span><span class="kw">popupTable</span>()</a>
+<a class="sourceLine" id="cb452-82" title="82"></a>
+<a class="sourceLine" id="cb452-83" title="83"><span class="kw">tmap_mode</span>(<span class="st">&quot;view&quot;</span>)</a>
+<a class="sourceLine" id="cb452-84" title="84"></a>
+<a class="sourceLine" id="cb452-85" title="85"><span class="co"># set the colour palettes using our previously defined breaks</span></a>
+<a class="sourceLine" id="cb452-86" title="86"></a>
+<a class="sourceLine" id="cb452-87" title="87"></a>
+<a class="sourceLine" id="cb452-88" title="88">pal1 &lt;-<span class="st"> </span>Joined <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb452-89" title="89"><span class="st">  </span><span class="kw">colorBin</span>(<span class="dt">palette =</span> <span class="st">&quot;YlOrRd&quot;</span>, <span class="dt">domain=</span>.<span class="op">$</span><span class="st">`</span><span class="dt">Airbnb count</span><span class="st">`</span>, <span class="dt">bins=</span>breaks)</a>
+<a class="sourceLine" id="cb452-90" title="90"></a>
+<a class="sourceLine" id="cb452-91" title="91">pal1 &lt;-<span class="kw">colorBin</span>(<span class="dt">palette =</span> <span class="st">&quot;YlOrRd&quot;</span>, <span class="dt">domain=</span>Joined<span class="op">$</span><span class="st">`</span><span class="dt">Airbnb count</span><span class="st">`</span>, <span class="dt">bins=</span>breaks)</a>
+<a class="sourceLine" id="cb452-92" title="92"></a>
+<a class="sourceLine" id="cb452-93" title="93">pal2 &lt;-<span class="st"> </span>Joined <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb452-94" title="94"><span class="st">  </span><span class="kw">colorBin</span>(<span class="dt">palette =</span> <span class="st">&quot;YlOrRd&quot;</span>, <span class="dt">domain=</span>.<span class="op">$</span><span class="st">`</span><span class="dt">Hotel count</span><span class="st">`</span>, <span class="dt">bins=</span>breaks)</a>
+<a class="sourceLine" id="cb452-95" title="95"></a>
+<a class="sourceLine" id="cb452-96" title="96"></a>
+<a class="sourceLine" id="cb452-97" title="97">map&lt;-<span class="st"> </span><span class="kw">leaflet</span>(Joined) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb452-98" title="98"><span class="st">  </span><span class="co"># add basemap options</span></a>
+<a class="sourceLine" id="cb452-99" title="99"><span class="st">  </span><span class="kw">addTiles</span>(<span class="dt">group =</span> <span class="st">&quot;OSM (default)&quot;</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb452-100" title="100"><span class="st">  </span><span class="kw">addProviderTiles</span>(providers<span class="op">$</span>Stamen.Toner, <span class="dt">group =</span> <span class="st">&quot;Toner&quot;</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb452-101" title="101"><span class="st">  </span><span class="kw">addProviderTiles</span>(providers<span class="op">$</span>Stamen.TonerLite, <span class="dt">group =</span> <span class="st">&quot;Toner Lite&quot;</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb452-102" title="102"><span class="st">  </span><span class="kw">addProviderTiles</span>(providers<span class="op">$</span>CartoDB.Positron, <span class="dt">group =</span> <span class="st">&quot;CartoDB&quot;</span>)<span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb452-103" title="103"><span class="st">  </span></a>
+<a class="sourceLine" id="cb452-104" title="104"><span class="st">  </span><span class="co">#add our polygons, linking to the tables we just made</span></a>
+<a class="sourceLine" id="cb452-105" title="105"><span class="st">  </span><span class="kw">addPolygons</span>(<span class="dt">color=</span><span class="st">&quot;white&quot;</span>, </a>
+<a class="sourceLine" id="cb452-106" title="106">              <span class="dt">weight =</span> <span class="dv">2</span>,</a>
+<a class="sourceLine" id="cb452-107" title="107">              <span class="dt">opacity =</span> <span class="dv">1</span>,</a>
+<a class="sourceLine" id="cb452-108" title="108">              <span class="dt">dashArray =</span> <span class="st">&quot;3&quot;</span>,</a>
+<a class="sourceLine" id="cb452-109" title="109">              <span class="dt">popup =</span> popupairbnb,</a>
+<a class="sourceLine" id="cb452-110" title="110">              <span class="dt">fillOpacity =</span> <span class="fl">0.7</span>,</a>
+<a class="sourceLine" id="cb452-111" title="111">              <span class="dt">fillColor =</span> <span class="op">~</span><span class="kw">pal2</span>(<span class="st">`</span><span class="dt">Airbnb count</span><span class="st">`</span>),</a>
+<a class="sourceLine" id="cb452-112" title="112">              <span class="dt">group =</span> <span class="st">&quot;Airbnb&quot;</span>)<span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb452-113" title="113"><span class="st">  </span></a>
+<a class="sourceLine" id="cb452-114" title="114"><span class="st">  </span><span class="kw">addPolygons</span>(<span class="dt">fillColor =</span> <span class="op">~</span><span class="kw">pal2</span>(<span class="st">`</span><span class="dt">Hotel count</span><span class="st">`</span>), </a>
+<a class="sourceLine" id="cb452-115" title="115">              <span class="dt">weight =</span> <span class="dv">2</span>,</a>
+<a class="sourceLine" id="cb452-116" title="116">              <span class="dt">opacity =</span> <span class="dv">1</span>,</a>
+<a class="sourceLine" id="cb452-117" title="117">              <span class="dt">color =</span> <span class="st">&quot;white&quot;</span>,</a>
+<a class="sourceLine" id="cb452-118" title="118">              <span class="dt">dashArray =</span> <span class="st">&quot;3&quot;</span>,</a>
+<a class="sourceLine" id="cb452-119" title="119">              <span class="dt">popup =</span> popupairbnb,</a>
+<a class="sourceLine" id="cb452-120" title="120">              <span class="dt">fillOpacity =</span> <span class="fl">0.7</span>,<span class="dt">group =</span> <span class="st">&quot;Hotels&quot;</span>)<span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb452-121" title="121"><span class="st">  </span><span class="co"># add a legend</span></a>
+<a class="sourceLine" id="cb452-122" title="122"><span class="st">  </span><span class="kw">addLegend</span>(<span class="dt">pal =</span> pal2, <span class="dt">values =</span> <span class="op">~</span><span class="st">`</span><span class="dt">Hotel count</span><span class="st">`</span>, <span class="dt">group =</span> <span class="kw">c</span>(<span class="st">&quot;Airbnb&quot;</span>,<span class="st">&quot;Hotel&quot;</span>), </a>
+<a class="sourceLine" id="cb452-123" title="123">            <span class="dt">position =</span><span class="st">&quot;bottomleft&quot;</span>, <span class="dt">title =</span> <span class="st">&quot;Accomodation count&quot;</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb452-124" title="124"><span class="st">  </span><span class="co"># specify layers control</span></a>
+<a class="sourceLine" id="cb452-125" title="125"><span class="st">  </span><span class="kw">addLayersControl</span>(</a>
+<a class="sourceLine" id="cb452-126" title="126">    <span class="dt">baseGroups =</span> <span class="kw">c</span>(<span class="st">&quot;OSM (default)&quot;</span>, <span class="st">&quot;Toner&quot;</span>, <span class="st">&quot;Toner Lite&quot;</span>, <span class="st">&quot;CartoDB&quot;</span>),</a>
+<a class="sourceLine" id="cb452-127" title="127">    <span class="dt">overlayGroups =</span> <span class="kw">c</span>(<span class="st">&quot;Airbnb&quot;</span>, <span class="st">&quot;Hotels&quot;</span>),</a>
+<a class="sourceLine" id="cb452-128" title="128">    <span class="dt">options =</span> <span class="kw">layersControlOptions</span>(<span class="dt">collapsed =</span> <span class="ot">FALSE</span>)</a>
+<a class="sourceLine" id="cb452-129" title="129">  )</a>
+<a class="sourceLine" id="cb452-130" title="130"></a>
+<a class="sourceLine" id="cb452-131" title="131"><span class="co"># plot the map</span></a>
+<a class="sourceLine" id="cb452-132" title="132">map</a></code></pre></div>
+<ol style="list-style-type: decimal">
+<li>Add some text at the start of your <code>.Rmd</code> you can include titles and subtitle using # followed by a space, a second level subtitle would be ##, and third ###</li>
+</ol>
+<div class="sourceCode" id="cb453"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb453-1" title="1"><span class="co"># Title</span></a>
+<a class="sourceLine" id="cb453-2" title="2"><span class="co">## Second sub title</span></a>
+<a class="sourceLine" id="cb453-3" title="3"><span class="co">### Third sub title</span></a></code></pre></div>
+<ol start="7" style="list-style-type: decimal">
+<li><p>Save the file, Knitt it to HTML, this should be default and specified in the header — enclosed by three dashes.</p></li>
+<li><p>Once knitted you can easily publish the file to Ppubs using the Publish icon either in the viewer pane or the toolbar area (by run)</p></li>
+</ol>
+<p><img src="prac8_images/publish.png" width="200pt" style="display: block; margin: auto;" /></p>
+<p>Now how about adding a few design features…i’ve changed my header section to…</p>
+<div class="sourceCode" id="cb454"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb454-1" title="1"><span class="op">---</span></a>
+<a class="sourceLine" id="cb454-2" title="2">title<span class="op">:</span><span class="st"> &quot;publishexample&quot;</span></a>
+<a class="sourceLine" id="cb454-3" title="3">output<span class="op">:</span></a>
+<a class="sourceLine" id="cb454-4" title="4"><span class="st">  </span>html_document<span class="op">:</span></a>
+<a class="sourceLine" id="cb454-5" title="5"><span class="st">    </span>theme<span class="op">:</span><span class="st"> </span>yeti</a>
+<a class="sourceLine" id="cb454-6" title="6">    smart<span class="op">:</span><span class="st"> </span>true</a>
+<a class="sourceLine" id="cb454-7" title="7">    highlight<span class="op">:</span><span class="st"> </span>textmate</a>
+<a class="sourceLine" id="cb454-8" title="8">    toc<span class="op">:</span><span class="st"> </span>true</a>
+<a class="sourceLine" id="cb454-9" title="9">    number_sections<span class="op">:</span><span class="st"> </span>true</a>
+<a class="sourceLine" id="cb454-10" title="10">    toc_float<span class="op">:</span></a>
+<a class="sourceLine" id="cb454-11" title="11"><span class="st">      </span>collapsed<span class="op">:</span><span class="st"> </span>false</a>
+<a class="sourceLine" id="cb454-12" title="12">      smooth_scroll<span class="op">:</span><span class="st"> </span>true</a>
+<a class="sourceLine" id="cb454-13" title="13"><span class="op">---</span></a></code></pre></div>
+<ol start="9" style="list-style-type: decimal">
+<li><p>Knit and then publish again…you’ll notice a few aesthetic changes</p></li>
+<li><p>To learn more about these go explore:</p></li>
+</ol>
+<ul>
+<li><a href="https://bookdown.org/yihui/rmarkdown/html-document.html" class="uri">https://bookdown.org/yihui/rmarkdown/html-document.html</a></li>
+<li><a href="http://www.datadreaming.org/post/r-markdown-theme-gallery/" class="uri">http://www.datadreaming.org/post/r-markdown-theme-gallery/</a></li>
+<li><a href="https://cran.r-project.org/web/packages/prettydoc/vignettes/architect.html" class="uri">https://cran.r-project.org/web/packages/prettydoc/vignettes/architect.html</a></li>
+</ul>
+<p>And for more code chunk control..</p>
+<ul>
+<li><a href="https://bookdown.org/yihui/rmarkdown/r-code.html" class="uri">https://bookdown.org/yihui/rmarkdown/r-code.html</a></li>
+<li><a href="https://rmarkdown.rstudio.com/lesson-3.html" class="uri">https://rmarkdown.rstudio.com/lesson-3.html</a></li>
+</ul>
+</div>
+<div id="rmarkdown-site-generator" class="section level3">
+<h3><span class="header-section-number">8.4.4</span> RMarkdown site generator</h3>
+<div id="set-the-file-structure" class="section level4">
+<h4><span class="header-section-number">8.4.4.1</span> Set the file structure</h4>
+<p>RPubs are useful but what if you wanted to make a full site with different tabs for introduction, methodology, results and recommedations…one way is to use the RMarkdown site generator hosted on GitHub</p>
+<p>RMarkdown site generator is useful as it does not require any third-party add ons like blogdown which is reliant on the hugo site generator</p>
+<p>To make a site you’ll need the following to be within your project:</p>
+<ol style="list-style-type: lower-alpha">
+<li><p>A configuration file with the filename <code>_site.yml</code></p></li>
+<li><p>An <code>index.Rmd</code></p></li>
+<li><p>Any other <code>.Rmd</code> files you want to create into pages on the site</p></li>
+</ol>
+<p>For the site to work you only require (a) and (b)….but that would be a pretty boring site…</p>
+<ol start="11" style="list-style-type: decimal">
+<li>In your new project add two new RMarkdown files called:</li>
+</ol>
+<ul>
+<li><code>_site.yml</code></li>
+<li><code>index.Rmd</code></li>
+</ul>
+<p><img src="prac8_images/rsitegenerator.png" width="500pt" style="display: block; margin: auto;" /></p>
+<ol start="12" style="list-style-type: decimal">
+<li>In the <code>_site.yml</code> remove all code and add the following</li>
+</ol>
+<div class="sourceCode" id="cb455"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb455-1" title="1">name<span class="op">:</span><span class="st"> &quot;Hello world&quot;</span></a>
+<a class="sourceLine" id="cb455-2" title="2">output_dir<span class="op">:</span><span class="st"> &quot;.&quot;</span></a>
+<a class="sourceLine" id="cb455-3" title="3">navbar<span class="op">:</span></a>
+<a class="sourceLine" id="cb455-4" title="4"><span class="st">  </span>title<span class="op">:</span><span class="st"> &quot;My example website&quot;</span></a>
+<a class="sourceLine" id="cb455-5" title="5">  left<span class="op">:</span></a>
+<a class="sourceLine" id="cb455-6" title="6"><span class="st">    </span><span class="op">-</span><span class="st"> </span>text<span class="op">:</span><span class="st"> &quot;Home&quot;</span></a>
+<a class="sourceLine" id="cb455-7" title="7">      href<span class="op">:</span><span class="st"> </span>index.html</a>
+<a class="sourceLine" id="cb455-8" title="8">    <span class="op">-</span><span class="st"> </span>text<span class="op">:</span><span class="st"> &quot;About&quot;</span></a>
+<a class="sourceLine" id="cb455-9" title="9">      href<span class="op">:</span><span class="st"> </span>publishexample.html</a></code></pre></div>
+</div>
+<div id="link-to-github" class="section level4">
+<h4><span class="header-section-number">8.4.4.2</span> Link to GitHub</h4>
+<p>There are two ways to do this….</p>
+<div id="github-first" class="section level5">
+<h5><span class="header-section-number">8.4.4.2.1</span> GitHub first</h5>
+<p>This is the ‘easy’ way as you woould repeat the steps in <a href="git-github-and-rmarkdown.html#git-github-and-rmarkdown">Practical 4</a> by firstly making a new repository on GitHub then loading a new project in RStudio, linking that to GitHub and copying all your files into your new project from the exisiting one.</p>
+</div>
+<div id="github-last" class="section level5">
+<h5><span class="header-section-number">8.4.4.2.2</span> GitHub last</h5>
+<p>So if you already have a RStudio project…like we do…we can link this to GitHub but the steps are a bit more invovled and there are several ways to acheive it — as with most things in R.</p>
+<ol start="13" style="list-style-type: decimal">
+<li><p>Make a Git repo in RStudio. Go to Tools &gt; Project Options &gt; Git/SVN and select Git under Version control system and initialize a new repository, then restart RStudio. The Git tab should appear..</p></li>
+<li><p>Next we need to make a new repository on GitHub. Go to GitHub, login and make a new repository. Make sure that it is <strong>empty</strong> with no README.. you should have something similar to this appear:</p></li>
+</ol>
+<p><img src="prac8_images/gitnewrepo.png" width="800pt" style="display: block; margin: auto;" /></p>
+<ol start="15" style="list-style-type: decimal">
+<li>Clone the repository by copying the HTTPS</li>
+</ol>
+<p><img src="prac8_images/HTTPS.png" width="700pt" style="display: block; margin: auto;" /></p>
+<ol start="16" style="list-style-type: decimal">
+<li><p>Make one local commit. Under the Git tab &gt; Diff &gt; Stage the files &gt; Add a commit message and click commit</p></li>
+<li><p>Now we need to connect our local repository to the GitHub one. So Under the Git tab you’ll the new brach button (two purple boxes linked to a white box)…</p></li>
+</ol>
+<p><img src="prac8_images/addremote.png" width="400pt" style="display: block; margin: auto;" /></p>
+<ol start="18" style="list-style-type: decimal">
+<li>Click it &gt; Add Remote. Paste in the URL use the remote name origin and the branch name of master — which you can get from the GitHub Quick setup screen after creating your repo. Check sync the branch with the remote &gt; click create then select overwrite</li>
+</ol>
+<p><img src="prac8_images/addremote2.png" width="400pt" style="display: block; margin: auto;" /></p>
+<ol start="19" style="list-style-type: decimal">
+<li><p>Push the files to your GitHub and they will appear on your GitHub repo</p></li>
+<li><p>Next we need to actually build the site…there are a few ways to do this…Go to the Git tab you should see the Build tab, if you can’t then go to Tools &gt; Project Options &gt; Build Tools and select website under Project build tools. Now click Build Website under the build tab</p></li>
+<li><p>Alternatively you write the following in the console</p></li>
+</ol>
+<div class="sourceCode" id="cb456"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb456-1" title="1">rmarkdown<span class="op">::</span><span class="kw">render_site</span>()</a></code></pre></div>
+<p>If you wanted to just build a page from your site — say if you have made a rather big site with lots of analysis use:</p>
+<div class="sourceCode" id="cb457"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb457-1" title="1">rmarkdown<span class="op">::</span><span class="kw">render_site</span>(<span class="st">&quot;index.Rmd&quot;</span>)</a></code></pre></div>
+<ol start="22" style="list-style-type: decimal">
+<li>Stage, commit and then push the files to your GitHub. I had some issues staging the <code>site_libs</code> folder in the Git tab. I fixed it by closing and reloading my R project then clicking the cog symbol (under Git tab) &gt; Shell and typing <code>git add .</code> If you get an error message about the index file being locked… go and delete it and try again. If you can’t delete restart the machine and try again. You will find it in the .git folder within your project. Once <code>git add .</code> runs you should see all the files staged, be able to commit and then push the changes to GitHub</li>
+</ol>
+<p>Help:</p>
+<ul>
+<li><a href="https://stackoverflow.com/questions/5834014/lf-will-be-replaced-by-crlf-in-git-what-is-that-and-is-it-important" class="uri">https://stackoverflow.com/questions/5834014/lf-will-be-replaced-by-crlf-in-git-what-is-that-and-is-it-important</a></li>
+<li><a href="https://stackoverflow.com/questions/9282632/git-index-lock-file-exists-when-i-try-to-commit-but-cannot-delete-the-file" class="uri">https://stackoverflow.com/questions/9282632/git-index-lock-file-exists-when-i-try-to-commit-but-cannot-delete-the-file</a></li>
+</ul>
+<ol start="23" style="list-style-type: decimal">
+<li>So your ‘built’ website is up on GitHub, but you need to tell it where to build the site from…Go to your GitHub repo &gt; Settings, scroll down to GitHub pages and select the Source as the master branch</li>
+</ol>
+<p><img src="prac8_images/GitHubpages.png" width="800pt" style="display: block; margin: auto;" /></p>
+<ol start="24" style="list-style-type: decimal">
+<li>Click on the link that is provided where your site is published and you should have a website with two tabs. Here is what mine looks like:</li>
+</ol>
+<p><img src="prac8_images/Markdownsite.png" width="800pt" style="display: block; margin: auto;" /></p>
+<p>For more information on hosting your code from RStudio on GitHub check out the book <a href="https://happygitwithr.com/usage-intro.html">Happy Git and GitHub for the useR</a></p>
+<p>My RMarkdown site can be found <a href="https://andrewmaclachlan.github.io/PUBLISHEXAMPLE/">at this GitHub pages link</a>, but note that i’ve added a Shiny tab…which is covered in an optional extra.</p>
+<p>At this stage, it’s important to highlight the need for sensible representations of data and analysis. This especially true with the advent of GitHub and journals publishing data and code meaning it is almost impossible to present false representations of analysis.</p>
+</div>
+</div>
+</div>
+<div id="warning" class="section level3">
+<h3><span class="header-section-number">8.4.5</span> Warning</h3>
+<p>Whilst it might seem tempting to use the most advanced interactive maps for your the assignments within this module and course it is important to think and reflect upon the appropriateness of the mapped output. You should ask yourself the following questions:</p>
+<ul>
+<li>What am i trying to show with this map</li>
+<li>Will interative elements aid this in anyway or just confuse users</li>
+<li>Is there a more concise way to display this data</li>
+<li>Do i need all this information — is it all relevant to the message you are trying to portray with the map</li>
+</ul>
+<p>In all these examples i’ve used the same data (Hotels and Airbnbs in London boroughs), however as i’m only showing two datasets could this be represeted without all this complexity?— in this case the answer really depends on the audience you are tyring to get something across to. For example, for use in an academic journal, as there are only two data sets being mapped a static map like we produced in the <a href="map-making.html#map-making">Map making</a> practical would be more appropraite. However an interative map (similar to what we have produced) might be more useful for incorpation on a website…</p>
+<p>The take home message from this is to critically think about the best way to map and disseminate your data/results.</p>
+</div>
+<div id="advanced-online-publishing" class="section level3">
+<h3><span class="header-section-number">8.4.6</span> Advanced online publishing</h3>
+<p>Already familiar with RPubs, RMarkdown site generator or even Shiny? Try and and produce an online document using either: bookdown, flexdashboard, blogdown or shinydashboard. These are listed in order of difficutly from my experience.</p>
+<p><strong>Hint</strong> this document is made using bookdown, so checkout my GitHub for how i set it up</p>
+<ul>
+<li>Bookdown: <a href="https://bookdown.org/yihui/bookdown/" class="uri">https://bookdown.org/yihui/bookdown/</a>, minimal bookdown example: <a href="https://github.com/rstudio/bookdown-demo" class="uri">https://github.com/rstudio/bookdown-demo</a></li>
+</ul>
+<p>If you want to extend bookdown or automate the process of building, have a look at <a href="https://www.hvitfeldt.me/blog/bookdown-netlify-github-actions/">continuous integration using github actions</a></p>
+<ul>
+<li><p>Flexdashboard: <a href="https://rmarkdown.rstudio.com/flexdashboard/" class="uri">https://rmarkdown.rstudio.com/flexdashboard/</a></p></li>
+<li><p>Blogdown: <a href="https://bookdown.org/yihui/blogdown/" class="uri">https://bookdown.org/yihui/blogdown/</a></p></li>
+<li><p>Interactive Shiny dashboards: <a href="https://rstudio.github.io/shinydashboard/get_started.html" class="uri">https://rstudio.github.io/shinydashboard/get_started.html</a></p></li>
+</ul>
+</div>
+</div>
+<div id="feedback-7" class="section level2">
+<h2><span class="header-section-number">8.5</span> Feedback</h2>
+<p>Was anything that we explained unclear this week or was something really clear…let us know using the <a href="https://forms.gle/w2GUDYc7tSavGy7r6">feedback form</a>. It’s anonymous and we’ll use the responses to clear any issues up in the future / adapt the material.</p>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="advanced-raster-analysis.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="gwr-and-spatially-lagged-regression.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": true,
+"facebook": false,
+"twitter": false,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": false
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/andrewmaclachlan/CASA0005repo/edit/master/08-prac8.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": null,
+"toc": {
+"collapse": "section",
+"scroll_highlight": true
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>
