@@ -1,0 +1,1136 @@
+# Introduction to R
+
+## Learning outcomes
+
+By the end of this practical you should be able to:
+
+1. Execute basic processing in R
+1. Examine, clean and manipulate comma seperate value (```.csv```) data
+1. Examine, clean and manipulate and plot spatial (```.shp```) data 
+1. Produce interactive maps
+1. Evaluate the benefits of different data manipulation and mapping techniques
+
+## Homework
+
+Outside of our schedulded sessions you should be doing around 12 hours of extra study per week. Feel free to follow your own GIS interests, but good places to start include the following:
+
+::: {.infobox .assignment data-latex="{note}"}
+**Assignment**
+
+This week you need to assess the validity of your topic in terms of data suitability, then sketch out an introduction and literature review including academic and policy documents (or any
+reputable source).
+:::
+
+::: {.infobox .note data-latex="{note}"}
+
+**Reading**
+
+This week: 
+
+* [Chapter 2 "Geographic data in R"](https://geocompr.robinlovelace.net/spatial-class.html) from Geocomputation with R by Lovelace, Nowosad and Muenchow (2020).
+
+* [How to Write a Paper for Publication](https://onlinelibrary.wiley.com/doi/epdf/10.1046/j.1444-2892.2000.00031.x) by Rosenfeldt et al. (2000).
+
+**Watching**
+
+* [Hadley Wickham's Keynote from the European Molecular Biology Laboratory (EMBL)](https://www.youtube.com/watch?v=9YTNYT1maa4). This will be the same for a few weeks.
+
+Remember this is just a starting point, explore the [reading list](https://rl.talis.com/3/ucl/lists/139FBAF8-DACD-60FB-8BDC-E9C9E09BA885.html?lang=en-GB&login=1), practical and lecture for more ideas.
+:::
+
+## Recommended listening `r emo::ji("headphones")`
+
+Some of these practicals are long, take regular breaks and have a listen to some of our fav tunes each week.
+
+[Andy](https://www.youtube.com/watch?v=A48hOToMuRE)
+
+[Adam](https://open.spotify.com/album/0m9oaRdpRS9n0mq2bECgNQ?si=Dxu8_-kmSy6jq_oFN5gJ4A). Recommended listening this week comes courtesy of “Pound for pound the best rock band on the planet at the minute. In my, not so humble opinion.” – Jake Burns, Stiff Little Fingers. Yes, it’s the Wildhearts and I can confirm that they are the greatest rock band on the planet! Wrap your ears around this: 
+
+## Introduction 
+
+This practical is **LONG** but it will take you from not knowing much about R to making freaking cool interactive maps in one practical. As you can imagine, this will be a steep learning curve.
+
+I will give you all the code you need, it’s your job to read through the text very carefully and try to understand what bits of code are doing as you go.
+
+There will be bits of code you don’t fully understand. Don’t worry, the key is to revisit later and try to work out what is going on then. Learning R is a long and iterative process and this is just the start…
+
+If you want to learn more about R and indeed download the latest version for your own use, then visit the [R project pages](http://www.r-project.org/)
+
+The Wikipedia page for those who want to know a little of the history of R can be found [here](http://en.wikipedia.org/wiki/R_(programming_language))
+
+There is an almost endless supply of good R tutorials on the web. If you get stuck or want to learn even more R (and why would you not want to?!), I’d recommend trying some of the following R Tutorial websites:
+
+* http://www.statmethods.net/index.html
+
+* http://www.r-tutor.com/
+
+* http://www.cyclismo.org/tutorial/R/index.html
+
+* http://www.cookbook-r.com/
+
+If you want to really be up to date with the state of the art in R, then [bookdown](https://bookdown.org/) is a fantastic resource. It features **free** books by some of the pre-eminent names in the R scene --- I would urge you to go and take a look.
+
+### Online forums are your friend!!
+
+With almost every problem you encounter with R, someone else will have had the same problem before you and posted it on a forum --– someone will then post a solution below.
+
+My usual route is to Google the problem and I’ll then be directed to a post, usually on Stack Overflow, Stack Exchange or Cross Validated. When doing so try to think about the minimal working (or not working) example (MWE), by this i mean remove anything very specific to your problem. I’ve rarely not found a solution to a problem this way. 
+
+### Health warning
+
+Beware of posting questions on these forums yourself – contributors to these forums (especially the R ones!), whilst almost always extremely knowledgeable about R, have a bit of a reputation for being insert familiar pejorative term for less-than-polite-human-being here! As you might expect, people who have enough time to become total experts in R, have little time to work on their social skills!! Fortunately though, some other poor chump has usually taken that hit for you and you can still find a useful answer to your problem.
+
+If you are specifically more interested in the spatial side of R, then Alex Singleton and Chris Brunsdon at the Universities of Liverpool and Maynooth also have a number of very useful R Spatial Tutorials – http://rpubs.com/alexsingleton/ & http://rpubs.com/chrisbrunsdon/
+
+Robin Lovelace in Leeds is also frequently at the bleeding edge of developments in R spatial stuff, so keep an eye on his [website](http://robinlovelace.net/). Robin has also made a book on GeoComputation in R, which you should definitely read! --- https://geocompr.robinlovelace.net/
+
+These websites are also very very good: https://pakillo.github.io/R-GIS-tutorial/ and http://www.maths.lancs.ac.uk/~rowlings/Teaching/UseR2012/cheatsheet.html
+
+### R and RStudio
+
+When you download and install R, you get the R Graphical User Interface (GUI) as standard (below). This is fine and some purists prefer using the clean, unfussy command-line original, but it has some limitations such as no graphical way to view data tables or keep track of what is in your working directory (there are a number of others too).
+
+```{r echo=FALSE, out.width = "500px", fig.align='center', cache=FALSE}
+knitr::include_graphics('prac2_images/R.png') 
+```
+
+Fortunately there are a number of software environments that have been developed for R to make it a little more user-friendly; the best of these by a long way is RStudio. RStudio can be downloaded for free from https://www.rstudio.com/. We covered the RStudio layout last week.
+
+### Getting started
+
+If you are some kind of masochist, you are welcome to use the bundled R GUI for all of your work. If pain is not your thing, then for this practical (and future practicals) I will assume that you are using RStudio.
+
+1. From the start menu on your computer, find and run RStudio
+
+Once RStudio has opened, the first thing we will do is create a new project – projects enable you to organise your work effectively and store all of the files you create and work with for a particular task. 
+
+1. To create a new project (and this will vary a little depending on the version of RStudio you are using) select File > New Project
+
+1. Select Start a project in a brand new working directory and create a new project in a directory of a new ‘wk2’ directory on your N: drive:
+
+```{r echo=FALSE, out.width = "500px", fig.align='center', cache=FALSE}
+knitr::include_graphics('prac2_images/r_newproject.png') 
+```
+
+My file directory (the second box here) will be different to yours as this is my teaching resources folder. Keep yours simple ```N:/GIS/wk2```.
+
+Setting up a project is extremely useful as it lets you easily access your data and files...for example....the flytipping ```.csv``` we used last week is stored at the file path
+
+```{r eval=FALSE, cache=FALSE}
+mycsv <- read_csv("C:/Teaching/CASA0005repo/Prac1_data/fly_tipping_borough_edit.csv")  
+```
+
+However as i've set my R project up in the CASA0005repo folder with different data folders for each week i can just use:
+
+```{r eval=FALSE, cache=FALSE}
+mycsv <- read_csv("Prac1_data/fly_tipping_borough_edit.csv")  
+```
+
+If i had the ```.csv``` file in the same folder as my project i could just use
+
+```{r eval=FALSE, cache=FALSE}
+mycsv <- read_csv("fly_tipping_borough_edit.csv")  
+```
+
+You can run this in the Console area now or within a script which we will now go over...
+
+I'd strongly recommend you think about how you will store data within your project. Is it sensible to just dump all your data into the project folder or perahps create a new folder (either in R) or how you would normally do so in Windows / OS X and keep your raw data in that folder...like i have done...Here you can see that i'm in my project folder (red box on the right) and i've made new folders for all my data (each practical here) and images that are shown throuhgout....nice and organised!
+
+```{r echo=FALSE, out.width = "500px", fig.align='center', cache=FALSE}
+knitr::include_graphics('prac2_images/file_storage.png') 
+```
+
+### Basics 
+
+1. R has a very steep learning curve, but hopefully it won’t take long to get your head around the basics. For example, at its most simple R can be used as a calculator. In the console window (bottom left), just type the following and press enter:
+
+```{r cache=FALSE}
+1+5
+```
+
+or 
+
+```{r cache=FALSE}
+4*5^2
+```
+
+As you can see R performs these calculations instantly and prints the results in the console. This is useful for quick calculations but less useful for writing scripts requiring multiple operations or saving these for future use.
+
+1. To save your scripts, you should create a new R Script file. Do this now: Select File > New File > R Script.
+
+1. The R Script should open up on the top-left of your GUI. **From now on type everything in this R script file and save it**
+
+### Scripts and some basic commands
+
+1. Usually one of the first things to do when starting a new R Script is to check that you are in the correct working directory. This is important especially if you are working on multiple projects in different locations. To do this type the following into your new empty R Script:
+
+```{r cache=FALSE}
+getwd()
+```
+
+1. To run this line, hold Ctrl (Cmd on a Mac) and press the Return(↲) key (if you are in the standard R installation, you would run your script with Ctrl R). You should now see your current working directory appear in the console.
+
+1. Because of the new project we have already set up, this working directory should be correct, but if for any reason we wanted to change the working directory, we would use the ```setwd()``` function. For example, we wanted to change our directory to the documents folder on the C drive, we could run (don’t do this now):
+
+```{r eval=FALSE, cache=FALSE}
+setwd("C:/Documents")
+```
+
+1. When we are sure we are working in the correct working directory, we can save our script by clicking on the save icon on the script tab. Save your script as something like “wk2_part1” and you will see it appear in your files window on the right hand side. As you build up a document of R code, you should get into the habit of saving your script periodically in case of an unexpected software crash.
+
+8. We can now begin to write a script without the need to run each line every time we press enter. In the script editor type:
+
+```{r cache=FALSE}
+A <- 1
+B <- 2
+C <- A+B
+C
+```
+
+1. Select (highlight) the three lines and run all three lines with Ctrl Return(↲). You will notice the lines appear in the console (the other window). If you type C and press enter in the console (C and then ctrl return in the script window) you should have the number 3 appear. From now on I recommend you type all the commands below in the script first and then run them. Copying and pasting from this document won’t necessarily work.
+
+1. You will also notice that in RStudio, values A, B and C will appear in your workspace window (top right). These variables are stored in memory for future use. Try giving A and B different values and see what happens. What about if you use lower case letters?
+
+1. You have just demonstrated one of the powerful aspects of R, which is that it is an **object oriented** programming language. A, B and C are all objects that have been assigned a value with the <- symbol (you can also use the = sign, but it operates slightly differently to <- in R, plus the arrow assignment has become standard over the years. Use **alt -** to type it automatically). This principle underlies the whole language and enables users to create ever more complex objects as they progress through their analysis. If you type:
+
+```{r}
+ls()
+```
+R will produce a list of objects that are currently active.
+
+```{r cache=FALSE}
+rm(A)
+```
+
+will remove the object A from the workspace (do ```ls()``` again to check this or look in your workspace window).
+
+### Functions
+
+1. Both ```rm()``` and ```ls()``` are known as functions. Functions are the other fundamental aspect to the R language. Functions can be thought of as single or multiple calculations that you apply to objects. They generally take the form of...(don't run these)
+
+```{r, eval=FALSE, cache=FALSE}
+function(object, argument1, argument2, argument3)
+```
+
+Where the object is some form of data and the arguments parameterise what the function will do.
+
+You could save the ouput to a new object using something like...
+
+```{r, eval=FALSE, cache=FALSE}
+X<-function(data, argument1, argument2, argument3)
+```
+
+1. You can write your own functions to carry out tasks (and we’ll come onto that in subsequent practical sessions), but normally you will just used one of the virtually infinite number of functions that other people have already written for us.
+
+### Basic plotting
+
+One common function is the ```plot()``` function for displaying data as a graphical output. Add these lines to your script and run them as before and you can see some ```plot()``` outputs:
+
+```{r, cache=FALSE}
+#create some datasets, first a vector of 1-100 and 101-200
+Data1 <- c(1:100)
+Data2 <- c(101:200)
+#Plot the data
+plot(Data1, Data2, col="red")
+```
+
+```{r, cache=FALSE}
+#just for fun, create some more, this time some normally distributed
+#vectors of 100 numbers
+Data3 <- rnorm(100, mean = 53, sd=34)
+Data4 <- rnorm(100, mean = 64, sd=14)
+#plot
+plot(Data3, Data4, col="blue")
+```
+
+1. In the code above, you will have noticed the ```#``` symbol. This signifies that whatever comes after it on that line is a comment. Comments are ignored by the R console and they allow you to annotate your code so that you know what it is doing. It is good programming practice to comment your code extensively so that you can keep track of what your scripts are for. 
+
+**Warning** Heed our advice now and comment your code it will save you time in the future!
+
+### Help
+
+1. The previous lines of code also demonstrated a number of functions: ```c()``` concatenates a string of numbers together into a vector. 1:100 means produce the integers between and including 1:100, the ```plot()``` function plots the two data objects and includes a parameter to change the colour of the points. To understand what a function does, you can consult the R Help system. Simply type a question mark and then the function name; for example:
+
+```{r eval=FALSE, cache=FALSE}
+?plot
+```
+
+```{r echo=FALSE, out.width = "300px", fig.align='center', cache=FALSE}
+knitr::include_graphics('prac2_images/rhelp.png') 
+```
+
+1. In RStudio you will see the help file appear in the Help window in the bottom right of the GUI. Here you can also search for the help files for other functions in the search bar.
+
+### Data structures
+
+1. Objects in R can exist as a number of different data structures. These include a **matrix**, an **array**, a **vector**, a **data frame** and a **list**. 
+
+The main criteria for division of these structures is data type homogeneity.
+
+A vector, matrix and array must only contain data of the **same type** (e.g. numeric or text)
+
+A list or data frame can contain a mixture of data types (e.g. numeric and text). 
+
+Further divisions are then made based on the number of dimesions (1D, 2D, 3D or more) each can have...
+
+```{r echo=FALSE, out.width = "450px", fig.align='center', cache=FALSE}
+knitr::include_graphics('prac2_images/data_structures.png') 
+```
+
+For the purposes of this practical we will focus on data frames. These are the most flexible data format in R (although tibbles are now becoming popular as well --- they are just more flexible versions of data frames, for example they can have a list as a column). Data frames can be conceptualised in a similar way to a spreadsheet with data held in rows and columns. They are the most commonly used object type in R and the most straightforward to create from the two vector objects we just created.
+
+```{r, cache=FALSE}
+df <- data.frame(Data1, Data2)
+plot(df, col="green")
+```
+
+1. If you have a very large data frame (thousands or millions of rows) it is useful to see only a selection of these. There are several ways of doing this:
+
+```{r, cache=FALSE, message=FALSE, results=FALSE}
+library(tidyverse)
+#show the first 10 and then last 10 rows of data in df...
+df %>%
+  head()
+```
+
+```{r, cache=FALSE, message=FALSE, results=FALSE}
+df %>%
+  tail()
+```
+
+::: {.infobox .warning data-latex="{note}"}
+You might have noticed the syntax (code) `%>%`, this is called a **pipe** and is an operator is part from the `magrittr` package. `magrittr` is an entirely new way of thinking about R syntax that cleraly expresses a sequence of multiple operations. It is useful to think of the pipe operator as simply meaning “then”. Do this **THEN** do this **THEN** do that.
+:::
+
+You can also view elements of your data frame in RStudio by simply clicking on it in the top-right Environment window:
+
+```{r echo=FALSE, out.width = "800px", fig.align='center', cache=FALSE}
+knitr::include_graphics('prac2_images/dataview.png') 
+```
+
+### Elements of a data frame
+
+1. When programming you will frequently want to refer to different elements in a data frame or a vector/list. To select elements of a data frame, or subset it, you can refer specifically to ranges or elements of rows and columns. These are accessed using the single square bracket operator [], with the form:
+
+```{r eval=FALSE, cache=FALSE, message=FALSE, results=FALSE}
+data.frame[row,column]
+```
+
+Rows are always referenced first, before the comma, columns second, after the comma.
+
+1. Try the subsetting your df data frame with the following commands to see what is returned:
+
+```{r cache=FALSE, message=FALSE, results=FALSE}
+df[1:10, 1]
+df[5:15,]
+df[c(2,3,6),2]
+df[,1]
+```
+
+1. You will note that the column headings are the names of the original objects creating the data frame. We can change these using the ```rename()``` function from  `dplyr`  that is loaded as part of the `tidyverse` package, we will come to this next:
+
+```{r}
+df <- df %>%
+  dplyr::rename(column1 = Data1, column2=Data2)
+```
+
+`dplyr` is a grammar of data manipulation, it has multiple verbs that allow you to change your data into a suitable format. These include `select()`, `filter()`, `summarise()`, which can also be applied to groups in datasets using `group_by()`. `dplyr` will be used throughout this course.
+
+In the majority of cases you provide some kind of data to `dplyr` followed by a `%>%` then a verb (or other function), then another `%>%` and more verbs of functions if needed. As in the code above you can also assign the output to an object with `<-`.
+
+
+```{r echo=FALSE, out.width = "450pt", fig.align='center', cache=FALSE}
+knitr::include_graphics('allisonhorst_images/dplyr_wrangling.png')
+```
+
+To select or refer to  columns directly by name, we can either use `dplyr` again! 
+
+```{r, cache=FALSE, message=FALSE, results=FALSE}
+df %>% 
+  select(column1)
+```
+
+However, you should be aware of other methods for doing this, as not all spatial data is compatible with `dplyr` yet, such as raster data, which will be important for next week. So we can also use the ```$``` operator, which takes the form  ```data.frame$columnName```, e.g.
+
+```{r, cache=FALSE, message=FALSE, results=FALSE}
+df$column1
+```
+
+or we can use the double square bracket operator [[]], and refer to our column by name using quotes e.g.
+
+```{r, cache=FALSE, message=FALSE, results=FALSE}
+df[["column1"]]
+```
+
+This again is useful if you have a lot of columns and you wish to efficiently extract one of them.
+
+## Reading data into R
+
+One of the most tedious things a spatial analyst / data scientist has to do is clean their data so it doesn’t cause problems for the software later. In the past, we would have needed to do this by hand --- these days, we can use software to do much of this for us.
+
+I will now give you two options to arrive at a nice cleaned dataset. For this example we are going to use the London Datastore Catalogue.
+
+Go to the London Data store and [get the Ward Profiles and Atlas ](https://data.london.gov.uk/dataset/f33fb38c-cb37-48e3-8298-84c0d3cc5a6c) and download the excel document for ward profiles.
+
+### Old skool cleaning
+
+1. Open the ```ward-profiles-excel-version.xls``` file in Excel, and save as ```LondonData.csv``` into your RProject folder, week 2.
+
+1. Open your new ```.csv``` file in Excel. There might be some non-numeric values inside numeric columns which will cause problems in your analysis. These need to be removed before proceeding any further. To remove these, you can use the replace function in Excel. In the home tab under ‘Editing’ open up the find and replace dialogue box and enter the following into the find box:
+
+```#VALUE!``` ```n/a```
+
+Leave the replace box empty each time and click Replace All to remove these from your file, before saving the file again.
+
+1. Once you have cleaned out all of the trixy characters from the file, to read it into R, we will use the ```read.csv()``` function:
+
+```{r, cache=FALSE}
+LondonDataOSK<- read.csv("prac2_data/ward-profiles-excel-version.csv", 
+                         header = TRUE, 
+                         sep = ",",  
+                         encoding = "latin1")
+```
+
+> **Note**, I've made an R project for all these practicals, which is why my file path starts with ```prac2_data/```. If you save the ```.csv``` in the same folder as the ```.Rproj``` then you can just use:
+
+```{r eval=FALSE, cache=FALSE}
+LondonDataOSK<- read.csv("ward-profiles-excel-version.csv", 
+                         sep=",")
+```
+
+If you look at the ```read.csv()``` help file - ```?read.csv``` - you will see that we can actually include many more parameters when reading in a `.csv` file. For example, we could read in the same file as follows:
+
+```{r, cache=FALSE}
+# by default in R, the file path should be defined with / 
+#but on a windows file system it is defined with \. 
+#Using \\ instead allows R 
+#to read the path correctly – alternatively, just use /
+LondonDataOSK<- read.csv("prac2_data/ward-profiles-excel-version.csv", 
+                         header = TRUE, sep = ",", encoding = "latin1")
+```
+
+This would specify that the first row of the file contains header information; and the values in the file are separated with commas (not ; or : as can be the case sometimes).
+
+### Here
+
+However, this is also another more straightforward way to read in files that was devloped in 2017 to make it more intuitive to find and load files using the `here` package. You need to install and load it:
+
+```{r, cache=FALSE, eval=FALSE}
+install.packages("here")
+```
+
+```{r, cache=FALSE, results=FALSE}
+library(here)
+```
+
+Think of `here()` as a command that is just poitning to a file path, to find out where is pointing use...
+
+```{r, cache=FALSE, results=FALSE}
+here::here()
+```
+
+This is my working directory for this book project! Now i can use this to load my data that is in my practical 2 folder just like this....
+
+```{r, cache=FALSE}
+LondonDataOSK<- read.csv(here::here("prac2_data","ward-profiles-excel-version.csv"), 
+                         header = TRUE, sep = ",",  
+                         encoding = "latin1")
+```
+
+This just removes any need for ever using a `/` or `\\` in your file path. As with everything in code, there is no right way, use what suits you.
+
+```{r echo=FALSE, out.width = "450pt", fig.align='center', cache=FALSE}
+knitr::include_graphics('allisonhorst_images/here.png')
+```
+
+### New skool cleaning 
+
+To clean our data as we read it in, we are going to use a package called ```readr``` which also comes bundled as part of the ```tidyverse``` package.
+
+```{r echo=FALSE, out.width = "450pt", fig.align='center', cache=FALSE}
+knitr::include_graphics('allisonhorst_images/tidyverse_celestial.png')
+```
+
+The [`tidyverse`](https://www.tidyverse.org/) is simply a collection of pacakges relevant for data science, containing almost everything you need to become a kick-ass data scientist.
+
+Now let's  use the ```readr``` package... that allows loads of data manipulation ...for example...
+
+```{r echo=FALSE, out.width = "450pt", fig.align='center', cache=FALSE}
+knitr::include_graphics('allisonhorst_images/parse_number.png')
+```
+
+Here we will use it to just read in a `.csv` file (directly from the web this time --- ```read.csv``` can do this too) and clean text characters out from the numeric columns before they cause problems:
+
+```{r, message=FALSE, cache=FALSE}
+#wang the data in straight from the web using read_csv, 
+#skipping over the 'n/a' entries as you go...
+LondonData <- read_csv("https://files.datapress.com/london/dataset/ward-profiles-and-atlas/2015-09-24T14:21:24/ward-profiles-excel-version.csv",
+                       locale = locale(encoding = "latin1"),
+                       na = "n/a")
+```
+
+> **Note** the use of read_csv here as opposed to read.csv. They are very similar, but read_csv is just a bit better. Read [this blog post](http://yetanothermathprogrammingconsultant.blogspot.com/2016/12/reading-csv-files-in-r-readcsv-vs.html) for more information. Also, for those python fans out there ---IT’S NOT THE SAME FUNCTION AS READ_CSV IN PYTHON
+
+What is `locale = locale(encoding = "latin1")`?...good question...it is basically the encoding of the data (how it is stored). There are a few different formats such as UTF-8 and latin1. In latin1 each character is 1 byte long, in UTF-8 a character can consist of more than 1 byte. To my knowledge the default in R is encoded as latin1, but `readr` (the package we are using to read in the `.csv` is UTF-8 so we have to specify it.
+
+### Examining your new data
+
+1. Your new data has been read in as a data frame / tibble (remember a tibble is just a data frame with a few extra bells and whistles). If you ever need to check what data type your new data set is, we can use the ```class()``` function:
+
+```{r cache=FALSE}
+class(LondonData)
+```
+
+```{r, eval=FALSE, cache=FALSE}
+# or, if you have your old skool data
+class(LondonDataOSK)
+```
+
+We can also use the `class()` function (from base R) within another two functions `summarise_all()` (from `dplyr`) and `pivot_longer()` (from `tidyr`) to check that our data has been read in correctly and that, for example, numeric data haven’t been read in as text or other variables. Run the following line of code:
+
+```{r, cache=FALSE}
+Datatypelist <- LondonData %>% 
+  summarise_all(class) %>%
+  pivot_longer(everything(), 
+               names_to="All_variables", 
+               values_to="Variable_class")
+
+Datatypelist
+```
+
+We cover `pivot_longer()` later in this practical, but for now we've simply grouped all our variables into one **LONG** column adding another column that contains the class.  
+
+You should see that all columns that should be numbers are read in as numeric. Try reading in LondonData again, but this time without excluding the ‘n/a’ values in the file, e.g.
+
+```{r, message=FALSE, cache=FALSE}
+LondonData <- read_csv("https://files.datapress.com/london/dataset/ward-profiles-and-atlas/2015-09-24T14:21:24/ward-profiles-excel-version.csv", 
+                       locale = locale(encoding = "latin1"))
+```
+
+Now run the Datatypelist code again --- you should see that some of the columns (those the n/a values in) have been read in as something other than numeric. This is why we need to exclude them. Isn’t ```readr``` great for helping us avoid reading in our numeric data as text!
+
+If you ever wish to quickly edit data, then use `edit()`
+
+```{r, eval=FALSE, cache=FALSE}
+LondonData <- edit(LondonData)
+```
+
+1. It is also possible to quickly and easily summarise the data or look at the column headers using
+
+```{r cache=FALSE}
+summary(df)
+```
+
+```{r, message=FALSE, cache=FALSE}
+LondonData%>%
+  colnames()%>%
+  # just look at the head, top5
+  head()
+```
+
+### Data manipulation in R
+
+Now we have some data read into R, we need to select a small subset to work on. The first thing we will do is select just the London Boroughs to work with. If you recall, the Borough data is at the bottom of the file.
+
+#### Selecting rows
+
+1. Your borough data will probably be found between rows 626 and 658. Therefore we will first create a subset by selecting these rows into a new data frame and then reducing that data frame to just four columns. There are a few ways of doing this:
+
+We could select just the rows we need by explicitly specifying the range of rows we need:
+
+```{r cache=FALSE}
+LondonBoroughs<-LondonData[626:658,]
+```
+
+We can also do this with `dplyr`... with the `slice()` function, taking a "slice" out of the dataset...
+
+```{r cache=FALSE}
+LondonBoroughs<-LondonData%>%
+  slice(626:658)
+```
+
+However, we can instead try a cool ‘data sciency’ way of pulling out the rows we want with the knowledge that the codes for London Boroughs start with E09 (the wards in the rest of the file start with E05).
+
+`dplyr` has a cool function called `filter()`that let's you subset rows based on conditions...
+
+```{r echo=FALSE, out.width = "500pt", fig.align='center', cache=FALSE}
+knitr::include_graphics('allisonhorst_images/dplyr_filter.jpg')
+```
+Here, we could filter based on a variable, for example extracting all the wards where female life expextancy is greather than 90. 
+
+```{r, message=FALSE, warning = FALSE, cache=FALSE}
+Femalelifeexp<- LondonData %>% 
+  filter(`Female life expectancy -2009-13`>90)
+```
+
+However, our `New code` column that holds Borough codes can't be filtered like this as it's in a character format...in cases like this we can use the function `str_detect()` from the `stringr` package in combination with `filter()` from `dplyr`. Both these packages are part of the `tidyverse` again!
+
+```{r, message=FALSE, warning = FALSE, cache=FALSE}
+LondonBoroughs<- LondonData %>% 
+  filter(str_detect(`New code`, "^E09"))
+```
+
+Check it worked:
+
+```{r,eval=FALSE, cache=FALSE}
+LondonBoroughs$`Ward name`
+```
+
+`r emo::ji("sunglasses")`**AWWMAHGAWD!!!** `r emo::ji("sunglasses")`Pretty cool hey?
+
+What that code is saying is `stringr` look for the rows that have the ward code like E09, then filter these and store in the object `LondonBoroughs`
+
+The `stringr` package is really great and if you ever need to manipulate text type data then it's the place to start.
+
+You will notice that you will have two rows at the top for the City of London. This is because it features twice in the data set. That’s fine, extract only unique rows with `distinct()`, again from `dplyr`:
+
+```{r, cache=FALSE}
+LondonBoroughs<-LondonBoroughs %>%
+  distinct()
+```
+
+#### Selecting columns
+
+We can select columns if we know which index we want, starting from the first column that's 1..
+
+```{r, cache=FALSE}
+#select columns 1,19,20 and 21
+LondonBoroughs_manualcols<-LondonBoroughs[,c(1,19,20,21)]
+```
+
+We can also replicate this with `dplyr` with `select()`
+
+```{r, cache=FALSE, eval=FALSE}
+#select columns 1,19,20 and 21
+LondonBoroughs_dplyrcols<-LondonBoroughs %>%
+  select(c(1,19,20,21))
+```
+
+1. You will have noticed the use of square brackets above –-- these are very useful in R. The ```c()``` function is also used here --- this is the ‘combine’ function --- another very useful function in R which allows arguments (in this case, column reference numbers) into a single value.
+
+1. However, we could also again use a more 'data sciency way'...selecting the columns that contain certain words ...
+
+```{r, message=FALSE, warning = FALSE, cache=FALSE}
+LondonBoroughs_contains<-LondonBoroughs %>% 
+  select(contains("expectancy"), 
+         contains("obese - 2011/12 to 2013/14"),
+         contains("Ward name")) 
+```
+
+#### Renaming columns
+
+1. You will notice that the column names are slightly misleading as we are now working with boroughs rather than wards. You probably will also be annoyed (like me!) that the column names are full of `...` that just make eveything hard to read. So, let's rename the wards column to boroughs (using `rename()` like we did earlier), then using the `Janitor` package tidy everything up...
+
+```{r, message=FALSE, cache=FALSE}
+library(janitor)
+
+LondonBoroughs <- LondonBoroughs %>%
+  dplyr::rename(Borough=`Ward name`)%>%
+  clean_names()
+```
+
+By defualt `Janitor` removes all capitals and uses an underscore wherever there is a space, this would be the same as using setting the `case` argument to snake... 
+
+```{r echo=FALSE, out.width = "500pt", fig.align='center', cache=FALSE}
+knitr::include_graphics('allisonhorst_images/janitor_clean_names.png')
+```
+
+If you wanted to now change it every word having a capital letter you would run...but don't do this now.
+
+```{r, message=FALSE, cache=FALSE, eval=FALSE}
+LondonBoroughs <- LondonBoroughs %>%
+  #here the ., means all data
+  clean_names(., case="big_camel")
+```
+
+#### More `dplyr` verbs
+
+What about determining both (a) the average of male and female life expectancy together and (b) a normalised value for each London borough based on the London average. Then selecting only the name of the Borough, mean life expectancy and normalised life expectancy, arranging the output based on the normalised life expectancy in descending order...
+
+To do this we will rely on the `mutate()` function that let's us add new variables based on existing ones...
+
+```{r echo=FALSE, out.width = "500pt", fig.align='center', cache=FALSE}
+knitr::include_graphics('allisonhorst_images/dplyr_mutate.png')
+```
+
+```{r, message=FALSE, warning = FALSE, cache=FALSE}
+Life_expectancy <- LondonBoroughs %>% 
+  #new column with average of male and female life expectancy
+  mutate(averagelifeexpectancy= (female_life_expectancy_2009_13 +
+                                       male_life_expectancy_2009_13)/2)%>%
+  #new column with normalised life expectancy
+  mutate(normalisedlifeepectancy= averagelifeexpectancy /
+           mean(averagelifeexpectancy))%>%
+  #select only columns we want
+  select(new_code,
+         borough,
+         averagelifeexpectancy, 
+         normalisedlifeepectancy)%>%
+  #arrange in descending order
+  #ascending is the default and would be
+  #arrange(normalisedlifeepectancy)
+  arrange(desc(normalisedlifeepectancy))
+```
+
+We can also use `dplyr` to show us the top and bottom number of rows instead of using `head` or `tail` like we did earlier.
+
+```{r, message=FALSE, warning = FALSE, cache=FALSE}
+#top of data
+slice_head(Life_expectancy, n=5)
+
+#bottom of data
+slice_tail(Life_expectancy,n=5)
+```
+
+#### Levelling up with`dplyr`
+
+So far, we've really just covered basic operations with `dplyr` that you might have previously done in Excel. However, `dplyr` has much more powerful functions that can make advanced data wrangling a breeze. Whilst we've looked at life expectancy in the London boroughs relative to each other, how does the life expectancy of the London Boroughs compare the the UK average of 81.16?
+
+To answer this question we can use the `case_when()`, whereby if the value is greater than 81.16 we can assign the Borough a string of "above UK average", and if below a string of "below UK average"....
+
+```{r echo=FALSE, out.width = "500pt", fig.align='center', cache=FALSE}
+knitr::include_graphics('allisonhorst_images/dplyr_case_when.png')
+```
+
+```{r}
+Life_expectancy2 <- Life_expectancy %>%
+  mutate(UKcompare = case_when(averagelifeexpectancy>81.16 ~ "above UK average",
+                               TRUE ~ "below UK average"))
+Life_expectancy2
+```
+
+Now whilst this is useful, it doesn't tell is much more about the data itself, what if we wanted to know the range of life expectancies for London Boroughs that are above the national average....
+
+```{r}
+Life_expectancy2_group <- Life_expectancy2 %>%
+  mutate(UKdiff = averagelifeexpectancy-81.16) %>%
+  group_by(UKcompare )%>%
+  summarise(range=max(UKdiff)-min(UKdiff), count=n(), Average=mean(UKdiff))
+
+Life_expectancy2_group
+```
+
+This is useful, but now what if we wanted to have more information based on the distribution of the Boroughs compared to the national average, as opposed to just over or under....there are a few ways to do this..
+
+We are going to:
+
+1. Again work out difference between the life expectancy of the Boroughs compared to the national average
+1. Round the whole table based on if the column is numeric (this isn't required and we're not adding a new column). Here we are using `across` that applies some kind of transformation across the columns selected (or that are numeric in this case).
+
+```{r echo=FALSE, out.width = "450pt", fig.align='center', cache=FALSE}
+knitr::include_graphics('allisonhorst_images/dplyr_across.png')
+```
+
+1. Round the column `UKdiff` to 0 decimcal places (not adding a new column)
+1. Use `case_when()` to find Boroughs that have an average age of equal to or over 81 and create a new column that containts text based combining `equal or above UK average by` then the years created in UKdiff. We do this through the `str_c()` function from the `stringr` pacakge that let's us join two or more vector elements into a single character vector. Here `sep` determines how these two vectors are separated.
+1. Then group by the `UKcompare` column
+1. Finally, count the number in each group.
+
+```{r}
+Life_expectancy3 <- Life_expectancy %>%
+  mutate(UKdiff = averagelifeexpectancy-81.16)%>%
+  mutate(across(is.numeric, round, 3))%>%
+  mutate(across(UKdiff, round, 0))%>%
+  mutate(UKcompare = case_when(averagelifeexpectancy >= 81 ~ 
+                                 str_c("equal or above UK average by",
+                                       UKdiff, 
+                                       "years", 
+                                       sep=" "), 
+                               TRUE ~ str_c("below UK average by",
+                                            UKdiff,
+                                            "years",
+                                            sep=" ")))%>%
+  group_by(UKcompare)%>%
+  summarise(count=n())
+
+Life_expectancy3
+```
+
+There is a lot of information here that we could use and make into a plot or map. For example, the Borough count of life expectancy difference could be visualised in a histogram (covered next week). Or, we could map the difference between the average life expectancy of each London Borough compared to the UK average..to do this would can just reuse some of the code from the example above....
+
+```{r}
+Life_expectancy4 <- Life_expectancy %>%
+  mutate(UKdiff = averagelifeexpectancy-81.16)%>%
+  mutate(across(is.numeric, round, 3))%>%
+  mutate(across(UKdiff, round, 0))
+```
+
+### Plotting
+
+For a simple and quick plot, we can use the `plot()` function...
+
+```{r, cache=FALSE}
+plot(LondonBoroughs$male_life_expectancy_2009_13,
+     LondonBoroughs$percent_children_in_reception_year_who_are_obese_2011_12_to_2013_14)
+```
+
+### Pimp my graph!
+
+Now, of course, because this is R, we can pimp this graph using something a bit more fancy than the base graphics functions. Here we will use `plotly` an open source interactive graphing library...
+
+```{r, eval=FALSE, cache=FALSE, message=FALSE, warning=FALSE}
+install.packages("plotly")
+```
+
+```{r message=FALSE, warning=FALSE}
+library(plotly)
+plot_ly(LondonBoroughs, 
+        #data for x axis
+        x = ~male_life_expectancy_2009_13, 
+        #data for y axis
+        y = ~percent_children_in_reception_year_who_are_obese_2011_12_to_2013_14, 
+        #attribute to display when hovering 
+        text = ~borough, 
+        type = "scatter", 
+        mode = "markers")
+```
+
+### Spatial Data in R
+
+This next part of the practical applies the same principles introduced above to the much more complex problem of handling spatial data within R. 
+
+In the remainder of this practical we will produce a map, the focus here is getting to grips with some of R's visulisation tools and not sound analysis (I know one is useless without the other!). Good quality spatial analysis will come in the rest of the module.
+
+Whilst the instructions are step by step you are encouraged to start deviating from them (trying different colours for example) to get a better understanding of what we are doing.
+
+1. The first package we need to install for this part of the practical is ```maptools``` –-- either find and install it using the RStudio GUI or do the following:
+
+```{r, eval=FALSE, cache=FALSE}
+install.packages("maptools")
+```
+
+There are a few other packages we’ll need to get to grips with. Some, like ```ggplot2``` (one of the most influential R packages ever) are part of the ```tidyverse``` package we came across earlier. Others we will need to install for the first time.
+
+```{r, eval=FALSE, cache=FALSE}
+install.packages(c("classInt", "tmap"))
+
+# might also need these ones
+install.packages(c("RColorBrewer", "sp", "rgeos", 
+                   "tmaptools", "sf", "downloader", "rgdal", 
+                   "geojsonio"))
+```
+
+1. Now that the packages have been installed you will not have to repeat the above steps again (when you use your account in these cluster rooms). Open a new script and save it to your working directory as ```wk2_maps.r```. As before, type each of the lines of code into this window and then select and use the ctrl return keys to run them. Be sure to save your script often.
+
+1. The first task is to load the packages we have just installed. Note, you might have some issues with the OpenStreetMap package if your installation of java on your computer doesn’t match your installation of R --– e.g. if you have installed the 64bit version of R, you also need the 64bit version of java (same with the 32bit versions) --- you may also need to install the package `Rcpp` separately and try again.
+
+Install Java 64-bit from: https://java.com/en/download/manual.jsp
+
+```{r, message=FALSE, warning=FALSE, cache=FALSE}
+#Load Packages (ignore any error messages about being built under a 
+#different R version):
+library(maptools)
+library(RColorBrewer)
+library(classInt)
+library(sp)
+library(rgeos)
+library(tmap)
+library(tmaptools)
+library(sf)
+library(rgdal)
+library(geojsonio)
+```
+
+#### Background to spatial data in R
+
+R has a very well developed ecosystem of packages for working with Spatial Data. Early pioneers like Roger Bivand and Edzer Pebesma along with various colleagues were instrumental in writing packages to interface with some powerful open source libraries for working with spatial data, such as GDAL and GEOS. These were accessed via the ```rgdal``` and ```rgeos``` packages. The  ```maptools``` package by Roger Bivand, amongst other things, allowed Shapefiles to be read into R. The ```sp``` package (along with  ```spdep```) by Edzer Pebesma was very important for defining a series of classes and methods for spatial data natively in R which then allowed others to write software to work with these formats. Other packages like ```raster``` advanced the analysis of gridded spatial data, while packages like ```classInt``` and ```RColorbrewer``` facilitated the binning of data and colouring of choropleth maps.
+
+Whilst these packages were extremely important for advancing spatial data analysis in R, they were not always the most straightforward to use --- making a map in R could take quite a lot of effort and they were static and visually basic. However, more recently new packages have arrived to change this. Now ```leaflet``` enables R to interface with the leaflet javascript library for online, dynamic maps. ```ggplot2``` which was developed by Hadley Wickham and colleagues radically changed the way that people thought about and created graphical objects in R, including maps, and introduced a graphical style which has been the envy of other software to the extent that there are now libraries in Python which copy the ```ggplot2``` style!
+
+```{r echo=FALSE, out.width = "450pt", fig.align='center', cache=FALSE}
+knitr::include_graphics('allisonhorst_images/ggplot2_exploratory.png')
+```
+
+Building on all of these, the new ```tmap``` (Thematic Map) package has changed the game completely and now enables us to read, write and manipulate spatial data and produce visually impressive and interactive maps, very easily. In parallel, the ```sf``` (Simple Features) package is helping us re-think the way that spatial data can be stored and manipulated. It’s exciting times for geographic information / spatial data science!
+
+#### Making some choropleth maps
+
+Choropleth maps are thematic maps which colour areas according to some phenomenon. In our case, we are going to fill some irregular polygons (the London Boroughs) with a colour that corresponds to a particular attribute.
+
+As with all plots in R, there are multiple ways we can do this. The basic ```plot()``` function requires no data preparation but additional effort in colour selection/ adding the map key etc. Quick plot (```qplot()```) and ```ggplot()``` (installed in the ```ggplot2``` package, part of the `tidyverse`) require some additional steps to format the spatial data but select colours and add keys etc automatically. Qplot is basically a shortcut for a quick map / plot, but if you have a lot of data use `ggplot()`. However, here, we are going to make use of the new ```tmap``` package which makes making maps very easy indeed. More on `tmap` when we start mapping..
+
+1. So one mega cool thing about R is you can read spatial data in straight from the internetz! Try this below for downloading a GeoJson file...it might take a few minutes...
+
+```{r, cache=TRUE}
+EW <- st_read("https://opendata.arcgis.com/datasets/8edafbe3276d4b56aec60991cbddda50_2.geojson")
+```
+
+Or you can do a manual download from the [Office for National Statistics Open Geography Portal](http://geoportal.statistics.gov.uk/datasets/8edafbe3276d4b56aec60991cbddda50_2) via Download > Shapefile.
+
+Pull out London using the  `str_detect()` function from the `stringr` package in combination with `filter()` from `dplyr` (again!). We will  look for the bit of the district code that relates to London (E09) from the 'lad15cd' column data frame of our `sf` object. 
+
+```{r, cache=FALSE}
+LondonMap<- EW %>%
+  filter(str_detect(lad15cd, "^E09"))
+
+#plot it using the base plot function
+qtm(LondonMap)
+```
+
+1. Of course, we can also read in our data from a shapefile stored in a local directory:
+
+```{r, cache=FALSE, eval=FALSE}
+#read the shapefile into a simple features object
+BoroughMapSF <- st_read("prac1_data/statistical-gis-boundaries-london/ESRI/London_Borough_Excluding_MHW.shp")
+
+#plot it very quickly usking qtm (quick thematic map) to check
+#it has been read in correctly
+qtm(BoroughMapSF)
+```
+
+#### Attribute data
+
+OK, enough messing around, show us the maps!!
+
+1. Hold your horses, before be can create a map, we need to join some attribute data to some boundaries, let's do it with ```merge()```, but first clean up all of our names with `Janitor` again.
+
+```{r, warning=FALSE, cache=FALSE}
+LondonData <- clean_names(LondonData)
+
+#EW is the data we read in straight from the web
+BoroughDataMap <- EW %>%
+  clean_names()%>%
+  # the . here just means use the data already loaded
+  filter(str_detect(lad15cd, "^E09"))%>%
+  merge(.,
+        LondonData, 
+        by.x="lad15cd", 
+        by.y="new_code",
+        no.dups = TRUE)%>%
+  distinct(.,lad15cd, 
+           .keep_all = TRUE)
+```
+
+We've added some more arguments to `distinct()` that mean we only have unique rows based on the code, but we keep all other variables `.keep_all=TRUE`. If you change to `.keep_all=FALSE` (which is the default) then all the other variables will be removed.
+
+An alternative to ```merge()``` would be to use a ```left_join()``` (like in SQL)...but it's the same thing as `merge()`.
+
+```{r echo=FALSE, out.width = "500px", fig.align='center', cache=FALSE}
+knitr::include_graphics('prac2_images/sql-joins.png') 
+```
+
+```{r echo=FALSE, out.width = "500px", fig.align='center', cache=FALSE, fig.cap="Taken from Tidy explain by Garrick Aden‑Buie"}
+knitr::include_graphics('prac2_images/left-join.gif') 
+```
+
+```{r, cache=FALSE, warning=FALSE, message=FALSE,eval=FALSE}
+BoroughDataMap2 <- EW %>% 
+  clean_names() %>%
+  filter(str_detect(lad15cd, "^E09"))%>%
+  left_join(., 
+            LondonData,
+            by = c("lad15cd" = "new_code"))
+
+```
+
+If there are mutliple matches then all hits are returned...
+
+```{r echo=FALSE, out.width = "500px", fig.align='center', cache=FALSE, fig.cap="Taken from Tidy explain by Garrick Aden‑Buie"}
+knitr::include_graphics('prac2_images/left-join-extra.gif') 
+```
+
+However, i've left out  `filter()` and `distinct()` which you would need to reduce the data to London and remove the duplicate City of London row afterwards...like in the step before with `merge` and as we did earlier on in the session.
+
+### Simple mapping
+
+`tmap` follows the idea of the grammar of graphics, similar to `dplyr` being the grammar of data manipulation. Essentially with the grammar of graphics the main data being mapped defines the location somewhere on Earth (loaded with `tm_shape`). Map aesthetics are then defined with a `+`, these usually include `tm_fill()` (fill of the polygons based on a variable) + `tm_borders()` (border of polygons). However, `tm_polygon` basically combines `tm_fill()` and `tm_borders()`...
+
+So to conclude, data first then `+` aesthetic syntax. 
+
+We're going to create a simple map with our spatial data, mapping and cartographic practice are covered in much more detail later in the course, but for now...
+
+1. We can create a choropleth map very quickly now using ```qtm()``` as we've done before
+
+```{r, cache=FALSE}
+library(tmap)
+library(tmaptools)
+tmap_mode("plot")
+qtm(BoroughDataMap, 
+    fill = "rate_of_job_seekers_allowance_jsa_claimants_2015")
+```
+
+But that's a bit basic! How about adding a basemap...to get a basemap we need to extract it from OpenStreetMap (OSM) using the `read_osm()` function from the `tmaptools` package. We talk about this in later weeks, but it's a free editable map of the World (the Wikipedia of maps). We are going to need to create a box (termed bounding box) around London using the `st_box()` function from the `sf` package to extract the basemap image (which is a raster). 
+
+```{r, eval=TRUE, cache=FALSE}
+tmaplondon <- BoroughDataMap %>%
+  st_bbox(.) %>% 
+  tmaptools::read_osm(., type = "osm", zoom = NULL)
+```
+
+Now we have the basemap, set `tmap` to plot, add the basemap, add the shape (our London layer), tell it which attribute to map (job seekers), the style to make the colour divisions (we explain this more in later weeks), the transparency (alpha), compass, scale and legend.
+
+But remember what i explained earlier... data first then `+` aesthetic syntax. We can also double up on this, so below we have data data from our bounding box + it's raster aesthetic (`tm_rgb`) THEN ALSO the data from our London Borough layer and it's aesthetics. As they are the same place they plot over each other!
+
+There is a bit of extra code below that we haven't explained:
+
+* `style` --- how to divide the data into out colour breaks
+* `palette` --- the colour scheme to use
+
+```{r, eval=FALSE, cache=FALSE}
+tmap_mode("plot")
+
+tm_shape(ftmaplondon)+
+tm_rgb()+
+tm_shape(BoroughDataMap) + 
+tm_polygons("rate_of_job_seekers_allowance_jsa_claimants_2015", 
+        style="jenks",
+        palette="YlOrBr",
+        midpoint=NA,
+        title="Rate per 1,000 people",
+        alpha = 0.5) + 
+  tm_compass(position = c("left", "bottom"),type = "arrow") + 
+  tm_scale_bar(position = c("left", "bottom")) +
+  tm_layout(title = "Job seekers' Allowance Claimants", legend.position = c("right", "bottom"))
+
+```
+
+So that's our first real map done! Awesome work. But remember our `Life_expectancy4` data that we wrangled earlier. Can you think of a way to map this? So we need to 
+
+1. Merge our `Life_expectancy4map` with the spatial data `EW`
+1. Map our merge with `tmap`
+
+```{r}
+Life_expectancy4map <- EW %>%
+  merge(.,
+        Life_expectancy4, 
+        by.x="lad15cd", 
+        by.y="new_code",
+        no.dups = TRUE)%>%
+  distinct(.,lad15cd, 
+           .keep_all = TRUE)
+```
+
+Now let's make the map!
+
+```{r}
+tmap_mode("plot")
+
+tm_shape(tmaplondon)+
+tm_rgb()+
+tm_shape(Life_expectancy4map) + 
+tm_polygons("UKdiff", 
+        style="pretty",
+        palette="Blues",
+        midpoint=NA,
+        title="Number of years",
+        alpha = 0.5) + 
+  tm_compass(position = c("left", "bottom"),type = "arrow") + 
+  tm_scale_bar(position = c("left", "bottom")) +
+  tm_layout(title = "Difference in life expectancy", legend.position = c("right", "bottom"))
+```
+
+There are a few subtle differences in the code of this second map if you look closely:
+* Style is now `pretty` not `jenks`. Style controls where the breaks are within the data that are then assigned to each colour for mapping. `pretty` rounds to whole numbers and evenly spaces them over the data.
+* Palette in now `Blues` not `YlOrBr`. Palette controls the colour of the map, you can see more options through `tmaptools::palette_explorer()`
+
+## Tidying data
+
+As you progress through the programme you will probably notice that there is pretty much a tool or function for anything you could want. However, there has been little reserach into creating a standardised approach for wrangling data into a common format for analysis. This is where [Hadley Wickham's tidy data comes in]( https://www.jstatsoft.org/article/view/v059i10 ). As per the [R for Data Science book](https://r4ds.had.co.nz/tidy-data.html), tidy data is defined using the following three rules:
+
+1. Each variable must have its own column.
+
+1. Each observation must have its own row.
+
+1. Each value must have its own cell.
+
+But, as per the book, these three requirements are interrelated as you can't only adhere to two without adhering to all three. So this gives us:
+
+1. Put each dataset in a tibble
+
+1. Put each variable in a column
+
+```{r echo=FALSE, out.width = "500px", fig.align='center', cache=FALSE, fig.cap="This figure is taken directly from Grolemund and Wickham (2017) Chapter 12.Following three rules makes a dataset tidy: variables are in columns, observations are in rows, and values are in cells."}
+knitr::include_graphics('prac2_images/tidy-1.png') 
+```
+
+However, i also find this example from [KSK analytics](https://www.ksk-anl.com/blog/hadley-wickhams-tidy-data-in-rapidminer-part-1/) very helpful..
+
+```{r echo=FALSE, out.width = "500px", fig.align='center', cache=FALSE, fig.cap="This figure is taken directly from Grolemund and Wickham (2017) Chapter 12.Following three rules makes a dataset tidy: variables are in columns, observations are in rows, and values are in cells."}
+knitr::include_graphics('prac2_images/messy-tidy-ex.png') 
+```
+
+Earlier we read in the data using:
+
+```{r, cache=FALSE, warning=FALSE, message=FALSE, eval=FALSE}
+flytipping <- read_csv("https://data.london.gov.uk/download/fly-tipping-incidents/536278ff-a391-4f20-bc79-9e705c9b3ec0/fly-tipping-borough.csv")
+```
+
+But we can also do something like this to force the columns to the appopraite data types (e.g. text, numberic)
+
+```{r, cache=FALSE, warning=FALSE, message=FALSE, eval=FALSE}
+flytipping1 <- read_csv("https://data.london.gov.uk/download/fly-tipping-incidents/536278ff-a391-4f20-bc79-9e705c9b3ec0/fly-tipping-borough.csv", 
+                       col_types = cols(
+                         code = col_character(),
+                         area = col_character(),
+                         year = col_character(),
+                         total_incidents = col_number(),
+                         total_action_taken = col_number(),
+                         warning_letters = col_number(),
+                         fixed_penalty_notices = col_number(),
+                         statutory_notices = col_number(),
+                         formal_cautions = col_number(),
+                         injunctions = col_number(),
+                         prosecutions = col_number()
+                       ))
+# view the data
+view(flytipping1)
+```
+
+So we have a tibble with columns of each varaible (e.g. warning letters, total actions taken) where every row is a London borough. We want make sure that each observation has its own row...it doesn't as in the first row here we have observations for total incidents and total actions taken etc...to do this we will use `pivot_longer()`. Make sure you have the most recent version of `tidyverse` if you get an error.
+
+```{r, cache=FALSE, warning=FALSE, message=FALSE, eval=FALSE}
+#convert the tibble into a tidy tibble
+flytipping_long <- flytipping1 %>% 
+  pivot_longer(
+  cols = 4:11,
+  names_to = "tipping_type",
+  values_to = "count"
+)
+
+# view the data
+view(flytipping_long)
+```
+
+Do you see the difference..the data has become longer!...this is classed as tidy data as every variable has a column, every observation has a row and every value has a cell.
+
+You could also use this to do the same thing...
+
+```{r, cache=FALSE, warning=FALSE, message=FALSE, eval=FALSE}
+#an alternative which just pulls everything out into a single table
+flytipping2 <- flytipping1[,1:4]
+```
+
+But my advice would be to learn how to use the tidy tools!
+
+Now let's make it a bit more suitable for mapping with `pivot_wider()` by making coloumns for each year of each variable....in the original `.csv` we had a year coloumn that had values of 2011-2012 to 2017-2018, so if we wanted to map a specifc year we'd have to filter out the year then map. Here we can just alter the data from `pivot_longer()` using the year and tipping type...
+
+> Note, just because the data is considered tidy doesn't mean it is directly appropriate for mapping. It might need to be tidy for analysis.
+
+```{r, cache=FALSE, warning=FALSE, message=FALSE, eval=FALSE}
+#pivot the tidy tibble into one that is suitable for mapping
+flytipping_wide <- flytipping_long %>% pivot_wider(
+  id_cols = 1:2,
+  names_from = c(year,tipping_type),
+  names_sep = "_",
+  values_from = count
+)
+
+view(flytipping_wide)
+```
+
+But what if you were just interested in a specific varaible and wanted the coloums to be each year of the data...again using `pivot_wider()`
+
+```{r, cache=FALSE, warning=FALSE, message=FALSE, eval=FALSE}
+widefly <- flytipping2 %>% pivot_wider(
+  names_from = year, 
+  values_from = total_incidents)
+```
+
+You could now join this to the London borough `.shp` and produce a map...
+
+What's the take home from this? Basically always try to put your data into a certain format before doing further analysis on it as it will be easier for you to determine the right tools to select.
+
+## Feedback
+
+Was anything that we explained unclear this week or was something really clear...let us know using the [feedback form](https://forms.gle/w2GUDYc7tSavGy7r6). It's anonymous and we'll use the responses to clear any issues up in the future / adapt the material. 
+

@@ -1,0 +1,533 @@
+
+
+
+1. How about more than one map, perhaps using different data breaks...
+
+```{r, cache=FALSE, warning=FALSE, message=FALSE}
+tm_shape(BoroughDataMap) +
+    tm_polygons(c("average_public_transport_accessibility_score_2014",
+                  "violence_against_the_person_rate_2014_15"), 
+        style=c("jenks", "pretty"),
+        palette=list("YlOrBr", "Purples"),
+        auto.palette.mapping=FALSE,
+        title=c("Average Public Transport Accessibility", 
+                "Violence Against the Person Rate"))
+```
+
+You will notice that to choose the colour of the maps, I entered some codes. These are the names of colour ramps from the `RColourBrewer` package which comes bundled with ```tmap```. ```RColorBrewer``` uses colour palettes available from the colorbrewer2 [website](http://colorbrewer2.org/) which is in turn based on the [work of Cynthia Brewer and colleagues at Penn State University](http://www.personal.psu.edu/cab38/ColorBrewer/ColorBrewer_updates.html). Cynthia brewer has carried out large amount of academic research into determining the best colour palettes for GIS applications and so we will defer to her expertise here.
+
+If you want to look at the range of colour palettes available, as we; as going to the ColorBrewer website, you can use the a little shiny app which comes bundled with ```tmaptools```
+
+```{r, eval=FALSE, cache=FALSE}
+#You might need to install the shinyjs package for this to work
+install.packages("shinyjs")
+```
+
+```{r, eval=FALSE, cache=FALSE}
+library(shinyjs)
+#it's possible to explicitly tell R which 
+#package to get the function from with the :: operator...
+tmaptools::palette_explorer()
+```
+
+1. ```tmap``` will even let you make a FRICKING INTERACTIVE MAP!!! Oh yes, we can do interactive maps…! Set `tmap` to view:
+
+```{r, cache=FALSE, warning=FALSE, message=FALSE}
+tmap_mode("view")
+```
+
+1. To be able to use the interative map our data must be in the WGS1984 (CRS 4326) projection again...so...let's change it...
+
+```{r, cache=FALSE, warning=FALSE, message=FALSE, eval=FALSE}
+BoroughDataMapWGS <- BoroughDataMap %>%
+  st_transform(., 4326)
+```
+
+1. Now just map it...
+
+```{r, cache=FALSE, warning=FALSE, message=FALSE, eval=FALSE}
+
+prac2truffle <- tm_shape(BoroughDataMapWGS) +
+                tm_polygons("percent_children_in_year_6_who_are_obese_2011_12_to_2013_14",
+                style="cont",
+                palette="PuRd",
+                midpoint=NA,
+                title="Truffle Shuffle Intensity")+
+                tmap_options(max.categories = 5)
+
+prac2truffle
+```
+
+```{r, cache=FALSE, eval=FALSE}
+#You can even save your map as an html file 
+tmap_save(filename = "truffle.html")
+```
+
+#### Have a play around…
+
+There are loads of options for creating maps with ```tmap``` --- read the vignettes that have been provided by the developers of the package and see if you can adapt the maps you have just made --- or even make some alternative maps using built in data.
+
+* https://cran.r-project.org/web/packages/tmap/vignettes/tmap-nutshell.html * https://cran.r-project.org/web/packages/tmap/vignettes/tmap-modes.html
+
+You should also read [the reference manual on the package homepage](https://cran.r-project.org/web/packages/tmap/)
+
+In fact, since I wrote this the ```tmap``` package has developed quite a bit more --- have a look at some of the cool examples [here](https://github.com/mtennekes/tmap)
+
+Have a play and see what cool shiz you can create!
+
+## Making maps using ggplot2
+
+So as you have seen, it is possible to make very nice thematic maps with ```tmap```. However, there are other options. The  ```ggplot2``` package is a very powerful graphics package that allows us to a huge range of sophisticated plots, including maps.
+
+The latest development version of ```ggplot2``` has support for simple features objects with the new `geom_sf` class (http://ggplot2.tidyverse.org/reference/ggsf.html), which, quite frankly, is bloody brilliant!
+
+1. If you have not already done so, install and library the ```ggplot2``` and ```rgeos``` packages (they should be installed automatically as part of ```tidyverse``` and ```tmap``` packages, but occasionally they need to be installed separately).
+
+1. Now there are two main ways in which you can construct a plot in  ```ggplot2 ```:  ```qplot() ``` and  ```ggplot() ```.  ```qplot ``` is short for ‘Quick plot’ and can be good for producing quick charts and maps, but is perhaps less good for constructing complex layered plots.  ```ggplot() ``` is better for building up a plot layer by layer, e.g.  ```ggplot()+layer1+layer2 ```, and so this is what we will use here.
+
+1. The important elements of any ```ggplot  ``` layer are the aesthetic mappings –-- aes(x,y, …) –-- which tell ggplot where to place the plot objects. We can imagine a map just like a graph with all features mapping to an x and y axis. All geometry (  ```geom_  ```) types in ggplot feature some kind of aesthetic mapping and these can either be declared at the plot level, e.g. (don't run this)
+
+```{r, eval=FALSE, cache=FALSE}
+ggplot(data.frame, 
+       aes(x=x, y=y))
+```
+
+or, more flexibly at the level of the individual ```geom_layer()```, e.g.
+
+```{r, eval=FALSE, cache=FALSE}
+geom_polygon(aes(x=x, y=y), 
+             data.frame)
+```
+
+1. To begin our plot, we will start with the map layer --– we will generate this using the ```geom_sf()``` function in ```ggplot2```:
+
+```{r, cache=FALSE}
+library(ggplot2)
+ggplot()+geom_sf(mapping = aes(geometry=geometry),
+                 data = BoroughDataMap)+
+  theme_minimal()
+```
+
+18. To colour your map, then just pass the name of the variable you want to map to the fill parameter in the aesthetics:
+
+```{r, cache=FALSE}
+ggplot()+geom_sf(mapping = aes(geometry=geometry, 
+                               fill=median_household_income_estimate_2012_13),
+                 data = BoroughDataMap)+
+  theme_minimal()
+```
+
+19. As you can see, this map looks OK, but there are a few issues with things like the colour ramp and a lack of appropriate labels. We can correct this by adding a few more layers. Firstly we can change the palette:
+
+```{r, cache=FALSE}
+palette1<-scale_fill_continuous(low="white", 
+                                high="orange", 
+                                "Value (£)")
+```
+
+20. And some appropriate labels:
+
+```{r, cache=FALSE}
+labels<-labs(title="Median household income estimate 2012 to 2013",
+             x="Longitude", 
+             y="Latitude")
+```
+
+21. Before plotting the all of them together:
+
+```{r, cache=FALSE, eval=TRUE}
+ggplot()+
+  geom_sf(mapping = aes(geometry=geometry,
+                        fill = median_household_income_estimate_2012_13)
+          ,data = BoroughDataMap)+
+  theme_minimal()+
+  palette1+
+  labels
+```
+
+Check out [this](https://www.r-spatial.org/r/2018/10/25/ggplot2-sf.html) resource for more options in ```ggplot```
+
+
+### Maps with extra features
+
+Now we can re-project our data, it frees us up to bring in, for example, different base maps and other stuff...
+
+How about adding a basemap to our map...this follows on from the earlier section (when i said ```read_osm()``` wasn't working) and builds on what we just learned about mapping with ```ggplot```
+
+```{r message=FALSE, cache=FALSE, eval=FALSE}
+install.packages(c("ggmap", "BAMMtools"))
+```
+
+```{r, message=FALSE, cache=FALSE, eval=FLASE}
+library(ggmap)
+library(BAMMtools)
+
+# put into WGS84 to get basemap data
+BoroughDataMapWGS84 <- BoroughDataMap %>% 
+  st_transform(., 4326)
+
+# bounding box of London 
+londonbbox2 <- BoroughDataMapWGS84 %>%
+  st_bbox()%>%
+  as.vector()
+  
+# use bounding box to get our basemap
+b <- get_map(londonbbox2, 
+             maptype="roadmap", 
+             source="osm", 
+             zoom=10)
+plot(b)
+
+# try changing the maptype to watercolor
+b <- get_stamenmap(londonbbox2,
+                   zoom = 10,
+                   source="osm",
+                   maptype = "toner-lite")
+plot(b)
+
+# work out the jenks of our data, k means numnber of divisons
+jenks<-getJenksBreaks(BoroughDataMapWGS84$Rate.of.JobSeekers.Allowance..JSA..Claimants...2015,
+                     k=5)
+
+# set the palette using colorbrewer
+palette1<- scale_fill_distiller(type = "seq", 
+                                palette = "YlOrBr", 
+                                breaks=jenks, 
+                                guide="legend")
+# any labels
+labels<-labs(title="Rate per 1,000 people",
+             x="Longitude", 
+             y="Latitude")
+
+# use the basemap then add our other data
+map<-ggmap::ggmap(b) + 
+  geom_sf(data = BoroughDataMapWGS84,
+          aes(geometry=geometry,
+              fill=Rate.of.JobSeekers.Allowance..JSA..Claimants...2015),
+          alpha=0.5,
+          inherit.aes = FALSE)+
+  theme_minimal()+
+  palette1+
+  labels+
+  guides(fill=guide_legend(title="JSA"))
+
+plot(map)
+```
+
+### Extension
+
+#### Faceted plots
+
+One of the nice features of ```ggplot2``` is its faceting function which allows you to lay out subsets of your data in different panels of a grid.
+
+Here we will  create a faceted grid of London maps. To start with we will need to use the ```tidyr``` package to reformat your data using the ```pivot_longer()``` function. First of all let's simply select the data we are interested in...
+
+```{r, cache=FALSE}
+BoroughDataMapSELECTION <- BoroughDataMap %>%
+  select(name,percent_with_no_qualifications_2011,
+         percent_of_households_with_no_adults_in_employment_with_dependent_children_2011,
+         percent_dependent_children_0_18_in_out_of_work_households_2014,
+         percent_bame_2011)
+
+```
+
+1. Now we need to ```pivot_longer()```. This takes our data from a `wide` format where our variables are spread across several columns to a format where these are combined in a single column. By this i mean currently there is a column for: `percent_with_no_qualifications_2011`, `percent_bame_2011` and so on. However, we want to place all of our variable titles (e.g.`percent_bame_2011`) into a single column with another column holding the value...so from 
+
+```{r}
+BoroughDataMapLONG <- BoroughDataMapSELECTION %>%
+  as_tibble()%>%
+  pivot_longer(
+    cols = 2:5,
+    names_to = "type_of_variable",
+    values_to = "value"
+)
+```
+
+INFO
+
+```{r, cache=FALSE, message=FALSE, warning=FALSE}
+
+library(tmap)
+library(sf)
+library(maptools)
+
+tmap_mode("plot")
+
+borough_melt <- BoroughDataMapLONG %>%
+  st_as_sf()%>%
+  st_transform(., 4326)
+
+qtm(borough_melt, fill = "value", by = "type_of_variable")
+```
+
+or, indeed, in ggplot2 like this:
+
+```{r, message=FALSE, cache=FALSE}
+ggplot()+
+  geom_sf(mapping = aes(geometry=geometry, 
+                        fill=value),
+          data = borough_melt)+
+  facet_wrap(~type_of_variable)
+```
+
+
+#### Interactive web maps
+
+So we created an interactive map with ```tmap``` earlier and that was pretty cool, but if we want to do even more mind-blowing stuff later on in the course, we will need to get our heads around how to do interactive maps using ```leaflet```.
+
+Leaflet is a Java Script library for producing interactive web maps, and some enterprising coders over at RStudio have produced a package for allowing you to create your own Leaflet maps. All of the documentation for the R Leaflet package can be found [here](https://rstudio.github.io/leaflet/)
+
+```{r prac2libs, cache=FALSE, warning=FALSE, message=FALSE}
+library(sf)
+library(sp)
+library(magrittr)
+library(classInt)
+library(htmlTable)
+library(htmltools)
+library(htmlwidgets)
+library(leaflet)
+```
+
+##### Generating a colour ramp and palette
+
+Before we create a leaflet map, we need to specify what the breaks in our data are going to be…
+
+```{r, cache=FALSE,  warning=FALSE, message=FALSE}
+colours<- brewer.pal(5, "Blues")
+
+breaks<-classIntervals(BoroughDataMap$Claimant.Rate.of.Housing.Benefit..2015., 
+                       n=5, 
+                       style="jenks")
+
+graphics::plot(breaks, 
+               pal=colours)
+```
+
+So we have now created a breaks object which uses the jenks natural breaks algorithm to divide up our variable into 5 classes. You will notice that breaks is a list of 2 objects. We want only the ```brks``` bit which contains the values for the breaks
+
+```{r, cache=FALSE,warning=FALSE, message=FALSE}
+summary(breaks)
+```
+
+```{r, cache=FALSE,warning=FALSE, message=FALSE}
+breaks <- as.numeric(breaks$brks)
+```
+
+Now we can create out leaflet interactive map.
+
+Here you will see that I am using different syntax to that which has gone before. The %>% (pipe) operator is part of the ```magrittr``` [package](https://cran.r-project.org/web/packages/magrittr/vignettes/magrittr.html). ```magrittr``` is an entirely new way of thinking about R syntax. Read up on it if you wish, but for now it is useful to think of the pipe operator as simply meaning “then”. Do this THEN do this THEN do that.
+
+##### Generating a colour ramp and palette
+
+Before we create a leaflet map, we need to specify what the breaks in our data are going to be…
+
+```{r, cache=FALSE,  warning=FALSE, message=FALSE}
+colours<- brewer.pal(5, "Blues")
+
+breaks<-classIntervals(BoroughDataMap$Claimant.Rate.of.Housing.Benefit..2015., 
+                       n=5, 
+                       style="jenks")
+
+graphics::plot(breaks, 
+               pal=colours)
+```
+
+So we have now created a breaks object which uses the jenks natural breaks algorithm to divide up our variable into 5 classes. You will notice that breaks is a list of 2 objects. We want only the ```brks``` bit which contains the values for the breaks
+
+```{r, cache=FALSE,warning=FALSE, message=FALSE}
+summary(breaks)
+```
+
+```{r, cache=FALSE,warning=FALSE, message=FALSE}
+breaks <- as.numeric(breaks$brks)
+```
+
+
+Now we can create out leaflet interactive map.
+
+Here you will see that I am using different syntax to that which has gone before. The %>% (pipe) operator is part of the ```magrittr``` [package](https://cran.r-project.org/web/packages/magrittr/vignettes/magrittr.html). ```magrittr``` is an entirely new way of thinking about R syntax. Read up on it if you wish, but for now it is useful to think of the pipe operator as simply meaning “then”. Do this THEN do this THEN do that.
+
+```{r, leaflet, eval=TRUE, cache=FALSE}
+# now, add some polygons colour them using your colour palette,
+#overlay the, on top of a nice backdrop and add a legend. 
+#Note the use of the magrittr pipe operator (%>%)
+#check the documentation to understand how this is working…
+
+#create a new sp object from the earlier sf object 
+#with all of our data in THEN Transform it to WGS84 
+#THEN convert it to SP.  
+
+BoroughDataMapSP <- BoroughDataMap %>%
+  st_transform(crs = 4326) %>%
+  as("Spatial")
+
+#create a colour palette using colorBin colour mapping
+pal <- colorBin(palette = "YlOrRd", 
+                domain = BoroughDataMapSP$Claimant.Rate.of.Housing.Benefit..2015.,
+                #create bins using the breaks object from earlier
+                bins = breaks)
+
+prac2leaf <- leaflet(BoroughDataMapSP) %>%
+  addPolygons(stroke = FALSE,
+              fillOpacity = 0.5,
+              smoothFactor = 0.5,
+              color = ~pal(Claimant.Rate.of.Housing.Benefit..2015.),
+              popup = ~NAME
+  )  %>%
+  addProviderTiles("CartoDB.DarkMatter") %>%
+  addLegend("bottomright",
+            pal= pal,
+            values = ~Claimant.Rate.of.Housing.Benefit..2015.,
+            title = "Housing Benefit Claimant Rate",
+            labFormat = labelFormat(prefix = "Per 1,000 people "),
+            opacity = 1
+  )
+```
+
+
+```{r, eval=FALSE, echo=FALSE}  
+library(htmlwidgets)
+saveWidget(prac2leaf, file = "prac2leaf.html")
+file.copy("prac2leaf.html", "prac2_data/prac2leaf.html", overwrite = TRUE)
+```
+
+```{r, eval=FALSE, echo=FALSE}
+  if(knitr::is_latex_output()){
+    knitr::include_graphics("interactive.png")   
+} else if(knitr::is_html_output()){
+    knitr::include_url("prac2_data/prac2leaf.html")}
+```
+
+## Writing good R code
+
+There are some basic principles to follow when writing code
+
+1. Use descriptive names for variaibles so you know what they are --- this can be difficult especailly if you have multiple similar variables.
+1. Comment out parts you don't need to run using #
+1. Provide regular comments for each part of your code. As you work through this practical book you should be able to find a small description of what each part of the code does. This is good practice as it not only helps you remember what your codes does, when you inevitably forget in the future, but also lets other understand and 'read' your code quicker.
+1. Use indents appropriately --- this again greatly helps with readability and understanding. For example, what is easier to understand...this..
+
+```{r, cache=FALSE,warning=FALSE, message=FALSE, eval=FALSE}
+map<-ggmap::ggmap(b) + 
+  geom_sf(data = BoroughDataMapWGS84,
+          aes(geometry=geometry,
+              fill=rate_of_job_seekers_allowance_jsa_claimants_2015),
+          alpha=0.5,
+          inherit.aes = FALSE)+
+  theme_minimal()+
+  palette1+
+  labels+
+  guides(fill=guide_legend(title="JSA"))
+
+plot(map)
+```
+
+or this...
+
+```{r, cache=FALSE,warning=FALSE, message=FALSE, eval=FALSE}
+map<-ggmap::ggmap(b) + geom_sf(data = BoroughDataMapWGS84,aes(geometry=geometry,fill=rate_of_job_seekers_allowance_jsa_claimants_2015),alpha=0.5,inherit.aes = FALSE)+theme_minimal()+palette1+labels+guides(fill=guide_legend(title="JSA"))
+
+plot(map)
+```
+
+## Tidying data
+
+In this practical we just showed how you to load, extract and reshape data using `melt`, however there is a better way to tidy data. As per the [R for Data Science book](https://r4ds.had.co.nz/tidy-data.html), tidy data is defined using the following three rules:
+
+1. Each variable must have its own column.
+
+2. Each observation must have its own row.
+
+3. Each value must have its own cell.
+
+But, as per the book, these three are interrelated as you can't only adhere to two without adhering to all three. So this gives us:
+
+1. Put each dataset in a tibble
+
+2. Put each variable in a column
+
+Earlier we read in the data using:
+
+```{r, cache=FALSE, warning=FALSE, message=FALSE, eval=FALSE}
+flytipping <- read_csv("https://data.london.gov.uk/download/fly-tipping-incidents/536278ff-a391-4f20-bc79-9e705c9b3ec0/fly-tipping-borough.csv")
+```
+
+But we can also do something like this to force the columns to the appopraite data types (e.g. text, numberic)
+
+```{r, cache=FALSE, warning=FALSE, message=FALSE, eval=FALSE}
+flytipping1 <- read_csv("https://data.london.gov.uk/download/fly-tipping-incidents/536278ff-a391-4f20-bc79-9e705c9b3ec0/fly-tipping-borough.csv", 
+                       col_types = cols(
+                         code = col_character(),
+                         area = col_character(),
+                         year = col_character(),
+                         total_incidents = col_number(),
+                         total_action_taken = col_number(),
+                         warning_letters = col_number(),
+                         fixed_penalty_notices = col_number(),
+                         statutory_notices = col_number(),
+                         formal_cautions = col_number(),
+                         injunctions = col_number(),
+                         prosecutions = col_number()
+                       ))
+# view the data
+view(flytipping1)
+```
+
+So we have a tibble with columns of each varaible (e.g. warning letters, total actions taken) where every row is a London borough. We want make sure that each observation has its own row...it doesn't as in the first row here we have observations for total incidents and total actions taken etc...to do this we will use `pivot_longer()`. Make sure you have the most recent version of `tidyverse` if you get an error.
+
+```{r, cache=FALSE, warning=FALSE, message=FALSE, eval=FALSE}
+#convert the tibble into a tidy tibble
+library(tidyverse)
+flytipping_long <- flytipping1 %>% pivot_longer(
+  cols = 4:11,
+  names_to = "tipping_type",
+  values_to = "count"
+)
+
+# view the data
+view(flytipping_long)
+```
+
+Do you see the difference...this is classed as tidy data as every variable has a column, every observation has a row and every value has a cell.
+
+You could also use this to do the same thing...
+
+```{r, cache=FALSE, warning=FALSE, message=FALSE, eval=FALSE}
+#an alternative which just pulls everything out into a single table
+flytipping2 <- flytipping1[,1:4]
+```
+
+But my advice would be to learn how to use the tidy tools!
+
+Now let's make it a bit more suitable for mapping with `pivot_wider()` by making coloumns for each year of each variable....in the original `.csv` we had a year coloumn that had values of 2011-2012 to 2017-2018, so if we wanted to map a specifc year we'd have to filter out the year then map. Here we can just alter the data from `pivot_longer()` using the year and tipping type...
+
+> Note, just because the data is considered tidy doesn't mean it is directly appropriate for mapping. It might need to be tidy for analysis, such as where we used `melt()` earlier on (you could replace `melt()` with what we've shown you here) but for mapping you probably want something a bit different. 
+
+```{r, cache=FALSE, warning=FALSE, message=FALSE, eval=FALSE}
+#pivot the tidy tibble into one that is suitable for mapping
+flytipping_wide <- flytipping_long %>% pivot_wider(
+  id_cols = 1:2,
+  names_from = c(year,tipping_type),
+  names_sep = "_",
+  values_from = count
+)
+
+view(flytipping_wide)
+```
+
+But what if you were just interested in a specific varaible and wanted the coloums to be each year of the data...again using `pivot_wider()`
+
+```{r, cache=FALSE, warning=FALSE, message=FALSE, eval=FALSE}
+widefly <- flytipping2 %>% pivot_wider(
+  names_from = year, 
+  values_from = total_incidents)
+```
+
+You could now join this to the London borough `.shp` and produce a map...
+
+What's the take home from this? Basically always try to put your data into a certain format before doing further analysis on it as it will be easier for you to determine the right tools to select.
+
+## Feedback
+
+Was anything that we explained unclear this week or was something really clear...let us know using the [feedback form](https://forms.gle/w2GUDYc7tSavGy7r6). It's anonymous and we'll use the responses to clear any issues up in the future / adapt the material. 
+

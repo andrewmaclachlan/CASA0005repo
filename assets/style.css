@@ -1,0 +1,300 @@
+@import url('https://fonts.googleapis.com/css2?family=Muli:ital,wght@0,400;0,700;1,400&display=swap');
+
+ /*------------- Body and header text---------------- */
+
+.book.font-family-1 {
+  font-family: 'Muli', sans-serif;
+ }
+ 
+ /*-------------Info box---------------- */
+
+.infobox {
+  border: 4px #aed6d963;
+  border-style: dashed solid;
+  padding: 1em;
+  margin: 1em 0;
+  padding-left: 100px;
+  background-size: 70px;
+  background-repeat: no-repeat;
+  background-position: 15px center;
+  min-height: 120px;
+  color: #2ea8b3;
+  background-color: #fcfcfc;
+}
+.assignment {
+  background-image: url("../general_images/hat.png");
+}
+.caution {
+  background-image: url("../general_images/caution.png");
+}
+.important {
+  background-image: url("../general_images/important.png");
+}
+.note {
+  background-image: url("../general_images/design.png");
+}
+.tip {
+  background-image: url("../general_images/lightbulb.png");
+}
+.warning {
+  background-image: url("../general_images/gotcha_2.png");
+}
+p.caption {
+  color: #777;
+  margin-top: 10px;
+}
+p code {
+  white-space: inherit;
+}
+pre {
+  word-break: normal;
+  word-wrap: normal;
+}
+pre code {
+  white-space: inherit;
+}
+p.flushright {
+  text-align: right;
+}
+blockquote > p:last-child {
+  text-align: right;
+}
+blockquote > p:first-child {
+  text-align: inherit;
+}
+.header-section-number {
+  padding-right: .2em;
+  font-weight: 500;
+}
+.level1 h1 {
+  border-bottom: 1px solid;
+}
+h1, h2, h3, h4, h5, h6 {
+  font-weight: normal;
+}
+h1.title {
+  font-weight: 700;
+}
+
+}
+.book .book-body .page-wrapper .page-inner section.normal strong {
+  font-weight: 600;
+}
+
+/*----------DROP CAPS--------------*/
+
+
+/*p:nth-child(2):first-letter {   /* /* DROP-CAP FOR FIRST P BENEATH EACH H1 OR H2*/ /*
+  color: #3fb5bd;
+  float: left;
+  font-family: 'Abril Fatface', serif;
+  font-size: 7em;
+  line-height: 65px;
+  padding-top: 4px;
+  padding-right: 8px;
+  padding-left: 3px;
+  margin-bottom: 9px;
+}
+*/
+
+.section.level1 > p:first-of-type:first-letter { /*drop cap for first p beneath level 1 headers only within class .section*/
+  color: #3fb5bd;
+  float: left;
+  font-family: 'Abril Fatface', serif;
+  font-size: 7em;
+  line-height: 65px;
+  padding-top: 4px;
+  padding-right: 8px;
+  padding-left: 3px;
+  margin-bottom: 9px;
+}
+
+/*TOC */
+
+/*------------ TOC --------------*/
+
+
+/* all TOC list items, basically */
+    .book .book-summary ul.summary li a, 
+    .book .book-summary ul.summary li span {
+      padding-top: 8px;
+      padding-bottom: 8px;
+      padding-left: 15px;
+      padding-right: 15px;
+    }
+
+    .summary a:hover {
+      color: #778ca5 !important;
+    } 
+    
+    .summary{
+    font-family: 'Muli', sans-serif;
+  }
+
+    .book .book-summary ul.summary li.active>a { /*active TOC links*/
+      color: #5699cc !important;
+      border-left: solid 4px;
+      border-color: #5699cc;
+      padding-left: 11px !important;
+    } 
+    
+    li.appendix span, li.part span { /* for TOC part names */
+      margin-top: 1em;
+      color: #778ca5;
+      opacity: 1 !important;
+    }
+    
+    .part + li[data-level=""] { /* grabs first .chapter immediately after .part...but only those ch without numbers */
+    }
+    
+/* The next two rules make the horizontal line go straight across in top navbar */
+
+.summary > li:first-child {
+    height: 50px;
+    padding-top: 10px;
+    border-bottom: 1px solid rgba(0,0,0,.07);
+}
+
+/* -----------Section anchors -------------*/
+
+.book .book-body .page-wrapper .page-inner section.normal {
+  overflow: visible !important; /*so anchor link doesn't get cut off */
+}
+
+a.anchor {
+  margin-left: -30px;
+  padding-right: 3px;
+  display:inline-block;
+  width: 30px;
+  height: 30px;
+  /*visibility: hidden;*/
+  background-image: url(https://image.flaticon.com/icons/svg/34/34735.svg) !important;
+  background-repeat: no-repeat !important;
+  background-size: 20px 20px !important;
+  background-position: center bottom !important;
+  opacity: 0;
+}
+
+
+.hasAnchor:hover a.anchor, 
+a.anchor:hover {
+  /*visibility: visible;*/
+  opacity: 0.6;
+}
+
+/* disable anchors for headers with "no-anchor" class */
+.no-anchor .hasAnchor:hover a.anchor, 
+.no-anchor a.anchor:hover {
+  opacity: 0 !important;
+}
+
+@media (max-width: 1144px) { /* don't show anchor link on small screens */
+  .hasAnchor:hover a.anchor {
+    visibility: hidden;
+  }
+}
+
+.book .book-summary ul.summary li.divider {
+    height: 0px;
+}
+
+/* ------------Links------------------ */
+
+.book .book-body .page-wrapper .page-inner section.normal a {
+  color: #157f8e;
+}
+
+/*____Code Chunks____*/
+
+.sourceCode pre {
+  margin: 0 !important; /* makes space above and below symmetrical*/
+}
+
+.sourceCode {
+  margin-bottom: 0.85em; /* adds same amount of margin as a <p> would */
+}
+
+/* --------------Two columns--------------- */
+
+.col2 {
+  columns: 2 200px;         /* number of columns and width in pixels*/
+  -webkit-columns: 2 200px; /* chrome, safari */
+  -moz-columns: 2 200px;    /* firefox */
+}
+
+
+.side-by-side {
+  display: flex;
+}
+
+.side1 {
+  width: 40%;
+}
+
+.side2 {
+  width: 58%;
+  margin-left: 1rem;
+}
+
+/* --------------Even split- two columns--------------- */
+
+.split {
+  display: flex;
+}
+
+.split1 {
+  width: 50%;
+  padding-right: 20px;
+}
+
+.split2 {
+  width: 50%;
+}
+
+/*--- LOGO ---*/
+
+.toc-logo {
+  width: 100px !important;
+  object-fit: contain;
+  margin: 0 auto;
+  display: block;
+}
+
+.toc-logo img {
+  max-width: 100%;
+  margin-bottom: 10px;
+}
+
+.summary > li:first-child {
+  height: auto !important; 
+}
+
+/* -----------Section anchors -------------*/
+
+.book .book-body .page-wrapper .page-inner section.normal {
+  overflow: visible !important; /*so anchor link doesnt get cut off */
+}
+
+a.anchor {
+  margin-left: -30px;
+  padding-right: 3px;
+  display:inline-block;
+  width: 30px;
+  height: 30px;
+  background-image: url(https://image.flaticon.com/icons/svg/34/34735.svg) !important;
+  background-repeat: no-repeat !important;
+  background-size: 20px 20px !important;
+  background-position: center bottom !important;
+  opacity: 0;
+}
+
+
+.hasAnchor:hover a.anchor, a.anchor:hover {
+  opacity: 0.6;
+}
+
+@media (max-width: 1144px) { /* dont show anchor link on small screens */
+  .hasAnchor:hover a.anchor {
+visibility: hidden;
+  }
+}

@@ -1,0 +1,792 @@
+# Online mapping / descriptive statistics 
+
+This practical is formed of two parts, you can pick one you are more intersted in or complete both.
+
+
+* Part A looks at some more spatial descriptive statistics 
+
+* Part B focuses on online mapping 
+
+## Homework
+
+Outside of our schedulded sessions you should be doing around 12 hours of extra study per week. Feel free to follow your own GIS interests, but good places to start include the following:
+
+::: {.infobox .assignment data-latex="{note}"}
+**Assignment**
+
+From weeks 6-9, learn and practice analysis from the course and identify appropriate techniques (from wider research) that might be applicable/relevant to your data. Conduct an extensive methodological review – this could include analysis from within academic literature and/or government departments (or any reputable source).
+:::
+
+::: {.infobox .note data-latex="{note}"}
+**Reading**
+
+* For k-means clustering and exploratory data analysis read [Chapter 12 "K-Means Clustering"](https://bookdown.org/rdpeng/exdata/k-means-clustering.html) from Exploratory Data Analysis with R by Peng (2016).
+
+* For interative maps re-read [Chapter 8: "Making maps with R"](https://geocompr.robinlovelace.net/adv-map.html) Geocomputation with R by Lovelace, Nowosad and Muenchow (2020), especially setion 8.4.
+
+Remember this is just a starting point, explore the [reading list](https://rl.talis.com/3/ucl/lists/139FBAF8-DACD-60FB-8BDC-E9C9E09BA885.html?lang=en-GB&login=1), practical and lecture for more ideas.
+:::
+
+## Recommended listening `r emo::ji("headphones")`
+
+Some of these practicals are long, take regular breaks and have a listen to some of our fav tunes each week.
+
+[Andy](https://www.youtube.com/watch?v=6Bh6IL1mNfc)
+
+
+[Adam](https://open.spotify.com/track/3BGF4XAm8jaEi2LcGR57O3?si=gfYc6LS6Tgy9M9oXVVG4SQ)
+Bit different from me this week - I'm not all about drum and bass (although I mostly am). Stumbled across these recently and I should have known about them for much longer. The Joy Formidable - this is a 10th Anniversary revisit of their first EP and is ace. If you like Welsh, you're in for a treat! 
+
+## Part A spatial descriptive statistics
+
+### Learning objectives
+
+By the end of this practical you should be able to:
+
+1. Create descriptive plots (histograms and boxplots) to help understand the frequency distributions of your data
+1. Write custom functions to process your data
+1. Produce a location quotient map to highlight interesting (above and below average) patterns in your data
+1. Write a function in R to produce a range of different maps based on user inputs
+1. Perform a very basic cluster analysis and output the results of a basic geodemographic classification
+
+### Getting Started
+Before we begin this week’s practical, we need to load our packages and carry out some data preparation... 
+
+```{r prac8_load, message=FALSE}
+library(highcharter)
+library(tidyverse)
+library(downloader)
+library(rgdal)
+library(sf)
+library(ggplot2)
+library(reshape2)
+library(plotly)
+library(raster)
+library(downloader)
+library(rgdal)
+```
+
+
+There is a problem with our London Wards data --- we are missing some data relating to housing tenure. The housing tenure data in this file comes from the 2011 Census and visiting http://www.nomisweb.co.uk/ and interrogating Table KS402EW (the Tenure table), we can discover that data for the percentage of shared owners and those living in accommodation rent free are missing. 
+
+Rather than making you go off to Nomisweb and fetch this data, because I'm really nice, I've posted on GitHub a file containing this and extra categorical, ratio and geographical data that we will need to add to our existing London data file. To download this consult [How to download data and files from GitHub], i'd used Option 1 and it's the prac8_data folder you want to download.
+
+We can easily join this new data to our original data in R.
+
+```{r prac8_read_data}
+
+LondonWards <- st_read(here::here("prac8_data", 
+                                  "New_ward_data",
+                                  "NewLondonWard.shp"))
+
+extradata <- read_csv(here::here("prac8_data", "LondonAdditionalDataFixed.csv"))
+
+LondonWardsleftjoin <- LondonWards %>%
+  left_join(.,extradata,
+            by = c("WD11CD" = "Wardcode"))
+
+#LondonWardsSF <- merge(LondonWards, extradata, by.x = "WD11CD", by.y = "Wardcode")
+```
+
+### Main Tasks
+
+### Task 1 - Descriptive Statistics
+Using the lecture notes for guidance, you should generate the following graphs and descriptive statistics using standard functions and ggplot2 in R. Each element should be copied and saved to a word document or something similar:
+
+Generate the following from your `LondonWardsSF` data frame:
+
+* A simple histogram for a scale/ratio variable of your choice
+* A simple histogram for a scale/ratio variable of your with a different frequency bin-width
+    + The same histogram with vertical lines for the mean, median and mode (the mode will be the mid value for the bin with the largest count) and the inter-quartile range. *hint – use summary(table$variable) to find the values if you are not sure*
+    + The same histogram with three different kernel density smoothed frequency gradients
+* A boxplot of the same variable
+* A faceted grid of histograms with for every variable in your London Wards data file. In order to do this, you will need to remove Factor (non-numeric) variables from your dataset and re-shape your data using the `melt()` function in the `reshape2` package (hint – check the help file for `melt.data.frame()` to understand what the code below is doing). The code below will help you:
+
+```{r prac8_data_manipulate, message=FALSE, warning=FALSE}
+#check which variables are numeric first
+
+Datatypelist <- LondonWardsleftjoin %>% 
+  st_drop_geometry()%>%
+  summarise_all(class) %>%
+  pivot_longer(everything(), 
+               names_to="All_variables", 
+               values_to="Variable_class")
+
+#make groups based on types of variables
+Groups <- LondonWardsleftjoin %>% 
+  st_drop_geometry()%>%
+  dplyr::select(is.numeric)%>%
+  pivot_longer(everything(),
+               names_to="All_variables", 
+               values_to="val")%>%
+  mutate(All_variables = tolower(All_variables))%>%
+  mutate(group = case_when(str_detect(All_variables, "age") ~ "Age",
+                           str_detect(All_variables, "employ|income|job|jsa") ~ "Employment",
+                           str_detect(All_variables,
+                                      "house|rent|detatched|flat|terrace|owned|social|private|share|tax|mortgage") ~ "Housing", TRUE~"Other"))
+
+Agehist <- Groups%>%
+  filter(group=="Age")%>%
+  ggplot(., aes(x=val)) + 
+  geom_histogram(aes(x = val, y = ..density..))+
+  geom_density(colour="red", size=1, adjust=1)+
+  facet_wrap(~All_variables, scales = 'free')
+
+```
+
+To change which group we are plotting, simply alter the `filter()` argument.
+
+Make a note of which variables appear normally distributed and which appear to be skewed. What do the histograms for nominal and ordinal data look like?
+
+Try performing a log10() transformation on the x variables and plotting a similar facet grid of histograms –-- what does this do to some of the skewed variables? For example...
+
+```{r prac8_hist}
+
+Agehist <- Groups%>%
+  filter(group=="Age")%>%
+  ggplot(., aes(x=log10(val))) + 
+  geom_histogram(aes(x = val, y = ..density..))+
+  geom_density(colour="red", size=1, adjust=1)+
+  facet_wrap(~All_variables, scales = 'free')
+
+```
+
+* Create a 2D histogram and 2D kernel density estimate of ward centroids in London using the Eastings and Northings data in the x and y columns of your dataset. For example:
+
+```{r prac8_ggplot}
+Londonpoint <- ggplot(LondonWardsleftjoin, aes(x=x.y,y=y.y))+geom_point()+coord_equal()
+Londonpoint
+
+Londonpoint<-ggplot(LondonWardsleftjoin, aes(x=x.y,y=y.y))+stat_bin2d(bins=10)
+Londonpoint
+
+Londonpoint<-ggplot(LondonWardsleftjoin, aes(x=x.y,y=y.y))+geom_point()+coord_equal()
+Londonpoint
+
+Londonpoint+stat_density2d(aes(fill = ..level..), geom="polygon")
+
+```
+
+### Extension 1
+
+If you really want to go down the road of carrying out KDE in a range of different ways, then this [Kernel Density Estimation tutorial](http://egallic.fr/R/sKDE/smooth-maps/kde.html) --- perhaps try it with some of the Blue Plaques data from previous weeks. 
+
+### Task 2 - Function to recode data
+
+In the lecture, it was mentioned that sometimes we should recode variables to reduce the amount of information contained in order that different tests can be carried out on the data. Here we will recode some of our scale/ratio data into some nominal/weak-ordinal data to carry out some basic analysis on. 
+
+A function to recode data in our dataset might look like the one below:
+
+```{r, prac8_fun2, eval=T}
+newvar<-0
+recode<-function(variable,high,medium,low){
+  newvar[variable<=high]<-"High"
+  newvar[variable<=medium]<-"Medium"
+  newvar[variable<=low]<-"Low"
+  return(newvar)
+}
+```
+
+### What's going on in this function?
+
+* First we initialise a new variable called `newvar` and set it to = 0. We then define a new function called `recode`. This takes in 4 pieces of information: A variable (called `variable` but I could have called it anything) and three values called `high`, `medium` and `low`. It outputs a value to the new string variable `newvar` based on the values of high, medium and low that are given to the function. 
+	
+* To create the function in R, highlight the all of the code in the function and then run the whole block (ctrl-Return in R-Studio). You will see that the function is stored in the workspace.
+	
+* We can now use this function to recode any of our continuous variables into high, medium and low values based on the values we enter into the function. 
+
+* We are going to recode the Average GCSE Score variable into High, Medium and Low values – High will be anything above the 3rd Quartile, Low will be anything below the 1st Quartile and Medium – anything in between.
+
+*Note, if your data doesn't have the 2013 GCSE scores but 2014, it will have different figures to these figures below and you will need to call the column by the column header you have*
+
+```{r prac8_attatch, message=FALSE, warning=FALSE}
+attach(LondonWards)
+#Check the name of your column, there could be a slight error and it might be called 'AvgGCSED201'
+summary(AvgGCSE201) 
+```
+
+Create a new column in your data frame and fill it with recoded data for the Average GCSE Score in 2013. To do this, pass the AvgGCSE2013 variable to the `recode()` function, along with and the three values for high, medium and low. You should create a new variable called gcse_recode and use the function to fill it with values
+
+If you wanted to be really fancy, you could try altering the function to calculate these “High”, “Medium” and “Low”
+
+```{r prac8_recode}
+LondonWards$GCSE_recode <- recode(AvgGCSE201,409.1,358.3,332.3)
+
+#or
+
+LondonWards$GCSE_recode <- recode(AvgGCSE201,409.1,358.3,332.3)
+```
+
+You should also create a second re-coded variable from the unauthorised absence variable using the same function – call this variable `unauth_recode` and again, used the 3rd and 1st quartiles to define your high, medium and low values.
+
+On to another function. This time, we will calculate some location quotients for housing tenure in London. If you remember, a location quotient is simply the ratio of a local distribution to the ratio of a global distribution. In our case, our global distribution will be London. 
+
+```{r prac8_LQ}
+#Location Quotient function 1
+LQ1<-function(pctVariable){
+  pctVariable /mean(pctVariable)
+}
+#Location Quotient function 2
+LQ2<-function(variable,rowtotal){
+  localprop<-variable/rowtotal
+  globalprop<-sum(variable)/sum(rowtotal)
+  return(localprop/globalprop)
+}
+```
+
+The two functions above calculate the same Location Quotient, but the first one works on variables which have already been converted into row percentages, the second will work on raw variables where an additional column for the row totals is stored in a separate column – e.g. “age 0-15”, “age 16-64” and “age 65 plus” all sum to the “Pop2013” column in our data London Wards data set:
+
+```{r prac8_head}
+head(LondonWards[,1:7])
+```
+
+Calculate Location Quotients for the 5 Housing tenure variables (Owner Occupied, Private Rent, Social Rent, Shared Ownership, Rent Free) in your data set using either of the functions above. Save these as 5 new variables in your dataset. *Hint – use the function to create the variable directly, for example:
+
+```{r prac8_df, eval=FALSE}
+#this is pseudo code, but you should see how this works
+dataframe$newLQVariable <- LQ1(originalPercentageVariable)
+#or
+dataframe$newLQVariable <- LQ2(originalVariable,rowTotalVariable)
+```
+
+```{r prac8_cols, include=FALSE}
+#note, you will probably need to change the column headers of the columns you are referring to here
+attach(LondonWards)
+summary(LondonWards)
+LondonWards$unauth_recode <- recode(UnauthAbse,2.4657,1.4105,0.8215) 
+LondonWards$LQOwned <- LQ1(PctOwned20)
+LondonWards$LQSocRe <- LQ1(PctSocialR)
+LondonWards$LQPriRe <- LQ1(PctPrivate)
+LondonWards$LQShare <- LQ1(PctSharedO)
+LondonWards$LQRentF <- LQ1(PctRentFre)
+```
+
+### Task 3 – Mapping Location Quotients
+
+You should now try and create a map or series of maps of your housing tenure location quotients using `tmap` or `ggplot`. Try to create a map by referring back earlier practicals in this course and follow the steps from there (or, indeed, use your memory)
+
+### Task 4 – Creating a Basic Geodemographic Classification
+
+As we saw in the lecture, geodemographic classifications are widely used to classify areas according to the characteristics of the population that inhabits them. All geodemographic classifications are created using cluster analysis algorithms. Many of these algorithms exist, but one of the most commonly used is k-means.
+
+```{r echo=FALSE, out.width = "450pt", fig.align='center', cache=TRUE}
+knitr::include_graphics('allisonhorst_images/kmeans_1.jpg')
+```
+
+One of the pitfalls of these algorithms is that they will always find a solution, whether the variables have been selected appropriately or standardised correctly. This means that it’s very easy to create a classification which is misleading. 
+
+All of that said, it is useful to see how straightforward it is to create a classification yourself to describe some spatial data you have. 
+
+In a cluster analysis, you should select variables that are:
+
+* Ranged on the same scale
+
+* Normally distributed
+
+* Not highly correlated
+
+To make this task easier, we will just select two variables to make our classification from. In a real geodemographic classification, hundreds of variables are often used. 
+
+```{r prac8_cluster}
+LondonWardsData <- LondonWards %>%
+  #drop geometry
+  st_drop_geometry()%>%
+  #display list of variables
+  summarise_all(class) %>%
+  pivot_longer(everything(), 
+               names_to="All_variables", 
+               values_to="Variable_class")
+
+slice_head(LondonWardsData, n=5)
+
+# Create a new data frame just containing the two variables we are interested in
+mydata <- LondonWards %>%
+      st_drop_geometry()%>%
+      dplyr::select(c(PctOwned20, PctNoEngli))
+
+#– check variable distributions first
+histplot <- ggplot(data=mydata, aes(x=PctOwned20))
+histplot +geom_histogram()
+histplot <- ggplot(data=mydata, aes(x= PctNoEngli))
+histplot +geom_histogram()
+```
+
+Let's make our k-means find 3 clusters with 25 iterations. The graphics below by [Allison Horst](https://twitter.com/allison_horst) will help explain the process...
+
+```{r echo=FALSE, out.width = "450pt", fig.align='center', cache=TRUE}
+knitr::include_graphics('allisonhorst_images/kmeans_2.jpg')
+```
+
+```{r}
+fit <- mydata %>%
+  kmeans(., 3, nstart=25)
+```
+
+```{r echo=FALSE, out.width = "450pt", fig.align='center', cache=TRUE}
+knitr::include_graphics('allisonhorst_images/kmeans_3.jpg')
+```
+
+```{r echo=FALSE, out.width = "450pt", fig.align='center', cache=TRUE}
+knitr::include_graphics('allisonhorst_images/kmeans_4.jpg')
+```
+
+```{r echo=FALSE, out.width = "450pt", fig.align='center', cache=TRUE}
+knitr::include_graphics('allisonhorst_images/kmeans_5.jpg')
+```
+
+```{r echo=FALSE, out.width = "450pt", fig.align='center', cache=TRUE}
+knitr::include_graphics('allisonhorst_images/kmeans_6.jpg')
+```
+
+```{r echo=FALSE, out.width = "450pt", fig.align='center', cache=TRUE}
+knitr::include_graphics('allisonhorst_images/kmeans_7.jpg')
+```
+
+```{r echo=FALSE, out.width = "450pt", fig.align='center', cache=TRUE}
+knitr::include_graphics('allisonhorst_images/kmeans_8.jpg')
+```
+
+```{r echo=FALSE, out.width = "450pt", fig.align='center', cache=TRUE}
+knitr::include_graphics('allisonhorst_images/kmeans_9.jpg')
+```
+
+```{r echo=FALSE, out.width = "450pt", fig.align='center', cache=TRUE}
+knitr::include_graphics('allisonhorst_images/kmeans_10.jpg')
+```
+
+```{r echo=FALSE, out.width = "450pt", fig.align='center', cache=TRUE}
+knitr::include_graphics('allisonhorst_images/kmeans_11.jpg')
+```
+
+Now let's get out cluster means using `tidy()` from the `tidymodels` package. Tidy creates a tibble that summarizes the model.
+
+Then plot them and then add them to our London wards...
+
+```{r}
+# get cluster means
+library(tidymodels)
+
+centroid <- tidy(fit)%>%
+  #print the results of the cluster groupings
+  print()%>%
+  dplyr::select(PctOwned20, PctNoEngli)
+
+# as we only have variable two dimensions we can plot the clusters on a graph
+p <- ggplot(mydata,aes(PctOwned20, PctNoEngli))+
+  geom_point(aes(colour=factor(fit$cluster)))+
+  geom_point(data=centroid,aes(PctOwned20, PctNoEngli), size=7, shape=18)+ theme(legend.position="none")
+
+LondonWards <- fit %>% 
+  # 
+  augment(., LondonWards)%>%
+  dplyr::select(WD11CD, .cluster)%>%
+  #make sure the .cluster column is numeric
+  mutate(across(.cluster, as.numeric))%>%
+  # join the .cluster to our sf layer
+  left_join(LondonWards, 
+            .,
+            by = c("WD11CD" = "WD11CD"))
+
+
+#now map our geodeomographic classification
+map <- ggplot(LondonWards) + 
+  geom_sf(mapping = aes(fill=.cluster))+
+  scale_fill_continuous(breaks=c(1,2,3))
+map
+```
+
+```{r echo=FALSE, out.width = "450pt", fig.align='center', cache=TRUE}
+knitr::include_graphics('allisonhorst_images/kmeans_12.jpg')
+```
+
+Now of course this is just the most basic of classifications, but you can easily see how you could include more variables or different variables to create a different classification - this is perhaps something you could try. 
+
+I haven't even gone into using different clustering algorithms, how to decide on the appropriate number of clusters, using silhoutte plots to assess the strength of the clusters or creating pen-portraits using the variable z-scores for each cluster - this is practically a whole course in its own right... or indeed a dissertation topic!
+
+## Part B Online mapping
+
+### Learning objectives
+
+By the end of this practical you should be able to:
+
+1. Descrbie and explain different methods for producing online maps
+1. Create interative maps using RPubs, RMarkdown site generator and Shiny
+1. Critically appraise the appropriateness of mapping technqiues based on the dataset and purpose of the output map
+
+### Introduction 
+
+In this practical we are going to preliminary stages of a mini-investigation. Since 2015 the law has capped short-term lets in London at 90 nights per year. However, this is very hard to enforce due to a lack of data and extensive evidence required to prove that the limit has been exceeded. This has been recently reflected in the [Housing Research Note 2020/04: Short-term and holiday letting in London](https://www.london.gov.uk/sites/default/files/housing_research_note_4-_short-term_and_holiday_letting_in_london.pdf) by the Greater London Authority (GLA):
+
+>"there are signs that short-term letting platforms are becoming increasingly commercialised and there are concerns that removing housing supply from the market to offer it for short-term letting could be exacerbating London’s housing shortage."
+
+The author, Georgie Cosh, was also kind enough to share some of the code used for this report. Guess what! They used R! Have a look at their code in the R file called GLA_airbnb_analysis in the prac8_data folder.
+
+Whilst Air bnb have implemented a system the removes listings once they have been rented for 90 days per year unless an appropraite permit is in place we want to interactively visualise the the number of air bnb lettings (and hotels for comparison) per borough as a starting point. This could then be used to undertake further investigation into boroughs with high short term lets, for example exploring other websites to see if the properties are listed and jointly exceed 90 days or optimising localised monitoring. As these rules only apply to entire homes we will only extract only these, and for monitoring purposes (e.g. random annual inspections) those are availbale for 365 days of the year.
+
+We will now explore several ways to do this...
+
+::: {.infobox .tip data-latex="{note}"}
+The report by Cosh (2020) goes a bit further than this and implements an occupancy model (based on a number of assumptions) to estimate the number of nights a Air bnb is rented out for, so check it out, perhaps an idea for your final project.
+:::
+
+### RPubs
+
+One of the most straight forward publishing tools is RPubs. It takes an ```.Rmd``` and directly uploads it to rpubs.com --- all files are publically available on this website.
+
+1. To start with you need to make a free account. Go to: https://rpubs.com/users/new and register
+
+1. Create a new project in RStudio and open a new R Markdown file (File > New File > R Markdown)
+
+1. You'll see that the file is automatically populated with some information, have a read through it then click the Knit icon ...
+
+```{r prac8_knitt, echo=FALSE, out.width = "800pt", fig.align='center', cache=FALSE}
+knitr::include_graphics('prac8_images/knitt.png') 
+```
+
+1. Let's make some changes to your ```.Rmd```. Delete all the text and code except from header inforamtion (that is enclosed by three dashes at the top of the file)
+
+1. Insert a new code chunk (go back to [RMarkdown] if you need a refresher)...
+
+```{r echo=FALSE, out.width = "450pt", fig.align='center', cache=TRUE}
+knitr::include_graphics('allisonhorst_images/rmarkdown_wizards.png')
+```
+
+...Add add some code of your choice from either a previous practical or your own work. As it's a new project you'll have to either copy the data into your project folder or set the working directory ```setwd()```. If it's all online data that you've loaded directly from the web into R, this shouldn't be an issue. I'm going to use the interactive map we made in practical 5 (the [Advanced interactive map] section).....Here is the code i've put in my chunk:
+
+```{r prac8_airbnb_hotel, warnings=FALSE, message=FALSE, cache=FALSE, eval=FALSE}
+
+library(sf)
+library(tmap)
+library(leafpop)
+library(leaflet)
+library(tmaptools)
+library(tidyverse)
+
+OSM <- st_read(here::here("prac5_data",
+                          "greater-london-latest-free.shp", 
+                          "gis_osm_pois_a_free_1.shp")) %>%
+  st_transform(., 27700) %>%
+  #select hotels only
+  filter(fclass == 'hotel')
+
+Londonborough <- st_read(here::here("Prac1_data",
+                                    "statistical-gis-boundaries-london", 
+                                    "ESRI", 
+                                    "London_Borough_Excluding_MHW.shp"))%>%
+  st_transform(., 27700)
+
+Airbnb <- read_csv("prac5_data/listings.csv") %>%
+  st_as_sf(., coords = c("longitude", "latitude"), 
+                   crs = 4326) %>%
+    st_transform(., 27700)%>%
+    #select entire places that are available all year
+    filter(room_type == 'Entire home/apt' & availability_365 =='365')
+
+
+# make a function for the join
+# hint all you have to do is replace data1 and data2
+# with the data you want to use
+
+Joinfun <- function(data1, data2){
+
+output<- data1%>%
+  st_join(Londonborough,.)%>%
+  add_count(GSS_CODE, name="hotels_in_borough") 
+
+  return(output)
+}
+
+# use the function for hotels
+Hotels <- Joinfun(OSM, Londonborough)
+
+# then for airbnb
+Airbnb <- Joinfun(Airbnb, Londonborough)
+
+# now try to arrange the plots with tmap
+breaks = c(0, 5, 12, 26, 57, 286) 
+
+#change the column name from hotels_in_borough for the legend
+Hotels <- Hotels %>%
+  dplyr::rename(`Accomodation count` = hotels_in_borough)
+
+Airbnb <- Airbnb %>%
+  dplyr::rename(`Accomodation count` = hotels_in_borough)
+
+
+Airbnb_count <- Airbnb %>% 
+  count(GSS_CODE)
+Hotels_count <- Hotels %>% 
+  count(NAME)
+
+#join data
+Joined <- Airbnb_count%>%
+  st_join(., Hotels_count, join = st_equals)%>%
+  st_transform(., 4326)%>%
+  rename(`Airbnb count` = `n.x`, 
+         `GSS Code`= GSS_CODE,
+         `Borough`=NAME,
+         `Hotel count` = `n.y`) 
+
+popupairbnb <-Joined %>%
+  st_drop_geometry()%>%
+  dplyr::select(`Airbnb count`, Borough)%>%
+  popupTable()
+
+popuphotel <-Joined %>%
+  st_drop_geometry()%>%
+  dplyr::select(`Hotel count`, Borough)%>%
+  popupTable()
+
+tmap_mode("view")
+
+# set the colour palettes using our previously defined breaks
+
+
+pal1 <- Joined %>%
+  colorBin(palette = "YlOrRd", domain=.$`Airbnb count`, bins=breaks)
+
+pal1 <-colorBin(palette = "YlOrRd", domain=Joined$`Airbnb count`, bins=breaks)
+
+pal2 <- Joined %>%
+  colorBin(palette = "YlOrRd", domain=.$`Hotel count`, bins=breaks)
+
+
+map<- leaflet(Joined) %>%
+  # add basemap options
+  addTiles(group = "OSM (default)") %>%
+  addProviderTiles(providers$Stamen.Toner, group = "Toner") %>%
+  addProviderTiles(providers$Stamen.TonerLite, group = "Toner Lite") %>%
+  addProviderTiles(providers$CartoDB.Positron, group = "CartoDB")%>%
+  
+  #add our polygons, linking to the tables we just made
+  addPolygons(color="white", 
+              weight = 2,
+              opacity = 1,
+              dashArray = "3",
+              popup = popupairbnb,
+              fillOpacity = 0.7,
+              fillColor = ~pal2(`Airbnb count`),
+              group = "Airbnb")%>%
+  
+  addPolygons(fillColor = ~pal2(`Hotel count`), 
+              weight = 2,
+              opacity = 1,
+              color = "white",
+              dashArray = "3",
+              popup = popupairbnb,
+              fillOpacity = 0.7,group = "Hotels")%>%
+  # add a legend
+  addLegend(pal = pal2, values = ~`Hotel count`, group = c("Airbnb","Hotel"), 
+            position ="bottomleft", title = "Accomodation count") %>%
+  # specify layers control
+  addLayersControl(
+    baseGroups = c("OSM (default)", "Toner", "Toner Lite", "CartoDB"),
+    overlayGroups = c("Airbnb", "Hotels"),
+    options = layersControlOptions(collapsed = FALSE)
+  )
+
+# plot the map
+map
+```
+
+1. Add some text at the start of your ```.Rmd``` you can include titles and subtitle using # followed by a space, a second level subtitle would be ##, and third ###
+
+```{r prac8_titles, warnings=FALSE, message=FALSE, cache=FALSE, eval=FALSE}
+# Title
+## Second sub title
+### Third sub title
+```
+
+7. Save the file, Knitt it to HTML, this should be default and specified in the header --- enclosed by three dashes.
+
+8. Once knitted you can easily publish the file to Ppubs using the Publish icon either in the viewer pane or the toolbar area (by run)
+
+```{r prac8_publish, echo=FALSE, out.width = "200pt", fig.align='center', cache=FALSE}
+knitr::include_graphics('prac8_images/publish.png') 
+```
+
+Now how about adding a few design features...i've changed my header section to...
+
+```{r prac8_header, eval=FALSE}
+---
+title: "publishexample"
+output:
+  html_document:
+    theme: yeti
+    smart: true
+    highlight: textmate
+    toc: true
+    number_sections: true
+    toc_float:
+      collapsed: false
+      smooth_scroll: true
+---
+```
+
+9. Knit and then publish again...you'll notice a few aesthetic changes
+
+10. To learn more about these go explore:
+
+* https://bookdown.org/yihui/rmarkdown/html-document.html
+* http://www.datadreaming.org/post/r-markdown-theme-gallery/
+* https://cran.r-project.org/web/packages/prettydoc/vignettes/architect.html
+
+And for more code chunk control..
+
+* https://bookdown.org/yihui/rmarkdown/r-code.html
+* https://rmarkdown.rstudio.com/lesson-3.html
+
+### RMarkdown site generator 
+
+#### Set the file structure
+
+RPubs are useful but what if you wanted to make a full site with different tabs for introduction, methodology, results and recommedations...one way is to use the RMarkdown site generator hosted on GitHub
+
+RMarkdown site generator is useful as it does not require any third-party add ons like blogdown which is reliant on the hugo site generator
+
+To make a site you'll need the following to be within your project:
+
+(a) A configuration file with the filename ```_site.yml```
+
+(b) An ```index.Rmd```
+
+(c) Any other ```.Rmd``` files you want to create into pages on the site
+
+For the site to work you only require (a) and (b)....but that would be a pretty boring site...
+
+11. In your new project add two new RMarkdown files called:
+* ```_site.yml``` 
+* ```index.Rmd``` 
+
+
+```{r prac8_sitegenerator, echo=FALSE, out.width = "500pt", fig.align='center', cache=FALSE}
+knitr::include_graphics('prac8_images/rsitegenerator.png') 
+```
+
+12. In the ```_site.yml``` remove all code and add the following
+
+```{r prac8_yml, eval=FALSE, message=FALSE, warning=FALSE, cache=FALSE}
+name: "Hello world"
+output_dir: "."
+navbar:
+  title: "My example website"
+  left:
+    - text: "Home"
+      href: index.html
+    - text: "About"
+      href: publishexample.html
+```
+
+#### Link to GitHub
+
+There are two ways to do this....
+
+##### GitHub first
+
+This is the 'easy' way as you woould repeat the steps in [Practical 4][Git, GitHub and RMarkdown] by firstly making a new repository on GitHub then loading a new project in RStudio, linking that to GitHub and copying all your files into your new project from the exisiting one. 
+
+##### GitHub last
+
+So if you already have a RStudio project...like we do...we can link this to GitHub but the steps are a bit more invovled and there are several ways to acheive it --- as with most things in R.
+
+13. Make a Git repo in RStudio. Go to Tools > Project Options > Git/SVN and select Git under Version control system and initialize a new repository, then restart RStudio. The Git tab should appear..
+
+14. Next we need to make a new repository on GitHub. Go to GitHub, login and make a new repository. Make sure that it is **empty** with no README.. you should have something similar to this appear:
+
+```{r prac8_newrepo, echo=FALSE, out.width = "800pt", fig.align='center', cache=FALSE}
+knitr::include_graphics('prac8_images/gitnewrepo.png') 
+```
+
+15. Clone the repository by copying the HTTPS 
+
+```{r prac8_HTTPS, echo=FALSE, out.width = "700pt", fig.align='center', cache=FALSE}
+knitr::include_graphics('prac8_images/HTTPS.png') 
+```
+
+16. Make one local commit. Under the Git tab > Diff > Stage the files > Add a commit message and click commit
+
+17. Now we need to connect our local repository to the GitHub one. So Under the Git tab you'll the new brach button (two purple boxes linked to a white box)...
+
+```{r prac8_addremote, echo=FALSE, out.width = "400pt", fig.align='center', cache=FALSE}
+knitr::include_graphics('prac8_images/addremote.png') 
+```
+
+18. Click it > Add Remote. Paste in the URL use the remote name origin and the branch name of master --- which you can get from the GitHub Quick setup screen after creating your repo. Check sync the branch with the remote > click create then select overwrite
+
+```{r prac8_addremote2, echo=FALSE, out.width = "400pt", fig.align='center', cache=FALSE}
+knitr::include_graphics('prac8_images/addremote2.png') 
+```
+
+19. Push the files to your GitHub and they will appear on your GitHub repo
+
+20. Next we need to actually build the site...there are a few ways to do this...Go to the Git tab you should see the Build tab, if you can't then go to Tools > Project Options > Build Tools and select website under Project build tools. Now click Build Website under the build tab
+
+21. Alternatively you write the following in the console 
+
+```{r prac8_render_site, eval=FALSE, message=FALSE, warning=FALSE, cache=FALSE}
+rmarkdown::render_site()
+```
+
+If you wanted to just build a page from your site --- say if you have made a rather big site with lots of analysis use:
+
+```{r prac8_rendersite2, eval=FALSE, message=FALSE, warning=FALSE, cache=FALSE}
+rmarkdown::render_site("index.Rmd")
+```
+
+22. Stage, commit and then push the files to your GitHub. I had some issues staging the ```site_libs``` folder in the Git tab. I fixed it by closing and reloading my R project then clicking the cog symbol (under Git tab) > Shell and typing ```git add .``` If you get an error message about the index file being locked... go and delete it and try again. If you can't delete restart the machine and try again. You will find it in the .git folder within your project. Once ```git add .``` runs you should see all the files staged, be able to commit and then push the changes to GitHub   
+
+Help:
+
+* https://stackoverflow.com/questions/5834014/lf-will-be-replaced-by-crlf-in-git-what-is-that-and-is-it-important
+* https://stackoverflow.com/questions/9282632/git-index-lock-file-exists-when-i-try-to-commit-but-cannot-delete-the-file
+
+23. So your 'built' website is up on GitHub, but you need to tell it where to build the site from...Go to your GitHub repo > Settings, scroll down to GitHub pages and select the Source as the master branch
+
+```{r prac8_githubpages, echo=FALSE, out.width = "800pt", fig.align='center', cache=FALSE}
+knitr::include_graphics('prac8_images/GitHubpages.png') 
+```
+
+24. Click on the link that is provided where your site is published and you should have a website with two tabs. Here is what mine looks like:
+
+```{r prac8_markdownsite, echo=FALSE, out.width = "800pt", fig.align='center', cache=FALSE}
+knitr::include_graphics('prac8_images/Markdownsite.png') 
+```
+
+For more information on hosting your code from RStudio on GitHub check out the book [Happy Git and GitHub for the useR](https://happygitwithr.com/usage-intro.html)
+
+My RMarkdown site can be found [at this GitHub pages link](https://andrewmaclachlan.github.io/PUBLISHEXAMPLE/), but note that i've added a Shiny tab...which is covered in an optional extra.
+
+At this stage, it's important to highlight the need for sensible representations of data and analysis. This especially true with the advent of GitHub and journals publishing data and code meaning it is almost impossible to present false representations of analysis. 
+
+### Warning
+
+Whilst it might seem tempting to use the most advanced interactive maps for your the assignments within this module and course it is important to think and reflect upon the appropriateness of the mapped output. You should ask yourself the following questions:
+
+* What am i trying to show with this map
+* Will interative elements aid this in anyway or just confuse users
+* Is there a more concise way to display this data
+* Do i need all this information --- is it all relevant to the message you are trying to portray with the map
+
+In all these examples i've used the same data (Hotels and Airbnbs in London boroughs), however as i'm only showing two datasets could this be represeted without all this complexity?--- in this case the answer really depends on the audience you are tyring to get something across to. For example, for use in an academic journal, as there are only two data sets being mapped a static map like we produced in the [Map making] practical would be more appropraite. However an interative map (similar to what we have produced) might be more useful for incorpation on a website...
+
+The take home message from this is to critically think about the best way to map and disseminate your data/results.
+
+### Advanced online publishing
+
+Already familiar with RPubs, RMarkdown site generator or even Shiny? Try and and produce an online document using either: bookdown, flexdashboard, blogdown or shinydashboard. These are listed in order of difficutly from my experience. 
+
+**Hint** this document is made using bookdown, so checkout my GitHub for how i set it up
+
+* Bookdown: https://bookdown.org/yihui/bookdown/, minimal bookdown example: https://github.com/rstudio/bookdown-demo
+
+If you want to extend bookdown or automate the process of building, have a look at [continuous integration using github actions](https://www.hvitfeldt.me/blog/bookdown-netlify-github-actions/)
+
+* Flexdashboard: https://rmarkdown.rstudio.com/flexdashboard/
+
+* Blogdown: https://bookdown.org/yihui/blogdown/
+
+* Interactive Shiny dashboards: https://rstudio.github.io/shinydashboard/get_started.html
+
+## Feedback
+
+Was anything that we explained unclear this week or was something really clear...let us know using the [feedback form](https://forms.gle/w2GUDYc7tSavGy7r6). It's anonymous and we'll use the responses to clear any issues up in the future / adapt the material. 

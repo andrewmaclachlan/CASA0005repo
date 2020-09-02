@@ -1,0 +1,33 @@
+# Software installation {-}
+
+This course primarily uses the R data science programming language and we strongly advise you complete the assignment using it. We briefly touch upon QGIS to give you a basic foundation in the range of spatial software available, please follow the instructions below before the first practical session to install the software on your local computer if you are planning to use it throughout the course. 
+
+## QGIS {-}
+
+QGIS is an open-source garphic user interface GIS with many community developed add on packages that (or plugins) that provide additional functionality to the software.  
+
+To get QGIS on your personal machine go to: https://qgis.org/en/site/forusers/download.html
+
+I install the OSGeo4W version. The nature of open-source means that several programs will rely on each other for features. OSGeo4W tracks all the shared requirements and does not install any duplicates. 
+
+## R {-}
+
+R is both a programming language and software environment, originally designed for statistical computing and graphics. R’s great strength is that it is open-source, can be used on any computer operating system and free for anyone to use and contribute to. Because of this, it is rapidly becoming the statistical language of choice for many academics and has a huge user community with people constantly contributing new packages to carry out all manner of statistical, graphical and importantly for us, geographical tasks.
+
+### Setup 1 {-}
+
+Search for and open RStudio.
+
+You can install R Studio on your own machine from: https://www.rstudio.com/products/rstudio/download/#download
+
+R studio requires R which you can download from: https://cran.rstudio.com/
+
+RStudio is a free and open-source integrated development environment for R --- it makes R much easier to use.
+
+If you are using a Mac and run into issues, firstly follow the instructions below then check out the [Mac R issues] section if the problem persists. 
+
+## ArcGIS {-}
+
+As ArcGIS is not open soure and from my experience analysis within it is largely not reproducible and therefore it is not included within this practical book. If you are interested in it please [consult previous iterations of this course](https://andrewmaclachlan.github.io/CASA0005repo_20192020/). You will find tutorials on: [Joining data](https://andrewmaclachlan.github.io/CASA0005repo_20192020/geographic-information.html#data-loading), [Map Making](https://andrewmaclachlan.github.io/CASA0005repo_20192020/map-making.html#mapping-in-arcmap) and [Spatial Patterns](https://andrewmaclachlan.github.io/CASA0005repo_20192020/analysing-spatial-patterns.html#arcmap-part-2). 
+
+**However**, the analysis for your coursework must be done in either R and/or QGIS.

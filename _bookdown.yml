@@ -1,0 +1,23 @@
+book_filename: "CASA0005"
+rmd_files:
+- index.Rmd
+- 00-course_info.Rmd
+- 00-software.Rmd
+- 00-usage.Rmd
+- 01-prac1.Rmd
+- 02-prac2.Rmd
+- 03-prac3.Rmd
+- 04-prac4.Rmd
+- 05-prac5.Rmd
+- 06-prac6.Rmd
+- 07-prac7.Rmd
+- 08-prac8.Rmd
+- 09-prac9.Rmd
+#- 10-prac10.Rmd
+- 11-assignment.Rmd
+- 12-assignment_resources.Rmd
+output_dir: docs
+language:
+  ui:
+    chapter_name: "Chapter "
+delete_merged_file: true

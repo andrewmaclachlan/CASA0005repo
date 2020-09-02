@@ -1,0 +1,223 @@
+# Assignment resources
+
+```{r echo=FALSE}
+library(knitr)
+```
+
+Listed below are some helpful website, books, datasets and tools you might find useful when completing your assignments.
+
+## Timeline
+
+There is a suggested timeline of work for your assignment provided in the GIS coursework requirements PDF on Moodle. 
+
+## Markscheme
+
+The markscheme can be found on Moodle with a break down of how much percent is given to each criteron. Read it closely **and often** when writing your assignment.
+
+## Examples of previous work
+
+Closer to the assignment deadline we will release examples of good student projects from previous years as a tab on Moodle. **Note** that the requirements / markscheme have been altered this year.
+
+## Events / meet other spatial data professionals
+
+The [UK ESRI conference](https://www.esriuk.com/en-gb/about/events/ac/overview) is normally free to go to and whilst (in my opinion) it's mostly just ESRI marketing their latest products it is good to go along and see how industry are using spatial software. It might also be useful for dissertation ideas / networking. Next year it's scheduled for the 19/5/2020.
+
+[Missing maps](http://www.missingmaps.org/events/)
+
+[LondonR group](https://www.londonr.org/#content)
+
+## Cool stuff to explore
+
+New packages and functions that i've recently come across that are worth exploring..
+
+* RStudio cloud: https://rstudio.cloud/ --- like RStudio but online, great for collaborating
+* Animating plots: https://rpubs.com/jgleeson/ripple-effect
+* Bivariate maps: https://timogrossenbacher.ch/2019/04/bivariate-maps-with-ggplot2-and-sf/
+* Rayshader: https://www.rayshader.com/
+* Cartography package: http://riatelab.github.io/cartography/docs/
+* Data is beautiful reddit: https://www.reddit.com/r/dataisbeautiful/
+* Network visualisation: https://kateto.net/network-visualization
+
+## Books/reading resources
+
+There are a lot of free online books for geospatial analysis, especially using R, check out:
+
+* [Data Visualization A practical introduction](https://socviz.co/index.html#preface)
+* [R Programming for Data Science](https://bookdown.org/rdpeng/rprogdatascience/)
+* [Everything you need for Exploratory Data Analysis & Visualization](https://edav.info/index.html)
+* [What They Forgot to Teach You About R](https://whattheyforgot.org/)
+* [RMarkdown for Scientists](https://rmd4sci.njtierney.com/ )
+* [RStudio recommended books](https://www.rstudio.com/resources/training/books/)
+* [R Graphics Cookbook](https://r-graphics.org/)
+* [Hadley Wickham's website](http://hadley.nz/)
+* [Geocomputation with R ](https://geocompr.robinlovelace.net/)
+* [Happy Git and GitHub for the useR](https://happygitwithr.com/)
+* [Bookdown information pages](https://bookdown.org/)
+* [Interactive web-based data visualization with R, plotly, and shiny https://plotly-r.com/index.html](https://plotly-r.com/index.html)
+* [YaRrr! The Pirate’s Guide to R](https://bookdown.org/ndphillips/YaRrr/)
+* [Engineering Production-Grade Shiny Apps](https://thinkr-open.github.io/building-shiny-apps-workflow/)
+* [Geospatial Health Data: Modeling and Visualization with R-INLA and Shiny](http://www.paulamoraga.com/book-geospatial/index.html)
+* [Statistical Inference via Data Science](https://moderndive.com/)
+* [Fundamentals of Data Visualization](https://serialmentor.com/dataviz/index.html)
+* [21 Recipes for Mining Tiwtter Data with rtweet](https://rud.is/books/21-recipes/)
+
+If you want to produce more efficent R code then have a look at the [Efficient R programming](https://csgillespie.github.io/efficientR/index.html) book.
+
+...that's a lot of books, should we read all of them? No, be selective, a lot of the same material will be covered in each book. Follow your interests, read widely and think about how you could apply these ideas / concepts to different topics or disciplines!
+
+## New developments
+
+Every year there is a useR conference that provides a load to tutorials on the latest developments and research...check them out here: 
+
+* LOOK AT THIS WEBSITE for data viz and code: https://www.data-to-viz.com/
+* ALSO this website for data viz: https://moderndata.plot.ly/visualizing-geo-spatial-data-with-sf-and-plotly/
+* Make graphics like the BBC: https://github.com/bbc/bbplot/blob/master/chart_examples/bbplot_example_plots.png
+* http://www.user2019.fr/tutorials/
+* https://github.com/sowla/useR2019-materials
+
+Other useful tutorials can be found here:
+
+* https://rweekly.org/
+* http://rpubs.com/chrisbrunsdon/
+* http://rpubs.com/alexsingleton/
+* https://mgimond.github.io/megug2017/#cropping-a-raster-interactively
+* https://simplystatistics.org/
+
+### Twitter
+
+```{r echo=FALSE, out.width = "300pt", fig.align='center', cache=TRUE, results=FALSE}
+knitr::include_graphics('allisonhorst_images/welcome_to_rstats_twitter.png')
+```
+
+R package authors regularly tweet with updates and new developments. If twitter is your thing go and follow these people to start with...and anyone else you come across...
+
+* [Hadley Wickham](https://twitter.com/hadleywickham)
+* [Mara Averick](https://twitter.com/dataandme)
+* [Carl Howe](https://twitter.com/cdhowe)
+* [Alison Hill](https://twitter.com/apreshill)
+* [Robin Lovelace](https://twitter.com/robinlovelace)
+* [Yihui Xie](https://twitter.com/xieyihui)
+* [Hannah Frick](https://twitter.com/hfcfrick)
+* [Jakub Nowosad](https://twitter.com/jakub_nowosad)
+* [Nick Tierney](https://twitter.com/nj_tierney)
+* [#rstats](https://twitter.com/search?q=%23rstats&src=typed_query)
+* [Andy](https://twitter.com/andymaclachlan)
+* [Adam](https://twitter.com/adam_dennett)
+
+I often learn about a lot of new R pacakges / code / isuues from Twitter!
+
+## Data
+
+This is by no means an extensive data list, but summarises data used within some of the practicals alongside a few additions that you might want to explore when sourcing data for your assignments. You are **not limited** to these data sets for you assessment.
+
+* Google dataset search: https://datasetsearch.research.google.com/
+* Tesco store data (London): https://www.nature.com/articles/s41597-020-0397-7
+* NHS data (ready for R): https://nhs-r-community.github.io/NHSRdatasets/
+* US City Open Data Census: http://us-cities.survey.okfn.org/
+* nomis: https://www.nomisweb.co.uk/
+* ONS geoportal: https://geoportal.statistics.gov.uk/
+* UK data service: https://census.edina.ac.uk/
+* ONS: https://www.ons.gov.uk/
+* Edina (e.g. OS mastermap): https://digimap.edina.ac.uk/
+* Open Topography: https://opentopography.org/
+* USGS Earth Explorer: https://earthexplorer.usgs.gov/
+* Geofabrik (OSM data): https://www.geofabrik.de/
+* Global weather data (points): https://rp5.ru/Weather_in_the_world
+* London data store: https://data.london.gov.uk/
+* Air b n b data: http://insideairbnb.com/get-the-data.html
+* NASA SocioEconomic Data and Applications Center (SEDAC): https://sedac.ciesin.columbia.edu/
+* UN environmental data explorer: http://geodata.grid.unep.ch/
+* World pop: https://www.worldpop.org/
+* World pop github: https://github.com/wpgp
+* DIVA-GIS: https://www.diva-gis.org/
+* DEFRA: https://environment.data.gov.uk/
+* US Cesus data: https://www.census.gov/data.html
+* TFL open data: https://tfl.gov.uk/info-for/open-data-users/our-open-data?intcmp=3671#on-this-page-2
+* TFL cycling data: https://cycling.data.tfl.gov.uk/
+* EU tourism data: https://ec.europa.eu/eurostat/statistics-explained/index.php/Tourism_statistics
+* NASA EARTHDATA: https://earthdata.nasa.gov/
+* Camden air action: https://camdenairaction.wordpress.com/2017/02/20/schools-monitoring-project-spring-2017/
+* Kings data on air pollution: https://www.londonair.org.uk/LondonAir/Default.aspx
+* Uber travel time data: https://movement.uber.com/?lang=en-GB
+* Eurostat: https://ec.europa.eu/eurostat
+* Animal tracking: https://www.movebank.org/
+* London Tube PM2.5 levels: https://www.ft.com/content/6f381ad4-fef7-11e9-be59-e49b2a136b8d
+* Bike docking data in an R package: https://docs.ropensci.org/bikedata/
+
+* Correct statistical tests: https://stats.idre.ucla.edu/other/mult-pkg/whatstat/
+
+## Data lists
+
+Awesome public datasets have a wide range all data (some geographic, some not): https://github.com/awesomedata/awesome-public-datasets
+
+[Robin Wilson](https://twitter.com/sciremotesense) has authored one of the most extensive data lists that i've come across: https://freegisdata.rtwilson.com/
+
+## Reading and writing critically
+
+[Hugh Kerans](https://twitter.com/ithinkwellhugh?lang=en) from Flinders Unversity, Adelaide has developed a range of materials to assist graduate students in producing effective reports and publications...check out his website and resouces here: https://www.ithinkwell.com.au/
+
+The most useful templates for the assignments are the critical reading one:
+
+```{r echo=FALSE, out.height = "600pt", out.width = "800pt", cache=TRUE}
+include_graphics('assignment/CriticalReading.pdf', auto_pdf = getOption("knitr.graphics.auto_pdf", FALSE)
+)
+```
+
+and questions to ask as you write a paper (or assignment):
+
+```{r echo=FALSE, out.height = "600pt", out.width = "800pt", cache=TRUE}
+include_graphics('assignment/QuestionsToAskAsYouWriteAPaper.pdf', auto_pdf = getOption("knitr.graphics.auto_pdf", FALSE)
+)
+```
+
+You can download these from this website directly, my GitHub or [Hugh's website](https://www.ithinkwell.com.au/).
+
+The UCL Institute for Education (IOE) Writing Centre Online have produced this very short (< 2 minutes read) [critical writing guide](https://www.ucl.ac.uk/ioe-writing-centre/critical-reading-and-writing/writing-critically) giving an example of how to change writing from largely descriptive to critical. 
+
+...And of coruse the paper ['How to write a paper for publicaiton'](https://onlinelibrary.wiley.com/doi/full/10.1046/j.1444-2892.2000.00031.x) by Rosenfeldt et al. (2000)
+
+## Free flow diagram tools
+
+* PowerPoint (from UCL software site)
+* Draw.io: https://www.draw.io/ 
+* Lucidchart: https://www.lucidchart.com/pages/examples/flowchart-maker
+* R Package `DiagrammeR`: https://rich-iannone.github.io/DiagrammeR/
+
+Free at the time of writing
+
+## Basics
+
+Here are some tips based on common marker comments of how to write a decent assingment...
+
+* Don't cut and paste maps / figures / formulas / tables, export them properly or remake them nicely and credit a source somewhere such as the figure caption (e.g. source Smith et al. 2009 or adapted from Smith et al. 2009).
+* Make maps and figures the right way --- don't just leave layer names (e.g. osm_points_road) in a legend, rename them to something with meaning!
+* If you use a formula write it properly --- don't cut and paste, fully explain all the symbols / variables too.
+* Make sure you write a sufficient caption for figures / maps / flow diagrams / tables. The reader should be able to understand them without any other information. In other words, if you gave someone a figure with just the caption they should be able to tell you what it shows.
+* Don't bullet point methods, summarise with sentances and use a flow diagram if appropraite.
+
+Here is a quick guide to writing a report...
+
+### Introduction
+
+Make sure you say why your mini investiation is important near the start--- why should we care! Try to answer the so what question. The introduction should set the scene and introduce the reader to issue (what is the background to it), its importance (so what?) and lead onto outlining the research question of the study.
+
+### Literature review
+
+The literature review should evaluate exisiting research, demonstrate contrasting and/or similar views whilst highlight research gaps (that hopefully your research will contribute to / address). This could also include policy documents or documents from reputable soruces (e.g. UN / EU / authoritative bodies). Wikepedia is not a valid academic source and please don't just list what authors have done in the past (e.g. Smith 2009 did x but Jones 2008 did y then Frank 2010 did x). Synthesise previous work / policy documents and provide a narrative through it whilst trying to show where the research gap is / where you question fits in. Try to end the literature review with a concluding paragraph that concisely summarises everything within it and states what your work is going to contribute or address. Think of this section as providing a story to what everyone else has done (whilst also showing issues / reseach gaps) then at then end BAMMM... this is what you are going to do.
+
+### Methodology
+
+Methodology is what you did (analysis, data processing, data cleaning, etc), a reader should be able to replicate your analysis but you don't need excessive detail --- you do not need to list every tool you used. For example, data was loaded uisng `read_csv()` and then reprojected using `st_transform()` is too much information for the assignment (you could include this type of information in the comments of your code / RMarkdown document). 
+
+### Results
+
+Results is what you found --- be selective about figures you include and provide. To do so ask yourself what does this contribute to my research / aim / objective to see if you need it. Please provide a narrative that guides the reader through your findings, don't just present result after result after result after result.
+
+### Discussion
+
+Discussion should have lots of critical reflection...by that i mean... how do your results fit in with and then advance the ideas presented by others either in academic or policy literature. Really say why this is important with appropriate referencing. 
+
+### Conclusion
+
+Your conclusion should restate what you set out to investigate, summarise how you acheived it, what your results showed, why it is important and in this case specify recommendations (e.g. what should be changed or altered to fix the issue / question you explored). Do not add any new material in this section (e.g. talk about new ideas or add new references). Whilst it seems like i've listed a lot of things to inlcude it short be relatively short --- a concise summary. 
+

@@ -1,0 +1,845 @@
+# Advanced raster analysis
+
+## Learning objectives
+
+By the end of this practical you should be able to:
+
+1. Explain and execute appropraite pre-proessing steps of raster data
+2. Replicate published methodologies using raster data
+3. Design new R code to undertake further analysis 
+
+## Homework
+
+Outside of our schedulded sessions you should be doing around 12 hours of extra study per week. Feel free to follow your own GIS interests, but good places to start include the following:
+
+::: {.infobox .assignment data-latex="{note}"}
+**Assignment**
+
+From weeks 6-9, learn and practice analysis from the course and identify appropriate techniques (from wider research) that might be applicable/relevant to your data. Conduct an extensive methodological review – this could include analysis from within academic literature and/or government departments (or any reputable source).
+:::
+
+::: {.infobox .note data-latex="{note}"}
+**Reading**
+
+This week: 
+
+* [Appendix "Raster operations in R"](https://mgimond.github.io/Spatial/raster-operations-in-r.html) from Intro to GIS and Spatial Analysis by Gimond (2019)
+
+* [Raster manipulation"](https://rspatial.org/raster/spatial/8-rastermanip.html) from Spatial data science by Hijmans (2016). This last one is another tutoiral --- it seems there aren't any decent free raster textbook chapters, let me know if you find one.
+
+Remember this is just a starting point, explore the [reading list](https://rl.talis.com/3/ucl/lists/139FBAF8-DACD-60FB-8BDC-E9C9E09BA885.html?lang=en-GB&login=1), practical and lecture for more ideas.
+:::
+
+## Recommended listening `r emo::ji("headphones")`
+
+Some of these practicals are long, take regular breaks and have a listen to some of our fav tunes each week.
+
+[Andy](https://www.youtube.com/watch?v=P00HMxdsVZI)
+
+[Adam](https://open.spotify.com/album/4ATB4gtjhqILtvNRQsTPrh?si=tP-EDP6IQwakAUERx18aRg ) This week, it’s DJ Shadow. Yes, you heard correctly! DJ Shadow is back with an epic double-album. Disc 1 is fully instrumental and, some may say, a little less immediate. Disc 2 will be more reminiscent some of his classic collaborations from earlier albums. It’s hip hop Jim, but not as we know it.
+
+## Introduction
+
+Within this practical we are going to be using data from the Landsat satellite series provided for free by the United States Geological Survey (USGS) to replicate published methods. Landsat imagery is the longest free temporal image repository of consistent medium resolution data. It collects data at each point on Earth each every 16 days (temporal resolution) in a raster grid composed of 30 by 30 m cells (spatial resolution). Geographical analysis and concepts are becoming ever more entwined with remote sensing and Earth observation. Back when I was an undergraduate there was specific software for undertaking certain analysis, now you can basically use any GIS. I see remote sensing as the science behind collecting the data with spatial data analysis then taking that data and providing meaning. So whilst i'll give a background to Landsat data and remote sensing, this practical will focus on more advanced methods for analysing and extracting meaning from raster data.
+
+## .gitignore
+
+If you are using Git with your project and have large data it's best to set up a `.gitignore` file. This file tells git to ignore certain files so they aren't in your local repository that is then pushed to GitHub. If you try and push large files to GitHub you will get an error and could run into lots of problems, trust me, i've been there. Look at [my .gitignore for this repository](https://github.com/andrewmaclachlan/CASA0005repo/blob/master/.gitignore) and you will notice:
+
+`prac7_data/Lsatdata/*`
+
+`prac7_data/exampleGoogleDrivedata/*`
+
+`prac7_data/Manchester_boundary/*`
+
+This means igore all files within these folders, all is denoted by the `*`. The `.gitignore` has to be in your main project folder, if you have made a a `git` repo for your project then you should have a `.gitignore` so all you have to do is open it and add the folder or file paths you wish to ignore. 
+
+GitHub has a maximum file upload size of 50mb....image credit [reddit r/ProgrammerHumor](https://www.reddit.com/r/ProgrammerHumor/comments/gm69za/my_girlfriend_crocheted_my_favourite_meme_as_a/)
+
+```{r echo=FALSE, out.width = "500pt", fig.align='center', cache=TRUE}
+knitr::include_graphics('prac7_images/gitignore.jpg')
+```
+
+
+### Remote sensing background (required)
+
+* Landsat is raster data
+* It has pixels of 30 by 30m collected every 16 days with global coverage
+* As humans we see in the visible part of the electromagnetic spectrum (red-green-blue) Landsat takes samples in these bands and several more to make a spectral sigature for each pixel (see image below)
+* Each band is provided as a seperate ```.TIFF``` raster layer
+
+```{r echo=FALSE, out.width = "500pt", fig.align='center', cache=TRUE}
+knitr::include_graphics('prac7_images/specsig.jpg')
+```
+
+Later on we will compute temperature from the Landsat data, whilst i refer to and explain each varaiable created don't get overwhelmed by it, take away the process of loading and manipulating raster data in R to extract meaningful information. An optional remote sensing background containing additional information can be found at the end of this practical should you wish to explore this further.
+
+## Data
+
+### Shapefile
+
+The shapefile of Manchester is available from the data folder for this week on [GitHub](https://github.com/andrewmaclachlan/CASA0005repo/tree/master/prac7_data). To download this consult [How to download data and files from GitHub], i'd used Option 1.
+
+### Raster data (Landsat)
+
+To access the Landsat data we will use in this practical you can either:
+
+(a) Sign up for a free account at: https://earthexplorer.usgs.gov/. 
+(b) Use the Landsat data provided on Moodle --- this will be available only if the earth explorer website is down (e.g. in the case of US government shutdowns)
+
+To download the data:
+
+1. Search for Manchester in the address/place box and select it. 
+1. Select the date range between the 12/5/2019 and 14/5/2019 --- it's a US website so check the dates are correct.
+1. Click dataset and select Landsat, then Landsat Collection 1 Level-1, check Landsat 8 (level 2 is surface reflectance --- see [Remote sensing background (optional)]
+1. Click results, there should be one image, download it..it might take a while
+1. Landsat data comes zipped twice as a ```.tar.gz```. Use [7Zip](https://www.7-zip.org/) or another file extractor, extract it once to get to a ```.tar``` then extract again and files should appear. Or the code below will also let you extract Landsat data...
+
+#### Alternative raster data
+
+Occasionally the earth explorer website can go down for maintenance or during government shutdowns. If possible I strongly advise you to learn how to use it’s interface as multiple other data providers have similar interfaces. GitHub also place a strict size limit on files of 100MB. However, in order to account for situations like this I’ve placed the zipped file on GoogleDrive and will demonstrate how to access this from R using the new `googledrive` package. 
+
+This could be a great option for you to gain reproducibility points if you have large files that you can't upload to GitHub.
+
+In GoogleDrive you need to ensure your file is shareable with others --- right click on it > Share > then copy the link. I have done this for my file in the example below, but if you try and replicate this, make sure you've done it otherwise it might not work when other people try and run your code, as they won't have access to the file on your GoogleDrive.
+
+Depending on your internet speed this example might take some time...
+
+Be sure to change the path to your practical 7 folder but make sure you include the filename within it and set overwrite to T (or TRUE) if you are going to run this again.
+```{r, cache=TRUE, eval=F}
+library("googledrive")
+
+o<-drive_download("https://drive.google.com/open?id=1MV7ym_LW3Pz3MxHrk-qErN1c_nR0NWXy",
+                  path="prac7_data/exampleGoogleDrivedata/LC08_L1TP_203023_20190513_20190521_01_T1.tar.gz", 
+                  overwrite=T)
+```
+
+Next we need to uncompress and unzip the file with `untar()`, first list the files that end in the extension `.gz` then pass that to `untar` with the pipe `%>%` remember this basically means after this function... then...do this other function with that data
+
+```{r, eval=F, cache=T}
+library(tidyverse)
+library(fs)
+library(stringr)
+library(utils)
+
+listfiles<-dir_info(here::here("prac7_data", "exampleGoogleDrivedata")) %>%
+  dplyr::filter(str_detect(path, ".gz")) %>%
+  dplyr::select(path)%>%
+  dplyr::pull()%>%
+  #print out the .gz file
+  print()%>%
+  as.character()%>%
+  utils::untar(exdir=here::here("prac7_data", "exampleGoogleDrivedata"))
+```
+
+## Processing raster data
+
+### Loading
+
+Today, we are going to be using a Landsat 8 raster of Manchester. The vector shape file for Manchester has been taken from an ESRI repository. 
+
+1. Let's load the majority of packages we will need here. 
+
+```{r message=FALSE, warning=FALSE, cache=TRUE}
+## listing all possible libraries that all presenters may need following each practical
+library(sp)
+library(raster)
+library(rgeos)
+library(rgdal)
+library(rasterVis)
+library(ggplot2)
+```
+
+1. Now let's list all our Landsat bands except band 8 (i'll explain why next) along with our study area shapefile. Each band is a seperate ```.TIF``` file.
+
+```{r message=FALSE, warning=FALSE, cache=TRUE}
+library(stringr)
+library(raster)
+library(fs)
+library(sf)
+library(tidyverse)
+
+# List your raster files excluding band 8 using the patter argument
+listlandsat<-dir_info(here::here("prac7_data", "Lsatdata"))%>%
+  dplyr::filter(str_detect(path, "[B123456790].TIF")) %>%
+  dplyr::select(path)%>%
+  pull()%>%
+  as.character()%>%
+  # Load our raster layers into a stack
+  stack()
+
+# Load the manchester boundary
+manchester_boundary <- st_read(here::here("prac7_data", 
+                                          "Manchester_boundary",
+                                          "Manchester_boundary.shp"))
+
+#check they have the same Coordinate Reference System (CRS)
+crs(manchester_boundary)
+crs(listlandsat)
+```
+
+### Resampling
+
+1. There is an error with this dataset as band 8 does not fully align with the extent of the other raster layers. There are several ways to fix this, but in this tutorial we will resample the band 8 layer with the extent of band 1. First, read in the band 8 and store it as a raster.
+
+```{r eval=FALSE, cache=TRUE}
+# get band 8
+b8list<-dir_info(here::here("prac7_data", "Lsatdata"))%>%
+  dplyr::filter(str_detect(path, "[B8].tif")) %>%
+  dplyr::select(path)%>%
+  pull()%>%
+  as.character()%>%
+  raster()
+```
+
+Then, `resample()` and write out the new layer, resampling takes awhile, so please be patient or find my output on GitHub.
+
+```{r, eval=FALSE}
+## ngb is a nearest neighbour sampling method
+b8correct <- b8list%>%
+  resample(., listlandsat$LC08_L1TP_203023_20190513_20190521_01_T1_B1, 
+             method = "ngb") %>%
+  # Write out the raster
+writeRaster(.,str_c(here::here("prac7_data", 
+                             "Lsatdata"), 
+                  names(b8list), 
+                  sep="/"),
+            format='GTiff', 
+            overwrite=TRUE)
+            
+```
+
+1. Load band 8 and add it to our raster stack
+
+```{r, cache=TRUE}
+b8backin<-dir_info(here::here("prac7_data", "Lsatdata"))%>%
+  dplyr::filter(str_detect(path, "[B8].tif")) %>%
+  dplyr::select(path)%>%
+  pull()%>%
+  as.character()%>%
+  raster()
+  
+listlandsat <- listlandsat %>%
+  addLayer(., b8backin)
+  
+```
+
+1. We can compare it to see if both rasters have the same extent, number of rows and columns, projection, resolution and origin
+
+```{r, cache=TRUE}
+raster::compareRaster(listlandsat$LC08_L1TP_203023_20190513_20190521_01_T1_B1,
+              listlandsat$LC08_L1TP_203023_20190513_20190521_01_T1_B8)
+```
+
+### Clipping 
+
+1. Our raster is currently the size of the scene which satellite data is distributed in, to clip it to our study area it's best to first crop it to the extent of the shapefile and then mask it as we have done in previous practicals...
+
+```{r, cache=TRUE}
+
+lsatmask <- listlandsat %>%
+  # now crop our temp data to the extent
+  crop(.,manchester_boundary)%>%
+  mask(.,  manchester_boundary)
+```
+
+11. If all we wanted to do was clip our data, we could now change our filenames in the raster stack and write the ```.TIFF ``` files out again...
+
+```{r, cache=TRUE}
+# add mask to the filenames within the raster stack
+
+names(lsatmask) <- names(lsatmask)%>%
+  str_c(., 
+        "mask", 
+        sep="_")
+
+# I need to write mine out in another location
+outputfilenames <-
+  str_c("prac7_data/Lsatdata/", "mask/", names(lsatmask) ,sep="")
+
+```
+
+In the first line of code i'm taking the original names of the raster layers and adding "mask" to the end of them. This is done using ```str_c()``` from the stringr package and the arguments
+
+* ```names(lsatmask)```: original raster layer names
+* ```"mask"```: what i want to add to the names
+* ```sep=""```: how the names and "mask" should be seperated --- "" means no spaces
+
+As i can't upload my Landsat files to GitHub i'm storing them in a folder that is not linked (remember this is all sotred on GitHub) -- so you won't find ```prac7_data/Lsatdata``` on there. If you want to store your clipped Landsat files in your project directory just use:
+
+```{r eval=FALSE, cache=TRUE}
+lsatmask %>%
+  writeRaster(., names(lsatmask), 
+              bylayer=TRUE, 
+              format='GTiff', 
+              overwrite=TRUE)
+```
+
+For me though it's:
+
+```{r, cache=TRUE}
+lsatmask %>%
+  writeRaster(., outputfilenames, 
+              bylayer=TRUE, 
+              format='GTiff', 
+              overwrite=TRUE)
+```
+
+Here i write out each raster layer individually though specifying ```bylayer=TRUE```.
+
+## Data exploration
+
+### More loading and manipulating
+
+1. For the next stage of analysis we are only interested in bands 1-7, we can either load them back in from the files we just saved or take them directly from the original raster stack.
+
+```{r, cache=TRUE}
+# either read them back in from the saved file:
+
+manc_files<-dir_info(here::here("prac7_data", "Lsatdata", "mask")) %>%
+  dplyr::filter(str_detect(path, "[B1234567]_mask.tif")) %>%
+  dplyr::filter(str_detect(path, "B11", negate=TRUE))%>%
+  dplyr::select(path)%>%
+  pull()%>%
+  stack()
+
+# or extract them from the original stack
+manc<-stack(lsatmask$LC08_L1TP_203023_20190513_20190521_01_T1_B1_mask,
+                   lsatmask$LC08_L1TP_203023_20190513_20190521_01_T1_B2_mask,
+                   lsatmask$LC08_L1TP_203023_20190513_20190521_01_T1_B3_mask,
+                   lsatmask$LC08_L1TP_203023_20190513_20190521_01_T1_B4_mask,
+                   lsatmask$LC08_L1TP_203023_20190513_20190521_01_T1_B5_mask,
+                   lsatmask$LC08_L1TP_203023_20190513_20190521_01_T1_B6_mask,
+                   lsatmask$LC08_L1TP_203023_20190513_20190521_01_T1_B7_mask)
+
+# Name the Bands based on where they sample the electromagentic spectrum
+names(manc) <- c('ultra-blue', 'blue', 'green', 'red', 'NIR', 'SWIR1', 'SWIR2') 
+```
+
+1. If you want to extract specific information from a raster stack use:
+
+```{r results="hide", eval=FALSE, cache=TRUE}
+crs(manc) # projection
+extent(manc) # extent
+ncell(manc) # number of cells
+dim(manc) # number of rows, columns, layers
+nlayers(manc) # number of layers
+res(manc) # xres, yres
+```
+
+### Plotting data
+
+14. Let's actually have a look at our raster data, first in true colour (how humans see the world) and then false colour composites (using any other bands but not the combination of red, green and blue). 
+
+```{r, cache=TRUE}
+# true colour composite
+manc_rgb <- stack(manc$red, manc$green, manc$blue)
+# false colour composite
+manc_false <- stack(manc$NIR, manc$red, manc$green)
+
+manc_rgb %>%
+  plotRGB(.,axes=TRUE, stretch="lin")
+
+manc_false %>%
+    plotRGB(.,axes=TRUE, stretch="lin")
+```
+
+### Data similarity
+
+15. What if you wanted to look at signle bands and also check the similarity between bands? 
+```{r, cache=TRUE}
+# Looking at single bands
+plot(manc$SWIR2)
+
+## How are these bands different?
+#set the plot window size (2 by 2)
+par(mfrow = c(2,2))
+#plot the bands
+plot(manc$blue, main = "Blue")
+plot(manc$green, main = "Green")
+plot(manc$red, main = "Red")
+plot(manc$NIR, main = "NIR")
+
+## Look at the stats of these bands
+pairs(manc[[1:7]])
+```
+
+Low statistical significance means that the bands are sufficiently different enough in their wavelength reflectance to show different things in the image. We can also make this look a bit nicer with ```ggplot2``` and ```GGally```
+
+```{r cache=FALSE, message=FALSE}
+library(ggplot2)
+library(GGally)
+
+manc %>%
+  as.data.frame(., na.rm=TRUE)%>%
+  sample_n(., 100)%>%
+  ggpairs(.,axisLabels="none")
+
+```
+
+You can do much more using ```GGally``` have a look at the great [documentation](https://ggobi.github.io/ggally/#ggallyggpairs)
+
+## Basic raster calculations
+
+Now we will move on to some basic advanced raster analysis to compute temperature from this raster data. To do so we need to generate additional raster layers, the first of which is NDVI
+
+### NDVI
+
+Live green vegetation can be represented with the NIR and Red Bands through the normalised difference vegetation index (NDVI) as chlorophyll reflects in the NIR wavelength, but absorbs in the Red wavelength.
+
+$$NDVI= \frac{NIR-Red}{NIR+Red}$$
+
+### NDVI function
+
+One of the great strengths of R is that is lets users define their own functions. Here we will practice writing a couple of basic functions to process some of the data we have been working with. 
+
+One of the benefits of a function is that it generalises some set of operations that can then be repeated over and again on different data... the structure of a function in R is given below:
+
+```{r prac8_fun,eval=FALSE}
+myfunction <- function(arg1, arg2, ... ){
+  statements
+  return(object)
+}
+```
+
+We can use NDVI as an example...
+
+1. Let's make a function called ```NDVIfun```
+
+```{r, cache=TRUE}
+NDVIfun <- function(NIR, Red) {
+  NDVI <- (NIR - Red) / (NIR + Red)
+  return(NDVI)
+}
+```
+
+Here we have said our function needs two arguments NIR and Red, the next line calcualtes NDVI based on the formula and returns it. To be able to use this function throughout our analysis either copy it into the console or make a new R script, save it in your project then call it within this code using the ```source()``` function e.g...
+
+```{r eval=FALSE, cache=TRUE}
+source('insert file name')
+```
+
+1. To use the function do so through...
+
+```{r, cache=TRUE}
+ndvi <- NDVIfun(manc$NIR, manc$red)
+```
+
+Here we call the function ```NDVIfun()``` and then provide the NIR and Red band.
+
+1. Check the output
+
+```{r, cache=TRUE}
+ndvi %>%
+  plot(.,col = rev(terrain.colors(10)), main = "Landsat-NDVI")
+
+# Let's look at the histogram for this dataset
+ndvi %>%
+  hist(., breaks = 40, main = "NDVI Histogram", xlim = c(-.3,.8))
+```
+
+1. We can reclassify to the raster to show use what is most likely going to vegetation based on the histogram using the 3rd quartile --- anything above the 3rd quartile we assume is vegetation.
+
+> Note, this is an assumption for demonstration purposes, if you were to do something similar in your assignment be sure to provide reasoning with linkage to literature (e.g. policy or academic)
+
+```{r, cache=TRUE}
+
+veg <- ndvi %>%
+  reclassify(., cbind(-Inf, 0.3, NA))
+
+veg %>%
+  plot(.,main = 'Possible Veg cover')
+
+```
+
+1. Let's look at this in relation to Manchester as a whole
+
+```{r, cache=TRUE}
+
+manc_rgb %>%
+  plotRGB(.,axes = TRUE, stretch = "lin", main = "Landsat True Color Composite")
+
+veg %>%
+  plot(., add=TRUE, legend=FALSE)
+
+```
+
+## Advanced raster calculations
+
+The goal of this final section is to set up a mini investigation to see if there is a relationship between urban area and temperature. If our hypothesis is that there is a relationship then our null is that there is not a relationship...
+
+### Calucating tempearture from Landsat data
+
+Here we are going to compute temperature from Landsat data --- there are many methods that can be found within literature to do so but we will use the one originally developed by Artis & Carnahan (1982), recently summarised by Guha et al. 2018 and and Avdan and Jovanovska (2016).
+
+Some of the terms used our outlined in the remote sensing background section at the end of the document, so check back there if you get confused.
+
+
+1. Calcualte the Top of Atmopshere (TOA) spectral radiance from the Digital Number (DN) using:
+
+$$\lambda= Grescale * QCAL + Brescale$$
+
+TOA spectral radiance is light reflected off the Earth as seen from the satellite measure in radiance units.
+
+In this equation Grescale and Brescale represent the gain and bias of the image, with QCAL the Digital Number (DN) --- how the raw Landsat image is captured. 
+
+Grescale and Brescale are available from the ```.MTL``` file provided when you downloaded the Landsat data. Either open this file in notepad and extract the required values for band 10 gain (MULT_BAND) and bias (ADD_BAND) 
+
+...Or we can automate it using the ```MTL()``` function within the ```RStoolbox``` package
+
+```{r results="hide", warnings=FALSE, message=FALSE, cache=TRUE}
+library(RStoolbox)
+
+MTL<-dir_info(here::here("prac7_data", "Lsatdata")) %>%
+  dplyr::filter(str_detect(path, "MTL.txt")) %>%
+  dplyr::select(path)%>%
+  pull()%>%
+  readMeta()
+
+ #To see all the attributes
+head(MTL)
+```
+
+1. Now let's extract the values from the readMTL variable for Band 10...we can either use the function `getMeta()` from `RStoolbox` of just extract the values ourselves...
+
+```{r, cache=TRUE}
+
+offsetandgain <-MTL %>%
+  getMeta("B10_dn", metaData = ., what = "CALRAD")
+
+offsetandgain
+
+##OR  
+offsetandgain <- subset(MTL$CALRAD, rownames(MTL$CALRAD) == "B10_dn")
+```
+
+1. Run the calculation using the band 10 raster layer
+
+```{r, cache=TRUE}
+TOA <- offsetandgain$gain *
+  lsatmask$LC08_L1TP_203023_20190513_20190521_01_T1_B10_mask + 
+  offsetandgain$offset
+```
+
+24. Next convert the TOA to Brightness Temperature $T_b$ using the following equation:
+
+$$T_b=\frac{K_2}{ln((K_1/\lambda)+1)}$$
+
+Brightness temperature is the radiance travelling upward from the top of the atmosphere to the satellite in units of the temperature of an equivalent black body.
+
+K1 (774.8853) and K2 (1321.0789) are pre launch calibration constants provided by USGS.
+
+Check the [handbook](https://prd-wret.s3-us-west-2.amazonaws.com/assets/palladium/production/atoms/files/LSDS-1574_L8_Data_Users_Handbook_v4.0.pdf) for these values 
+
+1. Instead of hardcoding these values...yep, you guessed it... we can extract them from our ```MTL```
+
+```{r, cache=TRUE}
+
+Calidata <- MTL$CALBT%>%
+  as.data.frame()%>%
+  mutate(Band=rownames(.))%>%
+  filter(Band=="B10_dn")
+
+# subset the columns
+K1 <- Calidata %>%
+  dplyr::select(K1)%>%
+  pull()
+
+K2 <- Calidata %>%
+  dplyr::select(K2)%>%
+  pull()
+
+Brighttemp <- (K2 / log((K1 / TOA) + 1))
+```
+
+Earlier we calcualted NDVI, let's use that to determine emissivity of each pixel.
+
+1. First we need to calcualte the fractional vegetation of each pixel, through the equation:
+
+$$F_v= \left( \frac{NDVI - NDVI_{min}}{NDVI_{max}-NDVI_{min}} \right)^2$$
+```{r, cache=TRUE}
+facveg <- (ndvi-0.2/0.5-0.2)^2
+```
+
+Fractional vegetation cover is the ratio of vertically projected area of vegetation to the total surface extent.
+
+Here, $NDVI_{min}$ is the minimum NDVI value (0.2) where pixels are considered bare earth and $NDVI_{max}$ is the value at which pixels are considered healthy vegetation (0.5)
+
+1. Now compute the emissivity using:
+
+$$\varepsilon = 0.004*F_v+0.986$$
+
+```{r, cache=TRUE}
+emiss <- 0.004*facveg+0.986
+```
+
+Emissivity is the ratio absorbed radiation engery to total incoming radiation engery compared to a blackbody (which would absorb everything), being ameasure of absoptivity.
+
+1. Great, we're nearly there... get our LST following the equation from Weng et al. 2004 (also summarised in Guja et al. (2018) and Avdan and Jovanovska (2016)):
+
+$$LST= \frac{T_b}{1+(\lambda \varrho T_b / (p))ln\varepsilon}$$
+
+Where:
+
+$$p= h\frac{c}{\varrho}$$
+
+Ok, don't freak out....let's start with calculating $p$
+
+Here we have:
+
+* $h$ which is Plank's constant $6.626 × 10^-34 Js$
+
+* $c$ which is the velocity of light in a vaccum $2.998 × 10^8 m/sec$
+
+* $\varrho$ which is the Boltzmann constant of $1.38 × 10^-23 J/K$
+
+```{r, cache=TRUE}
+Boltzmann <- 1.38*10e-23
+Plank <- 6.626*10e-34
+c <- 2.998*10e8
+
+p <- Plank*(c/Boltzmann)
+```
+
+Now for the rest of the equation....we have the values for:
+
+* $\lambda$ which is the effective wavelength of our data (10.9 for Landsat 8 band 10)
+
+* $\varepsilon$ emissivity 
+
+* $T_b$ Brightness Temperature
+
+30. Run the equation with our data
+
+```{r, cache=TRUE}
+#define remaining varaibles
+lambda <- 1.09e-5
+#run the LST calculation
+LST <- Brighttemp/(1 +(lambda*Brighttemp/p)*log(emiss))
+# check the values
+LST
+```
+
+1. Are the values very high?... That's because we are in Kevlin not degrees Celcius...let's fix that and plot the map
+
+```{r, cache=TRUE}
+LST <- LST-273.15
+plot(LST)
+```
+
+Nice that's our temperature data sorted.
+
+## Calucating urban area from Landsat data
+
+How about we extract some urban area using another index and then see how our temperature data is related?
+
+We will use the Normalized Difference Built-up Index (NDBI) algorithm for identification of built up regions using the reflective bands: Red, Near-Infrared (NIR) and Mid-Infrared (MIR) originally proposed by Zha et al. (2003).
+
+It is very similar to our earlier NDVI calculation but using different bands...
+
+$$NDBI= \frac{Short-wave Infrared (SWIR)-Near Infrared (NIR)}{Short-wave Infrared (SWIR)+Near Infrared (NIR)}$$
+
+In Landsat 8 data the SWIR is band 6 and the NIR band 5
+
+1. Let's compute this index now...
+
+```{r, cache=TRUE}
+NDBI=((lsatmask$LC08_L1TP_203023_20190513_20190521_01_T1_B6_mask-
+         lsatmask$LC08_L1TP_203023_20190513_20190521_01_T1_B5_mask)/
+        (lsatmask$LC08_L1TP_203023_20190513_20190521_01_T1_B6_mask+
+        lsatmask$LC08_L1TP_203023_20190513_20190521_01_T1_B5_mask))
+```
+
+But do you remember our function? ...Well this is the same calculation we used there just with different raster layers (or bands) so we could reuse it...
+
+```{r, cache=TRUE}
+NDBIfunexample <- NDVIfun(lsatmask$LC08_L1TP_203023_20190513_20190521_01_T1_B6_mask,
+                          lsatmask$LC08_L1TP_203023_20190513_20190521_01_T1_B5_mask)
+```
+
+## Urban area and temperature relationship
+
+1. We could plot the varaibles agaisnt each other but there are a lot of data points
+
+```{r, cache=TRUE}
+
+plot(values(NDBI), values(LST))
+```
+
+This is termed the overplotting problem. So, let's just take a random subset of the same pixels from both raster layers. 
+
+1. To do so we need to again stack our layers
+
+```{r, cache=TRUE}
+# stack the layers
+
+computeddata <- LST%>%
+  stack(.,NDBI)%>%
+  as.data.frame()%>%
+  na.omit()%>%
+  # take a random subset
+  sample_n(., 500)%>%
+  dplyr::rename(Temp="layer.1", NDBI="layer.2")
+
+ # check the output
+plot(computeddata$Temp, computeddata$NDBI)
+  
+```
+
+1. Let's jazz things up, load some more packages
+
+```{r message=FALSE, warning=FALSE, cache=TRUE}
+library(plotly)
+library(htmlwidgets)
+```
+
+1. Transfrom the data to a data.frame to work with `ggplot`, then plot
+
+```{r, cache=TRUE}
+
+heat<-ggplot(computeddata, aes(x = NDBI, y = Temp))+
+  geom_point(alpha=2, colour = "#51A0D5")+
+  labs(x = "Temperature", 
+       y = "Urban index",
+       title = "Manchester urban and temperature relationship")+
+   geom_smooth(method='lm', se=FALSE)+
+  theme_classic()+
+  theme(plot.title = element_text(hjust = 0.5))
+
+# interactive plot
+ggplotly(heat)
+```
+
+It's a masterpiece!
+
+```{r echo=FALSE, out.width = "450pt", fig.align='center', cache=TRUE}
+knitr::include_graphics('allisonhorst_images/ggplot2_masterpiece.png')
+```
+
+
+1. How about plotting the whole dataset rather than a random subset...
+
+```{r message=FALSE, warning=FALSE, cache=TRUE}
+
+computeddatafull <- LST%>%
+  stack(.,NDBI)%>%
+  as.data.frame()%>%
+  na.omit()%>%
+  # take a random subset
+  dplyr::rename(Temp="layer.1", NDBI="layer.2")
+
+hexbins <- ggplot(computeddatafull, 
+                  aes(x=NDBI, y=Temp)) +
+  geom_hex(bins=100, na.rm=TRUE) +
+  labs(fill = "Count per bin")+
+  geom_smooth(method='lm', se=FALSE, size=0.6)+
+  theme_bw()
+
+ggplotly(hexbins)
+
+```
+
+## Statistical summary
+
+1. To see if our varaibles are related let's run some basic correlation
+
+```{r, cache=TRUE}
+library(rstatix)
+Correlation <- computeddatafull %>%
+  cor_test(Temp, NDBI, use = "complete.obs", method = c("pearson"))
+
+Correlation
+```
+
+Let's walk through the results here...
+
+* statistic value (or t, or test statistic), we can work out the critical t value using:
+
+```{r, cache=TRUE}
+abs(qt(0.05/2, 198268))
+```
+
+Within this formula
+
+* 0.05 is the confidence level (95%)
+
+* 2 means a 2 sided test
+
+* 198268 is the degrees of freedom (df), being the number of values we have -2
+
+```{r, cache=TRUE}
+computeddatafull %>%
+  pull(Temp)%>%
+  length()
+
+length(computeddatafull)
+```
+
+Here, as our t values is > than the critial value we can say that there is a relationship between the datasets. However, we would normally report the p-value...which we can get from..
+
+* p-value: tells us wheather there is a statistically significant correlation between the datasets and if that we can reject the null hypothesis if p<0.05 (there is a 95% chance that the relationship is real).
+
+* cor: Product moment correlation coefficient
+
+* conf.low and con.high intervals: 95% confident that the population correlation coeffieicent is within this interval
+
+As p<0.05 is shows that are variables are have a statistically significant correlation... so as urban area (assuming the index in representative) per pixel increases so does temperature...therefore we can reject our null hypothesis... but remember that this does not imply causation!! 
+
+If you want more information on statistics in R go and read [YaRrr! A Pirate's Guide to R](https://bookdown.org/ndphillips/YaRrr/), chapter 13 on hypothesis tests.
+
+## Considerations
+
+If you wanted to explore this type of analysis further then you would need to consider the following:
+
+* Other methods for extracting temperature from Landsat data
+* Validation of your temperature layer (e.g. weather station data)
+* The formula used to calculate emissivity --- there are many
+* The use of raw satellite data as opposed to remove the effects of the atmosphere. Within this practical we have only used relative spatial indexes (e.g. NDVI). However, if you were to use alternative methods it might be more appropraite to use surface reflectance data (also provided by USGS). 
+
+## Extension
+
+Already an expert with raster data and R? Here we have just looked at one temperature image and concluded that urban area and temperature are realted, but does that hold true for other time periods?
+
+If you found this practical straightforward source some Landsat data for an area of interest and create some R code to explore the temporal relationship between urban area and temperature. 
+
+...Or run the analysis with different data and methods.
+
+Data:
+
+MODIS daily LST: https://modis.gsfc.nasa.gov/data/dataprod/mod11.php
+
+MODIS imagery: https://modis.gsfc.nasa.gov/
+
+Methods:
+
+Supervised or unsupervised landcover classificaiton: https://rspatial.org/rs/5-supclassification.html#
+
+Here you could classify an image into several landcover classes and explore their relationship with temperature
+
+## References
+
+Thanks to CASA gradaute student Matt Ng for providing the outline to the start of this practical
+
+Avdan, U. and Jovanovska, G., 2016. Algorithm for automated mapping of land surface temperature using LANDSAT 8 satellite data. Journal of Sensors, 2016.
+
+Guha, S., Govil, H., Dey, A. and Gill, N., 2018. Analytical study of land surface temperature with NDVI and NDBI using Landsat 8 OLI and TIRS data in Florence and Naples city, Italy. European Journal of Remote Sensing, 51(1), pp.667-678.
+
+Weng, Q., Lu, D. and Schubring, J., 2004. Estimation of land surface temperature–vegetation abundance relationship for urban heat island studies. Remote sensing of Environment, 89(4), pp.467-483.
+
+Young, N.E., Anderson, R.S., Chignell, S.M., Vorster, A.G., Lawrence, R. and Evangelista, P.H., 2017. A survival guide to Landsat preprocessing. Ecology, 98(4), pp.920-932.
+
+Zha, Y., Gao, J. and Ni, S., 2003. Use of normalized difference built-up index in automatically mapping urban areas from TM imagery. International journal of remote sensing, 24(3), pp.583-594.
+
+## Remote sensing background (optional)
+
+Landsat sensors capture reflected solar energy, convert these data to radiance, then rescale this data into a Digital Number (DN), the latter representing the intensity of the electromagnetic radiation per pixel. The range of possible DN values depends on the sensor radiometric resolution. For example Landsat Thematic Mapper 5 (TM) measures between 0 and 255 (termed 8 bit), whilst Landsat 8 OLI measures between 0 and 65536 (termed 12 bit). These DN values can then be converted into Top of Atmosphere (TOA) radiance and TOA reflectance [through available equations and known constants](https://landsat.usgs.gov/landsat-8-l8-data-users-handbook-section-5¬) that are preloaded into certain software. The former is how much light the instrument sees in meaningful units whilst the latter removes the effects of the light source. However, TOA reflectance is still influenced by atmospheric effects. These atmospheric effects can be removed through atmospheric correction achievable in software such as ENVI and QGIS to give surface reflectance representing a ratio of the amount of light leaving a target to the amount of light striking it. 
+
+We must also consider the spectral resolution of satellite imagery, Landsat 8 OLI has 11 spectral bands and as a result is a multi-spectral sensor. As humans we see in the visible part of the electromagnetic spectrum (red-green-blue) --- this would be three bands of satellite imagery --- however satellites can take advantage of the rest of the spectrum. Each band of Landsat measures in a certain part of the spectrum to produce a DN value. We can then combine these values to produce ‘colour composites’. So a ‘true’ colour composite is where red, green and blue Landsat bands are displayed (the visible spectrum). Based on the differing DN values obtained, we can pick out the unique signatures (values of all spectral bands) of each land cover type, termed spectral signature.
+
+For more information read [Young et al. (2017) A survival guide to Landsat preprocessing](https://esajournals.onlinelibrary.wiley.com/doi/pdf/10.1002/ecy.1730)
+
+## Feedback
+
+Was anything that we explained unclear this week or was something really clear...let us know using the [feedback form](https://forms.gle/w2GUDYc7tSavGy7r6). It's anonymous and we'll use the responses to clear any issues up in the future / adapt the material. 
+
+

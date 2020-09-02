@@ -1,0 +1,87 @@
+
+```{r include = FALSE}
+htmltools::tagList(rmarkdown::html_dependency_font_awesome())
+```
+# External usage {-}
+
+## How to adopt this course {-}
+
+All the required data to run this course or individual practicals is provided in the GitHub repository except for the raw earth observation data used in [Advanced raster analysis] due to its size. Instructions are provided within the practical to either download the dataset from the USGS website or download it from a shared GoogleDrive folder.
+
+There are two main options to adopt this course:
+
+1. Adopt the course in its entirety by forking the repository on GitHub and Pulling to your local machine or simply download a `.zip` file containing the entire course.
+
+2. Adopt a single practical by downloading the `.rmd` file and associated data. 
+
+Instructions can be found in the section [How to download data and files from GitHub]
+
+## Issues / contributions {-}
+
+To raise an issue simply log it on the [GitHub issues tab for the repository](https://github.com/andrewmaclachlan/CASA0005repo/issues).
+
+To propose an edit click on the edit symbol in the top tool bar (see [How to use this book]) and submit it for review.
+
+If you wish to contribute material or data then please contact the course convenor Andy MacLachlan (details below).
+
+## License {-}
+
+If you use this material for teaching, research or anything else please let me (Andy) know via [Twitter](https://twitter.com/andymaclachlan) or email --- a [dot] maclachlan [at] ucl [dot] ac [dot] uk).
+
+This practical book is licensed under a [Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0) License](https://creativecommons.org/licenses/by-sa/4.0/).
+<center>
+<i class="fab fa-creative-commons fa-2x"></i><i class="fab fa-creative-commons-by fa-2x"></i><i class="fab fa-creative-commons-sa fa-2x"></i>
+</center>
+
+You are free to: 
+
+* **Share** — copy and redistribute the material in any medium or format
+
+* **Adapt** — remix, transform, and build upon the material
+for any purpose, even commercially.
+
+However, you  give appropriate credit, provide a link to the license, and indicate if changes were made. If you remix, transform, or build upon the material, you must distribute your contributions under the same license as the original.
+
+But, you do not have to comply with the license for elements of the material in the public domain or where your use is permitted by an applicable exception or limitation.
+
+The code within this pracical book is available under the [MIT license](https://opensource.org/licenses/MIT); so it is free to use (for any purpose) as long as you cite the source.
+
+## Version {-}
+
+This is version 2.0 of the practical book
+
+Previous versions can be found at the following links.
+
+2019-2020 academic year: https://andrewmaclachlan.github.io/CASA0005repo_20192020/
+
+## Packages {-}
+
+This bookdown document was built with:
+
+```{r message = FALSE, warning = FALSE, echo = FALSE}
+library(tidyverse)
+library(devtools)
+library(DT)
+
+# needed because new_session is set to true in _bookdown.yml
+all_pkgs <- renv::dependencies(path = "DESCRIPTION") %>% 
+  pull(Package) 
+
+session <- devtools::session_info(pkgs = all_pkgs)
+
+session$platform
+```
+
+And makes use of the following packages throughout. Thanks to [STAT 545](https://stat545.com/index.html#other-contributors) for this code.
+
+```{r message = FALSE, warning = FALSE, echo = FALSE}
+session$packages %>% 
+  select(package, loadedversion, date, source) %>% 
+  DT::datatable(rownames = FALSE,
+                class = 'cell-border stripe',
+                filter = list(position = 'top'),
+                options = list(pageLength = nrow(session$packages), 
+                           autoWidth = TRUE,
+                           bInfo = FALSE,
+                           paging = FALSE))
+```

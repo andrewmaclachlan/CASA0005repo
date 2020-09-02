@@ -1,0 +1,405 @@
+# Extra material 
+
+## Shiny
+
+Shiny is an R package that lets you build interactive web apps, host them online and embed them within RMarkdown documents... have a [look at some examples](https://shiny.rstudio.com/gallery/)
+
+To build a shiny you require three main *'items'* or blocks of code:
+
+(a) Code that specfies the user interface or ```ui```
+
+(b) Code that defines the server logic to plot variables (server function)
+
+(c) A call to the ```ShinyApp``` function
+
+These could either be within one large ```.R``` file or over several ```.R``` files.
+
+25. Start a new R Project > New or existing directory > Shiny Web Application 
+
+26. Within your new R Project folder make a new folder called data and copy in the data we have been using
+
+The main purpose of this part of the practical is to show you how to use Shiny so we won't make a Git repository. 
+
+27. Go File > New File > Shiny Web App
+
+Here you can select either a single file or multiple file format, originally Shiny needed multiple files to run however in the latest version you can have this all in one script, i've just used one script here.
+
+28. If you click Run App on either the ```app.R``` the example Shiny will load.
+
+Now let's make one with our data...
+
+#### Data preparation
+
+29. The first part is easy and is based on analysis we have already compelted...we need to produce a ```sf``` multipolygon layer containing the number of hotels and airbnbs per London borough through....
+
+```{r prac8_shiny, eval=TRUE, cache=FALSE, eval=FALSE}
+# load packages
+library(sf)
+library(tmap)
+library(leafpop)
+library(leaflet)
+library(tmaptools)
+library(tidyverse)
+library(plyr)
+library(classInt)
+
+# read in OSM
+OSM <- st_read("data/gis_osm_pois_a_free_1.shp")
+
+# read in Londonboroughs
+Londonborough <- st_read("data/London_Borough_Excluding_MHW.shp")
+
+# read in Airbnb
+Airbnb <- read_csv("data/listings.csv")
+
+# plot xy data
+Airbnb <- st_as_sf(Airbnb, coords = c("longitude", "latitude"), 
+                   crs = 4326)
+
+# reproject
+OSM <- st_transform(OSM, 27700)
+Airbnb <- st_transform(Airbnb, 27700)
+# we don't need to reproject Londonborough, but it 
+# doesn't have a CRS..you could also use set_crs
+# it needs to have one for the next step
+Londonborough<- st_transform(Londonborough, 27700)
+
+#select hotels only
+OSM <- OSM[OSM$fclass == 'hotel',]
+Airbnb <- Airbnb[Airbnb$room_type == 'Entire home/apt' &
+                     Airbnb$availability_365=='365',]
+
+# make a function for the join
+# functions are covered in practical 7
+# but see if you can work out what is going on
+# hint all you have to do is replace data1 and data2
+# with the data you want to use
+
+Joinfun <- function(data1, data2) {
+    # join OSM and London boroughs
+    joined <- st_join(data1, data2, join = st_within)
+    
+    # count the number of hotels per borough
+    countno <- as.data.frame(count(joined$GSS_CODE))
+    
+    # join the count back to the borough layer
+    counted <-left_join(data2, countno, by=c("GSS_CODE"="x"))
+    
+    return(counted)
+}
+
+# use the function for hotels
+Hotels <- Joinfun(OSM, Londonborough)
+
+# then for airbnb
+Airbnb <- Joinfun(Airbnb, Londonborough)
+
+# now try to arrange the plots with tmap
+breaks = c(0, 5, 12, 26, 57, 286) 
+
+#change the column name from freq for the legend
+colnames(Hotels)[colnames(Hotels)=="freq"] <- "Accom count"
+
+#join data
+ti<-st_join(Airbnb, Hotels, join=st_equals)
+ti<-st_transform(ti,crs = 4326)
+
+# change the names to match those in later selection
+names(ti)[names(ti) == "freq"] <- "Airbnb"
+names(ti)[names(ti) == "Accom count"] <- "Hotel"
+
+# combine all the data (accomodation count) so we
+# can make an appropraite colour range
+accomall<-c(ti$`Hotel`,ti$Airbnb)
+```
+
+Now we are going to take our data to make an interative map with drop down selection boxes and a 'slider'. We want to be able to:
+
+(a) select either Hotel or Airbnb data to map
+(b) be able to select a colour scheme
+(c) filter the boroughs shown using a slider
+(d) select what kind of intervals we can use to style the data
+(e) have a legend that automatically updates based on the selections (e.g. slider, colour scheme and interval style)
+
+There are plenty of options available in Shiny to make cool interactive features, for more information check out: 
+
+* https://shiny.rstudio.com/tutorial/written-tutorial/lesson1/
+* https://rstudio.github.io/leaflet/shiny.html
+
+
+30. Load the packages we'll need here and do some final data manipulation. Just add this right below the code above, i seperate it using a line of ##########################
+
+```{r prac8_shiny2, eval=FALSE, cache=FALSE}
+################################################## final data manipulation
+library(shiny)
+library(leaflet)
+library(RColorBrewer)
+
+# we will use this for our dropdown
+choice=c("Hotel", "Airbnb")
+
+# remove any NAs from our data and replace with 0
+#as a function later on doesn't play ball with them
+ti$Hotel[is.na(ti$Hotel)] <- 0
+ti$Airbnb[is.na(ti$Airbnb)] <- 0
+```
+
+#### User interface 
+
+31. Ok, first let's set up the user interface or ```ui```. I've commented the code to descrbie what each bit does.
+
+```{r prac8_shinyUI, eval=FALSE, cache=FALSE}
+################################################## ui
+
+# we'll use bootstrappage - a UI definition that can be passed to Shiny
+ui <- bootstrapPage(
+    tags$style(type = "text/css", "html, body {width:100%;height:100%}"),
+    # we're using leaflet and have title the outputID map
+    # this will call it from our server function below
+    leafletOutput("map", width = "100%", height = "100%"),
+    # this sets our input panel placement
+    absolutePanel(top = 10, right = 10,
+                  # 
+                  #our ID will be called later to make it interactive
+                  selectInput(inputId = "Accom",
+                              # label the drop down
+                              label = "Accom type",
+                              # what choices will there be
+                              # this uses our choices list from
+                              # earlier
+                              choices = choice,
+                              # Here False means you can only select
+                              # one option
+                              multiple = FALSE
+                  ),
+                  #gimme some colour options from colourbrewer
+                  # here the inoutID is colourbrewerpalette
+                  # the lavel is Color Scheme 
+                  # rownames provides our choices
+                  selectInput("colourbrewerpalette", "Color Scheme",
+                              rownames(subset(brewer.pal.info, category %in% c("seq",
+                                                                               "div")))
+                  ),
+                  # add a slider with the ID slide and label
+                  # accomodation count
+                  sliderInput("slide", "Accomodation count",
+                              # min slider value
+                              min(accomall, na.rm=TRUE),
+                              # max slider value
+                              max(accomall, na.rm = TRUE),
+                              # range
+                              value = range(accomall, na.rm = TRUE),
+                              # increments
+                              step = 10,
+                              sep = ""
+                  ),
+                  # add a selection for type of data break
+                  # ID of cassIntStyle and title
+                  # Interval Style
+                  selectInput("classIntStyle", "Interval Style",
+                              c("Jenks Natural Breaks" = "jenks",
+                                "Quantile" = "quantile",
+                                "Equal Interval" = "equal",
+                                "Pretty" = "pretty"))
+    )
+)
+
+```
+
+#### Server function
+
+33. It's a good idea to actuallly see what this produces...at the bottom of the code add an empty server function and then generate the Shiny application **BE SURE TO COPY ALL OF THE BRACKETS**
+
+```{r prac8_shiny4, eval=FALSE, cache=FALSE}
+####################################### server
+server <- function(input, output, session) {
+}
+
+shinyApp(ui, server)
+```
+
+Click Run App and the following should appear
+
+```{r prac8_runapp, echo=FALSE, out.width = "800pt", fig.align='center', cache=FALSE}
+knitr::include_graphics('prac8_images/shinyui.png') 
+```
+
+34. Now we need to add some more code to our server function to let us link the user interface to the data. Change the server function to:
+
+```{r prac8_server, eval=FALSE, cache=FALSE}
+####################################### server
+server <- function(input, output, session) {
+    
+    output$map <- renderLeaflet({
+        # Use leaflet() here, and only include aspects of the map that
+        # won't need to change dynamically (at least, not unless the
+        # entire map is being torn down and recreated).
+        # note we're using the ID of map calling back to leafletOutput
+        # in the user interface
+        leaflet(ti) %>% addTiles() %>% setView(-0.0881798, 51.48932, zoom = 10)
+    })
+    
+    # obsever creates a reactive observer to then re-execute any changes
+    observe({
+              
+      # filter the data of ti based on the range provided by the slider
+      (ti2<-({ti[ti[[input$Accom]] >= input$slide[1] & ti[[input$Accom]] <= 
+                   input$slide[2],]}))
+
+        # here we are changing the class breaks using the selection of either
+        # airbnb or hotel input$Accom uses what the user selects from
+        # the drop down box
+        breaks<-classIntervals(ti2[[input$Accom]], n=5, style=input$classIntStyle)
+        breaks <- breaks$brks
+        # make the color palette using ti (all of the data)
+        pal <- colorBin(palette = input$colourbrewerpalette, 
+                        domain = ti2[[input$Accom]],
+                        bins = breaks
+        )
+        # map our filtered data from the slider (ti2)
+        leafletProxy("map", data=ti2) %>%
+            clearShapes() %>% 
+            addPolygons(color="white", 
+                        weight = 2,
+                        opacity = 1,
+                        dashArray = "3",
+                        # add a popup of borough name and count based on
+                        # the drop down of accomodation (hotel or airbnb)
+                        # remember the ID we gave to that was Accom
+                        popup = paste(ti2$NAME.y,"... ",ti2[[input$Accom]]),
+                        fillOpacity = 0.5, 
+                        fillColor = ~pal(ti2[[input$Accom]])
+            )
+    })
+    
+    observe({
+      # call the filter again for this observer
+              (ti2<-({ti[ti[[input$Accom]] >= input$slide[1] & ti[[input$Accom]] <=
+                           input$slide[2],]}))
+
+        # this observer follows the same pattern
+        # but adds a legend 
+        breaks<-classIntervals(ti2[[input$Accom]], n=5, style=input$classIntStyle)
+        breaks <- breaks$brks
+        
+        pal <- colorBin(palette = input$colourbrewerpalette, 
+                        domain = ti2[[input$Accom]],
+                        #create bins using the breaks object from earlier
+                        bins = breaks
+        )
+        # here is the Legend
+        proxy <- leafletProxy("map", data = ti2)
+        proxy %>% clearControls() %>%
+            addLegend("bottomright", 
+                      pal= pal, 
+                      values = ~ti2[[input$Accom]], 
+                      title = input$Accom, 
+                      labFormat = labelFormat(prefix = ""),
+                      opacity = 1
+            )
+    })
+}
+
+```
+
+35. Don't forget to call the Shinyapp at the end 
+
+```{r prac8_call, eval=FALSE, cache=FALSE}
+shinyApp(ui, server)
+```
+
+#### Publish Shiny app
+
+Now we will publish our Shiny app on the internet. There are a few ways to do this, but we'll use Shinyapps.io which let's us upload our app straight from our R session to a sever hosted by RStudio.
+
+36. Go to: https://www.shinyapps.io/ and make a free account
+
+37. Back in RStudio click on Publish > Publish Application
+
+```{r prac8_publishapp, echo=FALSE, out.width = "400pt", fig.align='center', cache=FALSE}
+knitr::include_graphics('prac8_images/publishapp.png') 
+```
+
+38. You now need to connect RStudio to the Shinyapps.io account you just made. Follow the instructions provided in this box:
+
+```{r prac8_publishapp2, echo=FALSE, out.width = "400pt", fig.align='center', cache=FALSE}
+knitr::include_graphics('prac8_images/publishapp.png') 
+```
+
+39. You'll find the tokens under Account > Tokens. Make sure you click show secret then copy the code into the box in the figure above. You can now publish your Shinyapp, this might take a bit of time but you can see progress updates in the Deploy tab. Once completed the application will load...
+
+```{r prac8_finalapp, echo=FALSE, out.width = "800pt", fig.align='center', cache=FALSE}
+knitr::include_graphics('prac8_images/finalapp.png') 
+```
+
+Mine is here: https://amaclachlan.shinyapps.io/test/
+
+#### Incoproate into RMarkdown site
+
+40. To include our Shiny application into our RMarkdown site just add the following code in a code chunk:
+
+```{r prac8_inlcudeshiny, fig.align='center', cache=FALSE}
+knitr::include_app("https://amaclachlan.shinyapps.io/Airbnb/",
+                   height = "700px")
+```
+
+Here is mine in the RMarkdown site project --- i've put it in a new ```.Rmd```
+
+```{r prac8_myshiny, echo=FALSE, out.width = "800pt", fig.align='center', cache=FALSE}
+knitr::include_graphics('prac8_images/Shiny_rmarksite.png') 
+```
+
+If you copy this make sure you also update the ```_site.yml``` to link it...
+
+```{r prac8_shungsiteyml, echo=FALSE, out.width = "800pt", fig.align='center', cache=FALSE}
+knitr::include_graphics('prac8_images/Shiny_rmarksite_yml.png') 
+```
+
+41. Remember to update your site you'll need to build the website, commit to Git and push to GitHub
+
+#### Additional example
+
+Last year Adam created a similar (but slightly different) Shiny, check it out [here](https://adam-dennett.shinyapps.io/londonShiny/)
+
+His code can be found [here](https://www.dropbox.com/s/g7cgzg7ep6pz3k4/LondonShiny.tar?raw=1)
+
+Notice how Adam separated his code into different files...the latest update of Shiny means we no longer have to do this, we can just use one script like we did. However, if you have a very large and complicated project this is still possible, you can then call other scripts like Adam has using... 
+
+```{r prac8_ADshiny, cache=FALSE, eval=FALSE}
+# change londongrapher.r to the script you are calling
+source("londongrapher.r")
+
+```
+
+To do it like this the scrips must be in the same project!
+
+Want to see something really cool i came across....how about controlling the map elements with your voice using Shiny...https://yihui.shinyapps.io/voice/
+
+#### More Shiny
+
+For Shiny help explore [Mastering Shiny](https://mastering-shiny.org/index.html) and [Interactive web-based data visualization with R, plotly, and shiny](https://plotly-r.com/index.html), specifcally the section on Advanced applications. 
+
+For advancements / large scale projects with Shiny explore [Building Big Shiny Apps - A Workflow](https://thinkr-open.github.io/building-shiny-apps-workflow/) 
+
+### How to lie with maps
+
+If you play around with the Shiny app, changing the colour scheme, interval style and accomodation count using the slider you'll notice that you can actually almost change what the maps shows. For example, if you wanted to hide the distribution of Airbnb accomodation over London you could select any color scheme, use the full range of accomodation count and then select the pretty interval style to give some like...
+
+```{r pac8_liemaps, echo=FALSE, out.width = "800pt", fig.align='center', cache=FALSE}
+knitr::include_graphics('prac8_images/liewithmap.png') 
+```
+
+It's therefore important to provide reasoning for the choices you make in analysis and when creating mapped outputs. This especially true with the advent of GitHub and journals publishing data and code meaning it is almost impossible to present false representations of analysis. 
+
+### Warning
+
+Whilst it might seem tempting to use the most advanced interactive maps for your the assignments within this module and course it is important to think and reflect upon the appropriateness of the mapped output. You should ask yourself the following questions:
+
+* What am i trying to show with this map
+* Will interative elements aid this in anyway or just confuse users
+* Is there a more concise way to display this data
+* Do i need all this information --- is it all relevant to the message you are trying to portray with the map
+
+In all these examples i've used the same data (Hotels and Airbnbs in London boroughs), however as i'm only showing two datasets could this be represeted without all this complexity?--- in this case the answer really depends on the audience you are tyring to get something across to. For example, for use in an academic journal, as there are only two data sets being mapped a static map like we produced in the [Map making] practical would be more appropraite. However an interative map (similar to what we have produced) might be more useful for incorpation on a website...
+
+The take home message from this is to critically think about the best way to map and disseminate your data/results.
