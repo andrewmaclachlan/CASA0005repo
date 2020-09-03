@@ -17,8 +17,7 @@ Outside of our schedulded sessions you should be doing around 12 hours of extra 
 ::: {.infobox .assignment data-latex="{note}"}
 **Assignment**
 
-This week you need to assess the validity of your topic in terms of data suitability, then sketch out an introduction and literature review including academic and policy documents (or any
-reputable source).
+This week you need to assess the validity of your topic in terms of data suitability, then sketch out an introduction and literature review including academic and policy documents (or any reputable source).
 :::
 
 ::: {.infobox .note data-latex="{note}"}

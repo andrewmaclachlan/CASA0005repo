@@ -20,7 +20,7 @@ From weeks 10 until the assignment deadline, undertake your analysis, then write
 ::: {.infobox .tip data-latex="{note}"}
 **Before submission**
 
-Before submission, check that your assignment follows the standard model of scientific investigation. You may need to update part 1 based on the analysis you undertook to ensure a seamless narrative throughout. 
+Check that your assignment follows the standard model of scientific investigation. You may need to update your introduction and literature review based on the analysis you undertook to ensure a seamless narrative throughout.
 :::
 
 ::: {.infobox .note data-latex="{note}"}
@@ -319,13 +319,21 @@ Borough <- hold[[1]] %>%
   filter(NAME=="Westminster")%>%
   # we need to set the projection to WGS84
   # to use with leaflet
-  st_transform(., crs=4326)
-
+  st_transform(., crs=4326)%>%
+  #at the moment each airbnb is a row for the borough
+  #we just one one row that has number of airbnbs
+  group_by(., GSS_CODE, NAME)%>%
+  summarise(airbnbs = unique(airbnbs))
+  
 wardsatborough <- hold[[2]] %>%
   filter(BOROUGH=="Westminster")%>%
   # we need to set the projection to WGS84
   # to use with leaflet
-  st_transform(., crs=4326)
+  st_transform(., crs=4326)%>%
+  #at the moment each airbnb is a row for the wards
+  #we just one one row that has number of airbnbs
+  group_by(., GSS_CODE, NAME)%>%
+  summarise(airbnbs = unique(airbnbs))
 
 # set our breaks for the map
 breaks1<-classIntervals(hold[[1]]$airbnbs, 
@@ -360,10 +368,6 @@ boroughinfo <-wardsatborough %>%
          Airbnbs = airbnbs)%>%
   dplyr::select(Borough, Airbnbs)%>%
   popupTable()
-
-# select the coloumns we want to appear in our popup
-#popward <- popupTable(wardinfo2, zcol=c("Ward", "Count"))
-#popborough <- popupTable(boroighinfo2, zcol=c("Borough", "Count"))
 ```
 
 1. Now let's map it using what we just specified... i've added a few more features than were in the [Map making] practical
@@ -431,7 +435,6 @@ Range<-wardsatborough %>%
   summarise(Max = max(airbnbs),
             Min = min (airbnbs))
 ```
-
 
 ## Regression relationships 
 

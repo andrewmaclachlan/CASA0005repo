@@ -42,6 +42,8 @@ New packages and functions that i've recently come across that are worth explori
 
 There are a lot of free online books for geospatial analysis, especially using R, check out:
 
+<div class="col2">
+
 * [Data Visualization A practical introduction](https://socviz.co/index.html#preface)
 * [R Programming for Data Science](https://bookdown.org/rdpeng/rprogdatascience/)
 * [Everything you need for Exploratory Data Analysis & Visualization](https://edav.info/index.html)
@@ -60,6 +62,7 @@ There are a lot of free online books for geospatial analysis, especially using R
 * [Statistical Inference via Data Science](https://moderndive.com/)
 * [Fundamentals of Data Visualization](https://serialmentor.com/dataviz/index.html)
 * [21 Recipes for Mining Tiwtter Data with rtweet](https://rud.is/books/21-recipes/)
+</div><br/>
 
 If you want to produce more efficent R code then have a look at the [Efficient R programming](https://csgillespie.github.io/efficientR/index.html) book.
 
@@ -91,6 +94,8 @@ knitr::include_graphics('allisonhorst_images/welcome_to_rstats_twitter.png')
 
 R package authors regularly tweet with updates and new developments. If twitter is your thing go and follow these people to start with...and anyone else you come across...
 
+<div class="col2">
+
 * [Hadley Wickham](https://twitter.com/hadleywickham)
 * [Mara Averick](https://twitter.com/dataandme)
 * [Carl Howe](https://twitter.com/cdhowe)
@@ -103,6 +108,7 @@ R package authors regularly tweet with updates and new developments. If twitter 
 * [#rstats](https://twitter.com/search?q=%23rstats&src=typed_query)
 * [Andy](https://twitter.com/andymaclachlan)
 * [Adam](https://twitter.com/adam_dennett)
+</div><br/>
 
 I often learn about a lot of new R pacakges / code / isuues from Twitter!
 

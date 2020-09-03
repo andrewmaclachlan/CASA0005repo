@@ -1,7 +1,7 @@
 # Online mapping / descriptive statistics 
 
-This practical is formed of two parts, you can pick one you are more intersted in or complete both.
-
+This practical is formed of two parts, you can pick one you are more intersted in or complete both.  
+<br/>
 
 * Part A looks at some more spatial descriptive statistics 
 

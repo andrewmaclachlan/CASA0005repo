@@ -20,9 +20,7 @@ This week
 
 1. Fill in [this short assignment proposal form](https://forms.office.com/Pages/ResponsePage.aspx?id=_oivH5ipW0yTySEKEdmlwmn4XmBirltMqACHJtPhCelUQ1k5Q0VBWUJGS0cwMDhZT1BSOExVTURXVC4u) by 9am the Monday of reading week (9th November)
 
-1. Complete a draft of part 1 of the assignment. The methodology might only be in
-draft form / initial ideas as we move to more advanced analysis in the second part of
-the course.
+1. Create a draft of the methodology / initial ideas that can be expanded on as we move to more advanced analysis in the second part of the course.
 :::
 
 ::: {.infobox .note data-latex="{note}"}
