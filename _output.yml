@@ -18,13 +18,13 @@ bookdown::gitbook:
             <i class = "fab fa-creative-commons-sa fa-2x"></i>
           </a>
         </li></center>
+    download: [rmd]
     edit: https://github.com/andrewmaclachlan/CASA0005repo/edit/master/%s
     sharing:
       github: yes
       facebook: no
       twitter: no
       all: no
-download: ["rmd"]
 bookdown::pdf_book:
   includes:
     in_header: preamble.tex

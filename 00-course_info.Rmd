@@ -4,11 +4,11 @@
 
 Spatial analysis can yield fascinating insights into geographical relationships. However, at times it can be difficult to work with. You will get lots of error messages and have software crash. The academic staff are here to help you work through these practicals but we do not know everything. It's a good idea to become familar with online sources of help, such as:
 
-* Stack Exchange https://stackexchange.com/
-* RStudio community https://community.rstudio.com/
-* QGIS documemtation https://docs.qgis.org/3.4/en/docs/index.html
-* R documentation https://www.rdocumentation.org/
-* ArcGIS help pages https://support.esri.com/en
+* [Stack Exchange](https://stackexchange.com/)
+* [RStudio community](https://community.rstudio.com/)
+* [QGIS documemtation](https://docs.qgis.org/3.4/en/docs/index.html)
+* [R documentation](https://www.rdocumentation.org/)
+* [ArcGIS help pages](https://support.esri.com/en)
 
 Want to see what you can do with spatial analysis...check out this 'What's Next' video produced for the ESRI conference...
 
@@ -19,7 +19,7 @@ knitr::include_url("https://www.youtube.com/embed/K0qZffiKwak")
 
 After having taking this module, you should be able to:
 
-* Develop a working knowledge of ArcMap, QGIS and R to support the application of GI Science techniques
+* Develop a working knowledge of QGIS and R to support the application of GI Science techniques
 
 * Visualise geographic information through producing appropriate maps to high cartographic standards
 

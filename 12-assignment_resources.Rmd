@@ -30,13 +30,15 @@ The [UK ESRI conference](https://www.esriuk.com/en-gb/about/events/ac/overview) 
 
 New packages and functions that i've recently come across that are worth exploring..
 
-* RStudio cloud: https://rstudio.cloud/ --- like RStudio but online, great for collaborating
-* Animating plots: https://rpubs.com/jgleeson/ripple-effect
-* Bivariate maps: https://timogrossenbacher.ch/2019/04/bivariate-maps-with-ggplot2-and-sf/
-* Rayshader: https://www.rayshader.com/
-* Cartography package: http://riatelab.github.io/cartography/docs/
-* Data is beautiful reddit: https://www.reddit.com/r/dataisbeautiful/
-* Network visualisation: https://kateto.net/network-visualization
+<div class="col2">
+* [RStudio cloud](https://rstudio.cloud/) --- like RStudio but online, great for collaborating
+* [Animating plots](https://rpubs.com/jgleeson/ripple-effect)
+* [Bivariate maps](https://timogrossenbacher.ch/2019/04/bivariate-maps-with-ggplot2-and-sf/)
+* [Rayshader](https://www.rayshader.com/)
+* [R Cartography package](http://riatelab.github.io/cartography/docs/)
+* [Data is beautiful reddit](https://www.reddit.com/r/dataisbeautiful/)
+* [Network visualisation](https://kateto.net/network-visualization)
+</div><br/>
 
 ## Books/reading resources
 
@@ -55,7 +57,7 @@ There are a lot of free online books for geospatial analysis, especially using R
 * [Geocomputation with R ](https://geocompr.robinlovelace.net/)
 * [Happy Git and GitHub for the useR](https://happygitwithr.com/)
 * [Bookdown information pages](https://bookdown.org/)
-* [Interactive web-based data visualization with R, plotly, and shiny https://plotly-r.com/index.html](https://plotly-r.com/index.html)
+* [Interactive web-based data visualization with R, plotly, and shiny](https://plotly-r.com/index.html)
 * [YaRrr! The Pirate’s Guide to R](https://bookdown.org/ndphillips/YaRrr/)
 * [Engineering Production-Grade Shiny Apps](https://thinkr-open.github.io/building-shiny-apps-workflow/)
 * [Geospatial Health Data: Modeling and Visualization with R-INLA and Shiny](http://www.paulamoraga.com/book-geospatial/index.html)
@@ -71,20 +73,23 @@ If you want to produce more efficent R code then have a look at the [Efficient R
 ## New developments
 
 Every year there is a useR conference that provides a load to tutorials on the latest developments and research...check them out here: 
+<div class="col2">
+* [Data to viz, really great website with code](https://www.data-to-viz.com/)
+* [Modern data plots](https://moderndata.plot.ly/visualizing-geo-spatial-data-with-sf-and-plotly/)
+* [Make graphics like the BBC](https://github.com/bbc/bbplot/blob/master/chart_examples/bbplot_example_plots.png)
+* [UseR2019 tutorials](http://www.user2019.fr/tutorials/)
+* [UseR2019 materials](https://github.com/sowla/useR2019-materials)
+</div><br/>
 
-* LOOK AT THIS WEBSITE for data viz and code: https://www.data-to-viz.com/
-* ALSO this website for data viz: https://moderndata.plot.ly/visualizing-geo-spatial-data-with-sf-and-plotly/
-* Make graphics like the BBC: https://github.com/bbc/bbplot/blob/master/chart_examples/bbplot_example_plots.png
-* http://www.user2019.fr/tutorials/
-* https://github.com/sowla/useR2019-materials
+Other useful tutorials can be found at:
 
-Other useful tutorials can be found here:
-
-* https://rweekly.org/
-* http://rpubs.com/chrisbrunsdon/
-* http://rpubs.com/alexsingleton/
-* https://mgimond.github.io/megug2017/#cropping-a-raster-interactively
-* https://simplystatistics.org/
+<div class="col2">
+* [rweekly](https://rweekly.org/)
+* [Chrisbrusdon's RPubs](http://rpubs.com/chrisbrunsdon/)
+* [Alexsingleton's RPubs](http://rpubs.com/alexsingleton/)
+* [Tutorial for cropping a raster interactively](https://mgimond.github.io/megug2017/#cropping-a-raster-interactively)
+* [simplystatistics](https://simplystatistics.org/)
+</div><br/>
 
 ### Twitter
 
@@ -116,47 +121,49 @@ I often learn about a lot of new R pacakges / code / isuues from Twitter!
 
 This is by no means an extensive data list, but summarises data used within some of the practicals alongside a few additions that you might want to explore when sourcing data for your assignments. You are **not limited** to these data sets for you assessment.
 
-* Google dataset search: https://datasetsearch.research.google.com/
-* Tesco store data (London): https://www.nature.com/articles/s41597-020-0397-7
-* NHS data (ready for R): https://nhs-r-community.github.io/NHSRdatasets/
-* US City Open Data Census: http://us-cities.survey.okfn.org/
-* nomis: https://www.nomisweb.co.uk/
-* ONS geoportal: https://geoportal.statistics.gov.uk/
-* UK data service: https://census.edina.ac.uk/
-* ONS: https://www.ons.gov.uk/
-* Edina (e.g. OS mastermap): https://digimap.edina.ac.uk/
-* Open Topography: https://opentopography.org/
-* USGS Earth Explorer: https://earthexplorer.usgs.gov/
-* Geofabrik (OSM data): https://www.geofabrik.de/
-* Global weather data (points): https://rp5.ru/Weather_in_the_world
-* London data store: https://data.london.gov.uk/
-* Air b n b data: http://insideairbnb.com/get-the-data.html
-* NASA SocioEconomic Data and Applications Center (SEDAC): https://sedac.ciesin.columbia.edu/
-* UN environmental data explorer: http://geodata.grid.unep.ch/
-* World pop: https://www.worldpop.org/
-* World pop github: https://github.com/wpgp
-* DIVA-GIS: https://www.diva-gis.org/
-* DEFRA: https://environment.data.gov.uk/
-* US Cesus data: https://www.census.gov/data.html
-* TFL open data: https://tfl.gov.uk/info-for/open-data-users/our-open-data?intcmp=3671#on-this-page-2
-* TFL cycling data: https://cycling.data.tfl.gov.uk/
-* EU tourism data: https://ec.europa.eu/eurostat/statistics-explained/index.php/Tourism_statistics
-* NASA EARTHDATA: https://earthdata.nasa.gov/
-* Camden air action: https://camdenairaction.wordpress.com/2017/02/20/schools-monitoring-project-spring-2017/
-* Kings data on air pollution: https://www.londonair.org.uk/LondonAir/Default.aspx
-* Uber travel time data: https://movement.uber.com/?lang=en-GB
-* Eurostat: https://ec.europa.eu/eurostat
-* Animal tracking: https://www.movebank.org/
-* London Tube PM2.5 levels: https://www.ft.com/content/6f381ad4-fef7-11e9-be59-e49b2a136b8d
-* Bike docking data in an R package: https://docs.ropensci.org/bikedata/
+<div class="col2">
 
-* Correct statistical tests: https://stats.idre.ucla.edu/other/mult-pkg/whatstat/
+* [Google dataset search](https://datasetsearch.research.google.com/)
+* [Tesco store data (London)](https://www.nature.com/articles/s41597-020-0397-7)
+* [NHS data (ready for R)](https://nhs-r-community.github.io/NHSRdatasets/)
+* [US City Open Data Census](http://us-cities.survey.okfn.org/)
+* [nomis](https://www.nomisweb.co.uk/)
+* [ONS geoportal](https://geoportal.statistics.gov.uk/)
+* [UK data service](https://census.edina.ac.uk/)
+* [ONS](https://www.ons.gov.uk/)
+* [Edina (e.g. OS mastermap)](https://digimap.edina.ac.uk/)
+* [Open Topography](https://opentopography.org/)
+* [USGS Earth Explorer](https://earthexplorer.usgs.gov/)
+* [Geofabrik (OSM data)](https://www.geofabrik.de/)
+* [Global weather data (points)](https://rp5.ru/Weather_in_the_world)
+* [London data store](https://data.london.gov.uk/)
+* [Air b n b data](http://insideairbnb.com/get-the-data.html)
+* [NASA SocioEconomic Data and Applications Center (SEDAC)](https://sedac.ciesin.columbia.edu/)
+* [UN environmental data explorer](http://geodata.grid.unep.ch/)
+* [World pop](https://www.worldpop.org/)
+* [World pop github](https://github.com/wpgp)
+* [DIVA-GIS](https://www.diva-gis.org/)
+* [DEFRA](https://environment.data.gov.uk/)
+* [US Cesus data](https://www.census.gov/data.html)
+* [TFL open data](https://tfl.gov.uk/info-for/open-data-users/our-open-data?intcmp=3671#on-this-page-2)
+* [TFL cycling data](https://cycling.data.tfl.gov.uk/)
+* [EU tourism data](https://ec.europa.eu/eurostat/statistics-explained/index.php/Tourism_statistics)
+* [NASA EARTHDATA](https://earthdata.nasa.gov/)
+* [Camden air action](https://camdenairaction.wordpress.com/2017/02/20/schools-monitoring-project-spring-2017/)
+* [Kings data on air pollution](https://www.londonair.org.uk/LondonAir/Default.aspx)
+* [Uber travel time data](https://movement.uber.com/?lang=en-GB)
+* [Eurostat](https://ec.europa.eu/eurostat)
+* [London Tube PM2.5 levels](https://www.ft.com/content/6f381ad4-fef7-11e9-be59-e49b2a136b8d)
+* [Bike docking data in an R package](https://docs.ropensci.org/bikedata/)
+* [Correct statistical tests](https://stats.idre.ucla.edu/other/mult-pkg/whatstat/)
+
+</div><br/>
 
 ## Data lists
 
-Awesome public datasets have a wide range all data (some geographic, some not): https://github.com/awesomedata/awesome-public-datasets
+[Awesome public datasets](https://github.com/awesomedata/awesome-public-datasets) have a wide range all data (some geographic, some not): 
 
-[Robin Wilson](https://twitter.com/sciremotesense) has authored one of the most extensive data lists that i've come across: https://freegisdata.rtwilson.com/
+[Robin Wilson](https://twitter.com/sciremotesense) has authored one of [the most extensive data lists that i've come across](https://freegisdata.rtwilson.com/)
 
 ## Reading and writing critically
 
@@ -185,9 +192,9 @@ The UCL Institute for Education (IOE) Writing Centre Online have produced this v
 ## Free flow diagram tools
 
 * PowerPoint (from UCL software site)
-* Draw.io: https://www.draw.io/ 
-* Lucidchart: https://www.lucidchart.com/pages/examples/flowchart-maker
-* R Package `DiagrammeR`: https://rich-iannone.github.io/DiagrammeR/
+* [Draw.io](https://www.draw.io/ )
+* [Lucidchart](https://www.lucidchart.com/pages/examples/flowchart-maker)
+* [R Package `DiagrammeR`](https://rich-iannone.github.io/DiagrammeR/)
 
 Free at the time of writing
 

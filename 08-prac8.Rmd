@@ -777,15 +777,19 @@ Already familiar with RPubs, RMarkdown site generator or even Shiny? Try and and
 
 **Hint** this document is made using bookdown, so checkout my GitHub for how i set it up
 
-* Bookdown: https://bookdown.org/yihui/bookdown/, minimal bookdown example: https://github.com/rstudio/bookdown-demo
+<div class="col2">
+
+* [Bookdown](https://bookdown.org/yihui/bookdown/), [minimal bookdown example](https://github.com/rstudio/bookdown-demo)
 
 If you want to extend bookdown or automate the process of building, have a look at [continuous integration using github actions](https://www.hvitfeldt.me/blog/bookdown-netlify-github-actions/)
 
-* Flexdashboard: https://rmarkdown.rstudio.com/flexdashboard/
+* [Flexdashboard](https://rmarkdown.rstudio.com/flexdashboard/)
 
-* Blogdown: https://bookdown.org/yihui/blogdown/
+* [Blogdown](https://bookdown.org/yihui/blogdown/)
 
-* Interactive Shiny dashboards: https://rstudio.github.io/shinydashboard/get_started.html
+* [Interactive Shiny dashboards](https://rstudio.github.io/shinydashboard/get_started.html)
+</div><br/>
+
 
 ## Feedback
 

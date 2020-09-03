@@ -896,9 +896,9 @@ Bit different from me this week - I’m not all about drum and bass (although I 
 <pre><code>## # A tibble: 3 x 5
 ##   PctOwned20 PctNoEngli  size withinss cluster
 ##        &lt;dbl&gt;      &lt;dbl&gt; &lt;int&gt;    &lt;dbl&gt; &lt;fct&gt;  
-## 1       48.9      14.7    247   21793. 1      
+## 1       27.5      17.0    187   13365. 1      
 ## 2       72.4       6.38   191   17086. 2      
-## 3       27.5      17.0    187   13365. 3</code></pre>
+## 3       48.9      14.7    247   21793. 3</code></pre>
 <div class="sourceCode" id="cb452"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb452-1" title="1"><span class="co"># as we only have variable two dimensions we can plot the clusters on a graph</span></a>
 <a class="sourceLine" id="cb452-2" title="2">p &lt;-<span class="st"> </span><span class="kw">ggplot</span>(mydata,<span class="kw">aes</span>(PctOwned20, PctNoEngli))<span class="op">+</span></a>
 <a class="sourceLine" id="cb452-3" title="3"><span class="st">  </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">colour=</span><span class="kw">factor</span>(fit<span class="op">$</span>cluster)))<span class="op">+</span></a>
@@ -1246,15 +1246,18 @@ Bit different from me this week - I’m not all about drum and bass (although I 
 <h3><span class="header-section-number">8.4.6</span> Advanced online publishing</h3>
 <p>Already familiar with RPubs, RMarkdown site generator or even Shiny? Try and and produce an online document using either: bookdown, flexdashboard, blogdown or shinydashboard. These are listed in order of difficutly from my experience.</p>
 <p><strong>Hint</strong> this document is made using bookdown, so checkout my GitHub for how i set it up</p>
+<div class="col2">
 <ul>
-<li>Bookdown: <a href="https://bookdown.org/yihui/bookdown/" class="uri">https://bookdown.org/yihui/bookdown/</a>, minimal bookdown example: <a href="https://github.com/rstudio/bookdown-demo" class="uri">https://github.com/rstudio/bookdown-demo</a></li>
+<li><a href="https://bookdown.org/yihui/bookdown/">Bookdown</a>, <a href="https://github.com/rstudio/bookdown-demo">minimal bookdown example</a></li>
 </ul>
 <p>If you want to extend bookdown or automate the process of building, have a look at <a href="https://www.hvitfeldt.me/blog/bookdown-netlify-github-actions/">continuous integration using github actions</a></p>
 <ul>
-<li><p>Flexdashboard: <a href="https://rmarkdown.rstudio.com/flexdashboard/" class="uri">https://rmarkdown.rstudio.com/flexdashboard/</a></p></li>
-<li><p>Blogdown: <a href="https://bookdown.org/yihui/blogdown/" class="uri">https://bookdown.org/yihui/blogdown/</a></p></li>
-<li><p>Interactive Shiny dashboards: <a href="https://rstudio.github.io/shinydashboard/get_started.html" class="uri">https://rstudio.github.io/shinydashboard/get_started.html</a></p></li>
+<li><p><a href="https://rmarkdown.rstudio.com/flexdashboard/">Flexdashboard</a></p></li>
+<li><p><a href="https://bookdown.org/yihui/blogdown/">Blogdown</a></p></li>
+<li><p><a href="https://rstudio.github.io/shinydashboard/get_started.html">Interactive Shiny dashboards</a></p></li>
 </ul>
+</div>
+<p><br/></p>
 </div>
 </div>
 <div id="feedback-7" class="section level2">
@@ -1311,7 +1314,7 @@ gitbook.start({
 "link": null,
 "text": null
 },
-"download": null,
+"download": ["https://github.com/andrewmaclachlan/CASA0005repo/raw/master/08-prac8.Rmd"],
 "toc": {
 "collapse": "section",
 "scroll_highlight": true
