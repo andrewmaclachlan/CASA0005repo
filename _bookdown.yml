@@ -13,7 +13,7 @@ rmd_files:
 - 07-prac7.Rmd
 - 08-prac8.Rmd
 - 09-prac9.Rmd
-#- 10-prac10.Rmd
+- 10-prac10.Rmd
 - 11-assignment.Rmd
 - 12-assignment_resources.Rmd
 output_dir: docs
