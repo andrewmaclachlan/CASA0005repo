@@ -243,7 +243,7 @@ lsatmask <- listlandsat %>%
   mask(.,  manchester_boundary)
 ```
 
-11. If all we wanted to do was clip our data, we could now change our filenames in the raster stack and write the ```.TIFF ``` files out again...
+1. If all we wanted to do was clip our data, we could now change our filenames in the raster stack and write the ```.TIFF ``` files out again...
 
 ```{r, cache=TRUE}
 # add mask to the filenames within the raster stack

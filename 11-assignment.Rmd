@@ -19,6 +19,7 @@ Late submission of the assessment will be subject to the [standard penalties acc
 **Submission:** PDF via Moodle. **Do not upload anything other than a PDF.**
 
 **Coversheet:** You must have a coversheet at the start of your assignment (within the single PDF) that includes your:
+
 * Assignment title
 * Programme
 * Department
@@ -35,6 +36,7 @@ For the assessment of this course you will combine the cartographic and GIScienc
 You are required to construct a spatial problem (research question or hypothesis) founded upon relevant and pertinent literature (e.g. academic and policy). You must test your research question or hypothesis with appropriate and reproducible geographic data analysis. The output results should be crtically reflected upon in relation to academic literature and relevant policies, clearly demonstrating how your spatial analysis provides new insights, supports (or contradicts) policy decisions, enhances existing work or shows geographic trends. 
 
 Within the report we expect to the follow sections:
+
 * Introduction
 * Research question (or hypothesis)
 * Literature review 
@@ -92,7 +94,10 @@ That’s difficult to directly answer as there is range of criteria used to mark
 **Can we discuss our ideas**
 
 Yes, there will be an opportunity to submit a very short proposal and time within workshops to discuss ideas with the module staff. Please make use of these sessions. 
-What criteria will you make our work onWe will follow the mark scheme for this course available on Moodle.
+
+**What criteria will you make our work on**
+
+We will follow the mark scheme for this course available on Moodle.
 
 **Can I use multiple datasets**
 

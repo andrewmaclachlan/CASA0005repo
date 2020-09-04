@@ -5,9 +5,9 @@
 By the end of this practical you should be able to:
 
 1. Load, manipulate and interpret raster layers
-2. Observe and critique different descriptive data manipulation methods and outputs
-3. Execute interpolation of points to a raster layer
-4. Construct a methodology for comparing raster 
+1. Observe and critique different descriptive data manipulation methods and outputs
+1. Execute interpolation of points to a raster layer
+1. Construct a methodology for comparing raster 
 
 ## Homework
 
