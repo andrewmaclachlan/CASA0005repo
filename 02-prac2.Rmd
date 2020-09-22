@@ -754,6 +754,12 @@ Life_expectancy4 <- Life_expectancy %>%
   mutate(across(UKdiff, round, 0))
 ```
 
+Before you move on consider what you have learnt about `dplyr` in relation to this concept map [by Greg Wilson](https://github.com/rstudio/concept-maps). The teaching team will also explain it...
+
+```{r echo=FALSE, out.width = "600pt", fig.align='center', cache=FALSE}
+knitr::include_graphics('prac2_images/dplyr.svg')
+```
+
 ### Plotting
 
 For a simple and quick plot, we can use the `plot()` function...

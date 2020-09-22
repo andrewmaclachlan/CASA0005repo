@@ -111,8 +111,11 @@ R package authors regularly tweet with updates and new developments. If twitter 
 * [Jakub Nowosad](https://twitter.com/jakub_nowosad)
 * [Nick Tierney](https://twitter.com/nj_tierney)
 * [#rstats](https://twitter.com/search?q=%23rstats&src=typed_query)
-* [Andy](https://twitter.com/andymaclachlan)
-* [Adam](https://twitter.com/adam_dennett)
+* [R packages you might have missed](https://twitter.com/icymi_r)
+* [R for data science](https://twitter.com/rstats4ds)
+* [We are R-Ladies](https://twitter.com/WeAreRLadies)
+* [R-Ladies Global](https://twitter.com/RLadiesGlobal)
+
 </div><br/>
 
 I often learn about a lot of new R pacakges / code / isuues from Twitter!

@@ -1141,6 +1141,8 @@ Here, we could filter based on a variable, for example extracting all the wards 
 <a class="sourceLine" id="cb109-2" title="2"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">UKdiff =</span> averagelifeexpectancy<span class="fl">-81.16</span>)<span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb109-3" title="3"><span class="st">  </span><span class="kw">mutate</span>(<span class="kw">across</span>(is.numeric, round, <span class="dv">3</span>))<span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb109-4" title="4"><span class="st">  </span><span class="kw">mutate</span>(<span class="kw">across</span>(UKdiff, round, <span class="dv">0</span>))</a></code></pre></div>
+<p>Before you move on consider what you have learnt about <code>dplyr</code> in relation to this concept map <a href="https://github.com/rstudio/concept-maps">by Greg Wilson</a>. The teaching team will also explain it…</p>
+<p><img src="prac2_images/dplyr.svg" width="600pt" style="display: block; margin: auto;" /></p>
 </div>
 </div>
 <div id="plotting" class="section level3">
@@ -1148,7 +1150,7 @@ Here, we could filter based on a variable, for example extracting all the wards 
 <p>For a simple and quick plot, we can use the <code>plot()</code> function…</p>
 <div class="sourceCode" id="cb110"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb110-1" title="1"><span class="kw">plot</span>(LondonBoroughs<span class="op">$</span>male_life_expectancy_<span class="dv">2009</span>_<span class="dv">13</span>,</a>
 <a class="sourceLine" id="cb110-2" title="2">     LondonBoroughs<span class="op">$</span>percent_children_in_reception_year_who_are_obese_<span class="dv">2011</span>_<span class="dv">12</span>_to_<span class="dv">2013</span>_<span class="dv">14</span>)</a></code></pre></div>
-<p><img src="CASA0005_files/figure-html/unnamed-chunk-125-1.png" width="672" /></p>
+<p><img src="CASA0005_files/figure-html/unnamed-chunk-126-1.png" width="672" /></p>
 </div>
 <div id="pimp-my-graph" class="section level3">
 <h3><span class="header-section-number">2.5.7</span> Pimp my graph!</h3>
@@ -1165,7 +1167,7 @@ Here, we could filter based on a variable, for example extracting all the wards 
 <a class="sourceLine" id="cb112-9" title="9">        <span class="dt">type =</span> <span class="st">&quot;scatter&quot;</span>, </a>
 <a class="sourceLine" id="cb112-10" title="10">        <span class="dt">mode =</span> <span class="st">&quot;markers&quot;</span>)</a></code></pre></div>
 <div id="htmlwidget-5f1a8948d522afa22069" style="width:672px;height:480px;" class="plotly html-widget"></div>
-<script type="application/json" data-for="htmlwidget-5f1a8948d522afa22069">{"x":{"visdat":{"402c431f11c0":["function () ","plotlyVisDat"]},"cur_data":"402c431f11c0","attrs":{"402c431f11c0":{"x":{},"y":{},"text":{},"mode":"markers","alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"type":"scatter"}},"layout":{"margin":{"b":40,"l":60,"t":25,"r":10},"xaxis":{"domain":[0,1],"automargin":true,"title":"male_life_expectancy_2009_13"},"yaxis":{"domain":[0,1],"automargin":true,"title":"percent_children_in_reception_year_who_are_obese_2011_12_to_2013_14","type":"category","categoryorder":"array","categoryarray":["10.2","10.3","10.6","11.0","11.1","11.2","11.5","11.6","12.2","12.5","12.7","12.8","13.2","13.3","13.6","5.7","6.0","7.8","8.1","9.0","9.2","9.5","9.6","9.8"]},"hovermode":"closest","showlegend":false},"source":"A","config":{"showSendToCloud":false},"data":[{"x":[84.3,77.7,81.9,80.3,80,81.3,81.1,80,79.9,80.6,78.7,78.2,79.1,80.1,82.4,79.8,80.4,79.7,78.2,82.6,81.3,78.4,78.7,80.3,78.5,80.7,81.9,78.6,80.8,77.5,79.7,79.2,81.7],"y":["11.1","13.6","9.5","11.6","12.2","7.8","9.8","11.1","11.2","12.7","13.2","13.3","10.2","11.1","9.6","10.3","9.6","11.2","10.6","9.2","6.0","11.5","11.0","9.0","12.5","10.6","5.7","12.8","8.1","12.7","10.6","9.2","11.1"],"text":["City of London","Barking and Dagenham","Barnet","Bexley","Brent","Bromley","Camden","Croydon","Ealing","Enfield","Greenwich","Hackney","Hammersmith and Fulham","Haringey","Harrow","Havering","Hillingdon","Hounslow","Islington","Kensington and Chelsea","Kingston upon Thames","Lambeth","Lewisham","Merton","Newham","Redbridge","Richmond upon Thames","Southwark","Sutton","Tower Hamlets","Waltham Forest","Wandsworth","Westminster"],"mode":"markers","type":"scatter","marker":{"color":"rgba(31,119,180,1)","line":{"color":"rgba(31,119,180,1)"}},"error_y":{"color":"rgba(31,119,180,1)"},"error_x":{"color":"rgba(31,119,180,1)"},"line":{"color":"rgba(31,119,180,1)"},"xaxis":"x","yaxis":"y","frame":null}],"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.2,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
+<script type="application/json" data-for="htmlwidget-5f1a8948d522afa22069">{"x":{"visdat":{"4a00594630bc":["function () ","plotlyVisDat"]},"cur_data":"4a00594630bc","attrs":{"4a00594630bc":{"x":{},"y":{},"text":{},"mode":"markers","alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"type":"scatter"}},"layout":{"margin":{"b":40,"l":60,"t":25,"r":10},"xaxis":{"domain":[0,1],"automargin":true,"title":"male_life_expectancy_2009_13"},"yaxis":{"domain":[0,1],"automargin":true,"title":"percent_children_in_reception_year_who_are_obese_2011_12_to_2013_14","type":"category","categoryorder":"array","categoryarray":["10.2","10.3","10.6","11.0","11.1","11.2","11.5","11.6","12.2","12.5","12.7","12.8","13.2","13.3","13.6","5.7","6.0","7.8","8.1","9.0","9.2","9.5","9.6","9.8"]},"hovermode":"closest","showlegend":false},"source":"A","config":{"showSendToCloud":false},"data":[{"x":[84.3,77.7,81.9,80.3,80,81.3,81.1,80,79.9,80.6,78.7,78.2,79.1,80.1,82.4,79.8,80.4,79.7,78.2,82.6,81.3,78.4,78.7,80.3,78.5,80.7,81.9,78.6,80.8,77.5,79.7,79.2,81.7],"y":["11.1","13.6","9.5","11.6","12.2","7.8","9.8","11.1","11.2","12.7","13.2","13.3","10.2","11.1","9.6","10.3","9.6","11.2","10.6","9.2","6.0","11.5","11.0","9.0","12.5","10.6","5.7","12.8","8.1","12.7","10.6","9.2","11.1"],"text":["City of London","Barking and Dagenham","Barnet","Bexley","Brent","Bromley","Camden","Croydon","Ealing","Enfield","Greenwich","Hackney","Hammersmith and Fulham","Haringey","Harrow","Havering","Hillingdon","Hounslow","Islington","Kensington and Chelsea","Kingston upon Thames","Lambeth","Lewisham","Merton","Newham","Redbridge","Richmond upon Thames","Southwark","Sutton","Tower Hamlets","Waltham Forest","Wandsworth","Westminster"],"mode":"markers","type":"scatter","marker":{"color":"rgba(31,119,180,1)","line":{"color":"rgba(31,119,180,1)"}},"error_y":{"color":"rgba(31,119,180,1)"},"error_x":{"color":"rgba(31,119,180,1)"},"line":{"color":"rgba(31,119,180,1)"},"xaxis":"x","yaxis":"y","frame":null}],"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.2,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
 </div>
 <div id="spatial-data-in-r" class="section level3">
 <h3><span class="header-section-number">2.5.8</span> Spatial Data in R</h3>
@@ -1228,7 +1230,7 @@ Here, we could filter based on a variable, for example extracting all the wards 
 <a class="sourceLine" id="cb118-3" title="3"></a>
 <a class="sourceLine" id="cb118-4" title="4"><span class="co">#plot it using the base plot function</span></a>
 <a class="sourceLine" id="cb118-5" title="5"><span class="kw">qtm</span>(LondonMap)</a></code></pre></div>
-<p><img src="CASA0005_files/figure-html/unnamed-chunk-133-1.png" width="672" /></p>
+<p><img src="CASA0005_files/figure-html/unnamed-chunk-134-1.png" width="672" /></p>
 <ol style="list-style-type: decimal">
 <li>Of course, we can also read in our data from a shapefile stored in a local directory:</li>
 </ol>
@@ -1262,7 +1264,7 @@ Here, we could filter based on a variable, for example extracting all the wards 
 <p>We’ve added some more arguments to <code>distinct()</code> that mean we only have unique rows based on the code, but we keep all other variables <code>.keep_all=TRUE</code>. If you change to <code>.keep_all=FALSE</code> (which is the default) then all the other variables will be removed.</p>
 <p>An alternative to <code>merge()</code> would be to use a <code>left_join()</code> (like in SQL)…but it’s the same thing as <code>merge()</code>.</p>
 <p><img src="prac2_images/sql-joins.png" width="500px" style="display: block; margin: auto;" /></p>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-137"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-138"></span>
 <img src="prac2_images/left-join.gif" alt="Taken from Tidy explain by Garrick Aden-Buie" width="500px" />
 <p class="caption">
 Figure 2.1: Taken from Tidy explain by Garrick Aden-Buie
@@ -1275,7 +1277,7 @@ Figure 2.1: Taken from Tidy explain by Garrick Aden-Buie
 <a class="sourceLine" id="cb121-5" title="5">            LondonData,</a>
 <a class="sourceLine" id="cb121-6" title="6">            <span class="dt">by =</span> <span class="kw">c</span>(<span class="st">&quot;lad15cd&quot;</span> =<span class="st"> &quot;new_code&quot;</span>))</a></code></pre></div>
 <p>If there are mutliple matches then all hits are returned…</p>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-139"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-140"></span>
 <img src="prac2_images/left-join-extra.gif" alt="Taken from Tidy explain by Garrick Aden-Buie" width="500px" />
 <p class="caption">
 Figure 2.2: Taken from Tidy explain by Garrick Aden-Buie
@@ -1298,7 +1300,7 @@ Figure 2.2: Taken from Tidy explain by Garrick Aden-Buie
 <pre><code>## tmap mode set to plotting</code></pre>
 <div class="sourceCode" id="cb124"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb124-1" title="1"><span class="kw">qtm</span>(BoroughDataMap, </a>
 <a class="sourceLine" id="cb124-2" title="2">    <span class="dt">fill =</span> <span class="st">&quot;rate_of_job_seekers_allowance_jsa_claimants_2015&quot;</span>)</a></code></pre></div>
-<p><img src="CASA0005_files/figure-html/unnamed-chunk-140-1.png" width="672" /></p>
+<p><img src="CASA0005_files/figure-html/unnamed-chunk-141-1.png" width="672" /></p>
 <p>But that’s a bit basic! How about adding a basemap…to get a basemap we need to extract it from OpenStreetMap (OSM) using the <code>read_osm()</code> function from the <code>tmaptools</code> package. We talk about this in later weeks, but it’s a free editable map of the World (the Wikipedia of maps). We are going to need to create a box (termed bounding box) around London using the <code>st_box()</code> function from the <code>sf</code> package to extract the basemap image (which is a raster).</p>
 <div class="sourceCode" id="cb125"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb125-1" title="1">tmaplondon &lt;-<span class="st"> </span>BoroughDataMap <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb125-2" title="2"><span class="st">  </span><span class="kw">st_bbox</span>(.) <span class="op">%&gt;%</span><span class="st"> </span></a>
@@ -1352,7 +1354,7 @@ Figure 2.2: Taken from Tidy explain by Garrick Aden-Buie
 <a class="sourceLine" id="cb130-10" title="10"><span class="st">  </span><span class="kw">tm_compass</span>(<span class="dt">position =</span> <span class="kw">c</span>(<span class="st">&quot;left&quot;</span>, <span class="st">&quot;bottom&quot;</span>),<span class="dt">type =</span> <span class="st">&quot;arrow&quot;</span>) <span class="op">+</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb130-11" title="11"><span class="st">  </span><span class="kw">tm_scale_bar</span>(<span class="dt">position =</span> <span class="kw">c</span>(<span class="st">&quot;left&quot;</span>, <span class="st">&quot;bottom&quot;</span>)) <span class="op">+</span></a>
 <a class="sourceLine" id="cb130-12" title="12"><span class="st">  </span><span class="kw">tm_layout</span>(<span class="dt">title =</span> <span class="st">&quot;Difference in life expectancy&quot;</span>, <span class="dt">legend.position =</span> <span class="kw">c</span>(<span class="st">&quot;right&quot;</span>, <span class="st">&quot;bottom&quot;</span>))</a></code></pre></div>
-<p><img src="CASA0005_files/figure-html/unnamed-chunk-144-1.png" width="672" /></p>
+<p><img src="CASA0005_files/figure-html/unnamed-chunk-145-1.png" width="672" /></p>
 <p>There are a few subtle differences in the code of this second map if you look closely:
 * Style is now <code>pretty</code> not <code>jenks</code>. Style controls where the breaks are within the data that are then assigned to each colour for mapping. <code>pretty</code> rounds to whole numbers and evenly spaces them over the data.
 * Palette in now <code>Blues</code> not <code>YlOrBr</code>. Palette controls the colour of the map, you can see more options through <code>tmaptools::palette_explorer()</code></p>
@@ -1371,14 +1373,14 @@ Figure 2.2: Taken from Tidy explain by Garrick Aden-Buie
 <li><p>Put each dataset in a tibble</p></li>
 <li><p>Put each variable in a column</p></li>
 </ol>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-145"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-146"></span>
 <img src="prac2_images/tidy-1.png" alt="This figure is taken directly from Grolemund and Wickham (2017) Chapter 12.Following three rules makes a dataset tidy: variables are in columns, observations are in rows, and values are in cells." width="500px" />
 <p class="caption">
 Figure 2.3: This figure is taken directly from Grolemund and Wickham (2017) Chapter 12.Following three rules makes a dataset tidy: variables are in columns, observations are in rows, and values are in cells.
 </p>
 </div>
 <p>However, i also find this example from <a href="https://www.ksk-anl.com/blog/hadley-wickhams-tidy-data-in-rapidminer-part-1/">KSK analytics</a> very helpful..</p>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-146"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-147"></span>
 <img src="prac2_images/messy-tidy-ex.png" alt="This figure is taken directly from Grolemund and Wickham (2017) Chapter 12.Following three rules makes a dataset tidy: variables are in columns, observations are in rows, and values are in cells." width="500px" />
 <p class="caption">
 Figure 2.4: This figure is taken directly from Grolemund and Wickham (2017) Chapter 12.Following three rules makes a dataset tidy: variables are in columns, observations are in rows, and values are in cells.
