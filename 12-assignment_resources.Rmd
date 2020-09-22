@@ -31,7 +31,7 @@ The [UK ESRI conference](https://www.esriuk.com/en-gb/about/events/ac/overview) 
 New packages and functions that i've recently come across that are worth exploring..
 
 <div class="col2">
-* [RStudio cloud](https://rstudio.cloud/) --- like RStudio but online, great for collaborating
+* [RStudio cloud](https://rstudio.cloud/) --- like RStudio but online, great for collaborating, although it now (2020) has caps on how much you can use it.
 * [Animating plots](https://rpubs.com/jgleeson/ripple-effect)
 * [Bivariate maps](https://timogrossenbacher.ch/2019/04/bivariate-maps-with-ggplot2-and-sf/)
 * [Rayshader](https://www.rayshader.com/)
@@ -155,6 +155,9 @@ This is by no means an extensive data list, but summarises data used within some
 * [Eurostat](https://ec.europa.eu/eurostat)
 * [London Tube PM2.5 levels](https://www.ft.com/content/6f381ad4-fef7-11e9-be59-e49b2a136b8d)
 * [Bike docking data in an R package](https://docs.ropensci.org/bikedata/)
+* [UK COVID data](https://coronavirus.data.gov.uk/)
+* [R package for COVID data](https://github.com/RamiKrispin/coronavirus)
+* [Tidy Tuesday data (although look for spatial data)](https://github.com/rfordatascience/tidytuesday)
 * [Correct statistical tests](https://stats.idre.ucla.edu/other/mult-pkg/whatstat/)
 
 </div><br/>
