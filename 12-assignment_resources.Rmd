@@ -1,3 +1,5 @@
+# (PART\*) Assignment {-}
+
 # Assignment resources
 
 ```{r echo=FALSE}
@@ -38,6 +40,13 @@ New packages and functions that i've recently come across that are worth explori
 * [R Cartography package](http://riatelab.github.io/cartography/docs/)
 * [Data is beautiful reddit](https://www.reddit.com/r/dataisbeautiful/)
 * [Network visualisation](https://kateto.net/network-visualization)
+</div><br/>
+
+## Assignment ideas
+<div class="col2">
+
+* [The Value of GIS & Spatial Data Science in Achieving the Sustainable Development Goals by Cobus van Rooyen](https://complexsystemstheory.net/2020/09/23/gis-and-the-sustainable-development-goals/)
+
 </div><br/>
 
 ## Books/reading resources

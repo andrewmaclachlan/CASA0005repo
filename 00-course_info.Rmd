@@ -160,9 +160,11 @@ If after pursuing all these avenues you still need help you can book into our of
 
 These meetings are **not** to be used for specific technical issues. Problems of this nature should be addressed in the practical sessions.
 
-Andy: https://amaclachlan.youcanbook.me/ 
+[Andy](https://amaclachlan.youcanbook.me/)
 
-Adam: https://dr-d-casa.youcanbook.me
+[Adam](https://dr-d-casa.youcanbook.me)
+
+If you give us minimal information in this form (e.g. one word) we will cancel the meeting.
 
 ## Noticed a mistake? {-}
 

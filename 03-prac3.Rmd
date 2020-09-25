@@ -71,8 +71,26 @@ Knowing this, if we want to conduct analysis locally (e.g. at a national level) 
 
 Units are angular (e.g. degrees, latitude and longitude) or the data is global = Geographic coordinate reference system
 
-Units are linear (e.g. feet, metres) or data is at a local (e.g. national) = Projected coordinate reference system.
+Units are linear (e.g. feet, metres) or data is at a local level (e.g. national, well the last one is not always true, but likely) = Projected coordinate reference system.
 :::
+
+You might hear some key words about projections that could terrify you! Let's break them down:
+
+* Ellipsoid (or spheriod) = size of shape of the Earth (3d)
+* Datum = contains the point relationship (where the origin (0,0) of the map is) between a Cartesian coordinates (flat surface) and Earth's surface. They can be local or geocentric. They set the origin, the scale and orientation of the Coordiante Reference System (CRS).
+* Local datum = changes the Ellispoid to align with a certain location on the surface (e.g. BNG that uses the OSGB36 datum). A local datum is anything that isn't the centre of the Earth.
+* Geocentric datum =  the centre is equal to the Earth's centre of gravity (e.g. WGS84).
+* Coordinate reference system (CRS) = Formula that defines how the 2D map (e.g. on your screen or a paper map) relates to the 3D Earth. Also sometimes called a spatial Reference System (SRS)
+
+::: {.infobox .tip data-latex="{note}"}
+
+**Take home message**
+
+When you do analysis on multiple datasets make sure they are all use the same Coordiante Reference System.
+
+If it's local (e.g. city of country analysis) then use a local projected CRS where possible.
+:::
+
 
 ### Changing projections
 
@@ -180,15 +198,13 @@ If you are still a bit confused by coordiate reference systems then **stop** and
 
 This is the best resources i've come across explaining coordiate reference systems are:
 
-* https://geocompr.github.io/post/2019/crs-projections-transformations/
+* [Geographic projection and transformation workbook by Robin Lovelace](https://geocompr.github.io/post/2019/crs-projections-transformations/)
 
-* https://mercator.tass.com/mercator-heritage --- this is the story of Mercator!
+* [I hate coordinate systems](https://ihatecoordinatesystems.com/#mental-model)
 
-Others include:
+* [ESRI's coordinate systems and projections for beginners](https://communityhub.esriuk.com/geoxchange/2012/3/26/coordinate-systems-and-projections-for-beginners.html)
 
-* https://geocompr.robinlovelace.net/spatial-class.html#vector-data
-
-* https://communityhub.esriuk.com/geoxchange/2012/3/26/coordinate-systems-and-projections-for-beginners.html
+* [The story of Mercator!](https://mercator.tass.com/mercator-heritage)
 
 
 ### WorldClim data 
