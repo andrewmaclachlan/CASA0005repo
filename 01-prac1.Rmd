@@ -31,6 +31,8 @@ This week:
 
 * [Chapter 2 "Geographic data in R"](https://geocompr.robinlovelace.net/spatial-class.html) from Geocomputation with R by Lovelace, Nowosad and Muenchow (2020).
 
+* [Opening practice: supporting reproducibility and critical spatial data science](https://link.springer.com/article/10.1007/s10109-020-00334-2#Sec3) by Brunsdon and Comber (2020)
+
 **Watching**
 
 * [What is Spatial Data Science](https://www.youtube.com/watch?v=osAbJeTho5w) from some of our friends at CARTO
