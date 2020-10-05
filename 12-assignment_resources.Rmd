@@ -83,6 +83,7 @@ If you want to produce more efficent R code then have a look at the [Efficient R
 
 Every year there is a useR conference that provides a load to tutorials on the latest developments and research...check them out here: 
 <div class="col2">
+* [R Weekly, podcast with weekly highlights and new developments in R](https://rweekly.fireside.fm/)
 * [Data to viz, really great website with code](https://www.data-to-viz.com/)
 * [Modern data plots](https://moderndata.plot.ly/visualizing-geo-spatial-data-with-sf-and-plotly/)
 * [Make graphics like the BBC](https://github.com/bbc/bbplot/blob/master/chart_examples/bbplot_example_plots.png)
