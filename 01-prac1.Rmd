@@ -264,7 +264,7 @@ As we are going to use this dataset in QGIS and R I've done it in Excel using a 
 
 I've used the following:
 
-```{r echo=FALSE, out.width = "200pt", fig.align='center', cache=TRUE}
+```{r echo=FALSE, out.width = "400pt", fig.align='center', cache=TRUE}
 knitr::include_graphics('prac1_images/pivot_example.png')
 ```
 Note how I've altered the total_action_taken to the sum of... as the original was displaying incorrectly, to do so:
@@ -366,7 +366,7 @@ QGIS defaults to the Coordinate Reference System (CRS) WGS 84, or known by its E
 
 You can change the CRS by going Project > Properties and selecting CRS in the left hand pane.
 
-```{r echo=FALSE, out.width = "500pt", fig.align='center', cache=TRUE}
+```{r echo=FALSE, out.width = "800pt", fig.align='center', cache=TRUE}
 knitr::include_graphics('prac1_images/QGIS_CRS.png') 
 ```
 
