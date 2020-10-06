@@ -26,6 +26,10 @@ RStudio is a free and open-source integrated development environment for R --- i
 
 If you are using a Mac and run into issues, firstly follow the instructions below then check out the [Mac R issues] section if the problem persists. 
 
+### Setup 2 {-}
+
+UCL students (and staff) can now also make use of R Studio Server. It's RStudio on a webpage, so no installation is required. Access information will be provided on Moodle and in the lectures. 
+
 ## ArcGIS {-}
 
 As ArcGIS is not open soure and from my experience analysis within it is largely not reproducible and therefore it is not included within this practical book. If you are interested in it please [consult previous iterations of this course](https://andrewmaclachlan.github.io/CASA0005repo_20192020/). You will find tutorials on: [Joining data](https://andrewmaclachlan.github.io/CASA0005repo_20192020/geographic-information.html#data-loading), [Map Making](https://andrewmaclachlan.github.io/CASA0005repo_20192020/map-making.html#mapping-in-arcmap) and [Spatial Patterns](https://andrewmaclachlan.github.io/CASA0005repo_20192020/analysing-spatial-patterns.html#arcmap-part-2). 

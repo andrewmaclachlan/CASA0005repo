@@ -38,6 +38,8 @@ This week:
 
 * [Hadley Wickham's Keynote from the European Molecular Biology Laboratory (EMBL)](https://www.youtube.com/watch?v=9YTNYT1maa4). This will be the same for a few weeks.
 
+* [Karthik Ram's "A guide to modern reproducible data science with R"](https://rstudio.com/resources/rstudioconf-2019/a-guide-to-modern-reproducible-data-science-with-r-karthik-ram/)
+
 Remember this is just a starting point, explore the [reading list](https://rl.talis.com/3/ucl/lists/139FBAF8-DACD-60FB-8BDC-E9C9E09BA885.html?lang=en-GB&login=1), practical and lecture for more ideas.
 :::
 
@@ -836,8 +838,6 @@ Commit, then push to GitHub.
 Be careful! Binder is free but if you have a large project then it might take a while to create (as it gives you between 1 and 2GB of RAM) or time out. For example, I tried to create a binder for this book, it did run eventually but took several hours. The binder will also be deleted after around 10 minutes. That said, it's really great for instantly demonstrating your code to your audience. 
 
 For more information on this, see Karthik's great `holepunch` [package user guide](https://karthik.github.io/holepunch/index.html), which is where i got this code from.
-
-And also Karthik's short [R Studio conference talk on reproducible research](https://resources.rstudio.com/rstudio-conf-2019/a-guide-to-modern-reproducible-data-science-with-r)
 
 ## Further reading
 

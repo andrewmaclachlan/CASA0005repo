@@ -30,8 +30,6 @@ This week:
 
 * [Chapter 8 "Making maps with R"](https://geocompr.robinlovelace.net/adv-map.html) from Geocomputation with R by Lovelace, Nowosad and Muenchow (2020)
 
-* []
-
 Remember this is just a starting point, explore the [reading list](https://rl.talis.com/3/ucl/lists/139FBAF8-DACD-60FB-8BDC-E9C9E09BA885.html?lang=en-GB&login=1), practical and lecture for more ideas.
 :::
 
