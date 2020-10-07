@@ -24,7 +24,7 @@
 <meta name="author" content="Andy MacLachlan and Adam Dennett" />
 
 
-<meta name="date" content="2020-10-06" />
+<meta name="date" content="2020-10-07" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -700,7 +700,7 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 </blockquote>
 <p>However, a nice place to start is looking at the typical workflow of a data science (or GIS) project which you will see throuhgout these practicals, which is summarised nicely in this diagram produced by <a href="https://twitter.com/juliesquid">Dr. Julia Lowndes</a> adpted from Grolemund and Wickham.</p>
 <p><img src="allisonhorst_images/environmental_data_science_r4ds_general.png" width="600pt" style="display: block; margin: auto;" /></p>
-<p>To being you have to <strong>import</strong> your data (not necessarily environmental) into R or someother kind of GIS to acatually be able to do any kind of analysis on it.</p>
+<p>To begin you have to <strong>import</strong> your data (not necessarily environmental) into R or someother kind of GIS to acatually be able to do any kind of analysis on it.</p>
 <p>Once imported you might need to <strong>tidy</strong> the data. This really depends on what kind of data it is and we cover this later on in the course. However, putting all of your data into a consistent structure will be very beneficial when you have to do analysis on it — as you can treat it all in the same way. Grolemund and Wickham state that data is tidy when “each column is a variable, and each row is an observation”, we cover this more in next week in the <a href="introduction-to-r.html#tidying-data">Tidying data</a> section.</p>
 <p>When you have (or haven’t) tidied data you then will most likely want to <strong>transform</strong> it. Grolemund and Wickham define this as “narrowing in on observations of interest (like all people in one city, or all data from the last year), creating new variables that are functions of existing variables (like computing speed from distance and time), and calculating a set of summary statistics (like counts or means)”. However, from a GIS point of view I would also include putting all of your data into a similar projection, covered next week in <a href="rasters-descriptive-statistics-and-interpolation.html#changing-projections">Changing projections</a> and any other basic process you might do before the core analysis. Arguably these processes could include things such as: clipping (cookie cutting your study area), buffering (making areas within a distance of a point) and intersecting (where two datasets overlap).</p>
 <p>Tidying and transfrom = data wrangling. Remember from the introduction this could be 50-80% of a data science job!</p>
@@ -769,7 +769,9 @@ Note how I’ve altered the total_action_taken to the sum of… as the original 
 <p><strong>Spoiler</strong> The spatial data we have downloaded already contains borough name, so we don’t need it twice. However, we do need a field to link the two datasets on. You could use borough name, but when using text fields sometimes input variations can affect joins. For example, if you had the University of Manchester in one dataset and Manchester University in another the join would fail. Consequently it’s usually best to join datasets on a code field.</p>
 <p>Now save the Excel sheet that contains the pivot table as a new <code>.csv</code>. Make sure that the first row of data holds the column titles. Remove all empty rows.</p>
 <p>When saving the file also avoid any special characters (e.g. -) and spaces, use an underscore instead of spaces.</p>
+<div class="infobox warning">
 <p><strong>Warning</strong> Spatial software does not like file names with spaces or special characters.</p>
+</div>
 <p>Now it’s time to load, inspect and do some basic manipulation of this data. As mentioned in the lecture there are several GIS software ‘types’, here we will repeat the same process across QGIS and R.</p>
 </div>
 <div id="qgis-1" class="section level3">
@@ -836,7 +838,7 @@ Note how I’ve altered the total_action_taken to the sum of… as the original 
 <p>You should have produced something like this:</p>
 <p><img src="prac1_images/QGIS_final.png" width="800pt" style="display: block; margin: auto;" /></p>
 <p><strong>We haven’t talked about the Coordiante Reference System (CRS) (or Spatial Reference System (SRS)) of our map document</strong></p>
-<p>A coordinate reference system is a series of parameters that define the coordinate system. Within GIS we use geographic or projected coordinate systems. The former uses a three-dimensional spherical surface to define locations of Earth, whereas the latter is defined on a flat, two-dimensional surface giving it constant lengths, angles and areas. We cover this in more detail later on.</p>
+<p>A coordinate reference system is a series of parameters that define the coordinate system. Within GIS we use geographic or projected coordinate systems. The former uses a three-dimensional spherical surface to define locations of Earth, whereas the latter is defined on a flat, two-dimensional surface giving it constant lengths, angles and areas. We cover this in much more detail later on in subsequent weeks.</p>
 <p>QGIS defaults to the Coordinate Reference System (CRS) WGS 84, or known by its European Petroleum Survey Group (EPSG) code 4326. However, when you add your first layer it will default the CRS of the layer. We’ll go into the background of EPSG next time.</p>
 <p>You can change the CRS by going Project &gt; Properties and selecting CRS in the left hand pane.</p>
 <p><img src="prac1_images/QGIS_CRS.png" width="800pt" style="display: block; margin: auto;" /></p>
@@ -846,7 +848,6 @@ Note how I’ve altered the total_action_taken to the sum of… as the original 
 <div class="infobox warning">
 <p><strong>Note</strong> As we are going to open the same files in difference GIS systems it is important to close the software before moving on. If you don’t then files can be <em>locked</em> and unreadable as they are still considered to be in use.</p>
 </div>
-<p>We cover coordinate reference systems in much more detail later on in the course.</p>
 </div>
 </div>
 <div id="r-1" class="section level3">
@@ -905,7 +906,7 @@ Note how I’ve altered the total_action_taken to the sum of… as the original 
 ## bbox:           xmin: 503568.2 ymin: 155850.8 xmax: 561957.5 ymax: 200933.9
 ## projected CRS:  OSGB 1936 / British National Grid</code></pre>
 <blockquote>
-<p><strong>Note</strong> If you are working on RStudio cloud and have a shapefile (along with all the other relevant files required) you will just need to use…</p>
+<p><strong>Note</strong> If you are working on the UCL RStudio Server and have a shapefile (along with all the other relevant files required) you will just need to use…</p>
 </blockquote>
 <div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" title="1">shape &lt;-<span class="st"> </span><span class="kw">st_read</span>(<span class="st">&quot;London_Borough_Excluding_MHW.shp&quot;</span>)</a></code></pre></div>
 <p>As RStudio cloud knows you have setup a project and to look for files within it…we cover this very soon for RStudio desktop.</p>

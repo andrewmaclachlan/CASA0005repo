@@ -179,7 +179,7 @@ However, a nice place to start is looking at the typical workflow of a data scie
 knitr::include_graphics('allisonhorst_images/environmental_data_science_r4ds_general.png')
 ```
 
-To being you have to **import** your data (not necessarily environmental) into R or someother kind of GIS to acatually be able to do any kind of analysis on it.
+To begin you have to **import** your data (not necessarily environmental) into R or someother kind of GIS to acatually be able to do any kind of analysis on it.
 
 Once imported you might need to **tidy** the data. This really depends on what kind of data it is and we cover this later on in the course. However, putting all of your data into a consistent structure will be very beneficial when you have to do analysis on it --- as you can treat it all in the same way. Grolemund and Wickham state that data is tidy when "each column is a variable, and each row is an observation", we cover this more in next week in the [Tidying data] section.
 
@@ -279,7 +279,9 @@ Now save the Excel sheet that contains the pivot table as a new ```.csv```. Make
 
 When saving the file also avoid any special characters (e.g. -) and spaces, use an underscore instead of spaces. 
 
+::: {.infobox .warning data-latex="{note}"}
 **Warning** Spatial software does not like file names with spaces or special characters.
+:::
 
 Now it's time to load, inspect and do some basic manipulation of this data. As mentioned in the lecture there are several GIS software 'types', here we will repeat the same process across QGIS and R.
 
@@ -360,7 +362,7 @@ knitr::include_graphics('prac1_images/QGIS_final.png')
 
 **We haven't talked about the Coordiante Reference System (CRS) (or Spatial Reference System (SRS)) of our map document**
 
-A coordinate reference system is a series of parameters that define the coordinate system. Within GIS we use geographic or projected coordinate systems. The former uses a three-dimensional spherical surface to define locations of Earth, whereas the latter is defined on a flat, two-dimensional surface giving it constant lengths, angles and areas. We cover this in more detail later on.
+A coordinate reference system is a series of parameters that define the coordinate system. Within GIS we use geographic or projected coordinate systems. The former uses a three-dimensional spherical surface to define locations of Earth, whereas the latter is defined on a flat, two-dimensional surface giving it constant lengths, angles and areas. We cover this in much more detail later on in subsequent weeks.
 
 QGIS defaults to the Coordinate Reference System (CRS) WGS 84, or known by its European Petroleum Survey Group (EPSG) code 4326. However, when you add your first layer it will default the CRS of the layer. We'll go into the background of EPSG next time.
 
@@ -378,8 +380,6 @@ You can also access the project CRS by just clicking on the EPSG code in the bot
 ::: {.infobox .warning data-latex="{note}"}
 **Note** As we are going to open the same files in difference GIS systems it is important to close the software before moving on. If you don't then files can be *locked* and unreadable as they are still considered to be in use.
 :::
-
-We cover coordinate reference systems in much more detail later on in the course.
 
 ### R
 
@@ -467,7 +467,7 @@ library(sf)
 shape <- st_read("Prac1_data/statistical-gis-boundaries-london/ESRI/London_Borough_Excluding_MHW.shp")
 ```
 
-> **Note** If you are working on RStudio cloud and have a shapefile (along with all the other relevant files required) you will just need to use...
+> **Note** If you are working on the UCL RStudio Server and have a shapefile (along with all the other relevant files required) you will just need to use...
 
 ```{r, message=FALSE, warning=FALSE, cache=TRUE, eval=FALSE}
 shape <- st_read("London_Borough_Excluding_MHW.shp")
