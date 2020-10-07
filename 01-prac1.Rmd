@@ -254,6 +254,10 @@ To this...
 knitr::include_graphics('prac1_images/csv_pivot.png')
 ```
 
+::: {.infobox .tip data-latex="{note}"}
+Scroll to the end of the `.csv` and look at the data in the final rows. The last year should be 2017-2018. If you have years such as 2018-2020 then delete these rows.
+:::
+
 As we are going to use this dataset in QGIS and R I've done it in Excel using a pivot table. In future we'll use R to automate tasks like this.
 
 1. Go to Insert > PivotTable
