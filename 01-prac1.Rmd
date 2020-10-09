@@ -71,7 +71,7 @@ knitr::include_graphics('allisonhorst_images/continuous_discrete.png')
 
 Nominal data has labels without any quantitative value such as hair colour or type of animal. 
 
-Oridnal data has an order or scale, for example if you have ever seen the chilli rating system on food labels or filled a happiness survey with a range between 1 and 10 --- that's ordinal. Here the order matters, but not the difference between them.
+Ordinal data has an order or scale, for example if you have ever seen the chilli rating system on food labels or filled a happiness survey with a range between 1 and 10 --- that's ordinal. Here the order matters, but not the difference between them.
 
 Binary data is that that can have only two possible outcomes, yes and no or shark and not shark.
 
@@ -217,14 +217,14 @@ In your N drive: create a new folder called GIS and within this a sub folder cal
 
 Firstly we need to get a spatial outline of the London boroughs. The geographic boundaries that are used in the UK are a complex, often inter-related, but ever changing mass of areas. For anyone new to the UK (or indeed not a trained quantitative geographer), it can be quite a daunting task to attempt to understand all of the boundaries that are in use. Fortunately the Office for National Statistics (ONS) has an online beginners guide to UK geography. If you need more information on the vast array of different UK geographies, go and explore these resources:
 
-* http://geoportal.statistics.gov.uk/datasets/a-beginners-guide-to-uk-geography-2018-v1-0 
-* https://data.gov.uk/dataset/d7dd9437-20d0-448f-a61b-6e0939dcc642/hierarchical-representation-of-uk-statistical-geographies-december-2017
+* [A Beginners Guide to UK Geography (2019) v1.0](https://geoportal.statistics.gov.uk/datasets/a31e552c8a214ac2935dbb5701009a64)
+* [https://geoportal.statistics.gov.uk/datasets/9c04ff58854040d09a5a7ce146ab59b4](https://geoportal.statistics.gov.uk/datasets/9c04ff58854040d09a5a7ce146ab59b4)
 
 Let's download some data..
 
 * Spatial Data
 
-1. To get the data go to: https://data.london.gov.uk/
+1. To get the data go to the [London data store](https://data.london.gov.uk/)
 
 1. Search for Statistical GIS Boundary Files for London
 
@@ -316,6 +316,11 @@ knitr::include_graphics('prac1_images/csv_datamanager.png')
 Does the sample data seem right?
 
 1. If so, click add then close
+
+::: {.infobox .warning data-latex="{note}"}
+**Note** Your `.csv` might have a extra header present (a row before Row Labels). You can either: (a) close this and go and delete this in the `.csv` now and reload it or 
+(b) change the number of header lines to discard to 1 in the Record and Fields Options in the screenshot above. 
+:::
 
 #### Join data
 
@@ -509,6 +514,13 @@ mycsv <-  read_csv("Prac1_data/fly_tipping_borough_edit.csv")
 ```
 
 When you load `tidyverse` you might get a list of conflicts, this basically means that several packages have functions named the same thing. For example there is a function named `filter()` in the packages `dplyr` and `stats`. If you wanted to use the `dplyr` version you would use `dplyr::filter()` or for the `stats` version it would be `stats::filter()`...
+
+::: {.infobox .warning data-latex="{note}"}
+**Note** Your `.csv` might have a extra header present (a row before Row Labels). You can either: (a) stop and go and delete this in the `.csv` now and reload it or 
+(b) change the code to...
+`mycsv <- read_csv("Prac1_data/fly_tipping_borough_edit.csv", 
+    skip = 1)`
+:::
 
 To view the data just input:
 
@@ -724,7 +736,7 @@ It seems that a lot of the packages are dependent on rgdal, which might not prop
 
 1. Download and install the appropriate `.dmg` from [Java SE Development Kit 11.0.1](https://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html)
 
-1. Run sudo R CMD javareconf in Terminal as described [here](http://conjugateprior.org/2014/12/r-java8-osx/)(though don't follow this tutorial exactly, just up to that terminal command).
+1. Run sudo R CMD javareconf in Terminal as described [in this tutorial](http://conjugateprior.org/2014/12/r-java8-osx/)(though don't follow this tutorial exactly, just up to that terminal command).
 
 1. (Maybe) restart your computer (not really sure when this is necessary).
 

@@ -32,6 +32,8 @@ This week:
 
 **Watching**
 
+* [The series of short (2min) videos produced by RStudio on programming basics](https://rstudio.cloud/learn/primers/1.2)
+
 * [Hadley Wickham's Keynote from the European Molecular Biology Laboratory (EMBL)](https://www.youtube.com/watch?v=9YTNYT1maa4). This will be the same for a few weeks.
 
 Remember this is just a starting point, explore the [reading list](https://rl.talis.com/3/ucl/lists/139FBAF8-DACD-60FB-8BDC-E9C9E09BA885.html?lang=en-GB&login=1), practical and lecture for more ideas.

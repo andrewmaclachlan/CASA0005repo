@@ -24,7 +24,7 @@
 <meta name="author" content="Andy MacLachlan and Adam Dennett" />
 
 
-<meta name="date" content="2020-10-07" />
+<meta name="date" content="2020-10-09" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -613,7 +613,7 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <p>Foot length would be continuous data but shoe size would be discrete data.</p>
 <p><img src="allisonhorst_images/continuous_discrete.png" width="450" style="display: block; margin: auto;" /></p>
 <p>Nominal data has labels without any quantitative value such as hair colour or type of animal.</p>
-<p>Oridnal data has an order or scale, for example if you have ever seen the chilli rating system on food labels or filled a happiness survey with a range between 1 and 10 — that’s ordinal. Here the order matters, but not the difference between them.</p>
+<p>Ordinal data has an order or scale, for example if you have ever seen the chilli rating system on food labels or filled a happiness survey with a range between 1 and 10 — that’s ordinal. Here the order matters, but not the difference between them.</p>
 <p>Binary data is that that can have only two possible outcomes, yes and no or shark and not shark.</p>
 <p><img src="allisonhorst_images/nominal_ordinal_binary.png" width="550pt" style="display: block; margin: auto;" /></p>
 </div>
@@ -725,15 +725,15 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <h3><span class="header-section-number">1.6.2</span> Data download</h3>
 <p>Firstly we need to get a spatial outline of the London boroughs. The geographic boundaries that are used in the UK are a complex, often inter-related, but ever changing mass of areas. For anyone new to the UK (or indeed not a trained quantitative geographer), it can be quite a daunting task to attempt to understand all of the boundaries that are in use. Fortunately the Office for National Statistics (ONS) has an online beginners guide to UK geography. If you need more information on the vast array of different UK geographies, go and explore these resources:</p>
 <ul>
-<li><a href="http://geoportal.statistics.gov.uk/datasets/a-beginners-guide-to-uk-geography-2018-v1-0" class="uri">http://geoportal.statistics.gov.uk/datasets/a-beginners-guide-to-uk-geography-2018-v1-0</a></li>
-<li><a href="https://data.gov.uk/dataset/d7dd9437-20d0-448f-a61b-6e0939dcc642/hierarchical-representation-of-uk-statistical-geographies-december-2017" class="uri">https://data.gov.uk/dataset/d7dd9437-20d0-448f-a61b-6e0939dcc642/hierarchical-representation-of-uk-statistical-geographies-december-2017</a></li>
+<li><a href="https://geoportal.statistics.gov.uk/datasets/a31e552c8a214ac2935dbb5701009a64">A Beginners Guide to UK Geography (2019) v1.0</a></li>
+<li><a href="https://geoportal.statistics.gov.uk/datasets/9c04ff58854040d09a5a7ce146ab59b4">https://geoportal.statistics.gov.uk/datasets/9c04ff58854040d09a5a7ce146ab59b4</a></li>
 </ul>
 <p>Let’s download some data..</p>
 <ul>
 <li>Spatial Data</li>
 </ul>
 <ol style="list-style-type: decimal">
-<li><p>To get the data go to: <a href="https://data.london.gov.uk/" class="uri">https://data.london.gov.uk/</a></p></li>
+<li><p>To get the data go to the <a href="https://data.london.gov.uk/">London data store</a></p></li>
 <li><p>Search for Statistical GIS Boundary Files for London</p></li>
 <li><p>Download the statistical-gis-boundaries-london.zip</p></li>
 <li><p>Unzip the data and save it to your wk1 folder.</p></li>
@@ -801,6 +801,10 @@ Note how I’ve altered the total_action_taken to the sum of… as the original 
 <ol style="list-style-type: decimal">
 <li>If so, click add then close</li>
 </ol>
+<div class="infobox warning">
+<p><strong>Note</strong> Your <code>.csv</code> might have a extra header present (a row before Row Labels). You can either: (a) close this and go and delete this in the <code>.csv</code> now and reload it or
+(b) change the number of header lines to discard to 1 in the Record and Fields Options in the screenshot above.</p>
+</div>
 </div>
 <div id="join-data" class="section level4">
 <h4><span class="header-section-number">1.6.4.2</span> Join data</h4>
@@ -958,6 +962,11 @@ Note how I’ve altered the total_action_taken to the sum of… as the original 
 ##   Grand_Total = col_double()
 ## )</code></pre>
 <p>When you load <code>tidyverse</code> you might get a list of conflicts, this basically means that several packages have functions named the same thing. For example there is a function named <code>filter()</code> in the packages <code>dplyr</code> and <code>stats</code>. If you wanted to use the <code>dplyr</code> version you would use <code>dplyr::filter()</code> or for the <code>stats</code> version it would be <code>stats::filter()</code>…</p>
+<div class="infobox warning">
+<p><strong>Note</strong> Your <code>.csv</code> might have a extra header present (a row before Row Labels). You can either: (a) stop and go and delete this in the <code>.csv</code> now and reload it or
+(b) change the code to…
+<code>mycsv &lt;- read_csv("Prac1_data/fly_tipping_borough_edit.csv",      skip = 1)</code></p>
+</div>
 <p>To view the data just input:</p>
 <div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb17-1" title="1">mycsv </a></code></pre></div>
 <pre><code>## # A tibble: 34 x 9
@@ -1194,7 +1203,7 @@ Note how I’ve altered the total_action_taken to the sum of… as the original 
 <ol style="list-style-type: decimal">
 <li><p>Install java JDK (to respond to error Unable to find any JVMs matching version “(null)”, which occurred when we tried to load <code>OpenStreetMap</code> package in RStudio)</p></li>
 <li><p>Download and install the appropriate <code>.dmg</code> from <a href="https://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html">Java SE Development Kit 11.0.1</a></p></li>
-<li><p>Run sudo R CMD javareconf in Terminal as described <a href="http://conjugateprior.org/2014/12/r-java8-osx/">here</a>(though don’t follow this tutorial exactly, just up to that terminal command).</p></li>
+<li><p>Run sudo R CMD javareconf in Terminal as described <a href="http://conjugateprior.org/2014/12/r-java8-osx/">in this tutorial</a>(though don’t follow this tutorial exactly, just up to that terminal command).</p></li>
 <li><p>(Maybe) restart your computer (not really sure when this is necessary).</p></li>
 </ol>
 <p><strong>Install GDAL</strong></p>
