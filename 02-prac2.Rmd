@@ -43,9 +43,9 @@ Remember this is just a starting point, explore the [reading list](https://rl.ta
 
 Some of these practicals are long, take regular breaks and have a listen to some of our fav tunes each week.
 
-[Andy](https://www.youtube.com/watch?v=A48hOToMuRE)
+[Andy](https://open.spotify.com/album/7jGNAMzrW5HMXdxl9XyBMG). Dermot Kennedy, might give you the chills with his pure voice. I saw him live last year at All Points East in London. Orginally was well known from the Spotify Discover Weekly where he used to self publish songs. 
 
-[Adam](https://open.spotify.com/album/0m9oaRdpRS9n0mq2bECgNQ?si=Dxu8_-kmSy6jq_oFN5gJ4A). Recommended listening this week comes courtesy of “Pound for pound the best rock band on the planet at the minute. In my, not so humble opinion.” – Jake Burns, Stiff Little Fingers. Yes, it’s the Wildhearts and I can confirm that they are the greatest rock band on the planet! Wrap your ears around this: 
+[Adam](https://open.spotify.com/album/5yAXUpsKaby5IcXgzrNFAw). Change of genre this week, but this will still melt your brains! I first saw this band in Cambridge in about 2004 when we were both still young! 16 years later, they're now a massive platinum-selling Rock juggernaut with their latest singles bothering the playlists of the world's most popular radio stations and their live-shows conquering the biggest festivals. Mon the Biff. It is of course Biffy Clyro! Here's their latest album - A Celebration of Endings -
 
 ## Introduction 
 
@@ -577,9 +577,17 @@ Check it worked:
 LondonBoroughs$`Ward name`
 ```
 
+That's also the same as:
+
+```{r,eval=FALSE, cache=FALSE}
+LondonBoroughs %>% 
+  select(`Ward name`) %>%
+  print()
+```
+
 `r emo::ji("sunglasses")`**AWWMAHGAWD!!!** `r emo::ji("sunglasses")`Pretty cool hey?
 
-What that code is saying is `stringr` look for the rows that have the ward code like E09, then filter these and store in the object `LondonBoroughs`
+What that code is saying is `stringr` look for (detect!) the rows that have the ward code like E09, then filter these and store in the object `LondonBoroughs`
 
 The `stringr` package is really great and if you ever need to manipulate text type data then it's the place to start.
 
