@@ -654,7 +654,12 @@ LondonBoroughs <- LondonBoroughs %>%
 
 #### More `dplyr` verbs
 
-What about determining both (a) the average of male and female life expectancy together and (b) a normalised value for each London borough based on the London average. Then selecting only the name of the Borough, mean life expectancy and normalised life expectancy, arranging the output based on the normalised life expectancy in descending order...
+What about determining both:
+
+* (a) the average of male and female life expectancy together
+* (b) a normalised value for each London borough based on the London average. 
+
+Then selecting only the name of the Borough, mean life expectancy and normalised life expectancy, arranging the output based on the normalised life expectancy in descending order...
 
 To do this we will rely on the `mutate()` function that let's us add new variables based on existing ones...
 
@@ -713,7 +718,7 @@ Now whilst this is useful, it doesn't tell is much more about the data itself, w
 ```{r}
 Life_expectancy2_group <- Life_expectancy2 %>%
   mutate(UKdiff = averagelifeexpectancy-81.16) %>%
-  group_by(UKcompare )%>%
+  group_by(UKcompare)%>%
   summarise(range=max(UKdiff)-min(UKdiff), count=n(), Average=mean(UKdiff))
 
 Life_expectancy2_group
@@ -729,6 +734,7 @@ We are going to:
 ```{r echo=FALSE, out.width = "450pt", fig.align='center', cache=FALSE}
 knitr::include_graphics('allisonhorst_images/dplyr_across.png')
 ```
+Here we need to:
 
 1. Round the column `UKdiff` to 0 decimcal places (not adding a new column)
 1. Use `case_when()` to find Boroughs that have an average age of equal to or over 81 and create a new column that containts text based combining `equal or above UK average by` then the years created in UKdiff. We do this through the `str_c()` function from the `stringr` pacakge that let's us join two or more vector elements into a single character vector. Here `sep` determines how these two vectors are separated.
@@ -878,7 +884,7 @@ Pull out London using the  `str_detect()` function from the `stringr` package in
 LondonMap<- EW %>%
   filter(str_detect(lad15cd, "^E09"))
 
-#plot it using the base plot function
+#plot it using the qtm function
 qtm(LondonMap)
 ```
 
@@ -886,7 +892,8 @@ qtm(LondonMap)
 
 ```{r, cache=FALSE, eval=FALSE}
 #read the shapefile into a simple features object
-BoroughMapSF <- st_read("prac1_data/statistical-gis-boundaries-london/ESRI/London_Borough_Excluding_MHW.shp")
+BoroughMapSF <- st_read(here::here("prac1_data",
+"statistical-gis-boundaries-london/ESRI/London_Borough_Excluding_MHW.shp"))
 
 #plot it very quickly usking qtm (quick thematic map) to check
 #it has been read in correctly
@@ -1035,7 +1042,9 @@ tm_polygons("UKdiff",
 ```
 
 There are a few subtle differences in the code of this second map if you look closely:
+
 * Style is now `pretty` not `jenks`. Style controls where the breaks are within the data that are then assigned to each colour for mapping. `pretty` rounds to whole numbers and evenly spaces them over the data.
+
 * Palette in now `Blues` not `YlOrBr`. Palette controls the colour of the map, you can see more options through `tmaptools::palette_explorer()`
 
 ## Tidying data

@@ -24,7 +24,7 @@
 <meta name="author" content="Andy MacLachlan and Adam Dennett" />
 
 
-<meta name="date" content="2020-10-12" />
+<meta name="date" content="2020-10-14" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -1009,7 +1009,16 @@ Here, we could filter based on a variable, for example extracting all the wards 
 </div>
 <div id="more-dplyr-verbs" class="section level4">
 <h4><span class="header-section-number">2.5.5.4</span> More <code>dplyr</code> verbs</h4>
-<p>What about determining both (a) the average of male and female life expectancy together and (b) a normalised value for each London borough based on the London average. Then selecting only the name of the Borough, mean life expectancy and normalised life expectancy, arranging the output based on the normalised life expectancy in descending order…</p>
+<p>What about determining both:</p>
+<ul>
+<li><ol style="list-style-type: lower-alpha">
+<li>the average of male and female life expectancy together</li>
+</ol></li>
+<li><ol start="2" style="list-style-type: lower-alpha">
+<li>a normalised value for each London borough based on the London average.</li>
+</ol></li>
+</ul>
+<p>Then selecting only the name of the Borough, mean life expectancy and normalised life expectancy, arranging the output based on the normalised life expectancy in descending order…</p>
 <p>To do this we will rely on the <code>mutate()</code> function that let’s us add new variables based on existing ones…</p>
 <p><img src="allisonhorst_images/dplyr_mutate.png" width="500pt" style="display: block; margin: auto;" /></p>
 <div class="sourceCode" id="cb94"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb94-1" title="1">Life_expectancy &lt;-<span class="st"> </span>LondonBoroughs <span class="op">%&gt;%</span><span class="st"> </span></a>
@@ -1076,7 +1085,7 @@ Here, we could filter based on a variable, for example extracting all the wards 
 <p>Now whilst this is useful, it doesn’t tell is much more about the data itself, what if we wanted to know the range of life expectancies for London Boroughs that are above the national average….</p>
 <div class="sourceCode" id="cb101"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb101-1" title="1">Life_expectancy2_group &lt;-<span class="st"> </span>Life_expectancy2 <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb101-2" title="2"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">UKdiff =</span> averagelifeexpectancy<span class="fl">-81.16</span>) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb101-3" title="3"><span class="st">  </span><span class="kw">group_by</span>(UKcompare )<span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb101-3" title="3"><span class="st">  </span><span class="kw">group_by</span>(UKcompare)<span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb101-4" title="4"><span class="st">  </span><span class="kw">summarise</span>(<span class="dt">range=</span><span class="kw">max</span>(UKdiff)<span class="op">-</span><span class="kw">min</span>(UKdiff), <span class="dt">count=</span><span class="kw">n</span>(), <span class="dt">Average=</span><span class="kw">mean</span>(UKdiff))</a></code></pre></div>
 <pre><code>## `summarise()` ungrouping output (override with `.groups` argument)</code></pre>
 <div class="sourceCode" id="cb103"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb103-1" title="1">Life_expectancy2_group</a></code></pre></div>
@@ -1091,7 +1100,8 @@ Here, we could filter based on a variable, for example extracting all the wards 
 <li>Again work out difference between the life expectancy of the Boroughs compared to the national average</li>
 <li>Round the whole table based on if the column is numeric (this isn’t required and we’re not adding a new column). Here we are using <code>across</code> that applies some kind of transformation across the columns selected (or that are numeric in this case).</li>
 </ol>
-<p><img src="allisonhorst_images/dplyr_across.png" width="450pt" style="display: block; margin: auto;" /></p>
+<p><img src="allisonhorst_images/dplyr_across.png" width="450pt" style="display: block; margin: auto;" />
+Here we need to:</p>
 <ol style="list-style-type: decimal">
 <li>Round the column <code>UKdiff</code> to 0 decimcal places (not adding a new column)</li>
 <li>Use <code>case_when()</code> to find Boroughs that have an average age of equal to or over 81 and create a new column that containts text based combining <code>equal or above UK average by</code> then the years created in UKdiff. We do this through the <code>str_c()</code> function from the <code>stringr</code> pacakge that let’s us join two or more vector elements into a single character vector. Here <code>sep</code> determines how these two vectors are separated.</li>
@@ -1166,7 +1176,7 @@ Here, we could filter based on a variable, for example extracting all the wards 
 <a class="sourceLine" id="cb113-9" title="9">        <span class="dt">type =</span> <span class="st">&quot;scatter&quot;</span>, </a>
 <a class="sourceLine" id="cb113-10" title="10">        <span class="dt">mode =</span> <span class="st">&quot;markers&quot;</span>)</a></code></pre></div>
 <div id="htmlwidget-5f1a8948d522afa22069" style="width:672px;height:480px;" class="plotly html-widget"></div>
-<script type="application/json" data-for="htmlwidget-5f1a8948d522afa22069">{"x":{"visdat":{"343427701c26":["function () ","plotlyVisDat"]},"cur_data":"343427701c26","attrs":{"343427701c26":{"x":{},"y":{},"text":{},"mode":"markers","alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"type":"scatter"}},"layout":{"margin":{"b":40,"l":60,"t":25,"r":10},"xaxis":{"domain":[0,1],"automargin":true,"title":"male_life_expectancy_2009_13"},"yaxis":{"domain":[0,1],"automargin":true,"title":"percent_children_in_reception_year_who_are_obese_2011_12_to_2013_14","type":"category","categoryorder":"array","categoryarray":["10.2","10.3","10.6","11.0","11.1","11.2","11.5","11.6","12.2","12.5","12.7","12.8","13.2","13.3","13.6","5.7","6.0","7.8","8.1","9.0","9.2","9.5","9.6","9.8"]},"hovermode":"closest","showlegend":false},"source":"A","config":{"showSendToCloud":false},"data":[{"x":[84.3,77.7,81.9,80.3,80,81.3,81.1,80,79.9,80.6,78.7,78.2,79.1,80.1,82.4,79.8,80.4,79.7,78.2,82.6,81.3,78.4,78.7,80.3,78.5,80.7,81.9,78.6,80.8,77.5,79.7,79.2,81.7],"y":["11.1","13.6","9.5","11.6","12.2","7.8","9.8","11.1","11.2","12.7","13.2","13.3","10.2","11.1","9.6","10.3","9.6","11.2","10.6","9.2","6.0","11.5","11.0","9.0","12.5","10.6","5.7","12.8","8.1","12.7","10.6","9.2","11.1"],"text":["City of London","Barking and Dagenham","Barnet","Bexley","Brent","Bromley","Camden","Croydon","Ealing","Enfield","Greenwich","Hackney","Hammersmith and Fulham","Haringey","Harrow","Havering","Hillingdon","Hounslow","Islington","Kensington and Chelsea","Kingston upon Thames","Lambeth","Lewisham","Merton","Newham","Redbridge","Richmond upon Thames","Southwark","Sutton","Tower Hamlets","Waltham Forest","Wandsworth","Westminster"],"mode":"markers","type":"scatter","marker":{"color":"rgba(31,119,180,1)","line":{"color":"rgba(31,119,180,1)"}},"error_y":{"color":"rgba(31,119,180,1)"},"error_x":{"color":"rgba(31,119,180,1)"},"line":{"color":"rgba(31,119,180,1)"},"xaxis":"x","yaxis":"y","frame":null}],"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.2,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
+<script type="application/json" data-for="htmlwidget-5f1a8948d522afa22069">{"x":{"visdat":{"4914403f59fd":["function () ","plotlyVisDat"]},"cur_data":"4914403f59fd","attrs":{"4914403f59fd":{"x":{},"y":{},"text":{},"mode":"markers","alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"type":"scatter"}},"layout":{"margin":{"b":40,"l":60,"t":25,"r":10},"xaxis":{"domain":[0,1],"automargin":true,"title":"male_life_expectancy_2009_13"},"yaxis":{"domain":[0,1],"automargin":true,"title":"percent_children_in_reception_year_who_are_obese_2011_12_to_2013_14","type":"category","categoryorder":"array","categoryarray":["10.2","10.3","10.6","11.0","11.1","11.2","11.5","11.6","12.2","12.5","12.7","12.8","13.2","13.3","13.6","5.7","6.0","7.8","8.1","9.0","9.2","9.5","9.6","9.8"]},"hovermode":"closest","showlegend":false},"source":"A","config":{"showSendToCloud":false},"data":[{"x":[84.3,77.7,81.9,80.3,80,81.3,81.1,80,79.9,80.6,78.7,78.2,79.1,80.1,82.4,79.8,80.4,79.7,78.2,82.6,81.3,78.4,78.7,80.3,78.5,80.7,81.9,78.6,80.8,77.5,79.7,79.2,81.7],"y":["11.1","13.6","9.5","11.6","12.2","7.8","9.8","11.1","11.2","12.7","13.2","13.3","10.2","11.1","9.6","10.3","9.6","11.2","10.6","9.2","6.0","11.5","11.0","9.0","12.5","10.6","5.7","12.8","8.1","12.7","10.6","9.2","11.1"],"text":["City of London","Barking and Dagenham","Barnet","Bexley","Brent","Bromley","Camden","Croydon","Ealing","Enfield","Greenwich","Hackney","Hammersmith and Fulham","Haringey","Harrow","Havering","Hillingdon","Hounslow","Islington","Kensington and Chelsea","Kingston upon Thames","Lambeth","Lewisham","Merton","Newham","Redbridge","Richmond upon Thames","Southwark","Sutton","Tower Hamlets","Waltham Forest","Wandsworth","Westminster"],"mode":"markers","type":"scatter","marker":{"color":"rgba(31,119,180,1)","line":{"color":"rgba(31,119,180,1)"}},"error_y":{"color":"rgba(31,119,180,1)"},"error_x":{"color":"rgba(31,119,180,1)"},"line":{"color":"rgba(31,119,180,1)"},"xaxis":"x","yaxis":"y","frame":null}],"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.2,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
 </div>
 <div id="spatial-data-in-r" class="section level3">
 <h3><span class="header-section-number">2.5.8</span> Spatial Data in R</h3>
@@ -1227,18 +1237,19 @@ Here, we could filter based on a variable, for example extracting all the wards 
 <div class="sourceCode" id="cb119"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb119-1" title="1">LondonMap&lt;-<span class="st"> </span>EW <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb119-2" title="2"><span class="st">  </span><span class="kw">filter</span>(<span class="kw">str_detect</span>(lad15cd, <span class="st">&quot;^E09&quot;</span>))</a>
 <a class="sourceLine" id="cb119-3" title="3"></a>
-<a class="sourceLine" id="cb119-4" title="4"><span class="co">#plot it using the base plot function</span></a>
+<a class="sourceLine" id="cb119-4" title="4"><span class="co">#plot it using the qtm function</span></a>
 <a class="sourceLine" id="cb119-5" title="5"><span class="kw">qtm</span>(LondonMap)</a></code></pre></div>
 <p><img src="CASA0005_files/figure-html/unnamed-chunk-135-1.png" width="672" /></p>
 <ol style="list-style-type: decimal">
 <li>Of course, we can also read in our data from a shapefile stored in a local directory:</li>
 </ol>
 <div class="sourceCode" id="cb120"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb120-1" title="1"><span class="co">#read the shapefile into a simple features object</span></a>
-<a class="sourceLine" id="cb120-2" title="2">BoroughMapSF &lt;-<span class="st"> </span><span class="kw">st_read</span>(<span class="st">&quot;prac1_data/statistical-gis-boundaries-london/ESRI/London_Borough_Excluding_MHW.shp&quot;</span>)</a>
-<a class="sourceLine" id="cb120-3" title="3"></a>
-<a class="sourceLine" id="cb120-4" title="4"><span class="co">#plot it very quickly usking qtm (quick thematic map) to check</span></a>
-<a class="sourceLine" id="cb120-5" title="5"><span class="co">#it has been read in correctly</span></a>
-<a class="sourceLine" id="cb120-6" title="6"><span class="kw">qtm</span>(BoroughMapSF)</a></code></pre></div>
+<a class="sourceLine" id="cb120-2" title="2">BoroughMapSF &lt;-<span class="st"> </span><span class="kw">st_read</span>(here<span class="op">::</span><span class="kw">here</span>(<span class="st">&quot;prac1_data&quot;</span>,</a>
+<a class="sourceLine" id="cb120-3" title="3"><span class="st">&quot;statistical-gis-boundaries-london/ESRI/London_Borough_Excluding_MHW.shp&quot;</span>))</a>
+<a class="sourceLine" id="cb120-4" title="4"></a>
+<a class="sourceLine" id="cb120-5" title="5"><span class="co">#plot it very quickly usking qtm (quick thematic map) to check</span></a>
+<a class="sourceLine" id="cb120-6" title="6"><span class="co">#it has been read in correctly</span></a>
+<a class="sourceLine" id="cb120-7" title="7"><span class="kw">qtm</span>(BoroughMapSF)</a></code></pre></div>
 </div>
 <div id="attribute-data" class="section level4">
 <h4><span class="header-section-number">2.5.8.3</span> Attribute data</h4>
@@ -1354,9 +1365,11 @@ Figure 2.2: Taken from Tidy explain by Garrick Aden-Buie
 <a class="sourceLine" id="cb131-11" title="11"><span class="st">  </span><span class="kw">tm_scale_bar</span>(<span class="dt">position =</span> <span class="kw">c</span>(<span class="st">&quot;left&quot;</span>, <span class="st">&quot;bottom&quot;</span>)) <span class="op">+</span></a>
 <a class="sourceLine" id="cb131-12" title="12"><span class="st">  </span><span class="kw">tm_layout</span>(<span class="dt">title =</span> <span class="st">&quot;Difference in life expectancy&quot;</span>, <span class="dt">legend.position =</span> <span class="kw">c</span>(<span class="st">&quot;right&quot;</span>, <span class="st">&quot;bottom&quot;</span>))</a></code></pre></div>
 <p><img src="CASA0005_files/figure-html/unnamed-chunk-146-1.png" width="672" /></p>
-<p>There are a few subtle differences in the code of this second map if you look closely:
-* Style is now <code>pretty</code> not <code>jenks</code>. Style controls where the breaks are within the data that are then assigned to each colour for mapping. <code>pretty</code> rounds to whole numbers and evenly spaces them over the data.
-* Palette in now <code>Blues</code> not <code>YlOrBr</code>. Palette controls the colour of the map, you can see more options through <code>tmaptools::palette_explorer()</code></p>
+<p>There are a few subtle differences in the code of this second map if you look closely:</p>
+<ul>
+<li><p>Style is now <code>pretty</code> not <code>jenks</code>. Style controls where the breaks are within the data that are then assigned to each colour for mapping. <code>pretty</code> rounds to whole numbers and evenly spaces them over the data.</p></li>
+<li><p>Palette in now <code>Blues</code> not <code>YlOrBr</code>. Palette controls the colour of the map, you can see more options through <code>tmaptools::palette_explorer()</code></p></li>
+</ul>
 </div>
 </div>
 <div id="tidying-data" class="section level2">
