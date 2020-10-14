@@ -1110,7 +1110,7 @@ Here we need to:</p>
 </ol>
 <div class="sourceCode" id="cb105"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb105-1" title="1">Life_expectancy3 &lt;-<span class="st"> </span>Life_expectancy <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb105-2" title="2"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">UKdiff =</span> averagelifeexpectancy<span class="fl">-81.16</span>)<span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb105-3" title="3"><span class="st">  </span><span class="kw">mutate</span>(<span class="kw">across</span>(is.numeric, round, <span class="dv">3</span>))<span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb105-3" title="3"><span class="st">  </span><span class="kw">mutate</span>(<span class="kw">across</span>(<span class="kw">where</span>(is.numeric), round, <span class="dv">3</span>))<span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb105-4" title="4"><span class="st">  </span><span class="kw">mutate</span>(<span class="kw">across</span>(UKdiff, round, <span class="dv">0</span>))<span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb105-5" title="5"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">UKcompare =</span> <span class="kw">case_when</span>(averagelifeexpectancy <span class="op">&gt;=</span><span class="st"> </span><span class="dv">81</span> <span class="op">~</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb105-6" title="6"><span class="st">                                 </span><span class="kw">str_c</span>(<span class="st">&quot;equal or above UK average by&quot;</span>,</a>
@@ -1123,18 +1123,8 @@ Here we need to:</p>
 <a class="sourceLine" id="cb105-13" title="13">                                            <span class="dt">sep=</span><span class="st">&quot; &quot;</span>)))<span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb105-14" title="14"><span class="st">  </span><span class="kw">group_by</span>(UKcompare)<span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb105-15" title="15"><span class="st">  </span><span class="kw">summarise</span>(<span class="dt">count=</span><span class="kw">n</span>())</a></code></pre></div>
-<pre><code>## Warning: Predicate functions must be wrapped in `where()`.
-## 
-##   # Bad
-##   data %&gt;% select(is.numeric)
-## 
-##   # Good
-##   data %&gt;% select(where(is.numeric))
-## 
-## i Please update your code.
-## This message is displayed once per session.</code></pre>
 <pre><code>## `summarise()` ungrouping output (override with `.groups` argument)</code></pre>
-<div class="sourceCode" id="cb108"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb108-1" title="1">Life_expectancy3</a></code></pre></div>
+<div class="sourceCode" id="cb107"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb107-1" title="1">Life_expectancy3</a></code></pre></div>
 <pre><code>## # A tibble: 7 x 2
 ##   UKcompare                            count
 ##   &lt;chr&gt;                                &lt;int&gt;
@@ -1146,10 +1136,20 @@ Here we need to:</p>
 ## 6 equal or above UK average by 3 years     4
 ## 7 equal or above UK average by 5 years     1</code></pre>
 <p>There is a lot of information here that we could use and make into a plot or map. For example, the Borough count of life expectancy difference could be visualised in a histogram (covered next week). Or, we could map the difference between the average life expectancy of each London Borough compared to the UK average..to do this would can just reuse some of the code from the example above….</p>
-<div class="sourceCode" id="cb110"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb110-1" title="1">Life_expectancy4 &lt;-<span class="st"> </span>Life_expectancy <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb110-2" title="2"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">UKdiff =</span> averagelifeexpectancy<span class="fl">-81.16</span>)<span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb110-3" title="3"><span class="st">  </span><span class="kw">mutate</span>(<span class="kw">across</span>(is.numeric, round, <span class="dv">3</span>))<span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb110-4" title="4"><span class="st">  </span><span class="kw">mutate</span>(<span class="kw">across</span>(UKdiff, round, <span class="dv">0</span>))</a></code></pre></div>
+<div class="sourceCode" id="cb109"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb109-1" title="1">Life_expectancy4 &lt;-<span class="st"> </span>Life_expectancy <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb109-2" title="2"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">UKdiff =</span> averagelifeexpectancy<span class="fl">-81.16</span>)<span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb109-3" title="3"><span class="st">  </span><span class="kw">mutate</span>(<span class="kw">across</span>(is.numeric, round, <span class="dv">3</span>))<span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb109-4" title="4"><span class="st">  </span><span class="kw">mutate</span>(<span class="kw">across</span>(UKdiff, round, <span class="dv">0</span>))</a></code></pre></div>
+<pre><code>## Warning: Predicate functions must be wrapped in `where()`.
+## 
+##   # Bad
+##   data %&gt;% select(is.numeric)
+## 
+##   # Good
+##   data %&gt;% select(where(is.numeric))
+## 
+## i Please update your code.
+## This message is displayed once per session.</code></pre>
 <p>Before you move on consider what you have learnt about <code>dplyr</code> in relation to this concept map <a href="https://github.com/rstudio/concept-maps">by Greg Wilson</a>. The teaching team will also explain it…</p>
 <p><img src="prac2_images/dplyr.svg" width="600pt" style="display: block; margin: auto;" /></p>
 </div>
@@ -1176,7 +1176,7 @@ Here we need to:</p>
 <a class="sourceLine" id="cb113-9" title="9">        <span class="dt">type =</span> <span class="st">&quot;scatter&quot;</span>, </a>
 <a class="sourceLine" id="cb113-10" title="10">        <span class="dt">mode =</span> <span class="st">&quot;markers&quot;</span>)</a></code></pre></div>
 <div id="htmlwidget-5f1a8948d522afa22069" style="width:672px;height:480px;" class="plotly html-widget"></div>
-<script type="application/json" data-for="htmlwidget-5f1a8948d522afa22069">{"x":{"visdat":{"4914403f59fd":["function () ","plotlyVisDat"]},"cur_data":"4914403f59fd","attrs":{"4914403f59fd":{"x":{},"y":{},"text":{},"mode":"markers","alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"type":"scatter"}},"layout":{"margin":{"b":40,"l":60,"t":25,"r":10},"xaxis":{"domain":[0,1],"automargin":true,"title":"male_life_expectancy_2009_13"},"yaxis":{"domain":[0,1],"automargin":true,"title":"percent_children_in_reception_year_who_are_obese_2011_12_to_2013_14","type":"category","categoryorder":"array","categoryarray":["10.2","10.3","10.6","11.0","11.1","11.2","11.5","11.6","12.2","12.5","12.7","12.8","13.2","13.3","13.6","5.7","6.0","7.8","8.1","9.0","9.2","9.5","9.6","9.8"]},"hovermode":"closest","showlegend":false},"source":"A","config":{"showSendToCloud":false},"data":[{"x":[84.3,77.7,81.9,80.3,80,81.3,81.1,80,79.9,80.6,78.7,78.2,79.1,80.1,82.4,79.8,80.4,79.7,78.2,82.6,81.3,78.4,78.7,80.3,78.5,80.7,81.9,78.6,80.8,77.5,79.7,79.2,81.7],"y":["11.1","13.6","9.5","11.6","12.2","7.8","9.8","11.1","11.2","12.7","13.2","13.3","10.2","11.1","9.6","10.3","9.6","11.2","10.6","9.2","6.0","11.5","11.0","9.0","12.5","10.6","5.7","12.8","8.1","12.7","10.6","9.2","11.1"],"text":["City of London","Barking and Dagenham","Barnet","Bexley","Brent","Bromley","Camden","Croydon","Ealing","Enfield","Greenwich","Hackney","Hammersmith and Fulham","Haringey","Harrow","Havering","Hillingdon","Hounslow","Islington","Kensington and Chelsea","Kingston upon Thames","Lambeth","Lewisham","Merton","Newham","Redbridge","Richmond upon Thames","Southwark","Sutton","Tower Hamlets","Waltham Forest","Wandsworth","Westminster"],"mode":"markers","type":"scatter","marker":{"color":"rgba(31,119,180,1)","line":{"color":"rgba(31,119,180,1)"}},"error_y":{"color":"rgba(31,119,180,1)"},"error_x":{"color":"rgba(31,119,180,1)"},"line":{"color":"rgba(31,119,180,1)"},"xaxis":"x","yaxis":"y","frame":null}],"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.2,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
+<script type="application/json" data-for="htmlwidget-5f1a8948d522afa22069">{"x":{"visdat":{"217c3dc75dcf":["function () ","plotlyVisDat"]},"cur_data":"217c3dc75dcf","attrs":{"217c3dc75dcf":{"x":{},"y":{},"text":{},"mode":"markers","alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"type":"scatter"}},"layout":{"margin":{"b":40,"l":60,"t":25,"r":10},"xaxis":{"domain":[0,1],"automargin":true,"title":"male_life_expectancy_2009_13"},"yaxis":{"domain":[0,1],"automargin":true,"title":"percent_children_in_reception_year_who_are_obese_2011_12_to_2013_14","type":"category","categoryorder":"array","categoryarray":["10.2","10.3","10.6","11.0","11.1","11.2","11.5","11.6","12.2","12.5","12.7","12.8","13.2","13.3","13.6","5.7","6.0","7.8","8.1","9.0","9.2","9.5","9.6","9.8"]},"hovermode":"closest","showlegend":false},"source":"A","config":{"showSendToCloud":false},"data":[{"x":[84.3,77.7,81.9,80.3,80,81.3,81.1,80,79.9,80.6,78.7,78.2,79.1,80.1,82.4,79.8,80.4,79.7,78.2,82.6,81.3,78.4,78.7,80.3,78.5,80.7,81.9,78.6,80.8,77.5,79.7,79.2,81.7],"y":["11.1","13.6","9.5","11.6","12.2","7.8","9.8","11.1","11.2","12.7","13.2","13.3","10.2","11.1","9.6","10.3","9.6","11.2","10.6","9.2","6.0","11.5","11.0","9.0","12.5","10.6","5.7","12.8","8.1","12.7","10.6","9.2","11.1"],"text":["City of London","Barking and Dagenham","Barnet","Bexley","Brent","Bromley","Camden","Croydon","Ealing","Enfield","Greenwich","Hackney","Hammersmith and Fulham","Haringey","Harrow","Havering","Hillingdon","Hounslow","Islington","Kensington and Chelsea","Kingston upon Thames","Lambeth","Lewisham","Merton","Newham","Redbridge","Richmond upon Thames","Southwark","Sutton","Tower Hamlets","Waltham Forest","Wandsworth","Westminster"],"mode":"markers","type":"scatter","marker":{"color":"rgba(31,119,180,1)","line":{"color":"rgba(31,119,180,1)"}},"error_y":{"color":"rgba(31,119,180,1)"},"error_x":{"color":"rgba(31,119,180,1)"},"line":{"color":"rgba(31,119,180,1)"},"xaxis":"x","yaxis":"y","frame":null}],"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.2,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
 </div>
 <div id="spatial-data-in-r" class="section level3">
 <h3><span class="header-section-number">2.5.8</span> Spatial Data in R</h3>
@@ -1223,33 +1223,42 @@ Here we need to:</p>
 <p>Choropleth maps are thematic maps which colour areas according to some phenomenon. In our case, we are going to fill some irregular polygons (the London Boroughs) with a colour that corresponds to a particular attribute.</p>
 <p>As with all plots in R, there are multiple ways we can do this. The basic <code>plot()</code> function requires no data preparation but additional effort in colour selection/ adding the map key etc. Quick plot (<code>qplot()</code>) and <code>ggplot()</code> (installed in the <code>ggplot2</code> package, part of the <code>tidyverse</code>) require some additional steps to format the spatial data but select colours and add keys etc automatically. Qplot is basically a shortcut for a quick map / plot, but if you have a lot of data use <code>ggplot()</code>. However, here, we are going to make use of the new <code>tmap</code> package which makes making maps very easy indeed. More on <code>tmap</code> when we start mapping..</p>
 <ol style="list-style-type: decimal">
-<li>So one mega cool thing about R is you can read spatial data in straight from the internetz! Try this below for downloading a GeoJson file…it might take a few minutes…</li>
+<li><p>So one mega cool thing about R is you can read spatial data in straight from the internetz! Try this below for downloading a GeoJson file…it might take a few minutes…</p></li>
+<li><p>You can also either</p></li>
 </ol>
-<div class="sourceCode" id="cb117"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb117-1" title="1">EW &lt;-<span class="st"> </span><span class="kw">st_read</span>(<span class="st">&quot;https://opendata.arcgis.com/datasets/8edafbe3276d4b56aec60991cbddda50_2.geojson&quot;</span>)</a></code></pre></div>
-<pre><code>## Reading layer `Local_Authority_Districts__December_2015__Boundaries&#39; from data source `https://opendata.arcgis.com/datasets/8edafbe3276d4b56aec60991cbddda50_2.geojson&#39; using driver `GeoJSON&#39;
+<ul>
+<li><ol style="list-style-type: lower-alpha">
+<li><a href="https://opendata.arcgis.com/datasets/8edafbe3276d4b56aec60991cbddda50_2.geojson">Download the geojson file</a></li>
+</ol></li>
+<li><ol start="2" style="list-style-type: lower-alpha">
+<li><a href="https://opendata.arcgis.com/datasets/8edafbe3276d4b56aec60991cbddda50_2.zip?outSR=%7B%22latestWkid%22%3A27700%2C%22wkid%22%3A27700%7D">Download the shapefile</a>from the <a href="http://geoportal.statistics.gov.uk/datasets/8edafbe3276d4b56aec60991cbddda50_2">Office for National Statistics Open Geography Portal</a></li>
+</ol></li>
+</ul>
+<p>Move either to your project folder and read it in. The <code>.shp</code> is normally quicker to load.</p>
+<div class="sourceCode" id="cb117"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb117-1" title="1"><span class="co"># this will take a few minutes</span></a>
+<a class="sourceLine" id="cb117-2" title="2">EW &lt;-<span class="st"> </span><span class="kw">st_read</span>(<span class="st">&quot;https://opendata.arcgis.com/datasets/8edafbe3276d4b56aec60991cbddda50_2.geojson&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb118"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb118-1" title="1"><span class="co"># this will take a few minutes</span></a>
+<a class="sourceLine" id="cb118-2" title="2"><span class="co"># geojson in local folder</span></a>
+<a class="sourceLine" id="cb118-3" title="3"><span class="co">#EW &lt;- st_read(here::here(&quot;prac2_data&quot;,</span></a>
+<a class="sourceLine" id="cb118-4" title="4"><span class="co">#                         &quot;Local_Authority_Districts__December_2015__Boundaries.geojson&quot;))</span></a>
+<a class="sourceLine" id="cb118-5" title="5"></a>
+<a class="sourceLine" id="cb118-6" title="6"><span class="co"># shapefile in local folder</span></a>
+<a class="sourceLine" id="cb118-7" title="7">EW &lt;-<span class="st"> </span><span class="kw">st_read</span>(here<span class="op">::</span><span class="kw">here</span>(<span class="st">&quot;prac2_data&quot;</span>,</a>
+<a class="sourceLine" id="cb118-8" title="8">                        <span class="st">&quot;Local_Authority_Districts__December_2015__Boundaries-shp&quot;</span>,</a>
+<a class="sourceLine" id="cb118-9" title="9">                        <span class="st">&quot;Local_Authority_Districts__December_2015__Boundaries.shp&quot;</span>))</a></code></pre></div>
+<pre><code>## Reading layer `Local_Authority_Districts__December_2015__Boundaries&#39; from data source `C:\Users\Andy\OneDrive - University College London\Teaching\CASA0005\2020_2021\CASA0005repo\prac2_data\Local_Authority_Districts__December_2015__Boundaries-shp\Local_Authority_Districts__December_2015__Boundaries.shp&#39; using driver `ESRI Shapefile&#39;
 ## Simple feature collection with 380 features and 6 fields
 ## geometry type:  MULTIPOLYGON
 ## dimension:      XY
-## bbox:           xmin: -8.649996 ymin: 49.86463 xmax: 1.768937 ymax: 60.86079
-## geographic CRS: WGS 84</code></pre>
-<p>Or you can do a manual download from the <a href="http://geoportal.statistics.gov.uk/datasets/8edafbe3276d4b56aec60991cbddda50_2">Office for National Statistics Open Geography Portal</a> via Download &gt; Shapefile.</p>
+## bbox:           xmin: 5513 ymin: 5333.602 xmax: 655989 ymax: 1220302
+## projected CRS:  OSGB 1936 / British National Grid</code></pre>
 <p>Pull out London using the <code>str_detect()</code> function from the <code>stringr</code> package in combination with <code>filter()</code> from <code>dplyr</code> (again!). We will look for the bit of the district code that relates to London (E09) from the ‘lad15cd’ column data frame of our <code>sf</code> object.</p>
-<div class="sourceCode" id="cb119"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb119-1" title="1">LondonMap&lt;-<span class="st"> </span>EW <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb119-2" title="2"><span class="st">  </span><span class="kw">filter</span>(<span class="kw">str_detect</span>(lad15cd, <span class="st">&quot;^E09&quot;</span>))</a>
-<a class="sourceLine" id="cb119-3" title="3"></a>
-<a class="sourceLine" id="cb119-4" title="4"><span class="co">#plot it using the qtm function</span></a>
-<a class="sourceLine" id="cb119-5" title="5"><span class="kw">qtm</span>(LondonMap)</a></code></pre></div>
-<p><img src="CASA0005_files/figure-html/unnamed-chunk-135-1.png" width="672" /></p>
-<ol style="list-style-type: decimal">
-<li>Of course, we can also read in our data from a shapefile stored in a local directory:</li>
-</ol>
-<div class="sourceCode" id="cb120"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb120-1" title="1"><span class="co">#read the shapefile into a simple features object</span></a>
-<a class="sourceLine" id="cb120-2" title="2">BoroughMapSF &lt;-<span class="st"> </span><span class="kw">st_read</span>(here<span class="op">::</span><span class="kw">here</span>(<span class="st">&quot;prac1_data&quot;</span>,</a>
-<a class="sourceLine" id="cb120-3" title="3"><span class="st">&quot;statistical-gis-boundaries-london/ESRI/London_Borough_Excluding_MHW.shp&quot;</span>))</a>
-<a class="sourceLine" id="cb120-4" title="4"></a>
-<a class="sourceLine" id="cb120-5" title="5"><span class="co">#plot it very quickly usking qtm (quick thematic map) to check</span></a>
-<a class="sourceLine" id="cb120-6" title="6"><span class="co">#it has been read in correctly</span></a>
-<a class="sourceLine" id="cb120-7" title="7"><span class="kw">qtm</span>(BoroughMapSF)</a></code></pre></div>
+<div class="sourceCode" id="cb120"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb120-1" title="1">LondonMap&lt;-<span class="st"> </span>EW <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb120-2" title="2"><span class="st">  </span><span class="kw">filter</span>(<span class="kw">str_detect</span>(lad15cd, <span class="st">&quot;^E09&quot;</span>))</a>
+<a class="sourceLine" id="cb120-3" title="3"></a>
+<a class="sourceLine" id="cb120-4" title="4"><span class="co">#plot it using the qtm function</span></a>
+<a class="sourceLine" id="cb120-5" title="5"><span class="kw">qtm</span>(LondonMap)</a></code></pre></div>
+<p><img src="CASA0005_files/figure-html/unnamed-chunk-136-1.png" width="672" /></p>
 </div>
 <div id="attribute-data" class="section level4">
 <h4><span class="header-section-number">2.5.8.3</span> Attribute data</h4>
@@ -1324,7 +1333,7 @@ Figure 2.2: Taken from Tidy explain by Garrick Aden-Buie
 </ul>
 <div class="sourceCode" id="cb127"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb127-1" title="1"><span class="kw">tmap_mode</span>(<span class="st">&quot;plot&quot;</span>)</a>
 <a class="sourceLine" id="cb127-2" title="2"></a>
-<a class="sourceLine" id="cb127-3" title="3"><span class="kw">tm_shape</span>(ftmaplondon)<span class="op">+</span></a>
+<a class="sourceLine" id="cb127-3" title="3"><span class="kw">tm_shape</span>(tmaplondon)<span class="op">+</span></a>
 <a class="sourceLine" id="cb127-4" title="4"><span class="kw">tm_rgb</span>()<span class="op">+</span></a>
 <a class="sourceLine" id="cb127-5" title="5"><span class="kw">tm_shape</span>(BoroughDataMap) <span class="op">+</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb127-6" title="6"><span class="kw">tm_polygons</span>(<span class="st">&quot;rate_of_job_seekers_allowance_jsa_claimants_2015&quot;</span>, </a>

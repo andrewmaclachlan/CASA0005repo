@@ -744,7 +744,7 @@ Here we need to:
 ```{r}
 Life_expectancy3 <- Life_expectancy %>%
   mutate(UKdiff = averagelifeexpectancy-81.16)%>%
-  mutate(across(is.numeric, round, 3))%>%
+  mutate(across(where(is.numeric), round, 3))%>%
   mutate(across(UKdiff, round, 0))%>%
   mutate(UKcompare = case_when(averagelifeexpectancy >= 81 ~ 
                                  str_c("equal or above UK average by",
@@ -872,11 +872,30 @@ As with all plots in R, there are multiple ways we can do this. The basic ```plo
 
 1. So one mega cool thing about R is you can read spatial data in straight from the internetz! Try this below for downloading a GeoJson file...it might take a few minutes...
 
-```{r, cache=TRUE}
+1. You can also either 
+
+* (a) [Download the geojson file](https://opendata.arcgis.com/datasets/8edafbe3276d4b56aec60991cbddda50_2.geojson) 
+
+* (b) [Download the shapefile](https://opendata.arcgis.com/datasets/8edafbe3276d4b56aec60991cbddda50_2.zip?outSR=%7B%22latestWkid%22%3A27700%2C%22wkid%22%3A27700%7D)from the [Office for National Statistics Open Geography Portal](http://geoportal.statistics.gov.uk/datasets/8edafbe3276d4b56aec60991cbddda50_2)
+
+Move either to your project folder and read it in. The `.shp` is normally quicker to load.
+
+```{r, cache=TRUE, eval=FALSE}
+# this will take a few minutes
 EW <- st_read("https://opendata.arcgis.com/datasets/8edafbe3276d4b56aec60991cbddda50_2.geojson")
 ```
 
-Or you can do a manual download from the [Office for National Statistics Open Geography Portal](http://geoportal.statistics.gov.uk/datasets/8edafbe3276d4b56aec60991cbddda50_2) via Download > Shapefile.
+```{r, cache=TRUE, eval=TRUE}
+# this will take a few minutes
+# geojson in local folder
+#EW <- st_read(here::here("prac2_data",
+#                         "Local_Authority_Districts__December_2015__Boundaries.geojson"))
+
+# shapefile in local folder
+EW <- st_read(here::here("prac2_data",
+                        "Local_Authority_Districts__December_2015__Boundaries-shp",
+                        "Local_Authority_Districts__December_2015__Boundaries.shp"))
+```
 
 Pull out London using the  `str_detect()` function from the `stringr` package in combination with `filter()` from `dplyr` (again!). We will  look for the bit of the district code that relates to London (E09) from the 'lad15cd' column data frame of our `sf` object. 
 
@@ -886,18 +905,6 @@ LondonMap<- EW %>%
 
 #plot it using the qtm function
 qtm(LondonMap)
-```
-
-1. Of course, we can also read in our data from a shapefile stored in a local directory:
-
-```{r, cache=FALSE, eval=FALSE}
-#read the shapefile into a simple features object
-BoroughMapSF <- st_read(here::here("prac1_data",
-"statistical-gis-boundaries-london/ESRI/London_Borough_Excluding_MHW.shp"))
-
-#plot it very quickly usking qtm (quick thematic map) to check
-#it has been read in correctly
-qtm(BoroughMapSF)
 ```
 
 #### Attribute data
@@ -991,7 +998,7 @@ There is a bit of extra code below that we haven't explained:
 ```{r, eval=FALSE, cache=FALSE}
 tmap_mode("plot")
 
-tm_shape(ftmaplondon)+
+tm_shape(tmaplondon)+
 tm_rgb()+
 tm_shape(BoroughDataMap) + 
 tm_polygons("rate_of_job_seekers_allowance_jsa_claimants_2015", 
