@@ -1142,7 +1142,6 @@ Now let's make it a bit more suitable for mapping with `pivot_wider()` by making
 #pivot the tidy tibble into one that is suitable for mapping
 flytipping_wide <- flytipping_long %>% 
   pivot_wider(
-  id_cols = 1:2,
   names_from = c(year,tipping_type),
   names_sep = "_",
   values_from = count
