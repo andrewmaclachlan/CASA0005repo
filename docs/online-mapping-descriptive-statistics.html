@@ -24,7 +24,7 @@
 <meta name="author" content="Andy MacLachlan and Adam Dennett" />
 
 
-<meta name="date" content="2020-10-14" />
+<meta name="date" content="2020-10-16" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -344,7 +344,7 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="5.7" data-path="map-making.html"><a href="map-making.html#r-2"><i class="fa fa-check"></i><b>5.7</b> R</a><ul>
 <li class="chapter" data-level="5.7.1" data-path="map-making.html"><a href="map-making.html#static-map"><i class="fa fa-check"></i><b>5.7.1</b> Static map</a></li>
-<li class="chapter" data-level="5.7.2" data-path="map-making.html"><a href="map-making.html#export"><i class="fa fa-check"></i><b>5.7.2</b> Export</a></li>
+<li class="chapter" data-level="5.7.2" data-path="map-making.html"><a href="map-making.html#inset-map"><i class="fa fa-check"></i><b>5.7.2</b> Inset map</a></li>
 <li class="chapter" data-level="5.7.3" data-path="map-making.html"><a href="map-making.html#basic-interactive-map"><i class="fa fa-check"></i><b>5.7.3</b> Basic interactive map</a></li>
 <li class="chapter" data-level="5.7.4" data-path="map-making.html"><a href="map-making.html#advanced-interactive-map"><i class="fa fa-check"></i><b>5.7.4</b> Advanced interactive map</a></li>
 </ul></li>
@@ -608,30 +608,30 @@ Bit different from me this week - I’m not all about drum and bass (although I 
 <div id="getting-started-2" class="section level3">
 <h3><span class="header-section-number">8.3.2</span> Getting Started</h3>
 <p>Before we begin this week’s practical, we need to load our packages and carry out some data preparation…</p>
-<div class="sourceCode" id="cb414"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb414-1" title="1"><span class="kw">library</span>(highcharter)</a>
-<a class="sourceLine" id="cb414-2" title="2"><span class="kw">library</span>(tidyverse)</a>
-<a class="sourceLine" id="cb414-3" title="3"><span class="kw">library</span>(downloader)</a>
-<a class="sourceLine" id="cb414-4" title="4"><span class="kw">library</span>(rgdal)</a>
-<a class="sourceLine" id="cb414-5" title="5"><span class="kw">library</span>(sf)</a>
-<a class="sourceLine" id="cb414-6" title="6"><span class="kw">library</span>(ggplot2)</a>
-<a class="sourceLine" id="cb414-7" title="7"><span class="kw">library</span>(reshape2)</a>
-<a class="sourceLine" id="cb414-8" title="8"><span class="kw">library</span>(plotly)</a>
-<a class="sourceLine" id="cb414-9" title="9"><span class="kw">library</span>(raster)</a>
-<a class="sourceLine" id="cb414-10" title="10"><span class="kw">library</span>(downloader)</a>
-<a class="sourceLine" id="cb414-11" title="11"><span class="kw">library</span>(rgdal)</a></code></pre></div>
+<div class="sourceCode" id="cb419"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb419-1" title="1"><span class="kw">library</span>(highcharter)</a>
+<a class="sourceLine" id="cb419-2" title="2"><span class="kw">library</span>(tidyverse)</a>
+<a class="sourceLine" id="cb419-3" title="3"><span class="kw">library</span>(downloader)</a>
+<a class="sourceLine" id="cb419-4" title="4"><span class="kw">library</span>(rgdal)</a>
+<a class="sourceLine" id="cb419-5" title="5"><span class="kw">library</span>(sf)</a>
+<a class="sourceLine" id="cb419-6" title="6"><span class="kw">library</span>(ggplot2)</a>
+<a class="sourceLine" id="cb419-7" title="7"><span class="kw">library</span>(reshape2)</a>
+<a class="sourceLine" id="cb419-8" title="8"><span class="kw">library</span>(plotly)</a>
+<a class="sourceLine" id="cb419-9" title="9"><span class="kw">library</span>(raster)</a>
+<a class="sourceLine" id="cb419-10" title="10"><span class="kw">library</span>(downloader)</a>
+<a class="sourceLine" id="cb419-11" title="11"><span class="kw">library</span>(rgdal)</a></code></pre></div>
 <p>There is a problem with our London Wards data — we are missing some data relating to housing tenure. The housing tenure data in this file comes from the 2011 Census and visiting <a href="http://www.nomisweb.co.uk/" class="uri">http://www.nomisweb.co.uk/</a> and interrogating Table KS402EW (the Tenure table), we can discover that data for the percentage of shared owners and those living in accommodation rent free are missing.</p>
 <p>Rather than making you go off to Nomisweb and fetch this data, because I’m really nice, I’ve posted on GitHub a file containing this and extra categorical, ratio and geographical data that we will need to add to our existing London data file. To download this consult <a href="hello-gis.html#how-to-download-data-and-files-from-github">How to download data and files from GitHub</a>, i’d used Option 1 and it’s the prac8_data folder you want to download.</p>
 <p>We can easily join this new data to our original data in R.</p>
-<div class="sourceCode" id="cb415"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb415-1" title="1">LondonWards &lt;-<span class="st"> </span><span class="kw">st_read</span>(here<span class="op">::</span><span class="kw">here</span>(<span class="st">&quot;prac8_data&quot;</span>, </a>
-<a class="sourceLine" id="cb415-2" title="2">                                  <span class="st">&quot;New_ward_data&quot;</span>,</a>
-<a class="sourceLine" id="cb415-3" title="3">                                  <span class="st">&quot;NewLondonWard.shp&quot;</span>))</a></code></pre></div>
+<div class="sourceCode" id="cb420"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb420-1" title="1">LondonWards &lt;-<span class="st"> </span><span class="kw">st_read</span>(here<span class="op">::</span><span class="kw">here</span>(<span class="st">&quot;prac8_data&quot;</span>, </a>
+<a class="sourceLine" id="cb420-2" title="2">                                  <span class="st">&quot;New_ward_data&quot;</span>,</a>
+<a class="sourceLine" id="cb420-3" title="3">                                  <span class="st">&quot;NewLondonWard.shp&quot;</span>))</a></code></pre></div>
 <pre><code>## Reading layer `NewLondonWard&#39; from data source `C:\Users\Andy\OneDrive - University College London\Teaching\CASA0005\2020_2021\CASA0005repo\prac8_data\New_ward_data\NewLondonWard.shp&#39; using driver `ESRI Shapefile&#39;
 ## Simple feature collection with 625 features and 76 fields
 ## geometry type:  MULTIPOLYGON
 ## dimension:      XY
 ## bbox:           xmin: 503575 ymin: 155850.8 xmax: 561956.7 ymax: 200933.6
 ## projected CRS:  OSGB 1936 / British National Grid</code></pre>
-<div class="sourceCode" id="cb417"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb417-1" title="1">extradata &lt;-<span class="st"> </span><span class="kw">read_csv</span>(here<span class="op">::</span><span class="kw">here</span>(<span class="st">&quot;prac8_data&quot;</span>, <span class="st">&quot;LondonAdditionalDataFixed.csv&quot;</span>))</a></code></pre></div>
+<div class="sourceCode" id="cb422"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb422-1" title="1">extradata &lt;-<span class="st"> </span><span class="kw">read_csv</span>(here<span class="op">::</span><span class="kw">here</span>(<span class="st">&quot;prac8_data&quot;</span>, <span class="st">&quot;LondonAdditionalDataFixed.csv&quot;</span>))</a></code></pre></div>
 <pre><code>## Parsed with column specification:
 ## cols(
 ##   WardName = col_character(),
@@ -646,11 +646,11 @@ Bit different from me this week - I’m not all about drum and bass (although I 
 ##   AvgGCSE2011 = col_double(),
 ##   UnauthAbsenceSchools11 = col_double()
 ## )</code></pre>
-<div class="sourceCode" id="cb419"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb419-1" title="1">LondonWardsleftjoin &lt;-<span class="st"> </span>LondonWards <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb419-2" title="2"><span class="st">  </span><span class="kw">left_join</span>(.,extradata,</a>
-<a class="sourceLine" id="cb419-3" title="3">            <span class="dt">by =</span> <span class="kw">c</span>(<span class="st">&quot;WD11CD&quot;</span> =<span class="st"> &quot;Wardcode&quot;</span>))</a>
-<a class="sourceLine" id="cb419-4" title="4"></a>
-<a class="sourceLine" id="cb419-5" title="5"><span class="co">#LondonWardsSF &lt;- merge(LondonWards, extradata, by.x = &quot;WD11CD&quot;, by.y = &quot;Wardcode&quot;)</span></a></code></pre></div>
+<div class="sourceCode" id="cb424"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb424-1" title="1">LondonWardsleftjoin &lt;-<span class="st"> </span>LondonWards <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb424-2" title="2"><span class="st">  </span><span class="kw">left_join</span>(.,extradata,</a>
+<a class="sourceLine" id="cb424-3" title="3">            <span class="dt">by =</span> <span class="kw">c</span>(<span class="st">&quot;WD11CD&quot;</span> =<span class="st"> &quot;Wardcode&quot;</span>))</a>
+<a class="sourceLine" id="cb424-4" title="4"></a>
+<a class="sourceLine" id="cb424-5" title="5"><span class="co">#LondonWardsSF &lt;- merge(LondonWards, extradata, by.x = &quot;WD11CD&quot;, by.y = &quot;Wardcode&quot;)</span></a></code></pre></div>
 </div>
 <div id="main-tasks" class="section level3">
 <h3><span class="header-section-number">8.3.3</span> Main Tasks</h3>
@@ -669,56 +669,56 @@ Bit different from me this week - I’m not all about drum and bass (although I 
 <li>A boxplot of the same variable</li>
 <li>A faceted grid of histograms with for every variable in your London Wards data file. In order to do this, you will need to remove Factor (non-numeric) variables from your dataset and re-shape your data using the <code>melt()</code> function in the <code>reshape2</code> package (hint – check the help file for <code>melt.data.frame()</code> to understand what the code below is doing). The code below will help you:</li>
 </ul>
-<div class="sourceCode" id="cb420"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb420-1" title="1"><span class="co">#check which variables are numeric first</span></a>
-<a class="sourceLine" id="cb420-2" title="2"></a>
-<a class="sourceLine" id="cb420-3" title="3">Datatypelist &lt;-<span class="st"> </span>LondonWardsleftjoin <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb420-4" title="4"><span class="st">  </span><span class="kw">st_drop_geometry</span>()<span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb420-5" title="5"><span class="st">  </span><span class="kw">summarise_all</span>(class) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb420-6" title="6"><span class="st">  </span><span class="kw">pivot_longer</span>(<span class="kw">everything</span>(), </a>
-<a class="sourceLine" id="cb420-7" title="7">               <span class="dt">names_to=</span><span class="st">&quot;All_variables&quot;</span>, </a>
-<a class="sourceLine" id="cb420-8" title="8">               <span class="dt">values_to=</span><span class="st">&quot;Variable_class&quot;</span>)</a>
-<a class="sourceLine" id="cb420-9" title="9"></a>
-<a class="sourceLine" id="cb420-10" title="10"><span class="co">#make groups based on types of variables</span></a>
-<a class="sourceLine" id="cb420-11" title="11">Groups &lt;-<span class="st"> </span>LondonWardsleftjoin <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb420-12" title="12"><span class="st">  </span><span class="kw">st_drop_geometry</span>()<span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb420-13" title="13"><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">select</span>(is.numeric)<span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb420-14" title="14"><span class="st">  </span><span class="kw">pivot_longer</span>(<span class="kw">everything</span>(),</a>
-<a class="sourceLine" id="cb420-15" title="15">               <span class="dt">names_to=</span><span class="st">&quot;All_variables&quot;</span>, </a>
-<a class="sourceLine" id="cb420-16" title="16">               <span class="dt">values_to=</span><span class="st">&quot;val&quot;</span>)<span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb420-17" title="17"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">All_variables =</span> <span class="kw">tolower</span>(All_variables))<span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb420-18" title="18"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">group =</span> <span class="kw">case_when</span>(<span class="kw">str_detect</span>(All_variables, <span class="st">&quot;age&quot;</span>) <span class="op">~</span><span class="st"> &quot;Age&quot;</span>,</a>
-<a class="sourceLine" id="cb420-19" title="19">                           <span class="kw">str_detect</span>(All_variables, <span class="st">&quot;employ|income|job|jsa&quot;</span>) <span class="op">~</span><span class="st"> &quot;Employment&quot;</span>,</a>
-<a class="sourceLine" id="cb420-20" title="20">                           <span class="kw">str_detect</span>(All_variables,</a>
-<a class="sourceLine" id="cb420-21" title="21">                                      <span class="st">&quot;house|rent|detatched|flat|terrace|owned|social|private|share|tax|mortgage&quot;</span>) <span class="op">~</span><span class="st"> &quot;Housing&quot;</span>, <span class="ot">TRUE</span><span class="op">~</span><span class="st">&quot;Other&quot;</span>))</a>
-<a class="sourceLine" id="cb420-22" title="22"></a>
-<a class="sourceLine" id="cb420-23" title="23">Agehist &lt;-<span class="st"> </span>Groups<span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb420-24" title="24"><span class="st">  </span><span class="kw">filter</span>(group<span class="op">==</span><span class="st">&quot;Age&quot;</span>)<span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb420-25" title="25"><span class="st">  </span><span class="kw">ggplot</span>(., <span class="kw">aes</span>(<span class="dt">x=</span>val)) <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb420-26" title="26"><span class="st">  </span><span class="kw">geom_histogram</span>(<span class="kw">aes</span>(<span class="dt">x =</span> val, <span class="dt">y =</span> ..density..))<span class="op">+</span></a>
-<a class="sourceLine" id="cb420-27" title="27"><span class="st">  </span><span class="kw">geom_density</span>(<span class="dt">colour=</span><span class="st">&quot;red&quot;</span>, <span class="dt">size=</span><span class="dv">1</span>, <span class="dt">adjust=</span><span class="dv">1</span>)<span class="op">+</span></a>
-<a class="sourceLine" id="cb420-28" title="28"><span class="st">  </span><span class="kw">facet_wrap</span>(<span class="op">~</span>All_variables, <span class="dt">scales =</span> <span class="st">&#39;free&#39;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb425"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb425-1" title="1"><span class="co">#check which variables are numeric first</span></a>
+<a class="sourceLine" id="cb425-2" title="2"></a>
+<a class="sourceLine" id="cb425-3" title="3">Datatypelist &lt;-<span class="st"> </span>LondonWardsleftjoin <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb425-4" title="4"><span class="st">  </span><span class="kw">st_drop_geometry</span>()<span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb425-5" title="5"><span class="st">  </span><span class="kw">summarise_all</span>(class) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb425-6" title="6"><span class="st">  </span><span class="kw">pivot_longer</span>(<span class="kw">everything</span>(), </a>
+<a class="sourceLine" id="cb425-7" title="7">               <span class="dt">names_to=</span><span class="st">&quot;All_variables&quot;</span>, </a>
+<a class="sourceLine" id="cb425-8" title="8">               <span class="dt">values_to=</span><span class="st">&quot;Variable_class&quot;</span>)</a>
+<a class="sourceLine" id="cb425-9" title="9"></a>
+<a class="sourceLine" id="cb425-10" title="10"><span class="co">#make groups based on types of variables</span></a>
+<a class="sourceLine" id="cb425-11" title="11">Groups &lt;-<span class="st"> </span>LondonWardsleftjoin <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb425-12" title="12"><span class="st">  </span><span class="kw">st_drop_geometry</span>()<span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb425-13" title="13"><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">select</span>(is.numeric)<span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb425-14" title="14"><span class="st">  </span><span class="kw">pivot_longer</span>(<span class="kw">everything</span>(),</a>
+<a class="sourceLine" id="cb425-15" title="15">               <span class="dt">names_to=</span><span class="st">&quot;All_variables&quot;</span>, </a>
+<a class="sourceLine" id="cb425-16" title="16">               <span class="dt">values_to=</span><span class="st">&quot;val&quot;</span>)<span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb425-17" title="17"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">All_variables =</span> <span class="kw">tolower</span>(All_variables))<span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb425-18" title="18"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">group =</span> <span class="kw">case_when</span>(<span class="kw">str_detect</span>(All_variables, <span class="st">&quot;age&quot;</span>) <span class="op">~</span><span class="st"> &quot;Age&quot;</span>,</a>
+<a class="sourceLine" id="cb425-19" title="19">                           <span class="kw">str_detect</span>(All_variables, <span class="st">&quot;employ|income|job|jsa&quot;</span>) <span class="op">~</span><span class="st"> &quot;Employment&quot;</span>,</a>
+<a class="sourceLine" id="cb425-20" title="20">                           <span class="kw">str_detect</span>(All_variables,</a>
+<a class="sourceLine" id="cb425-21" title="21">                                      <span class="st">&quot;house|rent|detatched|flat|terrace|owned|social|private|share|tax|mortgage&quot;</span>) <span class="op">~</span><span class="st"> &quot;Housing&quot;</span>, <span class="ot">TRUE</span><span class="op">~</span><span class="st">&quot;Other&quot;</span>))</a>
+<a class="sourceLine" id="cb425-22" title="22"></a>
+<a class="sourceLine" id="cb425-23" title="23">Agehist &lt;-<span class="st"> </span>Groups<span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb425-24" title="24"><span class="st">  </span><span class="kw">filter</span>(group<span class="op">==</span><span class="st">&quot;Age&quot;</span>)<span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb425-25" title="25"><span class="st">  </span><span class="kw">ggplot</span>(., <span class="kw">aes</span>(<span class="dt">x=</span>val)) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb425-26" title="26"><span class="st">  </span><span class="kw">geom_histogram</span>(<span class="kw">aes</span>(<span class="dt">x =</span> val, <span class="dt">y =</span> ..density..))<span class="op">+</span></a>
+<a class="sourceLine" id="cb425-27" title="27"><span class="st">  </span><span class="kw">geom_density</span>(<span class="dt">colour=</span><span class="st">&quot;red&quot;</span>, <span class="dt">size=</span><span class="dv">1</span>, <span class="dt">adjust=</span><span class="dv">1</span>)<span class="op">+</span></a>
+<a class="sourceLine" id="cb425-28" title="28"><span class="st">  </span><span class="kw">facet_wrap</span>(<span class="op">~</span>All_variables, <span class="dt">scales =</span> <span class="st">&#39;free&#39;</span>)</a></code></pre></div>
 <p>To change which group we are plotting, simply alter the <code>filter()</code> argument.</p>
 <p>Make a note of which variables appear normally distributed and which appear to be skewed. What do the histograms for nominal and ordinal data look like?</p>
 <p>Try performing a log10() transformation on the x variables and plotting a similar facet grid of histograms –– what does this do to some of the skewed variables? For example…</p>
-<div class="sourceCode" id="cb421"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb421-1" title="1">Agehist &lt;-<span class="st"> </span>Groups<span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb421-2" title="2"><span class="st">  </span><span class="kw">filter</span>(group<span class="op">==</span><span class="st">&quot;Age&quot;</span>)<span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb421-3" title="3"><span class="st">  </span><span class="kw">ggplot</span>(., <span class="kw">aes</span>(<span class="dt">x=</span><span class="kw">log10</span>(val))) <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb421-4" title="4"><span class="st">  </span><span class="kw">geom_histogram</span>(<span class="kw">aes</span>(<span class="dt">x =</span> val, <span class="dt">y =</span> ..density..))<span class="op">+</span></a>
-<a class="sourceLine" id="cb421-5" title="5"><span class="st">  </span><span class="kw">geom_density</span>(<span class="dt">colour=</span><span class="st">&quot;red&quot;</span>, <span class="dt">size=</span><span class="dv">1</span>, <span class="dt">adjust=</span><span class="dv">1</span>)<span class="op">+</span></a>
-<a class="sourceLine" id="cb421-6" title="6"><span class="st">  </span><span class="kw">facet_wrap</span>(<span class="op">~</span>All_variables, <span class="dt">scales =</span> <span class="st">&#39;free&#39;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb426"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb426-1" title="1">Agehist &lt;-<span class="st"> </span>Groups<span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb426-2" title="2"><span class="st">  </span><span class="kw">filter</span>(group<span class="op">==</span><span class="st">&quot;Age&quot;</span>)<span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb426-3" title="3"><span class="st">  </span><span class="kw">ggplot</span>(., <span class="kw">aes</span>(<span class="dt">x=</span><span class="kw">log10</span>(val))) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb426-4" title="4"><span class="st">  </span><span class="kw">geom_histogram</span>(<span class="kw">aes</span>(<span class="dt">x =</span> val, <span class="dt">y =</span> ..density..))<span class="op">+</span></a>
+<a class="sourceLine" id="cb426-5" title="5"><span class="st">  </span><span class="kw">geom_density</span>(<span class="dt">colour=</span><span class="st">&quot;red&quot;</span>, <span class="dt">size=</span><span class="dv">1</span>, <span class="dt">adjust=</span><span class="dv">1</span>)<span class="op">+</span></a>
+<a class="sourceLine" id="cb426-6" title="6"><span class="st">  </span><span class="kw">facet_wrap</span>(<span class="op">~</span>All_variables, <span class="dt">scales =</span> <span class="st">&#39;free&#39;</span>)</a></code></pre></div>
 <ul>
 <li>Create a 2D histogram and 2D kernel density estimate of ward centroids in London using the Eastings and Northings data in the x and y columns of your dataset. For example:</li>
 </ul>
-<div class="sourceCode" id="cb422"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb422-1" title="1">Londonpoint &lt;-<span class="st"> </span><span class="kw">ggplot</span>(LondonWardsleftjoin, <span class="kw">aes</span>(<span class="dt">x=</span>x.y,<span class="dt">y=</span>y.y))<span class="op">+</span><span class="kw">geom_point</span>()<span class="op">+</span><span class="kw">coord_equal</span>()</a>
-<a class="sourceLine" id="cb422-2" title="2">Londonpoint</a></code></pre></div>
+<div class="sourceCode" id="cb427"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb427-1" title="1">Londonpoint &lt;-<span class="st"> </span><span class="kw">ggplot</span>(LondonWardsleftjoin, <span class="kw">aes</span>(<span class="dt">x=</span>x.y,<span class="dt">y=</span>y.y))<span class="op">+</span><span class="kw">geom_point</span>()<span class="op">+</span><span class="kw">coord_equal</span>()</a>
+<a class="sourceLine" id="cb427-2" title="2">Londonpoint</a></code></pre></div>
 <p><img src="CASA0005_files/figure-html/prac8_ggplot-1.png" width="672" /></p>
-<div class="sourceCode" id="cb423"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb423-1" title="1">Londonpoint&lt;-<span class="kw">ggplot</span>(LondonWardsleftjoin, <span class="kw">aes</span>(<span class="dt">x=</span>x.y,<span class="dt">y=</span>y.y))<span class="op">+</span><span class="kw">stat_bin2d</span>(<span class="dt">bins=</span><span class="dv">10</span>)</a>
-<a class="sourceLine" id="cb423-2" title="2">Londonpoint</a></code></pre></div>
+<div class="sourceCode" id="cb428"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb428-1" title="1">Londonpoint&lt;-<span class="kw">ggplot</span>(LondonWardsleftjoin, <span class="kw">aes</span>(<span class="dt">x=</span>x.y,<span class="dt">y=</span>y.y))<span class="op">+</span><span class="kw">stat_bin2d</span>(<span class="dt">bins=</span><span class="dv">10</span>)</a>
+<a class="sourceLine" id="cb428-2" title="2">Londonpoint</a></code></pre></div>
 <p><img src="CASA0005_files/figure-html/prac8_ggplot-2.png" width="672" /></p>
-<div class="sourceCode" id="cb424"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb424-1" title="1">Londonpoint&lt;-<span class="kw">ggplot</span>(LondonWardsleftjoin, <span class="kw">aes</span>(<span class="dt">x=</span>x.y,<span class="dt">y=</span>y.y))<span class="op">+</span><span class="kw">geom_point</span>()<span class="op">+</span><span class="kw">coord_equal</span>()</a>
-<a class="sourceLine" id="cb424-2" title="2">Londonpoint</a></code></pre></div>
+<div class="sourceCode" id="cb429"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb429-1" title="1">Londonpoint&lt;-<span class="kw">ggplot</span>(LondonWardsleftjoin, <span class="kw">aes</span>(<span class="dt">x=</span>x.y,<span class="dt">y=</span>y.y))<span class="op">+</span><span class="kw">geom_point</span>()<span class="op">+</span><span class="kw">coord_equal</span>()</a>
+<a class="sourceLine" id="cb429-2" title="2">Londonpoint</a></code></pre></div>
 <p><img src="CASA0005_files/figure-html/prac8_ggplot-3.png" width="672" /></p>
-<div class="sourceCode" id="cb425"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb425-1" title="1">Londonpoint<span class="op">+</span><span class="kw">stat_density2d</span>(<span class="kw">aes</span>(<span class="dt">fill =</span> ..level..), <span class="dt">geom=</span><span class="st">&quot;polygon&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb430"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb430-1" title="1">Londonpoint<span class="op">+</span><span class="kw">stat_density2d</span>(<span class="kw">aes</span>(<span class="dt">fill =</span> ..level..), <span class="dt">geom=</span><span class="st">&quot;polygon&quot;</span>)</a></code></pre></div>
 <p><img src="CASA0005_files/figure-html/prac8_ggplot-4.png" width="672" /></p>
 </div>
 <div id="extension-1-1" class="section level3">
@@ -729,13 +729,13 @@ Bit different from me this week - I’m not all about drum and bass (although I 
 <h3><span class="header-section-number">8.3.6</span> Task 2 - Function to recode data</h3>
 <p>In the lecture, it was mentioned that sometimes we should recode variables to reduce the amount of information contained in order that different tests can be carried out on the data. Here we will recode some of our scale/ratio data into some nominal/weak-ordinal data to carry out some basic analysis on.</p>
 <p>A function to recode data in our dataset might look like the one below:</p>
-<div class="sourceCode" id="cb426"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb426-1" title="1">newvar&lt;-<span class="dv">0</span></a>
-<a class="sourceLine" id="cb426-2" title="2">recode&lt;-<span class="cf">function</span>(variable,high,medium,low){</a>
-<a class="sourceLine" id="cb426-3" title="3">  newvar[variable<span class="op">&lt;=</span>high]&lt;-<span class="st">&quot;High&quot;</span></a>
-<a class="sourceLine" id="cb426-4" title="4">  newvar[variable<span class="op">&lt;=</span>medium]&lt;-<span class="st">&quot;Medium&quot;</span></a>
-<a class="sourceLine" id="cb426-5" title="5">  newvar[variable<span class="op">&lt;=</span>low]&lt;-<span class="st">&quot;Low&quot;</span></a>
-<a class="sourceLine" id="cb426-6" title="6">  <span class="kw">return</span>(newvar)</a>
-<a class="sourceLine" id="cb426-7" title="7">}</a></code></pre></div>
+<div class="sourceCode" id="cb431"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb431-1" title="1">newvar&lt;-<span class="dv">0</span></a>
+<a class="sourceLine" id="cb431-2" title="2">recode&lt;-<span class="cf">function</span>(variable,high,medium,low){</a>
+<a class="sourceLine" id="cb431-3" title="3">  newvar[variable<span class="op">&lt;=</span>high]&lt;-<span class="st">&quot;High&quot;</span></a>
+<a class="sourceLine" id="cb431-4" title="4">  newvar[variable<span class="op">&lt;=</span>medium]&lt;-<span class="st">&quot;Medium&quot;</span></a>
+<a class="sourceLine" id="cb431-5" title="5">  newvar[variable<span class="op">&lt;=</span>low]&lt;-<span class="st">&quot;Low&quot;</span></a>
+<a class="sourceLine" id="cb431-6" title="6">  <span class="kw">return</span>(newvar)</a>
+<a class="sourceLine" id="cb431-7" title="7">}</a></code></pre></div>
 </div>
 <div id="whats-going-on-in-this-function" class="section level3">
 <h3><span class="header-section-number">8.3.7</span> What’s going on in this function?</h3>
@@ -746,32 +746,32 @@ Bit different from me this week - I’m not all about drum and bass (although I 
 <li><p>We are going to recode the Average GCSE Score variable into High, Medium and Low values – High will be anything above the 3rd Quartile, Low will be anything below the 1st Quartile and Medium – anything in between.</p></li>
 </ul>
 <p><em>Note, if your data doesn’t have the 2013 GCSE scores but 2014, it will have different figures to these figures below and you will need to call the column by the column header you have</em></p>
-<div class="sourceCode" id="cb427"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb427-1" title="1"><span class="kw">attach</span>(LondonWards)</a>
-<a class="sourceLine" id="cb427-2" title="2"><span class="co">#Check the name of your column, there could be a slight error and it might be called &#39;AvgGCSED201&#39;</span></a>
-<a class="sourceLine" id="cb427-3" title="3"><span class="kw">summary</span>(AvgGCSE201) </a></code></pre></div>
+<div class="sourceCode" id="cb432"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb432-1" title="1"><span class="kw">attach</span>(LondonWards)</a>
+<a class="sourceLine" id="cb432-2" title="2"><span class="co">#Check the name of your column, there could be a slight error and it might be called &#39;AvgGCSED201&#39;</span></a>
+<a class="sourceLine" id="cb432-3" title="3"><span class="kw">summary</span>(AvgGCSE201) </a></code></pre></div>
 <pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
 ##   245.0   332.3   343.7   345.8   358.3   409.1</code></pre>
 <p>Create a new column in your data frame and fill it with recoded data for the Average GCSE Score in 2013. To do this, pass the AvgGCSE2013 variable to the <code>recode()</code> function, along with and the three values for high, medium and low. You should create a new variable called gcse_recode and use the function to fill it with values</p>
 <p>If you wanted to be really fancy, you could try altering the function to calculate these “High”, “Medium” and “Low”</p>
-<div class="sourceCode" id="cb429"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb429-1" title="1">LondonWards<span class="op">$</span>GCSE_recode &lt;-<span class="st"> </span><span class="kw">recode</span>(AvgGCSE201,<span class="fl">409.1</span>,<span class="fl">358.3</span>,<span class="fl">332.3</span>)</a>
-<a class="sourceLine" id="cb429-2" title="2"></a>
-<a class="sourceLine" id="cb429-3" title="3"><span class="co">#or</span></a>
-<a class="sourceLine" id="cb429-4" title="4"></a>
-<a class="sourceLine" id="cb429-5" title="5">LondonWards<span class="op">$</span>GCSE_recode &lt;-<span class="st"> </span><span class="kw">recode</span>(AvgGCSE201,<span class="fl">409.1</span>,<span class="fl">358.3</span>,<span class="fl">332.3</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb434"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb434-1" title="1">LondonWards<span class="op">$</span>GCSE_recode &lt;-<span class="st"> </span><span class="kw">recode</span>(AvgGCSE201,<span class="fl">409.1</span>,<span class="fl">358.3</span>,<span class="fl">332.3</span>)</a>
+<a class="sourceLine" id="cb434-2" title="2"></a>
+<a class="sourceLine" id="cb434-3" title="3"><span class="co">#or</span></a>
+<a class="sourceLine" id="cb434-4" title="4"></a>
+<a class="sourceLine" id="cb434-5" title="5">LondonWards<span class="op">$</span>GCSE_recode &lt;-<span class="st"> </span><span class="kw">recode</span>(AvgGCSE201,<span class="fl">409.1</span>,<span class="fl">358.3</span>,<span class="fl">332.3</span>)</a></code></pre></div>
 <p>You should also create a second re-coded variable from the unauthorised absence variable using the same function – call this variable <code>unauth_recode</code> and again, used the 3rd and 1st quartiles to define your high, medium and low values.</p>
 <p>On to another function. This time, we will calculate some location quotients for housing tenure in London. If you remember, a location quotient is simply the ratio of a local distribution to the ratio of a global distribution. In our case, our global distribution will be London.</p>
-<div class="sourceCode" id="cb430"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb430-1" title="1"><span class="co">#Location Quotient function 1</span></a>
-<a class="sourceLine" id="cb430-2" title="2">LQ1&lt;-<span class="cf">function</span>(pctVariable){</a>
-<a class="sourceLine" id="cb430-3" title="3">  pctVariable <span class="op">/</span><span class="kw">mean</span>(pctVariable)</a>
-<a class="sourceLine" id="cb430-4" title="4">}</a>
-<a class="sourceLine" id="cb430-5" title="5"><span class="co">#Location Quotient function 2</span></a>
-<a class="sourceLine" id="cb430-6" title="6">LQ2&lt;-<span class="cf">function</span>(variable,rowtotal){</a>
-<a class="sourceLine" id="cb430-7" title="7">  localprop&lt;-variable<span class="op">/</span>rowtotal</a>
-<a class="sourceLine" id="cb430-8" title="8">  globalprop&lt;-<span class="kw">sum</span>(variable)<span class="op">/</span><span class="kw">sum</span>(rowtotal)</a>
-<a class="sourceLine" id="cb430-9" title="9">  <span class="kw">return</span>(localprop<span class="op">/</span>globalprop)</a>
-<a class="sourceLine" id="cb430-10" title="10">}</a></code></pre></div>
+<div class="sourceCode" id="cb435"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb435-1" title="1"><span class="co">#Location Quotient function 1</span></a>
+<a class="sourceLine" id="cb435-2" title="2">LQ1&lt;-<span class="cf">function</span>(pctVariable){</a>
+<a class="sourceLine" id="cb435-3" title="3">  pctVariable <span class="op">/</span><span class="kw">mean</span>(pctVariable)</a>
+<a class="sourceLine" id="cb435-4" title="4">}</a>
+<a class="sourceLine" id="cb435-5" title="5"><span class="co">#Location Quotient function 2</span></a>
+<a class="sourceLine" id="cb435-6" title="6">LQ2&lt;-<span class="cf">function</span>(variable,rowtotal){</a>
+<a class="sourceLine" id="cb435-7" title="7">  localprop&lt;-variable<span class="op">/</span>rowtotal</a>
+<a class="sourceLine" id="cb435-8" title="8">  globalprop&lt;-<span class="kw">sum</span>(variable)<span class="op">/</span><span class="kw">sum</span>(rowtotal)</a>
+<a class="sourceLine" id="cb435-9" title="9">  <span class="kw">return</span>(localprop<span class="op">/</span>globalprop)</a>
+<a class="sourceLine" id="cb435-10" title="10">}</a></code></pre></div>
 <p>The two functions above calculate the same Location Quotient, but the first one works on variables which have already been converted into row percentages, the second will work on raw variables where an additional column for the row totals is stored in a separate column – e.g. “age 0-15”, “age 16-64” and “age 65 plus” all sum to the “Pop2013” column in our data London Wards data set:</p>
-<div class="sourceCode" id="cb431"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb431-1" title="1"><span class="kw">head</span>(LondonWards[,<span class="dv">1</span><span class="op">:</span><span class="dv">7</span>])</a></code></pre></div>
+<div class="sourceCode" id="cb436"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb436-1" title="1"><span class="kw">head</span>(LondonWards[,<span class="dv">1</span><span class="op">:</span><span class="dv">7</span>])</a></code></pre></div>
 <pre><code>## Simple feature collection with 6 features and 7 fields
 ## geometry type:  MULTIPOLYGON
 ## dimension:      XY
@@ -792,10 +792,10 @@ Bit different from me this week - I’m not all about drum and bass (although I 
 ## 5 E05000355 MULTIPOLYGON (((513098.5 17...
 ## 6 E05000356 MULTIPOLYGON (((513467.2 17...</code></pre>
 <p>Calculate Location Quotients for the 5 Housing tenure variables (Owner Occupied, Private Rent, Social Rent, Shared Ownership, Rent Free) in your data set using either of the functions above. Save these as 5 new variables in your dataset. *Hint – use the function to create the variable directly, for example:</p>
-<div class="sourceCode" id="cb433"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb433-1" title="1"><span class="co">#this is pseudo code, but you should see how this works</span></a>
-<a class="sourceLine" id="cb433-2" title="2">dataframe<span class="op">$</span>newLQVariable &lt;-<span class="st"> </span><span class="kw">LQ1</span>(originalPercentageVariable)</a>
-<a class="sourceLine" id="cb433-3" title="3"><span class="co">#or</span></a>
-<a class="sourceLine" id="cb433-4" title="4">dataframe<span class="op">$</span>newLQVariable &lt;-<span class="st"> </span><span class="kw">LQ2</span>(originalVariable,rowTotalVariable)</a></code></pre></div>
+<div class="sourceCode" id="cb438"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb438-1" title="1"><span class="co">#this is pseudo code, but you should see how this works</span></a>
+<a class="sourceLine" id="cb438-2" title="2">dataframe<span class="op">$</span>newLQVariable &lt;-<span class="st"> </span><span class="kw">LQ1</span>(originalPercentageVariable)</a>
+<a class="sourceLine" id="cb438-3" title="3"><span class="co">#or</span></a>
+<a class="sourceLine" id="cb438-4" title="4">dataframe<span class="op">$</span>newLQVariable &lt;-<span class="st"> </span><span class="kw">LQ2</span>(originalVariable,rowTotalVariable)</a></code></pre></div>
 </div>
 <div id="task-3-mapping-location-quotients" class="section level3">
 <h3><span class="header-section-number">8.3.8</span> Task 3 – Mapping Location Quotients</h3>
@@ -814,16 +814,16 @@ Bit different from me this week - I’m not all about drum and bass (although I 
 <li><p>Not highly correlated</p></li>
 </ul>
 <p>To make this task easier, we will just select two variables to make our classification from. In a real geodemographic classification, hundreds of variables are often used.</p>
-<div class="sourceCode" id="cb434"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb434-1" title="1">LondonWardsData &lt;-<span class="st"> </span>LondonWards <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb434-2" title="2"><span class="st">  </span><span class="co">#drop geometry</span></a>
-<a class="sourceLine" id="cb434-3" title="3"><span class="st">  </span><span class="kw">st_drop_geometry</span>()<span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb434-4" title="4"><span class="st">  </span><span class="co">#display list of variables</span></a>
-<a class="sourceLine" id="cb434-5" title="5"><span class="st">  </span><span class="kw">summarise_all</span>(class) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb434-6" title="6"><span class="st">  </span><span class="kw">pivot_longer</span>(<span class="kw">everything</span>(), </a>
-<a class="sourceLine" id="cb434-7" title="7">               <span class="dt">names_to=</span><span class="st">&quot;All_variables&quot;</span>, </a>
-<a class="sourceLine" id="cb434-8" title="8">               <span class="dt">values_to=</span><span class="st">&quot;Variable_class&quot;</span>)</a>
-<a class="sourceLine" id="cb434-9" title="9"></a>
-<a class="sourceLine" id="cb434-10" title="10"><span class="kw">slice_head</span>(LondonWardsData, <span class="dt">n=</span><span class="dv">5</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb439"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb439-1" title="1">LondonWardsData &lt;-<span class="st"> </span>LondonWards <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb439-2" title="2"><span class="st">  </span><span class="co">#drop geometry</span></a>
+<a class="sourceLine" id="cb439-3" title="3"><span class="st">  </span><span class="kw">st_drop_geometry</span>()<span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb439-4" title="4"><span class="st">  </span><span class="co">#display list of variables</span></a>
+<a class="sourceLine" id="cb439-5" title="5"><span class="st">  </span><span class="kw">summarise_all</span>(class) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb439-6" title="6"><span class="st">  </span><span class="kw">pivot_longer</span>(<span class="kw">everything</span>(), </a>
+<a class="sourceLine" id="cb439-7" title="7">               <span class="dt">names_to=</span><span class="st">&quot;All_variables&quot;</span>, </a>
+<a class="sourceLine" id="cb439-8" title="8">               <span class="dt">values_to=</span><span class="st">&quot;Variable_class&quot;</span>)</a>
+<a class="sourceLine" id="cb439-9" title="9"></a>
+<a class="sourceLine" id="cb439-10" title="10"><span class="kw">slice_head</span>(LondonWardsData, <span class="dt">n=</span><span class="dv">5</span>)</a></code></pre></div>
 <pre><code>## # A tibble: 5 x 2
 ##   All_variables Variable_class
 ##   &lt;chr&gt;         &lt;chr&gt;         
@@ -832,24 +832,24 @@ Bit different from me this week - I’m not all about drum and bass (although I 
 ## 3 WD11NM        factor        
 ## 4 WD11NMW       factor        
 ## 5 WardName      factor</code></pre>
-<div class="sourceCode" id="cb436"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb436-1" title="1"><span class="co"># Create a new data frame just containing the two variables we are interested in</span></a>
-<a class="sourceLine" id="cb436-2" title="2">mydata &lt;-<span class="st"> </span>LondonWards <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb436-3" title="3"><span class="st">      </span><span class="kw">st_drop_geometry</span>()<span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb436-4" title="4"><span class="st">      </span>dplyr<span class="op">::</span><span class="kw">select</span>(<span class="kw">c</span>(PctOwned20, PctNoEngli))</a>
-<a class="sourceLine" id="cb436-5" title="5"></a>
-<a class="sourceLine" id="cb436-6" title="6"><span class="co">#– check variable distributions first</span></a>
-<a class="sourceLine" id="cb436-7" title="7">histplot &lt;-<span class="st"> </span><span class="kw">ggplot</span>(<span class="dt">data=</span>mydata, <span class="kw">aes</span>(<span class="dt">x=</span>PctOwned20))</a>
-<a class="sourceLine" id="cb436-8" title="8">histplot <span class="op">+</span><span class="kw">geom_histogram</span>()</a></code></pre></div>
+<div class="sourceCode" id="cb441"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb441-1" title="1"><span class="co"># Create a new data frame just containing the two variables we are interested in</span></a>
+<a class="sourceLine" id="cb441-2" title="2">mydata &lt;-<span class="st"> </span>LondonWards <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb441-3" title="3"><span class="st">      </span><span class="kw">st_drop_geometry</span>()<span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb441-4" title="4"><span class="st">      </span>dplyr<span class="op">::</span><span class="kw">select</span>(<span class="kw">c</span>(PctOwned20, PctNoEngli))</a>
+<a class="sourceLine" id="cb441-5" title="5"></a>
+<a class="sourceLine" id="cb441-6" title="6"><span class="co">#– check variable distributions first</span></a>
+<a class="sourceLine" id="cb441-7" title="7">histplot &lt;-<span class="st"> </span><span class="kw">ggplot</span>(<span class="dt">data=</span>mydata, <span class="kw">aes</span>(<span class="dt">x=</span>PctOwned20))</a>
+<a class="sourceLine" id="cb441-8" title="8">histplot <span class="op">+</span><span class="kw">geom_histogram</span>()</a></code></pre></div>
 <pre><code>## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</code></pre>
 <p><img src="CASA0005_files/figure-html/prac8_cluster-1.png" width="672" /></p>
-<div class="sourceCode" id="cb438"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb438-1" title="1">histplot &lt;-<span class="st"> </span><span class="kw">ggplot</span>(<span class="dt">data=</span>mydata, <span class="kw">aes</span>(<span class="dt">x=</span> PctNoEngli))</a>
-<a class="sourceLine" id="cb438-2" title="2">histplot <span class="op">+</span><span class="kw">geom_histogram</span>()</a></code></pre></div>
+<div class="sourceCode" id="cb443"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb443-1" title="1">histplot &lt;-<span class="st"> </span><span class="kw">ggplot</span>(<span class="dt">data=</span>mydata, <span class="kw">aes</span>(<span class="dt">x=</span> PctNoEngli))</a>
+<a class="sourceLine" id="cb443-2" title="2">histplot <span class="op">+</span><span class="kw">geom_histogram</span>()</a></code></pre></div>
 <pre><code>## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</code></pre>
 <p><img src="CASA0005_files/figure-html/prac8_cluster-2.png" width="672" /></p>
 <p>Let’s make our k-means find 3 clusters with 25 iterations. The graphics below by <a href="https://twitter.com/allison_horst">Allison Horst</a> will help explain the process…</p>
 <p><img src="allisonhorst_images/kmeans_2.jpg" width="450pt" style="display: block; margin: auto;" /></p>
-<div class="sourceCode" id="cb440"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb440-1" title="1">fit &lt;-<span class="st"> </span>mydata <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb440-2" title="2"><span class="st">  </span><span class="kw">kmeans</span>(., <span class="dv">3</span>, <span class="dt">nstart=</span><span class="dv">25</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb445"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb445-1" title="1">fit &lt;-<span class="st"> </span>mydata <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb445-2" title="2"><span class="st">  </span><span class="kw">kmeans</span>(., <span class="dv">3</span>, <span class="dt">nstart=</span><span class="dv">25</span>)</a></code></pre></div>
 <p><img src="allisonhorst_images/kmeans_3.jpg" width="450pt" style="display: block; margin: auto;" /></p>
 <p><img src="allisonhorst_images/kmeans_4.jpg" width="450pt" style="display: block; margin: auto;" /></p>
 <p><img src="allisonhorst_images/kmeans_5.jpg" width="450pt" style="display: block; margin: auto;" /></p>
@@ -861,61 +861,42 @@ Bit different from me this week - I’m not all about drum and bass (although I 
 <p><img src="allisonhorst_images/kmeans_11.jpg" width="450pt" style="display: block; margin: auto;" /></p>
 <p>Now let’s get out cluster means using <code>tidy()</code> from the <code>tidymodels</code> package. Tidy creates a tibble that summarizes the model.</p>
 <p>Then plot them and then add them to our London wards…</p>
-<div class="sourceCode" id="cb441"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb441-1" title="1"><span class="co"># get cluster means</span></a>
-<a class="sourceLine" id="cb441-2" title="2"><span class="kw">library</span>(tidymodels)</a></code></pre></div>
-<pre><code>## -- Attaching packages ---------------------- tidymodels 0.1.0 --</code></pre>
-<pre><code>## v broom     0.7.0      v rsample   0.0.7 
-## v dials     0.0.8      v tune      0.1.1 
-## v infer     0.5.2      v workflows 0.1.2 
-## v parsnip   0.1.2      v yardstick 0.0.7 
-## v recipes   0.1.13</code></pre>
-<pre><code>## -- Conflicts ------------------------- tidymodels_conflicts() --
-## x recipes::check()     masks devtools::check()
-## x nlme::collapse()     masks dplyr::collapse()
-## x scales::discard()    masks purrr::discard()
-## x plotly::filter()     masks dplyr::filter(), stats::filter()
-## x recipes::fixed()     masks stringr::fixed()
-## x dplyr::lag()         masks stats::lag()
-## x tune::parameters()   masks dials::parameters(), spatstat::parameters()
-## x dials::prune()       masks rpart::prune()
-## x .GlobalEnv::recode() masks dplyr::recode()
-## x MASS::select()       masks raster::select(), plotly::select(), dplyr::select()
-## x yardstick::spec()    masks readr::spec()
-## x recipes::step()      masks stats::step()
-## x parsnip::translate() masks rgeos::translate()</code></pre>
-<div class="sourceCode" id="cb445"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb445-1" title="1">centroid &lt;-<span class="st"> </span><span class="kw">tidy</span>(fit)<span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb445-2" title="2"><span class="st">  </span><span class="co">#print the results of the cluster groupings</span></a>
-<a class="sourceLine" id="cb445-3" title="3"><span class="st">  </span><span class="kw">print</span>()<span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb445-4" title="4"><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">select</span>(PctOwned20, PctNoEngli)</a></code></pre></div>
+<div class="sourceCode" id="cb446"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb446-1" title="1"><span class="co"># get cluster means</span></a>
+<a class="sourceLine" id="cb446-2" title="2"><span class="kw">library</span>(tidymodels)</a>
+<a class="sourceLine" id="cb446-3" title="3"></a>
+<a class="sourceLine" id="cb446-4" title="4">centroid &lt;-<span class="st"> </span><span class="kw">tidy</span>(fit)<span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb446-5" title="5"><span class="st">  </span><span class="co">#print the results of the cluster groupings</span></a>
+<a class="sourceLine" id="cb446-6" title="6"><span class="st">  </span><span class="kw">print</span>()<span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb446-7" title="7"><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">select</span>(PctOwned20, PctNoEngli)</a></code></pre></div>
 <pre><code>## # A tibble: 3 x 5
 ##   PctOwned20 PctNoEngli  size withinss cluster
 ##        &lt;dbl&gt;      &lt;dbl&gt; &lt;int&gt;    &lt;dbl&gt; &lt;fct&gt;  
 ## 1       27.5      17.0    187   13365. 1      
 ## 2       72.4       6.38   191   17086. 2      
 ## 3       48.9      14.7    247   21793. 3</code></pre>
-<div class="sourceCode" id="cb447"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb447-1" title="1"><span class="co"># as we only have variable two dimensions we can plot the clusters on a graph</span></a>
-<a class="sourceLine" id="cb447-2" title="2">p &lt;-<span class="st"> </span><span class="kw">ggplot</span>(mydata,<span class="kw">aes</span>(PctOwned20, PctNoEngli))<span class="op">+</span></a>
-<a class="sourceLine" id="cb447-3" title="3"><span class="st">  </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">colour=</span><span class="kw">factor</span>(fit<span class="op">$</span>cluster)))<span class="op">+</span></a>
-<a class="sourceLine" id="cb447-4" title="4"><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">data=</span>centroid,<span class="kw">aes</span>(PctOwned20, PctNoEngli), <span class="dt">size=</span><span class="dv">7</span>, <span class="dt">shape=</span><span class="dv">18</span>)<span class="op">+</span><span class="st"> </span><span class="kw">theme</span>(<span class="dt">legend.position=</span><span class="st">&quot;none&quot;</span>)</a>
-<a class="sourceLine" id="cb447-5" title="5"></a>
-<a class="sourceLine" id="cb447-6" title="6">LondonWards &lt;-<span class="st"> </span>fit <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb447-7" title="7"><span class="st">  </span><span class="co"># </span></a>
-<a class="sourceLine" id="cb447-8" title="8"><span class="st">  </span><span class="kw">augment</span>(., LondonWards)<span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb447-9" title="9"><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">select</span>(WD11CD, .cluster)<span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb447-10" title="10"><span class="st">  </span><span class="co">#make sure the .cluster column is numeric</span></a>
-<a class="sourceLine" id="cb447-11" title="11"><span class="st">  </span><span class="kw">mutate</span>(<span class="kw">across</span>(.cluster, as.numeric))<span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb447-12" title="12"><span class="st">  </span><span class="co"># join the .cluster to our sf layer</span></a>
-<a class="sourceLine" id="cb447-13" title="13"><span class="st">  </span><span class="kw">left_join</span>(LondonWards, </a>
-<a class="sourceLine" id="cb447-14" title="14">            .,</a>
-<a class="sourceLine" id="cb447-15" title="15">            <span class="dt">by =</span> <span class="kw">c</span>(<span class="st">&quot;WD11CD&quot;</span> =<span class="st"> &quot;WD11CD&quot;</span>))</a>
-<a class="sourceLine" id="cb447-16" title="16"></a>
-<a class="sourceLine" id="cb447-17" title="17"></a>
-<a class="sourceLine" id="cb447-18" title="18"><span class="co">#now map our geodeomographic classification</span></a>
-<a class="sourceLine" id="cb447-19" title="19">map &lt;-<span class="st"> </span><span class="kw">ggplot</span>(LondonWards) <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb447-20" title="20"><span class="st">  </span><span class="kw">geom_sf</span>(<span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">fill=</span>.cluster))<span class="op">+</span></a>
-<a class="sourceLine" id="cb447-21" title="21"><span class="st">  </span><span class="kw">scale_fill_continuous</span>(<span class="dt">breaks=</span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>))</a>
-<a class="sourceLine" id="cb447-22" title="22">map</a></code></pre></div>
-<p><img src="CASA0005_files/figure-html/unnamed-chunk-393-1.png" width="672" /></p>
+<div class="sourceCode" id="cb448"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb448-1" title="1"><span class="co"># as we only have variable two dimensions we can plot the clusters on a graph</span></a>
+<a class="sourceLine" id="cb448-2" title="2">p &lt;-<span class="st"> </span><span class="kw">ggplot</span>(mydata,<span class="kw">aes</span>(PctOwned20, PctNoEngli))<span class="op">+</span></a>
+<a class="sourceLine" id="cb448-3" title="3"><span class="st">  </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">colour=</span><span class="kw">factor</span>(fit<span class="op">$</span>cluster)))<span class="op">+</span></a>
+<a class="sourceLine" id="cb448-4" title="4"><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">data=</span>centroid,<span class="kw">aes</span>(PctOwned20, PctNoEngli), <span class="dt">size=</span><span class="dv">7</span>, <span class="dt">shape=</span><span class="dv">18</span>)<span class="op">+</span><span class="st"> </span><span class="kw">theme</span>(<span class="dt">legend.position=</span><span class="st">&quot;none&quot;</span>)</a>
+<a class="sourceLine" id="cb448-5" title="5"></a>
+<a class="sourceLine" id="cb448-6" title="6">LondonWards &lt;-<span class="st"> </span>fit <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb448-7" title="7"><span class="st">  </span><span class="co"># </span></a>
+<a class="sourceLine" id="cb448-8" title="8"><span class="st">  </span><span class="kw">augment</span>(., LondonWards)<span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb448-9" title="9"><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">select</span>(WD11CD, .cluster)<span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb448-10" title="10"><span class="st">  </span><span class="co">#make sure the .cluster column is numeric</span></a>
+<a class="sourceLine" id="cb448-11" title="11"><span class="st">  </span><span class="kw">mutate</span>(<span class="kw">across</span>(.cluster, as.numeric))<span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb448-12" title="12"><span class="st">  </span><span class="co"># join the .cluster to our sf layer</span></a>
+<a class="sourceLine" id="cb448-13" title="13"><span class="st">  </span><span class="kw">left_join</span>(LondonWards, </a>
+<a class="sourceLine" id="cb448-14" title="14">            .,</a>
+<a class="sourceLine" id="cb448-15" title="15">            <span class="dt">by =</span> <span class="kw">c</span>(<span class="st">&quot;WD11CD&quot;</span> =<span class="st"> &quot;WD11CD&quot;</span>))</a>
+<a class="sourceLine" id="cb448-16" title="16"></a>
+<a class="sourceLine" id="cb448-17" title="17"></a>
+<a class="sourceLine" id="cb448-18" title="18"><span class="co">#now map our geodeomographic classification</span></a>
+<a class="sourceLine" id="cb448-19" title="19">map &lt;-<span class="st"> </span><span class="kw">ggplot</span>(LondonWards) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb448-20" title="20"><span class="st">  </span><span class="kw">geom_sf</span>(<span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">fill=</span>.cluster))<span class="op">+</span></a>
+<a class="sourceLine" id="cb448-21" title="21"><span class="st">  </span><span class="kw">scale_fill_continuous</span>(<span class="dt">breaks=</span><span class="kw">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>))</a>
+<a class="sourceLine" id="cb448-22" title="22">map</a></code></pre></div>
+<p><img src="CASA0005_files/figure-html/unnamed-chunk-398-1.png" width="672" /></p>
 <p><img src="allisonhorst_images/kmeans_12.jpg" width="450pt" style="display: block; margin: auto;" /></p>
 <p>Now of course this is just the most basic of classifications, but you can easily see how you could include more variables or different variables to create a different classification - this is perhaps something you could try.</p>
 <p>I haven’t even gone into using different clustering algorithms, how to decide on the appropriate number of clusters, using silhoutte plots to assess the strength of the clusters or creating pen-portraits using the variable z-scores for each cluster - this is practically a whole course in its own right… or indeed a dissertation topic!</p>
@@ -960,163 +941,163 @@ Bit different from me this week - I’m not all about drum and bass (although I 
 </ol>
 <p><img src="allisonhorst_images/rmarkdown_wizards.png" width="450pt" style="display: block; margin: auto;" /></p>
 <p>…Add add some code of your choice from either a previous practical or your own work. As it’s a new project you’ll have to either copy the data into your project folder or set the working directory <code>setwd()</code>. If it’s all online data that you’ve loaded directly from the web into R, this shouldn’t be an issue. I’m going to use the interactive map we made in practical 5 (the <a href="map-making.html#advanced-interactive-map">Advanced interactive map</a> section)…..Here is the code i’ve put in my chunk:</p>
-<div class="sourceCode" id="cb448"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb448-1" title="1"><span class="kw">library</span>(sf)</a>
-<a class="sourceLine" id="cb448-2" title="2"><span class="kw">library</span>(tmap)</a>
-<a class="sourceLine" id="cb448-3" title="3"><span class="kw">library</span>(leafpop)</a>
-<a class="sourceLine" id="cb448-4" title="4"><span class="kw">library</span>(leaflet)</a>
-<a class="sourceLine" id="cb448-5" title="5"><span class="kw">library</span>(tmaptools)</a>
-<a class="sourceLine" id="cb448-6" title="6"><span class="kw">library</span>(tidyverse)</a>
-<a class="sourceLine" id="cb448-7" title="7"></a>
-<a class="sourceLine" id="cb448-8" title="8">OSM &lt;-<span class="st"> </span><span class="kw">st_read</span>(here<span class="op">::</span><span class="kw">here</span>(<span class="st">&quot;prac5_data&quot;</span>,</a>
-<a class="sourceLine" id="cb448-9" title="9">                          <span class="st">&quot;greater-london-latest-free.shp&quot;</span>, </a>
-<a class="sourceLine" id="cb448-10" title="10">                          <span class="st">&quot;gis_osm_pois_a_free_1.shp&quot;</span>)) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb448-11" title="11"><span class="st">  </span><span class="kw">st_transform</span>(., <span class="dv">27700</span>) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb448-12" title="12"><span class="st">  </span><span class="co">#select hotels only</span></a>
-<a class="sourceLine" id="cb448-13" title="13"><span class="st">  </span><span class="kw">filter</span>(fclass <span class="op">==</span><span class="st"> &#39;hotel&#39;</span>)</a>
-<a class="sourceLine" id="cb448-14" title="14"></a>
-<a class="sourceLine" id="cb448-15" title="15">Londonborough &lt;-<span class="st"> </span><span class="kw">st_read</span>(here<span class="op">::</span><span class="kw">here</span>(<span class="st">&quot;Prac1_data&quot;</span>,</a>
-<a class="sourceLine" id="cb448-16" title="16">                                    <span class="st">&quot;statistical-gis-boundaries-london&quot;</span>, </a>
-<a class="sourceLine" id="cb448-17" title="17">                                    <span class="st">&quot;ESRI&quot;</span>, </a>
-<a class="sourceLine" id="cb448-18" title="18">                                    <span class="st">&quot;London_Borough_Excluding_MHW.shp&quot;</span>))<span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb448-19" title="19"><span class="st">  </span><span class="kw">st_transform</span>(., <span class="dv">27700</span>)</a>
-<a class="sourceLine" id="cb448-20" title="20"></a>
-<a class="sourceLine" id="cb448-21" title="21">Airbnb &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="st">&quot;prac5_data/listings.csv&quot;</span>) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb448-22" title="22"><span class="st">  </span><span class="kw">st_as_sf</span>(., <span class="dt">coords =</span> <span class="kw">c</span>(<span class="st">&quot;longitude&quot;</span>, <span class="st">&quot;latitude&quot;</span>), </a>
-<a class="sourceLine" id="cb448-23" title="23">                   <span class="dt">crs =</span> <span class="dv">4326</span>) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb448-24" title="24"><span class="st">    </span><span class="kw">st_transform</span>(., <span class="dv">27700</span>)<span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb448-25" title="25"><span class="st">    </span><span class="co">#select entire places that are available all year</span></a>
-<a class="sourceLine" id="cb448-26" title="26"><span class="st">    </span><span class="kw">filter</span>(room_type <span class="op">==</span><span class="st"> &#39;Entire home/apt&#39;</span> <span class="op">&amp;</span><span class="st"> </span>availability_<span class="dv">365</span> <span class="op">==</span><span class="st">&#39;365&#39;</span>)</a>
-<a class="sourceLine" id="cb448-27" title="27"></a>
-<a class="sourceLine" id="cb448-28" title="28"></a>
-<a class="sourceLine" id="cb448-29" title="29"><span class="co"># make a function for the join</span></a>
-<a class="sourceLine" id="cb448-30" title="30"><span class="co"># hint all you have to do is replace data1 and data2</span></a>
-<a class="sourceLine" id="cb448-31" title="31"><span class="co"># with the data you want to use</span></a>
-<a class="sourceLine" id="cb448-32" title="32"></a>
-<a class="sourceLine" id="cb448-33" title="33">Joinfun &lt;-<span class="st"> </span><span class="cf">function</span>(data1, data2){</a>
-<a class="sourceLine" id="cb448-34" title="34"></a>
-<a class="sourceLine" id="cb448-35" title="35">output&lt;-<span class="st"> </span>data1<span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb448-36" title="36"><span class="st">  </span><span class="kw">st_join</span>(Londonborough,.)<span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb448-37" title="37"><span class="st">  </span><span class="kw">add_count</span>(GSS_CODE, <span class="dt">name=</span><span class="st">&quot;hotels_in_borough&quot;</span>) </a>
-<a class="sourceLine" id="cb448-38" title="38"></a>
-<a class="sourceLine" id="cb448-39" title="39">  <span class="kw">return</span>(output)</a>
-<a class="sourceLine" id="cb448-40" title="40">}</a>
-<a class="sourceLine" id="cb448-41" title="41"></a>
-<a class="sourceLine" id="cb448-42" title="42"><span class="co"># use the function for hotels</span></a>
-<a class="sourceLine" id="cb448-43" title="43">Hotels &lt;-<span class="st"> </span><span class="kw">Joinfun</span>(OSM, Londonborough)</a>
-<a class="sourceLine" id="cb448-44" title="44"></a>
-<a class="sourceLine" id="cb448-45" title="45"><span class="co"># then for airbnb</span></a>
-<a class="sourceLine" id="cb448-46" title="46">Airbnb &lt;-<span class="st"> </span><span class="kw">Joinfun</span>(Airbnb, Londonborough)</a>
-<a class="sourceLine" id="cb448-47" title="47"></a>
-<a class="sourceLine" id="cb448-48" title="48"><span class="co"># now try to arrange the plots with tmap</span></a>
-<a class="sourceLine" id="cb448-49" title="49">breaks =<span class="st"> </span><span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">5</span>, <span class="dv">12</span>, <span class="dv">26</span>, <span class="dv">57</span>, <span class="dv">286</span>) </a>
-<a class="sourceLine" id="cb448-50" title="50"></a>
-<a class="sourceLine" id="cb448-51" title="51"><span class="co">#change the column name from hotels_in_borough for the legend</span></a>
-<a class="sourceLine" id="cb448-52" title="52">Hotels &lt;-<span class="st"> </span>Hotels <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb448-53" title="53"><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">rename</span>(<span class="st">`</span><span class="dt">Accomodation count</span><span class="st">`</span> =<span class="st"> </span>hotels_in_borough)</a>
-<a class="sourceLine" id="cb448-54" title="54"></a>
-<a class="sourceLine" id="cb448-55" title="55">Airbnb &lt;-<span class="st"> </span>Airbnb <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb448-56" title="56"><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">rename</span>(<span class="st">`</span><span class="dt">Accomodation count</span><span class="st">`</span> =<span class="st"> </span>hotels_in_borough)</a>
-<a class="sourceLine" id="cb448-57" title="57"></a>
-<a class="sourceLine" id="cb448-58" title="58"></a>
-<a class="sourceLine" id="cb448-59" title="59">Airbnb_count &lt;-<span class="st"> </span>Airbnb <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb448-60" title="60"><span class="st">  </span><span class="kw">count</span>(GSS_CODE)</a>
-<a class="sourceLine" id="cb448-61" title="61">Hotels_count &lt;-<span class="st"> </span>Hotels <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb448-62" title="62"><span class="st">  </span><span class="kw">count</span>(NAME)</a>
-<a class="sourceLine" id="cb448-63" title="63"></a>
-<a class="sourceLine" id="cb448-64" title="64"><span class="co">#join data</span></a>
-<a class="sourceLine" id="cb448-65" title="65">Joined &lt;-<span class="st"> </span>Airbnb_count<span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb448-66" title="66"><span class="st">  </span><span class="kw">st_join</span>(., Hotels_count, <span class="dt">join =</span> st_equals)<span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb448-67" title="67"><span class="st">  </span><span class="kw">st_transform</span>(., <span class="dv">4326</span>)<span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb448-68" title="68"><span class="st">  </span><span class="kw">rename</span>(<span class="st">`</span><span class="dt">Airbnb count</span><span class="st">`</span> =<span class="st"> `</span><span class="dt">n.x</span><span class="st">`</span>, </a>
-<a class="sourceLine" id="cb448-69" title="69">         <span class="st">`</span><span class="dt">GSS Code</span><span class="st">`</span>=<span class="st"> </span>GSS_CODE,</a>
-<a class="sourceLine" id="cb448-70" title="70">         <span class="st">`</span><span class="dt">Borough</span><span class="st">`</span>=NAME,</a>
-<a class="sourceLine" id="cb448-71" title="71">         <span class="st">`</span><span class="dt">Hotel count</span><span class="st">`</span> =<span class="st"> `</span><span class="dt">n.y</span><span class="st">`</span>) </a>
-<a class="sourceLine" id="cb448-72" title="72"></a>
-<a class="sourceLine" id="cb448-73" title="73">popupairbnb &lt;-Joined <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb448-74" title="74"><span class="st">  </span><span class="kw">st_drop_geometry</span>()<span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb448-75" title="75"><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">select</span>(<span class="st">`</span><span class="dt">Airbnb count</span><span class="st">`</span>, Borough)<span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb448-76" title="76"><span class="st">  </span><span class="kw">popupTable</span>()</a>
-<a class="sourceLine" id="cb448-77" title="77"></a>
-<a class="sourceLine" id="cb448-78" title="78">popuphotel &lt;-Joined <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb448-79" title="79"><span class="st">  </span><span class="kw">st_drop_geometry</span>()<span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb448-80" title="80"><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">select</span>(<span class="st">`</span><span class="dt">Hotel count</span><span class="st">`</span>, Borough)<span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb448-81" title="81"><span class="st">  </span><span class="kw">popupTable</span>()</a>
-<a class="sourceLine" id="cb448-82" title="82"></a>
-<a class="sourceLine" id="cb448-83" title="83"><span class="kw">tmap_mode</span>(<span class="st">&quot;view&quot;</span>)</a>
-<a class="sourceLine" id="cb448-84" title="84"></a>
-<a class="sourceLine" id="cb448-85" title="85"><span class="co"># set the colour palettes using our previously defined breaks</span></a>
-<a class="sourceLine" id="cb448-86" title="86"></a>
-<a class="sourceLine" id="cb448-87" title="87"></a>
-<a class="sourceLine" id="cb448-88" title="88">pal1 &lt;-<span class="st"> </span>Joined <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb448-89" title="89"><span class="st">  </span><span class="kw">colorBin</span>(<span class="dt">palette =</span> <span class="st">&quot;YlOrRd&quot;</span>, <span class="dt">domain=</span>.<span class="op">$</span><span class="st">`</span><span class="dt">Airbnb count</span><span class="st">`</span>, <span class="dt">bins=</span>breaks)</a>
-<a class="sourceLine" id="cb448-90" title="90"></a>
-<a class="sourceLine" id="cb448-91" title="91">pal1 &lt;-<span class="kw">colorBin</span>(<span class="dt">palette =</span> <span class="st">&quot;YlOrRd&quot;</span>, <span class="dt">domain=</span>Joined<span class="op">$</span><span class="st">`</span><span class="dt">Airbnb count</span><span class="st">`</span>, <span class="dt">bins=</span>breaks)</a>
-<a class="sourceLine" id="cb448-92" title="92"></a>
-<a class="sourceLine" id="cb448-93" title="93">pal2 &lt;-<span class="st"> </span>Joined <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb448-94" title="94"><span class="st">  </span><span class="kw">colorBin</span>(<span class="dt">palette =</span> <span class="st">&quot;YlOrRd&quot;</span>, <span class="dt">domain=</span>.<span class="op">$</span><span class="st">`</span><span class="dt">Hotel count</span><span class="st">`</span>, <span class="dt">bins=</span>breaks)</a>
-<a class="sourceLine" id="cb448-95" title="95"></a>
-<a class="sourceLine" id="cb448-96" title="96"></a>
-<a class="sourceLine" id="cb448-97" title="97">map&lt;-<span class="st"> </span><span class="kw">leaflet</span>(Joined) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb448-98" title="98"><span class="st">  </span><span class="co"># add basemap options</span></a>
-<a class="sourceLine" id="cb448-99" title="99"><span class="st">  </span><span class="kw">addTiles</span>(<span class="dt">group =</span> <span class="st">&quot;OSM (default)&quot;</span>) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb448-100" title="100"><span class="st">  </span><span class="kw">addProviderTiles</span>(providers<span class="op">$</span>Stamen.Toner, <span class="dt">group =</span> <span class="st">&quot;Toner&quot;</span>) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb448-101" title="101"><span class="st">  </span><span class="kw">addProviderTiles</span>(providers<span class="op">$</span>Stamen.TonerLite, <span class="dt">group =</span> <span class="st">&quot;Toner Lite&quot;</span>) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb448-102" title="102"><span class="st">  </span><span class="kw">addProviderTiles</span>(providers<span class="op">$</span>CartoDB.Positron, <span class="dt">group =</span> <span class="st">&quot;CartoDB&quot;</span>)<span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb448-103" title="103"><span class="st">  </span></a>
-<a class="sourceLine" id="cb448-104" title="104"><span class="st">  </span><span class="co">#add our polygons, linking to the tables we just made</span></a>
-<a class="sourceLine" id="cb448-105" title="105"><span class="st">  </span><span class="kw">addPolygons</span>(<span class="dt">color=</span><span class="st">&quot;white&quot;</span>, </a>
-<a class="sourceLine" id="cb448-106" title="106">              <span class="dt">weight =</span> <span class="dv">2</span>,</a>
-<a class="sourceLine" id="cb448-107" title="107">              <span class="dt">opacity =</span> <span class="dv">1</span>,</a>
-<a class="sourceLine" id="cb448-108" title="108">              <span class="dt">dashArray =</span> <span class="st">&quot;3&quot;</span>,</a>
-<a class="sourceLine" id="cb448-109" title="109">              <span class="dt">popup =</span> popupairbnb,</a>
-<a class="sourceLine" id="cb448-110" title="110">              <span class="dt">fillOpacity =</span> <span class="fl">0.7</span>,</a>
-<a class="sourceLine" id="cb448-111" title="111">              <span class="dt">fillColor =</span> <span class="op">~</span><span class="kw">pal2</span>(<span class="st">`</span><span class="dt">Airbnb count</span><span class="st">`</span>),</a>
-<a class="sourceLine" id="cb448-112" title="112">              <span class="dt">group =</span> <span class="st">&quot;Airbnb&quot;</span>)<span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb448-113" title="113"><span class="st">  </span></a>
-<a class="sourceLine" id="cb448-114" title="114"><span class="st">  </span><span class="kw">addPolygons</span>(<span class="dt">fillColor =</span> <span class="op">~</span><span class="kw">pal2</span>(<span class="st">`</span><span class="dt">Hotel count</span><span class="st">`</span>), </a>
-<a class="sourceLine" id="cb448-115" title="115">              <span class="dt">weight =</span> <span class="dv">2</span>,</a>
-<a class="sourceLine" id="cb448-116" title="116">              <span class="dt">opacity =</span> <span class="dv">1</span>,</a>
-<a class="sourceLine" id="cb448-117" title="117">              <span class="dt">color =</span> <span class="st">&quot;white&quot;</span>,</a>
-<a class="sourceLine" id="cb448-118" title="118">              <span class="dt">dashArray =</span> <span class="st">&quot;3&quot;</span>,</a>
-<a class="sourceLine" id="cb448-119" title="119">              <span class="dt">popup =</span> popupairbnb,</a>
-<a class="sourceLine" id="cb448-120" title="120">              <span class="dt">fillOpacity =</span> <span class="fl">0.7</span>,<span class="dt">group =</span> <span class="st">&quot;Hotels&quot;</span>)<span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb448-121" title="121"><span class="st">  </span><span class="co"># add a legend</span></a>
-<a class="sourceLine" id="cb448-122" title="122"><span class="st">  </span><span class="kw">addLegend</span>(<span class="dt">pal =</span> pal2, <span class="dt">values =</span> <span class="op">~</span><span class="st">`</span><span class="dt">Hotel count</span><span class="st">`</span>, <span class="dt">group =</span> <span class="kw">c</span>(<span class="st">&quot;Airbnb&quot;</span>,<span class="st">&quot;Hotel&quot;</span>), </a>
-<a class="sourceLine" id="cb448-123" title="123">            <span class="dt">position =</span><span class="st">&quot;bottomleft&quot;</span>, <span class="dt">title =</span> <span class="st">&quot;Accomodation count&quot;</span>) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb448-124" title="124"><span class="st">  </span><span class="co"># specify layers control</span></a>
-<a class="sourceLine" id="cb448-125" title="125"><span class="st">  </span><span class="kw">addLayersControl</span>(</a>
-<a class="sourceLine" id="cb448-126" title="126">    <span class="dt">baseGroups =</span> <span class="kw">c</span>(<span class="st">&quot;OSM (default)&quot;</span>, <span class="st">&quot;Toner&quot;</span>, <span class="st">&quot;Toner Lite&quot;</span>, <span class="st">&quot;CartoDB&quot;</span>),</a>
-<a class="sourceLine" id="cb448-127" title="127">    <span class="dt">overlayGroups =</span> <span class="kw">c</span>(<span class="st">&quot;Airbnb&quot;</span>, <span class="st">&quot;Hotels&quot;</span>),</a>
-<a class="sourceLine" id="cb448-128" title="128">    <span class="dt">options =</span> <span class="kw">layersControlOptions</span>(<span class="dt">collapsed =</span> <span class="ot">FALSE</span>)</a>
-<a class="sourceLine" id="cb448-129" title="129">  )</a>
-<a class="sourceLine" id="cb448-130" title="130"></a>
-<a class="sourceLine" id="cb448-131" title="131"><span class="co"># plot the map</span></a>
-<a class="sourceLine" id="cb448-132" title="132">map</a></code></pre></div>
+<div class="sourceCode" id="cb449"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb449-1" title="1"><span class="kw">library</span>(sf)</a>
+<a class="sourceLine" id="cb449-2" title="2"><span class="kw">library</span>(tmap)</a>
+<a class="sourceLine" id="cb449-3" title="3"><span class="kw">library</span>(leafpop)</a>
+<a class="sourceLine" id="cb449-4" title="4"><span class="kw">library</span>(leaflet)</a>
+<a class="sourceLine" id="cb449-5" title="5"><span class="kw">library</span>(tmaptools)</a>
+<a class="sourceLine" id="cb449-6" title="6"><span class="kw">library</span>(tidyverse)</a>
+<a class="sourceLine" id="cb449-7" title="7"></a>
+<a class="sourceLine" id="cb449-8" title="8">OSM &lt;-<span class="st"> </span><span class="kw">st_read</span>(here<span class="op">::</span><span class="kw">here</span>(<span class="st">&quot;prac5_data&quot;</span>,</a>
+<a class="sourceLine" id="cb449-9" title="9">                          <span class="st">&quot;greater-london-latest-free.shp&quot;</span>, </a>
+<a class="sourceLine" id="cb449-10" title="10">                          <span class="st">&quot;gis_osm_pois_a_free_1.shp&quot;</span>)) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb449-11" title="11"><span class="st">  </span><span class="kw">st_transform</span>(., <span class="dv">27700</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb449-12" title="12"><span class="st">  </span><span class="co">#select hotels only</span></a>
+<a class="sourceLine" id="cb449-13" title="13"><span class="st">  </span><span class="kw">filter</span>(fclass <span class="op">==</span><span class="st"> &#39;hotel&#39;</span>)</a>
+<a class="sourceLine" id="cb449-14" title="14"></a>
+<a class="sourceLine" id="cb449-15" title="15">Londonborough &lt;-<span class="st"> </span><span class="kw">st_read</span>(here<span class="op">::</span><span class="kw">here</span>(<span class="st">&quot;Prac1_data&quot;</span>,</a>
+<a class="sourceLine" id="cb449-16" title="16">                                    <span class="st">&quot;statistical-gis-boundaries-london&quot;</span>, </a>
+<a class="sourceLine" id="cb449-17" title="17">                                    <span class="st">&quot;ESRI&quot;</span>, </a>
+<a class="sourceLine" id="cb449-18" title="18">                                    <span class="st">&quot;London_Borough_Excluding_MHW.shp&quot;</span>))<span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb449-19" title="19"><span class="st">  </span><span class="kw">st_transform</span>(., <span class="dv">27700</span>)</a>
+<a class="sourceLine" id="cb449-20" title="20"></a>
+<a class="sourceLine" id="cb449-21" title="21">Airbnb &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="st">&quot;prac5_data/listings.csv&quot;</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb449-22" title="22"><span class="st">  </span><span class="kw">st_as_sf</span>(., <span class="dt">coords =</span> <span class="kw">c</span>(<span class="st">&quot;longitude&quot;</span>, <span class="st">&quot;latitude&quot;</span>), </a>
+<a class="sourceLine" id="cb449-23" title="23">                   <span class="dt">crs =</span> <span class="dv">4326</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb449-24" title="24"><span class="st">    </span><span class="kw">st_transform</span>(., <span class="dv">27700</span>)<span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb449-25" title="25"><span class="st">    </span><span class="co">#select entire places that are available all year</span></a>
+<a class="sourceLine" id="cb449-26" title="26"><span class="st">    </span><span class="kw">filter</span>(room_type <span class="op">==</span><span class="st"> &#39;Entire home/apt&#39;</span> <span class="op">&amp;</span><span class="st"> </span>availability_<span class="dv">365</span> <span class="op">==</span><span class="st">&#39;365&#39;</span>)</a>
+<a class="sourceLine" id="cb449-27" title="27"></a>
+<a class="sourceLine" id="cb449-28" title="28"></a>
+<a class="sourceLine" id="cb449-29" title="29"><span class="co"># make a function for the join</span></a>
+<a class="sourceLine" id="cb449-30" title="30"><span class="co"># hint all you have to do is replace data1 and data2</span></a>
+<a class="sourceLine" id="cb449-31" title="31"><span class="co"># with the data you want to use</span></a>
+<a class="sourceLine" id="cb449-32" title="32"></a>
+<a class="sourceLine" id="cb449-33" title="33">Joinfun &lt;-<span class="st"> </span><span class="cf">function</span>(data1, data2){</a>
+<a class="sourceLine" id="cb449-34" title="34"></a>
+<a class="sourceLine" id="cb449-35" title="35">output&lt;-<span class="st"> </span>data1<span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb449-36" title="36"><span class="st">  </span><span class="kw">st_join</span>(Londonborough,.)<span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb449-37" title="37"><span class="st">  </span><span class="kw">add_count</span>(GSS_CODE, <span class="dt">name=</span><span class="st">&quot;hotels_in_borough&quot;</span>) </a>
+<a class="sourceLine" id="cb449-38" title="38"></a>
+<a class="sourceLine" id="cb449-39" title="39">  <span class="kw">return</span>(output)</a>
+<a class="sourceLine" id="cb449-40" title="40">}</a>
+<a class="sourceLine" id="cb449-41" title="41"></a>
+<a class="sourceLine" id="cb449-42" title="42"><span class="co"># use the function for hotels</span></a>
+<a class="sourceLine" id="cb449-43" title="43">Hotels &lt;-<span class="st"> </span><span class="kw">Joinfun</span>(OSM, Londonborough)</a>
+<a class="sourceLine" id="cb449-44" title="44"></a>
+<a class="sourceLine" id="cb449-45" title="45"><span class="co"># then for airbnb</span></a>
+<a class="sourceLine" id="cb449-46" title="46">Airbnb &lt;-<span class="st"> </span><span class="kw">Joinfun</span>(Airbnb, Londonborough)</a>
+<a class="sourceLine" id="cb449-47" title="47"></a>
+<a class="sourceLine" id="cb449-48" title="48"><span class="co"># now try to arrange the plots with tmap</span></a>
+<a class="sourceLine" id="cb449-49" title="49">breaks =<span class="st"> </span><span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">5</span>, <span class="dv">12</span>, <span class="dv">26</span>, <span class="dv">57</span>, <span class="dv">286</span>) </a>
+<a class="sourceLine" id="cb449-50" title="50"></a>
+<a class="sourceLine" id="cb449-51" title="51"><span class="co">#change the column name from hotels_in_borough for the legend</span></a>
+<a class="sourceLine" id="cb449-52" title="52">Hotels &lt;-<span class="st"> </span>Hotels <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb449-53" title="53"><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">rename</span>(<span class="st">`</span><span class="dt">Accomodation count</span><span class="st">`</span> =<span class="st"> </span>hotels_in_borough)</a>
+<a class="sourceLine" id="cb449-54" title="54"></a>
+<a class="sourceLine" id="cb449-55" title="55">Airbnb &lt;-<span class="st"> </span>Airbnb <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb449-56" title="56"><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">rename</span>(<span class="st">`</span><span class="dt">Accomodation count</span><span class="st">`</span> =<span class="st"> </span>hotels_in_borough)</a>
+<a class="sourceLine" id="cb449-57" title="57"></a>
+<a class="sourceLine" id="cb449-58" title="58"></a>
+<a class="sourceLine" id="cb449-59" title="59">Airbnb_count &lt;-<span class="st"> </span>Airbnb <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb449-60" title="60"><span class="st">  </span><span class="kw">count</span>(GSS_CODE)</a>
+<a class="sourceLine" id="cb449-61" title="61">Hotels_count &lt;-<span class="st"> </span>Hotels <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb449-62" title="62"><span class="st">  </span><span class="kw">count</span>(NAME)</a>
+<a class="sourceLine" id="cb449-63" title="63"></a>
+<a class="sourceLine" id="cb449-64" title="64"><span class="co">#join data</span></a>
+<a class="sourceLine" id="cb449-65" title="65">Joined &lt;-<span class="st"> </span>Airbnb_count<span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb449-66" title="66"><span class="st">  </span><span class="kw">st_join</span>(., Hotels_count, <span class="dt">join =</span> st_equals)<span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb449-67" title="67"><span class="st">  </span><span class="kw">st_transform</span>(., <span class="dv">4326</span>)<span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb449-68" title="68"><span class="st">  </span><span class="kw">rename</span>(<span class="st">`</span><span class="dt">Airbnb count</span><span class="st">`</span> =<span class="st"> `</span><span class="dt">n.x</span><span class="st">`</span>, </a>
+<a class="sourceLine" id="cb449-69" title="69">         <span class="st">`</span><span class="dt">GSS Code</span><span class="st">`</span>=<span class="st"> </span>GSS_CODE,</a>
+<a class="sourceLine" id="cb449-70" title="70">         <span class="st">`</span><span class="dt">Borough</span><span class="st">`</span>=NAME,</a>
+<a class="sourceLine" id="cb449-71" title="71">         <span class="st">`</span><span class="dt">Hotel count</span><span class="st">`</span> =<span class="st"> `</span><span class="dt">n.y</span><span class="st">`</span>) </a>
+<a class="sourceLine" id="cb449-72" title="72"></a>
+<a class="sourceLine" id="cb449-73" title="73">popupairbnb &lt;-Joined <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb449-74" title="74"><span class="st">  </span><span class="kw">st_drop_geometry</span>()<span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb449-75" title="75"><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">select</span>(<span class="st">`</span><span class="dt">Airbnb count</span><span class="st">`</span>, Borough)<span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb449-76" title="76"><span class="st">  </span><span class="kw">popupTable</span>()</a>
+<a class="sourceLine" id="cb449-77" title="77"></a>
+<a class="sourceLine" id="cb449-78" title="78">popuphotel &lt;-Joined <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb449-79" title="79"><span class="st">  </span><span class="kw">st_drop_geometry</span>()<span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb449-80" title="80"><span class="st">  </span>dplyr<span class="op">::</span><span class="kw">select</span>(<span class="st">`</span><span class="dt">Hotel count</span><span class="st">`</span>, Borough)<span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb449-81" title="81"><span class="st">  </span><span class="kw">popupTable</span>()</a>
+<a class="sourceLine" id="cb449-82" title="82"></a>
+<a class="sourceLine" id="cb449-83" title="83"><span class="kw">tmap_mode</span>(<span class="st">&quot;view&quot;</span>)</a>
+<a class="sourceLine" id="cb449-84" title="84"></a>
+<a class="sourceLine" id="cb449-85" title="85"><span class="co"># set the colour palettes using our previously defined breaks</span></a>
+<a class="sourceLine" id="cb449-86" title="86"></a>
+<a class="sourceLine" id="cb449-87" title="87"></a>
+<a class="sourceLine" id="cb449-88" title="88">pal1 &lt;-<span class="st"> </span>Joined <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb449-89" title="89"><span class="st">  </span><span class="kw">colorBin</span>(<span class="dt">palette =</span> <span class="st">&quot;YlOrRd&quot;</span>, <span class="dt">domain=</span>.<span class="op">$</span><span class="st">`</span><span class="dt">Airbnb count</span><span class="st">`</span>, <span class="dt">bins=</span>breaks)</a>
+<a class="sourceLine" id="cb449-90" title="90"></a>
+<a class="sourceLine" id="cb449-91" title="91">pal1 &lt;-<span class="kw">colorBin</span>(<span class="dt">palette =</span> <span class="st">&quot;YlOrRd&quot;</span>, <span class="dt">domain=</span>Joined<span class="op">$</span><span class="st">`</span><span class="dt">Airbnb count</span><span class="st">`</span>, <span class="dt">bins=</span>breaks)</a>
+<a class="sourceLine" id="cb449-92" title="92"></a>
+<a class="sourceLine" id="cb449-93" title="93">pal2 &lt;-<span class="st"> </span>Joined <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb449-94" title="94"><span class="st">  </span><span class="kw">colorBin</span>(<span class="dt">palette =</span> <span class="st">&quot;YlOrRd&quot;</span>, <span class="dt">domain=</span>.<span class="op">$</span><span class="st">`</span><span class="dt">Hotel count</span><span class="st">`</span>, <span class="dt">bins=</span>breaks)</a>
+<a class="sourceLine" id="cb449-95" title="95"></a>
+<a class="sourceLine" id="cb449-96" title="96"></a>
+<a class="sourceLine" id="cb449-97" title="97">map&lt;-<span class="st"> </span><span class="kw">leaflet</span>(Joined) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb449-98" title="98"><span class="st">  </span><span class="co"># add basemap options</span></a>
+<a class="sourceLine" id="cb449-99" title="99"><span class="st">  </span><span class="kw">addTiles</span>(<span class="dt">group =</span> <span class="st">&quot;OSM (default)&quot;</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb449-100" title="100"><span class="st">  </span><span class="kw">addProviderTiles</span>(providers<span class="op">$</span>Stamen.Toner, <span class="dt">group =</span> <span class="st">&quot;Toner&quot;</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb449-101" title="101"><span class="st">  </span><span class="kw">addProviderTiles</span>(providers<span class="op">$</span>Stamen.TonerLite, <span class="dt">group =</span> <span class="st">&quot;Toner Lite&quot;</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb449-102" title="102"><span class="st">  </span><span class="kw">addProviderTiles</span>(providers<span class="op">$</span>CartoDB.Positron, <span class="dt">group =</span> <span class="st">&quot;CartoDB&quot;</span>)<span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb449-103" title="103"><span class="st">  </span></a>
+<a class="sourceLine" id="cb449-104" title="104"><span class="st">  </span><span class="co">#add our polygons, linking to the tables we just made</span></a>
+<a class="sourceLine" id="cb449-105" title="105"><span class="st">  </span><span class="kw">addPolygons</span>(<span class="dt">color=</span><span class="st">&quot;white&quot;</span>, </a>
+<a class="sourceLine" id="cb449-106" title="106">              <span class="dt">weight =</span> <span class="dv">2</span>,</a>
+<a class="sourceLine" id="cb449-107" title="107">              <span class="dt">opacity =</span> <span class="dv">1</span>,</a>
+<a class="sourceLine" id="cb449-108" title="108">              <span class="dt">dashArray =</span> <span class="st">&quot;3&quot;</span>,</a>
+<a class="sourceLine" id="cb449-109" title="109">              <span class="dt">popup =</span> popupairbnb,</a>
+<a class="sourceLine" id="cb449-110" title="110">              <span class="dt">fillOpacity =</span> <span class="fl">0.7</span>,</a>
+<a class="sourceLine" id="cb449-111" title="111">              <span class="dt">fillColor =</span> <span class="op">~</span><span class="kw">pal2</span>(<span class="st">`</span><span class="dt">Airbnb count</span><span class="st">`</span>),</a>
+<a class="sourceLine" id="cb449-112" title="112">              <span class="dt">group =</span> <span class="st">&quot;Airbnb&quot;</span>)<span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb449-113" title="113"><span class="st">  </span></a>
+<a class="sourceLine" id="cb449-114" title="114"><span class="st">  </span><span class="kw">addPolygons</span>(<span class="dt">fillColor =</span> <span class="op">~</span><span class="kw">pal2</span>(<span class="st">`</span><span class="dt">Hotel count</span><span class="st">`</span>), </a>
+<a class="sourceLine" id="cb449-115" title="115">              <span class="dt">weight =</span> <span class="dv">2</span>,</a>
+<a class="sourceLine" id="cb449-116" title="116">              <span class="dt">opacity =</span> <span class="dv">1</span>,</a>
+<a class="sourceLine" id="cb449-117" title="117">              <span class="dt">color =</span> <span class="st">&quot;white&quot;</span>,</a>
+<a class="sourceLine" id="cb449-118" title="118">              <span class="dt">dashArray =</span> <span class="st">&quot;3&quot;</span>,</a>
+<a class="sourceLine" id="cb449-119" title="119">              <span class="dt">popup =</span> popupairbnb,</a>
+<a class="sourceLine" id="cb449-120" title="120">              <span class="dt">fillOpacity =</span> <span class="fl">0.7</span>,<span class="dt">group =</span> <span class="st">&quot;Hotels&quot;</span>)<span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb449-121" title="121"><span class="st">  </span><span class="co"># add a legend</span></a>
+<a class="sourceLine" id="cb449-122" title="122"><span class="st">  </span><span class="kw">addLegend</span>(<span class="dt">pal =</span> pal2, <span class="dt">values =</span> <span class="op">~</span><span class="st">`</span><span class="dt">Hotel count</span><span class="st">`</span>, <span class="dt">group =</span> <span class="kw">c</span>(<span class="st">&quot;Airbnb&quot;</span>,<span class="st">&quot;Hotel&quot;</span>), </a>
+<a class="sourceLine" id="cb449-123" title="123">            <span class="dt">position =</span><span class="st">&quot;bottomleft&quot;</span>, <span class="dt">title =</span> <span class="st">&quot;Accomodation count&quot;</span>) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb449-124" title="124"><span class="st">  </span><span class="co"># specify layers control</span></a>
+<a class="sourceLine" id="cb449-125" title="125"><span class="st">  </span><span class="kw">addLayersControl</span>(</a>
+<a class="sourceLine" id="cb449-126" title="126">    <span class="dt">baseGroups =</span> <span class="kw">c</span>(<span class="st">&quot;OSM (default)&quot;</span>, <span class="st">&quot;Toner&quot;</span>, <span class="st">&quot;Toner Lite&quot;</span>, <span class="st">&quot;CartoDB&quot;</span>),</a>
+<a class="sourceLine" id="cb449-127" title="127">    <span class="dt">overlayGroups =</span> <span class="kw">c</span>(<span class="st">&quot;Airbnb&quot;</span>, <span class="st">&quot;Hotels&quot;</span>),</a>
+<a class="sourceLine" id="cb449-128" title="128">    <span class="dt">options =</span> <span class="kw">layersControlOptions</span>(<span class="dt">collapsed =</span> <span class="ot">FALSE</span>)</a>
+<a class="sourceLine" id="cb449-129" title="129">  )</a>
+<a class="sourceLine" id="cb449-130" title="130"></a>
+<a class="sourceLine" id="cb449-131" title="131"><span class="co"># plot the map</span></a>
+<a class="sourceLine" id="cb449-132" title="132">map</a></code></pre></div>
 <ol style="list-style-type: decimal">
 <li>Add some text at the start of your <code>.Rmd</code> you can include titles and subtitle using # followed by a space, a second level subtitle would be ##, and third ###</li>
 </ol>
-<div class="sourceCode" id="cb449"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb449-1" title="1"><span class="co"># Title</span></a>
-<a class="sourceLine" id="cb449-2" title="2"><span class="co">## Second sub title</span></a>
-<a class="sourceLine" id="cb449-3" title="3"><span class="co">### Third sub title</span></a></code></pre></div>
+<div class="sourceCode" id="cb450"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb450-1" title="1"><span class="co"># Title</span></a>
+<a class="sourceLine" id="cb450-2" title="2"><span class="co">## Second sub title</span></a>
+<a class="sourceLine" id="cb450-3" title="3"><span class="co">### Third sub title</span></a></code></pre></div>
 <ol start="7" style="list-style-type: decimal">
 <li><p>Save the file, Knitt it to HTML, this should be default and specified in the header — enclosed by three dashes.</p></li>
 <li><p>Once knitted you can easily publish the file to Ppubs using the Publish icon either in the viewer pane or the toolbar area (by run)</p></li>
 </ol>
 <p><img src="prac8_images/publish.png" width="200pt" style="display: block; margin: auto;" /></p>
 <p>Now how about adding a few design features…i’ve changed my header section to…</p>
-<div class="sourceCode" id="cb450"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb450-1" title="1"><span class="op">---</span></a>
-<a class="sourceLine" id="cb450-2" title="2">title<span class="op">:</span><span class="st"> &quot;publishexample&quot;</span></a>
-<a class="sourceLine" id="cb450-3" title="3">output<span class="op">:</span></a>
-<a class="sourceLine" id="cb450-4" title="4"><span class="st">  </span>html_document<span class="op">:</span></a>
-<a class="sourceLine" id="cb450-5" title="5"><span class="st">    </span>theme<span class="op">:</span><span class="st"> </span>yeti</a>
-<a class="sourceLine" id="cb450-6" title="6">    smart<span class="op">:</span><span class="st"> </span>true</a>
-<a class="sourceLine" id="cb450-7" title="7">    highlight<span class="op">:</span><span class="st"> </span>textmate</a>
-<a class="sourceLine" id="cb450-8" title="8">    toc<span class="op">:</span><span class="st"> </span>true</a>
-<a class="sourceLine" id="cb450-9" title="9">    number_sections<span class="op">:</span><span class="st"> </span>true</a>
-<a class="sourceLine" id="cb450-10" title="10">    toc_float<span class="op">:</span></a>
-<a class="sourceLine" id="cb450-11" title="11"><span class="st">      </span>collapsed<span class="op">:</span><span class="st"> </span>false</a>
-<a class="sourceLine" id="cb450-12" title="12">      smooth_scroll<span class="op">:</span><span class="st"> </span>true</a>
-<a class="sourceLine" id="cb450-13" title="13"><span class="op">---</span></a></code></pre></div>
+<div class="sourceCode" id="cb451"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb451-1" title="1"><span class="op">---</span></a>
+<a class="sourceLine" id="cb451-2" title="2">title<span class="op">:</span><span class="st"> &quot;publishexample&quot;</span></a>
+<a class="sourceLine" id="cb451-3" title="3">output<span class="op">:</span></a>
+<a class="sourceLine" id="cb451-4" title="4"><span class="st">  </span>html_document<span class="op">:</span></a>
+<a class="sourceLine" id="cb451-5" title="5"><span class="st">    </span>theme<span class="op">:</span><span class="st"> </span>yeti</a>
+<a class="sourceLine" id="cb451-6" title="6">    smart<span class="op">:</span><span class="st"> </span>true</a>
+<a class="sourceLine" id="cb451-7" title="7">    highlight<span class="op">:</span><span class="st"> </span>textmate</a>
+<a class="sourceLine" id="cb451-8" title="8">    toc<span class="op">:</span><span class="st"> </span>true</a>
+<a class="sourceLine" id="cb451-9" title="9">    number_sections<span class="op">:</span><span class="st"> </span>true</a>
+<a class="sourceLine" id="cb451-10" title="10">    toc_float<span class="op">:</span></a>
+<a class="sourceLine" id="cb451-11" title="11"><span class="st">      </span>collapsed<span class="op">:</span><span class="st"> </span>false</a>
+<a class="sourceLine" id="cb451-12" title="12">      smooth_scroll<span class="op">:</span><span class="st"> </span>true</a>
+<a class="sourceLine" id="cb451-13" title="13"><span class="op">---</span></a></code></pre></div>
 <ol start="9" style="list-style-type: decimal">
 <li><p>Knit and then publish again…you’ll notice a few aesthetic changes</p></li>
 <li><p>To learn more about these go explore:</p></li>
@@ -1156,15 +1137,15 @@ Bit different from me this week - I’m not all about drum and bass (although I 
 <ol start="12" style="list-style-type: decimal">
 <li>In the <code>_site.yml</code> remove all code and add the following</li>
 </ol>
-<div class="sourceCode" id="cb451"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb451-1" title="1">name<span class="op">:</span><span class="st"> &quot;Hello world&quot;</span></a>
-<a class="sourceLine" id="cb451-2" title="2">output_dir<span class="op">:</span><span class="st"> &quot;.&quot;</span></a>
-<a class="sourceLine" id="cb451-3" title="3">navbar<span class="op">:</span></a>
-<a class="sourceLine" id="cb451-4" title="4"><span class="st">  </span>title<span class="op">:</span><span class="st"> &quot;My example website&quot;</span></a>
-<a class="sourceLine" id="cb451-5" title="5">  left<span class="op">:</span></a>
-<a class="sourceLine" id="cb451-6" title="6"><span class="st">    </span><span class="op">-</span><span class="st"> </span>text<span class="op">:</span><span class="st"> &quot;Home&quot;</span></a>
-<a class="sourceLine" id="cb451-7" title="7">      href<span class="op">:</span><span class="st"> </span>index.html</a>
-<a class="sourceLine" id="cb451-8" title="8">    <span class="op">-</span><span class="st"> </span>text<span class="op">:</span><span class="st"> &quot;About&quot;</span></a>
-<a class="sourceLine" id="cb451-9" title="9">      href<span class="op">:</span><span class="st"> </span>publishexample.html</a></code></pre></div>
+<div class="sourceCode" id="cb452"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb452-1" title="1">name<span class="op">:</span><span class="st"> &quot;Hello world&quot;</span></a>
+<a class="sourceLine" id="cb452-2" title="2">output_dir<span class="op">:</span><span class="st"> &quot;.&quot;</span></a>
+<a class="sourceLine" id="cb452-3" title="3">navbar<span class="op">:</span></a>
+<a class="sourceLine" id="cb452-4" title="4"><span class="st">  </span>title<span class="op">:</span><span class="st"> &quot;My example website&quot;</span></a>
+<a class="sourceLine" id="cb452-5" title="5">  left<span class="op">:</span></a>
+<a class="sourceLine" id="cb452-6" title="6"><span class="st">    </span><span class="op">-</span><span class="st"> </span>text<span class="op">:</span><span class="st"> &quot;Home&quot;</span></a>
+<a class="sourceLine" id="cb452-7" title="7">      href<span class="op">:</span><span class="st"> </span>index.html</a>
+<a class="sourceLine" id="cb452-8" title="8">    <span class="op">-</span><span class="st"> </span>text<span class="op">:</span><span class="st"> &quot;About&quot;</span></a>
+<a class="sourceLine" id="cb452-9" title="9">      href<span class="op">:</span><span class="st"> </span>publishexample.html</a></code></pre></div>
 </div>
 <div id="link-to-github" class="section level4">
 <h4><span class="header-section-number">8.4.4.2</span> Link to GitHub</h4>
@@ -1199,9 +1180,9 @@ Bit different from me this week - I’m not all about drum and bass (although I 
 <li><p>Next we need to actually build the site…there are a few ways to do this…Go to the Git tab you should see the Build tab, if you can’t then go to Tools &gt; Project Options &gt; Build Tools and select website under Project build tools. Now click Build Website under the build tab</p></li>
 <li><p>Alternatively you write the following in the console</p></li>
 </ol>
-<div class="sourceCode" id="cb452"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb452-1" title="1">rmarkdown<span class="op">::</span><span class="kw">render_site</span>()</a></code></pre></div>
+<div class="sourceCode" id="cb453"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb453-1" title="1">rmarkdown<span class="op">::</span><span class="kw">render_site</span>()</a></code></pre></div>
 <p>If you wanted to just build a page from your site — say if you have made a rather big site with lots of analysis use:</p>
-<div class="sourceCode" id="cb453"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb453-1" title="1">rmarkdown<span class="op">::</span><span class="kw">render_site</span>(<span class="st">&quot;index.Rmd&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb454"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb454-1" title="1">rmarkdown<span class="op">::</span><span class="kw">render_site</span>(<span class="st">&quot;index.Rmd&quot;</span>)</a></code></pre></div>
 <ol start="22" style="list-style-type: decimal">
 <li>Stage, commit and then push the files to your GitHub. I had some issues staging the <code>site_libs</code> folder in the Git tab. I fixed it by closing and reloading my R project then clicking the cog symbol (under Git tab) &gt; Shell and typing <code>git add .</code> If you get an error message about the index file being locked… go and delete it and try again. If you can’t delete restart the machine and try again. You will find it in the .git folder within your project. Once <code>git add .</code> runs you should see all the files staged, be able to commit and then push the changes to GitHub</li>
 </ol>

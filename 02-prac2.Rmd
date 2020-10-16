@@ -118,7 +118,7 @@ My file directory (the second box here) will be different to yours as this is my
 Setting up a project is extremely useful as it lets you easily access your data and files...for example....the flytipping ```.csv``` we used last week is stored at the file path
 
 ```{r eval=FALSE, cache=FALSE}
-mycsv <- read_csv("C:/Teaching/CASA0005repo/Prac1_data/fly_tipping_borough_edit.csv")  
+mycsv <- read_csv("C:/Users/Andy/OneDrive - University College London/Teaching/CASA0005/2020_2021/CASA0005repo/Prac1_data/fly_tipping_borough_edit.csv"")  
 ```
 
 However as i've set my R project up in the CASA0005repo folder with different data folders for each week i can just use:
@@ -1012,6 +1012,8 @@ tm_polygons("rate_of_job_seekers_allowance_jsa_claimants_2015",
   tm_layout(title = "Job seekers' Allowance Claimants", legend.position = c("right", "bottom"))
 
 ```
+
+For more palette options, run `palette_explorer()` in the console.
 
 So that's our first real map done! Awesome work. But remember our `Life_expectancy4` data that we wrangled earlier. Can you think of a way to map this? So we need to 
 

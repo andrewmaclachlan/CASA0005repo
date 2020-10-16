@@ -319,13 +319,18 @@ newbb <- c(xmin=-296000, ymin=5408, xmax=655696, ymax=1000000)
 UK_outlinecrop <- UK_outline$geometry %>%
   st_crop(., newbb)
 
-#change the column name from hotels_in_borough for the legend
-
 Hotels <- Hotels %>%
-  dplyr::rename(`Accomodation count` = hotels_in_borough)
+  #at the moment each hotel is a row for the borough
+  #we just one one row that has number of airbnbs
+  group_by(., GSS_CODE, NAME)%>%
+  summarise(`Accomodation count` = unique(hotels_in_borough))
 
 Airbnb <- Airbnb %>%
-  dplyr::rename(`Accomodation count` = hotels_in_borough)
+  group_by(., GSS_CODE, NAME)%>%
+  summarise(`Accomodation count` = unique(hotels_in_borough))
+```
+Make the map
+```{r, warning=FALSE, message=FALSE, out.width = "800pt", cache=FALSE}
 
 tmap_mode("plot")
 
@@ -335,13 +340,17 @@ breaks = c(0, 5, 12, 26, 57, 286)
 
 # plot each map
 tm1 <- tm_shape(Hotels) + 
-  tm_polygons("Accomodation count", breaks=breaks)+
+  tm_polygons("Accomodation count", 
+              breaks=breaks,
+              palette="PuBu")+
   tm_legend(show=FALSE)+
   tm_layout(frame=FALSE)+
   tm_credits("(a)", position=c(0,0.85), size=1.5)
 
 tm2 <- tm_shape(Airbnb) + 
-  tm_polygons("Accomodation count", breaks=breaks) + 
+  tm_polygons("Accomodation count",
+              breaks=breaks, 
+              palette="PuBu") + 
   tm_legend(show=FALSE)+
   tm_layout(frame=FALSE)+
   tm_credits("(b)", position=c(0,0.85), size=1.5)
@@ -354,7 +363,8 @@ tm3 <- tm_shape(UK_outlinecrop)+
   tm_text("CITY_NAME", xmod=-1, ymod=-0.5)
 
 legend <- tm_shape(Hotels) +
-    tm_polygons("Accomodation count") +
+    tm_polygons("Accomodation count",
+                palette="PuBu") +
     tm_scale_bar(position=c(0.2,0.04), text.size=0.6)+
     tm_compass(north=0, position=c(0.65,0.6))+
     tm_layout(legend.only = TRUE, legend.position=c(0.2,0.25),asp=0.1)+
@@ -380,12 +390,61 @@ print(legend, vp=viewport(layout.pos.col=2, layout.pos.row=2, height=5))
 
 ```
 
+### Inset map
+
+```{r warning=FALSE, message=FALSE, out.width = "800pt", cache=TRUE}
+
+Londonbb = st_bbox(Airbnb,
+                    crs = st_crs(Airbnb)) %>% 
+  st_as_sfc()
+```
+
+
+```{r warning=FALSE, message=FALSE, out.width = "800pt", cache=TRUE}
+
+main <- tm_shape(Airbnb, bbbox = Londonbb) + 
+  tm_polygons("Accomodation count",
+              breaks=breaks, 
+              palette="PuBu")+
+  tm_scale_bar(position = c("left", "bottom"), text.size = .75)+
+  tm_layout(legend.position = c("right","top"), 
+            legend.text.size=.75, 
+            legend.title.size = 1.1,
+            frame=FALSE)+
+  tm_credits("(c) OpenStreetMap contrbutors and Air b n b", position=c(0.0,0.0))+
+  #tm_text(text = "NAME", size = .5, along.lines =T, remove.overlap=T,  auto.placement=F)+
+  tm_compass(type = "8star", position = c(0.06, 0.1)) +
+
+  #bottom left top right
+  tm_layout(inner.margin=c(0.02,0.02,0.02,0.2))
+```
+
+```{r warning=FALSE, message=FALSE, out.width = "800pt", cache=TRUE}
+
+inset = tm_shape(UK_outlinecrop) + tm_polygons() +
+  tm_shape(Londonbb)+ 
+  tm_borders(col = "grey40", lwd = 3)+
+    tm_layout(frame=FALSE,
+            bg.color = "transparent")+
+  tm_shape(Worldcities2) +
+  tm_symbols(col = "red", scale = .5)+
+  tm_text("CITY_NAME", xmod=-1.5, ymod=-0.5)
+```
+
+```{r warning=FALSE, message=FALSE, out.width = "800pt", cache=TRUE}
+library(grid)
+main
+print(inset, vp = viewport(0.86, 0.29, width = 0.5, height = 0.55))
+```
 ### Export
 
 So how do we output our map then...
 
 ```{r eval=FALSE, cache=FALSE}
 tmap_save(t, 'hotelsandairbnbR.png')
+
+library(grid)
+tmap_save(main,insets_tm = inset,insets_vp=viewport(x=0.86, y=0.29, width=.5, height=.55), filename="test.pdf", dpi=600)
 ```
 
 ### Basic interactive map
@@ -408,20 +467,16 @@ But let's take it a bit further so we can select our layers on an interactive ma
 library(leafpop)
 library(leaflet)
 
-Airbnb_count <- Airbnb %>% 
-  count(GSS_CODE)
-
-Hotels_count <- Hotels %>% 
-  count(NAME)
-
 #join data
-Joined <- Airbnb_count%>%
-  st_join(., Hotels_count, join = st_equals)%>%
-  st_transform(., 4326)%>%
-  rename(`Airbnb count` = `n.x`, 
-         `GSS Code`= GSS_CODE,
-         `Borough`=NAME,
-         `Hotel count` = `n.y`) 
+Joined <- Airbnb%>%
+  st_join(., Hotels, join = st_equals)%>%
+  dplyr::select(GSS_CODE.x, NAME.x, `Accomodation count.x`, `Accomodation count.y`)%>%
+  dplyr::rename(`GSS code` =`GSS_CODE.x`,
+                `Borough` = `NAME.x`,
+                `Airbnb count` = `Accomodation count.x`,
+                `Hotel count`= `Accomodation count.y`)%>%
+  st_transform(., 4326)
+  
   
 #remove the geometry for our pop up boxes to avoid
 popupairbnb <-Joined %>%
@@ -493,6 +548,7 @@ The legend on this map doesn't update when you select a different layer. I could
 If you want to explore Leaflet more have a look at [the leaflet for R Guide](https://rstudio.github.io/leaflet/)
 
 To see other basemap options (there are loads!) have a look here at [leaflet extras](http://leaflet-extras.github.io/leaflet-providers/preview/)
+
 
 ## Bad maps
 

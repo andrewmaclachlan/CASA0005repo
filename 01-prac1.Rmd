@@ -473,7 +473,7 @@ For this first practical we'll just leave the data where it is, next week we'll 
 ```{r, message=FALSE, warning=FALSE, cache=TRUE}
 library(sf)
 # change this to your file path!!!
-shape <- st_read("Prac1_data/statistical-gis-boundaries-london/ESRI/London_Borough_Excluding_MHW.shp")
+shape <- st_read("C:/Users/Andy/OneDrive - University College London/Teaching/CASA0005/2020_2021/CASA0005repo/Prac1_data/statistical-gis-boundaries-london/ESRI/London_Borough_Excluding_MHW.shp")
 ```
 
 > **Note** If you are working on the UCL RStudio Server and have a shapefile (along with all the other relevant files required) you will just need to use...
@@ -510,7 +510,8 @@ We now need to load our ```.csv``` file:
 
 ```{r, cache=TRUE, warnings=FALSE, messages=FALSE}
 library(tidyverse)
-mycsv <-  read_csv("Prac1_data/fly_tipping_borough_edit.csv")  
+#this needs to be your file path again
+mycsv <-  read_csv("C:/Users/Andy/OneDrive - University College London/Teaching/CASA0005/2020_2021/CASA0005repo/Prac1_data/fly_tipping_borough_edit.csv")  
 ```
 
 When you load `tidyverse` you might get a list of conflicts, this basically means that several packages have functions named the same thing. For example there is a function named `filter()` in the packages `dplyr` and `stats`. If you wanted to use the `dplyr` version you would use `dplyr::filter()` or for the `stats` version it would be `stats::filter()`...
@@ -571,7 +572,7 @@ Finally write shape to a new GeoPackage (```.gpkg```) giving it the layer name o
 
 ```{r cache=TRUE}
 shape %>%
-  st_write(.,"Prac1_data/Rwk1.gpkg",
+  st_write(.,"C:/Users/Andy/OneDrive - University College London/Teaching/CASA0005/2020_2021/CASA0005repo/Prac1_data/Rwk1.gpkg",
            "london_boroughs_fly_tipping",
            delete_layer=TRUE)
 ```
@@ -584,7 +585,7 @@ Let's also add the ```.csv``` as we did in QGIS. This is a bit more complicated 
 library(readr)
 library(RSQLite)
 
-con <- dbConnect(RSQLite::SQLite(),dbname="Prac1_data/Rwk1.gpkg")
+con <- dbConnect(RSQLite::SQLite(),dbname="C:/Users/Andy/OneDrive - University College London/Teaching/CASA0005/2020_2021/CASA0005repo/Prac1_data/Rwk1.gpkg")
 ```
 
 Now examine what is in the ```.gpkg```...you can see that i've already got my ```original_csv``` stored within the  ```.gpkg``` as when i developed this practical i made sure it was working! 
@@ -621,9 +622,9 @@ library(tidyverse)
 #read in the shapefile
 
 shape <- st_read(
-  "Prac1_data/statistical-gis-boundaries-london/ESRI/London_Borough_Excluding_MHW.shp")
+  "C:/Users/Andy/OneDrive - University College London/Teaching/CASA0005/2020_2021/CASA0005repo/Prac1_data/statistical-gis-boundaries-london/ESRI/London_Borough_Excluding_MHW.shp")
 # read in the csv
-mycsv <- read_csv("Prac1_data/fly_tipping_borough_edit.csv")  
+mycsv <- read_csv("C:/Users/Andy/OneDrive - University College London/Teaching/CASA0005/2020_2021/CASA0005repo/Prac1_data/fly_tipping_borough_edit.csv")  
 # merge csv and shapefile
 shape <- shape%>%
   merge(.,
@@ -636,11 +637,11 @@ tmap_mode("plot")
 qtm(shape, fill = "2011_12")
 # write to a .gpkg
 shape %>%
-  st_write(.,"Prac1_data/Rwk1.gpkg",
+  st_write(.,"C:/Users/Andy/OneDrive - University College London/Teaching/CASA0005/2020_2021/CASA0005repo/Prac1_data/Rwk1.gpkg",
            "london_boroughs_fly_tipping",
            delete_layer=TRUE)
 # connect to the .gpkg
-con <- dbConnect(SQLite(),dbname="Prac1_data/Rwk1.gpkg")
+con <- dbConnect(SQLite(),dbname="C:/Users/Andy/OneDrive - University College London/Teaching/CASA0005/2020_2021/CASA0005repo/Prac1_data/Rwk1.gpkg")
 # list what is in it
 con %>%
   dbListTables()

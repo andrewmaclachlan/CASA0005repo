@@ -24,7 +24,7 @@
 <meta name="author" content="Andy MacLachlan and Adam Dennett" />
 
 
-<meta name="date" content="2020-10-14" />
+<meta name="date" content="2020-10-16" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -344,7 +344,7 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="5.7" data-path="map-making.html"><a href="map-making.html#r-2"><i class="fa fa-check"></i><b>5.7</b> R</a><ul>
 <li class="chapter" data-level="5.7.1" data-path="map-making.html"><a href="map-making.html#static-map"><i class="fa fa-check"></i><b>5.7.1</b> Static map</a></li>
-<li class="chapter" data-level="5.7.2" data-path="map-making.html"><a href="map-making.html#export"><i class="fa fa-check"></i><b>5.7.2</b> Export</a></li>
+<li class="chapter" data-level="5.7.2" data-path="map-making.html"><a href="map-making.html#inset-map"><i class="fa fa-check"></i><b>5.7.2</b> Inset map</a></li>
 <li class="chapter" data-level="5.7.3" data-path="map-making.html"><a href="map-making.html#basic-interactive-map"><i class="fa fa-check"></i><b>5.7.3</b> Basic interactive map</a></li>
 <li class="chapter" data-level="5.7.4" data-path="map-making.html"><a href="map-making.html#advanced-interactive-map"><i class="fa fa-check"></i><b>5.7.4</b> Advanced interactive map</a></li>
 </ul></li>
@@ -905,7 +905,7 @@ Note how I’ve altered the total_action_taken to the sum of… as the original 
 </blockquote>
 <div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" title="1"><span class="kw">library</span>(sf)</a>
 <a class="sourceLine" id="cb6-2" title="2"><span class="co"># change this to your file path!!!</span></a>
-<a class="sourceLine" id="cb6-3" title="3">shape &lt;-<span class="st"> </span><span class="kw">st_read</span>(<span class="st">&quot;Prac1_data/statistical-gis-boundaries-london/ESRI/London_Borough_Excluding_MHW.shp&quot;</span>)</a></code></pre></div>
+<a class="sourceLine" id="cb6-3" title="3">shape &lt;-<span class="st"> </span><span class="kw">st_read</span>(<span class="st">&quot;C:/Users/Andy/OneDrive - University College London/Teaching/CASA0005/2020_2021/CASA0005repo/Prac1_data/statistical-gis-boundaries-london/ESRI/London_Borough_Excluding_MHW.shp&quot;</span>)</a></code></pre></div>
 <pre><code>## Reading layer `London_Borough_Excluding_MHW&#39; from data source `C:\Users\Andy\OneDrive - University College London\Teaching\CASA0005\2020_2021\CASA0005repo\Prac1_data\statistical-gis-boundaries-london\ESRI\London_Borough_Excluding_MHW.shp&#39; using driver `ESRI Shapefile&#39;
 ## Simple feature collection with 33 features and 7 fields
 ## geometry type:  MULTIPOLYGON
@@ -948,7 +948,8 @@ Note how I’ve altered the total_action_taken to the sum of… as the original 
 <p>From what we did in QGIS this should look familiar.</p>
 <p>We now need to load our <code>.csv</code> file:</p>
 <div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb15-1" title="1"><span class="kw">library</span>(tidyverse)</a>
-<a class="sourceLine" id="cb15-2" title="2">mycsv &lt;-<span class="st">  </span><span class="kw">read_csv</span>(<span class="st">&quot;Prac1_data/fly_tipping_borough_edit.csv&quot;</span>)  </a></code></pre></div>
+<a class="sourceLine" id="cb15-2" title="2"><span class="co">#this needs to be your file path again</span></a>
+<a class="sourceLine" id="cb15-3" title="3">mycsv &lt;-<span class="st">  </span><span class="kw">read_csv</span>(<span class="st">&quot;C:/Users/Andy/OneDrive - University College London/Teaching/CASA0005/2020_2021/CASA0005repo/Prac1_data/fly_tipping_borough_edit.csv&quot;</span>)  </a></code></pre></div>
 <pre><code>## Parsed with column specification:
 ## cols(
 ##   `Row Labels` = col_character(),
@@ -1051,18 +1052,18 @@ Note how I’ve altered the total_action_taken to the sum of… as the original 
 <h3><span class="header-section-number">1.6.6</span> Export data</h3>
 <p>Finally write shape to a new GeoPackage (<code>.gpkg</code>) giving it the layer name of your choice:</p>
 <div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb25-1" title="1">shape <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb25-2" title="2"><span class="st">  </span><span class="kw">st_write</span>(.,<span class="st">&quot;Prac1_data/Rwk1.gpkg&quot;</span>,</a>
+<a class="sourceLine" id="cb25-2" title="2"><span class="st">  </span><span class="kw">st_write</span>(.,<span class="st">&quot;C:/Users/Andy/OneDrive - University College London/Teaching/CASA0005/2020_2021/CASA0005repo/Prac1_data/Rwk1.gpkg&quot;</span>,</a>
 <a class="sourceLine" id="cb25-3" title="3">           <span class="st">&quot;london_boroughs_fly_tipping&quot;</span>,</a>
 <a class="sourceLine" id="cb25-4" title="4">           <span class="dt">delete_layer=</span><span class="ot">TRUE</span>)</a></code></pre></div>
 <pre><code>## Deleting layer `london_boroughs_fly_tipping&#39; using driver `GPKG&#39;
-## Writing layer `london_boroughs_fly_tipping&#39; to data source `Prac1_data/Rwk1.gpkg&#39; using driver `GPKG&#39;
+## Writing layer `london_boroughs_fly_tipping&#39; to data source `C:/Users/Andy/OneDrive - University College London/Teaching/CASA0005/2020_2021/CASA0005repo/Prac1_data/Rwk1.gpkg&#39; using driver `GPKG&#39;
 ## Writing 33 features with 15 fields and geometry type Multi Polygon.</code></pre>
 <p>So here, we are saying the shape is the object we want to save, then to the GeoPackage file path, with the layer name of <code>london_boroughs_fly_tipping</code>. I’ve set <code>delete_layer</code> to true so I could overwrite mine when I developed this practical. Changing it to false would generate an error message if you ever tried to re-run the code.</p>
 <p>Let’s also add the <code>.csv</code> as we did in QGIS. This is a bit more complicated as we have to use the SQLite database package. Firstly, connect to the <code>.gpkg</code> we just made:</p>
 <div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb27-1" title="1"><span class="kw">library</span>(readr)</a>
 <a class="sourceLine" id="cb27-2" title="2"><span class="kw">library</span>(RSQLite)</a>
 <a class="sourceLine" id="cb27-3" title="3"></a>
-<a class="sourceLine" id="cb27-4" title="4">con &lt;-<span class="st"> </span><span class="kw">dbConnect</span>(RSQLite<span class="op">::</span><span class="kw">SQLite</span>(),<span class="dt">dbname=</span><span class="st">&quot;Prac1_data/Rwk1.gpkg&quot;</span>)</a></code></pre></div>
+<a class="sourceLine" id="cb27-4" title="4">con &lt;-<span class="st"> </span><span class="kw">dbConnect</span>(RSQLite<span class="op">::</span><span class="kw">SQLite</span>(),<span class="dt">dbname=</span><span class="st">&quot;C:/Users/Andy/OneDrive - University College London/Teaching/CASA0005/2020_2021/CASA0005repo/Prac1_data/Rwk1.gpkg&quot;</span>)</a></code></pre></div>
 <p>Now examine what is in the <code>.gpkg</code>…you can see that i’ve already got my <code>original_csv</code> stored within the <code>.gpkg</code> as when i developed this practical i made sure it was working!</p>
 <div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb28-1" title="1">con <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb28-2" title="2"><span class="st">  </span><span class="kw">dbListTables</span>()</a></code></pre></div>
@@ -1103,9 +1104,9 @@ Note how I’ve altered the total_action_taken to the sum of… as the original 
 <a class="sourceLine" id="cb31-6" title="6"><span class="co">#read in the shapefile</span></a>
 <a class="sourceLine" id="cb31-7" title="7"></a>
 <a class="sourceLine" id="cb31-8" title="8">shape &lt;-<span class="st"> </span><span class="kw">st_read</span>(</a>
-<a class="sourceLine" id="cb31-9" title="9">  <span class="st">&quot;Prac1_data/statistical-gis-boundaries-london/ESRI/London_Borough_Excluding_MHW.shp&quot;</span>)</a>
+<a class="sourceLine" id="cb31-9" title="9">  <span class="st">&quot;C:/Users/Andy/OneDrive - University College London/Teaching/CASA0005/2020_2021/CASA0005repo/Prac1_data/statistical-gis-boundaries-london/ESRI/London_Borough_Excluding_MHW.shp&quot;</span>)</a>
 <a class="sourceLine" id="cb31-10" title="10"><span class="co"># read in the csv</span></a>
-<a class="sourceLine" id="cb31-11" title="11">mycsv &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="st">&quot;Prac1_data/fly_tipping_borough_edit.csv&quot;</span>)  </a>
+<a class="sourceLine" id="cb31-11" title="11">mycsv &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="st">&quot;C:/Users/Andy/OneDrive - University College London/Teaching/CASA0005/2020_2021/CASA0005repo/Prac1_data/fly_tipping_borough_edit.csv&quot;</span>)  </a>
 <a class="sourceLine" id="cb31-12" title="12"><span class="co"># merge csv and shapefile</span></a>
 <a class="sourceLine" id="cb31-13" title="13">shape &lt;-<span class="st"> </span>shape<span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb31-14" title="14"><span class="st">  </span><span class="kw">merge</span>(.,</a>
@@ -1118,11 +1119,11 @@ Note how I’ve altered the total_action_taken to the sum of… as the original 
 <a class="sourceLine" id="cb31-21" title="21"><span class="kw">qtm</span>(shape, <span class="dt">fill =</span> <span class="st">&quot;2011_12&quot;</span>)</a>
 <a class="sourceLine" id="cb31-22" title="22"><span class="co"># write to a .gpkg</span></a>
 <a class="sourceLine" id="cb31-23" title="23">shape <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb31-24" title="24"><span class="st">  </span><span class="kw">st_write</span>(.,<span class="st">&quot;Prac1_data/Rwk1.gpkg&quot;</span>,</a>
+<a class="sourceLine" id="cb31-24" title="24"><span class="st">  </span><span class="kw">st_write</span>(.,<span class="st">&quot;C:/Users/Andy/OneDrive - University College London/Teaching/CASA0005/2020_2021/CASA0005repo/Prac1_data/Rwk1.gpkg&quot;</span>,</a>
 <a class="sourceLine" id="cb31-25" title="25">           <span class="st">&quot;london_boroughs_fly_tipping&quot;</span>,</a>
 <a class="sourceLine" id="cb31-26" title="26">           <span class="dt">delete_layer=</span><span class="ot">TRUE</span>)</a>
 <a class="sourceLine" id="cb31-27" title="27"><span class="co"># connect to the .gpkg</span></a>
-<a class="sourceLine" id="cb31-28" title="28">con &lt;-<span class="st"> </span><span class="kw">dbConnect</span>(<span class="kw">SQLite</span>(),<span class="dt">dbname=</span><span class="st">&quot;Prac1_data/Rwk1.gpkg&quot;</span>)</a>
+<a class="sourceLine" id="cb31-28" title="28">con &lt;-<span class="st"> </span><span class="kw">dbConnect</span>(<span class="kw">SQLite</span>(),<span class="dt">dbname=</span><span class="st">&quot;C:/Users/Andy/OneDrive - University College London/Teaching/CASA0005/2020_2021/CASA0005repo/Prac1_data/Rwk1.gpkg&quot;</span>)</a>
 <a class="sourceLine" id="cb31-29" title="29"><span class="co"># list what is in it</span></a>
 <a class="sourceLine" id="cb31-30" title="30">con <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb31-31" title="31"><span class="st">  </span><span class="kw">dbListTables</span>()</a>
