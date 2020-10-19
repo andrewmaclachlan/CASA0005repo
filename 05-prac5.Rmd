@@ -4,10 +4,10 @@
 
 By the end of this practical you should be able to:
 
-1. List and explain basic mapping concepts across QGIS, ArcMap and R
+1. List and explain basic mapping concepts across QGIS and R
 1. Interpret and manipulate data from multiple sources
 1. Create near publishable static and interactive mapped outputs
-1. Evaluate and critique mapping approaches between QGIS, ArcMap and R
+1. Evaluate and critique mapping approaches between QGIS and R
 
 ## Homework
 
