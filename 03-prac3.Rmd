@@ -203,8 +203,6 @@ If you are still a bit confused by coordiate reference systems then **stop** and
 
 This is the best resources i've come across explaining coordiate reference systems are:
 
-* [Geographic projection and transformation workbook by Robin Lovelace](https://geocompr.github.io/post/2019/crs-projections-transformations/)
-
 * [I hate coordinate systems](https://ihatecoordinatesystems.com/#mental-model)
 
 * [ESRI's coordinate systems and projections for beginners](https://communityhub.esriuk.com/geoxchange/2012/3/26/coordinate-systems-and-projections-for-beginners.html)
@@ -264,7 +262,7 @@ plot(pr1)
 
 Ok, projections over. Let's move forward with the practical...
 
-1. A better and more efficient way is to firstly list all the files stored within our directory with `dir_info` from the `fs` pacakge, then use `dplyr` in conjunction with `str_detect()` from `stringr` to search for filenames containing `tif`. Finally just select the paths.
+1. A better and more efficient way is to firstly list all the files stored within our directory with `dir_info()` from the `fs` pacakge, then use `dplyr` in conjunction with `str_detect()` from `stringr` to search for filenames containing `tif`. Finally just select the paths.
 
 1. But let's firstly explore what `dir_info()` does...
 
@@ -376,7 +374,7 @@ Perthtemp <- Aucitytemp2[3,]
 
 ### Histogram
 
-A histogram lets us see the frequency of distribution of our data.
+A histogram lets us see the frequency of distribution of our data. This will vary based on the data that you have downloaded. 
 
 1. Make a histogram of Perth's temperature. The tibble stored the data as double and the base `hist()` function needs it as numeric..
 
