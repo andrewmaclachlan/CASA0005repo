@@ -155,7 +155,7 @@ The EPSG code for the WGS84 World Geodetic System (usually the default CRS for m
 
 ```{r, cache=FALSE, warning=FALSE, message=FALSE}
 Ausoutline <- Ausoutline %>%
-  st_set_crs(., 43260)
+  st_set_crs(., 4326)
 ```
 
 Or, more concisely...but remember this is only useful if there is no CRS when you load the data.
@@ -571,15 +571,25 @@ ggplot(twomonths, aes(x=Temp, color=Month, fill=Month)) +
 
 > **Note** how i adjusted the title after i selected the theme, if i had done this before the theme defaults would have overwritten my command.
 
-1. Have you been getting an annoying error message about bin size and non-finate values? Me too!...Bin size defaults to 30 in ```ggplot2``` and the non-finate values is referring to lots of NAs (no data) that we have in our dataset. In the code below i've dropped all the NAs with `drop_na()`, selected a bin width of 5 and produced a faceted plot...
+1. Have you been getting an annoying error message about bin size and non-finate values? Me too!...Bin size defaults to 30 in ```ggplot2``` and the non-finate values is referring to lots of NAs (no data) that we have in our dataset. In the code below i've:
+
+* dropped all the NAs with `drop_na()`
+
+* made sure that the Month column has the levels specified, which will map in descending order (e.g. Jan, Feb, March..)
+
+* selected a bin width of 5 and produced a faceted plot...
 
 ```{r fig.height=10, fig.height=6, cache=FALSE}
 
 data_complete_cases <- squishdata %>%
-  drop_na()
+  drop_na()%>% 
+  mutate(Month = factor(Month, levels = c("Jan","Feb","Mar",
+                                          "Apr","May","Jun",
+                                          "Jul","Aug","Sep",
+                                          "Oct","Nov","Dec")))
 
 # Plot faceted histogram
-ggplot(data_complete_cases, aes(x=Temp, na.rm=TRUE, color=variable))+
+ggplot(data_complete_cases, aes(x=Temp, na.rm=TRUE))+
   geom_histogram(color="black", binwidth = 5)+
   labs(title="Ggplot2 faceted histogram of Australian temperatures", 
        x="Temperature",
