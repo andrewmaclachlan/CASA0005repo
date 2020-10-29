@@ -24,7 +24,7 @@
 <meta name="author" content="Andy MacLachlan and Adam Dennett" />
 
 
-<meta name="date" content="2020-10-23" />
+<meta name="date" content="2020-10-29" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -33,6 +33,7 @@
   <link rel="shortcut icon" href="assets/favicon.ico" type="image/x-icon" />
 <link rel="prev" href="index.html"/>
 <link rel="next" href="software-installation.html"/>
+<script src="libs/header-attrs-2.4.6/header-attrs.js"></script>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -50,6 +51,8 @@
 
 
 
+<link href="libs/anchor-sections-1.0/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0/anchor-sections.js"></script>
 <link href="libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
 <link href="libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
 <script src="libs/htmlwidgets-1.5.1/htmlwidgets.js"></script>
@@ -91,25 +94,26 @@
 
 
 <style type="text/css">
-a.sourceLine { display: inline-block; line-height: 1.25; }
-a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
-a.sourceLine:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
 pre.sourceCode { margin: 0; }
 @media screen {
 div.sourceCode { overflow: auto; }
 }
 @media print {
-code.sourceCode { white-space: pre-wrap; }
-a.sourceLine { text-indent: -1em; padding-left: 1em; }
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
-pre.numberSource a.sourceLine
-  { position: relative; left: -4em; }
-pre.numberSource a.sourceLine::before
-  { content: attr(title);
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
     position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; pointer-events: all; display: inline-block;
+    border: none; display: inline-block;
     -webkit-touch-callout: none; -webkit-user-select: none;
     -khtml-user-select: none; -moz-user-select: none;
     -ms-user-select: none; user-select: none;
@@ -118,9 +122,9 @@ pre.numberSource a.sourceLine::before
   }
 pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
 div.sourceCode
-  { background-color: #f8f8f8; }
+  {  background-color: #f8f8f8; }
 @media screen {
-a.sourceLine::before { text-decoration: underline; }
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 code span.al { color: #ef2929; } /* Alert */
 code span.an { color: #8f5902; font-weight: bold; font-style: italic; } /* Annotation */
@@ -152,7 +156,7 @@ code span.vs { color: #4e9a06; } /* VerbatimString */
 code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
-<link rel="stylesheet" href="assets\style.css" type="text/css" />
+<link rel="stylesheet" href="assets/style.css" type="text/css" />
 </head>
 
 <body>
@@ -168,15 +172,18 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <li class="toc-logo"><a href="https://www.ucl.ac.uk/module-catalogue/modules/geographic-information-systems-and-science-CASA0005"><img src="general_images/casa_logo.jpg"></a></li>
 
 <li class="divider"></li>
-<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Welcome</a><ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Welcome</a>
+<ul>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#acknowledgement"><i class="fa fa-check"></i>Acknowledgement</a></li>
 </ul></li>
 <li class="part"><span><b>Course information</b></span></li>
-<li class="chapter" data-level="" data-path="hello-gis.html"><a href="hello-gis.html"><i class="fa fa-check"></i>Hello GIS</a><ul>
+<li class="chapter" data-level="" data-path="hello-gis.html"><a href="hello-gis.html"><i class="fa fa-check"></i>Hello GIS</a>
+<ul>
 <li class="chapter" data-level="" data-path="hello-gis.html"><a href="hello-gis.html#intended-course-learning-outcomes"><i class="fa fa-check"></i>Intended course learning outcomes</a></li>
 <li class="chapter" data-level="" data-path="hello-gis.html"><a href="hello-gis.html#how-to-use-this-book"><i class="fa fa-check"></i>How to use this book</a></li>
 <li class="chapter" data-level="" data-path="hello-gis.html"><a href="hello-gis.html#getting-started"><i class="fa fa-check"></i>Getting started</a></li>
-<li class="chapter" data-level="" data-path="hello-gis.html"><a href="hello-gis.html#how-to-download-data-and-files-from-github"><i class="fa fa-check"></i>How to download data and files from GitHub</a><ul>
+<li class="chapter" data-level="" data-path="hello-gis.html"><a href="hello-gis.html#how-to-download-data-and-files-from-github"><i class="fa fa-check"></i>How to download data and files from GitHub</a>
+<ul>
 <li class="chapter" data-level="" data-path="hello-gis.html"><a href="hello-gis.html#option-1"><i class="fa fa-check"></i>Option 1</a></li>
 <li class="chapter" data-level="" data-path="hello-gis.html"><a href="hello-gis.html#option-2"><i class="fa fa-check"></i>Option 2</a></li>
 </ul></li>
@@ -187,15 +194,18 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="hello-gis.html"><a href="hello-gis.html#assignment-resources"><i class="fa fa-check"></i>Assignment resources</a></li>
 <li class="chapter" data-level="" data-path="hello-gis.html"><a href="hello-gis.html#reading-list"><i class="fa fa-check"></i>Reading list</a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="software-installation.html"><a href="software-installation.html"><i class="fa fa-check"></i>Software installation</a><ul>
+<li class="chapter" data-level="" data-path="software-installation.html"><a href="software-installation.html"><i class="fa fa-check"></i>Software installation</a>
+<ul>
 <li class="chapter" data-level="" data-path="software-installation.html"><a href="software-installation.html#qgis"><i class="fa fa-check"></i>QGIS</a></li>
-<li class="chapter" data-level="" data-path="software-installation.html"><a href="software-installation.html#r"><i class="fa fa-check"></i>R</a><ul>
+<li class="chapter" data-level="" data-path="software-installation.html"><a href="software-installation.html#r"><i class="fa fa-check"></i>R</a>
+<ul>
 <li class="chapter" data-level="" data-path="software-installation.html"><a href="software-installation.html#setup-1"><i class="fa fa-check"></i>Setup 1</a></li>
 <li class="chapter" data-level="" data-path="software-installation.html"><a href="software-installation.html#setup-2"><i class="fa fa-check"></i>Setup 2</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="software-installation.html"><a href="software-installation.html#arcgis"><i class="fa fa-check"></i>ArcGIS</a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="external-usage.html"><a href="external-usage.html"><i class="fa fa-check"></i>External usage</a><ul>
+<li class="chapter" data-level="" data-path="external-usage.html"><a href="external-usage.html"><i class="fa fa-check"></i>External usage</a>
+<ul>
 <li class="chapter" data-level="" data-path="external-usage.html"><a href="external-usage.html#how-to-adopt-this-course"><i class="fa fa-check"></i>How to adopt this course</a></li>
 <li class="chapter" data-level="" data-path="external-usage.html"><a href="external-usage.html#issues-contributions"><i class="fa fa-check"></i>Issues / contributions</a></li>
 <li class="chapter" data-level="" data-path="external-usage.html"><a href="external-usage.html#license"><i class="fa fa-check"></i>License</a></li>
@@ -203,16 +213,19 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="external-usage.html"><a href="external-usage.html#packages"><i class="fa fa-check"></i>Packages</a></li>
 </ul></li>
 <li class="part"><span><b>I GIS tools</b></span></li>
-<li class="chapter" data-level="1" data-path="geographic-information.html"><a href="geographic-information.html"><i class="fa fa-check"></i><b>1</b> Geographic Information</a><ul>
+<li class="chapter" data-level="1" data-path="geographic-information.html"><a href="geographic-information.html"><i class="fa fa-check"></i><b>1</b> Geographic Information</a>
+<ul>
 <li class="chapter" data-level="1.1" data-path="geographic-information.html"><a href="geographic-information.html#learning-outcomes"><i class="fa fa-check"></i><b>1.1</b> Learning outcomes</a></li>
 <li class="chapter" data-level="1.2" data-path="geographic-information.html"><a href="geographic-information.html#homework"><i class="fa fa-check"></i><b>1.2</b> Homework</a></li>
 <li class="chapter" data-level="1.3" data-path="geographic-information.html"><a href="geographic-information.html#recommended-listening"><i class="fa fa-check"></i><b>1.3</b> Recommended listening 🎧</a></li>
-<li class="chapter" data-level="1.4" data-path="geographic-information.html"><a href="geographic-information.html#the-basics-of-geographic-information"><i class="fa fa-check"></i><b>1.4</b> The Basics of Geographic Information</a><ul>
+<li class="chapter" data-level="1.4" data-path="geographic-information.html"><a href="geographic-information.html#the-basics-of-geographic-information"><i class="fa fa-check"></i><b>1.4</b> The Basics of Geographic Information</a>
+<ul>
 <li class="chapter" data-level="1.4.1" data-path="geographic-information.html"><a href="geographic-information.html#data-types-in-statistics"><i class="fa fa-check"></i><b>1.4.1</b> Data types in statistics</a></li>
 <li class="chapter" data-level="1.4.2" data-path="geographic-information.html"><a href="geographic-information.html#important-gis-data-formats"><i class="fa fa-check"></i><b>1.4.2</b> Important GIS data formats</a></li>
 </ul></li>
 <li class="chapter" data-level="1.5" data-path="geographic-information.html"><a href="geographic-information.html#general-data-flow"><i class="fa fa-check"></i><b>1.5</b> General data flow</a></li>
-<li class="chapter" data-level="1.6" data-path="geographic-information.html"><a href="geographic-information.html#data"><i class="fa fa-check"></i><b>1.6</b> Data</a><ul>
+<li class="chapter" data-level="1.6" data-path="geographic-information.html"><a href="geographic-information.html#data"><i class="fa fa-check"></i><b>1.6</b> Data</a>
+<ul>
 <li class="chapter" data-level="1.6.1" data-path="geographic-information.html"><a href="geographic-information.html#file-paths"><i class="fa fa-check"></i><b>1.6.1</b> File paths</a></li>
 <li class="chapter" data-level="1.6.2" data-path="geographic-information.html"><a href="geographic-information.html#data-download"><i class="fa fa-check"></i><b>1.6.2</b> Data download</a></li>
 <li class="chapter" data-level="1.6.3" data-path="geographic-information.html"><a href="geographic-information.html#data-pre-processing"><i class="fa fa-check"></i><b>1.6.3</b> Data pre-processing</a></li>
@@ -221,7 +234,8 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="1.6.6" data-path="geographic-information.html"><a href="geographic-information.html#export-data-1"><i class="fa fa-check"></i><b>1.6.6</b> Export data</a></li>
 <li class="chapter" data-level="1.6.7" data-path="geographic-information.html"><a href="geographic-information.html#what-will-i-use-1"><i class="fa fa-check"></i><b>1.6.7</b> What will I use</a></li>
 </ul></li>
-<li class="chapter" data-level="1.7" data-path="geographic-information.html"><a href="geographic-information.html#data-sources-and-task"><i class="fa fa-check"></i><b>1.7</b> Data sources and task</a><ul>
+<li class="chapter" data-level="1.7" data-path="geographic-information.html"><a href="geographic-information.html#data-sources-and-task"><i class="fa fa-check"></i><b>1.7</b> Data sources and task</a>
+<ul>
 <li class="chapter" data-level="1.7.1" data-path="geographic-information.html"><a href="geographic-information.html#uk-data-service"><i class="fa fa-check"></i><b>1.7.1</b> UK Data Service</a></li>
 <li class="chapter" data-level="1.7.2" data-path="geographic-information.html"><a href="geographic-information.html#ons"><i class="fa fa-check"></i><b>1.7.2</b> ONS</a></li>
 <li class="chapter" data-level="1.7.3" data-path="geographic-information.html"><a href="geographic-information.html#nomis"><i class="fa fa-check"></i><b>1.7.3</b> nomis</a></li>
@@ -235,11 +249,13 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="1.9" data-path="geographic-information.html"><a href="geographic-information.html#feedback"><i class="fa fa-check"></i><b>1.9</b> Feedback</a></li>
 <li class="chapter" data-level="1.10" data-path="geographic-information.html"><a href="geographic-information.html#mac-r-issues"><i class="fa fa-check"></i><b>1.10</b> Mac R issues</a></li>
 </ul></li>
-<li class="chapter" data-level="2" data-path="introduction-to-r.html"><a href="introduction-to-r.html"><i class="fa fa-check"></i><b>2</b> Introduction to R</a><ul>
+<li class="chapter" data-level="2" data-path="introduction-to-r.html"><a href="introduction-to-r.html"><i class="fa fa-check"></i><b>2</b> Introduction to R</a>
+<ul>
 <li class="chapter" data-level="2.1" data-path="introduction-to-r.html"><a href="introduction-to-r.html#learning-outcomes-1"><i class="fa fa-check"></i><b>2.1</b> Learning outcomes</a></li>
 <li class="chapter" data-level="2.2" data-path="introduction-to-r.html"><a href="introduction-to-r.html#homework-1"><i class="fa fa-check"></i><b>2.2</b> Homework</a></li>
 <li class="chapter" data-level="2.3" data-path="introduction-to-r.html"><a href="introduction-to-r.html#recommended-listening-1"><i class="fa fa-check"></i><b>2.3</b> Recommended listening 🎧</a></li>
-<li class="chapter" data-level="2.4" data-path="introduction-to-r.html"><a href="introduction-to-r.html#introduction-1"><i class="fa fa-check"></i><b>2.4</b> Introduction</a><ul>
+<li class="chapter" data-level="2.4" data-path="introduction-to-r.html"><a href="introduction-to-r.html#introduction-1"><i class="fa fa-check"></i><b>2.4</b> Introduction</a>
+<ul>
 <li class="chapter" data-level="2.4.1" data-path="introduction-to-r.html"><a href="introduction-to-r.html#online-forums-are-your-friend"><i class="fa fa-check"></i><b>2.4.1</b> Online forums are your friend!!</a></li>
 <li class="chapter" data-level="2.4.2" data-path="introduction-to-r.html"><a href="introduction-to-r.html#health-warning"><i class="fa fa-check"></i><b>2.4.2</b> Health warning</a></li>
 <li class="chapter" data-level="2.4.3" data-path="introduction-to-r.html"><a href="introduction-to-r.html#r-and-rstudio"><i class="fa fa-check"></i><b>2.4.3</b> R and RStudio</a></li>
@@ -252,7 +268,8 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="2.4.10" data-path="introduction-to-r.html"><a href="introduction-to-r.html#data-structures"><i class="fa fa-check"></i><b>2.4.10</b> Data structures</a></li>
 <li class="chapter" data-level="2.4.11" data-path="introduction-to-r.html"><a href="introduction-to-r.html#elements-of-a-data-frame"><i class="fa fa-check"></i><b>2.4.11</b> Elements of a data frame</a></li>
 </ul></li>
-<li class="chapter" data-level="2.5" data-path="introduction-to-r.html"><a href="introduction-to-r.html#reading-data-into-r"><i class="fa fa-check"></i><b>2.5</b> Reading data into R</a><ul>
+<li class="chapter" data-level="2.5" data-path="introduction-to-r.html"><a href="introduction-to-r.html#reading-data-into-r"><i class="fa fa-check"></i><b>2.5</b> Reading data into R</a>
+<ul>
 <li class="chapter" data-level="2.5.1" data-path="introduction-to-r.html"><a href="introduction-to-r.html#old-skool-cleaning"><i class="fa fa-check"></i><b>2.5.1</b> Old skool cleaning</a></li>
 <li class="chapter" data-level="2.5.2" data-path="introduction-to-r.html"><a href="introduction-to-r.html#here"><i class="fa fa-check"></i><b>2.5.2</b> Here</a></li>
 <li class="chapter" data-level="2.5.3" data-path="introduction-to-r.html"><a href="introduction-to-r.html#new-skool-cleaning"><i class="fa fa-check"></i><b>2.5.3</b> New skool cleaning</a></li>
@@ -266,18 +283,21 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="2.6" data-path="introduction-to-r.html"><a href="introduction-to-r.html#tidying-data"><i class="fa fa-check"></i><b>2.6</b> Tidying data</a></li>
 <li class="chapter" data-level="2.7" data-path="introduction-to-r.html"><a href="introduction-to-r.html#feedback-1"><i class="fa fa-check"></i><b>2.7</b> Feedback</a></li>
 </ul></li>
-<li class="chapter" data-level="3" data-path="rasters-descriptive-statistics-and-interpolation.html"><a href="rasters-descriptive-statistics-and-interpolation.html"><i class="fa fa-check"></i><b>3</b> Rasters, descriptive statistics and interpolation</a><ul>
+<li class="chapter" data-level="3" data-path="rasters-descriptive-statistics-and-interpolation.html"><a href="rasters-descriptive-statistics-and-interpolation.html"><i class="fa fa-check"></i><b>3</b> Rasters, descriptive statistics and interpolation</a>
+<ul>
 <li class="chapter" data-level="3.1" data-path="rasters-descriptive-statistics-and-interpolation.html"><a href="rasters-descriptive-statistics-and-interpolation.html#learning-outcomes-2"><i class="fa fa-check"></i><b>3.1</b> Learning outcomes</a></li>
 <li class="chapter" data-level="3.2" data-path="rasters-descriptive-statistics-and-interpolation.html"><a href="rasters-descriptive-statistics-and-interpolation.html#homework-2"><i class="fa fa-check"></i><b>3.2</b> Homework</a></li>
 <li class="chapter" data-level="3.3" data-path="rasters-descriptive-statistics-and-interpolation.html"><a href="rasters-descriptive-statistics-and-interpolation.html#recommended-listening-2"><i class="fa fa-check"></i><b>3.3</b> Recommended listening 🎧</a></li>
 <li class="chapter" data-level="3.4" data-path="rasters-descriptive-statistics-and-interpolation.html"><a href="rasters-descriptive-statistics-and-interpolation.html#introduction-2"><i class="fa fa-check"></i><b>3.4</b> Introduction</a></li>
-<li class="chapter" data-level="3.5" data-path="rasters-descriptive-statistics-and-interpolation.html"><a href="rasters-descriptive-statistics-and-interpolation.html#part-1-projections"><i class="fa fa-check"></i><b>3.5</b> Part 1 projections</a><ul>
+<li class="chapter" data-level="3.5" data-path="rasters-descriptive-statistics-and-interpolation.html"><a href="rasters-descriptive-statistics-and-interpolation.html#part-1-projections"><i class="fa fa-check"></i><b>3.5</b> Part 1 projections</a>
+<ul>
 <li class="chapter" data-level="3.5.1" data-path="rasters-descriptive-statistics-and-interpolation.html"><a href="rasters-descriptive-statistics-and-interpolation.html#changing-projections"><i class="fa fa-check"></i><b>3.5.1</b> Changing projections</a></li>
 <li class="chapter" data-level="3.5.2" data-path="rasters-descriptive-statistics-and-interpolation.html"><a href="rasters-descriptive-statistics-and-interpolation.html#worldclim-data"><i class="fa fa-check"></i><b>3.5.2</b> WorldClim data</a></li>
 <li class="chapter" data-level="3.5.3" data-path="rasters-descriptive-statistics-and-interpolation.html"><a href="rasters-descriptive-statistics-and-interpolation.html#worldclim-data-loading-efficiently"><i class="fa fa-check"></i><b>3.5.3</b> WorldClim data loading efficiently</a></li>
 <li class="chapter" data-level="3.5.4" data-path="rasters-descriptive-statistics-and-interpolation.html"><a href="rasters-descriptive-statistics-and-interpolation.html#location-data-from-a-raster"><i class="fa fa-check"></i><b>3.5.4</b> Location data from a raster</a></li>
 </ul></li>
-<li class="chapter" data-level="3.6" data-path="rasters-descriptive-statistics-and-interpolation.html"><a href="rasters-descriptive-statistics-and-interpolation.html#part-2-descriptive-statistics"><i class="fa fa-check"></i><b>3.6</b> Part 2 descriptive statistics</a><ul>
+<li class="chapter" data-level="3.6" data-path="rasters-descriptive-statistics-and-interpolation.html"><a href="rasters-descriptive-statistics-and-interpolation.html#part-2-descriptive-statistics"><i class="fa fa-check"></i><b>3.6</b> Part 2 descriptive statistics</a>
+<ul>
 <li class="chapter" data-level="3.6.1" data-path="rasters-descriptive-statistics-and-interpolation.html"><a href="rasters-descriptive-statistics-and-interpolation.html#data-preparation"><i class="fa fa-check"></i><b>3.6.1</b> Data preparation</a></li>
 <li class="chapter" data-level="3.6.2" data-path="rasters-descriptive-statistics-and-interpolation.html"><a href="rasters-descriptive-statistics-and-interpolation.html#histogram"><i class="fa fa-check"></i><b>3.6.2</b> Histogram</a></li>
 <li class="chapter" data-level="3.6.3" data-path="rasters-descriptive-statistics-and-interpolation.html"><a href="rasters-descriptive-statistics-and-interpolation.html#using-more-data"><i class="fa fa-check"></i><b>3.6.3</b> Using more data</a></li>
@@ -288,12 +308,14 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="3.9" data-path="rasters-descriptive-statistics-and-interpolation.html"><a href="rasters-descriptive-statistics-and-interpolation.html#advanced-analysis"><i class="fa fa-check"></i><b>3.9</b> Advanced analysis</a></li>
 <li class="chapter" data-level="3.10" data-path="rasters-descriptive-statistics-and-interpolation.html"><a href="rasters-descriptive-statistics-and-interpolation.html#feedback-2"><i class="fa fa-check"></i><b>3.10</b> Feedback</a></li>
 </ul></li>
-<li class="chapter" data-level="4" data-path="git-github-and-rmarkdown.html"><a href="git-github-and-rmarkdown.html"><i class="fa fa-check"></i><b>4</b> Git, GitHub and RMarkdown</a><ul>
+<li class="chapter" data-level="4" data-path="git-github-and-rmarkdown.html"><a href="git-github-and-rmarkdown.html"><i class="fa fa-check"></i><b>4</b> Git, GitHub and RMarkdown</a>
+<ul>
 <li class="chapter" data-level="4.1" data-path="git-github-and-rmarkdown.html"><a href="git-github-and-rmarkdown.html#learning-outcomes-3"><i class="fa fa-check"></i><b>4.1</b> Learning outcomes</a></li>
 <li class="chapter" data-level="4.2" data-path="git-github-and-rmarkdown.html"><a href="git-github-and-rmarkdown.html#homework-3"><i class="fa fa-check"></i><b>4.2</b> Homework</a></li>
 <li class="chapter" data-level="4.3" data-path="git-github-and-rmarkdown.html"><a href="git-github-and-rmarkdown.html#recommended-listening-3"><i class="fa fa-check"></i><b>4.3</b> Recommended listening 🎧</a></li>
 <li class="chapter" data-level="4.4" data-path="git-github-and-rmarkdown.html"><a href="git-github-and-rmarkdown.html#introduction-3"><i class="fa fa-check"></i><b>4.4</b> Introduction</a></li>
-<li class="chapter" data-level="4.5" data-path="git-github-and-rmarkdown.html"><a href="git-github-and-rmarkdown.html#git-and-github"><i class="fa fa-check"></i><b>4.5</b> Git and GitHub</a><ul>
+<li class="chapter" data-level="4.5" data-path="git-github-and-rmarkdown.html"><a href="git-github-and-rmarkdown.html#git-and-github"><i class="fa fa-check"></i><b>4.5</b> Git and GitHub</a>
+<ul>
 <li class="chapter" data-level="4.5.1" data-path="git-github-and-rmarkdown.html"><a href="git-github-and-rmarkdown.html#the-three-ways"><i class="fa fa-check"></i><b>4.5.1</b> The three ways</a></li>
 <li class="chapter" data-level="4.5.2" data-path="git-github-and-rmarkdown.html"><a href="git-github-and-rmarkdown.html#set-up-your-github"><i class="fa fa-check"></i><b>4.5.2</b> Set up your GitHub</a></li>
 <li class="chapter" data-level="4.5.3" data-path="git-github-and-rmarkdown.html"><a href="git-github-and-rmarkdown.html#using-rstudio-with-git"><i class="fa fa-check"></i><b>4.5.3</b> Using RStudio with Git</a></li>
@@ -310,7 +332,8 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="4.5.14" data-path="git-github-and-rmarkdown.html"><a href="git-github-and-rmarkdown.html#back-in-time"><i class="fa fa-check"></i><b>4.5.14</b> Back in time</a></li>
 <li class="chapter" data-level="4.5.15" data-path="git-github-and-rmarkdown.html"><a href="git-github-and-rmarkdown.html#health-warning-1"><i class="fa fa-check"></i><b>4.5.15</b> Health warning</a></li>
 </ul></li>
-<li class="chapter" data-level="4.6" data-path="git-github-and-rmarkdown.html"><a href="git-github-and-rmarkdown.html#rmarkdown"><i class="fa fa-check"></i><b>4.6</b> RMarkdown</a><ul>
+<li class="chapter" data-level="4.6" data-path="git-github-and-rmarkdown.html"><a href="git-github-and-rmarkdown.html#rmarkdown"><i class="fa fa-check"></i><b>4.6</b> RMarkdown</a>
+<ul>
 <li class="chapter" data-level="4.6.1" data-path="git-github-and-rmarkdown.html"><a href="git-github-and-rmarkdown.html#html"><i class="fa fa-check"></i><b>4.6.1</b> HTML</a></li>
 <li class="chapter" data-level="4.6.2" data-path="git-github-and-rmarkdown.html"><a href="git-github-and-rmarkdown.html#flexdashboard"><i class="fa fa-check"></i><b>4.6.2</b> Flexdashboard</a></li>
 <li class="chapter" data-level="4.6.3" data-path="git-github-and-rmarkdown.html"><a href="git-github-and-rmarkdown.html#word-document"><i class="fa fa-check"></i><b>4.6.3</b> Word document</a></li>
@@ -322,27 +345,32 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="4.8" data-path="git-github-and-rmarkdown.html"><a href="git-github-and-rmarkdown.html#further-reading"><i class="fa fa-check"></i><b>4.8</b> Further reading</a></li>
 <li class="chapter" data-level="4.9" data-path="git-github-and-rmarkdown.html"><a href="git-github-and-rmarkdown.html#feedback-3"><i class="fa fa-check"></i><b>4.9</b> Feedback</a></li>
 </ul></li>
-<li class="chapter" data-level="5" data-path="map-making.html"><a href="map-making.html"><i class="fa fa-check"></i><b>5</b> Map making</a><ul>
+<li class="chapter" data-level="5" data-path="map-making.html"><a href="map-making.html"><i class="fa fa-check"></i><b>5</b> Map making</a>
+<ul>
 <li class="chapter" data-level="5.1" data-path="map-making.html"><a href="map-making.html#learning-outcomes-4"><i class="fa fa-check"></i><b>5.1</b> Learning outcomes</a></li>
 <li class="chapter" data-level="5.2" data-path="map-making.html"><a href="map-making.html#homework-4"><i class="fa fa-check"></i><b>5.2</b> Homework</a></li>
 <li class="chapter" data-level="5.3" data-path="map-making.html"><a href="map-making.html#recommended-listening-4"><i class="fa fa-check"></i><b>5.3</b> Recommended listening 🎧</a></li>
-<li class="chapter" data-level="5.4" data-path="map-making.html"><a href="map-making.html#introduction-4"><i class="fa fa-check"></i><b>5.4</b> Introduction</a><ul>
+<li class="chapter" data-level="5.4" data-path="map-making.html"><a href="map-making.html#introduction-4"><i class="fa fa-check"></i><b>5.4</b> Introduction</a>
+<ul>
 <li class="chapter" data-level="5.4.1" data-path="map-making.html"><a href="map-making.html#osm-1"><i class="fa fa-check"></i><b>5.4.1</b> OSM</a></li>
 <li class="chapter" data-level="5.4.2" data-path="map-making.html"><a href="map-making.html#airbnb"><i class="fa fa-check"></i><b>5.4.2</b> Airbnb</a></li>
 </ul></li>
-<li class="chapter" data-level="5.5" data-path="map-making.html"><a href="map-making.html#data-1"><i class="fa fa-check"></i><b>5.5</b> Data</a><ul>
+<li class="chapter" data-level="5.5" data-path="map-making.html"><a href="map-making.html#data-1"><i class="fa fa-check"></i><b>5.5</b> Data</a>
+<ul>
 <li class="chapter" data-level="5.5.1" data-path="map-making.html"><a href="map-making.html#osm-2"><i class="fa fa-check"></i><b>5.5.1</b> OSM</a></li>
 <li class="chapter" data-level="5.5.2" data-path="map-making.html"><a href="map-making.html#london-boroughs"><i class="fa fa-check"></i><b>5.5.2</b> London boroughs</a></li>
 <li class="chapter" data-level="5.5.3" data-path="map-making.html"><a href="map-making.html#world-cities"><i class="fa fa-check"></i><b>5.5.3</b> World cities</a></li>
 </ul></li>
-<li class="chapter" data-level="5.6" data-path="map-making.html"><a href="map-making.html#qgis-2"><i class="fa fa-check"></i><b>5.6</b> QGIS</a><ul>
+<li class="chapter" data-level="5.6" data-path="map-making.html"><a href="map-making.html#qgis-2"><i class="fa fa-check"></i><b>5.6</b> QGIS</a>
+<ul>
 <li class="chapter" data-level="5.6.1" data-path="map-making.html"><a href="map-making.html#load-data-2"><i class="fa fa-check"></i><b>5.6.1</b> Load data</a></li>
 <li class="chapter" data-level="5.6.2" data-path="map-making.html"><a href="map-making.html#manipulate-data"><i class="fa fa-check"></i><b>5.6.2</b> Manipulate data</a></li>
 <li class="chapter" data-level="5.6.3" data-path="map-making.html"><a href="map-making.html#map-data"><i class="fa fa-check"></i><b>5.6.3</b> Map data</a></li>
 <li class="chapter" data-level="5.6.4" data-path="map-making.html"><a href="map-making.html#export-map"><i class="fa fa-check"></i><b>5.6.4</b> Export map</a></li>
 <li class="chapter" data-level="5.6.5" data-path="map-making.html"><a href="map-making.html#graphical-modeler"><i class="fa fa-check"></i><b>5.6.5</b> Graphical modeler</a></li>
 </ul></li>
-<li class="chapter" data-level="5.7" data-path="map-making.html"><a href="map-making.html#r-2"><i class="fa fa-check"></i><b>5.7</b> R</a><ul>
+<li class="chapter" data-level="5.7" data-path="map-making.html"><a href="map-making.html#r-2"><i class="fa fa-check"></i><b>5.7</b> R</a>
+<ul>
 <li class="chapter" data-level="5.7.1" data-path="map-making.html"><a href="map-making.html#static-map"><i class="fa fa-check"></i><b>5.7.1</b> Static map</a></li>
 <li class="chapter" data-level="5.7.2" data-path="map-making.html"><a href="map-making.html#inset-map"><i class="fa fa-check"></i><b>5.7.2</b> Inset map</a></li>
 <li class="chapter" data-level="5.7.3" data-path="map-making.html"><a href="map-making.html#basic-interactive-map"><i class="fa fa-check"></i><b>5.7.3</b> Basic interactive map</a></li>
@@ -352,16 +380,19 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="5.9" data-path="map-making.html"><a href="map-making.html#feedback-4"><i class="fa fa-check"></i><b>5.9</b> Feedback</a></li>
 </ul></li>
 <li class="part"><span><b>II GIS analysis</b></span></li>
-<li class="chapter" data-level="6" data-path="analysing-spatial-patterns.html"><a href="analysing-spatial-patterns.html"><i class="fa fa-check"></i><b>6</b> Analysing spatial patterns</a><ul>
+<li class="chapter" data-level="6" data-path="analysing-spatial-patterns.html"><a href="analysing-spatial-patterns.html"><i class="fa fa-check"></i><b>6</b> Analysing spatial patterns</a>
+<ul>
 <li class="chapter" data-level="6.1" data-path="analysing-spatial-patterns.html"><a href="analysing-spatial-patterns.html#learning-outcomes-5"><i class="fa fa-check"></i><b>6.1</b> Learning outcomes</a></li>
 <li class="chapter" data-level="6.2" data-path="analysing-spatial-patterns.html"><a href="analysing-spatial-patterns.html#homework-5"><i class="fa fa-check"></i><b>6.2</b> Homework</a></li>
 <li class="chapter" data-level="6.3" data-path="analysing-spatial-patterns.html"><a href="analysing-spatial-patterns.html#recommended-listening-5"><i class="fa fa-check"></i><b>6.3</b> Recommended listening 🎧</a></li>
 <li class="chapter" data-level="6.4" data-path="analysing-spatial-patterns.html"><a href="analysing-spatial-patterns.html#introduction-5"><i class="fa fa-check"></i><b>6.4</b> Introduction</a></li>
-<li class="chapter" data-level="6.5" data-path="analysing-spatial-patterns.html"><a href="analysing-spatial-patterns.html#setting-up-your-data"><i class="fa fa-check"></i><b>6.5</b> Setting up your data</a><ul>
+<li class="chapter" data-level="6.5" data-path="analysing-spatial-patterns.html"><a href="analysing-spatial-patterns.html#setting-up-your-data"><i class="fa fa-check"></i><b>6.5</b> Setting up your data</a>
+<ul>
 <li class="chapter" data-level="6.5.1" data-path="analysing-spatial-patterns.html"><a href="analysing-spatial-patterns.html#data-cleaning"><i class="fa fa-check"></i><b>6.5.1</b> Data cleaning</a></li>
 <li class="chapter" data-level="6.5.2" data-path="analysing-spatial-patterns.html"><a href="analysing-spatial-patterns.html#study-area"><i class="fa fa-check"></i><b>6.5.2</b> Study area</a></li>
 </ul></li>
-<li class="chapter" data-level="6.6" data-path="analysing-spatial-patterns.html"><a href="analysing-spatial-patterns.html#point-pattern-analysis"><i class="fa fa-check"></i><b>6.6</b> Point pattern analysis</a><ul>
+<li class="chapter" data-level="6.6" data-path="analysing-spatial-patterns.html"><a href="analysing-spatial-patterns.html#point-pattern-analysis"><i class="fa fa-check"></i><b>6.6</b> Point pattern analysis</a>
+<ul>
 <li class="chapter" data-level="6.6.1" data-path="analysing-spatial-patterns.html"><a href="analysing-spatial-patterns.html#kernel-density-estimation"><i class="fa fa-check"></i><b>6.6.1</b> Kernel Density Estimation</a></li>
 <li class="chapter" data-level="6.6.2" data-path="analysing-spatial-patterns.html"><a href="analysing-spatial-patterns.html#quadrat-analysis"><i class="fa fa-check"></i><b>6.6.2</b> Quadrat Analysis</a></li>
 <li class="chapter" data-level="6.6.3" data-path="analysing-spatial-patterns.html"><a href="analysing-spatial-patterns.html#try-experimenting"><i class="fa fa-check"></i><b>6.6.3</b> Try experimenting…</a></li>
@@ -370,7 +401,8 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="6.7" data-path="analysing-spatial-patterns.html"><a href="analysing-spatial-patterns.html#density-based-spatial-clustering-of-applications-with-noise-dbscan"><i class="fa fa-check"></i><b>6.7</b> Density-based spatial clustering of applications with noise: DBSCAN</a></li>
 <li class="chapter" data-level="6.8" data-path="analysing-spatial-patterns.html"><a href="analysing-spatial-patterns.html#point-pattern-analysis-summary"><i class="fa fa-check"></i><b>6.8</b> Point pattern analysis summary</a></li>
-<li class="chapter" data-level="6.9" data-path="analysing-spatial-patterns.html"><a href="analysing-spatial-patterns.html#analysing-spatial-autocorrelation-with-morans-i-lisa-and-friends"><i class="fa fa-check"></i><b>6.9</b> Analysing Spatial Autocorrelation with Moran’s I, LISA and friends</a><ul>
+<li class="chapter" data-level="6.9" data-path="analysing-spatial-patterns.html"><a href="analysing-spatial-patterns.html#analysing-spatial-autocorrelation-with-morans-i-lisa-and-friends"><i class="fa fa-check"></i><b>6.9</b> Analysing Spatial Autocorrelation with Moran’s I, LISA and friends</a>
+<ul>
 <li class="chapter" data-level="6.9.1" data-path="analysing-spatial-patterns.html"><a href="analysing-spatial-patterns.html#data-download-1"><i class="fa fa-check"></i><b>6.9.1</b> Data download</a></li>
 <li class="chapter" data-level="6.9.2" data-path="analysing-spatial-patterns.html"><a href="analysing-spatial-patterns.html#data-cleaning-1"><i class="fa fa-check"></i><b>6.9.2</b> Data cleaning</a></li>
 <li class="chapter" data-level="6.9.3" data-path="analysing-spatial-patterns.html"><a href="analysing-spatial-patterns.html#data-manipulation"><i class="fa fa-check"></i><b>6.9.3</b> Data manipulation</a></li>
@@ -381,33 +413,40 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="6.10" data-path="analysing-spatial-patterns.html"><a href="analysing-spatial-patterns.html#extension"><i class="fa fa-check"></i><b>6.10</b> Extension</a></li>
 <li class="chapter" data-level="6.11" data-path="analysing-spatial-patterns.html"><a href="analysing-spatial-patterns.html#feedback-5"><i class="fa fa-check"></i><b>6.11</b> Feedback</a></li>
 </ul></li>
-<li class="chapter" data-level="7" data-path="advanced-raster-analysis.html"><a href="advanced-raster-analysis.html"><i class="fa fa-check"></i><b>7</b> Advanced raster analysis</a><ul>
+<li class="chapter" data-level="7" data-path="advanced-raster-analysis.html"><a href="advanced-raster-analysis.html"><i class="fa fa-check"></i><b>7</b> Advanced raster analysis</a>
+<ul>
 <li class="chapter" data-level="7.1" data-path="advanced-raster-analysis.html"><a href="advanced-raster-analysis.html#learning-objectives"><i class="fa fa-check"></i><b>7.1</b> Learning objectives</a></li>
 <li class="chapter" data-level="7.2" data-path="advanced-raster-analysis.html"><a href="advanced-raster-analysis.html#homework-6"><i class="fa fa-check"></i><b>7.2</b> Homework</a></li>
 <li class="chapter" data-level="7.3" data-path="advanced-raster-analysis.html"><a href="advanced-raster-analysis.html#recommended-listening-6"><i class="fa fa-check"></i><b>7.3</b> Recommended listening 🎧</a></li>
 <li class="chapter" data-level="7.4" data-path="advanced-raster-analysis.html"><a href="advanced-raster-analysis.html#introduction-6"><i class="fa fa-check"></i><b>7.4</b> Introduction</a></li>
-<li class="chapter" data-level="7.5" data-path="advanced-raster-analysis.html"><a href="advanced-raster-analysis.html#gitignore"><i class="fa fa-check"></i><b>7.5</b> .gitignore</a><ul>
+<li class="chapter" data-level="7.5" data-path="advanced-raster-analysis.html"><a href="advanced-raster-analysis.html#gitignore"><i class="fa fa-check"></i><b>7.5</b> .gitignore</a>
+<ul>
 <li class="chapter" data-level="7.5.1" data-path="advanced-raster-analysis.html"><a href="advanced-raster-analysis.html#remote-sensing-background-required"><i class="fa fa-check"></i><b>7.5.1</b> Remote sensing background (required)</a></li>
 </ul></li>
-<li class="chapter" data-level="7.6" data-path="advanced-raster-analysis.html"><a href="advanced-raster-analysis.html#data-2"><i class="fa fa-check"></i><b>7.6</b> Data</a><ul>
+<li class="chapter" data-level="7.6" data-path="advanced-raster-analysis.html"><a href="advanced-raster-analysis.html#data-2"><i class="fa fa-check"></i><b>7.6</b> Data</a>
+<ul>
 <li class="chapter" data-level="7.6.1" data-path="advanced-raster-analysis.html"><a href="advanced-raster-analysis.html#shapefile"><i class="fa fa-check"></i><b>7.6.1</b> Shapefile</a></li>
 <li class="chapter" data-level="7.6.2" data-path="advanced-raster-analysis.html"><a href="advanced-raster-analysis.html#raster-data-landsat"><i class="fa fa-check"></i><b>7.6.2</b> Raster data (Landsat)</a></li>
 </ul></li>
-<li class="chapter" data-level="7.7" data-path="advanced-raster-analysis.html"><a href="advanced-raster-analysis.html#processing-raster-data"><i class="fa fa-check"></i><b>7.7</b> Processing raster data</a><ul>
+<li class="chapter" data-level="7.7" data-path="advanced-raster-analysis.html"><a href="advanced-raster-analysis.html#processing-raster-data"><i class="fa fa-check"></i><b>7.7</b> Processing raster data</a>
+<ul>
 <li class="chapter" data-level="7.7.1" data-path="advanced-raster-analysis.html"><a href="advanced-raster-analysis.html#loading"><i class="fa fa-check"></i><b>7.7.1</b> Loading</a></li>
 <li class="chapter" data-level="7.7.2" data-path="advanced-raster-analysis.html"><a href="advanced-raster-analysis.html#resampling"><i class="fa fa-check"></i><b>7.7.2</b> Resampling</a></li>
 <li class="chapter" data-level="7.7.3" data-path="advanced-raster-analysis.html"><a href="advanced-raster-analysis.html#clipping"><i class="fa fa-check"></i><b>7.7.3</b> Clipping</a></li>
 </ul></li>
-<li class="chapter" data-level="7.8" data-path="advanced-raster-analysis.html"><a href="advanced-raster-analysis.html#data-exploration"><i class="fa fa-check"></i><b>7.8</b> Data exploration</a><ul>
+<li class="chapter" data-level="7.8" data-path="advanced-raster-analysis.html"><a href="advanced-raster-analysis.html#data-exploration"><i class="fa fa-check"></i><b>7.8</b> Data exploration</a>
+<ul>
 <li class="chapter" data-level="7.8.1" data-path="advanced-raster-analysis.html"><a href="advanced-raster-analysis.html#more-loading-and-manipulating"><i class="fa fa-check"></i><b>7.8.1</b> More loading and manipulating</a></li>
 <li class="chapter" data-level="7.8.2" data-path="advanced-raster-analysis.html"><a href="advanced-raster-analysis.html#plotting-data"><i class="fa fa-check"></i><b>7.8.2</b> Plotting data</a></li>
 <li class="chapter" data-level="7.8.3" data-path="advanced-raster-analysis.html"><a href="advanced-raster-analysis.html#data-similarity"><i class="fa fa-check"></i><b>7.8.3</b> Data similarity</a></li>
 </ul></li>
-<li class="chapter" data-level="7.9" data-path="advanced-raster-analysis.html"><a href="advanced-raster-analysis.html#basic-raster-calculations"><i class="fa fa-check"></i><b>7.9</b> Basic raster calculations</a><ul>
+<li class="chapter" data-level="7.9" data-path="advanced-raster-analysis.html"><a href="advanced-raster-analysis.html#basic-raster-calculations"><i class="fa fa-check"></i><b>7.9</b> Basic raster calculations</a>
+<ul>
 <li class="chapter" data-level="7.9.1" data-path="advanced-raster-analysis.html"><a href="advanced-raster-analysis.html#ndvi"><i class="fa fa-check"></i><b>7.9.1</b> NDVI</a></li>
 <li class="chapter" data-level="7.9.2" data-path="advanced-raster-analysis.html"><a href="advanced-raster-analysis.html#ndvi-function"><i class="fa fa-check"></i><b>7.9.2</b> NDVI function</a></li>
 </ul></li>
-<li class="chapter" data-level="7.10" data-path="advanced-raster-analysis.html"><a href="advanced-raster-analysis.html#advanced-raster-calculations"><i class="fa fa-check"></i><b>7.10</b> Advanced raster calculations</a><ul>
+<li class="chapter" data-level="7.10" data-path="advanced-raster-analysis.html"><a href="advanced-raster-analysis.html#advanced-raster-calculations"><i class="fa fa-check"></i><b>7.10</b> Advanced raster calculations</a>
+<ul>
 <li class="chapter" data-level="7.10.1" data-path="advanced-raster-analysis.html"><a href="advanced-raster-analysis.html#calucating-tempearture-from-landsat-data"><i class="fa fa-check"></i><b>7.10.1</b> Calucating tempearture from Landsat data</a></li>
 </ul></li>
 <li class="chapter" data-level="7.11" data-path="advanced-raster-analysis.html"><a href="advanced-raster-analysis.html#calucating-urban-area-from-landsat-data"><i class="fa fa-check"></i><b>7.11</b> Calucating urban area from Landsat data</a></li>
@@ -419,10 +458,12 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="7.17" data-path="advanced-raster-analysis.html"><a href="advanced-raster-analysis.html#remote-sensing-background-optional"><i class="fa fa-check"></i><b>7.17</b> Remote sensing background (optional)</a></li>
 <li class="chapter" data-level="7.18" data-path="advanced-raster-analysis.html"><a href="advanced-raster-analysis.html#feedback-6"><i class="fa fa-check"></i><b>7.18</b> Feedback</a></li>
 </ul></li>
-<li class="chapter" data-level="8" data-path="online-mapping-descriptive-statistics.html"><a href="online-mapping-descriptive-statistics.html"><i class="fa fa-check"></i><b>8</b> Online mapping / descriptive statistics</a><ul>
+<li class="chapter" data-level="8" data-path="online-mapping-descriptive-statistics.html"><a href="online-mapping-descriptive-statistics.html"><i class="fa fa-check"></i><b>8</b> Online mapping / descriptive statistics</a>
+<ul>
 <li class="chapter" data-level="8.1" data-path="online-mapping-descriptive-statistics.html"><a href="online-mapping-descriptive-statistics.html#homework-7"><i class="fa fa-check"></i><b>8.1</b> Homework</a></li>
 <li class="chapter" data-level="8.2" data-path="online-mapping-descriptive-statistics.html"><a href="online-mapping-descriptive-statistics.html#recommended-listening-7"><i class="fa fa-check"></i><b>8.2</b> Recommended listening 🎧</a></li>
-<li class="chapter" data-level="8.3" data-path="online-mapping-descriptive-statistics.html"><a href="online-mapping-descriptive-statistics.html#part-a-spatial-descriptive-statistics"><i class="fa fa-check"></i><b>8.3</b> Part A spatial descriptive statistics</a><ul>
+<li class="chapter" data-level="8.3" data-path="online-mapping-descriptive-statistics.html"><a href="online-mapping-descriptive-statistics.html#part-a-spatial-descriptive-statistics"><i class="fa fa-check"></i><b>8.3</b> Part A spatial descriptive statistics</a>
+<ul>
 <li class="chapter" data-level="8.3.1" data-path="online-mapping-descriptive-statistics.html"><a href="online-mapping-descriptive-statistics.html#learning-objectives-1"><i class="fa fa-check"></i><b>8.3.1</b> Learning objectives</a></li>
 <li class="chapter" data-level="8.3.2" data-path="online-mapping-descriptive-statistics.html"><a href="online-mapping-descriptive-statistics.html#getting-started-2"><i class="fa fa-check"></i><b>8.3.2</b> Getting Started</a></li>
 <li class="chapter" data-level="8.3.3" data-path="online-mapping-descriptive-statistics.html"><a href="online-mapping-descriptive-statistics.html#main-tasks"><i class="fa fa-check"></i><b>8.3.3</b> Main Tasks</a></li>
@@ -433,7 +474,8 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="8.3.8" data-path="online-mapping-descriptive-statistics.html"><a href="online-mapping-descriptive-statistics.html#task-3-mapping-location-quotients"><i class="fa fa-check"></i><b>8.3.8</b> Task 3 – Mapping Location Quotients</a></li>
 <li class="chapter" data-level="8.3.9" data-path="online-mapping-descriptive-statistics.html"><a href="online-mapping-descriptive-statistics.html#task-4-creating-a-basic-geodemographic-classification"><i class="fa fa-check"></i><b>8.3.9</b> Task 4 – Creating a Basic Geodemographic Classification</a></li>
 </ul></li>
-<li class="chapter" data-level="8.4" data-path="online-mapping-descriptive-statistics.html"><a href="online-mapping-descriptive-statistics.html#part-b-online-mapping"><i class="fa fa-check"></i><b>8.4</b> Part B Online mapping</a><ul>
+<li class="chapter" data-level="8.4" data-path="online-mapping-descriptive-statistics.html"><a href="online-mapping-descriptive-statistics.html#part-b-online-mapping"><i class="fa fa-check"></i><b>8.4</b> Part B Online mapping</a>
+<ul>
 <li class="chapter" data-level="8.4.1" data-path="online-mapping-descriptive-statistics.html"><a href="online-mapping-descriptive-statistics.html#learning-objectives-2"><i class="fa fa-check"></i><b>8.4.1</b> Learning objectives</a></li>
 <li class="chapter" data-level="8.4.2" data-path="online-mapping-descriptive-statistics.html"><a href="online-mapping-descriptive-statistics.html#introduction-7"><i class="fa fa-check"></i><b>8.4.2</b> Introduction</a></li>
 <li class="chapter" data-level="8.4.3" data-path="online-mapping-descriptive-statistics.html"><a href="online-mapping-descriptive-statistics.html#rpubs"><i class="fa fa-check"></i><b>8.4.3</b> RPubs</a></li>
@@ -443,14 +485,17 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="8.5" data-path="online-mapping-descriptive-statistics.html"><a href="online-mapping-descriptive-statistics.html#feedback-7"><i class="fa fa-check"></i><b>8.5</b> Feedback</a></li>
 </ul></li>
-<li class="chapter" data-level="9" data-path="gwr-and-spatially-lagged-regression.html"><a href="gwr-and-spatially-lagged-regression.html"><i class="fa fa-check"></i><b>9</b> GWR and spatially lagged regression</a><ul>
+<li class="chapter" data-level="9" data-path="gwr-and-spatially-lagged-regression.html"><a href="gwr-and-spatially-lagged-regression.html"><i class="fa fa-check"></i><b>9</b> GWR and spatially lagged regression</a>
+<ul>
 <li class="chapter" data-level="9.1" data-path="gwr-and-spatially-lagged-regression.html"><a href="gwr-and-spatially-lagged-regression.html#learning-objectives-3"><i class="fa fa-check"></i><b>9.1</b> Learning objectives</a></li>
 <li class="chapter" data-level="9.2" data-path="gwr-and-spatially-lagged-regression.html"><a href="gwr-and-spatially-lagged-regression.html#homework-8"><i class="fa fa-check"></i><b>9.2</b> Homework</a></li>
 <li class="chapter" data-level="9.3" data-path="gwr-and-spatially-lagged-regression.html"><a href="gwr-and-spatially-lagged-regression.html#recommended-listening-8"><i class="fa fa-check"></i><b>9.3</b> Recommended listening 🎧</a></li>
-<li class="chapter" data-level="9.4" data-path="gwr-and-spatially-lagged-regression.html"><a href="gwr-and-spatially-lagged-regression.html#introduction-8"><i class="fa fa-check"></i><b>9.4</b> Introduction</a><ul>
+<li class="chapter" data-level="9.4" data-path="gwr-and-spatially-lagged-regression.html"><a href="gwr-and-spatially-lagged-regression.html#introduction-8"><i class="fa fa-check"></i><b>9.4</b> Introduction</a>
+<ul>
 <li class="chapter" data-level="9.4.1" data-path="gwr-and-spatially-lagged-regression.html"><a href="gwr-and-spatially-lagged-regression.html#setting-up-your-data-1"><i class="fa fa-check"></i><b>9.4.1</b> Setting up your Data</a></li>
 </ul></li>
-<li class="chapter" data-level="9.5" data-path="gwr-and-spatially-lagged-regression.html"><a href="gwr-and-spatially-lagged-regression.html#analysing-gcse-exam-performance---testing-a-research-hypothesis"><i class="fa fa-check"></i><b>9.5</b> Analysing GCSE exam performance - testing a research hypothesis</a><ul>
+<li class="chapter" data-level="9.5" data-path="gwr-and-spatially-lagged-regression.html"><a href="gwr-and-spatially-lagged-regression.html#analysing-gcse-exam-performance---testing-a-research-hypothesis"><i class="fa fa-check"></i><b>9.5</b> Analysing GCSE exam performance - testing a research hypothesis</a>
+<ul>
 <li class="chapter" data-level="9.5.1" data-path="gwr-and-spatially-lagged-regression.html"><a href="gwr-and-spatially-lagged-regression.html#research-question-and-hypothesis"><i class="fa fa-check"></i><b>9.5.1</b> Research Question and Hypothesis</a></li>
 <li class="chapter" data-level="9.5.2" data-path="gwr-and-spatially-lagged-regression.html"><a href="gwr-and-spatially-lagged-regression.html#regression-basics"><i class="fa fa-check"></i><b>9.5.2</b> Regression Basics</a></li>
 <li class="chapter" data-level="9.5.3" data-path="gwr-and-spatially-lagged-regression.html"><a href="gwr-and-spatially-lagged-regression.html#running-a-regression-model-in-r"><i class="fa fa-check"></i><b>9.5.3</b> Running a Regression Model in R</a></li>
@@ -462,7 +507,8 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="9.5.9" data-path="gwr-and-spatially-lagged-regression.html"><a href="gwr-and-spatially-lagged-regression.html#assumption-4---homoscedasticity"><i class="fa fa-check"></i><b>9.5.9</b> Assumption 4 - Homoscedasticity</a></li>
 <li class="chapter" data-level="9.5.10" data-path="gwr-and-spatially-lagged-regression.html"><a href="gwr-and-spatially-lagged-regression.html#assumption-5---independence-of-errors"><i class="fa fa-check"></i><b>9.5.10</b> Assumption 5 - Independence of Errors</a></li>
 </ul></li>
-<li class="chapter" data-level="9.6" data-path="gwr-and-spatially-lagged-regression.html"><a href="gwr-and-spatially-lagged-regression.html#spatial-regression-models"><i class="fa fa-check"></i><b>9.6</b> Spatial Regression Models</a><ul>
+<li class="chapter" data-level="9.6" data-path="gwr-and-spatially-lagged-regression.html"><a href="gwr-and-spatially-lagged-regression.html#spatial-regression-models"><i class="fa fa-check"></i><b>9.6</b> Spatial Regression Models</a>
+<ul>
 <li class="chapter" data-level="9.6.1" data-path="gwr-and-spatially-lagged-regression.html"><a href="gwr-and-spatially-lagged-regression.html#dealing-with-spatially-autocorrelated-residuals---spatial-lag-and-spatial-error-models"><i class="fa fa-check"></i><b>9.6.1</b> Dealing with Spatially Autocorrelated Residuals - Spatial Lag and Spatial Error models</a></li>
 <li class="chapter" data-level="9.6.2" data-path="gwr-and-spatially-lagged-regression.html"><a href="gwr-and-spatially-lagged-regression.html#spatial-regression-model-in-r"><i class="fa fa-check"></i><b>9.6.2</b> Spatial regression model in R</a></li>
 <li class="chapter" data-level="9.6.3" data-path="gwr-and-spatially-lagged-regression.html"><a href="gwr-and-spatially-lagged-regression.html#extending-your-regression-model---dummy-variables"><i class="fa fa-check"></i><b>9.6.3</b> Extending your regression model - Dummy Variables</a></li>
@@ -471,19 +517,22 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="9.7" data-path="gwr-and-spatially-lagged-regression.html"><a href="gwr-and-spatially-lagged-regression.html#task-3---spatial-non-stationarity-and-geographically-weighted-regression-models-gwr"><i class="fa fa-check"></i><b>9.7</b> Task 3 - Spatial Non-stationarity and Geographically Weighted Regression Models (GWR)</a></li>
 <li class="chapter" data-level="9.8" data-path="gwr-and-spatially-lagged-regression.html"><a href="gwr-and-spatially-lagged-regression.html#feedback-8"><i class="fa fa-check"></i><b>9.8</b> Feedback</a></li>
 </ul></li>
-<li class="chapter" data-level="10" data-path="advanced-r-maup-and-more-regression.html"><a href="advanced-r-maup-and-more-regression.html"><i class="fa fa-check"></i><b>10</b> Advanced R, MAUP and more regression</a><ul>
+<li class="chapter" data-level="10" data-path="advanced-r-maup-and-more-regression.html"><a href="advanced-r-maup-and-more-regression.html"><i class="fa fa-check"></i><b>10</b> Advanced R, MAUP and more regression</a>
+<ul>
 <li class="chapter" data-level="10.1" data-path="advanced-r-maup-and-more-regression.html"><a href="advanced-r-maup-and-more-regression.html#learning-outcomes-6"><i class="fa fa-check"></i><b>10.1</b> Learning outcomes</a></li>
 <li class="chapter" data-level="10.2" data-path="advanced-r-maup-and-more-regression.html"><a href="advanced-r-maup-and-more-regression.html#homework-9"><i class="fa fa-check"></i><b>10.2</b> Homework</a></li>
 <li class="chapter" data-level="10.3" data-path="advanced-r-maup-and-more-regression.html"><a href="advanced-r-maup-and-more-regression.html#recommended-listening-9"><i class="fa fa-check"></i><b>10.3</b> Recommended listening 🎧</a></li>
 <li class="chapter" data-level="10.4" data-path="advanced-r-maup-and-more-regression.html"><a href="advanced-r-maup-and-more-regression.html#introduction-9"><i class="fa fa-check"></i><b>10.4</b> Introduction</a></li>
-<li class="chapter" data-level="10.5" data-path="advanced-r-maup-and-more-regression.html"><a href="advanced-r-maup-and-more-regression.html#maup"><i class="fa fa-check"></i><b>10.5</b> MAUP</a><ul>
+<li class="chapter" data-level="10.5" data-path="advanced-r-maup-and-more-regression.html"><a href="advanced-r-maup-and-more-regression.html#maup"><i class="fa fa-check"></i><b>10.5</b> MAUP</a>
+<ul>
 <li class="chapter" data-level="10.5.1" data-path="advanced-r-maup-and-more-regression.html"><a href="advanced-r-maup-and-more-regression.html#get-the-data"><i class="fa fa-check"></i><b>10.5.1</b> Get the data</a></li>
 <li class="chapter" data-level="10.5.2" data-path="advanced-r-maup-and-more-regression.html"><a href="advanced-r-maup-and-more-regression.html#project-the-data"><i class="fa fa-check"></i><b>10.5.2</b> Project the data</a></li>
 <li class="chapter" data-level="10.5.3" data-path="advanced-r-maup-and-more-regression.html"><a href="advanced-r-maup-and-more-regression.html#functions-1"><i class="fa fa-check"></i><b>10.5.3</b> Functions</a></li>
 <li class="chapter" data-level="10.5.4" data-path="advanced-r-maup-and-more-regression.html"><a href="advanced-r-maup-and-more-regression.html#loops"><i class="fa fa-check"></i><b>10.5.4</b> Loops</a></li>
 <li class="chapter" data-level="10.5.5" data-path="advanced-r-maup-and-more-regression.html"><a href="advanced-r-maup-and-more-regression.html#advanced-mapping-again"><i class="fa fa-check"></i><b>10.5.5</b> Advanced mapping (again)</a></li>
 </ul></li>
-<li class="chapter" data-level="10.6" data-path="advanced-r-maup-and-more-regression.html"><a href="advanced-r-maup-and-more-regression.html#regression-relationships"><i class="fa fa-check"></i><b>10.6</b> Regression relationships</a><ul>
+<li class="chapter" data-level="10.6" data-path="advanced-r-maup-and-more-regression.html"><a href="advanced-r-maup-and-more-regression.html#regression-relationships"><i class="fa fa-check"></i><b>10.6</b> Regression relationships</a>
+<ul>
 <li class="chapter" data-level="10.6.1" data-path="advanced-r-maup-and-more-regression.html"><a href="advanced-r-maup-and-more-regression.html#preprocessing"><i class="fa fa-check"></i><b>10.6.1</b> Preprocessing</a></li>
 <li class="chapter" data-level="10.6.2" data-path="advanced-r-maup-and-more-regression.html"><a href="advanced-r-maup-and-more-regression.html#scatter-plot"><i class="fa fa-check"></i><b>10.6.2</b> Scatter plot</a></li>
 <li class="chapter" data-level="10.6.3" data-path="advanced-r-maup-and-more-regression.html"><a href="advanced-r-maup-and-more-regression.html#outliers"><i class="fa fa-check"></i><b>10.6.3</b> Outliers</a></li>
@@ -493,7 +542,8 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="10.6.7" data-path="advanced-r-maup-and-more-regression.html"><a href="advanced-r-maup-and-more-regression.html#validation"><i class="fa fa-check"></i><b>10.6.7</b> Validation</a></li>
 <li class="chapter" data-level="10.6.8" data-path="advanced-r-maup-and-more-regression.html"><a href="advanced-r-maup-and-more-regression.html#cross-validation"><i class="fa fa-check"></i><b>10.6.8</b> Cross validation</a></li>
 </ul></li>
-<li class="chapter" data-level="10.7" data-path="advanced-r-maup-and-more-regression.html"><a href="advanced-r-maup-and-more-regression.html#advanced-regression"><i class="fa fa-check"></i><b>10.7</b> Advanced regression</a><ul>
+<li class="chapter" data-level="10.7" data-path="advanced-r-maup-and-more-regression.html"><a href="advanced-r-maup-and-more-regression.html#advanced-regression"><i class="fa fa-check"></i><b>10.7</b> Advanced regression</a>
+<ul>
 <li class="chapter" data-level="10.7.1" data-path="advanced-r-maup-and-more-regression.html"><a href="advanced-r-maup-and-more-regression.html#more-data"><i class="fa fa-check"></i><b>10.7.1</b> More data</a></li>
 <li class="chapter" data-level="10.7.2" data-path="advanced-r-maup-and-more-regression.html"><a href="advanced-r-maup-and-more-regression.html#multiple-linear-regression"><i class="fa fa-check"></i><b>10.7.2</b> Multiple linear regression</a></li>
 <li class="chapter" data-level="10.7.3" data-path="advanced-r-maup-and-more-regression.html"><a href="advanced-r-maup-and-more-regression.html#ridge-regression"><i class="fa fa-check"></i><b>10.7.3</b> Ridge regression</a></li>
@@ -510,7 +560,8 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="10.11" data-path="advanced-r-maup-and-more-regression.html"><a href="advanced-r-maup-and-more-regression.html#feedback-9"><i class="fa fa-check"></i><b>10.11</b> Feedback</a></li>
 </ul></li>
 <li class="part"><span><b>Assignment</b></span></li>
-<li class="chapter" data-level="11" data-path="assignment-resources-1.html"><a href="assignment-resources-1.html"><i class="fa fa-check"></i><b>11</b> Assignment resources</a><ul>
+<li class="chapter" data-level="11" data-path="assignment-resources-1.html"><a href="assignment-resources-1.html"><i class="fa fa-check"></i><b>11</b> Assignment resources</a>
+<ul>
 <li class="chapter" data-level="11.1" data-path="assignment-resources-1.html"><a href="assignment-resources-1.html#timeline"><i class="fa fa-check"></i><b>11.1</b> Timeline</a></li>
 <li class="chapter" data-level="11.2" data-path="assignment-resources-1.html"><a href="assignment-resources-1.html#markscheme"><i class="fa fa-check"></i><b>11.2</b> Markscheme</a></li>
 <li class="chapter" data-level="11.3" data-path="assignment-resources-1.html"><a href="assignment-resources-1.html#examples-of-previous-work"><i class="fa fa-check"></i><b>11.3</b> Examples of previous work</a></li>
@@ -518,14 +569,16 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="11.5" data-path="assignment-resources-1.html"><a href="assignment-resources-1.html#cool-stuff-to-explore"><i class="fa fa-check"></i><b>11.5</b> Cool stuff to explore</a></li>
 <li class="chapter" data-level="11.6" data-path="assignment-resources-1.html"><a href="assignment-resources-1.html#assignment-ideas"><i class="fa fa-check"></i><b>11.6</b> Assignment ideas</a></li>
 <li class="chapter" data-level="11.7" data-path="assignment-resources-1.html"><a href="assignment-resources-1.html#booksreading-resources"><i class="fa fa-check"></i><b>11.7</b> Books/reading resources</a></li>
-<li class="chapter" data-level="11.8" data-path="assignment-resources-1.html"><a href="assignment-resources-1.html#new-developments"><i class="fa fa-check"></i><b>11.8</b> New developments</a><ul>
+<li class="chapter" data-level="11.8" data-path="assignment-resources-1.html"><a href="assignment-resources-1.html#new-developments"><i class="fa fa-check"></i><b>11.8</b> New developments</a>
+<ul>
 <li class="chapter" data-level="11.8.1" data-path="assignment-resources-1.html"><a href="assignment-resources-1.html#twitter"><i class="fa fa-check"></i><b>11.8.1</b> Twitter</a></li>
 </ul></li>
 <li class="chapter" data-level="11.9" data-path="assignment-resources-1.html"><a href="assignment-resources-1.html#data-3"><i class="fa fa-check"></i><b>11.9</b> Data</a></li>
 <li class="chapter" data-level="11.10" data-path="assignment-resources-1.html"><a href="assignment-resources-1.html#data-lists-1"><i class="fa fa-check"></i><b>11.10</b> Data lists</a></li>
 <li class="chapter" data-level="11.11" data-path="assignment-resources-1.html"><a href="assignment-resources-1.html#reading-and-writing-critically"><i class="fa fa-check"></i><b>11.11</b> Reading and writing critically</a></li>
 <li class="chapter" data-level="11.12" data-path="assignment-resources-1.html"><a href="assignment-resources-1.html#free-flow-diagram-tools"><i class="fa fa-check"></i><b>11.12</b> Free flow diagram tools</a></li>
-<li class="chapter" data-level="11.13" data-path="assignment-resources-1.html"><a href="assignment-resources-1.html#basics-1"><i class="fa fa-check"></i><b>11.13</b> Basics</a><ul>
+<li class="chapter" data-level="11.13" data-path="assignment-resources-1.html"><a href="assignment-resources-1.html#basics-1"><i class="fa fa-check"></i><b>11.13</b> Basics</a>
+<ul>
 <li class="chapter" data-level="11.13.1" data-path="assignment-resources-1.html"><a href="assignment-resources-1.html#introduction-10"><i class="fa fa-check"></i><b>11.13.1</b> Introduction</a></li>
 <li class="chapter" data-level="11.13.2" data-path="assignment-resources-1.html"><a href="assignment-resources-1.html#literature-review"><i class="fa fa-check"></i><b>11.13.2</b> Literature review</a></li>
 <li class="chapter" data-level="11.13.3" data-path="assignment-resources-1.html"><a href="assignment-resources-1.html#methodology"><i class="fa fa-check"></i><b>11.13.3</b> Methodology</a></li>
@@ -666,7 +719,7 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <p lang="en" dir="ltr">
 You're doing it right if you get frustrated: if you're not frustrated, you're (probably) not stretching yourself mentally
 </p>
-— Hadley Wickham (<span class="citation">(<span class="citeproc-not-found" data-reference-id="hadleywickham"><strong>???</strong></span>)</span>) <a href="https://twitter.com/hadleywickham/status/565516733516349441?ref_src=twsrc%5Etfw">11. Februar 2015</a>
+— Hadley Wickham (<span class="citation">(<a href="#ref-hadleywickham" role="doc-biblioref"><strong>hadleywickham?</strong></a>)</span>) <a href="https://twitter.com/hadleywickham/status/565516733516349441?ref_src=twsrc%5Etfw">11. Februar 2015</a>
 </blockquote>
 <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 <p><br/></p>

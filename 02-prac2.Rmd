@@ -331,6 +331,7 @@ df[,1]
 1. You will note that the column headings are the names of the original objects creating the data frame. We can change these using the ```rename()``` function from  `dplyr`  that is loaded as part of the `tidyverse` package, we will come to this next:
 
 ```{r}
+library(dplyr)
 df <- df %>%
   dplyr::rename(column1 = Data1, column2=Data2)
 ```
@@ -348,7 +349,7 @@ To select or refer to  columns directly by name, we can either use `dplyr` again
 
 ```{r, cache=FALSE, message=FALSE, results=FALSE}
 df %>% 
-  select(column1)
+  dplyr::select(column1)
 ```
 
 However, you should be aware of other methods for doing this, as not all spatial data is compatible with `dplyr` yet, such as raster data, which will be important for next week. So we can also use the ```$``` operator, which takes the form  ```data.frame$columnName```, e.g.
@@ -581,7 +582,7 @@ That's also the same as:
 
 ```{r,eval=FALSE, cache=FALSE}
 LondonBoroughs %>% 
-  select(`Ward name`) %>%
+  dplyr::select(`Ward name`) %>%
   print()
 ```
 
@@ -612,7 +613,7 @@ We can also replicate this with `dplyr` with `select()`
 ```{r, cache=FALSE, eval=FALSE}
 #select columns 1,19,20 and 21
 LondonBoroughs_dplyrcols<-LondonBoroughs %>%
-  select(c(1,19,20,21))
+  dplyr::select(c(1,19,20,21))
 ```
 
 1. You will have noticed the use of square brackets above –-- these are very useful in R. The ```c()``` function is also used here --- this is the ‘combine’ function --- another very useful function in R which allows arguments (in this case, column reference numbers) into a single value.
@@ -621,7 +622,7 @@ LondonBoroughs_dplyrcols<-LondonBoroughs %>%
 
 ```{r, message=FALSE, warning = FALSE, cache=FALSE}
 LondonBoroughs_contains<-LondonBoroughs %>% 
-  select(contains("expectancy"), 
+  dplyr::select(contains("expectancy"), 
          contains("obese - 2011/12 to 2013/14"),
          contains("Ward name")) 
 ```
@@ -676,7 +677,7 @@ Life_expectancy <- LondonBoroughs %>%
   mutate(normalisedlifeepectancy= averagelifeexpectancy /
            mean(averagelifeexpectancy))%>%
   #select only columns we want
-  select(new_code,
+  dplyr::select(new_code,
          borough,
          averagelifeexpectancy, 
          normalisedlifeepectancy)%>%

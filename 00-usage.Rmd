@@ -75,8 +75,9 @@ session$platform
 And makes use of the following packages throughout. Thanks to [STAT 545](https://stat545.com/index.html#other-contributors) for this code.
 
 ```{r message = FALSE, warning = FALSE, echo = FALSE}
+library(dplyr)
 session$packages %>% 
-  select(package, loadedversion, date, source) %>% 
+  dplyr::select(package, loadedversion, date, source) %>% 
   DT::datatable(rownames = FALSE,
                 class = 'cell-border stripe',
                 filter = list(position = 'top'),

@@ -1,4 +1,4 @@
-# (PART) GIS tools {-}
+# (PART) GIS tools {.unnumbered}
 
 # Geographic Information
 
@@ -6,10 +6,10 @@
 
 By the end of this practical you should be able to:
 
-1. Describe and explain GIS data formats and databases 
-2. Source and pre-process spatial data 
-3. Load and undertaken some basic manipulation of spatial data in QGIS and R 
-4. Evaluate the (dis)advantages of each GIS you have used
+1.  Describe and explain GIS data formats and databases
+2.  Source and pre-process spatial data
+3.  Load and undertaken some basic manipulation of spatial data in QGIS and R
+4.  Evaluate the (dis)advantages of each GIS you have used
 
 ## Homework
 
@@ -22,26 +22,26 @@ This week you should undertake wider data exploration and reading to find a topi
 :::
 
 ::: {.infobox .note data-latex="{note}"}
-
 **Reading**
 
 Each week i'll provide a core chapter to support the skills taught here. However, **you are free to read whatever interests you** and Adam and I strongly encourage this, so please don't be constrained to this recommendation. Consult the [reading list](https://rl.talis.com/3/ucl/lists/139FBAF8-DACD-60FB-8BDC-E9C9E09BA885.html?lang=en-GB&login=1), practical and lecture each week for more ideas.
 
-This week: 
+This week:
 
-* [Chapter 2 "Geographic data in R"](https://geocompr.robinlovelace.net/spatial-class.html) from Geocomputation with R by Lovelace, Nowosad and Muenchow (2020).
+-   [Chapter 2 "Geographic data in R"](https://geocompr.robinlovelace.net/spatial-class.html) from Geocomputation with R by Lovelace, Nowosad and Muenchow (2020).
 
-* [Opening practice: supporting reproducibility and critical spatial data science](https://link.springer.com/article/10.1007/s10109-020-00334-2#Sec3) by Brunsdon and Comber (2020)
+-   [Opening practice: supporting reproducibility and critical spatial data science](https://link.springer.com/article/10.1007/s10109-020-00334-2#Sec3) by Brunsdon and Comber (2020)
 
 **Watching**
 
-* [What is Spatial Data Science](https://www.youtube.com/watch?v=osAbJeTho5w) from some of our friends at CARTO
+-   [What is Spatial Data Science](https://www.youtube.com/watch?v=osAbJeTho5w) from some of our friends at CARTO
 :::
+
 ## Recommended listening `r emo::ji("headphones")`
 
 Some of these practicals are long, take regular breaks and have a listen to some of our fav tunes each week.
 
-[Andy](https://open.spotify.com/album/1A3nVEWRJ8yvlPzawHI1pQ). Week 1. No other choice than Vampire Weekend. The band formed during college (University in the USA) and produced their first album of their own whilst working full time jobs! Incredible. The lead vocalist and guitarist Ezra Koenig was a school teacher in Brooklyn, New York. I've seen them a few times at Glastonbuty and in London during which they gave the people what they wanted and took requests from their entire catalogue, really amazing musicians. Note some of the guest appearances in this album as they also might make an apperance later in the term! 
+[Andy](https://open.spotify.com/album/1A3nVEWRJ8yvlPzawHI1pQ). Week 1. No other choice than Vampire Weekend. The band formed during college (University in the USA) and produced their first album of their own whilst working full time jobs! Incredible. The lead vocalist and guitarist Ezra Koenig was a school teacher in Brooklyn, New York. I've seen them a few times at Glastonbuty and in London during which they gave the people what they wanted and took requests from their entire catalogue, really amazing musicians. Note some of the guest appearances in this album as they also might make an apperance later in the term!
 
 [Adam](https://open.spotify.com/album/3LVWk5ZlGgFPvTUVSo8EKh?si=0tvDERBmRAOQgyRztZK-iw) OK, it's week 1, so I'm going in HARD. This week it's the raver's raver, the DJ's DJ. This man is a style icon and so drum & bass it hurts - it's Voltage! Here he is with his new album, Balance Over Symmetry. This will surprise a lot of people as it's an eclectic mix of DnB bangers through to some Burial-inspired minimal dubstep. Follow him on [Instagram](https://www.instagram.com/voltage_uk_/) and get your ears around his brilliant.
 
@@ -55,7 +55,7 @@ knitr::include_graphics('prac1_images/rasvec.jpg')
 
 In the above example the features in the real world (e.g. lake, forest, marsh and grassland) have been represented by points, lines and polygons (vector) or discrete grid cells (raster) of a certain size (e.g. 1 x 1m) specifying land cover type.
 
-### Data types in statistics 
+### Data types in statistics
 
 Before we go any further let's just quick go over the different types of data you might encounter
 
@@ -69,7 +69,7 @@ Foot length would be continuous data but shoe size would be discrete data.
 knitr::include_graphics('allisonhorst_images/continuous_discrete.png')
 ```
 
-Nominal data has labels without any quantitative value such as hair colour or type of animal. 
+Nominal data has labels without any quantitative value such as hair colour or type of animal.
 
 Ordinal data has an order or scale, for example if you have ever seen the chilli rating system on food labels or filled a happiness survey with a range between 1 and 10 --- that's ordinal. Here the order matters, but not the difference between them.
 
@@ -81,42 +81,42 @@ knitr::include_graphics('allisonhorst_images/nominal_ordinal_binary.png')
 
 ### Important GIS data formats
 
-There are a number of commonly used geographic data formats that store vector and raster data that you will come across during this course and it’s important to understand what they are, how they represent data and how you can use them.
+There are a number of commonly used geographic data formats that store vector and raster data that you will come across during this course and it's important to understand what they are, how they represent data and how you can use them.
 
 #### Shapefiles
 
-Perhaps the most commonly used GIS data format is the shapefile. Shapefiles were developed by [ESRI](http://www.esri.com/), one of the first and now certainly the largest commercial GIS company in the world. Despite being developed by a commercial company, they are mostly an open format and can be used (read and written) by a host of GIS Software applications. 
+Perhaps the most commonly used GIS data format is the shapefile. Shapefiles were developed by [ESRI](http://www.esri.com/), one of the first and now certainly the largest commercial GIS company in the world. Despite being developed by a commercial company, they are mostly an open format and can be used (read and written) by a host of GIS Software applications.
 
-A shapefile is actually a collection of files –-- at least three of which are needed for the shapefile to be displayed by GIS software. They are:
+A shapefile is actually a collection of files ---- at least three of which are needed for the shapefile to be displayed by GIS software. They are:
 
-  1. ```.shp``` - the file which contains the feature geometry
-  2. ```.shx``` - an index file which stores the position of the feature IDs in the  ```.shp ``` file
-  3. ```.dbf``` - the file that stores all of the attribute information associated with the coordinates – this might be the name of the shape or some other information associated with the feature
-  4. ```.prj``` - the file which contains all of the coordinate system information (the location of the shape on Earth's surface). Data can be displayed without a projection, but the ```.prj``` file allows software to display the data correctly where data with different projections might be being used
+1.  `.shp` - the file which contains the feature geometry
+2.  `.shx` - an index file which stores the position of the feature IDs in the `.shp` file
+3.  `.dbf` - the file that stores all of the attribute information associated with the coordinates -- this might be the name of the shape or some other information associated with the feature
+4.  `.prj` - the file which contains all of the coordinate system information (the location of the shape on Earth's surface). Data can be displayed without a projection, but the `.prj` file allows software to display the data correctly where data with different projections might be being used
 
 On Twitter and want to see the love for shapefiles....have a look at [the shapefile account](https://twitter.com/shapefiIe)
-  
+
 #### GeoJSON
 
-GeoJSON [Geospatial Data Interchange format for JavaScript Object Notation](http://geojson.org/) is becoming an increasingly popular spatial data format, particularly for web-based mapping as it is based on JavaScript Object Notation. Unlike a shapefile in a GeoJSON, the attributes, boundaries and projection information are all contained in the same file.  
-  
+GeoJSON [Geospatial Data Interchange format for JavaScript Object Notation](http://geojson.org/) is becoming an increasingly popular spatial data format, particularly for web-based mapping as it is based on JavaScript Object Notation. Unlike a shapefile in a GeoJSON, the attributes, boundaries and projection information are all contained in the same file.
+
 #### Shapefile and GeoJSON
 
-We're now going to explore a shapefile (```.shp``` ) and GeoJSON (```.geojson```) in action. 
+We're now going to explore a shapefile (`.shp` ) and GeoJSON (`.geojson`) in action.
 
-Go to: http://geojson.io/#map=16/51.5247/-0.1339
+Go to: <http://geojson.io/#map=16/51.5247/-0.1339>
 
 ```{r echo=FALSE, out.width = "500pt", fig.align='center', cache=TRUE}
 knitr::include_graphics('prac1_images/JSONwebsite.png') 
 ```
 
-  1. Using the drawing tools to the right of the map window, create 3 objects: a point, line and a polygon as I have done above. Click on your polygon and colour it red and colour your point green
-  2. Using the ‘Save’ option at the top of the map, save two copies of your new data – one in ```.geojson``` format and one in ```.shp``` format
-  3. Open your two newly saved files in a text editor such as notepad or notepad++. For the shapefile you might have to unzip the folder then open each file individually. What do you notice about the similarities or differences between the two ways that the data are encoded?
+1.  Using the drawing tools to the right of the map window, create 3 objects: a point, line and a polygon as I have done above. Click on your polygon and colour it red and colour your point green
+2.  Using the 'Save' option at the top of the map, save two copies of your new data -- one in `.geojson` format and one in `.shp` format
+3.  Open your two newly saved files in a text editor such as notepad or notepad++. For the shapefile you might have to unzip the folder then open each file individually. What do you notice about the similarities or differences between the two ways that the data are encoded?
 
 #### Raster data
 
-Most raster data is now provided in GeoTIFF (```.tiff```) format, which stands for Geostarionary Earth Orbit Tagged Image File. The GeoTIFF data format was created by NASA and is a standard public domain format. All necesary information to establish the location of the data on Earth's surface is embedded into the image. This includes: map projection, coordinate system, ellipsoid and datum type. 
+Most raster data is now provided in GeoTIFF (`.tiff`) format, which stands for Geostarionary Earth Orbit Tagged Image File. The GeoTIFF data format was created by NASA and is a standard public domain format. All necesary information to establish the location of the data on Earth's surface is embedded into the image. This includes: map projection, coordinate system, ellipsoid and datum type.
 
 #### Other data formats
 
@@ -124,54 +124,57 @@ Aforementioned data types and formats are likely to be the ones you predominatel
 
 **Vector**
 
-  * GML (Geography Markup Language –-- gave birth to Keyhold Markup Language (KML))
+-   GML (Geography Markup Language ---- gave birth to Keyhold Markup Language (KML))
 
 **Raster**
 
-  * Band SeQuential (BSQ) - technically a method for encoding data but commonly referred to as BSQ.
-  * Hierarchical Data Format (HDF)
-  * Arc Grid
+-   Band SeQuential (BSQ) - technically a method for encoding data but commonly referred to as BSQ.
+-   Hierarchical Data Format (HDF)
+-   Arc Grid
 
-There are normally valid reasons for storing data in one of these other formats. For example, BSQ are  raster data with a separate text header file (```.hdr```) providing geographic spatial reference information. Earth observation data often monitors the electromagnetic spectrum in bands. Humans see in the visible range of the spectrum and our vision is composed of red, green and blue wavelengths. If we wanted to analyse just the red wavelength the BSQ format would let us *read in* only that data. In comparison a GeoTIFF might come with all the data 'packaged' in one file and when doing analysis over thousands of images would significantly slow things down. That said you can now often find GeoTIFFs separated in a similar format to BSQ and it's fairly straightforward to convert between raster formats. 
+There are normally valid reasons for storing data in one of these other formats. For example, BSQ are raster data with a separate text header file (`.hdr`) providing geographic spatial reference information. Earth observation data often monitors the electromagnetic spectrum in bands. Humans see in the visible range of the spectrum and our vision is composed of red, green and blue wavelengths. If we wanted to analyse just the red wavelength the BSQ format would let us *read in* only that data. In comparison a GeoTIFF might come with all the data 'packaged' in one file and when doing analysis over thousands of images would significantly slow things down. That said you can now often find GeoTIFFs separated in a similar format to BSQ and it's fairly straightforward to convert between raster formats.
 
 #### Geodatabase
 
-A geodatabase is a collection of geographic data held within a database. Geodatabases were developed by ESRI to overcome some of the limitations of shapefiles. They come in two main types: Personal (up to 1 TB) and File (limited to 250 - 500 MB), with Personal Geodatabases storing everything in a Microsoft Access database (```.mdb```) file and File Geodatabases offering more flexibility, storing everything as a series of folders in a file system. In the example below we can see that the FCC_Geodatabase (left hand pane) holds multiple points, lines, polygons, tables and raster layers in the contents tab.   
+A geodatabase is a collection of geographic data held within a database. Geodatabases were developed by ESRI to overcome some of the limitations of shapefiles. They come in two main types: Personal (up to 1 TB) and File (limited to 250 - 500 MB), with Personal Geodatabases storing everything in a Microsoft Access database (`.mdb`) file and File Geodatabases offering more flexibility, storing everything as a series of folders in a file system. In the example below we can see that the FCC_Geodatabase (left hand pane) holds multiple points, lines, polygons, tables and raster layers in the contents tab.
 
 ```{r echo=FALSE, out.width = "500pt", fig.align='center', cache=TRUE}
 knitr::include_graphics('prac1_images/geodatabase.png') 
 ```
 
 #### GeoPackage
+
 ```{r echo=FALSE, out.width = "100pt", fig.align='center', cache=TRUE}
 knitr::include_graphics('prac1_images/geopkg.png')
 ```
 
-A GeoPackage is an open, standards-based, platform-independent, portable, self-describing, compact format for transferring geospatial data. It stores spatial data layers (vector and raster) as a single file, and is based upon an SQLite database, a widely used relational database management system, permitting code based, reproducible and transparent workflows. As it stores data in a single file it is very easy to share, copy or move.  
+A GeoPackage is an open, standards-based, platform-independent, portable, self-describing, compact format for transferring geospatial data. It stores spatial data layers (vector and raster) as a single file, and is based upon an SQLite database, a widely used relational database management system, permitting code based, reproducible and transparent workflows. As it stores data in a single file it is very easy to share, copy or move.
 
 #### SpatiaLite
+
 ```{r echo=FALSE, out.width = "100pt", fig.align='center', cache=TRUE}
 knitr::include_graphics('prac1_images/spatialite.png')
 ```
 
-SpatialLite is an open-source library that extends SQLite core. Support is fairly limited and most software that supports SpatiaLite also supports GeoPackage, as they both build upon SQLite. It doesn't have any clear advantage over GeoPackage, however it is unable to support raster data. 
+SpatialLite is an open-source library that extends SQLite core. Support is fairly limited and most software that supports SpatiaLite also supports GeoPackage, as they both build upon SQLite. It doesn't have any clear advantage over GeoPackage, however it is unable to support raster data.
 
 #### PostGIS
+
 ```{r echo=FALSE, out.width = "100pt", fig.align='center', cache=TRUE}
 knitr::include_graphics('prac1_images/postGIS.jpg') 
 ```
 
-PostGIS is an opensource database extender for PostrgeSQL. Essentially PostgreSQL is a database and PostGIS is an add on which permits spatial functions. The advantages of using PostGIS over a GeoPackage are that it allows users to access the data at the same time, can handle large data more efficiently and reduces processing time. In [this example](https://medium.com/@GispoLearning/learn-spatial-sql-and-master-geopackage-with-qgis-3-16b1e17f0291) calculating the number of bars per neighbourhood in Leon, Mexico the processing time reduced from 1.443 seconds (SQLite) to 0.08 seconds in PostGIS. However, data stored in PostGIS is  much harder to share, move or copy.
+PostGIS is an opensource database extender for PostrgeSQL. Essentially PostgreSQL is a database and PostGIS is an add on which permits spatial functions. The advantages of using PostGIS over a GeoPackage are that it allows users to access the data at the same time, can handle large data more efficiently and reduces processing time. In [this example](https://medium.com/@GispoLearning/learn-spatial-sql-and-master-geopackage-with-qgis-3-16b1e17f0291) calculating the number of bars per neighbourhood in Leon, Mexico the processing time reduced from 1.443 seconds (SQLite) to 0.08 seconds in PostGIS. However, data stored in PostGIS is much harder to share, move or copy.
 
 #### What will I use
 
-The variety of data formats can see a bit overwhelming. I still have to check how to load some of these data formats that I don't use frequently. But don't worry, most of the time you'll be using shapefiles, GeoPackages or raster data. 
+The variety of data formats can see a bit overwhelming. I still have to check how to load some of these data formats that I don't use frequently. But don't worry, most of the time you'll be using shapefiles, GeoPackages or raster data.
 
 ## General data flow
 
 As Grolemund and Wickham state in [R for Data Science](https://r4ds.had.co.nz/)...
 
->"Data science is a huge field, and there’s no way you can master it by reading a single book."
+> "Data science is a huge field, and there's no way you can master it by reading a single book."
 
 However, a nice place to start is looking at the typical workflow of a data science (or GIS) project which you will see throuhgout these practicals, which is summarised nicely in this diagram produced by [Dr. Julia Lowndes](https://twitter.com/juliesquid) adpted from Grolemund and Wickham.
 
@@ -191,23 +194,23 @@ Tidying and transfrom = data wrangling. Remember from the introduction this coul
 knitr::include_graphics('allisonhorst_images/dplyr_wrangling.png')
 ```
 
-After you have transformed the data the next best thing to do is **visualise** it --- even with some basic summary statistics. This simple step will often let you look at your data in a different way and select more appropraite analysis. 
+After you have transformed the data the next best thing to do is **visualise** it --- even with some basic summary statistics. This simple step will often let you look at your data in a different way and select more appropraite analysis.
 
 Next up is **modelling**. Personally within GIS i'd say a better term is processing as the very data itself is usually a computer model of reality. The modelling or processing section is where you conduct the core analysis (more than the basic analysis already mentioned) and try to provide an answer to your research question.
 
-Fianlly you have to **communicate** your study and outputs, it doesn't matter how good your data wrangling, modelling or processing is, if your intended audience can't interpret it, well, it's pretty much useless. 
+Fianlly you have to **communicate** your study and outputs, it doesn't matter how good your data wrangling, modelling or processing is, if your intended audience can't interpret it, well, it's pretty much useless.
 
 ::: {.infobox .tip data-latex="{note}"}
-In a few weeks come back and revisit this data flow section to see how what you have learnt fits the framework presented. 
+In a few weeks come back and revisit this data flow section to see how what you have learnt fits the framework presented.
 :::
 
-## Data 
+## Data
 
-The volume of geographic information which is freely available for use in the UK is increasing exponentially and spatially referenced data can often be found in many different places. In this practical we're going to use data from the London data store ---  a free and open data-sharing portal provided by the Greater London Authority (GLA), also known as City Hall that is the devolved regional governance body of London. 
+The volume of geographic information which is freely available for use in the UK is increasing exponentially and spatially referenced data can often be found in many different places. In this practical we're going to use data from the London data store --- a free and open data-sharing portal provided by the Greater London Authority (GLA), also known as City Hall that is the devolved regional governance body of London.
 
-We are going to get spatial data of the London boroughs and join flytipping (the illegal deposit of waste, commonly on road verges) data that is provided as a ```.csv``` file. ```.csv``` stands for comma-separated values (CSV)  ---  it uses a comma to separate each value. 
+We are going to get spatial data of the London boroughs and join flytipping (the illegal deposit of waste, commonly on road verges) data that is provided as a `.csv` file. `.csv` stands for comma-separated values (CSV) --- it uses a comma to separate each value.
 
-At the end of this document I'll also run through some common sources of data that will stand you in good stead (be advantageous) for the rest of the course. 
+At the end of this document I'll also run through some common sources of data that will stand you in good stead (be advantageous) for the rest of the course.
 
 ### File paths
 
@@ -217,30 +220,30 @@ In your N drive: create a new folder called GIS and within this a sub folder cal
 
 Firstly we need to get a spatial outline of the London boroughs. The geographic boundaries that are used in the UK are a complex, often inter-related, but ever changing mass of areas. For anyone new to the UK (or indeed not a trained quantitative geographer), it can be quite a daunting task to attempt to understand all of the boundaries that are in use. Fortunately the Office for National Statistics (ONS) has an online beginners guide to UK geography. If you need more information on the vast array of different UK geographies, go and explore these resources:
 
-* [A Beginners Guide to UK Geography (2019) v1.0](https://geoportal.statistics.gov.uk/datasets/a31e552c8a214ac2935dbb5701009a64)
-* [https://geoportal.statistics.gov.uk/datasets/9c04ff58854040d09a5a7ce146ab59b4](https://geoportal.statistics.gov.uk/datasets/9c04ff58854040d09a5a7ce146ab59b4)
+-   [A Beginners Guide to UK Geography (2019) v1.0](https://geoportal.statistics.gov.uk/datasets/a31e552c8a214ac2935dbb5701009a64)
+-   <https://geoportal.statistics.gov.uk/datasets/9c04ff58854040d09a5a7ce146ab59b4>
 
 Let's download some data..
 
-* Spatial Data
+-   Spatial Data
 
-1. To get the data go to the [London data store](https://data.london.gov.uk/)
+1.  To get the data go to the [London data store](https://data.london.gov.uk/)
 
-1. Search for Statistical GIS Boundary Files for London
+2.  Search for Statistical GIS Boundary Files for London
 
-1. Download the statistical-gis-boundaries-london.zip
+3.  Download the statistical-gis-boundaries-london.zip
 
-1. Unzip the data and save it to your wk1 folder.
+4.  Unzip the data and save it to your wk1 folder.
 
-* CSV data
+-   CSV data
 
-1. On the same website search for fly-tipping incidents
+1.  On the same website search for fly-tipping incidents
 
-1. Download the ```.csv``` file
+2.  Download the `.csv` file
 
 ### Data pre-processing
 
-**Question** Open the ```.csv``` in Excel, what do you notice about how the data is stored?
+**Question** Open the `.csv` in Excel, what do you notice about how the data is stored?
 
 **Answer** The year is a column and for each area the values are repeated for different years. In our analysis it is easier to have the different years as a column and populated for each area. So, we want to go from this...
 
@@ -260,28 +263,29 @@ Scroll to the end of the `.csv` and look at the data in the final rows. The last
 
 As we are going to use this dataset in QGIS and R I've done it in Excel using a pivot table. In future we'll use R to automate tasks like this.
 
-1. Go to Insert > PivotTable
+1.  Go to Insert \> PivotTable
 
-1. Select the original table and create a PivotTable in a new worksheet
+2.  Select the original table and create a PivotTable in a new worksheet
 
-1. The PivotTable Field box will appear, experiment with the different fields in each of the areas
+3.  The PivotTable Field box will appear, experiment with the different fields in each of the areas
 
 I've used the following:
 
 ```{r echo=FALSE, out.width = "400pt", fig.align='center', cache=TRUE}
 knitr::include_graphics('prac1_images/pivot_example.png')
 ```
+
 Note how I've altered the total_action_taken to the sum of... as the original was displaying incorrectly, to do so:
 
-1. Click on drop down button for total_action_taken > Value Field Settings > select Sum  
+1.  Click on drop down button for total_action_taken \> Value Field Settings \> select Sum
 
 It's important to think about what data we actually need in the next step and it's good practice to avoid data redundancy where possible.
 
-**Spoiler** The spatial data we have downloaded already contains borough name, so we don't need it twice. However, we do need a field to link the two datasets on. You could use borough name, but when using text fields sometimes input variations can affect joins. For example, if you had the University of Manchester in one dataset and Manchester University in another the join would fail. Consequently it's usually best to join datasets on a code field. 
+**Spoiler** The spatial data we have downloaded already contains borough name, so we don't need it twice. However, we do need a field to link the two datasets on. You could use borough name, but when using text fields sometimes input variations can affect joins. For example, if you had the University of Manchester in one dataset and Manchester University in another the join would fail. Consequently it's usually best to join datasets on a code field.
 
-Now save the Excel sheet that contains the pivot table as a new ```.csv```. Make sure that the first row of data holds the column titles. Remove all empty rows.
+Now save the Excel sheet that contains the pivot table as a new `.csv`. Make sure that the first row of data holds the column titles. Remove all empty rows.
 
-When saving the file also avoid any special characters (e.g. -) and spaces, use an underscore instead of spaces. 
+When saving the file also avoid any special characters (e.g. -) and spaces, use an underscore instead of spaces.
 
 ::: {.infobox .warning data-latex="{note}"}
 **Warning** Spatial software does not like file names with spaces or special characters.
@@ -293,21 +297,21 @@ Now it's time to load, inspect and do some basic manipulation of this data. As m
 
 #### Load data
 
-1. Search for and open QGIS 
-1. Click on the open data source manager. Just above the word **browser** in the top left of the screen
+1.  Search for and open QGIS
+2.  Click on the open data source manager. Just above the word **browser** in the top left of the screen
 
 ```{r echo=FALSE, out.width = "700pt", fig.align='center', cache=TRUE}
 knitr::include_graphics('prac1_images/qgis_datamanager.png') 
 ```
 
-1. Navigate to the ```London_Borough_Excluding_MHW.shp``` and add it, you then have to close the data source manager.
+1.  Navigate to the `London_Borough_Excluding_MHW.shp` and add it, you then have to close the data source manager.
 
-You can right click on the layer to view the attribute table, however the ```.csv``` file must be loaded nto QGIS in order to join it to a shapefile.
+You can right click on the layer to view the attribute table, however the `.csv` file must be loaded nto QGIS in order to join it to a shapefile.
 
-1. Open the data source manager and select Delimited Text
-1. Navigate to our ```.csv``` file and provide a suitable layer name
-1. Under Record and Fields Options make sure the number of header lines to discard is 0 and the First record has field names box is selected (this is assuming you left a title for each column in your ```.csv```)
-1. Under Geometry Definition select No geometry (attribute table only)
+1.  Open the data source manager and select Delimited Text
+2.  Navigate to our `.csv` file and provide a suitable layer name
+3.  Under Record and Fields Options make sure the number of header lines to discard is 0 and the First record has field names box is selected (this is assuming you left a title for each column in your `.csv`)
+4.  Under Geometry Definition select No geometry (attribute table only)
 
 ```{r echo=FALSE, out.width = "700pt", fig.align='center', cache=TRUE}
 knitr::include_graphics('prac1_images/csv_datamanager.png') 
@@ -315,30 +319,29 @@ knitr::include_graphics('prac1_images/csv_datamanager.png')
 
 Does the sample data seem right?
 
-1. If so, click add then close
+1.  If so, click add then close
 
 ::: {.infobox .warning data-latex="{note}"}
-**Note** Your `.csv` might have a extra header present (a row before Row Labels). You can either: (a) close this and go and delete this in the `.csv` now and reload it or 
-(b) change the number of header lines to discard to 1 in the Record and Fields Options in the screenshot above. 
+**Note** Your `.csv` might have a extra header present (a row before Row Labels). You can either: (a) close this and go and delete this in the `.csv` now and reload it or (b) change the number of header lines to discard to 1 in the Record and Fields Options in the screenshot above.
 :::
 
 #### Join data
 
-1. Right click on the London boroughs layer > Properties > Joins
-1. Click the plus button at the bottom of the box
-1. Complete the dialogue box
+1.  Right click on the London boroughs layer \> Properties \> Joins
+2.  Click the plus button at the bottom of the box
+3.  Complete the dialogue box
 
 ```{r echo=FALSE, out.width = "500pt", fig.align='center', cache=TRUE}
 knitr::include_graphics('prac1_images/qgis_join.png') 
 ```
 
-#### Export data 
+#### Export data
 
 Now let's export to a GeoPackage.
 
-1. Right click on the London boroughs layer > Export > Save Feature As
-1. Select the GeoPackage format and complete the File name (the saved file name for the GeoPackage) and the Layer name (the name for this layer within the GeoPackage). Recall that a GeoPackage can store many data layers as a single file
-1. The new layer will be added to the map, so you can remove the old one (Right click on the layer > Remove Layer). Make sure you remove the right one!
+1.  Right click on the London boroughs layer \> Export \> Save Feature As
+2.  Select the GeoPackage format and complete the File name (the saved file name for the GeoPackage) and the Layer name (the name for this layer within the GeoPackage). Recall that a GeoPackage can store many data layers as a single file
+3.  The new layer will be added to the map, so you can remove the old one (Right click on the layer \> Remove Layer). Make sure you remove the right one!
 
 ```{r echo=FALSE, out.width = "500pt", fig.align='center', cache=TRUE}
 knitr::include_graphics('prac1_images/make_geopkg.png') 
@@ -346,22 +349,22 @@ knitr::include_graphics('prac1_images/make_geopkg.png')
 
 We've now made a GeoPackage that we can connect our map project to.
 
-1. Under **Browser**, Right click on GeoPackage > New Connection > Navigate to your GeoPackage
-1. Click the down arrow left to GeoPackage and you should see the one you just navigated to. Click the down arrow on the database and you can see your layer.
-1. Now we are going to import our  ```.csv ``` into our GeoPackage. To do so go: Database > DB Manager
-1. Select your GeoPackage in the left hand pane
-1. Import layer/file then select the  ```.csv ```. Click Ok.
+1.  Under **Browser**, Right click on GeoPackage \> New Connection \> Navigate to your GeoPackage
+2.  Click the down arrow left to GeoPackage and you should see the one you just navigated to. Click the down arrow on the database and you can see your layer.
+3.  Now we are going to import our `.csv` into our GeoPackage. To do so go: Database \> DB Manager
+4.  Select your GeoPackage in the left hand pane
+5.  Import layer/file then select the `.csv`. Click Ok.
 
-Again, remember that the ```.csv ``` in the Layers tab (bottom left) is the original. Remove it, then from the GeoPackage just click, hold and drag the  ```.csv ``` into the layer pane.
+Again, remember that the `.csv` in the Layers tab (bottom left) is the original. Remove it, then from the GeoPackage just click, hold and drag the `.csv` into the layer pane.
 
 Now let's make a quick thematic map...
 
-1. Right click on your London boroughs layer > Properties > Symbology
-1. Select categorised and choose a data column and color ramp > click Classify 
+1.  Right click on your London boroughs layer \> Properties \> Symbology
+2.  Select categorised and choose a data column and color ramp \> click Classify
 
 You could also select graduated, however our joined data fields are in the wrong data type. If you wish to change them follow [this guide](https://wiki.tuflow.com/index.php?title=QGIS_Change_Attribute_Type)
 
-1. Save your QGIS project
+1.  Save your QGIS project
 
 You should have produced something like this:
 
@@ -375,14 +378,13 @@ A coordinate reference system is a series of parameters that define the coordina
 
 QGIS defaults to the Coordinate Reference System (CRS) WGS 84, or known by its European Petroleum Survey Group (EPSG) code 4326. However, when you add your first layer it will default the CRS of the layer. We'll go into the background of EPSG next time.
 
-You can change the CRS by going Project > Properties and selecting CRS in the left hand pane.
+You can change the CRS by going Project \> Properties and selecting CRS in the left hand pane.
 
 ```{r echo=FALSE, out.width = "800pt", fig.align='center', cache=TRUE}
 knitr::include_graphics('prac1_images/QGIS_CRS.png') 
 ```
 
 ::: {.infobox .tip data-latex="{note}"}
-
 You can also access the project CRS by just clicking on the EPSG code in the bottom right of your QGIS window, in the screenshot above click EPSG:27700.
 :::
 
@@ -394,15 +396,15 @@ You can also access the project CRS by just clicking on the EPSG code in the bot
 
 #### Introduction
 
-R is both a programming language and software environment, originally designed for statistical computing and graphics. R’s great strength is that it is open-source, can be used on any computer operating system and free for anyone to use and contribute to. Because of this, it is rapidly becoming the statistical language of choice for many academics and has a huge user community with people constantly contributing new packages to carry out all manner of statistical, graphical and importantly for us, geographical tasks.
+R is both a programming language and software environment, originally designed for statistical computing and graphics. R's great strength is that it is open-source, can be used on any computer operating system and free for anyone to use and contribute to. Because of this, it is rapidly becoming the statistical language of choice for many academics and has a huge user community with people constantly contributing new packages to carry out all manner of statistical, graphical and importantly for us, geographical tasks.
 
 The purpose of this practical is just to demonstrate data loading and manipulation in different software. The next practical will provide much more detail on R, so don't worry about that.
 
 In RStudio go:
 
-1. File > New File > R Script
+1.  File \> New File \> R Script
 
-You should be able to see these quadrants (without the code): 
+You should be able to see these quadrants (without the code):
 
 ```{r echo=FALSE, out.width = "800pt", fig.align='center', cache=TRUE}
 knitr::include_graphics('prac1_images/RStudio.png') 
@@ -416,16 +418,16 @@ R works on packages that are collections of functions and data. Packages are bit
 knitr::include_graphics('prac1_images/hex_stickers.png') 
 ```
 
-Bascially, without packages, R would be very limited. With packages, you can do virtually anything! One of the issues you will come across is that packages are being continually developed and updated and unless you keep your version of R updated and your packages updated, there may be some functions and options not available to you. This can be a problem, particularly with University installations which (at best) may only get updated once a year. Therefore, apologies in advance if things don’t work as intended, but there is often a work around. 
+Bascially, without packages, R would be very limited. With packages, you can do virtually anything! One of the issues you will come across is that packages are being continually developed and updated and unless you keep your version of R updated and your packages updated, there may be some functions and options not available to you. This can be a problem, particularly with University installations which (at best) may only get updated once a year. Therefore, apologies in advance if things don't work as intended, but there is often a work around.
 
-For this practical we will need the ones listed in the code chunk below. Whilst we've installed them (with the code below), we haven't yet loaded them. It's best practice to do all this at the start of your code, however, for demonstration purposes I'll load each one as we need it. 
+For this practical we will need the ones listed in the code chunk below. Whilst we've installed them (with the code below), we haven't yet loaded them. It's best practice to do all this at the start of your code, however, for demonstration purposes I'll load each one as we need it.
 
 ```{r, message=FALSE, warning=FALSE, eval=FALSE, cache=TRUE}
 install.packages(c("sf", "tmap", "tmaptools", "RSQLite", "tidyverse"), 
                  repos = "https://www.stats.bris.ac.uk/R/")
 ```
 
-1. We can also install and load packages through RStudio. If you can see the package listed in the package tab it is installed and a tick means it is loaded.
+1.  We can also install and load packages through RStudio. If you can see the package listed in the package tab it is installed and a tick means it is loaded.
 
 ```{r echo=FALSE, out.width = "500px", fig.align='center', cache=FALSE}
 knitr::include_graphics('prac2_images/r_packages.png') 
@@ -433,12 +435,12 @@ knitr::include_graphics('prac2_images/r_packages.png')
 
 Packages we've installed with our code:
 
-* ```sf```: simple features, standard way to encode spatial vector data
-* ```tmap```: layer-based and easy approach to make thematic maps
-* ```tmaptools```: set of tools for reading and processing spatial data
-* ```RSQLite```: embeds the SQLite database engine in R
+-   `sf`: simple features, standard way to encode spatial vector data
+-   `tmap`: layer-based and easy approach to make thematic maps
+-   `tmaptools`: set of tools for reading and processing spatial data
+-   `RSQLite`: embeds the SQLite database engine in R
 
-Here, `repos` stands for repository where we will download the packages from. Once you have set it, you shouldn't need to specify it again. Whilst we've installed the packages we haven't loaded them...this is done through using ```library()``` function. Thanks to [Dianne Cook](https://twitter.com/visnut) for this image...
+Here, `repos` stands for repository where we will download the packages from. Once you have set it, you shouldn't need to specify it again. Whilst we've installed the packages we haven't loaded them...this is done through using `library()` function. Thanks to [Dianne Cook](https://twitter.com/visnut) for this image...
 
 ```{r echo=FALSE, out.width = "600pt", fig.align='center', cache=TRUE}
 knitr::include_graphics('prac1_images/install_library.jfif') 
@@ -460,7 +462,7 @@ If you still have issues the check out the [Mac R issues] section
 
 #### Load data
 
-Load the ```sf``` package so we can read our shapefile in --- remember to change to filepath to your shapefile. 
+Load the `sf` package so we can read our shapefile in --- remember to change to filepath to your shapefile.
 
 ```{r echo=FALSE, out.width = "450pt", fig.align='center', cache=TRUE}
 knitr::include_graphics('allisonhorst_images/sf.png')
@@ -468,7 +470,7 @@ knitr::include_graphics('allisonhorst_images/sf.png')
 
 For this first practical we'll just leave the data where it is, next week we'll show you how to use projects to make calling data much easier.
 
-> **Note** by default in R, the file path should be defined with ```/``` but on a windows file system it is defined with ```\```. Using ```\\``` instead allows R to read the path correctly – alternatively, just use ```/```
+> **Note** by default in R, the file path should be defined with `/` but on a windows file system it is defined with `\`. Using `\\` instead allows R to read the path correctly -- alternatively, just use `/`
 
 ```{r, message=FALSE, warning=FALSE, cache=TRUE}
 library(sf)
@@ -491,6 +493,7 @@ summary(shape)
 ```
 
 To have a quick look what the shapefile looks like enter the following:
+
 ```{r, cache=TRUE}
 plot(shape)
 ```
@@ -504,9 +507,9 @@ shape %>%
   plot()
 ```
 
-From what we did in QGIS this should look familiar. 
+From what we did in QGIS this should look familiar.
 
-We now need to load our ```.csv``` file:
+We now need to load our `.csv` file:
 
 ```{r, cache=TRUE, warnings=FALSE, messages=FALSE}
 library(tidyverse)
@@ -517,10 +520,7 @@ mycsv <-  read_csv("C:/Users/Andy/OneDrive - University College London/Teaching/
 When you load `tidyverse` you might get a list of conflicts, this basically means that several packages have functions named the same thing. For example there is a function named `filter()` in the packages `dplyr` and `stats`. If you wanted to use the `dplyr` version you would use `dplyr::filter()` or for the `stats` version it would be `stats::filter()`...
 
 ::: {.infobox .warning data-latex="{note}"}
-**Note** Your `.csv` might have a extra header present (a row before Row Labels). You can either: (a) stop and go and delete this in the `.csv` now and reload it or 
-(b) change the code to...
-`mycsv <- read_csv("Prac1_data/fly_tipping_borough_edit.csv", 
-    skip = 1)`
+**Note** Your `.csv` might have a extra header present (a row before Row Labels). You can either: (a) stop and go and delete this in the `.csv` now and reload it or (b) change the code to... `mycsv <- read_csv("Prac1_data/fly_tipping_borough_edit.csv",      skip = 1)`
 :::
 
 To view the data just input:
@@ -531,9 +531,9 @@ mycsv
 
 #### Join data
 
-In R we've given our London boroughs shapefile the name `shape` and our flytipping ```.csv``` the name `mycsv`. If you look in the Environment quadrant you should see them both listed. 
+In R we've given our London boroughs shapefile the name `shape` and our flytipping `.csv` the name `mycsv`. If you look in the Environment quadrant you should see them both listed.
 
-Join the ```.csv``` to the shapefile. Here, replace Row Labels with whatever your GSS_CODE is called in the ```.csv```:
+Join the `.csv` to the shapefile. Here, replace Row Labels with whatever your GSS_CODE is called in the `.csv`:
 
 ```{r, cache=TRUE}
 shape <- shape%>%
@@ -547,12 +547,13 @@ shape <- shape%>%
 Let's break this down a bit. We just created a tibble of `mycsv` (this is a new form of a dataframe) where each column has a variable and each row contains a set of values --- so basically a normal table. We did this simply by using `read_csv()` to read the data in. We then matched our `csv` to our `shape` based on the `GSS_CODE` values in both.
 
 Check the merge was successful, this is just going to show the top 10 rows:
+
 ```{r cache=TRUE}
 shape%>%
   head(., n=10)
 ```
 
-Now, let's make a quick thematic map (or a qtm) using the package  ```tmap ```. I've made mine for flytipping between 2011 and 2012 (column 2011_12). But check what your coloumn name is from the adove code `head(shape, n=10)` it might be slightly different like 2011-2012 or x2011_2012....
+Now, let's make a quick thematic map (or a qtm) using the package `tmap`. I've made mine for flytipping between 2011 and 2012 (column 2011_12). But check what your coloumn name is from the adove code `head(shape, n=10)` it might be slightly different like 2011-2012 or x2011_2012....
 
 ```{r echo=FALSE, out.width = "600pt", fig.align='center', cache=TRUE}
 knitr::include_graphics('prac1_images/colname.png') 
@@ -568,7 +569,7 @@ shape %>%
 
 ### Export data
 
-Finally write shape to a new GeoPackage (```.gpkg```) giving it the layer name of your choice:
+Finally write shape to a new GeoPackage (`.gpkg`) giving it the layer name of your choice:
 
 ```{r cache=TRUE}
 shape %>%
@@ -577,9 +578,9 @@ shape %>%
            delete_layer=TRUE)
 ```
 
-So here, we are saying the shape is the object we want to save, then to the GeoPackage file path, with the layer name of ```london_boroughs_fly_tipping```. I've set ```delete_layer``` to true so I could overwrite mine when I developed this practical. Changing it to false would generate an error message if you ever tried to re-run the code.
+So here, we are saying the shape is the object we want to save, then to the GeoPackage file path, with the layer name of `london_boroughs_fly_tipping`. I've set `delete_layer` to true so I could overwrite mine when I developed this practical. Changing it to false would generate an error message if you ever tried to re-run the code.
 
-Let's also add the ```.csv``` as we did in QGIS. This is a bit more complicated as we have to use the SQLite database package. Firstly, connect to the ```.gpkg``` we just made:
+Let's also add the `.csv` as we did in QGIS. This is a bit more complicated as we have to use the SQLite database package. Firstly, connect to the `.gpkg` we just made:
 
 ```{r cahce=TRUE}
 library(readr)
@@ -588,13 +589,14 @@ library(RSQLite)
 con <- dbConnect(RSQLite::SQLite(),dbname="C:/Users/Andy/OneDrive - University College London/Teaching/CASA0005/2020_2021/CASA0005repo/Prac1_data/Rwk1.gpkg")
 ```
 
-Now examine what is in the ```.gpkg```...you can see that i've already got my ```original_csv``` stored within the  ```.gpkg``` as when i developed this practical i made sure it was working! 
+Now examine what is in the `.gpkg`...you can see that i've already got my `original_csv` stored within the `.gpkg` as when i developed this practical i made sure it was working!
+
 ```{r cache=TRUE}
 con %>%
   dbListTables()
 ```
 
-Add your ```.csv``` and disconnect from the ```.gpkg```:
+Add your `.csv` and disconnect from the `.gpkg`:
 
 ```{r cache=TRUE}
 con %>%
@@ -611,7 +613,7 @@ Here `overwrite` let's you well..overwrite the exisiting file...if this wasn't s
 
 #### Making a script
 
-To convert this bit of analysis into a script that we could save and run again in future, I would write the following in the script quadrant: 
+To convert this bit of analysis into a script that we could save and run again in future, I would write the following in the script quadrant:
 
 ```{r, eval=FALSE, cache=TRUE}
 library(sf)
@@ -655,9 +657,10 @@ con %>%
 con %>% 
   dbDisconnect()
 ```
-You can then save your script through File > Save As.
 
-If you are on a Mac you might also need to load `rgdal`...just add the following at the top of the script. 
+You can then save your script through File \> Save As.
+
+If you are on a Mac you might also need to load `rgdal`...just add the following at the top of the script.
 
 ```{r, message=FALSE, warning=FALSE, eval=FALSE, cache=TRUE}
 library(rgdal)
@@ -665,19 +668,19 @@ library(rgdal)
 
 ### What will I use
 
-Well... it depends. If you wanted to quickly open a dataset to explore its contents then I'd use QGIS. However, if you had 100 raster images that you wanted to clip to your study area, I'd automate it in R. There are also specific packages developed for each type of software that might dictate what you use, for example I recently made use of the Urban Multi-scale Environmental Predictor (UMEP) plugin in QGIS. That said, as I needed to match different hourly meteorological variables over a three year period I automated the first part of the analysis in R and loaded a ```.csv``` into QGIS. Recent advancments have also closed the gap somewhat between Graphic User Interface (GUI) GIS software (such as QGIS) and programming languages (such as R) with 'bridges' that allow you to control GUI software through code. To learn more about these bridges read [Lovelace et al. (2019) chapter 9](https://geocompr.robinlovelace.net/gis.html#introduction-6).
+Well... it depends. If you wanted to quickly open a dataset to explore its contents then I'd use QGIS. However, if you had 100 raster images that you wanted to clip to your study area, I'd automate it in R. There are also specific packages developed for each type of software that might dictate what you use, for example I recently made use of the Urban Multi-scale Environmental Predictor (UMEP) plugin in QGIS. That said, as I needed to match different hourly meteorological variables over a three year period I automated the first part of the analysis in R and loaded a `.csv` into QGIS. Recent advancments have also closed the gap somewhat between Graphic User Interface (GUI) GIS software (such as QGIS) and programming languages (such as R) with 'bridges' that allow you to control GUI software through code. To learn more about these bridges read [Lovelace et al. (2019) chapter 9](https://geocompr.robinlovelace.net/gis.html#introduction-6).
 
 ## Data sources and task
 
-Below I've listed a few good data sources. Explore these and any others you can find and get an interesting dataset (e.g. in this practical our flytipping ```.csv```) that you could join to some spatial data (e.g. in this practical the London boroughs ```.shp```). This could be for any location in the world. 
+Below I've listed a few good data sources. Explore these and any others you can find and get an interesting dataset (e.g. in this practical our flytipping `.csv`) that you could join to some spatial data (e.g. in this practical the London boroughs `.shp`). This could be for any location in the world.
 
 ### UK Data Service
 
-The UK Data Service geography service (https://census.edina.ac.uk/) has a library of hundreds of current and former boundary datasets for which attribute data are produced in the UK.
+The UK Data Service geography service (<https://census.edina.ac.uk/>) has a library of hundreds of current and former boundary datasets for which attribute data are produced in the UK.
 
-### ONS 
+### ONS
 
-The Office for National Statistics (ONS) are the national statistical agency for England and Wales and have recently started to provide access to boundary data for the statistics they produce for various geographic areas. 
+The Office for National Statistics (ONS) are the national statistical agency for England and Wales and have recently started to provide access to boundary data for the statistics they produce for various geographic areas.
 
 Many of the boundaries on the [ONS Geoportal](http://geoportal.statistics.gov.uk/) are also available from the Edina Census Geography website in a more flexible fashion, however the ONS website provides very quick access to bulk-downloads --- something which can be very useful when reading data directly from the web using computer software. From the ONS website you can also extract the URL at which the data is stored to use directly within your future code...
 
@@ -685,17 +688,17 @@ Many of the boundaries on the [ONS Geoportal](http://geoportal.statistics.gov.uk
 
 Nomis is provided by the ONS giving free access to UK labour market statistics. You can also [bulk download census data](https://www.nomisweb.co.uk/census/2011/bulk/r2_2) from the site too!
 
-### OS 
+### OS
 
 The Ordnance Survey (OS) are the national mapping agency for the UK. A few years ago, they opened up a number of their data products for public use including greenspace, OS Open Map and OS Terrain.
 
-For the full range see: https://www.ordnancesurvey.co.uk/business-and-government/products/finder.html?Licensed%20for=OpenData%20(Free)&withdrawn=on  
+For the full range see: [https://www.ordnancesurvey.co.uk/business-and-government/products/finder.html?Licensed%20for=OpenData%20(Free)&withdrawn=on](https://www.ordnancesurvey.co.uk/business-and-government/products/finder.html?Licensed%20for=OpenData%20(Free)&withdrawn=on){.uri}
 
 ### Edina Digimap
 
-Before the Ordnance Survey opened up much of its data for public use, academics and students in the UK could access OS data using the Edina Digimap Service --– this service is still available today and provides access to a number of products in addition to those available from OS Open Data. 
+Before the Ordnance Survey opened up much of its data for public use, academics and students in the UK could access OS data using the Edina Digimap Service ---- this service is still available today and provides access to a number of products in addition to those available from OS Open Data.
 
-Perhaps the most exciting of the additional OS data products available from Digimap is OS MasterMap. MasterMap is a framework for all OS data and contains layers of data that include details of real world objects such as buildings, roads, paths, rivers, physical structures and land parcels, as well as the complete UK transport network. Whilst we still are required to go through Edina OS have recently announced plans to make this dataset free in the near future under the new Geospatial Commission. 
+Perhaps the most exciting of the additional OS data products available from Digimap is OS MasterMap. MasterMap is a framework for all OS data and contains layers of data that include details of real world objects such as buildings, roads, paths, rivers, physical structures and land parcels, as well as the complete UK transport network. Whilst we still are required to go through Edina OS have recently announced plans to make this dataset free in the near future under the new Geospatial Commission.
 
 ```{r echo=FALSE, out.width = "500pt", fig.align='center'}
 knitr::include_graphics('prac1_images/mastermap.png') 
@@ -703,27 +706,27 @@ knitr::include_graphics('prac1_images/mastermap.png')
 
 ### OSM
 
-Open Street Map (OSM) is a fantastic resource --– as the name suggests, all data contained in Open Street Map are open and free for anyone to use. Much like Wikipedia, anyone can contribute content to OSM and this brings with it its own benefits (frequent updates, very large user-base) and problems (data quality and patch coverage). OSM is a very good example of Volunteered Geographic Information (VGI). 
+Open Street Map (OSM) is a fantastic resource ---- as the name suggests, all data contained in Open Street Map are open and free for anyone to use. Much like Wikipedia, anyone can contribute content to OSM and this brings with it its own benefits (frequent updates, very large user-base) and problems (data quality and patch coverage). OSM is a very good example of Volunteered Geographic Information (VGI).
 
-It’s possible to download OSM data straight from the website, although the interface can be a little unreliable (it works better for small areas). There are, however, a number of websites that allow OSM data to be downloaded more easily and are directly linked to from the ‘Export’ option in OSM. Geofabrik (https://www.geofabrik.de/data/download.html) allows you to download frequently updated Shapefiles for various global subdivisions. 
+It's possible to download OSM data straight from the website, although the interface can be a little unreliable (it works better for small areas). There are, however, a number of websites that allow OSM data to be downloaded more easily and are directly linked to from the 'Export' option in OSM. Geofabrik (<https://www.geofabrik.de/data/download.html>) allows you to download frequently updated Shapefiles for various global subdivisions.
 
 ### DEFRA
 
-The Department for Environment and Rural Affairs (DEFRA) have recently created the Data Services Platform to openly distribute environmental data. See: https://environment.data.gov.uk/
+The Department for Environment and Rural Affairs (DEFRA) have recently created the Data Services Platform to openly distribute environmental data. See: <https://environment.data.gov.uk/>
 
 ### Data lists
 
-Another good place to start searching for data are data lists. They simply provide a comprehensive overview of all available data conveniently categorised by discipline and country. 
+Another good place to start searching for data are data lists. They simply provide a comprehensive overview of all available data conveniently categorised by discipline and country.
 
-I normally use this one: https://freegisdata.rtwilson.com/
+I normally use this one: <https://freegisdata.rtwilson.com/>
 
 ## Summary
 
-Within this practical we have explored the different types, formats and software used to store, analyse and manipulate spatial data. In reflecting upon this practical you should consider the (dis)advantages of each, where and when they might be appropriate and the overall practicality. Next week we will delve further into R and RStudio.  
+Within this practical we have explored the different types, formats and software used to store, analyse and manipulate spatial data. In reflecting upon this practical you should consider the (dis)advantages of each, where and when they might be appropriate and the overall practicality. Next week we will delve further into R and RStudio.
 
 ## Feedback
 
-Was anything that we explained unclear this week or was something really clear...let us know using the [feedback form](https://forms.gle/w2GUDYc7tSavGy7r6). It's anonymous and we'll use the responses to clear any issues up in the future / adapt the material. 
+Was anything that we explained unclear this week or was something really clear...let us know using the [feedback form](https://forms.gle/w2GUDYc7tSavGy7r6). It's anonymous and we'll use the responses to clear any issues up in the future / adapt the material.
 
 ## Mac R issues
 
@@ -733,30 +736,30 @@ It seems that a lot of the packages are dependent on rgdal, which might not prop
 
 **Order of operations**
 
-1. Install java JDK (to respond to error Unable to find any JVMs matching version "(null)", which occurred when we tried to load `OpenStreetMap` package in RStudio)
+1.  Install java JDK (to respond to error Unable to find any JVMs matching version "(null)", which occurred when we tried to load `OpenStreetMap` package in RStudio)
 
-1. Download and install the appropriate `.dmg` from [Java SE Development Kit 11.0.1](https://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html)
+2.  Download and install the appropriate `.dmg` from [Java SE Development Kit 11.0.1](https://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html)
 
-1. Run sudo R CMD javareconf in Terminal as described [in this tutorial](http://conjugateprior.org/2014/12/r-java8-osx/)(though don't follow this tutorial exactly, just up to that terminal command).
+3.  Run sudo R CMD javareconf in Terminal as described [in this tutorial](http://conjugateprior.org/2014/12/r-java8-osx/)(though don't follow this tutorial exactly, just up to that terminal command).
 
-1. (Maybe) restart your computer (not really sure when this is necessary).
+4.  (Maybe) restart your computer (not really sure when this is necessary).
 
 **Install GDAL**
 
 GDAL, the Geospatial Data Abstraction Library, appears to be a massively important package / library / whatever that a lot of the spatial tools we use depends on. This is where things might be sticky --- we already installed GDAL for QGIS, but obviously RStudio can't find that install ... dunno how to update the pointers, but we found that installing GDAL (again?) solved it. We HOPE that this didn't ruin or break any other software we've installed, only time will tell :grimacing:
 
-1. To install GDAL on a mac, first (if you haven't) install [homebrew](https://brew.sh/), the mac package manager
+1.  To install GDAL on a mac, first (if you haven't) install [homebrew](https://brew.sh/), the mac package manager
 
 This can be done by executing `/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"` in Terminal, inputting password etc.
 
-1. Now we're ready to brew install gdal (also in Terminal), which will run through and install a massive list of dependencies etc.
+1.  Now we're ready to brew install gdal (also in Terminal), which will run through and install a massive list of dependencies etc.
 
-**Set up RStudio** 
+**Set up RStudio**
 
-1. Restart RStudio (if the following doesn't work on first go...)
+1.  Restart RStudio (if the following doesn't work on first go...)
 
-1. Run through all the `install.packages()` commands one by one in RStudio and check to make sure that they install.
+2.  Run through all the `install.packages()` commands one by one in RStudio and check to make sure that they install.
 
-1. Check if `rgdal` package is working.
+3.  Check if `rgdal` package is working.
 
-1. Check the other packages `OpenStreetMap`, `tmap`, etc.
+4.  Check the other packages `OpenStreetMap`, `tmap`, etc.

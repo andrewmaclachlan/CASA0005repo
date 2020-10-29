@@ -276,7 +276,7 @@ First though, we're going to clean up all our data names with `Janitor` then sel
 #run the linear regression model and store its outputs in an object called model1
 Regressiondata<- LonWardProfiles%>%
   clean_names()%>%
-  select(average_gcse_capped_point_scores_2014, unauthorised_absence_in_all_schools_percent_2013)
+  dplyr::select(average_gcse_capped_point_scores_2014, unauthorised_absence_in_all_schools_percent_2013)
 
 #now model
 model1 <- lm(average_gcse_capped_point_scores_2014 ~

@@ -47,9 +47,9 @@ Remember this is just a starting point, explore the [reading list](https://rl.ta
 
 Some of these practicals are long, take regular breaks and have a listen to some of our fav tunes each week.
 
-[Andy](https://www.youtube.com/watch?v=AahUu7am5No)
+[Andy](https://open.spotify.com/album/4kUbTSoTsbKP5MRdYMDBx1) Beautiful people will ruin your life! One of my favorite bands...the Wombats. Formed in 2003 at the Liverpool institute of performing arts. Just really talented musicians.
 
-[Adam](https://open.spotify.com/album/4h2VgrL33fb4uNrxLNN4ti?si=i1N19HOtRU2HdbjeeCUHeg) OK, this week I'm bringing the fire --- it's my new best mate, Logistics! 
+[Adam](https://open.spotify.com/album/6SoIcnKddNcjL0GkjyTClJ?si=e2X98Ui8Q8SK5WIeLGWhSg) What happens when two of the greatest MCs ever to pick up a mic get together to make some music? They only smash out a double album with some of the biggest producers in drum & bass and absolutely kill it! Yes, known to their mums as Delroy and Dominic, to the rest of us as DRS and Dynamite, it's only Playing in the Dark by DRS and Dynamite!
 
 ## Introduction  
 
@@ -95,7 +95,7 @@ knitr::include_graphics('prac4_images/github.png')
 
 Now, as I’ve mentioned before, RStudio is totally bad-ass. Not only does it make R fun to use, but the lovely people who created it also built in support for things like git!
 
-For a full and excellent tutorial on using Git with R Studio, watch [this webinar](https://www.rstudio.com/resources/webinars/rstudio-essentials-webinar-series-managing-part-2/)
+For a full and excellent tutorial on using Git with R Studio, watch [this webinar](https://rstudio.com/resources/webinars/managing-part-2-github-and-rstudio/)
 
 If you don’t want to watch the vid, I’ll do a quick summary below. So, to use git, first you need to enable it in RStudio:
 
@@ -273,13 +273,13 @@ Then check the current branch in RStudio (and Git) is tracking a branch on the r
 git branch -vv
 
 ## output
-master 3abe929 [origin/master] test3
+master 3abe929 [origin/main] test3
 ```
 
 Origin/master shows that the local master is tracking the origin/master on the remote repo. If you can't see origin/master then set it using:
 
 ```{r, eval=FALSE, cache=TRUE}
-git push --set-upstream origin master
+git push --set-upstream origin main
 ```
 
 >Origin is the repository you cloned (from GitHub) and master is the name of the branch. You might see something like...your branch is ahead of origin/master by 1 commit. This means you have commited something you are working on in you local repo (Git) that hasn't yet been pushed to GitHub (the origin) and master branch...GitHub defaults the first branch to be called master.
