@@ -24,7 +24,7 @@
 <meta name="author" content="Andy MacLachlan and Adam Dennett" />
 
 
-<meta name="date" content="2020-10-29" />
+<meta name="date" content="2020-10-30" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -915,60 +915,41 @@ Bit different from me this week - I’m not all about drum and bass (although I 
 <p>Now let’s get out cluster means using <code>tidy()</code> from the <code>tidymodels</code> package. Tidy creates a tibble that summarizes the model.</p>
 <p>Then plot them and then add them to our London wards…</p>
 <div class="sourceCode" id="cb446"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb446-1"><a href="online-mapping-descriptive-statistics.html#cb446-1" aria-hidden="true" tabindex="-1"></a><span class="co"># get cluster means</span></span>
-<span id="cb446-2"><a href="online-mapping-descriptive-statistics.html#cb446-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidymodels)</span></code></pre></div>
-<pre><code>## -- Attaching packages ----------------------------------------------------------- tidymodels 0.1.0 --</code></pre>
-<pre><code>## v broom     0.7.0      v rsample   0.0.7 
-## v dials     0.0.8      v tune      0.1.1 
-## v infer     0.5.2      v workflows 0.1.2 
-## v parsnip   0.1.2      v yardstick 0.0.7 
-## v recipes   0.1.13</code></pre>
-<pre><code>## -- Conflicts -------------------------------------------------------------- tidymodels_conflicts() --
-## x recipes::check()     masks devtools::check()
-## x nlme::collapse()     masks dplyr::collapse()
-## x scales::discard()    masks purrr::discard()
-## x plotly::filter()     masks dplyr::filter(), stats::filter()
-## x recipes::fixed()     masks stringr::fixed()
-## x dplyr::lag()         masks stats::lag()
-## x tune::parameters()   masks dials::parameters(), spatstat::parameters()
-## x dials::prune()       masks rpart::prune()
-## x .GlobalEnv::recode() masks dplyr::recode()
-## x MASS::select()       masks raster::select(), plotly::select(), dplyr::select()
-## x yardstick::spec()    masks readr::spec()
-## x recipes::step()      masks stats::step()
-## x parsnip::translate() masks rgeos::translate()</code></pre>
-<div class="sourceCode" id="cb450"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb450-1"><a href="online-mapping-descriptive-statistics.html#cb450-1" aria-hidden="true" tabindex="-1"></a>centroid <span class="ot">&lt;-</span> <span class="fu">tidy</span>(fit)<span class="sc">%&gt;%</span></span>
-<span id="cb450-2"><a href="online-mapping-descriptive-statistics.html#cb450-2" aria-hidden="true" tabindex="-1"></a>  <span class="co">#print the results of the cluster groupings</span></span>
-<span id="cb450-3"><a href="online-mapping-descriptive-statistics.html#cb450-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>()<span class="sc">%&gt;%</span></span>
-<span id="cb450-4"><a href="online-mapping-descriptive-statistics.html#cb450-4" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(PctOwned20, PctNoEngli)</span></code></pre></div>
+<span id="cb446-2"><a href="online-mapping-descriptive-statistics.html#cb446-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidymodels)</span>
+<span id="cb446-3"><a href="online-mapping-descriptive-statistics.html#cb446-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb446-4"><a href="online-mapping-descriptive-statistics.html#cb446-4" aria-hidden="true" tabindex="-1"></a>centroid <span class="ot">&lt;-</span> <span class="fu">tidy</span>(fit)<span class="sc">%&gt;%</span></span>
+<span id="cb446-5"><a href="online-mapping-descriptive-statistics.html#cb446-5" aria-hidden="true" tabindex="-1"></a>  <span class="co">#print the results of the cluster groupings</span></span>
+<span id="cb446-6"><a href="online-mapping-descriptive-statistics.html#cb446-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>()<span class="sc">%&gt;%</span></span>
+<span id="cb446-7"><a href="online-mapping-descriptive-statistics.html#cb446-7" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(PctOwned20, PctNoEngli)</span></code></pre></div>
 <pre><code>## # A tibble: 3 x 5
 ##   PctOwned20 PctNoEngli  size withinss cluster
 ##        &lt;dbl&gt;      &lt;dbl&gt; &lt;int&gt;    &lt;dbl&gt; &lt;fct&gt;  
 ## 1       27.5      17.0    187   13365. 1      
 ## 2       72.4       6.38   191   17086. 2      
 ## 3       48.9      14.7    247   21793. 3</code></pre>
-<div class="sourceCode" id="cb452"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb452-1"><a href="online-mapping-descriptive-statistics.html#cb452-1" aria-hidden="true" tabindex="-1"></a><span class="co"># as we only have variable two dimensions we can plot the clusters on a graph</span></span>
-<span id="cb452-2"><a href="online-mapping-descriptive-statistics.html#cb452-2" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(mydata,<span class="fu">aes</span>(PctOwned20, PctNoEngli))<span class="sc">+</span></span>
-<span id="cb452-3"><a href="online-mapping-descriptive-statistics.html#cb452-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">colour=</span><span class="fu">factor</span>(fit<span class="sc">$</span>cluster)))<span class="sc">+</span></span>
-<span id="cb452-4"><a href="online-mapping-descriptive-statistics.html#cb452-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">data=</span>centroid,<span class="fu">aes</span>(PctOwned20, PctNoEngli), <span class="at">size=</span><span class="dv">7</span>, <span class="at">shape=</span><span class="dv">18</span>)<span class="sc">+</span> <span class="fu">theme</span>(<span class="at">legend.position=</span><span class="st">&quot;none&quot;</span>)</span>
-<span id="cb452-5"><a href="online-mapping-descriptive-statistics.html#cb452-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb452-6"><a href="online-mapping-descriptive-statistics.html#cb452-6" aria-hidden="true" tabindex="-1"></a>LondonWards <span class="ot">&lt;-</span> fit <span class="sc">%&gt;%</span> </span>
-<span id="cb452-7"><a href="online-mapping-descriptive-statistics.html#cb452-7" aria-hidden="true" tabindex="-1"></a>  <span class="co"># </span></span>
-<span id="cb452-8"><a href="online-mapping-descriptive-statistics.html#cb452-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">augment</span>(., LondonWards)<span class="sc">%&gt;%</span></span>
-<span id="cb452-9"><a href="online-mapping-descriptive-statistics.html#cb452-9" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(WD11CD, .cluster)<span class="sc">%&gt;%</span></span>
-<span id="cb452-10"><a href="online-mapping-descriptive-statistics.html#cb452-10" aria-hidden="true" tabindex="-1"></a>  <span class="co">#make sure the .cluster column is numeric</span></span>
-<span id="cb452-11"><a href="online-mapping-descriptive-statistics.html#cb452-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="fu">across</span>(.cluster, as.numeric))<span class="sc">%&gt;%</span></span>
-<span id="cb452-12"><a href="online-mapping-descriptive-statistics.html#cb452-12" aria-hidden="true" tabindex="-1"></a>  <span class="co"># join the .cluster to our sf layer</span></span>
-<span id="cb452-13"><a href="online-mapping-descriptive-statistics.html#cb452-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(LondonWards, </span>
-<span id="cb452-14"><a href="online-mapping-descriptive-statistics.html#cb452-14" aria-hidden="true" tabindex="-1"></a>            .,</span>
-<span id="cb452-15"><a href="online-mapping-descriptive-statistics.html#cb452-15" aria-hidden="true" tabindex="-1"></a>            <span class="at">by =</span> <span class="fu">c</span>(<span class="st">&quot;WD11CD&quot;</span> <span class="ot">=</span> <span class="st">&quot;WD11CD&quot;</span>))</span>
-<span id="cb452-16"><a href="online-mapping-descriptive-statistics.html#cb452-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb452-17"><a href="online-mapping-descriptive-statistics.html#cb452-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb452-18"><a href="online-mapping-descriptive-statistics.html#cb452-18" aria-hidden="true" tabindex="-1"></a><span class="co">#now map our geodeomographic classification</span></span>
-<span id="cb452-19"><a href="online-mapping-descriptive-statistics.html#cb452-19" aria-hidden="true" tabindex="-1"></a>map <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(LondonWards) <span class="sc">+</span> </span>
-<span id="cb452-20"><a href="online-mapping-descriptive-statistics.html#cb452-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">fill=</span>.cluster))<span class="sc">+</span></span>
-<span id="cb452-21"><a href="online-mapping-descriptive-statistics.html#cb452-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_continuous</span>(<span class="at">breaks=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>))</span>
-<span id="cb452-22"><a href="online-mapping-descriptive-statistics.html#cb452-22" aria-hidden="true" tabindex="-1"></a>map</span></code></pre></div>
-<p><img src="CASA0005_files/figure-html/unnamed-chunk-398-1.png" width="672" /></p>
+<div class="sourceCode" id="cb448"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb448-1"><a href="online-mapping-descriptive-statistics.html#cb448-1" aria-hidden="true" tabindex="-1"></a><span class="co"># as we only have variable two dimensions we can plot the clusters on a graph</span></span>
+<span id="cb448-2"><a href="online-mapping-descriptive-statistics.html#cb448-2" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(mydata,<span class="fu">aes</span>(PctOwned20, PctNoEngli))<span class="sc">+</span></span>
+<span id="cb448-3"><a href="online-mapping-descriptive-statistics.html#cb448-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">colour=</span><span class="fu">factor</span>(fit<span class="sc">$</span>cluster)))<span class="sc">+</span></span>
+<span id="cb448-4"><a href="online-mapping-descriptive-statistics.html#cb448-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">data=</span>centroid,<span class="fu">aes</span>(PctOwned20, PctNoEngli), <span class="at">size=</span><span class="dv">7</span>, <span class="at">shape=</span><span class="dv">18</span>)<span class="sc">+</span> <span class="fu">theme</span>(<span class="at">legend.position=</span><span class="st">&quot;none&quot;</span>)</span>
+<span id="cb448-5"><a href="online-mapping-descriptive-statistics.html#cb448-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb448-6"><a href="online-mapping-descriptive-statistics.html#cb448-6" aria-hidden="true" tabindex="-1"></a>LondonWards <span class="ot">&lt;-</span> fit <span class="sc">%&gt;%</span> </span>
+<span id="cb448-7"><a href="online-mapping-descriptive-statistics.html#cb448-7" aria-hidden="true" tabindex="-1"></a>  <span class="co"># </span></span>
+<span id="cb448-8"><a href="online-mapping-descriptive-statistics.html#cb448-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">augment</span>(., LondonWards)<span class="sc">%&gt;%</span></span>
+<span id="cb448-9"><a href="online-mapping-descriptive-statistics.html#cb448-9" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(WD11CD, .cluster)<span class="sc">%&gt;%</span></span>
+<span id="cb448-10"><a href="online-mapping-descriptive-statistics.html#cb448-10" aria-hidden="true" tabindex="-1"></a>  <span class="co">#make sure the .cluster column is numeric</span></span>
+<span id="cb448-11"><a href="online-mapping-descriptive-statistics.html#cb448-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="fu">across</span>(.cluster, as.numeric))<span class="sc">%&gt;%</span></span>
+<span id="cb448-12"><a href="online-mapping-descriptive-statistics.html#cb448-12" aria-hidden="true" tabindex="-1"></a>  <span class="co"># join the .cluster to our sf layer</span></span>
+<span id="cb448-13"><a href="online-mapping-descriptive-statistics.html#cb448-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(LondonWards, </span>
+<span id="cb448-14"><a href="online-mapping-descriptive-statistics.html#cb448-14" aria-hidden="true" tabindex="-1"></a>            .,</span>
+<span id="cb448-15"><a href="online-mapping-descriptive-statistics.html#cb448-15" aria-hidden="true" tabindex="-1"></a>            <span class="at">by =</span> <span class="fu">c</span>(<span class="st">&quot;WD11CD&quot;</span> <span class="ot">=</span> <span class="st">&quot;WD11CD&quot;</span>))</span>
+<span id="cb448-16"><a href="online-mapping-descriptive-statistics.html#cb448-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb448-17"><a href="online-mapping-descriptive-statistics.html#cb448-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb448-18"><a href="online-mapping-descriptive-statistics.html#cb448-18" aria-hidden="true" tabindex="-1"></a><span class="co">#now map our geodeomographic classification</span></span>
+<span id="cb448-19"><a href="online-mapping-descriptive-statistics.html#cb448-19" aria-hidden="true" tabindex="-1"></a>map <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(LondonWards) <span class="sc">+</span> </span>
+<span id="cb448-20"><a href="online-mapping-descriptive-statistics.html#cb448-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">fill=</span>.cluster))<span class="sc">+</span></span>
+<span id="cb448-21"><a href="online-mapping-descriptive-statistics.html#cb448-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_continuous</span>(<span class="at">breaks=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>))</span>
+<span id="cb448-22"><a href="online-mapping-descriptive-statistics.html#cb448-22" aria-hidden="true" tabindex="-1"></a>map</span></code></pre></div>
+<p><img src="CASA0005_files/figure-html/unnamed-chunk-397-1.png" width="672" /></p>
 <p><img src="allisonhorst_images/kmeans_12.jpg" width="450pt" style="display: block; margin: auto;" /></p>
 <p>Now of course this is just the most basic of classifications, but you can easily see how you could include more variables or different variables to create a different classification - this is perhaps something you could try.</p>
 <p>I haven’t even gone into using different clustering algorithms, how to decide on the appropriate number of clusters, using silhoutte plots to assess the strength of the clusters or creating pen-portraits using the variable z-scores for each cluster - this is practically a whole course in its own right… or indeed a dissertation topic!</p>
@@ -1013,163 +994,163 @@ Bit different from me this week - I’m not all about drum and bass (although I 
 </ol>
 <p><img src="allisonhorst_images/rmarkdown_wizards.png" width="450pt" style="display: block; margin: auto;" /></p>
 <p>…Add add some code of your choice from either a previous practical or your own work. As it’s a new project you’ll have to either copy the data into your project folder or set the working directory <code>setwd()</code>. If it’s all online data that you’ve loaded directly from the web into R, this shouldn’t be an issue. I’m going to use the interactive map we made in practical 5 (the <a href="map-making.html#advanced-interactive-map">Advanced interactive map</a> section)…..Here is the code i’ve put in my chunk:</p>
-<div class="sourceCode" id="cb453"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb453-1"><a href="online-mapping-descriptive-statistics.html#cb453-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sf)</span>
-<span id="cb453-2"><a href="online-mapping-descriptive-statistics.html#cb453-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tmap)</span>
-<span id="cb453-3"><a href="online-mapping-descriptive-statistics.html#cb453-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(leafpop)</span>
-<span id="cb453-4"><a href="online-mapping-descriptive-statistics.html#cb453-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(leaflet)</span>
-<span id="cb453-5"><a href="online-mapping-descriptive-statistics.html#cb453-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tmaptools)</span>
-<span id="cb453-6"><a href="online-mapping-descriptive-statistics.html#cb453-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb453-7"><a href="online-mapping-descriptive-statistics.html#cb453-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb453-8"><a href="online-mapping-descriptive-statistics.html#cb453-8" aria-hidden="true" tabindex="-1"></a>OSM <span class="ot">&lt;-</span> <span class="fu">st_read</span>(here<span class="sc">::</span><span class="fu">here</span>(<span class="st">&quot;prac5_data&quot;</span>,</span>
-<span id="cb453-9"><a href="online-mapping-descriptive-statistics.html#cb453-9" aria-hidden="true" tabindex="-1"></a>                          <span class="st">&quot;greater-london-latest-free.shp&quot;</span>, </span>
-<span id="cb453-10"><a href="online-mapping-descriptive-statistics.html#cb453-10" aria-hidden="true" tabindex="-1"></a>                          <span class="st">&quot;gis_osm_pois_a_free_1.shp&quot;</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb453-11"><a href="online-mapping-descriptive-statistics.html#cb453-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_transform</span>(., <span class="dv">27700</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb453-12"><a href="online-mapping-descriptive-statistics.html#cb453-12" aria-hidden="true" tabindex="-1"></a>  <span class="co">#select hotels only</span></span>
-<span id="cb453-13"><a href="online-mapping-descriptive-statistics.html#cb453-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(fclass <span class="sc">==</span> <span class="st">&#39;hotel&#39;</span>)</span>
-<span id="cb453-14"><a href="online-mapping-descriptive-statistics.html#cb453-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb453-15"><a href="online-mapping-descriptive-statistics.html#cb453-15" aria-hidden="true" tabindex="-1"></a>Londonborough <span class="ot">&lt;-</span> <span class="fu">st_read</span>(here<span class="sc">::</span><span class="fu">here</span>(<span class="st">&quot;Prac1_data&quot;</span>,</span>
-<span id="cb453-16"><a href="online-mapping-descriptive-statistics.html#cb453-16" aria-hidden="true" tabindex="-1"></a>                                    <span class="st">&quot;statistical-gis-boundaries-london&quot;</span>, </span>
-<span id="cb453-17"><a href="online-mapping-descriptive-statistics.html#cb453-17" aria-hidden="true" tabindex="-1"></a>                                    <span class="st">&quot;ESRI&quot;</span>, </span>
-<span id="cb453-18"><a href="online-mapping-descriptive-statistics.html#cb453-18" aria-hidden="true" tabindex="-1"></a>                                    <span class="st">&quot;London_Borough_Excluding_MHW.shp&quot;</span>))<span class="sc">%&gt;%</span></span>
-<span id="cb453-19"><a href="online-mapping-descriptive-statistics.html#cb453-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_transform</span>(., <span class="dv">27700</span>)</span>
-<span id="cb453-20"><a href="online-mapping-descriptive-statistics.html#cb453-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb453-21"><a href="online-mapping-descriptive-statistics.html#cb453-21" aria-hidden="true" tabindex="-1"></a>Airbnb <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;prac5_data/listings.csv&quot;</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb453-22"><a href="online-mapping-descriptive-statistics.html#cb453-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_as_sf</span>(., <span class="at">coords =</span> <span class="fu">c</span>(<span class="st">&quot;longitude&quot;</span>, <span class="st">&quot;latitude&quot;</span>), </span>
-<span id="cb453-23"><a href="online-mapping-descriptive-statistics.html#cb453-23" aria-hidden="true" tabindex="-1"></a>                   <span class="at">crs =</span> <span class="dv">4326</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb453-24"><a href="online-mapping-descriptive-statistics.html#cb453-24" aria-hidden="true" tabindex="-1"></a>    <span class="fu">st_transform</span>(., <span class="dv">27700</span>)<span class="sc">%&gt;%</span></span>
-<span id="cb453-25"><a href="online-mapping-descriptive-statistics.html#cb453-25" aria-hidden="true" tabindex="-1"></a>    <span class="co">#select entire places that are available all year</span></span>
-<span id="cb453-26"><a href="online-mapping-descriptive-statistics.html#cb453-26" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(room_type <span class="sc">==</span> <span class="st">&#39;Entire home/apt&#39;</span> <span class="sc">&amp;</span> availability_365 <span class="sc">==</span><span class="st">&#39;365&#39;</span>)</span>
-<span id="cb453-27"><a href="online-mapping-descriptive-statistics.html#cb453-27" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb453-28"><a href="online-mapping-descriptive-statistics.html#cb453-28" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb453-29"><a href="online-mapping-descriptive-statistics.html#cb453-29" aria-hidden="true" tabindex="-1"></a><span class="co"># make a function for the join</span></span>
-<span id="cb453-30"><a href="online-mapping-descriptive-statistics.html#cb453-30" aria-hidden="true" tabindex="-1"></a><span class="co"># hint all you have to do is replace data1 and data2</span></span>
-<span id="cb453-31"><a href="online-mapping-descriptive-statistics.html#cb453-31" aria-hidden="true" tabindex="-1"></a><span class="co"># with the data you want to use</span></span>
-<span id="cb453-32"><a href="online-mapping-descriptive-statistics.html#cb453-32" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb453-33"><a href="online-mapping-descriptive-statistics.html#cb453-33" aria-hidden="true" tabindex="-1"></a>Joinfun <span class="ot">&lt;-</span> <span class="cf">function</span>(data1, data2){</span>
-<span id="cb453-34"><a href="online-mapping-descriptive-statistics.html#cb453-34" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb453-35"><a href="online-mapping-descriptive-statistics.html#cb453-35" aria-hidden="true" tabindex="-1"></a>output<span class="ot">&lt;-</span> data1<span class="sc">%&gt;%</span></span>
-<span id="cb453-36"><a href="online-mapping-descriptive-statistics.html#cb453-36" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_join</span>(Londonborough,.)<span class="sc">%&gt;%</span></span>
-<span id="cb453-37"><a href="online-mapping-descriptive-statistics.html#cb453-37" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_count</span>(GSS_CODE, <span class="at">name=</span><span class="st">&quot;hotels_in_borough&quot;</span>) </span>
-<span id="cb453-38"><a href="online-mapping-descriptive-statistics.html#cb453-38" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb453-39"><a href="online-mapping-descriptive-statistics.html#cb453-39" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(output)</span>
-<span id="cb453-40"><a href="online-mapping-descriptive-statistics.html#cb453-40" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb453-41"><a href="online-mapping-descriptive-statistics.html#cb453-41" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb453-42"><a href="online-mapping-descriptive-statistics.html#cb453-42" aria-hidden="true" tabindex="-1"></a><span class="co"># use the function for hotels</span></span>
-<span id="cb453-43"><a href="online-mapping-descriptive-statistics.html#cb453-43" aria-hidden="true" tabindex="-1"></a>Hotels <span class="ot">&lt;-</span> <span class="fu">Joinfun</span>(OSM, Londonborough)</span>
-<span id="cb453-44"><a href="online-mapping-descriptive-statistics.html#cb453-44" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb453-45"><a href="online-mapping-descriptive-statistics.html#cb453-45" aria-hidden="true" tabindex="-1"></a><span class="co"># then for airbnb</span></span>
-<span id="cb453-46"><a href="online-mapping-descriptive-statistics.html#cb453-46" aria-hidden="true" tabindex="-1"></a>Airbnb <span class="ot">&lt;-</span> <span class="fu">Joinfun</span>(Airbnb, Londonborough)</span>
-<span id="cb453-47"><a href="online-mapping-descriptive-statistics.html#cb453-47" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb453-48"><a href="online-mapping-descriptive-statistics.html#cb453-48" aria-hidden="true" tabindex="-1"></a><span class="co"># now try to arrange the plots with tmap</span></span>
-<span id="cb453-49"><a href="online-mapping-descriptive-statistics.html#cb453-49" aria-hidden="true" tabindex="-1"></a>breaks <span class="ot">=</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">5</span>, <span class="dv">12</span>, <span class="dv">26</span>, <span class="dv">57</span>, <span class="dv">286</span>) </span>
-<span id="cb453-50"><a href="online-mapping-descriptive-statistics.html#cb453-50" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb453-51"><a href="online-mapping-descriptive-statistics.html#cb453-51" aria-hidden="true" tabindex="-1"></a><span class="co">#change the column name from hotels_in_borough for the legend</span></span>
-<span id="cb453-52"><a href="online-mapping-descriptive-statistics.html#cb453-52" aria-hidden="true" tabindex="-1"></a>Hotels <span class="ot">&lt;-</span> Hotels <span class="sc">%&gt;%</span></span>
-<span id="cb453-53"><a href="online-mapping-descriptive-statistics.html#cb453-53" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">rename</span>(<span class="st">`</span><span class="at">Accomodation count</span><span class="st">`</span> <span class="ot">=</span> hotels_in_borough)</span>
-<span id="cb453-54"><a href="online-mapping-descriptive-statistics.html#cb453-54" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb453-55"><a href="online-mapping-descriptive-statistics.html#cb453-55" aria-hidden="true" tabindex="-1"></a>Airbnb <span class="ot">&lt;-</span> Airbnb <span class="sc">%&gt;%</span></span>
-<span id="cb453-56"><a href="online-mapping-descriptive-statistics.html#cb453-56" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">rename</span>(<span class="st">`</span><span class="at">Accomodation count</span><span class="st">`</span> <span class="ot">=</span> hotels_in_borough)</span>
-<span id="cb453-57"><a href="online-mapping-descriptive-statistics.html#cb453-57" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb453-58"><a href="online-mapping-descriptive-statistics.html#cb453-58" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb453-59"><a href="online-mapping-descriptive-statistics.html#cb453-59" aria-hidden="true" tabindex="-1"></a>Airbnb_count <span class="ot">&lt;-</span> Airbnb <span class="sc">%&gt;%</span> </span>
-<span id="cb453-60"><a href="online-mapping-descriptive-statistics.html#cb453-60" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(GSS_CODE)</span>
-<span id="cb453-61"><a href="online-mapping-descriptive-statistics.html#cb453-61" aria-hidden="true" tabindex="-1"></a>Hotels_count <span class="ot">&lt;-</span> Hotels <span class="sc">%&gt;%</span> </span>
-<span id="cb453-62"><a href="online-mapping-descriptive-statistics.html#cb453-62" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(NAME)</span>
-<span id="cb453-63"><a href="online-mapping-descriptive-statistics.html#cb453-63" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb453-64"><a href="online-mapping-descriptive-statistics.html#cb453-64" aria-hidden="true" tabindex="-1"></a><span class="co">#join data</span></span>
-<span id="cb453-65"><a href="online-mapping-descriptive-statistics.html#cb453-65" aria-hidden="true" tabindex="-1"></a>Joined <span class="ot">&lt;-</span> Airbnb_count<span class="sc">%&gt;%</span></span>
-<span id="cb453-66"><a href="online-mapping-descriptive-statistics.html#cb453-66" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_join</span>(., Hotels_count, <span class="at">join =</span> st_equals)<span class="sc">%&gt;%</span></span>
-<span id="cb453-67"><a href="online-mapping-descriptive-statistics.html#cb453-67" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_transform</span>(., <span class="dv">4326</span>)<span class="sc">%&gt;%</span></span>
-<span id="cb453-68"><a href="online-mapping-descriptive-statistics.html#cb453-68" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="st">`</span><span class="at">Airbnb count</span><span class="st">`</span> <span class="ot">=</span> <span class="st">`</span><span class="at">n.x</span><span class="st">`</span>, </span>
-<span id="cb453-69"><a href="online-mapping-descriptive-statistics.html#cb453-69" aria-hidden="true" tabindex="-1"></a>         <span class="st">`</span><span class="at">GSS Code</span><span class="st">`</span><span class="ot">=</span> GSS_CODE,</span>
-<span id="cb453-70"><a href="online-mapping-descriptive-statistics.html#cb453-70" aria-hidden="true" tabindex="-1"></a>         <span class="st">`</span><span class="at">Borough</span><span class="st">`</span><span class="ot">=</span>NAME,</span>
-<span id="cb453-71"><a href="online-mapping-descriptive-statistics.html#cb453-71" aria-hidden="true" tabindex="-1"></a>         <span class="st">`</span><span class="at">Hotel count</span><span class="st">`</span> <span class="ot">=</span> <span class="st">`</span><span class="at">n.y</span><span class="st">`</span>) </span>
-<span id="cb453-72"><a href="online-mapping-descriptive-statistics.html#cb453-72" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb453-73"><a href="online-mapping-descriptive-statistics.html#cb453-73" aria-hidden="true" tabindex="-1"></a>popupairbnb <span class="ot">&lt;-</span>Joined <span class="sc">%&gt;%</span></span>
-<span id="cb453-74"><a href="online-mapping-descriptive-statistics.html#cb453-74" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_drop_geometry</span>()<span class="sc">%&gt;%</span></span>
-<span id="cb453-75"><a href="online-mapping-descriptive-statistics.html#cb453-75" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(<span class="st">`</span><span class="at">Airbnb count</span><span class="st">`</span>, Borough)<span class="sc">%&gt;%</span></span>
-<span id="cb453-76"><a href="online-mapping-descriptive-statistics.html#cb453-76" aria-hidden="true" tabindex="-1"></a>  <span class="fu">popupTable</span>()</span>
-<span id="cb453-77"><a href="online-mapping-descriptive-statistics.html#cb453-77" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb453-78"><a href="online-mapping-descriptive-statistics.html#cb453-78" aria-hidden="true" tabindex="-1"></a>popuphotel <span class="ot">&lt;-</span>Joined <span class="sc">%&gt;%</span></span>
-<span id="cb453-79"><a href="online-mapping-descriptive-statistics.html#cb453-79" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_drop_geometry</span>()<span class="sc">%&gt;%</span></span>
-<span id="cb453-80"><a href="online-mapping-descriptive-statistics.html#cb453-80" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(<span class="st">`</span><span class="at">Hotel count</span><span class="st">`</span>, Borough)<span class="sc">%&gt;%</span></span>
-<span id="cb453-81"><a href="online-mapping-descriptive-statistics.html#cb453-81" aria-hidden="true" tabindex="-1"></a>  <span class="fu">popupTable</span>()</span>
-<span id="cb453-82"><a href="online-mapping-descriptive-statistics.html#cb453-82" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb453-83"><a href="online-mapping-descriptive-statistics.html#cb453-83" aria-hidden="true" tabindex="-1"></a><span class="fu">tmap_mode</span>(<span class="st">&quot;view&quot;</span>)</span>
-<span id="cb453-84"><a href="online-mapping-descriptive-statistics.html#cb453-84" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb453-85"><a href="online-mapping-descriptive-statistics.html#cb453-85" aria-hidden="true" tabindex="-1"></a><span class="co"># set the colour palettes using our previously defined breaks</span></span>
-<span id="cb453-86"><a href="online-mapping-descriptive-statistics.html#cb453-86" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb453-87"><a href="online-mapping-descriptive-statistics.html#cb453-87" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb453-88"><a href="online-mapping-descriptive-statistics.html#cb453-88" aria-hidden="true" tabindex="-1"></a>pal1 <span class="ot">&lt;-</span> Joined <span class="sc">%&gt;%</span></span>
-<span id="cb453-89"><a href="online-mapping-descriptive-statistics.html#cb453-89" aria-hidden="true" tabindex="-1"></a>  <span class="fu">colorBin</span>(<span class="at">palette =</span> <span class="st">&quot;YlOrRd&quot;</span>, <span class="at">domain=</span>.<span class="sc">$</span><span class="st">`</span><span class="at">Airbnb count</span><span class="st">`</span>, <span class="at">bins=</span>breaks)</span>
-<span id="cb453-90"><a href="online-mapping-descriptive-statistics.html#cb453-90" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb453-91"><a href="online-mapping-descriptive-statistics.html#cb453-91" aria-hidden="true" tabindex="-1"></a>pal1 <span class="ot">&lt;-</span><span class="fu">colorBin</span>(<span class="at">palette =</span> <span class="st">&quot;YlOrRd&quot;</span>, <span class="at">domain=</span>Joined<span class="sc">$</span><span class="st">`</span><span class="at">Airbnb count</span><span class="st">`</span>, <span class="at">bins=</span>breaks)</span>
-<span id="cb453-92"><a href="online-mapping-descriptive-statistics.html#cb453-92" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb453-93"><a href="online-mapping-descriptive-statistics.html#cb453-93" aria-hidden="true" tabindex="-1"></a>pal2 <span class="ot">&lt;-</span> Joined <span class="sc">%&gt;%</span></span>
-<span id="cb453-94"><a href="online-mapping-descriptive-statistics.html#cb453-94" aria-hidden="true" tabindex="-1"></a>  <span class="fu">colorBin</span>(<span class="at">palette =</span> <span class="st">&quot;YlOrRd&quot;</span>, <span class="at">domain=</span>.<span class="sc">$</span><span class="st">`</span><span class="at">Hotel count</span><span class="st">`</span>, <span class="at">bins=</span>breaks)</span>
-<span id="cb453-95"><a href="online-mapping-descriptive-statistics.html#cb453-95" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb453-96"><a href="online-mapping-descriptive-statistics.html#cb453-96" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb453-97"><a href="online-mapping-descriptive-statistics.html#cb453-97" aria-hidden="true" tabindex="-1"></a>map<span class="ot">&lt;-</span> <span class="fu">leaflet</span>(Joined) <span class="sc">%&gt;%</span></span>
-<span id="cb453-98"><a href="online-mapping-descriptive-statistics.html#cb453-98" aria-hidden="true" tabindex="-1"></a>  <span class="co"># add basemap options</span></span>
-<span id="cb453-99"><a href="online-mapping-descriptive-statistics.html#cb453-99" aria-hidden="true" tabindex="-1"></a>  <span class="fu">addTiles</span>(<span class="at">group =</span> <span class="st">&quot;OSM (default)&quot;</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb453-100"><a href="online-mapping-descriptive-statistics.html#cb453-100" aria-hidden="true" tabindex="-1"></a>  <span class="fu">addProviderTiles</span>(providers<span class="sc">$</span>Stamen.Toner, <span class="at">group =</span> <span class="st">&quot;Toner&quot;</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb453-101"><a href="online-mapping-descriptive-statistics.html#cb453-101" aria-hidden="true" tabindex="-1"></a>  <span class="fu">addProviderTiles</span>(providers<span class="sc">$</span>Stamen.TonerLite, <span class="at">group =</span> <span class="st">&quot;Toner Lite&quot;</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb453-102"><a href="online-mapping-descriptive-statistics.html#cb453-102" aria-hidden="true" tabindex="-1"></a>  <span class="fu">addProviderTiles</span>(providers<span class="sc">$</span>CartoDB.Positron, <span class="at">group =</span> <span class="st">&quot;CartoDB&quot;</span>)<span class="sc">%&gt;%</span></span>
-<span id="cb453-103"><a href="online-mapping-descriptive-statistics.html#cb453-103" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb453-104"><a href="online-mapping-descriptive-statistics.html#cb453-104" aria-hidden="true" tabindex="-1"></a>  <span class="co">#add our polygons, linking to the tables we just made</span></span>
-<span id="cb453-105"><a href="online-mapping-descriptive-statistics.html#cb453-105" aria-hidden="true" tabindex="-1"></a>  <span class="fu">addPolygons</span>(<span class="at">color=</span><span class="st">&quot;white&quot;</span>, </span>
-<span id="cb453-106"><a href="online-mapping-descriptive-statistics.html#cb453-106" aria-hidden="true" tabindex="-1"></a>              <span class="at">weight =</span> <span class="dv">2</span>,</span>
-<span id="cb453-107"><a href="online-mapping-descriptive-statistics.html#cb453-107" aria-hidden="true" tabindex="-1"></a>              <span class="at">opacity =</span> <span class="dv">1</span>,</span>
-<span id="cb453-108"><a href="online-mapping-descriptive-statistics.html#cb453-108" aria-hidden="true" tabindex="-1"></a>              <span class="at">dashArray =</span> <span class="st">&quot;3&quot;</span>,</span>
-<span id="cb453-109"><a href="online-mapping-descriptive-statistics.html#cb453-109" aria-hidden="true" tabindex="-1"></a>              <span class="at">popup =</span> popupairbnb,</span>
-<span id="cb453-110"><a href="online-mapping-descriptive-statistics.html#cb453-110" aria-hidden="true" tabindex="-1"></a>              <span class="at">fillOpacity =</span> <span class="fl">0.7</span>,</span>
-<span id="cb453-111"><a href="online-mapping-descriptive-statistics.html#cb453-111" aria-hidden="true" tabindex="-1"></a>              <span class="at">fillColor =</span> <span class="sc">~</span><span class="fu">pal2</span>(<span class="st">`</span><span class="at">Airbnb count</span><span class="st">`</span>),</span>
-<span id="cb453-112"><a href="online-mapping-descriptive-statistics.html#cb453-112" aria-hidden="true" tabindex="-1"></a>              <span class="at">group =</span> <span class="st">&quot;Airbnb&quot;</span>)<span class="sc">%&gt;%</span></span>
-<span id="cb453-113"><a href="online-mapping-descriptive-statistics.html#cb453-113" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb453-114"><a href="online-mapping-descriptive-statistics.html#cb453-114" aria-hidden="true" tabindex="-1"></a>  <span class="fu">addPolygons</span>(<span class="at">fillColor =</span> <span class="sc">~</span><span class="fu">pal2</span>(<span class="st">`</span><span class="at">Hotel count</span><span class="st">`</span>), </span>
-<span id="cb453-115"><a href="online-mapping-descriptive-statistics.html#cb453-115" aria-hidden="true" tabindex="-1"></a>              <span class="at">weight =</span> <span class="dv">2</span>,</span>
-<span id="cb453-116"><a href="online-mapping-descriptive-statistics.html#cb453-116" aria-hidden="true" tabindex="-1"></a>              <span class="at">opacity =</span> <span class="dv">1</span>,</span>
-<span id="cb453-117"><a href="online-mapping-descriptive-statistics.html#cb453-117" aria-hidden="true" tabindex="-1"></a>              <span class="at">color =</span> <span class="st">&quot;white&quot;</span>,</span>
-<span id="cb453-118"><a href="online-mapping-descriptive-statistics.html#cb453-118" aria-hidden="true" tabindex="-1"></a>              <span class="at">dashArray =</span> <span class="st">&quot;3&quot;</span>,</span>
-<span id="cb453-119"><a href="online-mapping-descriptive-statistics.html#cb453-119" aria-hidden="true" tabindex="-1"></a>              <span class="at">popup =</span> popupairbnb,</span>
-<span id="cb453-120"><a href="online-mapping-descriptive-statistics.html#cb453-120" aria-hidden="true" tabindex="-1"></a>              <span class="at">fillOpacity =</span> <span class="fl">0.7</span>,<span class="at">group =</span> <span class="st">&quot;Hotels&quot;</span>)<span class="sc">%&gt;%</span></span>
-<span id="cb453-121"><a href="online-mapping-descriptive-statistics.html#cb453-121" aria-hidden="true" tabindex="-1"></a>  <span class="co"># add a legend</span></span>
-<span id="cb453-122"><a href="online-mapping-descriptive-statistics.html#cb453-122" aria-hidden="true" tabindex="-1"></a>  <span class="fu">addLegend</span>(<span class="at">pal =</span> pal2, <span class="at">values =</span> <span class="sc">~</span><span class="st">`</span><span class="at">Hotel count</span><span class="st">`</span>, <span class="at">group =</span> <span class="fu">c</span>(<span class="st">&quot;Airbnb&quot;</span>,<span class="st">&quot;Hotel&quot;</span>), </span>
-<span id="cb453-123"><a href="online-mapping-descriptive-statistics.html#cb453-123" aria-hidden="true" tabindex="-1"></a>            <span class="at">position =</span><span class="st">&quot;bottomleft&quot;</span>, <span class="at">title =</span> <span class="st">&quot;Accomodation count&quot;</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb453-124"><a href="online-mapping-descriptive-statistics.html#cb453-124" aria-hidden="true" tabindex="-1"></a>  <span class="co"># specify layers control</span></span>
-<span id="cb453-125"><a href="online-mapping-descriptive-statistics.html#cb453-125" aria-hidden="true" tabindex="-1"></a>  <span class="fu">addLayersControl</span>(</span>
-<span id="cb453-126"><a href="online-mapping-descriptive-statistics.html#cb453-126" aria-hidden="true" tabindex="-1"></a>    <span class="at">baseGroups =</span> <span class="fu">c</span>(<span class="st">&quot;OSM (default)&quot;</span>, <span class="st">&quot;Toner&quot;</span>, <span class="st">&quot;Toner Lite&quot;</span>, <span class="st">&quot;CartoDB&quot;</span>),</span>
-<span id="cb453-127"><a href="online-mapping-descriptive-statistics.html#cb453-127" aria-hidden="true" tabindex="-1"></a>    <span class="at">overlayGroups =</span> <span class="fu">c</span>(<span class="st">&quot;Airbnb&quot;</span>, <span class="st">&quot;Hotels&quot;</span>),</span>
-<span id="cb453-128"><a href="online-mapping-descriptive-statistics.html#cb453-128" aria-hidden="true" tabindex="-1"></a>    <span class="at">options =</span> <span class="fu">layersControlOptions</span>(<span class="at">collapsed =</span> <span class="cn">FALSE</span>)</span>
-<span id="cb453-129"><a href="online-mapping-descriptive-statistics.html#cb453-129" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb453-130"><a href="online-mapping-descriptive-statistics.html#cb453-130" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb453-131"><a href="online-mapping-descriptive-statistics.html#cb453-131" aria-hidden="true" tabindex="-1"></a><span class="co"># plot the map</span></span>
-<span id="cb453-132"><a href="online-mapping-descriptive-statistics.html#cb453-132" aria-hidden="true" tabindex="-1"></a>map</span></code></pre></div>
+<div class="sourceCode" id="cb449"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb449-1"><a href="online-mapping-descriptive-statistics.html#cb449-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sf)</span>
+<span id="cb449-2"><a href="online-mapping-descriptive-statistics.html#cb449-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tmap)</span>
+<span id="cb449-3"><a href="online-mapping-descriptive-statistics.html#cb449-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(leafpop)</span>
+<span id="cb449-4"><a href="online-mapping-descriptive-statistics.html#cb449-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(leaflet)</span>
+<span id="cb449-5"><a href="online-mapping-descriptive-statistics.html#cb449-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tmaptools)</span>
+<span id="cb449-6"><a href="online-mapping-descriptive-statistics.html#cb449-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb449-7"><a href="online-mapping-descriptive-statistics.html#cb449-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb449-8"><a href="online-mapping-descriptive-statistics.html#cb449-8" aria-hidden="true" tabindex="-1"></a>OSM <span class="ot">&lt;-</span> <span class="fu">st_read</span>(here<span class="sc">::</span><span class="fu">here</span>(<span class="st">&quot;prac5_data&quot;</span>,</span>
+<span id="cb449-9"><a href="online-mapping-descriptive-statistics.html#cb449-9" aria-hidden="true" tabindex="-1"></a>                          <span class="st">&quot;greater-london-latest-free.shp&quot;</span>, </span>
+<span id="cb449-10"><a href="online-mapping-descriptive-statistics.html#cb449-10" aria-hidden="true" tabindex="-1"></a>                          <span class="st">&quot;gis_osm_pois_a_free_1.shp&quot;</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb449-11"><a href="online-mapping-descriptive-statistics.html#cb449-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_transform</span>(., <span class="dv">27700</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb449-12"><a href="online-mapping-descriptive-statistics.html#cb449-12" aria-hidden="true" tabindex="-1"></a>  <span class="co">#select hotels only</span></span>
+<span id="cb449-13"><a href="online-mapping-descriptive-statistics.html#cb449-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(fclass <span class="sc">==</span> <span class="st">&#39;hotel&#39;</span>)</span>
+<span id="cb449-14"><a href="online-mapping-descriptive-statistics.html#cb449-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb449-15"><a href="online-mapping-descriptive-statistics.html#cb449-15" aria-hidden="true" tabindex="-1"></a>Londonborough <span class="ot">&lt;-</span> <span class="fu">st_read</span>(here<span class="sc">::</span><span class="fu">here</span>(<span class="st">&quot;Prac1_data&quot;</span>,</span>
+<span id="cb449-16"><a href="online-mapping-descriptive-statistics.html#cb449-16" aria-hidden="true" tabindex="-1"></a>                                    <span class="st">&quot;statistical-gis-boundaries-london&quot;</span>, </span>
+<span id="cb449-17"><a href="online-mapping-descriptive-statistics.html#cb449-17" aria-hidden="true" tabindex="-1"></a>                                    <span class="st">&quot;ESRI&quot;</span>, </span>
+<span id="cb449-18"><a href="online-mapping-descriptive-statistics.html#cb449-18" aria-hidden="true" tabindex="-1"></a>                                    <span class="st">&quot;London_Borough_Excluding_MHW.shp&quot;</span>))<span class="sc">%&gt;%</span></span>
+<span id="cb449-19"><a href="online-mapping-descriptive-statistics.html#cb449-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_transform</span>(., <span class="dv">27700</span>)</span>
+<span id="cb449-20"><a href="online-mapping-descriptive-statistics.html#cb449-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb449-21"><a href="online-mapping-descriptive-statistics.html#cb449-21" aria-hidden="true" tabindex="-1"></a>Airbnb <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;prac5_data/listings.csv&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb449-22"><a href="online-mapping-descriptive-statistics.html#cb449-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_as_sf</span>(., <span class="at">coords =</span> <span class="fu">c</span>(<span class="st">&quot;longitude&quot;</span>, <span class="st">&quot;latitude&quot;</span>), </span>
+<span id="cb449-23"><a href="online-mapping-descriptive-statistics.html#cb449-23" aria-hidden="true" tabindex="-1"></a>                   <span class="at">crs =</span> <span class="dv">4326</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb449-24"><a href="online-mapping-descriptive-statistics.html#cb449-24" aria-hidden="true" tabindex="-1"></a>    <span class="fu">st_transform</span>(., <span class="dv">27700</span>)<span class="sc">%&gt;%</span></span>
+<span id="cb449-25"><a href="online-mapping-descriptive-statistics.html#cb449-25" aria-hidden="true" tabindex="-1"></a>    <span class="co">#select entire places that are available all year</span></span>
+<span id="cb449-26"><a href="online-mapping-descriptive-statistics.html#cb449-26" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(room_type <span class="sc">==</span> <span class="st">&#39;Entire home/apt&#39;</span> <span class="sc">&amp;</span> availability_365 <span class="sc">==</span><span class="st">&#39;365&#39;</span>)</span>
+<span id="cb449-27"><a href="online-mapping-descriptive-statistics.html#cb449-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb449-28"><a href="online-mapping-descriptive-statistics.html#cb449-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb449-29"><a href="online-mapping-descriptive-statistics.html#cb449-29" aria-hidden="true" tabindex="-1"></a><span class="co"># make a function for the join</span></span>
+<span id="cb449-30"><a href="online-mapping-descriptive-statistics.html#cb449-30" aria-hidden="true" tabindex="-1"></a><span class="co"># hint all you have to do is replace data1 and data2</span></span>
+<span id="cb449-31"><a href="online-mapping-descriptive-statistics.html#cb449-31" aria-hidden="true" tabindex="-1"></a><span class="co"># with the data you want to use</span></span>
+<span id="cb449-32"><a href="online-mapping-descriptive-statistics.html#cb449-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb449-33"><a href="online-mapping-descriptive-statistics.html#cb449-33" aria-hidden="true" tabindex="-1"></a>Joinfun <span class="ot">&lt;-</span> <span class="cf">function</span>(data1, data2){</span>
+<span id="cb449-34"><a href="online-mapping-descriptive-statistics.html#cb449-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb449-35"><a href="online-mapping-descriptive-statistics.html#cb449-35" aria-hidden="true" tabindex="-1"></a>output<span class="ot">&lt;-</span> data1<span class="sc">%&gt;%</span></span>
+<span id="cb449-36"><a href="online-mapping-descriptive-statistics.html#cb449-36" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_join</span>(Londonborough,.)<span class="sc">%&gt;%</span></span>
+<span id="cb449-37"><a href="online-mapping-descriptive-statistics.html#cb449-37" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_count</span>(GSS_CODE, <span class="at">name=</span><span class="st">&quot;hotels_in_borough&quot;</span>) </span>
+<span id="cb449-38"><a href="online-mapping-descriptive-statistics.html#cb449-38" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb449-39"><a href="online-mapping-descriptive-statistics.html#cb449-39" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(output)</span>
+<span id="cb449-40"><a href="online-mapping-descriptive-statistics.html#cb449-40" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb449-41"><a href="online-mapping-descriptive-statistics.html#cb449-41" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb449-42"><a href="online-mapping-descriptive-statistics.html#cb449-42" aria-hidden="true" tabindex="-1"></a><span class="co"># use the function for hotels</span></span>
+<span id="cb449-43"><a href="online-mapping-descriptive-statistics.html#cb449-43" aria-hidden="true" tabindex="-1"></a>Hotels <span class="ot">&lt;-</span> <span class="fu">Joinfun</span>(OSM, Londonborough)</span>
+<span id="cb449-44"><a href="online-mapping-descriptive-statistics.html#cb449-44" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb449-45"><a href="online-mapping-descriptive-statistics.html#cb449-45" aria-hidden="true" tabindex="-1"></a><span class="co"># then for airbnb</span></span>
+<span id="cb449-46"><a href="online-mapping-descriptive-statistics.html#cb449-46" aria-hidden="true" tabindex="-1"></a>Airbnb <span class="ot">&lt;-</span> <span class="fu">Joinfun</span>(Airbnb, Londonborough)</span>
+<span id="cb449-47"><a href="online-mapping-descriptive-statistics.html#cb449-47" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb449-48"><a href="online-mapping-descriptive-statistics.html#cb449-48" aria-hidden="true" tabindex="-1"></a><span class="co"># now try to arrange the plots with tmap</span></span>
+<span id="cb449-49"><a href="online-mapping-descriptive-statistics.html#cb449-49" aria-hidden="true" tabindex="-1"></a>breaks <span class="ot">=</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">5</span>, <span class="dv">12</span>, <span class="dv">26</span>, <span class="dv">57</span>, <span class="dv">286</span>) </span>
+<span id="cb449-50"><a href="online-mapping-descriptive-statistics.html#cb449-50" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb449-51"><a href="online-mapping-descriptive-statistics.html#cb449-51" aria-hidden="true" tabindex="-1"></a><span class="co">#change the column name from hotels_in_borough for the legend</span></span>
+<span id="cb449-52"><a href="online-mapping-descriptive-statistics.html#cb449-52" aria-hidden="true" tabindex="-1"></a>Hotels <span class="ot">&lt;-</span> Hotels <span class="sc">%&gt;%</span></span>
+<span id="cb449-53"><a href="online-mapping-descriptive-statistics.html#cb449-53" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">rename</span>(<span class="st">`</span><span class="at">Accomodation count</span><span class="st">`</span> <span class="ot">=</span> hotels_in_borough)</span>
+<span id="cb449-54"><a href="online-mapping-descriptive-statistics.html#cb449-54" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb449-55"><a href="online-mapping-descriptive-statistics.html#cb449-55" aria-hidden="true" tabindex="-1"></a>Airbnb <span class="ot">&lt;-</span> Airbnb <span class="sc">%&gt;%</span></span>
+<span id="cb449-56"><a href="online-mapping-descriptive-statistics.html#cb449-56" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">rename</span>(<span class="st">`</span><span class="at">Accomodation count</span><span class="st">`</span> <span class="ot">=</span> hotels_in_borough)</span>
+<span id="cb449-57"><a href="online-mapping-descriptive-statistics.html#cb449-57" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb449-58"><a href="online-mapping-descriptive-statistics.html#cb449-58" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb449-59"><a href="online-mapping-descriptive-statistics.html#cb449-59" aria-hidden="true" tabindex="-1"></a>Airbnb_count <span class="ot">&lt;-</span> Airbnb <span class="sc">%&gt;%</span> </span>
+<span id="cb449-60"><a href="online-mapping-descriptive-statistics.html#cb449-60" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(GSS_CODE)</span>
+<span id="cb449-61"><a href="online-mapping-descriptive-statistics.html#cb449-61" aria-hidden="true" tabindex="-1"></a>Hotels_count <span class="ot">&lt;-</span> Hotels <span class="sc">%&gt;%</span> </span>
+<span id="cb449-62"><a href="online-mapping-descriptive-statistics.html#cb449-62" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(NAME)</span>
+<span id="cb449-63"><a href="online-mapping-descriptive-statistics.html#cb449-63" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb449-64"><a href="online-mapping-descriptive-statistics.html#cb449-64" aria-hidden="true" tabindex="-1"></a><span class="co">#join data</span></span>
+<span id="cb449-65"><a href="online-mapping-descriptive-statistics.html#cb449-65" aria-hidden="true" tabindex="-1"></a>Joined <span class="ot">&lt;-</span> Airbnb_count<span class="sc">%&gt;%</span></span>
+<span id="cb449-66"><a href="online-mapping-descriptive-statistics.html#cb449-66" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_join</span>(., Hotels_count, <span class="at">join =</span> st_equals)<span class="sc">%&gt;%</span></span>
+<span id="cb449-67"><a href="online-mapping-descriptive-statistics.html#cb449-67" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_transform</span>(., <span class="dv">4326</span>)<span class="sc">%&gt;%</span></span>
+<span id="cb449-68"><a href="online-mapping-descriptive-statistics.html#cb449-68" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="st">`</span><span class="at">Airbnb count</span><span class="st">`</span> <span class="ot">=</span> <span class="st">`</span><span class="at">n.x</span><span class="st">`</span>, </span>
+<span id="cb449-69"><a href="online-mapping-descriptive-statistics.html#cb449-69" aria-hidden="true" tabindex="-1"></a>         <span class="st">`</span><span class="at">GSS Code</span><span class="st">`</span><span class="ot">=</span> GSS_CODE,</span>
+<span id="cb449-70"><a href="online-mapping-descriptive-statistics.html#cb449-70" aria-hidden="true" tabindex="-1"></a>         <span class="st">`</span><span class="at">Borough</span><span class="st">`</span><span class="ot">=</span>NAME,</span>
+<span id="cb449-71"><a href="online-mapping-descriptive-statistics.html#cb449-71" aria-hidden="true" tabindex="-1"></a>         <span class="st">`</span><span class="at">Hotel count</span><span class="st">`</span> <span class="ot">=</span> <span class="st">`</span><span class="at">n.y</span><span class="st">`</span>) </span>
+<span id="cb449-72"><a href="online-mapping-descriptive-statistics.html#cb449-72" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb449-73"><a href="online-mapping-descriptive-statistics.html#cb449-73" aria-hidden="true" tabindex="-1"></a>popupairbnb <span class="ot">&lt;-</span>Joined <span class="sc">%&gt;%</span></span>
+<span id="cb449-74"><a href="online-mapping-descriptive-statistics.html#cb449-74" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_drop_geometry</span>()<span class="sc">%&gt;%</span></span>
+<span id="cb449-75"><a href="online-mapping-descriptive-statistics.html#cb449-75" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(<span class="st">`</span><span class="at">Airbnb count</span><span class="st">`</span>, Borough)<span class="sc">%&gt;%</span></span>
+<span id="cb449-76"><a href="online-mapping-descriptive-statistics.html#cb449-76" aria-hidden="true" tabindex="-1"></a>  <span class="fu">popupTable</span>()</span>
+<span id="cb449-77"><a href="online-mapping-descriptive-statistics.html#cb449-77" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb449-78"><a href="online-mapping-descriptive-statistics.html#cb449-78" aria-hidden="true" tabindex="-1"></a>popuphotel <span class="ot">&lt;-</span>Joined <span class="sc">%&gt;%</span></span>
+<span id="cb449-79"><a href="online-mapping-descriptive-statistics.html#cb449-79" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_drop_geometry</span>()<span class="sc">%&gt;%</span></span>
+<span id="cb449-80"><a href="online-mapping-descriptive-statistics.html#cb449-80" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(<span class="st">`</span><span class="at">Hotel count</span><span class="st">`</span>, Borough)<span class="sc">%&gt;%</span></span>
+<span id="cb449-81"><a href="online-mapping-descriptive-statistics.html#cb449-81" aria-hidden="true" tabindex="-1"></a>  <span class="fu">popupTable</span>()</span>
+<span id="cb449-82"><a href="online-mapping-descriptive-statistics.html#cb449-82" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb449-83"><a href="online-mapping-descriptive-statistics.html#cb449-83" aria-hidden="true" tabindex="-1"></a><span class="fu">tmap_mode</span>(<span class="st">&quot;view&quot;</span>)</span>
+<span id="cb449-84"><a href="online-mapping-descriptive-statistics.html#cb449-84" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb449-85"><a href="online-mapping-descriptive-statistics.html#cb449-85" aria-hidden="true" tabindex="-1"></a><span class="co"># set the colour palettes using our previously defined breaks</span></span>
+<span id="cb449-86"><a href="online-mapping-descriptive-statistics.html#cb449-86" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb449-87"><a href="online-mapping-descriptive-statistics.html#cb449-87" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb449-88"><a href="online-mapping-descriptive-statistics.html#cb449-88" aria-hidden="true" tabindex="-1"></a>pal1 <span class="ot">&lt;-</span> Joined <span class="sc">%&gt;%</span></span>
+<span id="cb449-89"><a href="online-mapping-descriptive-statistics.html#cb449-89" aria-hidden="true" tabindex="-1"></a>  <span class="fu">colorBin</span>(<span class="at">palette =</span> <span class="st">&quot;YlOrRd&quot;</span>, <span class="at">domain=</span>.<span class="sc">$</span><span class="st">`</span><span class="at">Airbnb count</span><span class="st">`</span>, <span class="at">bins=</span>breaks)</span>
+<span id="cb449-90"><a href="online-mapping-descriptive-statistics.html#cb449-90" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb449-91"><a href="online-mapping-descriptive-statistics.html#cb449-91" aria-hidden="true" tabindex="-1"></a>pal1 <span class="ot">&lt;-</span><span class="fu">colorBin</span>(<span class="at">palette =</span> <span class="st">&quot;YlOrRd&quot;</span>, <span class="at">domain=</span>Joined<span class="sc">$</span><span class="st">`</span><span class="at">Airbnb count</span><span class="st">`</span>, <span class="at">bins=</span>breaks)</span>
+<span id="cb449-92"><a href="online-mapping-descriptive-statistics.html#cb449-92" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb449-93"><a href="online-mapping-descriptive-statistics.html#cb449-93" aria-hidden="true" tabindex="-1"></a>pal2 <span class="ot">&lt;-</span> Joined <span class="sc">%&gt;%</span></span>
+<span id="cb449-94"><a href="online-mapping-descriptive-statistics.html#cb449-94" aria-hidden="true" tabindex="-1"></a>  <span class="fu">colorBin</span>(<span class="at">palette =</span> <span class="st">&quot;YlOrRd&quot;</span>, <span class="at">domain=</span>.<span class="sc">$</span><span class="st">`</span><span class="at">Hotel count</span><span class="st">`</span>, <span class="at">bins=</span>breaks)</span>
+<span id="cb449-95"><a href="online-mapping-descriptive-statistics.html#cb449-95" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb449-96"><a href="online-mapping-descriptive-statistics.html#cb449-96" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb449-97"><a href="online-mapping-descriptive-statistics.html#cb449-97" aria-hidden="true" tabindex="-1"></a>map<span class="ot">&lt;-</span> <span class="fu">leaflet</span>(Joined) <span class="sc">%&gt;%</span></span>
+<span id="cb449-98"><a href="online-mapping-descriptive-statistics.html#cb449-98" aria-hidden="true" tabindex="-1"></a>  <span class="co"># add basemap options</span></span>
+<span id="cb449-99"><a href="online-mapping-descriptive-statistics.html#cb449-99" aria-hidden="true" tabindex="-1"></a>  <span class="fu">addTiles</span>(<span class="at">group =</span> <span class="st">&quot;OSM (default)&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb449-100"><a href="online-mapping-descriptive-statistics.html#cb449-100" aria-hidden="true" tabindex="-1"></a>  <span class="fu">addProviderTiles</span>(providers<span class="sc">$</span>Stamen.Toner, <span class="at">group =</span> <span class="st">&quot;Toner&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb449-101"><a href="online-mapping-descriptive-statistics.html#cb449-101" aria-hidden="true" tabindex="-1"></a>  <span class="fu">addProviderTiles</span>(providers<span class="sc">$</span>Stamen.TonerLite, <span class="at">group =</span> <span class="st">&quot;Toner Lite&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb449-102"><a href="online-mapping-descriptive-statistics.html#cb449-102" aria-hidden="true" tabindex="-1"></a>  <span class="fu">addProviderTiles</span>(providers<span class="sc">$</span>CartoDB.Positron, <span class="at">group =</span> <span class="st">&quot;CartoDB&quot;</span>)<span class="sc">%&gt;%</span></span>
+<span id="cb449-103"><a href="online-mapping-descriptive-statistics.html#cb449-103" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb449-104"><a href="online-mapping-descriptive-statistics.html#cb449-104" aria-hidden="true" tabindex="-1"></a>  <span class="co">#add our polygons, linking to the tables we just made</span></span>
+<span id="cb449-105"><a href="online-mapping-descriptive-statistics.html#cb449-105" aria-hidden="true" tabindex="-1"></a>  <span class="fu">addPolygons</span>(<span class="at">color=</span><span class="st">&quot;white&quot;</span>, </span>
+<span id="cb449-106"><a href="online-mapping-descriptive-statistics.html#cb449-106" aria-hidden="true" tabindex="-1"></a>              <span class="at">weight =</span> <span class="dv">2</span>,</span>
+<span id="cb449-107"><a href="online-mapping-descriptive-statistics.html#cb449-107" aria-hidden="true" tabindex="-1"></a>              <span class="at">opacity =</span> <span class="dv">1</span>,</span>
+<span id="cb449-108"><a href="online-mapping-descriptive-statistics.html#cb449-108" aria-hidden="true" tabindex="-1"></a>              <span class="at">dashArray =</span> <span class="st">&quot;3&quot;</span>,</span>
+<span id="cb449-109"><a href="online-mapping-descriptive-statistics.html#cb449-109" aria-hidden="true" tabindex="-1"></a>              <span class="at">popup =</span> popupairbnb,</span>
+<span id="cb449-110"><a href="online-mapping-descriptive-statistics.html#cb449-110" aria-hidden="true" tabindex="-1"></a>              <span class="at">fillOpacity =</span> <span class="fl">0.7</span>,</span>
+<span id="cb449-111"><a href="online-mapping-descriptive-statistics.html#cb449-111" aria-hidden="true" tabindex="-1"></a>              <span class="at">fillColor =</span> <span class="sc">~</span><span class="fu">pal2</span>(<span class="st">`</span><span class="at">Airbnb count</span><span class="st">`</span>),</span>
+<span id="cb449-112"><a href="online-mapping-descriptive-statistics.html#cb449-112" aria-hidden="true" tabindex="-1"></a>              <span class="at">group =</span> <span class="st">&quot;Airbnb&quot;</span>)<span class="sc">%&gt;%</span></span>
+<span id="cb449-113"><a href="online-mapping-descriptive-statistics.html#cb449-113" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb449-114"><a href="online-mapping-descriptive-statistics.html#cb449-114" aria-hidden="true" tabindex="-1"></a>  <span class="fu">addPolygons</span>(<span class="at">fillColor =</span> <span class="sc">~</span><span class="fu">pal2</span>(<span class="st">`</span><span class="at">Hotel count</span><span class="st">`</span>), </span>
+<span id="cb449-115"><a href="online-mapping-descriptive-statistics.html#cb449-115" aria-hidden="true" tabindex="-1"></a>              <span class="at">weight =</span> <span class="dv">2</span>,</span>
+<span id="cb449-116"><a href="online-mapping-descriptive-statistics.html#cb449-116" aria-hidden="true" tabindex="-1"></a>              <span class="at">opacity =</span> <span class="dv">1</span>,</span>
+<span id="cb449-117"><a href="online-mapping-descriptive-statistics.html#cb449-117" aria-hidden="true" tabindex="-1"></a>              <span class="at">color =</span> <span class="st">&quot;white&quot;</span>,</span>
+<span id="cb449-118"><a href="online-mapping-descriptive-statistics.html#cb449-118" aria-hidden="true" tabindex="-1"></a>              <span class="at">dashArray =</span> <span class="st">&quot;3&quot;</span>,</span>
+<span id="cb449-119"><a href="online-mapping-descriptive-statistics.html#cb449-119" aria-hidden="true" tabindex="-1"></a>              <span class="at">popup =</span> popupairbnb,</span>
+<span id="cb449-120"><a href="online-mapping-descriptive-statistics.html#cb449-120" aria-hidden="true" tabindex="-1"></a>              <span class="at">fillOpacity =</span> <span class="fl">0.7</span>,<span class="at">group =</span> <span class="st">&quot;Hotels&quot;</span>)<span class="sc">%&gt;%</span></span>
+<span id="cb449-121"><a href="online-mapping-descriptive-statistics.html#cb449-121" aria-hidden="true" tabindex="-1"></a>  <span class="co"># add a legend</span></span>
+<span id="cb449-122"><a href="online-mapping-descriptive-statistics.html#cb449-122" aria-hidden="true" tabindex="-1"></a>  <span class="fu">addLegend</span>(<span class="at">pal =</span> pal2, <span class="at">values =</span> <span class="sc">~</span><span class="st">`</span><span class="at">Hotel count</span><span class="st">`</span>, <span class="at">group =</span> <span class="fu">c</span>(<span class="st">&quot;Airbnb&quot;</span>,<span class="st">&quot;Hotel&quot;</span>), </span>
+<span id="cb449-123"><a href="online-mapping-descriptive-statistics.html#cb449-123" aria-hidden="true" tabindex="-1"></a>            <span class="at">position =</span><span class="st">&quot;bottomleft&quot;</span>, <span class="at">title =</span> <span class="st">&quot;Accomodation count&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb449-124"><a href="online-mapping-descriptive-statistics.html#cb449-124" aria-hidden="true" tabindex="-1"></a>  <span class="co"># specify layers control</span></span>
+<span id="cb449-125"><a href="online-mapping-descriptive-statistics.html#cb449-125" aria-hidden="true" tabindex="-1"></a>  <span class="fu">addLayersControl</span>(</span>
+<span id="cb449-126"><a href="online-mapping-descriptive-statistics.html#cb449-126" aria-hidden="true" tabindex="-1"></a>    <span class="at">baseGroups =</span> <span class="fu">c</span>(<span class="st">&quot;OSM (default)&quot;</span>, <span class="st">&quot;Toner&quot;</span>, <span class="st">&quot;Toner Lite&quot;</span>, <span class="st">&quot;CartoDB&quot;</span>),</span>
+<span id="cb449-127"><a href="online-mapping-descriptive-statistics.html#cb449-127" aria-hidden="true" tabindex="-1"></a>    <span class="at">overlayGroups =</span> <span class="fu">c</span>(<span class="st">&quot;Airbnb&quot;</span>, <span class="st">&quot;Hotels&quot;</span>),</span>
+<span id="cb449-128"><a href="online-mapping-descriptive-statistics.html#cb449-128" aria-hidden="true" tabindex="-1"></a>    <span class="at">options =</span> <span class="fu">layersControlOptions</span>(<span class="at">collapsed =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb449-129"><a href="online-mapping-descriptive-statistics.html#cb449-129" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb449-130"><a href="online-mapping-descriptive-statistics.html#cb449-130" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb449-131"><a href="online-mapping-descriptive-statistics.html#cb449-131" aria-hidden="true" tabindex="-1"></a><span class="co"># plot the map</span></span>
+<span id="cb449-132"><a href="online-mapping-descriptive-statistics.html#cb449-132" aria-hidden="true" tabindex="-1"></a>map</span></code></pre></div>
 <ol style="list-style-type: decimal">
 <li>Add some text at the start of your <code>.Rmd</code> you can include titles and subtitle using # followed by a space, a second level subtitle would be ##, and third ###</li>
 </ol>
-<div class="sourceCode" id="cb454"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb454-1"><a href="online-mapping-descriptive-statistics.html#cb454-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Title</span></span>
-<span id="cb454-2"><a href="online-mapping-descriptive-statistics.html#cb454-2" aria-hidden="true" tabindex="-1"></a><span class="do">## Second sub title</span></span>
-<span id="cb454-3"><a href="online-mapping-descriptive-statistics.html#cb454-3" aria-hidden="true" tabindex="-1"></a><span class="do">### Third sub title</span></span></code></pre></div>
+<div class="sourceCode" id="cb450"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb450-1"><a href="online-mapping-descriptive-statistics.html#cb450-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Title</span></span>
+<span id="cb450-2"><a href="online-mapping-descriptive-statistics.html#cb450-2" aria-hidden="true" tabindex="-1"></a><span class="do">## Second sub title</span></span>
+<span id="cb450-3"><a href="online-mapping-descriptive-statistics.html#cb450-3" aria-hidden="true" tabindex="-1"></a><span class="do">### Third sub title</span></span></code></pre></div>
 <ol start="7" style="list-style-type: decimal">
 <li><p>Save the file, Knitt it to HTML, this should be default and specified in the header — enclosed by three dashes.</p></li>
 <li><p>Once knitted you can easily publish the file to Ppubs using the Publish icon either in the viewer pane or the toolbar area (by run)</p></li>
 </ol>
 <p><img src="prac8_images/publish.png" width="200pt" style="display: block; margin: auto;" /></p>
 <p>Now how about adding a few design features…i’ve changed my header section to…</p>
-<div class="sourceCode" id="cb455"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb455-1"><a href="online-mapping-descriptive-statistics.html#cb455-1" aria-hidden="true" tabindex="-1"></a><span class="sc">---</span></span>
-<span id="cb455-2"><a href="online-mapping-descriptive-statistics.html#cb455-2" aria-hidden="true" tabindex="-1"></a>title<span class="sc">:</span> <span class="st">&quot;publishexample&quot;</span></span>
-<span id="cb455-3"><a href="online-mapping-descriptive-statistics.html#cb455-3" aria-hidden="true" tabindex="-1"></a>output<span class="sc">:</span></span>
-<span id="cb455-4"><a href="online-mapping-descriptive-statistics.html#cb455-4" aria-hidden="true" tabindex="-1"></a>  html_document<span class="sc">:</span></span>
-<span id="cb455-5"><a href="online-mapping-descriptive-statistics.html#cb455-5" aria-hidden="true" tabindex="-1"></a>    theme<span class="sc">:</span> yeti</span>
-<span id="cb455-6"><a href="online-mapping-descriptive-statistics.html#cb455-6" aria-hidden="true" tabindex="-1"></a>    smart<span class="sc">:</span> true</span>
-<span id="cb455-7"><a href="online-mapping-descriptive-statistics.html#cb455-7" aria-hidden="true" tabindex="-1"></a>    highlight<span class="sc">:</span> textmate</span>
-<span id="cb455-8"><a href="online-mapping-descriptive-statistics.html#cb455-8" aria-hidden="true" tabindex="-1"></a>    toc<span class="sc">:</span> true</span>
-<span id="cb455-9"><a href="online-mapping-descriptive-statistics.html#cb455-9" aria-hidden="true" tabindex="-1"></a>    number_sections<span class="sc">:</span> true</span>
-<span id="cb455-10"><a href="online-mapping-descriptive-statistics.html#cb455-10" aria-hidden="true" tabindex="-1"></a>    toc_float<span class="sc">:</span></span>
-<span id="cb455-11"><a href="online-mapping-descriptive-statistics.html#cb455-11" aria-hidden="true" tabindex="-1"></a>      collapsed<span class="sc">:</span> false</span>
-<span id="cb455-12"><a href="online-mapping-descriptive-statistics.html#cb455-12" aria-hidden="true" tabindex="-1"></a>      smooth_scroll<span class="sc">:</span> true</span>
-<span id="cb455-13"><a href="online-mapping-descriptive-statistics.html#cb455-13" aria-hidden="true" tabindex="-1"></a><span class="sc">---</span></span></code></pre></div>
+<div class="sourceCode" id="cb451"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb451-1"><a href="online-mapping-descriptive-statistics.html#cb451-1" aria-hidden="true" tabindex="-1"></a><span class="sc">---</span></span>
+<span id="cb451-2"><a href="online-mapping-descriptive-statistics.html#cb451-2" aria-hidden="true" tabindex="-1"></a>title<span class="sc">:</span> <span class="st">&quot;publishexample&quot;</span></span>
+<span id="cb451-3"><a href="online-mapping-descriptive-statistics.html#cb451-3" aria-hidden="true" tabindex="-1"></a>output<span class="sc">:</span></span>
+<span id="cb451-4"><a href="online-mapping-descriptive-statistics.html#cb451-4" aria-hidden="true" tabindex="-1"></a>  html_document<span class="sc">:</span></span>
+<span id="cb451-5"><a href="online-mapping-descriptive-statistics.html#cb451-5" aria-hidden="true" tabindex="-1"></a>    theme<span class="sc">:</span> yeti</span>
+<span id="cb451-6"><a href="online-mapping-descriptive-statistics.html#cb451-6" aria-hidden="true" tabindex="-1"></a>    smart<span class="sc">:</span> true</span>
+<span id="cb451-7"><a href="online-mapping-descriptive-statistics.html#cb451-7" aria-hidden="true" tabindex="-1"></a>    highlight<span class="sc">:</span> textmate</span>
+<span id="cb451-8"><a href="online-mapping-descriptive-statistics.html#cb451-8" aria-hidden="true" tabindex="-1"></a>    toc<span class="sc">:</span> true</span>
+<span id="cb451-9"><a href="online-mapping-descriptive-statistics.html#cb451-9" aria-hidden="true" tabindex="-1"></a>    number_sections<span class="sc">:</span> true</span>
+<span id="cb451-10"><a href="online-mapping-descriptive-statistics.html#cb451-10" aria-hidden="true" tabindex="-1"></a>    toc_float<span class="sc">:</span></span>
+<span id="cb451-11"><a href="online-mapping-descriptive-statistics.html#cb451-11" aria-hidden="true" tabindex="-1"></a>      collapsed<span class="sc">:</span> false</span>
+<span id="cb451-12"><a href="online-mapping-descriptive-statistics.html#cb451-12" aria-hidden="true" tabindex="-1"></a>      smooth_scroll<span class="sc">:</span> true</span>
+<span id="cb451-13"><a href="online-mapping-descriptive-statistics.html#cb451-13" aria-hidden="true" tabindex="-1"></a><span class="sc">---</span></span></code></pre></div>
 <ol start="9" style="list-style-type: decimal">
 <li><p>Knit and then publish again…you’ll notice a few aesthetic changes</p></li>
 <li><p>To learn more about these go explore:</p></li>
@@ -1209,15 +1190,15 @@ Bit different from me this week - I’m not all about drum and bass (although I 
 <ol start="12" style="list-style-type: decimal">
 <li>In the <code>_site.yml</code> remove all code and add the following</li>
 </ol>
-<div class="sourceCode" id="cb456"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb456-1"><a href="online-mapping-descriptive-statistics.html#cb456-1" aria-hidden="true" tabindex="-1"></a>name<span class="sc">:</span> <span class="st">&quot;Hello world&quot;</span></span>
-<span id="cb456-2"><a href="online-mapping-descriptive-statistics.html#cb456-2" aria-hidden="true" tabindex="-1"></a>output_dir<span class="sc">:</span> <span class="st">&quot;.&quot;</span></span>
-<span id="cb456-3"><a href="online-mapping-descriptive-statistics.html#cb456-3" aria-hidden="true" tabindex="-1"></a>navbar<span class="sc">:</span></span>
-<span id="cb456-4"><a href="online-mapping-descriptive-statistics.html#cb456-4" aria-hidden="true" tabindex="-1"></a>  title<span class="sc">:</span> <span class="st">&quot;My example website&quot;</span></span>
-<span id="cb456-5"><a href="online-mapping-descriptive-statistics.html#cb456-5" aria-hidden="true" tabindex="-1"></a>  left<span class="sc">:</span></span>
-<span id="cb456-6"><a href="online-mapping-descriptive-statistics.html#cb456-6" aria-hidden="true" tabindex="-1"></a>    <span class="sc">-</span> text<span class="sc">:</span> <span class="st">&quot;Home&quot;</span></span>
-<span id="cb456-7"><a href="online-mapping-descriptive-statistics.html#cb456-7" aria-hidden="true" tabindex="-1"></a>      href<span class="sc">:</span> index.html</span>
-<span id="cb456-8"><a href="online-mapping-descriptive-statistics.html#cb456-8" aria-hidden="true" tabindex="-1"></a>    <span class="sc">-</span> text<span class="sc">:</span> <span class="st">&quot;About&quot;</span></span>
-<span id="cb456-9"><a href="online-mapping-descriptive-statistics.html#cb456-9" aria-hidden="true" tabindex="-1"></a>      href<span class="sc">:</span> publishexample.html</span></code></pre></div>
+<div class="sourceCode" id="cb452"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb452-1"><a href="online-mapping-descriptive-statistics.html#cb452-1" aria-hidden="true" tabindex="-1"></a>name<span class="sc">:</span> <span class="st">&quot;Hello world&quot;</span></span>
+<span id="cb452-2"><a href="online-mapping-descriptive-statistics.html#cb452-2" aria-hidden="true" tabindex="-1"></a>output_dir<span class="sc">:</span> <span class="st">&quot;.&quot;</span></span>
+<span id="cb452-3"><a href="online-mapping-descriptive-statistics.html#cb452-3" aria-hidden="true" tabindex="-1"></a>navbar<span class="sc">:</span></span>
+<span id="cb452-4"><a href="online-mapping-descriptive-statistics.html#cb452-4" aria-hidden="true" tabindex="-1"></a>  title<span class="sc">:</span> <span class="st">&quot;My example website&quot;</span></span>
+<span id="cb452-5"><a href="online-mapping-descriptive-statistics.html#cb452-5" aria-hidden="true" tabindex="-1"></a>  left<span class="sc">:</span></span>
+<span id="cb452-6"><a href="online-mapping-descriptive-statistics.html#cb452-6" aria-hidden="true" tabindex="-1"></a>    <span class="sc">-</span> text<span class="sc">:</span> <span class="st">&quot;Home&quot;</span></span>
+<span id="cb452-7"><a href="online-mapping-descriptive-statistics.html#cb452-7" aria-hidden="true" tabindex="-1"></a>      href<span class="sc">:</span> index.html</span>
+<span id="cb452-8"><a href="online-mapping-descriptive-statistics.html#cb452-8" aria-hidden="true" tabindex="-1"></a>    <span class="sc">-</span> text<span class="sc">:</span> <span class="st">&quot;About&quot;</span></span>
+<span id="cb452-9"><a href="online-mapping-descriptive-statistics.html#cb452-9" aria-hidden="true" tabindex="-1"></a>      href<span class="sc">:</span> publishexample.html</span></code></pre></div>
 </div>
 <div id="link-to-github" class="section level4" number="8.4.4.2">
 <h4><span class="header-section-number">8.4.4.2</span> Link to GitHub</h4>
@@ -1252,9 +1233,9 @@ Bit different from me this week - I’m not all about drum and bass (although I 
 <li><p>Next we need to actually build the site…there are a few ways to do this…Go to the Git tab you should see the Build tab, if you can’t then go to Tools &gt; Project Options &gt; Build Tools and select website under Project build tools. Now click Build Website under the build tab</p></li>
 <li><p>Alternatively you write the following in the console</p></li>
 </ol>
-<div class="sourceCode" id="cb457"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb457-1"><a href="online-mapping-descriptive-statistics.html#cb457-1" aria-hidden="true" tabindex="-1"></a>rmarkdown<span class="sc">::</span><span class="fu">render_site</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb453"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb453-1"><a href="online-mapping-descriptive-statistics.html#cb453-1" aria-hidden="true" tabindex="-1"></a>rmarkdown<span class="sc">::</span><span class="fu">render_site</span>()</span></code></pre></div>
 <p>If you wanted to just build a page from your site — say if you have made a rather big site with lots of analysis use:</p>
-<div class="sourceCode" id="cb458"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb458-1"><a href="online-mapping-descriptive-statistics.html#cb458-1" aria-hidden="true" tabindex="-1"></a>rmarkdown<span class="sc">::</span><span class="fu">render_site</span>(<span class="st">&quot;index.Rmd&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb454"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb454-1"><a href="online-mapping-descriptive-statistics.html#cb454-1" aria-hidden="true" tabindex="-1"></a>rmarkdown<span class="sc">::</span><span class="fu">render_site</span>(<span class="st">&quot;index.Rmd&quot;</span>)</span></code></pre></div>
 <ol start="22" style="list-style-type: decimal">
 <li>Stage, commit and then push the files to your GitHub. I had some issues staging the <code>site_libs</code> folder in the Git tab. I fixed it by closing and reloading my R project then clicking the cog symbol (under Git tab) &gt; Shell and typing <code>git add .</code> If you get an error message about the index file being locked… go and delete it and try again. If you can’t delete restart the machine and try again. You will find it in the .git folder within your project. Once <code>git add .</code> runs you should see all the files staged, be able to commit and then push the changes to GitHub</li>
 </ol>

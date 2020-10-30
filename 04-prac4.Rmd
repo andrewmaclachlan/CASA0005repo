@@ -195,7 +195,7 @@ Alternatively if you would like to use Git but you’re working on the UCL Remot
 
 1. In the Start Menu, open the git GUI. Start > Git > Git GUI. You should open the existing repository that you have just created.
 
-1. Whenever you have made some changes to your files in your cloned repo, you can use git to review the changes and ‘Commit’ (save) them and then ‘Push’ them up to your master repository on GitHub.
+1. Whenever you have made some changes to your files in your cloned repo, you can use git to review the changes and ‘Commit’ (save) them and then ‘Push’ them up to your main repository on GitHub.
 
 1. To review and commit your changes, in the commit menu, simply:
 
@@ -208,7 +208,7 @@ d. push the changes to your GitHub repo
 
 Now we can push our changes to GitHub using the up arrow either in the RStudio Git tab (envrionment quadrant), or from the review changes box (opens when you click commit).
 
-1. To do this, first make sure you have committed any changes to your local cloned repo and then click the ‘Push’ button to whizz your code up to your master GitHub repo --- you might be prompted to enter your github username and password to enable this...
+1. To do this, first make sure you have committed any changes to your local cloned repo and then click the ‘Push’ button to whizz your code up to your main GitHub repo --- you might be prompted to enter your github username and password to enable this...
 
 But....if the push button is greyed out go to the section [Greyed out push button]
 
@@ -216,7 +216,7 @@ But....if the push button is greyed out go to the section [Greyed out push butto
 
 1. Pull will take any changes to the global repo and bring them into your local repo. Go to your example GitHub repo (online) and click on your test file > edit this file.
 
-1. Add a line of code or a comment, preview the changes then commit directly to the master branch.
+1. Add a line of code or a comment, preview the changes then commit directly to the main branch.
 
 ```{r echo=FALSE, out.width = "800pt", fig.align='center', cache=TRUE}
 knitr::include_graphics('prac4_images/pullexample.png') 
@@ -273,16 +273,17 @@ Then check the current branch in RStudio (and Git) is tracking a branch on the r
 git branch -vv
 
 ## output
-master 3abe929 [origin/main] test3
+main 3abe929 [origin/main] test3
 ```
 
-Origin/master shows that the local master is tracking the origin/master on the remote repo. If you can't see origin/master then set it using:
+Origin/main shows that the local main is tracking the origin/main on the remote repo. If you can't see origin/main then set it using the following code. At the moment RStudio and git still defaults to the starting branch of master so the fist line below will change it to main --- which is required to match with the remote (GitHub).
 
 ```{r, eval=FALSE, cache=TRUE}
-git push --set-upstream origin main
+git branch -M main
+git push -u origin main
 ```
 
->Origin is the repository you cloned (from GitHub) and master is the name of the branch. You might see something like...your branch is ahead of origin/master by 1 commit. This means you have commited something you are working on in you local repo (Git) that hasn't yet been pushed to GitHub (the origin) and master branch...GitHub defaults the first branch to be called master.
+>Origin is the repository you cloned (from GitHub) and main is the name of the branch. You might see something like...your branch is ahead of origin/main by 1 commit. This means you have commited something you are working on in you local repo (Git) that hasn't yet been pushed to GitHub (the origin) and main branch...GitHub defaults the first branch to be called main
 
 If you need to change the URL of your GitHub .... so where you push your local Git to the GitHub account (changing this), perhaps you have made a new GitHub repo...
 
@@ -363,11 +364,11 @@ knitr::include_graphics('prac4_images/branch.png')
 knitr::include_graphics('prac4_images/branchtest.png') 
 ```
 
-1. Here, we're going to commit directly to the new branch. We could have made these changes to the master branch and then made a new branch for them at this stage. Commit the changes.
+1. Here, we're going to commit directly to the new branch. We could have made these changes to the main branch and then made a new branch for them at this stage. Commit the changes.
 
-1. Go to the home page of our example branch (click the branch down arrow and select your example branch). You'll see that our example branch is now 1 commit ahead of the master. 
+1. Go to the home page of our example branch (click the branch down arrow and select your example branch). You'll see that our example branch is now 1 commit ahead of the main 
 
-Now let's create a **pull** reqest to the master branch. If you had modified someone else's code, then you would send a reqest to them to pull in the changes. Here we are doing a pull request for ourselves --- from our example branch to our master.
+Now let's create a **pull** request to the main branch. If you had modified someone else's code, then you would send a request to them to pull in the changes. Here we are doing a pull request for ourselves --- from our example branch to our main.
 
 1. Click New pull request.
 
@@ -381,7 +382,7 @@ knitr::include_graphics('prac4_images/branchcompare.png')
 
 1. Select squash and merge > confirm squash and merge. This means that all our commits on the exmaple branch and squashed into one, as we only have one it doesn't matter but could be useful in future. 
 
-1. Go back to your master branch repositry and you should see the changes from the example branch have been merged.
+1. Go back to your main branch repositry and you should see the changes from the example branch have been merged.
 
 We will show you how to publish RMarkdown documents online in a later practical.
 
@@ -413,13 +414,10 @@ To do this we need to clearly know what we are trying to acheive, for us it's ea
 
 We have to use the shell again, click the cog icon then shell..
 
-```{r echo=FALSE, out.width = "600pt", fig.align='center', cache=TRUE}
-knitr::include_graphics('prac4_images/backtime2.png')
-```
-
-Now, there are two commands we can use here `git reset --soft HEAD~1` or `git reset --soft HEAD~1`. These simply tell Git to reset to Head-1 commit (your current commit is the Head). Changing the number will alter how many commits you go back. Hard will delete all the changes in the previous commit, soft will move the changes we committed to the Git tab, reversing out commit --- always use soft!
+Now, there are two commands we can use here `git reset --hard HEAD~1` or `git reset --soft HEAD~1`. These simply tell Git to reset to Head-1 commit (your current commit is the Head). Changing the number will alter how many commits you go back. Hard will delete all the changes in the previous commit, soft will move the changes we committed to the Git tab, reversing out commit --- always use soft!
 
 Type the command `git reset --soft HEAD~1`, the press enter...
+
 
 ```{r echo=FALSE, out.width = "600pt", fig.align='center', cache=TRUE}
 knitr::include_graphics('prac4_images/backtime3.png')
@@ -439,9 +437,9 @@ But wait (again!)...more incoming news from management...`t` is wrong, is should
 
 If we use `reset` once we've pushed to GitHub it will rewrite the commit history and won't match with GitHub, so if you tried to push to GitHub you will get an error saying the tip of your local branch is behind the remote. This is because you have done back in time locally. It will ask you to pull the changes from the remote. If you have `reset`, made changes, tried to push, got an error, tried to pull --- you will likely get a merge conflict message that you have to correct manually. 
 
-However, we can instead use `revert` to maintain the history and avoid any conflicts --- revert adds a new commit at then end of the 'chain' of commits. In our case (b) is the curret head, it will add a new commit that is our origial (a) to the end of the chain. On the other hand `reset` will move your local master (or other branch) back in the chain of commits,  but if you moved your local git back whilst your remote (GitHub) remains further along the chain this will cause an error and merge conflicts!
+However, we can instead use `revert` to maintain the history and avoid any conflicts --- revert adds a new commit at then end of the 'chain' of commits. In our case (b) is the curret head, it will add a new commit that is our origial (a) to the end of the chain. On the other hand `reset` will move your local main (or other branch) back in the chain of commits,  but if you moved your local git back whilst your remote (GitHub) remains further along the chain this will cause an error and merge conflicts!
 
-To use git `revert` you have two options either just: `git revert HEAD` or `git revert [input commit ID]`. Every commit you make will have an ID (called an SHA). To see the SHA just go to Diff (in the Git tab) > History (top left of the review changes window) --- note down your SHA and use it in the shell command.
+To use git `revert` you have two options either just: `git revert HEAD` or `git revert [input commit ID]` - but just get the commit ID for the latest commit nothing before it! . Every commit you make will have an ID (called an SHA). To see the SHA just go to Diff (in the Git tab) > History (top left of the review changes window) --- note down your SHA and use it in the shell command.
 
 Ok, so to use `revert` go to the shell and enter `git revert HEAD`
 
@@ -456,6 +454,24 @@ If you really want to change the commit message then you need to get into insert
 ::: {.infobox .warning data-latex="{note}"}
 If you are storing your R project in a folder that is synchronises online (e.g. OneDrive) you might have issues with this. When you use `revert` git locks a file which mean it can't synchronise, if you try and do another `revert` git will not know who you are. It looks like the process of reverting still happens, but just be careful!
 :::
+
+Also if you want to go back several commits as opposed to just one you must write the code as `git revert HEAD HEAD~1 HEAD~2` and so on. Remember HEAD is the last commit you sent to Github, HEAD~1 the one before etc.
+
+You could also specify this as `git revert HEAD~2..HEAD`, where i think it's possible to replace HEAD~2 with a commit ID. 
+
+[Boris Serebrov](http://serebrov.github.io/html/2014-01-04-git-revert-multiple-recent-comments.html) explains more advance useage of `revert` very well.
+
+#### On final trick
+
+What if you wanted to go back in time and restart from that point. Of course you could use revert. However another possible way is to trick GitHub by combining ` git reset --hard` and  `git reset --soft`. First do a hard reset to using the commit ID you want to go back to...
+
+1.  `git reset --hard commit ID`
+
+Then do a soft reset to trick git to moving the pointed back to the end (or back to head), which is what the remote is expecting 
+
+1.  `git reset --soft HEAD@{1}`
+
+Then commit `git commit -m "going back to x commit` (or with the commit button) and push `git push` (or with the push button).
 
 #### Git commands
 
