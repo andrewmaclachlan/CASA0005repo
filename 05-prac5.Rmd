@@ -11,14 +11,14 @@ By the end of this practical you should be able to:
 
 ## Homework
 
-Outside of our schedulded sessions you should be doing around 12 hours of extra study per week. Feel free to follow your own GIS interests, but good places to start include the following:
+Outside of our scheduled sessions you should be doing around 12 hours of extra study per week. Feel free to follow your own GIS interests, but good places to start include the following:
 
 ::: {.infobox .assignment data-latex="{note}"}
 **Assignment homework**
 
 This week
 
-1. Fill in [this short assignment proposal form](https://forms.office.com/Pages/ResponsePage.aspx?id=_oivH5ipW0yTySEKEdmlwmn4XmBirltMqACHJtPhCelUQ1k5Q0VBWUJGS0cwMDhZT1BSOExVTURXVC4u) by 9am the Monday of reading week (9th November)
+1. Fill in [this short assignment proposal form](https://forms.office.com/Pages/ResponsePage.aspx?id=_oivH5ipW0yTySEKEdmlwmn4XmBirltMqACHJtPhCelUQ1k5Q0VBWUJGS0cwMDhZT1BSOExVTURXVC4u) by 9am the Tuesday of reading week (10th November)
 
 1. Create a draft of the methodology / initial ideas that can be expanded on as we move to more advanced analysis in the second part of the course.
 :::
@@ -41,7 +41,9 @@ Remember this is just a starting point, explore the [reading list](https://rl.ta
 
 Some of these practicals are long, take regular breaks and have a listen to some of our fav tunes each week.
 
-[Andy](https://www.youtube.com/watch?v=rId6PKlDXeU)
+[Andy](https://open.spotify.com/album/0Wmnkh4lzGy5rgkUPOjYbg). Mumford & Sons, unique sound classed as British folk rock apparently. Enjoy! 
+
+[Adam](https://open.spotify.com/album/6QcNw2Tt4KxraptfxcYzNy) Your ears are in for an absolute treat this week. Hospital Records have only gone and put out a mind-blowing mini compilation album which completely smashes it. It's NHS400 - get your ears around this!
 
 ## Introduction 
 
@@ -89,9 +91,17 @@ We will use World cities to provide some context to our maps.
 
 1. Download them from the [ArcGIS HUB](https://hub.arcgis.com/datasets/6996f03a1b364dbab4008d99380370ed_0) > Download > Shapefile.
 
+### Airbnb
+
+1. Download the `listings.csv` from the [inside airbnb website](http://insideairbnb.com/get-the-data.html) for London.
+
+::: {.infobox .warning data-latex="{note}"}
+In the lecture we discussed how when producing maps there should be some sort of common denominator as opposed to mapping raw counts. Go and source a suitable common denominator then using the skills from previous weeks normalise your data. **Hint** there is a table on the [Office for National Statistics NOMIS website](https://www.nomisweb.co.uk/census/2011/data_finder) called number of bedrooms which would let you normalise the airbnb and hotel data based on the number of bedrooms in each ward. 
+:::
+
 ## QGIS
 
-Ok, now we're going to reproduce our map in QIGS. As i've given most of the reasoning behind all the tools in the previous ArcMap section this will be more quickfire...
+Ok, now we're going to reproduce our map in QIGS.
 
 ### Load data
 
