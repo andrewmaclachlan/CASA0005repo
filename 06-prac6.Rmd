@@ -255,31 +255,34 @@ Qcount <- BluePlaquesSub.ppp %>%
   dplyr::count(Var1=Freq)%>%
   dplyr::rename(Freqquadratcount=n)
 
-#we don't need the last row, so remove it
-QCountTable <- Qcount %>%
-  slice(.,
-        -(nrow(Qcount)))
 ```
 
 Check the data type in the first column --- if it is factor, we will need to convert it to numeric
 
 ```{r, cache=TRUE}
-QCountTable %>% 
+Qcount %>% 
   summarise_all(class)
 ```
 
 OK, so we now have a frequency table --- next we need to calculate our expected values. The formula for calculating expected probabilities based on the Poisson distribution is:
 
 $$Pr= (X =k) = \frac{\lambda^{k}e^{-\lambda}}{k!}$$
+where:
+
+* `x` is the number of occurrences 
+
+* `λ` is the mean number of occurrences
+
+* `e` is a constant- 2.718
 
 ```{r, cache=TRUE}
-sums <- QCountTable %>%
+sums <- Qcount %>%
   #calculate the total blue plaques (Var * Freq)
   mutate(total = Var1 * Freqquadratcount) %>%
   dplyr::summarise(across(everything(), sum))%>%
   dplyr::select(-Var1) 
 
-lambda<- QCountTable%>%
+lambda<- Qcount%>%
   #calculate lambda
   mutate(total = Var1 * Freqquadratcount)%>%
   dplyr::summarise(across(everything(), sum)) %>%
@@ -289,13 +292,15 @@ lambda<- QCountTable%>%
 
 ```
 
+
 Calculate expected using the Poisson formula from above $k$ is the number of blue plaques counted in a square and is found in the first column of our table...
 
 ```{r, cache=TRUE}
 
-QCountTable <- QCountTable %>%
+QCountTable <- Qcount %>%
   mutate(Pr=((lambda^Var1)*exp(-lambda))/factorial(Var1))%>%
-  #now calculate the expected counts and save them to the table
+  #now calculate the expected counts based on our total number of plaques
+  #and save them to the table
   mutate(Expected= (round(Pr * sums$Freqquadratcount, 0)))
 
 #Compare the frequency distributions of the observed and expected point patterns
@@ -306,14 +311,17 @@ points(QCountTable$Freqquadratcount,
        col="Red", 
        type="o", 
        lwd=3)
-points(QCountTable$Expected, col="Blue", 
+points(Qcount$Expected, col="Blue", 
        type="o", 
        lwd=3)
 ```
+Comparing the observed and expected frequencies for our quadrat counts, we can observe that they both have higher frequency counts at the lower end --- something reminiscent of a Poisson distribution. This could indicate that for this particular set of quadrants, our pattern is close to Complete Spatial Randomness (i.e. no clustering or dispersal of points). But how do we confirm this?
 
-Comparing the observed and expected frequencies for our quadrat counts, we can observe that they both have higher frequency counts at the lower end --- something reminiscent of a Poisson distribution. This could indicate that for this particular set of quadrats, our pattern is close to Complete Spatial Randomness (i.e. no clustering or dispersal of points). But how do we confirm this?
+To check for sure, we can use the `quadrat.test()` function, built into `spatstat`. This uses a Chi Squared test to compare the observed and expected frequencies for each quadrant (rather than for quadrant bins, as we have just computed above).
 
-To check for sure, we can use the `quadrat.test()` function, built into `spatstat`. This uses a Chi Squared test to compare the observed and expected frequencies for each quadrat (rather than for quadrat bins, as we have just computed above). If the p-value of our Chi-Squared test is > 0.05, then we can reject a null hyphothesis that says "there is *no* complete spatial randomness in our data" (think of a null-hypothesis as the opposite of a hypothesis that says our data exhibit complete spatial randomness). What we need to look for is a value for p > 0.05. If our p-value is > 0.05 then this indicates that we have CSR and there is no pattern in our points. If it is < 0.05, this indicates that we do have clustering in our points. 
+A Chi-Squared test determines if there is an association between two categorical variables. The higher the Chi-Squared value, the greater the difference.
+
+If the p-value of our Chi-Squared test is > 0.05, then we can reject a null hypothesis that says "there is *no* complete spatial randomness in our data" (think of a null-hypothesis as the opposite of a hypothesis that says our data exhibit complete spatial randomness). What we need to look for is a value for p > 0.05. If our p-value is > 0.05 then this indicates that we have CSR and there is no pattern in our points. If it is < 0.05, this indicates that we do have clustering in our points. 
 
 ```{r message=FALSE, warning=FALSE, cache=TRUE}
 
@@ -323,9 +331,9 @@ plot(BluePlaquesSub.ppp,pch=16,cex=0.5, main="Blue Plaques in Harrow")
 plot(teststats, add=T, col = "red")
 ```
 
-So we can see that the indications are there is no spatial patterning for Blue Plaques in Harrow --- at least for this particular grid. Note the warning message --- some of the observed counts are very small (0) and this may affect the accuracy of the quadrat test. Recall that the Poisson distribution only describes observed occurrances that are counted in integers --- where our occurances = 0 (i.e. not observed), this can be an issue. We also know that there are various other problems that might affect our quadrat analysis, such as the [modifiable areal unit problem](https://www.youtube.com/watch?v=cZdlxDx4Nvs).
+So we can see that the indications are there is no spatial patterning for Blue Plaques in Harrow --- at least for this particular grid. Note the warning message --- some of the observed counts are very small (0) and this may affect the accuracy of the quadrant test. Recall that the Poisson distribution only describes observed occurrances that are counted in integers --- where our occurrences = 0 (i.e. not observed), this can be an issue. We also know that there are various other problems that might affect our quadrat analysis, such as the [modifiable areal unit problem](https://www.youtube.com/watch?v=cZdlxDx4Nvs).
 
-In the new plot, we can see three figures for each quadrat. The top-left figure is the observed count of points; the top-right is the Poisson expected number of points; the bottom value is the  residual value (also known as Pearson residual value), or (Observed - Expected) / Sqrt(Expected).
+In the new plot, we can see three figures for each quadrant. The top-left figure is the observed count of points; the top-right is the Poisson expected number of points; the bottom value is the  residual value (also known as Pearson residual value), or (Observed - Expected) / Sqrt(Expected).
 
 ::: {.infobox .note data-latex="{note}"}
 
@@ -334,7 +342,7 @@ This is the first mention of the mathematician Karl Pearson who founded the worl
 
 ### Try experimenting...
 
-Try running a quadrat analysis for different grid arrangements (2 x 2, 3 x 3, 10 x 10 etc.) --- how does this affect your results?
+Try running a quadrant analysis for different grid arrangements (2 x 2, 3 x 3, 10 x 10 etc.) --- how does this affect your results?
 
 ### Ripley's K
 
@@ -513,16 +521,15 @@ autoplot(basemap_bng) +
 ## Point pattern analysis summary
 
 This is end of the point pattern analysis section of the practical. You have  been introduced to the basics of Point Pattern Analysis examining the distribution of Blue Plaques in a London Borough. At this point, you may wish to try running similar analyses on different boroughs (or indeed the whole city) and playing with some of the outputs --- although you will find that Ripley's K will fall over very quickly if you try to run the analysis on that many points) 
-
 This how you might make use of these techniques in another context or with different point data...
 
 ## Analysing Spatial Autocorrelation with Moran's I, LISA and friends
 
-In this section we are going to explore patterns of spatially referenced continuous observations using various measures of spatial autocorrelation. Spatial autocorrelation is a measure of similarity between nearby data. Check out the various references in the reading list for more information about the methods we will explore today. There are also useful links in the helpfile of the `spdep` package which we will be using here.
+In this section we are going to explore patterns of spatially referenced continuous observations using various measures of spatial autocorrelation. Spatial autocorrelation is a measure of similarity between nearby data. Check out the various references in the reading list for more information about the methods we will explore today. There are also useful links in the help file of the `spdep` package which we will be using here.
 
 ### Data download
 
-Before we get any further, let's get some ward boundaries read in to R --- download LondonWardData from [Github](https://github.com/andrewmaclachlan/CASA0005repo/tree/master/prac6_data) and read it in...
+Before we get any further, let's get some ward boundaries read in to R --- download LondonWardData from [the London Data store](https://data.london.gov.uk/dataset/statistical-gis-boundary-files-london) and read it in...
 
 ```{r, cache=TRUE}
 library(here)
