@@ -311,7 +311,7 @@ points(QCountTable$Freqquadratcount,
        col="Red", 
        type="o", 
        lwd=3)
-points(Qcount$Expected, col="Blue", 
+points(QCountTable$Expected, col="Blue", 
        type="o", 
        lwd=3)
 ```
