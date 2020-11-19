@@ -452,6 +452,19 @@ chulls <- BluePlaquesSubPoints %>%
   dplyr::mutate(hull = 1:n(),
   hull = factor(hull, chull(coords.x1, coords.x2)))%>%
   arrange(hull)
+  
+#better way
+chulls_1<- BluePlaquesSubPoints %>%
+  group_by(dbcluster) %>%
+  nest() %>% 
+  mutate(hull= map(data,~with(.x,chull(coords.x1,coords.x2))),
+         out = map2(data, hull, ~ .x[.y,,drop=FALSE]))%>%
+  select(-data) %>%
+  unnest()
+  
+chulls_1 <- chulls_1 %>%
+  filter(dbcluster >=1)
+  
 
 #chulls2 <- ddply(BluePlaquesSubPoints, .(dbcluster), 
               #  function(df) df[chull(df$coords.x1, df$coords.x2), ])
