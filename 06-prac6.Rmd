@@ -506,7 +506,7 @@ basemap_bng <- openproj(basemap, projection="+init=epsg:27700")
 Now we can plot our fancy map with the clusters on...
 
 ```{r, cache=TRUE}
-autoplot(basemap_bng) + 
+autoplot.OpenStreetMap(basemap_bng) + 
   geom_point(data=BluePlaquesSubPoints, 
              aes(coords.x1,coords.x2, 
                  colour=dbcluster, 
