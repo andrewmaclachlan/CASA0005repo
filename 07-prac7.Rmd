@@ -97,7 +97,7 @@ To download the data:
 
 #### Alternative raster data
 
-Occasionally the earth explorer website can go down for maintenance or during government shutdowns. If possible I strongly advise you to learn how to use it’s interface as multiple other data providers have similar interfaces. GitHub also place a strict size limit on files of 100MB. However, in order to account for situations like this I’ve placed the zipped file on GoogleDrive and will demonstrate how to access this from R using the new `googledrive` package. 
+Occasionally the earth explorer website can go down for maintenance or during government shutdowns. If possible I strongly advise you to learn how to use its interface as multiple other data providers have similar interfaces. GitHub also place a strict size limit on files of 100MB. However, in order to account for situations like this I’ve placed the zipped file on GoogleDrive and will demonstrate how to access this from R using the new `googledrive` package. 
 
 This could be a great option for you to gain reproducibility points if you have large files that you can't upload to GitHub.
 

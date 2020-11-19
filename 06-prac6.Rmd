@@ -535,17 +535,33 @@ Before we get any further, let's get some ward boundaries read in to R --- downl
 library(here)
 #read the ward data in
 LondonWards <- st_read(here::here("prac6_data", "LondonWards.shp"))
+
+LondonWardsMerged <- st_read(here::here("prac6_data", 
+                                        "statistical-gis-boundaries-london", 
+                                        "statistical-gis-boundaries-london", 
+                                        "ESRI",
+                                        "London_Ward_CityMerged.shp"))%>%
+  st_transform(.,27700)
+WardData <- read_csv("https://data.london.gov.uk/download/ward-profiles-and-atlas/772d2d64-e8c6-46cb-86f9-e52b4c7851bc/ward-profiles-excel-version.csv", 
+                     na = c("NA", "n/a")) %>% 
+  clean_names()
+
+LondonWardsMerged <- LondonWardsMerged %>% 
+  left_join(WardData, 
+            by = c("GSS_CODE" = "new_code"))%>%
+  distinct(GSS_CODE, ward_name, average_gcse_capped_point_scores_2014)
+
 ```
 
-It's probably projected correctly, but in case it isn't give it a projection using the ```CRS()``` function in the ```raster``` package
+It's probably projected correctly, but in case it isn't give it a projection using the ```st_crs()``` function in the ```sf``` package
 
 ```{r, cache=FALSE, message=FALSE, warning=FALSE}
 #have a look to check that it's 
 #in the right projection
-st_crs(LondonWards)
+st_crs(LondonWardsMerged)
 
 tmap_mode("view")
-tm_shape(LondonWards) +
+tm_shape(LondonWardsMerged) +
   tm_polygons(col = NA, alpha = 0.5) +
 tm_shape(BluePlaques) +
   tm_dots(col = "blue")
@@ -557,9 +573,9 @@ Ah yes, we might need to lose the blue plaques that fall outside of London
 
 ```{r, cache=FALSE}
 summary(BluePlaques)
-BluePlaquesSub <- BluePlaques[LondonWards,]
+BluePlaquesSub <- BluePlaques[LondonWardsMerged,]
 
-tm_shape(LondonWards) +
+tm_shape(LondonWardsMerged) +
   tm_polygons(col = NA, alpha = 0.5) +
 tm_shape(BluePlaquesSub) +
   tm_dots(col = "blue")
@@ -573,15 +589,16 @@ To create a continuous observation from the blue plaques data we need to count a
 
 ```{r echo=TRUE, results='hide', cache=FALSE}
 library(sf)
-points_sf_joined <- LondonWards%>%
+points_sf_joined <- LondonWardsMerged%>%
   st_join(BluePlaquesSub)%>%
-  add_count(WardName)%>%
-  #calcualte area
+  add_count(ward_name)%>%
+  janitor::clean_names()%>%
+  #calculate area
   mutate(area=st_area(.))%>%
   #then density of the points per ward
   mutate(density=n/area)%>%
   #select density and some other variables 
-  dplyr::select(density, WardName, Wardcode, n, AvgGCSE201)
+  dplyr::select(density, ward_name, gss_code, n, average_gcse_capped_point_scores_2014)
 
 ```
 
@@ -590,9 +607,9 @@ How about a quick choropleth map to see how we are getting on...
 ```{r, cache=FALSE}
 
 points_sf_joined<- points_sf_joined %>%                    
-  group_by(Wardcode) %>%         
+  group_by(gss_code) %>%         
   summarise(density = first(density),
-          wardname= first(WardName),
+          wardname= first(ward_name),
           plaquecount= first(n))
 
 tm_shape(points_sf_joined) +
@@ -608,7 +625,7 @@ So, from the map, it looks as though we might have some clustering of blue plaqu
 
 Before being able to calculate Moran's I and any similar statistics, we need to first define a \(W_{ij}\) spatial weights matrix
 
-```{r, message=FALSE, warning=FALSE, cache=TRUE}
+```{r, message=FALSE, warning=FALSE, cache=FALSE}
 library(spdep)
 ```
 
@@ -801,7 +818,7 @@ slice_head(points_sf_joined, n=2)
 Or print out the class of each column like we did in week 2, although we need to drop the geometry. 
 
 ```{r}
-Datatypelist <- LondonWards %>% 
+Datatypelist <- LondonWardsMerged %>% 
   st_drop_geometry()%>%
   summarise_all(class) %>%
   pivot_longer(everything(), 
@@ -814,15 +831,15 @@ Datatypelist
 
 ```{r, echo=TRUE, eval=FALSE, cache=TRUE}
 
-I_LWard_Local_GCSE <- LondonWards %>%
-  arrange(WD11CD)%>%
-  pull(AvgGCSE201) %>%
+I_LWard_Local_GCSE <- LondonWardsMerged %>%
+  arrange(GSS_CODE)%>%
+  pull(average_gcse_capped_point_scores_2014) %>%
   as.vector()%>%
   localmoran(., Lward.lw)%>%
   as_tibble()
 
 points_sf_joined <- points_sf_joined %>%
-  arrange(Wardcode)%>%
+  arrange(gss_code)%>%
   mutate(GCSE_LocIz = as.numeric(I_LWard_Local_GCSE$Z.Ii))
 
 
@@ -838,15 +855,16 @@ tm_shape(points_sf_joined) +
 Now the Gi* statistic to look at clusters of high and low scores...
 
 ```{r, cache=TRUE}
-G_LWard_Local_GCSE <- LondonWards %>%
-  arrange(WD11CD)%>%
-  pull(AvgGCSE201) %>%
+
+G_LWard_Local_GCSE <- LondonWardsMerged %>%
+  dplyr::arrange(GSS_CODE)%>%
+  dplyr::pull(average_gcse_capped_point_scores_2014) %>%
   as.vector()%>%
   localG(., Lward.lw)
 
 points_sf_joined <- points_sf_joined %>%
-  arrange(Wardcode)%>%
-  mutate(GCSE_LocGiz = as.numeric(G_LWard_Local_GCSE))
+  dplyr::arrange(gss_code)%>%
+  dplyr::mutate(GCSE_LocGiz = as.numeric(G_LWard_Local_GCSE))
 
 tm_shape(points_sf_joined) +
     tm_polygons("GCSE_LocGiz",
@@ -870,11 +888,11 @@ Then try the following out:
 
 1. We have used `sp` objects in this practical (because I wrote it before `sf` became the defacto spatial data type in R). Can you convert some of this so it works with`sf`?
 
-2. Could you atomate any of the functions so that you could quickly produce maps of any of the variables in the LondonWards dataset?
+2. Could you automate any of the functions so that you could quickly produce maps of any of the variables in the LondonWards dataset?
 
 3. Could you get these outputs into a faceted ```ggplot2``` map?
 
-4. Make an interative map with selectable layers for Gi* and Moran's I like we did in the [Maps with extra features] or [Advanced interactive map] sections...
+4. Make an interactive map with selectable layers for Gi* and Moran's I like we did in the [Maps with extra features] or [Advanced interactive map] sections...
 
 ## Feedback
 
