@@ -430,6 +430,8 @@ Here we call the function ```NDVIfun()``` and then provide the NIR and Red band.
 1. Check the output
 
 ```{r, cache=TRUE}
+dev.off()
+
 ndvi %>%
   plot(.,col = rev(terrain.colors(10)), main = "Landsat-NDVI")
 
