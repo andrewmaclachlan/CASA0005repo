@@ -185,7 +185,7 @@ crs(listlandsat)
 ```{r eval=FALSE, cache=TRUE}
 # get band 8
 b8list<-dir_info(here::here("prac7_data", "Lsatdata"))%>%
-  dplyr::filter(str_detect(path, "[B8].tif")) %>%
+  dplyr::filter(str_detect(path, "[B8].TIF")) %>%
   dplyr::select(path)%>%
   pull()%>%
   as.character()%>%
