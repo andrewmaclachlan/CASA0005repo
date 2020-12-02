@@ -210,7 +210,8 @@ Create a new column in your data frame and fill it with recoded data for the Ave
 If you wanted to be really fancy, you could try altering the function to calculate these “High”, “Medium” and “Low”
 
 ```{r prac8_recode}
-LondonWards$GCSE_recode <- recode(AvgGCSE201,409.1,358.3,332.3)
+LondonWards <- LondonWards %>% 
+  mutate(GCSE_recode=recode(AvgGCSE201,409.1,358.3,332.3))
 
 #or
 
