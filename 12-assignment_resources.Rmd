@@ -73,6 +73,9 @@ There are a lot of free online books for geospatial analysis, especially using R
 * [Statistical Inference via Data Science](https://moderndive.com/)
 * [Fundamentals of Data Visualization](https://serialmentor.com/dataviz/index.html)
 * [21 Recipes for Mining Tiwtter Data with rtweet](https://rud.is/books/21-recipes/)
+* [Learning statistics with R: A tutorial for psychology students and other beginners](https://learningstatisticswithr.com/book/)
+* [Crime mapping in R](Crime Mapping in R)
+
 </div><br/>
 
 If you want to produce more efficent R code then have a look at the [Efficient R programming](https://csgillespie.github.io/efficientR/index.html) book.

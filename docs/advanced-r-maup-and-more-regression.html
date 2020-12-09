@@ -24,7 +24,7 @@
 <meta name="author" content="Andy MacLachlan and Adam Dennett" />
 
 
-<meta name="date" content="2020-11-19" />
+<meta name="date" content="2020-12-09" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -666,41 +666,41 @@ This week:</p>
 <ol style="list-style-type: decimal">
 <li>Download and unzip the London statistical gis boundaries.</li>
 </ol>
-<div class="sourceCode" id="cb614"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb614-1"><a href="advanced-r-maup-and-more-regression.html#cb614-1" aria-hidden="true" tabindex="-1"></a><span class="co"># make a temp file to store the .zip in</span></span>
-<span id="cb614-2"><a href="advanced-r-maup-and-more-regression.html#cb614-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb614-3"><a href="advanced-r-maup-and-more-regression.html#cb614-3" aria-hidden="true" tabindex="-1"></a><span class="fu">download.file</span>(<span class="st">&quot;https://data.london.gov.uk/download/statistical-gis-boundary-files-london/9ba8c833-6370-4b11-abdc-314aa020d5e0/statistical-gis-boundaries-london.zip&quot;</span>, </span>
-<span id="cb614-4"><a href="advanced-r-maup-and-more-regression.html#cb614-4" aria-hidden="true" tabindex="-1"></a>              <span class="at">destfile=</span><span class="st">&quot;prac10_data/statistical-gis-boundaries-london.zip&quot;</span>)</span></code></pre></div>
-<div class="sourceCode" id="cb615"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb615-1"><a href="advanced-r-maup-and-more-regression.html#cb615-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb615-2"><a href="advanced-r-maup-and-more-regression.html#cb615-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(fs)</span>
-<span id="cb615-3"><a href="advanced-r-maup-and-more-regression.html#cb615-3" aria-hidden="true" tabindex="-1"></a>listfiles<span class="ot">&lt;-</span><span class="fu">dir_info</span>(here<span class="sc">::</span><span class="fu">here</span>(<span class="st">&quot;prac10_data&quot;</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb615-4"><a href="advanced-r-maup-and-more-regression.html#cb615-4" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">filter</span>(<span class="fu">str_detect</span>(path, <span class="st">&quot;statistical-gis-boundaries-london.zip&quot;</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb615-5"><a href="advanced-r-maup-and-more-regression.html#cb615-5" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(path)<span class="sc">%&gt;%</span></span>
-<span id="cb615-6"><a href="advanced-r-maup-and-more-regression.html#cb615-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pull</span>()<span class="sc">%&gt;%</span></span>
-<span id="cb615-7"><a href="advanced-r-maup-and-more-regression.html#cb615-7" aria-hidden="true" tabindex="-1"></a>  <span class="co">#print out the .gz file</span></span>
-<span id="cb615-8"><a href="advanced-r-maup-and-more-regression.html#cb615-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>()<span class="sc">%&gt;%</span></span>
-<span id="cb615-9"><a href="advanced-r-maup-and-more-regression.html#cb615-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as.character</span>()<span class="sc">%&gt;%</span></span>
-<span id="cb615-10"><a href="advanced-r-maup-and-more-regression.html#cb615-10" aria-hidden="true" tabindex="-1"></a>  utils<span class="sc">::</span><span class="fu">unzip</span>(<span class="at">exdir=</span>here<span class="sc">::</span><span class="fu">here</span>(<span class="st">&quot;prac10_data&quot;</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb612"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb612-1"><a href="advanced-r-maup-and-more-regression.html#cb612-1" aria-hidden="true" tabindex="-1"></a><span class="co"># make a temp file to store the .zip in</span></span>
+<span id="cb612-2"><a href="advanced-r-maup-and-more-regression.html#cb612-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb612-3"><a href="advanced-r-maup-and-more-regression.html#cb612-3" aria-hidden="true" tabindex="-1"></a><span class="fu">download.file</span>(<span class="st">&quot;https://data.london.gov.uk/download/statistical-gis-boundary-files-london/9ba8c833-6370-4b11-abdc-314aa020d5e0/statistical-gis-boundaries-london.zip&quot;</span>, </span>
+<span id="cb612-4"><a href="advanced-r-maup-and-more-regression.html#cb612-4" aria-hidden="true" tabindex="-1"></a>              <span class="at">destfile=</span><span class="st">&quot;prac10_data/statistical-gis-boundaries-london.zip&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb613"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb613-1"><a href="advanced-r-maup-and-more-regression.html#cb613-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb613-2"><a href="advanced-r-maup-and-more-regression.html#cb613-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(fs)</span>
+<span id="cb613-3"><a href="advanced-r-maup-and-more-regression.html#cb613-3" aria-hidden="true" tabindex="-1"></a>listfiles<span class="ot">&lt;-</span><span class="fu">dir_info</span>(here<span class="sc">::</span><span class="fu">here</span>(<span class="st">&quot;prac10_data&quot;</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb613-4"><a href="advanced-r-maup-and-more-regression.html#cb613-4" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">filter</span>(<span class="fu">str_detect</span>(path, <span class="st">&quot;statistical-gis-boundaries-london.zip&quot;</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb613-5"><a href="advanced-r-maup-and-more-regression.html#cb613-5" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(path)<span class="sc">%&gt;%</span></span>
+<span id="cb613-6"><a href="advanced-r-maup-and-more-regression.html#cb613-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pull</span>()<span class="sc">%&gt;%</span></span>
+<span id="cb613-7"><a href="advanced-r-maup-and-more-regression.html#cb613-7" aria-hidden="true" tabindex="-1"></a>  <span class="co">#print out the .gz file</span></span>
+<span id="cb613-8"><a href="advanced-r-maup-and-more-regression.html#cb613-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>()<span class="sc">%&gt;%</span></span>
+<span id="cb613-9"><a href="advanced-r-maup-and-more-regression.html#cb613-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as.character</span>()<span class="sc">%&gt;%</span></span>
+<span id="cb613-10"><a href="advanced-r-maup-and-more-regression.html#cb613-10" aria-hidden="true" tabindex="-1"></a>  utils<span class="sc">::</span><span class="fu">unzip</span>(<span class="at">exdir=</span>here<span class="sc">::</span><span class="fu">here</span>(<span class="st">&quot;prac10_data&quot;</span>))</span></code></pre></div>
 <pre><code>## C:/Users/Andy/OneDrive - University College London/Teaching/CASA0005/2020_2021/CASA0005repo/prac10_data/statistical-gis-boundaries-london.zip</code></pre>
 <p>Using a recent update we could also change this a bit with the <code>pins()</code> package that downlaods and caches the url and automatically checks for file changes, only re-downloading if needed!</p>
-<div class="sourceCode" id="cb617"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb617-1"><a href="advanced-r-maup-and-more-regression.html#cb617-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(pins)</span>
-<span id="cb617-2"><a href="advanced-r-maup-and-more-regression.html#cb617-2" aria-hidden="true" tabindex="-1"></a>pinexample<span class="ot">&lt;-</span><span class="fu">pin</span>(<span class="st">&quot;https://data.london.gov.uk/download/statistical-gis-boundary-files-london/9ba8c833-6370-4b11-abdc-314aa020d5e0/statistical-gis-boundaries-london.zip&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb615"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb615-1"><a href="advanced-r-maup-and-more-regression.html#cb615-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(pins)</span>
+<span id="cb615-2"><a href="advanced-r-maup-and-more-regression.html#cb615-2" aria-hidden="true" tabindex="-1"></a>pinexample<span class="ot">&lt;-</span><span class="fu">pin</span>(<span class="st">&quot;https://data.london.gov.uk/download/statistical-gis-boundary-files-london/9ba8c833-6370-4b11-abdc-314aa020d5e0/statistical-gis-boundaries-london.zip&quot;</span>)</span></code></pre></div>
 <p><code>pins()</code> also lets you share data easily, <a href="https://blog.rstudio.com/2019/09/09/pin-discover-and-share-resources/">have a look the RStudio pins blog post</a> for more information.</p>
 <ol style="list-style-type: decimal">
 <li>Take the downloaded data and filter it based on the filename that countains: Borough OR Ward_ AND <code>.shp</code> using <code>grepl()</code></li>
 </ol>
-<div class="sourceCode" id="cb618"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb618-1"><a href="advanced-r-maup-and-more-regression.html#cb618-1" aria-hidden="true" tabindex="-1"></a>boroughsandwards<span class="ot">&lt;-</span><span class="fu">dir_info</span>(here<span class="sc">::</span><span class="fu">here</span>(<span class="st">&quot;prac9_data&quot;</span>, </span>
-<span id="cb618-2"><a href="advanced-r-maup-and-more-regression.html#cb618-2" aria-hidden="true" tabindex="-1"></a>                                 <span class="st">&quot;statistical-gis-boundaries-london&quot;</span>, </span>
-<span id="cb618-3"><a href="advanced-r-maup-and-more-regression.html#cb618-3" aria-hidden="true" tabindex="-1"></a>                                 <span class="st">&quot;ESRI&quot;</span>))<span class="sc">%&gt;%</span></span>
-<span id="cb618-4"><a href="advanced-r-maup-and-more-regression.html#cb618-4" aria-hidden="true" tabindex="-1"></a>  <span class="co">#$ means exact match</span></span>
-<span id="cb618-5"><a href="advanced-r-maup-and-more-regression.html#cb618-5" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">filter</span>(<span class="fu">str_detect</span>(path, </span>
-<span id="cb618-6"><a href="advanced-r-maup-and-more-regression.html#cb618-6" aria-hidden="true" tabindex="-1"></a>                        <span class="st">&quot;London_Ward_CityMerged.shp$|London_Borough_Excluding_MHW.shp$&quot;</span>))<span class="sc">%&gt;%</span></span>
-<span id="cb618-7"><a href="advanced-r-maup-and-more-regression.html#cb618-7" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(path)<span class="sc">%&gt;%</span></span>
-<span id="cb618-8"><a href="advanced-r-maup-and-more-regression.html#cb618-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pull</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb616"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb616-1"><a href="advanced-r-maup-and-more-regression.html#cb616-1" aria-hidden="true" tabindex="-1"></a>boroughsandwards<span class="ot">&lt;-</span><span class="fu">dir_info</span>(here<span class="sc">::</span><span class="fu">here</span>(<span class="st">&quot;prac9_data&quot;</span>, </span>
+<span id="cb616-2"><a href="advanced-r-maup-and-more-regression.html#cb616-2" aria-hidden="true" tabindex="-1"></a>                                 <span class="st">&quot;statistical-gis-boundaries-london&quot;</span>, </span>
+<span id="cb616-3"><a href="advanced-r-maup-and-more-regression.html#cb616-3" aria-hidden="true" tabindex="-1"></a>                                 <span class="st">&quot;ESRI&quot;</span>))<span class="sc">%&gt;%</span></span>
+<span id="cb616-4"><a href="advanced-r-maup-and-more-regression.html#cb616-4" aria-hidden="true" tabindex="-1"></a>  <span class="co">#$ means exact match</span></span>
+<span id="cb616-5"><a href="advanced-r-maup-and-more-regression.html#cb616-5" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">filter</span>(<span class="fu">str_detect</span>(path, </span>
+<span id="cb616-6"><a href="advanced-r-maup-and-more-regression.html#cb616-6" aria-hidden="true" tabindex="-1"></a>                        <span class="st">&quot;London_Ward_CityMerged.shp$|London_Borough_Excluding_MHW.shp$&quot;</span>))<span class="sc">%&gt;%</span></span>
+<span id="cb616-7"><a href="advanced-r-maup-and-more-regression.html#cb616-7" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(path)<span class="sc">%&gt;%</span></span>
+<span id="cb616-8"><a href="advanced-r-maup-and-more-regression.html#cb616-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pull</span>()</span></code></pre></div>
 <ol style="list-style-type: decimal">
 <li>Now read in both of the files using <code>map()</code> that applies a function (here <code>st_read()</code> from the <code>sf</code> package) to a list. <code>map()</code> comes from the <code>purrr</code> package which extends R’s functional programming ability.</li>
 </ol>
-<div class="sourceCode" id="cb619"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb619-1"><a href="advanced-r-maup-and-more-regression.html#cb619-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sf)</span>
-<span id="cb619-2"><a href="advanced-r-maup-and-more-regression.html#cb619-2" aria-hidden="true" tabindex="-1"></a>boroughsandwardssf<span class="ot">&lt;-</span><span class="fu">map</span>(boroughsandwards, st_read)</span></code></pre></div>
+<div class="sourceCode" id="cb617"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb617-1"><a href="advanced-r-maup-and-more-regression.html#cb617-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sf)</span>
+<span id="cb617-2"><a href="advanced-r-maup-and-more-regression.html#cb617-2" aria-hidden="true" tabindex="-1"></a>boroughsandwardssf<span class="ot">&lt;-</span><span class="fu">map</span>(boroughsandwards, st_read)</span></code></pre></div>
 <pre><code>## Reading layer `London_Borough_Excluding_MHW&#39; from data source `C:\Users\Andy\OneDrive - University College London\Teaching\CASA0005\2020_2021\CASA0005repo\prac9_data\statistical-gis-boundaries-london\ESRI\London_Borough_Excluding_MHW.shp&#39; using driver `ESRI Shapefile&#39;
 ## Simple feature collection with 33 features and 7 fields
 ## geometry type:  MULTIPOLYGON
@@ -714,96 +714,96 @@ This week:</p>
 ## bbox:           xmin: 503568.2 ymin: 155850.8 xmax: 561957.5 ymax: 200933.9
 ## projected CRS:  OSGB 1936 / British National Grid</code></pre>
 <p>To map or access each individual shapefile it’s just…</p>
-<div class="sourceCode" id="cb621"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb621-1"><a href="advanced-r-maup-and-more-regression.html#cb621-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tmap)</span>
-<span id="cb621-2"><a href="advanced-r-maup-and-more-regression.html#cb621-2" aria-hidden="true" tabindex="-1"></a><span class="fu">tmap_mode</span>(<span class="st">&quot;plot&quot;</span>)</span>
-<span id="cb621-3"><a href="advanced-r-maup-and-more-regression.html#cb621-3" aria-hidden="true" tabindex="-1"></a><span class="fu">qtm</span>(boroughsandwardssf[[<span class="dv">2</span>]]) </span></code></pre></div>
-<p><img src="CASA0005_files/figure-html/unnamed-chunk-482-1.png" width="672" /></p>
-<div class="sourceCode" id="cb622"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb622-1"><a href="advanced-r-maup-and-more-regression.html#cb622-1" aria-hidden="true" tabindex="-1"></a><span class="co"># or change to 1 </span></span></code></pre></div>
+<div class="sourceCode" id="cb619"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb619-1"><a href="advanced-r-maup-and-more-regression.html#cb619-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tmap)</span>
+<span id="cb619-2"><a href="advanced-r-maup-and-more-regression.html#cb619-2" aria-hidden="true" tabindex="-1"></a><span class="fu">tmap_mode</span>(<span class="st">&quot;plot&quot;</span>)</span>
+<span id="cb619-3"><a href="advanced-r-maup-and-more-regression.html#cb619-3" aria-hidden="true" tabindex="-1"></a><span class="fu">qtm</span>(boroughsandwardssf[[<span class="dv">2</span>]]) </span></code></pre></div>
+<p><img src="CASA0005_files/figure-html/unnamed-chunk-483-1.png" width="672" /></p>
+<div class="sourceCode" id="cb620"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb620-1"><a href="advanced-r-maup-and-more-regression.html#cb620-1" aria-hidden="true" tabindex="-1"></a><span class="co"># or change to 1 </span></span></code></pre></div>
 <ol style="list-style-type: decimal">
 <li>Get the data for Airbnb</li>
 </ol>
-<div class="sourceCode" id="cb623"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb623-1"><a href="advanced-r-maup-and-more-regression.html#cb623-1" aria-hidden="true" tabindex="-1"></a>Airbnb <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;http://data.insideairbnb.com/united-kingdom/england/london/2019-07-10/visualisations/listings.csv&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb621"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb621-1"><a href="advanced-r-maup-and-more-regression.html#cb621-1" aria-hidden="true" tabindex="-1"></a>Airbnb <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;http://data.insideairbnb.com/united-kingdom/england/london/2019-07-10/visualisations/listings.csv&quot;</span>)</span></code></pre></div>
 <ol style="list-style-type: decimal">
 <li>And for OSM we’ll download it from geofabrik, you can also use the OSM Application Programming Interface (API) but there is a limit on the number of points downloadable per call so you’d have to do something a bit more complicated to get the whole of London…however, I have provided an example of the api call.</li>
 </ol>
-<div class="sourceCode" id="cb624"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb624-1"><a href="advanced-r-maup-and-more-regression.html#cb624-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(memisc)</span>
-<span id="cb624-2"><a href="advanced-r-maup-and-more-regression.html#cb624-2" aria-hidden="true" tabindex="-1"></a><span class="fu">download.file</span>(<span class="st">&quot;http://download.geofabrik.de/europe/great-britain/england/greater-london-latest-free.shp.zip&quot;</span>,</span>
-<span id="cb624-3"><a href="advanced-r-maup-and-more-regression.html#cb624-3" aria-hidden="true" tabindex="-1"></a>              <span class="at">mode=</span><span class="st">&#39;wb&#39;</span>, </span>
-<span id="cb624-4"><a href="advanced-r-maup-and-more-regression.html#cb624-4" aria-hidden="true" tabindex="-1"></a>              <span class="at">destfile=</span><span class="st">&quot;prac10_data/geofabrik.zip&quot;</span>)</span>
-<span id="cb624-5"><a href="advanced-r-maup-and-more-regression.html#cb624-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb624-6"><a href="advanced-r-maup-and-more-regression.html#cb624-6" aria-hidden="true" tabindex="-1"></a>listfiles<span class="ot">&lt;-</span><span class="fu">dir_info</span>(here<span class="sc">::</span><span class="fu">here</span>(<span class="st">&quot;prac10_data&quot;</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb624-7"><a href="advanced-r-maup-and-more-regression.html#cb624-7" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">filter</span>(<span class="fu">str_detect</span>(path, <span class="st">&quot;geofabrik.zip&quot;</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb624-8"><a href="advanced-r-maup-and-more-regression.html#cb624-8" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(path)<span class="sc">%&gt;%</span></span>
-<span id="cb624-9"><a href="advanced-r-maup-and-more-regression.html#cb624-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pull</span>()<span class="sc">%&gt;%</span></span>
-<span id="cb624-10"><a href="advanced-r-maup-and-more-regression.html#cb624-10" aria-hidden="true" tabindex="-1"></a>  <span class="co">#print out the .gz file</span></span>
-<span id="cb624-11"><a href="advanced-r-maup-and-more-regression.html#cb624-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>()<span class="sc">%&gt;%</span></span>
-<span id="cb624-12"><a href="advanced-r-maup-and-more-regression.html#cb624-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as.character</span>()<span class="sc">%&gt;%</span></span>
-<span id="cb624-13"><a href="advanced-r-maup-and-more-regression.html#cb624-13" aria-hidden="true" tabindex="-1"></a>  utils<span class="sc">::</span><span class="fu">unzip</span>(<span class="at">exdir=</span>here<span class="sc">::</span><span class="fu">here</span>(<span class="st">&quot;prac10_data&quot;</span>, <span class="st">&quot;geofabrik&quot;</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb622"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb622-1"><a href="advanced-r-maup-and-more-regression.html#cb622-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(memisc)</span>
+<span id="cb622-2"><a href="advanced-r-maup-and-more-regression.html#cb622-2" aria-hidden="true" tabindex="-1"></a><span class="fu">download.file</span>(<span class="st">&quot;http://download.geofabrik.de/europe/great-britain/england/greater-london-latest-free.shp.zip&quot;</span>,</span>
+<span id="cb622-3"><a href="advanced-r-maup-and-more-regression.html#cb622-3" aria-hidden="true" tabindex="-1"></a>              <span class="at">mode=</span><span class="st">&#39;wb&#39;</span>, </span>
+<span id="cb622-4"><a href="advanced-r-maup-and-more-regression.html#cb622-4" aria-hidden="true" tabindex="-1"></a>              <span class="at">destfile=</span><span class="st">&quot;prac10_data/geofabrik.zip&quot;</span>)</span>
+<span id="cb622-5"><a href="advanced-r-maup-and-more-regression.html#cb622-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb622-6"><a href="advanced-r-maup-and-more-regression.html#cb622-6" aria-hidden="true" tabindex="-1"></a>listfiles<span class="ot">&lt;-</span><span class="fu">dir_info</span>(here<span class="sc">::</span><span class="fu">here</span>(<span class="st">&quot;prac10_data&quot;</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb622-7"><a href="advanced-r-maup-and-more-regression.html#cb622-7" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">filter</span>(<span class="fu">str_detect</span>(path, <span class="st">&quot;geofabrik.zip&quot;</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb622-8"><a href="advanced-r-maup-and-more-regression.html#cb622-8" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(path)<span class="sc">%&gt;%</span></span>
+<span id="cb622-9"><a href="advanced-r-maup-and-more-regression.html#cb622-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pull</span>()<span class="sc">%&gt;%</span></span>
+<span id="cb622-10"><a href="advanced-r-maup-and-more-regression.html#cb622-10" aria-hidden="true" tabindex="-1"></a>  <span class="co">#print out the .gz file</span></span>
+<span id="cb622-11"><a href="advanced-r-maup-and-more-regression.html#cb622-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>()<span class="sc">%&gt;%</span></span>
+<span id="cb622-12"><a href="advanced-r-maup-and-more-regression.html#cb622-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as.character</span>()<span class="sc">%&gt;%</span></span>
+<span id="cb622-13"><a href="advanced-r-maup-and-more-regression.html#cb622-13" aria-hidden="true" tabindex="-1"></a>  utils<span class="sc">::</span><span class="fu">unzip</span>(<span class="at">exdir=</span>here<span class="sc">::</span><span class="fu">here</span>(<span class="st">&quot;prac10_data&quot;</span>, <span class="st">&quot;geofabrik&quot;</span>))</span></code></pre></div>
 <p>Example of using the API….</p>
-<div class="sourceCode" id="cb625"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb625-1"><a href="advanced-r-maup-and-more-regression.html#cb625-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(osmar)</span>
-<span id="cb625-2"><a href="advanced-r-maup-and-more-regression.html#cb625-2" aria-hidden="true" tabindex="-1"></a>src <span class="ot">&lt;-</span> <span class="fu">osmsource_api</span>(<span class="at">url =</span> <span class="st">&quot;https://api.openstreetmap.org/api/0.6/&quot;</span>)</span>
-<span id="cb625-3"><a href="advanced-r-maup-and-more-regression.html#cb625-3" aria-hidden="true" tabindex="-1"></a><span class="co"># 1000 refers to distance from centre point</span></span>
-<span id="cb625-4"><a href="advanced-r-maup-and-more-regression.html#cb625-4" aria-hidden="true" tabindex="-1"></a>bb <span class="ot">&lt;-</span> <span class="fu">center_bbox</span>(<span class="sc">-</span><span class="fl">0.112510</span>,<span class="fl">51.507627</span>, <span class="dv">1000</span>, <span class="dv">1000</span>)</span>
-<span id="cb625-5"><a href="advanced-r-maup-and-more-regression.html#cb625-5" aria-hidden="true" tabindex="-1"></a>LDN <span class="ot">&lt;-</span> <span class="fu">get_osm</span>(bb, <span class="at">source =</span> src)</span>
-<span id="cb625-6"><a href="advanced-r-maup-and-more-regression.html#cb625-6" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(LDN)</span>
-<span id="cb625-7"><a href="advanced-r-maup-and-more-regression.html#cb625-7" aria-hidden="true" tabindex="-1"></a><span class="co"># extract just highwways</span></span>
-<span id="cb625-8"><a href="advanced-r-maup-and-more-regression.html#cb625-8" aria-hidden="true" tabindex="-1"></a>ways <span class="ot">&lt;-</span> <span class="fu">find</span>(LDN, <span class="fu">way</span>(<span class="fu">tags</span>(k <span class="sc">==</span> <span class="st">&quot;highway&quot;</span>)))</span>
-<span id="cb625-9"><a href="advanced-r-maup-and-more-regression.html#cb625-9" aria-hidden="true" tabindex="-1"></a>hway <span class="ot">&lt;-</span> <span class="fu">find_down</span>(LDN, <span class="fu">way</span>(ways))</span>
-<span id="cb625-10"><a href="advanced-r-maup-and-more-regression.html#cb625-10" aria-hidden="true" tabindex="-1"></a>hway <span class="ot">&lt;-</span> <span class="fu">subset</span>(LDN, <span class="at">ids =</span> hway)</span></code></pre></div>
+<div class="sourceCode" id="cb623"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb623-1"><a href="advanced-r-maup-and-more-regression.html#cb623-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(osmar)</span>
+<span id="cb623-2"><a href="advanced-r-maup-and-more-regression.html#cb623-2" aria-hidden="true" tabindex="-1"></a>src <span class="ot">&lt;-</span> <span class="fu">osmsource_api</span>(<span class="at">url =</span> <span class="st">&quot;https://api.openstreetmap.org/api/0.6/&quot;</span>)</span>
+<span id="cb623-3"><a href="advanced-r-maup-and-more-regression.html#cb623-3" aria-hidden="true" tabindex="-1"></a><span class="co"># 1000 refers to distance from centre point</span></span>
+<span id="cb623-4"><a href="advanced-r-maup-and-more-regression.html#cb623-4" aria-hidden="true" tabindex="-1"></a>bb <span class="ot">&lt;-</span> <span class="fu">center_bbox</span>(<span class="sc">-</span><span class="fl">0.112510</span>,<span class="fl">51.507627</span>, <span class="dv">1000</span>, <span class="dv">1000</span>)</span>
+<span id="cb623-5"><a href="advanced-r-maup-and-more-regression.html#cb623-5" aria-hidden="true" tabindex="-1"></a>LDN <span class="ot">&lt;-</span> <span class="fu">get_osm</span>(bb, <span class="at">source =</span> src)</span>
+<span id="cb623-6"><a href="advanced-r-maup-and-more-regression.html#cb623-6" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(LDN)</span>
+<span id="cb623-7"><a href="advanced-r-maup-and-more-regression.html#cb623-7" aria-hidden="true" tabindex="-1"></a><span class="co"># extract just highwways</span></span>
+<span id="cb623-8"><a href="advanced-r-maup-and-more-regression.html#cb623-8" aria-hidden="true" tabindex="-1"></a>ways <span class="ot">&lt;-</span> <span class="fu">find</span>(LDN, <span class="fu">way</span>(<span class="fu">tags</span>(k <span class="sc">==</span> <span class="st">&quot;highway&quot;</span>)))</span>
+<span id="cb623-9"><a href="advanced-r-maup-and-more-regression.html#cb623-9" aria-hidden="true" tabindex="-1"></a>hway <span class="ot">&lt;-</span> <span class="fu">find_down</span>(LDN, <span class="fu">way</span>(ways))</span>
+<span id="cb623-10"><a href="advanced-r-maup-and-more-regression.html#cb623-10" aria-hidden="true" tabindex="-1"></a>hway <span class="ot">&lt;-</span> <span class="fu">subset</span>(LDN, <span class="at">ids =</span> hway)</span></code></pre></div>
 </div>
 <div id="project-the-data" class="section level3" number="10.5.2">
 <h3><span class="header-section-number">10.5.2</span> Project the data</h3>
 <ol style="list-style-type: decimal">
 <li>Next up we need to project our <code>.shp</code> data …we could project our data indiviudally using:</li>
 </ol>
-<div class="sourceCode" id="cb626"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb626-1"><a href="advanced-r-maup-and-more-regression.html#cb626-1" aria-hidden="true" tabindex="-1"></a><span class="fu">st_transform</span>(boroughsandwardssf[[<span class="dv">1</span>]], <span class="dv">27700</span>)</span>
-<span id="cb626-2"><a href="advanced-r-maup-and-more-regression.html#cb626-2" aria-hidden="true" tabindex="-1"></a><span class="fu">st_transform</span>(boroughsandwardssf[[<span class="dv">2</span>]], <span class="dv">27700</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb624"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb624-1"><a href="advanced-r-maup-and-more-regression.html#cb624-1" aria-hidden="true" tabindex="-1"></a><span class="fu">st_transform</span>(boroughsandwardssf[[<span class="dv">1</span>]], <span class="dv">27700</span>)</span>
+<span id="cb624-2"><a href="advanced-r-maup-and-more-regression.html#cb624-2" aria-hidden="true" tabindex="-1"></a><span class="fu">st_transform</span>(boroughsandwardssf[[<span class="dv">2</span>]], <span class="dv">27700</span>)</span></code></pre></div>
 <p>or use <code>map()</code> again…</p>
-<div class="sourceCode" id="cb627"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb627-1"><a href="advanced-r-maup-and-more-regression.html#cb627-1" aria-hidden="true" tabindex="-1"></a>boroughsandwardssf<span class="ot">&lt;-</span> <span class="fu">map</span>(boroughsandwardssf, <span class="at">crs=</span><span class="dv">27700</span>, st_transform)</span>
-<span id="cb627-2"><a href="advanced-r-maup-and-more-regression.html#cb627-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb627-3"><a href="advanced-r-maup-and-more-regression.html#cb627-3" aria-hidden="true" tabindex="-1"></a><span class="co"># change the airbnb data to spatial </span></span>
-<span id="cb627-4"><a href="advanced-r-maup-and-more-regression.html#cb627-4" aria-hidden="true" tabindex="-1"></a>Airbnb <span class="ot">&lt;-</span> Airbnb <span class="sc">%&gt;%</span></span>
-<span id="cb627-5"><a href="advanced-r-maup-and-more-regression.html#cb627-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_as_sf</span>(., <span class="at">coords =</span> <span class="fu">c</span>(<span class="st">&quot;longitude&quot;</span>, <span class="st">&quot;latitude&quot;</span>), </span>
-<span id="cb627-6"><a href="advanced-r-maup-and-more-regression.html#cb627-6" aria-hidden="true" tabindex="-1"></a>                   <span class="at">crs =</span> <span class="dv">4326</span>)<span class="sc">%&gt;%</span></span>
-<span id="cb627-7"><a href="advanced-r-maup-and-more-regression.html#cb627-7" aria-hidden="true" tabindex="-1"></a>  <span class="co"># project it too - remember that 27700 is</span></span>
-<span id="cb627-8"><a href="advanced-r-maup-and-more-regression.html#cb627-8" aria-hidden="true" tabindex="-1"></a>  <span class="co"># British National Grid</span></span>
-<span id="cb627-9"><a href="advanced-r-maup-and-more-regression.html#cb627-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_transform</span>(., <span class="dv">27700</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb625"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb625-1"><a href="advanced-r-maup-and-more-regression.html#cb625-1" aria-hidden="true" tabindex="-1"></a>boroughsandwardssf<span class="ot">&lt;-</span> <span class="fu">map</span>(boroughsandwardssf, <span class="at">crs=</span><span class="dv">27700</span>, st_transform)</span>
+<span id="cb625-2"><a href="advanced-r-maup-and-more-regression.html#cb625-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb625-3"><a href="advanced-r-maup-and-more-regression.html#cb625-3" aria-hidden="true" tabindex="-1"></a><span class="co"># change the airbnb data to spatial </span></span>
+<span id="cb625-4"><a href="advanced-r-maup-and-more-regression.html#cb625-4" aria-hidden="true" tabindex="-1"></a>Airbnb <span class="ot">&lt;-</span> Airbnb <span class="sc">%&gt;%</span></span>
+<span id="cb625-5"><a href="advanced-r-maup-and-more-regression.html#cb625-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_as_sf</span>(., <span class="at">coords =</span> <span class="fu">c</span>(<span class="st">&quot;longitude&quot;</span>, <span class="st">&quot;latitude&quot;</span>), </span>
+<span id="cb625-6"><a href="advanced-r-maup-and-more-regression.html#cb625-6" aria-hidden="true" tabindex="-1"></a>                   <span class="at">crs =</span> <span class="dv">4326</span>)<span class="sc">%&gt;%</span></span>
+<span id="cb625-7"><a href="advanced-r-maup-and-more-regression.html#cb625-7" aria-hidden="true" tabindex="-1"></a>  <span class="co"># project it too - remember that 27700 is</span></span>
+<span id="cb625-8"><a href="advanced-r-maup-and-more-regression.html#cb625-8" aria-hidden="true" tabindex="-1"></a>  <span class="co"># British National Grid</span></span>
+<span id="cb625-9"><a href="advanced-r-maup-and-more-regression.html#cb625-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_transform</span>(., <span class="dv">27700</span>)</span></code></pre></div>
 </div>
 <div id="functions-1" class="section level3" number="10.5.3">
 <h3><span class="header-section-number">10.5.3</span> Functions</h3>
 <ol style="list-style-type: decimal">
 <li>Now remember our function we made for joining our Airbnb data (or Hotels) to the London boroughs layer… let’s make the fucntion again…</li>
 </ol>
-<div class="sourceCode" id="cb628"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb628-1"><a href="advanced-r-maup-and-more-regression.html#cb628-1" aria-hidden="true" tabindex="-1"></a>Joinfun <span class="ot">&lt;-</span> <span class="cf">function</span>(data1, data2){</span>
-<span id="cb628-2"><a href="advanced-r-maup-and-more-regression.html#cb628-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb628-3"><a href="advanced-r-maup-and-more-regression.html#cb628-3" aria-hidden="true" tabindex="-1"></a>output<span class="ot">&lt;-</span> data1<span class="sc">%&gt;%</span></span>
-<span id="cb628-4"><a href="advanced-r-maup-and-more-regression.html#cb628-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_join</span>(data2,.)<span class="sc">%&gt;%</span></span>
-<span id="cb628-5"><a href="advanced-r-maup-and-more-regression.html#cb628-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_count</span>(GSS_CODE, <span class="at">name=</span><span class="st">&quot;airbnbs&quot;</span>) </span>
-<span id="cb628-6"><a href="advanced-r-maup-and-more-regression.html#cb628-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(output)</span>
-<span id="cb628-7"><a href="advanced-r-maup-and-more-regression.html#cb628-7" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb626"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb626-1"><a href="advanced-r-maup-and-more-regression.html#cb626-1" aria-hidden="true" tabindex="-1"></a>Joinfun <span class="ot">&lt;-</span> <span class="cf">function</span>(data1, data2){</span>
+<span id="cb626-2"><a href="advanced-r-maup-and-more-regression.html#cb626-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb626-3"><a href="advanced-r-maup-and-more-regression.html#cb626-3" aria-hidden="true" tabindex="-1"></a>output<span class="ot">&lt;-</span> data1<span class="sc">%&gt;%</span></span>
+<span id="cb626-4"><a href="advanced-r-maup-and-more-regression.html#cb626-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_join</span>(data2,.)<span class="sc">%&gt;%</span></span>
+<span id="cb626-5"><a href="advanced-r-maup-and-more-regression.html#cb626-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">add_count</span>(GSS_CODE, <span class="at">name=</span><span class="st">&quot;airbnbs&quot;</span>) </span>
+<span id="cb626-6"><a href="advanced-r-maup-and-more-regression.html#cb626-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(output)</span>
+<span id="cb626-7"><a href="advanced-r-maup-and-more-regression.html#cb626-7" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
 </div>
 <div id="loops" class="section level3" number="10.5.4">
 <h3><span class="header-section-number">10.5.4</span> Loops</h3>
 <ol style="list-style-type: decimal">
 <li>Ok, but we want to get a count of Airbnb points per London ward and Borough…how can we do that?…well manually of course…like this…</li>
 </ol>
-<div class="sourceCode" id="cb629"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb629-1"><a href="advanced-r-maup-and-more-regression.html#cb629-1" aria-hidden="true" tabindex="-1"></a>Airbnbborough <span class="ot">&lt;-</span> <span class="fu">Joinfun</span>(Airbnb, boroughsandwardssf[[<span class="dv">1</span>]])</span>
-<span id="cb629-2"><a href="advanced-r-maup-and-more-regression.html#cb629-2" aria-hidden="true" tabindex="-1"></a>Airbnbward <span class="ot">&lt;-</span> <span class="fu">Joinfun</span>(Airbnb, boroughsandwardssf[[<span class="dv">2</span>]])</span></code></pre></div>
+<div class="sourceCode" id="cb627"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb627-1"><a href="advanced-r-maup-and-more-regression.html#cb627-1" aria-hidden="true" tabindex="-1"></a>Airbnbborough <span class="ot">&lt;-</span> <span class="fu">Joinfun</span>(Airbnb, boroughsandwardssf[[<span class="dv">1</span>]])</span>
+<span id="cb627-2"><a href="advanced-r-maup-and-more-regression.html#cb627-2" aria-hidden="true" tabindex="-1"></a>Airbnbward <span class="ot">&lt;-</span> <span class="fu">Joinfun</span>(Airbnb, boroughsandwardssf[[<span class="dv">2</span>]])</span></code></pre></div>
 <p>But we can also autmoate this using a loop (either a while or for loop). I’ve used a while loop here as when i did my MSc you weren’t able to put a for loop inside a for loop. I beleive that has now changed but because of that one day i had to spend changing everything i always default to using a while loop.</p>
 <p>Tell us what a loop is aleady?</p>
 <p>A loop let’s you go over something adding 1 (or any value) each time…for example let’s look a basic loop. You need to run everything in the loop at once from the while to the }. If you make just a normal Rscript you can set breakpoints — the code will the stop each time it hits the breakpoint within the loop. You can’t do this at the moment with RMarkdown code chunks, i normally develop the loop outside of it looping then put it all together.</p>
-<div class="sourceCode" id="cb630"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb630-1"><a href="advanced-r-maup-and-more-regression.html#cb630-1" aria-hidden="true" tabindex="-1"></a><span class="co"># set up a variable  </span></span>
-<span id="cb630-2"><a href="advanced-r-maup-and-more-regression.html#cb630-2" aria-hidden="true" tabindex="-1"></a>basicloop <span class="ot">&lt;-</span> <span class="dv">1</span></span>
-<span id="cb630-3"><a href="advanced-r-maup-and-more-regression.html#cb630-3" aria-hidden="true" tabindex="-1"></a><span class="co"># so while our variable is less than </span></span>
-<span id="cb630-4"><a href="advanced-r-maup-and-more-regression.html#cb630-4" aria-hidden="true" tabindex="-1"></a><span class="co">#6 run the following code within the {}</span></span>
-<span id="cb630-5"><a href="advanced-r-maup-and-more-regression.html#cb630-5" aria-hidden="true" tabindex="-1"></a><span class="cf">while</span> (basicloop <span class="sc">&lt;</span> <span class="dv">6</span>) {</span>
-<span id="cb630-6"><a href="advanced-r-maup-and-more-regression.html#cb630-6" aria-hidden="true" tabindex="-1"></a>  <span class="co">#print the varaible (starts at 1)</span></span>
-<span id="cb630-7"><a href="advanced-r-maup-and-more-regression.html#cb630-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(basicloop)</span>
-<span id="cb630-8"><a href="advanced-r-maup-and-more-regression.html#cb630-8" aria-hidden="true" tabindex="-1"></a>  <span class="co"># then add 1 to the variable</span></span>
-<span id="cb630-9"><a href="advanced-r-maup-and-more-regression.html#cb630-9" aria-hidden="true" tabindex="-1"></a>  basicloop <span class="ot">=</span> basicloop<span class="sc">+</span><span class="dv">1</span></span>
-<span id="cb630-10"><a href="advanced-r-maup-and-more-regression.html#cb630-10" aria-hidden="true" tabindex="-1"></a>  <span class="co"># go back to the start of the loop</span></span>
-<span id="cb630-11"><a href="advanced-r-maup-and-more-regression.html#cb630-11" aria-hidden="true" tabindex="-1"></a>  <span class="co">#and if it is still &lt;6 run again</span></span>
-<span id="cb630-12"><a href="advanced-r-maup-and-more-regression.html#cb630-12" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb628"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb628-1"><a href="advanced-r-maup-and-more-regression.html#cb628-1" aria-hidden="true" tabindex="-1"></a><span class="co"># set up a variable  </span></span>
+<span id="cb628-2"><a href="advanced-r-maup-and-more-regression.html#cb628-2" aria-hidden="true" tabindex="-1"></a>basicloop <span class="ot">&lt;-</span> <span class="dv">1</span></span>
+<span id="cb628-3"><a href="advanced-r-maup-and-more-regression.html#cb628-3" aria-hidden="true" tabindex="-1"></a><span class="co"># so while our variable is less than </span></span>
+<span id="cb628-4"><a href="advanced-r-maup-and-more-regression.html#cb628-4" aria-hidden="true" tabindex="-1"></a><span class="co">#6 run the following code within the {}</span></span>
+<span id="cb628-5"><a href="advanced-r-maup-and-more-regression.html#cb628-5" aria-hidden="true" tabindex="-1"></a><span class="cf">while</span> (basicloop <span class="sc">&lt;</span> <span class="dv">6</span>) {</span>
+<span id="cb628-6"><a href="advanced-r-maup-and-more-regression.html#cb628-6" aria-hidden="true" tabindex="-1"></a>  <span class="co">#print the varaible (starts at 1)</span></span>
+<span id="cb628-7"><a href="advanced-r-maup-and-more-regression.html#cb628-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(basicloop)</span>
+<span id="cb628-8"><a href="advanced-r-maup-and-more-regression.html#cb628-8" aria-hidden="true" tabindex="-1"></a>  <span class="co"># then add 1 to the variable</span></span>
+<span id="cb628-9"><a href="advanced-r-maup-and-more-regression.html#cb628-9" aria-hidden="true" tabindex="-1"></a>  basicloop <span class="ot">=</span> basicloop<span class="sc">+</span><span class="dv">1</span></span>
+<span id="cb628-10"><a href="advanced-r-maup-and-more-regression.html#cb628-10" aria-hidden="true" tabindex="-1"></a>  <span class="co"># go back to the start of the loop</span></span>
+<span id="cb628-11"><a href="advanced-r-maup-and-more-regression.html#cb628-11" aria-hidden="true" tabindex="-1"></a>  <span class="co">#and if it is still &lt;6 run again</span></span>
+<span id="cb628-12"><a href="advanced-r-maup-and-more-regression.html#cb628-12" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
 <pre><code>## [1] 1
 ## [1] 2
 ## [1] 3
@@ -811,23 +811,23 @@ This week:</p>
 ## [1] 5</code></pre>
 <p>That loop outputs the values of 1-5, as we started with a value of 1, then added 1 to make 2. It remained below 6 so the code ran again printing the 2 then added 1 again to make 3 and so on. As we specified less than 6 it stopped there..</p>
 <p>We can also save these results to diffrent variables but we need to make a list (or dataframe/ whatever you need) to start with to save them in</p>
-<div class="sourceCode" id="cb632"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb632-1"><a href="advanced-r-maup-and-more-regression.html#cb632-1" aria-hidden="true" tabindex="-1"></a><span class="co"># here is my empty list</span></span>
-<span id="cb632-2"><a href="advanced-r-maup-and-more-regression.html#cb632-2" aria-hidden="true" tabindex="-1"></a>emptylist <span class="ot">&lt;-</span> <span class="fu">list</span>()</span>
-<span id="cb632-3"><a href="advanced-r-maup-and-more-regression.html#cb632-3" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb632-4"><a href="advanced-r-maup-and-more-regression.html#cb632-4" aria-hidden="true" tabindex="-1"></a>basicloop <span class="ot">&lt;-</span> <span class="dv">1</span></span>
-<span id="cb632-5"><a href="advanced-r-maup-and-more-regression.html#cb632-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb632-6"><a href="advanced-r-maup-and-more-regression.html#cb632-6" aria-hidden="true" tabindex="-1"></a><span class="cf">while</span> (basicloop <span class="sc">&lt;</span> <span class="dv">6</span>) {</span>
-<span id="cb632-7"><a href="advanced-r-maup-and-more-regression.html#cb632-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(basicloop)</span>
-<span id="cb632-8"><a href="advanced-r-maup-and-more-regression.html#cb632-8" aria-hidden="true" tabindex="-1"></a>  emptylist[[basicloop]] <span class="ot">&lt;-</span> basicloop</span>
-<span id="cb632-9"><a href="advanced-r-maup-and-more-regression.html#cb632-9" aria-hidden="true" tabindex="-1"></a>  basicloop <span class="ot">&lt;-</span> basicloop<span class="sc">+</span><span class="dv">1</span></span>
-<span id="cb632-10"><a href="advanced-r-maup-and-more-regression.html#cb632-10" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb630"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb630-1"><a href="advanced-r-maup-and-more-regression.html#cb630-1" aria-hidden="true" tabindex="-1"></a><span class="co"># here is my empty list</span></span>
+<span id="cb630-2"><a href="advanced-r-maup-and-more-regression.html#cb630-2" aria-hidden="true" tabindex="-1"></a>emptylist <span class="ot">&lt;-</span> <span class="fu">list</span>()</span>
+<span id="cb630-3"><a href="advanced-r-maup-and-more-regression.html#cb630-3" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb630-4"><a href="advanced-r-maup-and-more-regression.html#cb630-4" aria-hidden="true" tabindex="-1"></a>basicloop <span class="ot">&lt;-</span> <span class="dv">1</span></span>
+<span id="cb630-5"><a href="advanced-r-maup-and-more-regression.html#cb630-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb630-6"><a href="advanced-r-maup-and-more-regression.html#cb630-6" aria-hidden="true" tabindex="-1"></a><span class="cf">while</span> (basicloop <span class="sc">&lt;</span> <span class="dv">6</span>) {</span>
+<span id="cb630-7"><a href="advanced-r-maup-and-more-regression.html#cb630-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>(basicloop)</span>
+<span id="cb630-8"><a href="advanced-r-maup-and-more-regression.html#cb630-8" aria-hidden="true" tabindex="-1"></a>  emptylist[[basicloop]] <span class="ot">&lt;-</span> basicloop</span>
+<span id="cb630-9"><a href="advanced-r-maup-and-more-regression.html#cb630-9" aria-hidden="true" tabindex="-1"></a>  basicloop <span class="ot">&lt;-</span> basicloop<span class="sc">+</span><span class="dv">1</span></span>
+<span id="cb630-10"><a href="advanced-r-maup-and-more-regression.html#cb630-10" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
 <pre><code>## [1] 1
 ## [1] 2
 ## [1] 3
 ## [1] 4
 ## [1] 5</code></pre>
 <p>Here we are using the varaible <code>basicloop</code> to index our emptylist.. so everytime we add 1 it changes the index value….have a look what i mean…</p>
-<div class="sourceCode" id="cb634"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb634-1"><a href="advanced-r-maup-and-more-regression.html#cb634-1" aria-hidden="true" tabindex="-1"></a>emptylist</span></code></pre></div>
+<div class="sourceCode" id="cb632"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb632-1"><a href="advanced-r-maup-and-more-regression.html#cb632-1" aria-hidden="true" tabindex="-1"></a>emptylist</span></code></pre></div>
 <pre><code>## [[1]]
 ## [1] 1
 ## 
@@ -842,48 +842,48 @@ This week:</p>
 ## 
 ## [[5]]
 ## [1] 5</code></pre>
-<div class="sourceCode" id="cb636"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb636-1"><a href="advanced-r-maup-and-more-regression.html#cb636-1" aria-hidden="true" tabindex="-1"></a>emptylist[[<span class="dv">1</span>]]</span></code></pre></div>
+<div class="sourceCode" id="cb634"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb634-1"><a href="advanced-r-maup-and-more-regression.html#cb634-1" aria-hidden="true" tabindex="-1"></a>emptylist[[<span class="dv">1</span>]]</span></code></pre></div>
 <pre><code>## [1] 1</code></pre>
-<div class="sourceCode" id="cb638"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb638-1"><a href="advanced-r-maup-and-more-regression.html#cb638-1" aria-hidden="true" tabindex="-1"></a>emptylist[[<span class="dv">2</span>]]</span></code></pre></div>
+<div class="sourceCode" id="cb636"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb636-1"><a href="advanced-r-maup-and-more-regression.html#cb636-1" aria-hidden="true" tabindex="-1"></a>emptylist[[<span class="dv">2</span>]]</span></code></pre></div>
 <pre><code>## [1] 2</code></pre>
 <p>Right, so how are we going to apply this to our data. We have two <code>.shp</code> files (boroughs and wards) in a list that we want to apply our function to..</p>
 <p>Firstly let’s set up the length to stop at, make an empty list and a starting point. As our data is in a list we just want the length of that (as a number)..</p>
-<div class="sourceCode" id="cb640"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb640-1"><a href="advanced-r-maup-and-more-regression.html#cb640-1" aria-hidden="true" tabindex="-1"></a><span class="co"># get the length - add 1 as we are using less than</span></span>
-<span id="cb640-2"><a href="advanced-r-maup-and-more-regression.html#cb640-2" aria-hidden="true" tabindex="-1"></a>boroughlen<span class="ot">&lt;-</span><span class="fu">length</span>(boroughsandwardssf)<span class="sc">+</span><span class="dv">1</span></span>
-<span id="cb640-3"><a href="advanced-r-maup-and-more-regression.html#cb640-3" aria-hidden="true" tabindex="-1"></a><span class="co"># empty list</span></span>
-<span id="cb640-4"><a href="advanced-r-maup-and-more-regression.html#cb640-4" aria-hidden="true" tabindex="-1"></a>hold<span class="ot">&lt;-</span><span class="fu">list</span>()</span>
-<span id="cb640-5"><a href="advanced-r-maup-and-more-regression.html#cb640-5" aria-hidden="true" tabindex="-1"></a><span class="co"># here is our starting point variable</span></span>
-<span id="cb640-6"><a href="advanced-r-maup-and-more-regression.html#cb640-6" aria-hidden="true" tabindex="-1"></a>i<span class="ot">&lt;-</span><span class="dv">1</span></span></code></pre></div>
+<div class="sourceCode" id="cb638"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb638-1"><a href="advanced-r-maup-and-more-regression.html#cb638-1" aria-hidden="true" tabindex="-1"></a><span class="co"># get the length - add 1 as we are using less than</span></span>
+<span id="cb638-2"><a href="advanced-r-maup-and-more-regression.html#cb638-2" aria-hidden="true" tabindex="-1"></a>boroughlen<span class="ot">&lt;-</span><span class="fu">length</span>(boroughsandwardssf)<span class="sc">+</span><span class="dv">1</span></span>
+<span id="cb638-3"><a href="advanced-r-maup-and-more-regression.html#cb638-3" aria-hidden="true" tabindex="-1"></a><span class="co"># empty list</span></span>
+<span id="cb638-4"><a href="advanced-r-maup-and-more-regression.html#cb638-4" aria-hidden="true" tabindex="-1"></a>hold<span class="ot">&lt;-</span><span class="fu">list</span>()</span>
+<span id="cb638-5"><a href="advanced-r-maup-and-more-regression.html#cb638-5" aria-hidden="true" tabindex="-1"></a><span class="co"># here is our starting point variable</span></span>
+<span id="cb638-6"><a href="advanced-r-maup-and-more-regression.html#cb638-6" aria-hidden="true" tabindex="-1"></a>i<span class="ot">&lt;-</span><span class="dv">1</span></span></code></pre></div>
 <p>Now here is the loop..</p>
-<div class="sourceCode" id="cb641"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb641-1"><a href="advanced-r-maup-and-more-regression.html#cb641-1" aria-hidden="true" tabindex="-1"></a><span class="co"># while i is less than boroughlength </span></span>
-<span id="cb641-2"><a href="advanced-r-maup-and-more-regression.html#cb641-2" aria-hidden="true" tabindex="-1"></a><span class="co"># max of boroughlength is 3</span></span>
-<span id="cb641-3"><a href="advanced-r-maup-and-more-regression.html#cb641-3" aria-hidden="true" tabindex="-1"></a><span class="cf">while</span> (i <span class="sc">&lt;</span> boroughlen){</span>
-<span id="cb641-4"><a href="advanced-r-maup-and-more-regression.html#cb641-4" aria-hidden="true" tabindex="-1"></a>  <span class="co"># put the output in our varible</span></span>
-<span id="cb641-5"><a href="advanced-r-maup-and-more-regression.html#cb641-5" aria-hidden="true" tabindex="-1"></a>  <span class="co"># use the function for boroughs and then wards</span></span>
-<span id="cb641-6"><a href="advanced-r-maup-and-more-regression.html#cb641-6" aria-hidden="true" tabindex="-1"></a>  hold[[i]] <span class="ot">&lt;-</span> <span class="fu">Joinfun</span>(Airbnb, boroughsandwardssf[[i]])</span>
-<span id="cb641-7"><a href="advanced-r-maup-and-more-regression.html#cb641-7" aria-hidden="true" tabindex="-1"></a>  <span class="co"># add one to the index</span></span>
-<span id="cb641-8"><a href="advanced-r-maup-and-more-regression.html#cb641-8" aria-hidden="true" tabindex="-1"></a>  i<span class="ot">&lt;-</span>i<span class="sc">+</span><span class="dv">1</span></span>
-<span id="cb641-9"><a href="advanced-r-maup-and-more-regression.html#cb641-9" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb641-10"><a href="advanced-r-maup-and-more-regression.html#cb641-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb641-11"><a href="advanced-r-maup-and-more-regression.html#cb641-11" aria-hidden="true" tabindex="-1"></a><span class="co"># make a quick thematic map to have a look</span></span>
-<span id="cb641-12"><a href="advanced-r-maup-and-more-regression.html#cb641-12" aria-hidden="true" tabindex="-1"></a>justairbnbborough<span class="ot">&lt;-</span>hold[[<span class="dv">1</span>]]<span class="sc">%&gt;%</span></span>
-<span id="cb641-13"><a href="advanced-r-maup-and-more-regression.html#cb641-13" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(GSS_CODE, airbnbs)<span class="sc">%&gt;%</span></span>
-<span id="cb641-14"><a href="advanced-r-maup-and-more-regression.html#cb641-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_drop_geometry</span>()<span class="sc">%&gt;%</span></span>
-<span id="cb641-15"><a href="advanced-r-maup-and-more-regression.html#cb641-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">distinct</span>(GSS_CODE, airbnbs)<span class="sc">%&gt;%</span></span>
-<span id="cb641-16"><a href="advanced-r-maup-and-more-regression.html#cb641-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(boroughsandwardssf[[<span class="dv">1</span>]], .,</span>
-<span id="cb641-17"><a href="advanced-r-maup-and-more-regression.html#cb641-17" aria-hidden="true" tabindex="-1"></a>                        <span class="at">by =</span> <span class="fu">c</span>(<span class="st">&quot;GSS_CODE&quot;</span> <span class="ot">=</span> <span class="st">&quot;GSS_CODE&quot;</span>))</span>
-<span id="cb641-18"><a href="advanced-r-maup-and-more-regression.html#cb641-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb641-19"><a href="advanced-r-maup-and-more-regression.html#cb641-19" aria-hidden="true" tabindex="-1"></a>justairbnward<span class="ot">&lt;-</span>hold[[<span class="dv">2</span>]]<span class="sc">%&gt;%</span></span>
-<span id="cb641-20"><a href="advanced-r-maup-and-more-regression.html#cb641-20" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(GSS_CODE, airbnbs)<span class="sc">%&gt;%</span></span>
-<span id="cb641-21"><a href="advanced-r-maup-and-more-regression.html#cb641-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_drop_geometry</span>()<span class="sc">%&gt;%</span></span>
-<span id="cb641-22"><a href="advanced-r-maup-and-more-regression.html#cb641-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">distinct</span>(GSS_CODE, airbnbs)<span class="sc">%&gt;%</span></span>
-<span id="cb641-23"><a href="advanced-r-maup-and-more-regression.html#cb641-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(boroughsandwardssf[[<span class="dv">2</span>]], .,</span>
-<span id="cb641-24"><a href="advanced-r-maup-and-more-regression.html#cb641-24" aria-hidden="true" tabindex="-1"></a>                        <span class="at">by =</span> <span class="fu">c</span>(<span class="st">&quot;GSS_CODE&quot;</span> <span class="ot">=</span> <span class="st">&quot;GSS_CODE&quot;</span>))</span>
-<span id="cb641-25"><a href="advanced-r-maup-and-more-regression.html#cb641-25" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb641-26"><a href="advanced-r-maup-and-more-regression.html#cb641-26" aria-hidden="true" tabindex="-1"></a><span class="fu">qtm</span>(justairbnbborough, <span class="at">fill =</span> <span class="st">&quot;airbnbs&quot;</span>)</span></code></pre></div>
-<p><img src="CASA0005_files/figure-html/unnamed-chunk-494-1.png" width="672" /></p>
-<div class="sourceCode" id="cb642"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb642-1"><a href="advanced-r-maup-and-more-regression.html#cb642-1" aria-hidden="true" tabindex="-1"></a><span class="fu">qtm</span>(justairbnward, <span class="at">fill =</span> <span class="st">&quot;airbnbs&quot;</span>)</span></code></pre></div>
-<p><img src="CASA0005_files/figure-html/unnamed-chunk-494-2.png" width="672" /></p>
+<div class="sourceCode" id="cb639"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb639-1"><a href="advanced-r-maup-and-more-regression.html#cb639-1" aria-hidden="true" tabindex="-1"></a><span class="co"># while i is less than boroughlength </span></span>
+<span id="cb639-2"><a href="advanced-r-maup-and-more-regression.html#cb639-2" aria-hidden="true" tabindex="-1"></a><span class="co"># max of boroughlength is 3</span></span>
+<span id="cb639-3"><a href="advanced-r-maup-and-more-regression.html#cb639-3" aria-hidden="true" tabindex="-1"></a><span class="cf">while</span> (i <span class="sc">&lt;</span> boroughlen){</span>
+<span id="cb639-4"><a href="advanced-r-maup-and-more-regression.html#cb639-4" aria-hidden="true" tabindex="-1"></a>  <span class="co"># put the output in our varible</span></span>
+<span id="cb639-5"><a href="advanced-r-maup-and-more-regression.html#cb639-5" aria-hidden="true" tabindex="-1"></a>  <span class="co"># use the function for boroughs and then wards</span></span>
+<span id="cb639-6"><a href="advanced-r-maup-and-more-regression.html#cb639-6" aria-hidden="true" tabindex="-1"></a>  hold[[i]] <span class="ot">&lt;-</span> <span class="fu">Joinfun</span>(Airbnb, boroughsandwardssf[[i]])</span>
+<span id="cb639-7"><a href="advanced-r-maup-and-more-regression.html#cb639-7" aria-hidden="true" tabindex="-1"></a>  <span class="co"># add one to the index</span></span>
+<span id="cb639-8"><a href="advanced-r-maup-and-more-regression.html#cb639-8" aria-hidden="true" tabindex="-1"></a>  i<span class="ot">&lt;-</span>i<span class="sc">+</span><span class="dv">1</span></span>
+<span id="cb639-9"><a href="advanced-r-maup-and-more-regression.html#cb639-9" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb639-10"><a href="advanced-r-maup-and-more-regression.html#cb639-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb639-11"><a href="advanced-r-maup-and-more-regression.html#cb639-11" aria-hidden="true" tabindex="-1"></a><span class="co"># make a quick thematic map to have a look</span></span>
+<span id="cb639-12"><a href="advanced-r-maup-and-more-regression.html#cb639-12" aria-hidden="true" tabindex="-1"></a>justairbnbborough<span class="ot">&lt;-</span>hold[[<span class="dv">1</span>]]<span class="sc">%&gt;%</span></span>
+<span id="cb639-13"><a href="advanced-r-maup-and-more-regression.html#cb639-13" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(GSS_CODE, airbnbs)<span class="sc">%&gt;%</span></span>
+<span id="cb639-14"><a href="advanced-r-maup-and-more-regression.html#cb639-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_drop_geometry</span>()<span class="sc">%&gt;%</span></span>
+<span id="cb639-15"><a href="advanced-r-maup-and-more-regression.html#cb639-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">distinct</span>(GSS_CODE, airbnbs)<span class="sc">%&gt;%</span></span>
+<span id="cb639-16"><a href="advanced-r-maup-and-more-regression.html#cb639-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(boroughsandwardssf[[<span class="dv">1</span>]], .,</span>
+<span id="cb639-17"><a href="advanced-r-maup-and-more-regression.html#cb639-17" aria-hidden="true" tabindex="-1"></a>                        <span class="at">by =</span> <span class="fu">c</span>(<span class="st">&quot;GSS_CODE&quot;</span> <span class="ot">=</span> <span class="st">&quot;GSS_CODE&quot;</span>))</span>
+<span id="cb639-18"><a href="advanced-r-maup-and-more-regression.html#cb639-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb639-19"><a href="advanced-r-maup-and-more-regression.html#cb639-19" aria-hidden="true" tabindex="-1"></a>justairbnward<span class="ot">&lt;-</span>hold[[<span class="dv">2</span>]]<span class="sc">%&gt;%</span></span>
+<span id="cb639-20"><a href="advanced-r-maup-and-more-regression.html#cb639-20" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(GSS_CODE, airbnbs)<span class="sc">%&gt;%</span></span>
+<span id="cb639-21"><a href="advanced-r-maup-and-more-regression.html#cb639-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_drop_geometry</span>()<span class="sc">%&gt;%</span></span>
+<span id="cb639-22"><a href="advanced-r-maup-and-more-regression.html#cb639-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">distinct</span>(GSS_CODE, airbnbs)<span class="sc">%&gt;%</span></span>
+<span id="cb639-23"><a href="advanced-r-maup-and-more-regression.html#cb639-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(boroughsandwardssf[[<span class="dv">2</span>]], .,</span>
+<span id="cb639-24"><a href="advanced-r-maup-and-more-regression.html#cb639-24" aria-hidden="true" tabindex="-1"></a>                        <span class="at">by =</span> <span class="fu">c</span>(<span class="st">&quot;GSS_CODE&quot;</span> <span class="ot">=</span> <span class="st">&quot;GSS_CODE&quot;</span>))</span>
+<span id="cb639-25"><a href="advanced-r-maup-and-more-regression.html#cb639-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb639-26"><a href="advanced-r-maup-and-more-regression.html#cb639-26" aria-hidden="true" tabindex="-1"></a><span class="fu">qtm</span>(justairbnbborough, <span class="at">fill =</span> <span class="st">&quot;airbnbs&quot;</span>)</span></code></pre></div>
+<p><img src="CASA0005_files/figure-html/unnamed-chunk-495-1.png" width="672" /></p>
+<div class="sourceCode" id="cb640"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb640-1"><a href="advanced-r-maup-and-more-regression.html#cb640-1" aria-hidden="true" tabindex="-1"></a><span class="fu">qtm</span>(justairbnward, <span class="at">fill =</span> <span class="st">&quot;airbnbs&quot;</span>)</span></code></pre></div>
+<p><img src="CASA0005_files/figure-html/unnamed-chunk-495-2.png" width="672" /></p>
 <p>When should i use a loop?</p>
 <p>Well that’s a hard question…generally loops used to be considered inefficient in R, but i’m yet to come across a method that will let you increment one varibale whilst keeping another consistent …by this i mean like what we did in our loop. We changed what spatial data was joined with the Airbnb data — the Airbnb data remained the same. There are a few other functions like <code>mapply()</code>, <code>sapply()</code> and <code>tapply()</code> that work in the same format as <code>lapply()</code> but to my knowledge they still will increment all of the variables at the same time.</p>
 <p>In terms of code clarity i’m going to refer to <a href="https://r4ds.had.co.nz/iteration.html">section 21.5 on iteration</a> in Wickham $ Grolemund (2017)…</p>
@@ -897,124 +897,124 @@ This week:</p>
 <ol style="list-style-type: decimal">
 <li>Right, so we can sort of see the difference between the spatial levels (boroughs and wards) but let’s take a closer look within Westminster… here is the ‘preamble’ for the <code>leaflet</code> map …basically all the stuff we need to set it up…</li>
 </ol>
-<div class="sourceCode" id="cb643"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb643-1"><a href="advanced-r-maup-and-more-regression.html#cb643-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(classInt)</span>
-<span id="cb643-2"><a href="advanced-r-maup-and-more-regression.html#cb643-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(leaflet)</span>
-<span id="cb643-3"><a href="advanced-r-maup-and-more-regression.html#cb643-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(leafpop)</span>
-<span id="cb643-4"><a href="advanced-r-maup-and-more-regression.html#cb643-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb643-5"><a href="advanced-r-maup-and-more-regression.html#cb643-5" aria-hidden="true" tabindex="-1"></a><span class="co"># extract only westminster from boroughs</span></span>
-<span id="cb643-6"><a href="advanced-r-maup-and-more-regression.html#cb643-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb643-7"><a href="advanced-r-maup-and-more-regression.html#cb643-7" aria-hidden="true" tabindex="-1"></a>Borough <span class="ot">&lt;-</span> hold[[<span class="dv">1</span>]] <span class="sc">%&gt;%</span></span>
-<span id="cb643-8"><a href="advanced-r-maup-and-more-regression.html#cb643-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(NAME<span class="sc">==</span><span class="st">&quot;Westminster&quot;</span>)<span class="sc">%&gt;%</span></span>
-<span id="cb643-9"><a href="advanced-r-maup-and-more-regression.html#cb643-9" aria-hidden="true" tabindex="-1"></a>  <span class="co"># we need to set the projection to WGS84</span></span>
-<span id="cb643-10"><a href="advanced-r-maup-and-more-regression.html#cb643-10" aria-hidden="true" tabindex="-1"></a>  <span class="co"># to use with leaflet</span></span>
-<span id="cb643-11"><a href="advanced-r-maup-and-more-regression.html#cb643-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_transform</span>(., <span class="at">crs=</span><span class="dv">4326</span>)<span class="sc">%&gt;%</span></span>
-<span id="cb643-12"><a href="advanced-r-maup-and-more-regression.html#cb643-12" aria-hidden="true" tabindex="-1"></a>  <span class="co">#at the moment each airbnb is a row for the borough</span></span>
-<span id="cb643-13"><a href="advanced-r-maup-and-more-regression.html#cb643-13" aria-hidden="true" tabindex="-1"></a>  <span class="co">#we just one one row that has number of airbnbs</span></span>
-<span id="cb643-14"><a href="advanced-r-maup-and-more-regression.html#cb643-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(., GSS_CODE, NAME)<span class="sc">%&gt;%</span></span>
-<span id="cb643-15"><a href="advanced-r-maup-and-more-regression.html#cb643-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">airbnbs =</span> <span class="fu">unique</span>(airbnbs))</span>
-<span id="cb643-16"><a href="advanced-r-maup-and-more-regression.html#cb643-16" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb643-17"><a href="advanced-r-maup-and-more-regression.html#cb643-17" aria-hidden="true" tabindex="-1"></a>wardsatborough <span class="ot">&lt;-</span> hold[[<span class="dv">2</span>]] <span class="sc">%&gt;%</span></span>
-<span id="cb643-18"><a href="advanced-r-maup-and-more-regression.html#cb643-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(BOROUGH<span class="sc">==</span><span class="st">&quot;Westminster&quot;</span>)<span class="sc">%&gt;%</span></span>
-<span id="cb643-19"><a href="advanced-r-maup-and-more-regression.html#cb643-19" aria-hidden="true" tabindex="-1"></a>  <span class="co"># we need to set the projection to WGS84</span></span>
-<span id="cb643-20"><a href="advanced-r-maup-and-more-regression.html#cb643-20" aria-hidden="true" tabindex="-1"></a>  <span class="co"># to use with leaflet</span></span>
-<span id="cb643-21"><a href="advanced-r-maup-and-more-regression.html#cb643-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_transform</span>(., <span class="at">crs=</span><span class="dv">4326</span>)<span class="sc">%&gt;%</span></span>
-<span id="cb643-22"><a href="advanced-r-maup-and-more-regression.html#cb643-22" aria-hidden="true" tabindex="-1"></a>  <span class="co">#at the moment each airbnb is a row for the wards</span></span>
-<span id="cb643-23"><a href="advanced-r-maup-and-more-regression.html#cb643-23" aria-hidden="true" tabindex="-1"></a>  <span class="co">#we just one one row that has number of airbnbs</span></span>
-<span id="cb643-24"><a href="advanced-r-maup-and-more-regression.html#cb643-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(., GSS_CODE, NAME)<span class="sc">%&gt;%</span></span>
-<span id="cb643-25"><a href="advanced-r-maup-and-more-regression.html#cb643-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">airbnbs =</span> <span class="fu">unique</span>(airbnbs))</span>
-<span id="cb643-26"><a href="advanced-r-maup-and-more-regression.html#cb643-26" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb643-27"><a href="advanced-r-maup-and-more-regression.html#cb643-27" aria-hidden="true" tabindex="-1"></a><span class="co"># set our breaks for the map</span></span>
-<span id="cb643-28"><a href="advanced-r-maup-and-more-regression.html#cb643-28" aria-hidden="true" tabindex="-1"></a>breaks1<span class="ot">&lt;-</span><span class="fu">classIntervals</span>(hold[[<span class="dv">1</span>]]<span class="sc">$</span>airbnbs, </span>
-<span id="cb643-29"><a href="advanced-r-maup-and-more-regression.html#cb643-29" aria-hidden="true" tabindex="-1"></a>                        <span class="at">n=</span><span class="dv">5</span>, </span>
-<span id="cb643-30"><a href="advanced-r-maup-and-more-regression.html#cb643-30" aria-hidden="true" tabindex="-1"></a>                        <span class="at">style =</span> <span class="st">&quot;quantile&quot;</span>)</span>
-<span id="cb643-31"><a href="advanced-r-maup-and-more-regression.html#cb643-31" aria-hidden="true" tabindex="-1"></a>breaks2<span class="ot">&lt;-</span><span class="fu">classIntervals</span>(wardsatborough<span class="sc">$</span>airbnbs, </span>
-<span id="cb643-32"><a href="advanced-r-maup-and-more-regression.html#cb643-32" aria-hidden="true" tabindex="-1"></a>                        <span class="at">n=</span><span class="dv">5</span>, </span>
-<span id="cb643-33"><a href="advanced-r-maup-and-more-regression.html#cb643-33" aria-hidden="true" tabindex="-1"></a>                        <span class="at">style =</span> <span class="st">&quot;quantile&quot;</span>)</span>
-<span id="cb643-34"><a href="advanced-r-maup-and-more-regression.html#cb643-34" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb643-35"><a href="advanced-r-maup-and-more-regression.html#cb643-35" aria-hidden="true" tabindex="-1"></a><span class="co"># use the breaks to set our colour palettes</span></span>
-<span id="cb643-36"><a href="advanced-r-maup-and-more-regression.html#cb643-36" aria-hidden="true" tabindex="-1"></a>pal <span class="ot">&lt;-</span> <span class="fu">colorBin</span>(<span class="at">palette =</span> <span class="st">&quot;YlOrRd&quot;</span>, </span>
-<span id="cb643-37"><a href="advanced-r-maup-and-more-regression.html#cb643-37" aria-hidden="true" tabindex="-1"></a>                <span class="at">domain=</span>hold[[<span class="dv">1</span>]]<span class="sc">$</span>airbnbs, </span>
-<span id="cb643-38"><a href="advanced-r-maup-and-more-regression.html#cb643-38" aria-hidden="true" tabindex="-1"></a>                <span class="at">bins=</span>breaks1<span class="sc">$</span>brks)</span>
-<span id="cb643-39"><a href="advanced-r-maup-and-more-regression.html#cb643-39" aria-hidden="true" tabindex="-1"></a>pal2 <span class="ot">&lt;-</span> <span class="fu">colorBin</span>(<span class="at">palette =</span> <span class="st">&quot;YlOrRd&quot;</span>, </span>
-<span id="cb643-40"><a href="advanced-r-maup-and-more-regression.html#cb643-40" aria-hidden="true" tabindex="-1"></a>                 <span class="at">domain=</span>wardsatborough<span class="sc">$</span>airbnbs, </span>
-<span id="cb643-41"><a href="advanced-r-maup-and-more-regression.html#cb643-41" aria-hidden="true" tabindex="-1"></a>                 <span class="at">bins=</span>breaks2<span class="sc">$</span>brks)</span>
-<span id="cb643-42"><a href="advanced-r-maup-and-more-regression.html#cb643-42" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb643-43"><a href="advanced-r-maup-and-more-regression.html#cb643-43" aria-hidden="true" tabindex="-1"></a><span class="co"># we want a popup of information too</span></span>
-<span id="cb643-44"><a href="advanced-r-maup-and-more-regression.html#cb643-44" aria-hidden="true" tabindex="-1"></a><span class="co"># here we make a new varaible with no </span></span>
-<span id="cb643-45"><a href="advanced-r-maup-and-more-regression.html#cb643-45" aria-hidden="true" tabindex="-1"></a><span class="co">#spatial info (remove geometry)</span></span>
-<span id="cb643-46"><a href="advanced-r-maup-and-more-regression.html#cb643-46" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb643-47"><a href="advanced-r-maup-and-more-regression.html#cb643-47" aria-hidden="true" tabindex="-1"></a>wardinfo <span class="ot">&lt;-</span>wardsatborough <span class="sc">%&gt;%</span></span>
-<span id="cb643-48"><a href="advanced-r-maup-and-more-regression.html#cb643-48" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_drop_geometry</span>()<span class="sc">%&gt;%</span></span>
-<span id="cb643-49"><a href="advanced-r-maup-and-more-regression.html#cb643-49" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">rename</span>(<span class="at">Ward =</span> NAME,</span>
-<span id="cb643-50"><a href="advanced-r-maup-and-more-regression.html#cb643-50" aria-hidden="true" tabindex="-1"></a>         <span class="at">Airbnbs =</span> airbnbs)<span class="sc">%&gt;%</span></span>
-<span id="cb643-51"><a href="advanced-r-maup-and-more-regression.html#cb643-51" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(Ward, Airbnbs)<span class="sc">%&gt;%</span></span>
-<span id="cb643-52"><a href="advanced-r-maup-and-more-regression.html#cb643-52" aria-hidden="true" tabindex="-1"></a>  <span class="fu">popupTable</span>()</span>
-<span id="cb643-53"><a href="advanced-r-maup-and-more-regression.html#cb643-53" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb643-54"><a href="advanced-r-maup-and-more-regression.html#cb643-54" aria-hidden="true" tabindex="-1"></a>boroughinfo <span class="ot">&lt;-</span>wardsatborough <span class="sc">%&gt;%</span></span>
-<span id="cb643-55"><a href="advanced-r-maup-and-more-regression.html#cb643-55" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_drop_geometry</span>()<span class="sc">%&gt;%</span></span>
-<span id="cb643-56"><a href="advanced-r-maup-and-more-regression.html#cb643-56" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">rename</span>(<span class="at">Borough =</span> NAME,</span>
-<span id="cb643-57"><a href="advanced-r-maup-and-more-regression.html#cb643-57" aria-hidden="true" tabindex="-1"></a>         <span class="at">Airbnbs =</span> airbnbs)<span class="sc">%&gt;%</span></span>
-<span id="cb643-58"><a href="advanced-r-maup-and-more-regression.html#cb643-58" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(Borough, Airbnbs)<span class="sc">%&gt;%</span></span>
-<span id="cb643-59"><a href="advanced-r-maup-and-more-regression.html#cb643-59" aria-hidden="true" tabindex="-1"></a>  <span class="fu">popupTable</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb641"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb641-1"><a href="advanced-r-maup-and-more-regression.html#cb641-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(classInt)</span>
+<span id="cb641-2"><a href="advanced-r-maup-and-more-regression.html#cb641-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(leaflet)</span>
+<span id="cb641-3"><a href="advanced-r-maup-and-more-regression.html#cb641-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(leafpop)</span>
+<span id="cb641-4"><a href="advanced-r-maup-and-more-regression.html#cb641-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb641-5"><a href="advanced-r-maup-and-more-regression.html#cb641-5" aria-hidden="true" tabindex="-1"></a><span class="co"># extract only westminster from boroughs</span></span>
+<span id="cb641-6"><a href="advanced-r-maup-and-more-regression.html#cb641-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb641-7"><a href="advanced-r-maup-and-more-regression.html#cb641-7" aria-hidden="true" tabindex="-1"></a>Borough <span class="ot">&lt;-</span> hold[[<span class="dv">1</span>]] <span class="sc">%&gt;%</span></span>
+<span id="cb641-8"><a href="advanced-r-maup-and-more-regression.html#cb641-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(NAME<span class="sc">==</span><span class="st">&quot;Westminster&quot;</span>)<span class="sc">%&gt;%</span></span>
+<span id="cb641-9"><a href="advanced-r-maup-and-more-regression.html#cb641-9" aria-hidden="true" tabindex="-1"></a>  <span class="co"># we need to set the projection to WGS84</span></span>
+<span id="cb641-10"><a href="advanced-r-maup-and-more-regression.html#cb641-10" aria-hidden="true" tabindex="-1"></a>  <span class="co"># to use with leaflet</span></span>
+<span id="cb641-11"><a href="advanced-r-maup-and-more-regression.html#cb641-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_transform</span>(., <span class="at">crs=</span><span class="dv">4326</span>)<span class="sc">%&gt;%</span></span>
+<span id="cb641-12"><a href="advanced-r-maup-and-more-regression.html#cb641-12" aria-hidden="true" tabindex="-1"></a>  <span class="co">#at the moment each airbnb is a row for the borough</span></span>
+<span id="cb641-13"><a href="advanced-r-maup-and-more-regression.html#cb641-13" aria-hidden="true" tabindex="-1"></a>  <span class="co">#we just one one row that has number of airbnbs</span></span>
+<span id="cb641-14"><a href="advanced-r-maup-and-more-regression.html#cb641-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(., GSS_CODE, NAME)<span class="sc">%&gt;%</span></span>
+<span id="cb641-15"><a href="advanced-r-maup-and-more-regression.html#cb641-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">airbnbs =</span> <span class="fu">unique</span>(airbnbs))</span>
+<span id="cb641-16"><a href="advanced-r-maup-and-more-regression.html#cb641-16" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb641-17"><a href="advanced-r-maup-and-more-regression.html#cb641-17" aria-hidden="true" tabindex="-1"></a>wardsatborough <span class="ot">&lt;-</span> hold[[<span class="dv">2</span>]] <span class="sc">%&gt;%</span></span>
+<span id="cb641-18"><a href="advanced-r-maup-and-more-regression.html#cb641-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(BOROUGH<span class="sc">==</span><span class="st">&quot;Westminster&quot;</span>)<span class="sc">%&gt;%</span></span>
+<span id="cb641-19"><a href="advanced-r-maup-and-more-regression.html#cb641-19" aria-hidden="true" tabindex="-1"></a>  <span class="co"># we need to set the projection to WGS84</span></span>
+<span id="cb641-20"><a href="advanced-r-maup-and-more-regression.html#cb641-20" aria-hidden="true" tabindex="-1"></a>  <span class="co"># to use with leaflet</span></span>
+<span id="cb641-21"><a href="advanced-r-maup-and-more-regression.html#cb641-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_transform</span>(., <span class="at">crs=</span><span class="dv">4326</span>)<span class="sc">%&gt;%</span></span>
+<span id="cb641-22"><a href="advanced-r-maup-and-more-regression.html#cb641-22" aria-hidden="true" tabindex="-1"></a>  <span class="co">#at the moment each airbnb is a row for the wards</span></span>
+<span id="cb641-23"><a href="advanced-r-maup-and-more-regression.html#cb641-23" aria-hidden="true" tabindex="-1"></a>  <span class="co">#we just one one row that has number of airbnbs</span></span>
+<span id="cb641-24"><a href="advanced-r-maup-and-more-regression.html#cb641-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(., GSS_CODE, NAME)<span class="sc">%&gt;%</span></span>
+<span id="cb641-25"><a href="advanced-r-maup-and-more-regression.html#cb641-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">airbnbs =</span> <span class="fu">unique</span>(airbnbs))</span>
+<span id="cb641-26"><a href="advanced-r-maup-and-more-regression.html#cb641-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb641-27"><a href="advanced-r-maup-and-more-regression.html#cb641-27" aria-hidden="true" tabindex="-1"></a><span class="co"># set our breaks for the map</span></span>
+<span id="cb641-28"><a href="advanced-r-maup-and-more-regression.html#cb641-28" aria-hidden="true" tabindex="-1"></a>breaks1<span class="ot">&lt;-</span><span class="fu">classIntervals</span>(hold[[<span class="dv">1</span>]]<span class="sc">$</span>airbnbs, </span>
+<span id="cb641-29"><a href="advanced-r-maup-and-more-regression.html#cb641-29" aria-hidden="true" tabindex="-1"></a>                        <span class="at">n=</span><span class="dv">5</span>, </span>
+<span id="cb641-30"><a href="advanced-r-maup-and-more-regression.html#cb641-30" aria-hidden="true" tabindex="-1"></a>                        <span class="at">style =</span> <span class="st">&quot;quantile&quot;</span>)</span>
+<span id="cb641-31"><a href="advanced-r-maup-and-more-regression.html#cb641-31" aria-hidden="true" tabindex="-1"></a>breaks2<span class="ot">&lt;-</span><span class="fu">classIntervals</span>(wardsatborough<span class="sc">$</span>airbnbs, </span>
+<span id="cb641-32"><a href="advanced-r-maup-and-more-regression.html#cb641-32" aria-hidden="true" tabindex="-1"></a>                        <span class="at">n=</span><span class="dv">5</span>, </span>
+<span id="cb641-33"><a href="advanced-r-maup-and-more-regression.html#cb641-33" aria-hidden="true" tabindex="-1"></a>                        <span class="at">style =</span> <span class="st">&quot;quantile&quot;</span>)</span>
+<span id="cb641-34"><a href="advanced-r-maup-and-more-regression.html#cb641-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb641-35"><a href="advanced-r-maup-and-more-regression.html#cb641-35" aria-hidden="true" tabindex="-1"></a><span class="co"># use the breaks to set our colour palettes</span></span>
+<span id="cb641-36"><a href="advanced-r-maup-and-more-regression.html#cb641-36" aria-hidden="true" tabindex="-1"></a>pal <span class="ot">&lt;-</span> <span class="fu">colorBin</span>(<span class="at">palette =</span> <span class="st">&quot;YlOrRd&quot;</span>, </span>
+<span id="cb641-37"><a href="advanced-r-maup-and-more-regression.html#cb641-37" aria-hidden="true" tabindex="-1"></a>                <span class="at">domain=</span>hold[[<span class="dv">1</span>]]<span class="sc">$</span>airbnbs, </span>
+<span id="cb641-38"><a href="advanced-r-maup-and-more-regression.html#cb641-38" aria-hidden="true" tabindex="-1"></a>                <span class="at">bins=</span>breaks1<span class="sc">$</span>brks)</span>
+<span id="cb641-39"><a href="advanced-r-maup-and-more-regression.html#cb641-39" aria-hidden="true" tabindex="-1"></a>pal2 <span class="ot">&lt;-</span> <span class="fu">colorBin</span>(<span class="at">palette =</span> <span class="st">&quot;YlOrRd&quot;</span>, </span>
+<span id="cb641-40"><a href="advanced-r-maup-and-more-regression.html#cb641-40" aria-hidden="true" tabindex="-1"></a>                 <span class="at">domain=</span>wardsatborough<span class="sc">$</span>airbnbs, </span>
+<span id="cb641-41"><a href="advanced-r-maup-and-more-regression.html#cb641-41" aria-hidden="true" tabindex="-1"></a>                 <span class="at">bins=</span>breaks2<span class="sc">$</span>brks)</span>
+<span id="cb641-42"><a href="advanced-r-maup-and-more-regression.html#cb641-42" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb641-43"><a href="advanced-r-maup-and-more-regression.html#cb641-43" aria-hidden="true" tabindex="-1"></a><span class="co"># we want a popup of information too</span></span>
+<span id="cb641-44"><a href="advanced-r-maup-and-more-regression.html#cb641-44" aria-hidden="true" tabindex="-1"></a><span class="co"># here we make a new varaible with no </span></span>
+<span id="cb641-45"><a href="advanced-r-maup-and-more-regression.html#cb641-45" aria-hidden="true" tabindex="-1"></a><span class="co">#spatial info (remove geometry)</span></span>
+<span id="cb641-46"><a href="advanced-r-maup-and-more-regression.html#cb641-46" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb641-47"><a href="advanced-r-maup-and-more-regression.html#cb641-47" aria-hidden="true" tabindex="-1"></a>wardinfo <span class="ot">&lt;-</span>wardsatborough <span class="sc">%&gt;%</span></span>
+<span id="cb641-48"><a href="advanced-r-maup-and-more-regression.html#cb641-48" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_drop_geometry</span>()<span class="sc">%&gt;%</span></span>
+<span id="cb641-49"><a href="advanced-r-maup-and-more-regression.html#cb641-49" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">rename</span>(<span class="at">Ward =</span> NAME,</span>
+<span id="cb641-50"><a href="advanced-r-maup-and-more-regression.html#cb641-50" aria-hidden="true" tabindex="-1"></a>         <span class="at">Airbnbs =</span> airbnbs)<span class="sc">%&gt;%</span></span>
+<span id="cb641-51"><a href="advanced-r-maup-and-more-regression.html#cb641-51" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(Ward, Airbnbs)<span class="sc">%&gt;%</span></span>
+<span id="cb641-52"><a href="advanced-r-maup-and-more-regression.html#cb641-52" aria-hidden="true" tabindex="-1"></a>  <span class="fu">popupTable</span>()</span>
+<span id="cb641-53"><a href="advanced-r-maup-and-more-regression.html#cb641-53" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb641-54"><a href="advanced-r-maup-and-more-regression.html#cb641-54" aria-hidden="true" tabindex="-1"></a>boroughinfo <span class="ot">&lt;-</span>wardsatborough <span class="sc">%&gt;%</span></span>
+<span id="cb641-55"><a href="advanced-r-maup-and-more-regression.html#cb641-55" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_drop_geometry</span>()<span class="sc">%&gt;%</span></span>
+<span id="cb641-56"><a href="advanced-r-maup-and-more-regression.html#cb641-56" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">rename</span>(<span class="at">Borough =</span> NAME,</span>
+<span id="cb641-57"><a href="advanced-r-maup-and-more-regression.html#cb641-57" aria-hidden="true" tabindex="-1"></a>         <span class="at">Airbnbs =</span> airbnbs)<span class="sc">%&gt;%</span></span>
+<span id="cb641-58"><a href="advanced-r-maup-and-more-regression.html#cb641-58" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(Borough, Airbnbs)<span class="sc">%&gt;%</span></span>
+<span id="cb641-59"><a href="advanced-r-maup-and-more-regression.html#cb641-59" aria-hidden="true" tabindex="-1"></a>  <span class="fu">popupTable</span>()</span></code></pre></div>
 <ol style="list-style-type: decimal">
 <li>Now let’s map it using what we just specified… i’ve added a few more features than were in the <a href="map-making.html#map-making">Map making</a> practical</li>
 </ol>
-<div class="sourceCode" id="cb644"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb644-1"><a href="advanced-r-maup-and-more-regression.html#cb644-1" aria-hidden="true" tabindex="-1"></a>  wardandboroughs<span class="ot">&lt;-</span> <span class="fu">leaflet</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb644-2"><a href="advanced-r-maup-and-more-regression.html#cb644-2" aria-hidden="true" tabindex="-1"></a>    <span class="co"># add basemap options</span></span>
-<span id="cb644-3"><a href="advanced-r-maup-and-more-regression.html#cb644-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">addProviderTiles</span>(providers<span class="sc">$</span>Stamen.TonerLite, <span class="at">group =</span> <span class="st">&quot;Toner Lite&quot;</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb644-4"><a href="advanced-r-maup-and-more-regression.html#cb644-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">addTiles</span>(<span class="at">group =</span> <span class="st">&quot;OSM&quot;</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb644-5"><a href="advanced-r-maup-and-more-regression.html#cb644-5" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb644-6"><a href="advanced-r-maup-and-more-regression.html#cb644-6" aria-hidden="true" tabindex="-1"></a>    <span class="co">#add our Borough polygons, linking to the tables we just made</span></span>
-<span id="cb644-7"><a href="advanced-r-maup-and-more-regression.html#cb644-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">addPolygons</span>(<span class="at">data=</span>Borough,</span>
-<span id="cb644-8"><a href="advanced-r-maup-and-more-regression.html#cb644-8" aria-hidden="true" tabindex="-1"></a>                <span class="at">color=</span><span class="st">&quot;white&quot;</span>, </span>
-<span id="cb644-9"><a href="advanced-r-maup-and-more-regression.html#cb644-9" aria-hidden="true" tabindex="-1"></a>                <span class="at">weight =</span> <span class="dv">2</span>,</span>
-<span id="cb644-10"><a href="advanced-r-maup-and-more-regression.html#cb644-10" aria-hidden="true" tabindex="-1"></a>                <span class="at">opacity =</span> <span class="dv">1</span>,</span>
-<span id="cb644-11"><a href="advanced-r-maup-and-more-regression.html#cb644-11" aria-hidden="true" tabindex="-1"></a>                <span class="at">dashArray =</span> <span class="st">&quot;3&quot;</span>,</span>
-<span id="cb644-12"><a href="advanced-r-maup-and-more-regression.html#cb644-12" aria-hidden="true" tabindex="-1"></a>                <span class="at">fillOpacity =</span> <span class="fl">0.7</span>,</span>
-<span id="cb644-13"><a href="advanced-r-maup-and-more-regression.html#cb644-13" aria-hidden="true" tabindex="-1"></a>                <span class="at">popup =</span> boroughinfo,</span>
-<span id="cb644-14"><a href="advanced-r-maup-and-more-regression.html#cb644-14" aria-hidden="true" tabindex="-1"></a>                <span class="at">fillColor =</span> <span class="sc">~</span><span class="fu">pal</span>(Borough<span class="sc">$</span>airbnbs),</span>
-<span id="cb644-15"><a href="advanced-r-maup-and-more-regression.html#cb644-15" aria-hidden="true" tabindex="-1"></a>                <span class="at">group =</span> <span class="st">&quot;Borough&quot;</span>)<span class="sc">%&gt;%</span></span>
-<span id="cb644-16"><a href="advanced-r-maup-and-more-regression.html#cb644-16" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb644-17"><a href="advanced-r-maup-and-more-regression.html#cb644-17" aria-hidden="true" tabindex="-1"></a>    <span class="co">#add our ward polygons, linking to the tables we just made</span></span>
-<span id="cb644-18"><a href="advanced-r-maup-and-more-regression.html#cb644-18" aria-hidden="true" tabindex="-1"></a>    <span class="fu">addPolygons</span>(<span class="at">data=</span>wardsatborough,</span>
-<span id="cb644-19"><a href="advanced-r-maup-and-more-regression.html#cb644-19" aria-hidden="true" tabindex="-1"></a>                <span class="at">color=</span><span class="st">&quot;white&quot;</span>, </span>
-<span id="cb644-20"><a href="advanced-r-maup-and-more-regression.html#cb644-20" aria-hidden="true" tabindex="-1"></a>                <span class="at">weight =</span> <span class="dv">2</span>,</span>
-<span id="cb644-21"><a href="advanced-r-maup-and-more-regression.html#cb644-21" aria-hidden="true" tabindex="-1"></a>                <span class="at">opacity =</span> <span class="dv">1</span>,</span>
-<span id="cb644-22"><a href="advanced-r-maup-and-more-regression.html#cb644-22" aria-hidden="true" tabindex="-1"></a>                <span class="at">dashArray =</span> <span class="st">&quot;3&quot;</span>,</span>
-<span id="cb644-23"><a href="advanced-r-maup-and-more-regression.html#cb644-23" aria-hidden="true" tabindex="-1"></a>                <span class="at">fillOpacity =</span> <span class="fl">0.7</span>,</span>
-<span id="cb644-24"><a href="advanced-r-maup-and-more-regression.html#cb644-24" aria-hidden="true" tabindex="-1"></a>                <span class="at">popup =</span> wardinfo,</span>
-<span id="cb644-25"><a href="advanced-r-maup-and-more-regression.html#cb644-25" aria-hidden="true" tabindex="-1"></a>                <span class="at">fillColor =</span> <span class="sc">~</span><span class="fu">pal2</span>(wardsatborough<span class="sc">$</span>airbnbs),</span>
-<span id="cb644-26"><a href="advanced-r-maup-and-more-regression.html#cb644-26" aria-hidden="true" tabindex="-1"></a>                <span class="at">group =</span> <span class="st">&quot;Wards&quot;</span>)<span class="sc">%&gt;%</span></span>
-<span id="cb644-27"><a href="advanced-r-maup-and-more-regression.html#cb644-27" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb644-28"><a href="advanced-r-maup-and-more-regression.html#cb644-28" aria-hidden="true" tabindex="-1"></a>    <span class="co"># add a legend for wards</span></span>
-<span id="cb644-29"><a href="advanced-r-maup-and-more-regression.html#cb644-29" aria-hidden="true" tabindex="-1"></a>    <span class="fu">addLegend</span>(<span class="at">pal =</span> pal2, </span>
-<span id="cb644-30"><a href="advanced-r-maup-and-more-regression.html#cb644-30" aria-hidden="true" tabindex="-1"></a>              <span class="at">values =</span> wardsatborough<span class="sc">$</span>airbnbs,</span>
-<span id="cb644-31"><a href="advanced-r-maup-and-more-regression.html#cb644-31" aria-hidden="true" tabindex="-1"></a>              <span class="at">group=</span><span class="fu">c</span>(<span class="st">&quot;Wards&quot;</span>), </span>
-<span id="cb644-32"><a href="advanced-r-maup-and-more-regression.html#cb644-32" aria-hidden="true" tabindex="-1"></a>              <span class="at">position =</span><span class="st">&quot;bottomleft&quot;</span>,</span>
-<span id="cb644-33"><a href="advanced-r-maup-and-more-regression.html#cb644-33" aria-hidden="true" tabindex="-1"></a>              <span class="at">title =</span><span class="st">&quot;Accom count&quot;</span>)<span class="sc">%&gt;%</span></span>
-<span id="cb644-34"><a href="advanced-r-maup-and-more-regression.html#cb644-34" aria-hidden="true" tabindex="-1"></a>     </span>
-<span id="cb644-35"><a href="advanced-r-maup-and-more-regression.html#cb644-35" aria-hidden="true" tabindex="-1"></a>    <span class="co"># add a legend for boroughs</span></span>
-<span id="cb644-36"><a href="advanced-r-maup-and-more-regression.html#cb644-36" aria-hidden="true" tabindex="-1"></a>    <span class="fu">addLegend</span>(<span class="at">pal =</span> pal, </span>
-<span id="cb644-37"><a href="advanced-r-maup-and-more-regression.html#cb644-37" aria-hidden="true" tabindex="-1"></a>              <span class="at">values =</span> Borough,</span>
-<span id="cb644-38"><a href="advanced-r-maup-and-more-regression.html#cb644-38" aria-hidden="true" tabindex="-1"></a>              <span class="at">group=</span><span class="fu">c</span>(<span class="st">&quot;Borough&quot;</span>), </span>
-<span id="cb644-39"><a href="advanced-r-maup-and-more-regression.html#cb644-39" aria-hidden="true" tabindex="-1"></a>              <span class="at">title =</span><span class="st">&quot;Accom count&quot;</span>,</span>
-<span id="cb644-40"><a href="advanced-r-maup-and-more-regression.html#cb644-40" aria-hidden="true" tabindex="-1"></a>              <span class="at">position =</span><span class="st">&quot;bottomleft&quot;</span>)<span class="sc">%&gt;%</span></span>
-<span id="cb644-41"><a href="advanced-r-maup-and-more-regression.html#cb644-41" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb644-42"><a href="advanced-r-maup-and-more-regression.html#cb644-42" aria-hidden="true" tabindex="-1"></a>  <span class="co"># specify layers control</span></span>
-<span id="cb644-43"><a href="advanced-r-maup-and-more-regression.html#cb644-43" aria-hidden="true" tabindex="-1"></a>  <span class="fu">addLayersControl</span>(</span>
-<span id="cb644-44"><a href="advanced-r-maup-and-more-regression.html#cb644-44" aria-hidden="true" tabindex="-1"></a>    <span class="at">baseGroups =</span> <span class="fu">c</span>(<span class="st">&quot;Toner Lite&quot;</span>, <span class="st">&quot;OSM&quot;</span>),</span>
-<span id="cb644-45"><a href="advanced-r-maup-and-more-regression.html#cb644-45" aria-hidden="true" tabindex="-1"></a>    <span class="at">overlayGroups =</span> <span class="fu">c</span>(<span class="st">&quot;Borough&quot;</span>, <span class="st">&quot;Wards&quot;</span>),</span>
-<span id="cb644-46"><a href="advanced-r-maup-and-more-regression.html#cb644-46" aria-hidden="true" tabindex="-1"></a>    <span class="at">options =</span> <span class="fu">layersControlOptions</span>(<span class="at">collapsed =</span> <span class="cn">FALSE</span>))<span class="sc">%&gt;%</span></span>
-<span id="cb644-47"><a href="advanced-r-maup-and-more-regression.html#cb644-47" aria-hidden="true" tabindex="-1"></a>    <span class="fu">hideGroup</span>(<span class="fu">c</span>(<span class="st">&quot;Borough&quot;</span>))</span>
-<span id="cb644-48"><a href="advanced-r-maup-and-more-regression.html#cb644-48" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb644-49"><a href="advanced-r-maup-and-more-regression.html#cb644-49" aria-hidden="true" tabindex="-1"></a><span class="co"># show us the map</span></span>
-<span id="cb644-50"><a href="advanced-r-maup-and-more-regression.html#cb644-50" aria-hidden="true" tabindex="-1"></a>wardandboroughs</span></code></pre></div>
+<div class="sourceCode" id="cb642"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb642-1"><a href="advanced-r-maup-and-more-regression.html#cb642-1" aria-hidden="true" tabindex="-1"></a>  wardandboroughs<span class="ot">&lt;-</span> <span class="fu">leaflet</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb642-2"><a href="advanced-r-maup-and-more-regression.html#cb642-2" aria-hidden="true" tabindex="-1"></a>    <span class="co"># add basemap options</span></span>
+<span id="cb642-3"><a href="advanced-r-maup-and-more-regression.html#cb642-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">addProviderTiles</span>(providers<span class="sc">$</span>Stamen.TonerLite, <span class="at">group =</span> <span class="st">&quot;Toner Lite&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb642-4"><a href="advanced-r-maup-and-more-regression.html#cb642-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">addTiles</span>(<span class="at">group =</span> <span class="st">&quot;OSM&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb642-5"><a href="advanced-r-maup-and-more-regression.html#cb642-5" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb642-6"><a href="advanced-r-maup-and-more-regression.html#cb642-6" aria-hidden="true" tabindex="-1"></a>    <span class="co">#add our Borough polygons, linking to the tables we just made</span></span>
+<span id="cb642-7"><a href="advanced-r-maup-and-more-regression.html#cb642-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">addPolygons</span>(<span class="at">data=</span>Borough,</span>
+<span id="cb642-8"><a href="advanced-r-maup-and-more-regression.html#cb642-8" aria-hidden="true" tabindex="-1"></a>                <span class="at">color=</span><span class="st">&quot;white&quot;</span>, </span>
+<span id="cb642-9"><a href="advanced-r-maup-and-more-regression.html#cb642-9" aria-hidden="true" tabindex="-1"></a>                <span class="at">weight =</span> <span class="dv">2</span>,</span>
+<span id="cb642-10"><a href="advanced-r-maup-and-more-regression.html#cb642-10" aria-hidden="true" tabindex="-1"></a>                <span class="at">opacity =</span> <span class="dv">1</span>,</span>
+<span id="cb642-11"><a href="advanced-r-maup-and-more-regression.html#cb642-11" aria-hidden="true" tabindex="-1"></a>                <span class="at">dashArray =</span> <span class="st">&quot;3&quot;</span>,</span>
+<span id="cb642-12"><a href="advanced-r-maup-and-more-regression.html#cb642-12" aria-hidden="true" tabindex="-1"></a>                <span class="at">fillOpacity =</span> <span class="fl">0.7</span>,</span>
+<span id="cb642-13"><a href="advanced-r-maup-and-more-regression.html#cb642-13" aria-hidden="true" tabindex="-1"></a>                <span class="at">popup =</span> boroughinfo,</span>
+<span id="cb642-14"><a href="advanced-r-maup-and-more-regression.html#cb642-14" aria-hidden="true" tabindex="-1"></a>                <span class="at">fillColor =</span> <span class="sc">~</span><span class="fu">pal</span>(Borough<span class="sc">$</span>airbnbs),</span>
+<span id="cb642-15"><a href="advanced-r-maup-and-more-regression.html#cb642-15" aria-hidden="true" tabindex="-1"></a>                <span class="at">group =</span> <span class="st">&quot;Borough&quot;</span>)<span class="sc">%&gt;%</span></span>
+<span id="cb642-16"><a href="advanced-r-maup-and-more-regression.html#cb642-16" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb642-17"><a href="advanced-r-maup-and-more-regression.html#cb642-17" aria-hidden="true" tabindex="-1"></a>    <span class="co">#add our ward polygons, linking to the tables we just made</span></span>
+<span id="cb642-18"><a href="advanced-r-maup-and-more-regression.html#cb642-18" aria-hidden="true" tabindex="-1"></a>    <span class="fu">addPolygons</span>(<span class="at">data=</span>wardsatborough,</span>
+<span id="cb642-19"><a href="advanced-r-maup-and-more-regression.html#cb642-19" aria-hidden="true" tabindex="-1"></a>                <span class="at">color=</span><span class="st">&quot;white&quot;</span>, </span>
+<span id="cb642-20"><a href="advanced-r-maup-and-more-regression.html#cb642-20" aria-hidden="true" tabindex="-1"></a>                <span class="at">weight =</span> <span class="dv">2</span>,</span>
+<span id="cb642-21"><a href="advanced-r-maup-and-more-regression.html#cb642-21" aria-hidden="true" tabindex="-1"></a>                <span class="at">opacity =</span> <span class="dv">1</span>,</span>
+<span id="cb642-22"><a href="advanced-r-maup-and-more-regression.html#cb642-22" aria-hidden="true" tabindex="-1"></a>                <span class="at">dashArray =</span> <span class="st">&quot;3&quot;</span>,</span>
+<span id="cb642-23"><a href="advanced-r-maup-and-more-regression.html#cb642-23" aria-hidden="true" tabindex="-1"></a>                <span class="at">fillOpacity =</span> <span class="fl">0.7</span>,</span>
+<span id="cb642-24"><a href="advanced-r-maup-and-more-regression.html#cb642-24" aria-hidden="true" tabindex="-1"></a>                <span class="at">popup =</span> wardinfo,</span>
+<span id="cb642-25"><a href="advanced-r-maup-and-more-regression.html#cb642-25" aria-hidden="true" tabindex="-1"></a>                <span class="at">fillColor =</span> <span class="sc">~</span><span class="fu">pal2</span>(wardsatborough<span class="sc">$</span>airbnbs),</span>
+<span id="cb642-26"><a href="advanced-r-maup-and-more-regression.html#cb642-26" aria-hidden="true" tabindex="-1"></a>                <span class="at">group =</span> <span class="st">&quot;Wards&quot;</span>)<span class="sc">%&gt;%</span></span>
+<span id="cb642-27"><a href="advanced-r-maup-and-more-regression.html#cb642-27" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb642-28"><a href="advanced-r-maup-and-more-regression.html#cb642-28" aria-hidden="true" tabindex="-1"></a>    <span class="co"># add a legend for wards</span></span>
+<span id="cb642-29"><a href="advanced-r-maup-and-more-regression.html#cb642-29" aria-hidden="true" tabindex="-1"></a>    <span class="fu">addLegend</span>(<span class="at">pal =</span> pal2, </span>
+<span id="cb642-30"><a href="advanced-r-maup-and-more-regression.html#cb642-30" aria-hidden="true" tabindex="-1"></a>              <span class="at">values =</span> wardsatborough<span class="sc">$</span>airbnbs,</span>
+<span id="cb642-31"><a href="advanced-r-maup-and-more-regression.html#cb642-31" aria-hidden="true" tabindex="-1"></a>              <span class="at">group=</span><span class="fu">c</span>(<span class="st">&quot;Wards&quot;</span>), </span>
+<span id="cb642-32"><a href="advanced-r-maup-and-more-regression.html#cb642-32" aria-hidden="true" tabindex="-1"></a>              <span class="at">position =</span><span class="st">&quot;bottomleft&quot;</span>,</span>
+<span id="cb642-33"><a href="advanced-r-maup-and-more-regression.html#cb642-33" aria-hidden="true" tabindex="-1"></a>              <span class="at">title =</span><span class="st">&quot;Accom count&quot;</span>)<span class="sc">%&gt;%</span></span>
+<span id="cb642-34"><a href="advanced-r-maup-and-more-regression.html#cb642-34" aria-hidden="true" tabindex="-1"></a>     </span>
+<span id="cb642-35"><a href="advanced-r-maup-and-more-regression.html#cb642-35" aria-hidden="true" tabindex="-1"></a>    <span class="co"># add a legend for boroughs</span></span>
+<span id="cb642-36"><a href="advanced-r-maup-and-more-regression.html#cb642-36" aria-hidden="true" tabindex="-1"></a>    <span class="fu">addLegend</span>(<span class="at">pal =</span> pal, </span>
+<span id="cb642-37"><a href="advanced-r-maup-and-more-regression.html#cb642-37" aria-hidden="true" tabindex="-1"></a>              <span class="at">values =</span> Borough,</span>
+<span id="cb642-38"><a href="advanced-r-maup-and-more-regression.html#cb642-38" aria-hidden="true" tabindex="-1"></a>              <span class="at">group=</span><span class="fu">c</span>(<span class="st">&quot;Borough&quot;</span>), </span>
+<span id="cb642-39"><a href="advanced-r-maup-and-more-regression.html#cb642-39" aria-hidden="true" tabindex="-1"></a>              <span class="at">title =</span><span class="st">&quot;Accom count&quot;</span>,</span>
+<span id="cb642-40"><a href="advanced-r-maup-and-more-regression.html#cb642-40" aria-hidden="true" tabindex="-1"></a>              <span class="at">position =</span><span class="st">&quot;bottomleft&quot;</span>)<span class="sc">%&gt;%</span></span>
+<span id="cb642-41"><a href="advanced-r-maup-and-more-regression.html#cb642-41" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb642-42"><a href="advanced-r-maup-and-more-regression.html#cb642-42" aria-hidden="true" tabindex="-1"></a>  <span class="co"># specify layers control</span></span>
+<span id="cb642-43"><a href="advanced-r-maup-and-more-regression.html#cb642-43" aria-hidden="true" tabindex="-1"></a>  <span class="fu">addLayersControl</span>(</span>
+<span id="cb642-44"><a href="advanced-r-maup-and-more-regression.html#cb642-44" aria-hidden="true" tabindex="-1"></a>    <span class="at">baseGroups =</span> <span class="fu">c</span>(<span class="st">&quot;Toner Lite&quot;</span>, <span class="st">&quot;OSM&quot;</span>),</span>
+<span id="cb642-45"><a href="advanced-r-maup-and-more-regression.html#cb642-45" aria-hidden="true" tabindex="-1"></a>    <span class="at">overlayGroups =</span> <span class="fu">c</span>(<span class="st">&quot;Borough&quot;</span>, <span class="st">&quot;Wards&quot;</span>),</span>
+<span id="cb642-46"><a href="advanced-r-maup-and-more-regression.html#cb642-46" aria-hidden="true" tabindex="-1"></a>    <span class="at">options =</span> <span class="fu">layersControlOptions</span>(<span class="at">collapsed =</span> <span class="cn">FALSE</span>))<span class="sc">%&gt;%</span></span>
+<span id="cb642-47"><a href="advanced-r-maup-and-more-regression.html#cb642-47" aria-hidden="true" tabindex="-1"></a>    <span class="fu">hideGroup</span>(<span class="fu">c</span>(<span class="st">&quot;Borough&quot;</span>))</span>
+<span id="cb642-48"><a href="advanced-r-maup-and-more-regression.html#cb642-48" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb642-49"><a href="advanced-r-maup-and-more-regression.html#cb642-49" aria-hidden="true" tabindex="-1"></a><span class="co"># show us the map</span></span>
+<span id="cb642-50"><a href="advanced-r-maup-and-more-regression.html#cb642-50" aria-hidden="true" tabindex="-1"></a>wardandboroughs</span></code></pre></div>
 <p>Have a look around the map…Westminster borough uses a scale considering all other London borough values, whilst the ward scale is specific to Westminster. Use the following code to explore the values…</p>
-<div class="sourceCode" id="cb645"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb645-1"><a href="advanced-r-maup-and-more-regression.html#cb645-1" aria-hidden="true" tabindex="-1"></a><span class="co"># range of Airbnbs per ward in Westminster</span></span>
-<span id="cb645-2"><a href="advanced-r-maup-and-more-regression.html#cb645-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb645-3"><a href="advanced-r-maup-and-more-regression.html#cb645-3" aria-hidden="true" tabindex="-1"></a>Range<span class="ot">&lt;-</span>wardsatborough <span class="sc">%&gt;%</span></span>
-<span id="cb645-4"><a href="advanced-r-maup-and-more-regression.html#cb645-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">Max =</span> <span class="fu">max</span>(airbnbs),</span>
-<span id="cb645-5"><a href="advanced-r-maup-and-more-regression.html#cb645-5" aria-hidden="true" tabindex="-1"></a>            <span class="at">Min =</span> <span class="fu">min</span> (airbnbs))</span></code></pre></div>
+<div class="sourceCode" id="cb643"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb643-1"><a href="advanced-r-maup-and-more-regression.html#cb643-1" aria-hidden="true" tabindex="-1"></a><span class="co"># range of Airbnbs per ward in Westminster</span></span>
+<span id="cb643-2"><a href="advanced-r-maup-and-more-regression.html#cb643-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb643-3"><a href="advanced-r-maup-and-more-regression.html#cb643-3" aria-hidden="true" tabindex="-1"></a>Range<span class="ot">&lt;-</span>wardsatborough <span class="sc">%&gt;%</span></span>
+<span id="cb643-4"><a href="advanced-r-maup-and-more-regression.html#cb643-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">Max =</span> <span class="fu">max</span>(airbnbs),</span>
+<span id="cb643-5"><a href="advanced-r-maup-and-more-regression.html#cb643-5" aria-hidden="true" tabindex="-1"></a>            <span class="at">Min =</span> <span class="fu">min</span> (airbnbs))</span></code></pre></div>
 </div>
 </div>
 <div id="regression-relationships" class="section level2" number="10.6">
@@ -1033,41 +1033,41 @@ Where <span class="math inline">\(\beta_{1}\)</span> is the intercept (expected 
 <ol style="list-style-type: decimal">
 <li>To start with we’re going to crop our wards data to our boroughs data. In the borough data you can see the river Thames which isn’t in the wards data. I don’t think this is technically required, but it’s good practice to make sure you datasets align and if they don’t to do something about it…</li>
 </ol>
-<div class="sourceCode" id="cb646"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb646-1"><a href="advanced-r-maup-and-more-regression.html#cb646-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tmaptools)</span>
-<span id="cb646-2"><a href="advanced-r-maup-and-more-regression.html#cb646-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb646-3"><a href="advanced-r-maup-and-more-regression.html#cb646-3" aria-hidden="true" tabindex="-1"></a>cropped <span class="ot">&lt;-</span> justairbnbborough <span class="sc">%&gt;%</span></span>
-<span id="cb646-4"><a href="advanced-r-maup-and-more-regression.html#cb646-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">crop_shape</span>(justairbnward,., <span class="at">polygon =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb646-5"><a href="advanced-r-maup-and-more-regression.html#cb646-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb646-6"><a href="advanced-r-maup-and-more-regression.html#cb646-6" aria-hidden="true" tabindex="-1"></a><span class="co"># something like this would just extract the </span></span>
-<span id="cb646-7"><a href="advanced-r-maup-and-more-regression.html#cb646-7" aria-hidden="true" tabindex="-1"></a><span class="co"># values within the shape, but not clip like a cookie cutter</span></span>
-<span id="cb646-8"><a href="advanced-r-maup-and-more-regression.html#cb646-8" aria-hidden="true" tabindex="-1"></a><span class="co"># we want to use the borough layer to cut out the river from </span></span>
-<span id="cb646-9"><a href="advanced-r-maup-and-more-regression.html#cb646-9" aria-hidden="true" tabindex="-1"></a><span class="co"># the wards layer</span></span>
-<span id="cb646-10"><a href="advanced-r-maup-and-more-regression.html#cb646-10" aria-hidden="true" tabindex="-1"></a><span class="do">###test &lt;- hold[[2]][hold[[1]],]</span></span>
-<span id="cb646-11"><a href="advanced-r-maup-and-more-regression.html#cb646-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb646-12"><a href="advanced-r-maup-and-more-regression.html#cb646-12" aria-hidden="true" tabindex="-1"></a><span class="co"># check it worked, you should be </span></span>
-<span id="cb646-13"><a href="advanced-r-maup-and-more-regression.html#cb646-13" aria-hidden="true" tabindex="-1"></a><span class="co">#able to see the river</span></span>
-<span id="cb646-14"><a href="advanced-r-maup-and-more-regression.html#cb646-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb646-15"><a href="advanced-r-maup-and-more-regression.html#cb646-15" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">st_geometry</span>(cropped))</span></code></pre></div>
-<p><img src="CASA0005_files/figure-html/unnamed-chunk-499-1.png" width="672" /></p>
+<div class="sourceCode" id="cb644"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb644-1"><a href="advanced-r-maup-and-more-regression.html#cb644-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tmaptools)</span>
+<span id="cb644-2"><a href="advanced-r-maup-and-more-regression.html#cb644-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb644-3"><a href="advanced-r-maup-and-more-regression.html#cb644-3" aria-hidden="true" tabindex="-1"></a>cropped <span class="ot">&lt;-</span> justairbnbborough <span class="sc">%&gt;%</span></span>
+<span id="cb644-4"><a href="advanced-r-maup-and-more-regression.html#cb644-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">crop_shape</span>(justairbnward,., <span class="at">polygon =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb644-5"><a href="advanced-r-maup-and-more-regression.html#cb644-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb644-6"><a href="advanced-r-maup-and-more-regression.html#cb644-6" aria-hidden="true" tabindex="-1"></a><span class="co"># something like this would just extract the </span></span>
+<span id="cb644-7"><a href="advanced-r-maup-and-more-regression.html#cb644-7" aria-hidden="true" tabindex="-1"></a><span class="co"># values within the shape, but not clip like a cookie cutter</span></span>
+<span id="cb644-8"><a href="advanced-r-maup-and-more-regression.html#cb644-8" aria-hidden="true" tabindex="-1"></a><span class="co"># we want to use the borough layer to cut out the river from </span></span>
+<span id="cb644-9"><a href="advanced-r-maup-and-more-regression.html#cb644-9" aria-hidden="true" tabindex="-1"></a><span class="co"># the wards layer</span></span>
+<span id="cb644-10"><a href="advanced-r-maup-and-more-regression.html#cb644-10" aria-hidden="true" tabindex="-1"></a><span class="do">###test &lt;- hold[[2]][hold[[1]],]</span></span>
+<span id="cb644-11"><a href="advanced-r-maup-and-more-regression.html#cb644-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb644-12"><a href="advanced-r-maup-and-more-regression.html#cb644-12" aria-hidden="true" tabindex="-1"></a><span class="co"># check it worked, you should be </span></span>
+<span id="cb644-13"><a href="advanced-r-maup-and-more-regression.html#cb644-13" aria-hidden="true" tabindex="-1"></a><span class="co">#able to see the river</span></span>
+<span id="cb644-14"><a href="advanced-r-maup-and-more-regression.html#cb644-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb644-15"><a href="advanced-r-maup-and-more-regression.html#cb644-15" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">st_geometry</span>(cropped))</span></code></pre></div>
+<p><img src="CASA0005_files/figure-html/unnamed-chunk-500-1.png" width="672" /></p>
 <ol style="list-style-type: decimal">
 <li>Now we need to join our wards data and borough data togther to give us a borough value for each ward within…</li>
 </ol>
-<div class="sourceCode" id="cb647"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb647-1"><a href="advanced-r-maup-and-more-regression.html#cb647-1" aria-hidden="true" tabindex="-1"></a><span class="co"># join wards and boroughs</span></span>
-<span id="cb647-2"><a href="advanced-r-maup-and-more-regression.html#cb647-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb647-3"><a href="advanced-r-maup-and-more-regression.html#cb647-3" aria-hidden="true" tabindex="-1"></a>joined <span class="ot">&lt;-</span> justairbnbborough <span class="sc">%&gt;%</span></span>
-<span id="cb647-4"><a href="advanced-r-maup-and-more-regression.html#cb647-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_join</span>(., justairbnward, <span class="at">join=</span>st_contains)<span class="sc">%&gt;%</span></span>
-<span id="cb647-5"><a href="advanced-r-maup-and-more-regression.html#cb647-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(., <span class="at">Boroughcount =</span> airbnbs.x, </span>
-<span id="cb647-6"><a href="advanced-r-maup-and-more-regression.html#cb647-6" aria-hidden="true" tabindex="-1"></a>         <span class="at">Wardcount =</span> airbnbs.y)</span></code></pre></div>
+<div class="sourceCode" id="cb645"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb645-1"><a href="advanced-r-maup-and-more-regression.html#cb645-1" aria-hidden="true" tabindex="-1"></a><span class="co"># join wards and boroughs</span></span>
+<span id="cb645-2"><a href="advanced-r-maup-and-more-regression.html#cb645-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb645-3"><a href="advanced-r-maup-and-more-regression.html#cb645-3" aria-hidden="true" tabindex="-1"></a>joined <span class="ot">&lt;-</span> justairbnbborough <span class="sc">%&gt;%</span></span>
+<span id="cb645-4"><a href="advanced-r-maup-and-more-regression.html#cb645-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_join</span>(., justairbnward, <span class="at">join=</span>st_contains)<span class="sc">%&gt;%</span></span>
+<span id="cb645-5"><a href="advanced-r-maup-and-more-regression.html#cb645-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(., <span class="at">Boroughcount =</span> airbnbs.x, </span>
+<span id="cb645-6"><a href="advanced-r-maup-and-more-regression.html#cb645-6" aria-hidden="true" tabindex="-1"></a>         <span class="at">Wardcount =</span> airbnbs.y)</span></code></pre></div>
 </div>
 <div id="scatter-plot" class="section level3" number="10.6.2">
 <h3><span class="header-section-number">10.6.2</span> Scatter plot</h3>
 <ol style="list-style-type: decimal">
 <li>To start with let’s just visualise the relationship between the borough an ward count using a scatter plot. If you have multiple predictor variables (explied later on) a plot will be drawn for each of them…</li>
 </ol>
-<div class="sourceCode" id="cb648"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb648-1"><a href="advanced-r-maup-and-more-regression.html#cb648-1" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(joined, <span class="fu">aes</span>(Boroughcount, Wardcount))<span class="sc">+</span></span>
-<span id="cb648-2"><a href="advanced-r-maup-and-more-regression.html#cb648-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()<span class="sc">+</span></span>
-<span id="cb648-3"><a href="advanced-r-maup-and-more-regression.html#cb648-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">&quot;Borough count&quot;</span>)<span class="sc">+</span></span>
-<span id="cb648-4"><a href="advanced-r-maup-and-more-regression.html#cb648-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">&quot;Ward count&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb646"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb646-1"><a href="advanced-r-maup-and-more-regression.html#cb646-1" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(joined, <span class="fu">aes</span>(Boroughcount, Wardcount))<span class="sc">+</span></span>
+<span id="cb646-2"><a href="advanced-r-maup-and-more-regression.html#cb646-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()<span class="sc">+</span></span>
+<span id="cb646-3"><a href="advanced-r-maup-and-more-regression.html#cb646-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">&quot;Borough count&quot;</span>)<span class="sc">+</span></span>
+<span id="cb646-4"><a href="advanced-r-maup-and-more-regression.html#cb646-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">&quot;Ward count&quot;</span>)</span></code></pre></div>
 <p>The scatter plot shows some kind of linear relationship. The point variation around borough count is beacuse for each borough the wards will have a range of values…like we saw in the interactive map…Westminster borough had a value of 9410 and the wards ranged from 159 to 1215</p>
 </div>
 <div id="outliers" class="section level3" number="10.6.3">
@@ -1075,11 +1075,11 @@ Where <span class="math inline">\(\beta_{1}\)</span> is the intercept (expected 
 <ol style="list-style-type: decimal">
 <li>Generally any point that is outside 1.5* the interquartile-range (or IQR) is considered an outlier (a data point that differs significantly from all others) and you could use something like the methods here to remove and replace them…the IQR is the distance between the 25th and 75th percentile..</li>
 </ol>
-<div class="sourceCode" id="cb649"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb649-1"><a href="advanced-r-maup-and-more-regression.html#cb649-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>))  <span class="co"># divide graph area in 2 columns</span></span>
-<span id="cb649-2"><a href="advanced-r-maup-and-more-regression.html#cb649-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb649-3"><a href="advanced-r-maup-and-more-regression.html#cb649-3" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(joined<span class="sc">$</span>Boroughcount, <span class="at">main=</span><span class="st">&quot;Boroughs&quot;</span>)</span>
-<span id="cb649-4"><a href="advanced-r-maup-and-more-regression.html#cb649-4" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(joined<span class="sc">$</span>Wardcount, <span class="at">main=</span><span class="st">&quot;Wards&quot;</span>)</span></code></pre></div>
-<p><img src="CASA0005_files/figure-html/unnamed-chunk-502-1.png" width="672" /></p>
+<div class="sourceCode" id="cb647"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb647-1"><a href="advanced-r-maup-and-more-regression.html#cb647-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow=</span><span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>))  <span class="co"># divide graph area in 2 columns</span></span>
+<span id="cb647-2"><a href="advanced-r-maup-and-more-regression.html#cb647-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb647-3"><a href="advanced-r-maup-and-more-regression.html#cb647-3" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(joined<span class="sc">$</span>Boroughcount, <span class="at">main=</span><span class="st">&quot;Boroughs&quot;</span>)</span>
+<span id="cb647-4"><a href="advanced-r-maup-and-more-regression.html#cb647-4" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(joined<span class="sc">$</span>Wardcount, <span class="at">main=</span><span class="st">&quot;Wards&quot;</span>)</span></code></pre></div>
+<p><img src="CASA0005_files/figure-html/unnamed-chunk-503-1.png" width="672" /></p>
 <blockquote>
 <p><strong>Warning</strong> The data used within this practical is purely for demonstration purposes! These box plots indicate that our data is not normally distributed so you might want to refer to the assumptions in last week’s practical if you were to do this propperly.</p>
 </blockquote>
@@ -1089,14 +1089,14 @@ Where <span class="math inline">\(\beta_{1}\)</span> is the intercept (expected 
 <ol style="list-style-type: decimal">
 <li>Correlation let’s use see the level of linear dependence between two varaibles between -1 and 1. High values (towards 1) mean that for every x instance there is an increase in y. Low values (towards -1) mean the opposite.</li>
 </ol>
-<div class="sourceCode" id="cb650"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb650-1"><a href="advanced-r-maup-and-more-regression.html#cb650-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(corrr)</span>
-<span id="cb650-2"><a href="advanced-r-maup-and-more-regression.html#cb650-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb650-3"><a href="advanced-r-maup-and-more-regression.html#cb650-3" aria-hidden="true" tabindex="-1"></a>Correlation <span class="ot">&lt;-</span> joined <span class="sc">%&gt;%</span></span>
-<span id="cb650-4"><a href="advanced-r-maup-and-more-regression.html#cb650-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_drop_geometry</span>()<span class="sc">%&gt;%</span></span>
-<span id="cb650-5"><a href="advanced-r-maup-and-more-regression.html#cb650-5" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(Boroughcount,</span>
-<span id="cb650-6"><a href="advanced-r-maup-and-more-regression.html#cb650-6" aria-hidden="true" tabindex="-1"></a>                Wardcount)<span class="sc">%&gt;%</span></span>
-<span id="cb650-7"><a href="advanced-r-maup-and-more-regression.html#cb650-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">correlate</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb650-8"><a href="advanced-r-maup-and-more-regression.html#cb650-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb648"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb648-1"><a href="advanced-r-maup-and-more-regression.html#cb648-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(corrr)</span>
+<span id="cb648-2"><a href="advanced-r-maup-and-more-regression.html#cb648-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb648-3"><a href="advanced-r-maup-and-more-regression.html#cb648-3" aria-hidden="true" tabindex="-1"></a>Correlation <span class="ot">&lt;-</span> joined <span class="sc">%&gt;%</span></span>
+<span id="cb648-4"><a href="advanced-r-maup-and-more-regression.html#cb648-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_drop_geometry</span>()<span class="sc">%&gt;%</span></span>
+<span id="cb648-5"><a href="advanced-r-maup-and-more-regression.html#cb648-5" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(Boroughcount,</span>
+<span id="cb648-6"><a href="advanced-r-maup-and-more-regression.html#cb648-6" aria-hidden="true" tabindex="-1"></a>                Wardcount)<span class="sc">%&gt;%</span></span>
+<span id="cb648-7"><a href="advanced-r-maup-and-more-regression.html#cb648-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">correlate</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb648-8"><a href="advanced-r-maup-and-more-regression.html#cb648-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>()</span></code></pre></div>
 <pre><code>## # A tibble: 2 x 3
 ##   rowname      Boroughcount Wardcount
 ##   &lt;chr&gt;               &lt;dbl&gt;     &lt;dbl&gt;
@@ -1111,12 +1111,12 @@ Where <span class="math inline">\(\beta_{1}\)</span> is the intercept (expected 
 <ol style="list-style-type: decimal">
 <li>Now let’s use a linear model to establish a relationship between predictor and response with the function <code>lm()</code>. Here we are calling the <code>lm()(then stating the Formula, then the data)</code></li>
 </ol>
-<div class="sourceCode" id="cb652"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb652-1"><a href="advanced-r-maup-and-more-regression.html#cb652-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(broom)</span>
-<span id="cb652-2"><a href="advanced-r-maup-and-more-regression.html#cb652-2" aria-hidden="true" tabindex="-1"></a>linearMod <span class="ot">&lt;-</span> <span class="fu">lm</span>(Wardcount <span class="sc">~</span> </span>
-<span id="cb652-3"><a href="advanced-r-maup-and-more-regression.html#cb652-3" aria-hidden="true" tabindex="-1"></a>                  Boroughcount, </span>
-<span id="cb652-4"><a href="advanced-r-maup-and-more-regression.html#cb652-4" aria-hidden="true" tabindex="-1"></a>                <span class="at">data=</span>joined)</span>
-<span id="cb652-5"><a href="advanced-r-maup-and-more-regression.html#cb652-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb652-6"><a href="advanced-r-maup-and-more-regression.html#cb652-6" aria-hidden="true" tabindex="-1"></a><span class="fu">tidy</span>(linearMod)</span></code></pre></div>
+<div class="sourceCode" id="cb650"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb650-1"><a href="advanced-r-maup-and-more-regression.html#cb650-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(broom)</span>
+<span id="cb650-2"><a href="advanced-r-maup-and-more-regression.html#cb650-2" aria-hidden="true" tabindex="-1"></a>linearMod <span class="ot">&lt;-</span> <span class="fu">lm</span>(Wardcount <span class="sc">~</span> </span>
+<span id="cb650-3"><a href="advanced-r-maup-and-more-regression.html#cb650-3" aria-hidden="true" tabindex="-1"></a>                  Boroughcount, </span>
+<span id="cb650-4"><a href="advanced-r-maup-and-more-regression.html#cb650-4" aria-hidden="true" tabindex="-1"></a>                <span class="at">data=</span>joined)</span>
+<span id="cb650-5"><a href="advanced-r-maup-and-more-regression.html#cb650-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb650-6"><a href="advanced-r-maup-and-more-regression.html#cb650-6" aria-hidden="true" tabindex="-1"></a><span class="fu">tidy</span>(linearMod)</span></code></pre></div>
 <pre><code>## # A tibble: 2 x 5
 ##   term         estimate std.error statistic   p.value
 ##   &lt;chr&gt;           &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;
@@ -1146,21 +1146,21 @@ Where <span class="math inline">\(\beta_{1}\)</span> is the intercept (expected 
 <p>F-statistcs, basically, the futher from 1 the better it is.</p>
 <p>See <a href="https://feliperego.github.io/blog/2015/10/23/Interpreting-Model-Output-In-R">this guide</a> for more information on the outputs</p>
 <p>Remember the formula produced from the regression equation, well we can also extract this automatically …to make that original formula in RMarkdown I used this (not within a code chunk)….</p>
-<div class="sourceCode" id="cb654"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb654-1"><a href="advanced-r-maup-and-more-regression.html#cb654-1" aria-hidden="true" tabindex="-1"></a><span class="sc">$</span><span class="er">$</span>Wardcount <span class="ot">=</span> <span class="sc">-</span><span class="fl">3.8188</span> <span class="sc">+</span> <span class="fl">0.0541</span><span class="sc">*</span>Boroughcount<span class="sc">$</span><span class="er">$</span></span></code></pre></div>
+<div class="sourceCode" id="cb652"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb652-1"><a href="advanced-r-maup-and-more-regression.html#cb652-1" aria-hidden="true" tabindex="-1"></a><span class="sc">$</span><span class="er">$</span>Wardcount <span class="ot">=</span> <span class="sc">-</span><span class="fl">3.8188</span> <span class="sc">+</span> <span class="fl">0.0541</span><span class="sc">*</span>Boroughcount<span class="sc">$</span><span class="er">$</span></span></code></pre></div>
 <p>But we can also extract it directly using a new package from GitHub…</p>
-<div class="sourceCode" id="cb655"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb655-1"><a href="advanced-r-maup-and-more-regression.html#cb655-1" aria-hidden="true" tabindex="-1"></a><span class="co"># load remotes so we can get the new package</span></span>
-<span id="cb655-2"><a href="advanced-r-maup-and-more-regression.html#cb655-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(remotes)</span></code></pre></div>
-<div class="sourceCode" id="cb656"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb656-1"><a href="advanced-r-maup-and-more-regression.html#cb656-1" aria-hidden="true" tabindex="-1"></a><span class="co"># get the new package equatiomatic()</span></span>
-<span id="cb656-2"><a href="advanced-r-maup-and-more-regression.html#cb656-2" aria-hidden="true" tabindex="-1"></a>remotes<span class="sc">::</span><span class="fu">install_github</span>(<span class="st">&quot;datalorax/equatiomatic&quot;</span>)</span></code></pre></div>
-<div class="sourceCode" id="cb657"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb657-1"><a href="advanced-r-maup-and-more-regression.html#cb657-1" aria-hidden="true" tabindex="-1"></a><span class="co"># load it</span></span>
-<span id="cb657-2"><a href="advanced-r-maup-and-more-regression.html#cb657-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(equatiomatic)</span>
-<span id="cb657-3"><a href="advanced-r-maup-and-more-regression.html#cb657-3" aria-hidden="true" tabindex="-1"></a><span class="co"># extract the info to make the equation</span></span>
-<span id="cb657-4"><a href="advanced-r-maup-and-more-regression.html#cb657-4" aria-hidden="true" tabindex="-1"></a><span class="fu">extract_eq</span>(linearMod)</span></code></pre></div>
+<div class="sourceCode" id="cb653"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb653-1"><a href="advanced-r-maup-and-more-regression.html#cb653-1" aria-hidden="true" tabindex="-1"></a><span class="co"># load remotes so we can get the new package</span></span>
+<span id="cb653-2"><a href="advanced-r-maup-and-more-regression.html#cb653-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(remotes)</span></code></pre></div>
+<div class="sourceCode" id="cb654"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb654-1"><a href="advanced-r-maup-and-more-regression.html#cb654-1" aria-hidden="true" tabindex="-1"></a><span class="co"># get the new package equatiomatic()</span></span>
+<span id="cb654-2"><a href="advanced-r-maup-and-more-regression.html#cb654-2" aria-hidden="true" tabindex="-1"></a>remotes<span class="sc">::</span><span class="fu">install_github</span>(<span class="st">&quot;datalorax/equatiomatic&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb655"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb655-1"><a href="advanced-r-maup-and-more-regression.html#cb655-1" aria-hidden="true" tabindex="-1"></a><span class="co"># load it</span></span>
+<span id="cb655-2"><a href="advanced-r-maup-and-more-regression.html#cb655-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(equatiomatic)</span>
+<span id="cb655-3"><a href="advanced-r-maup-and-more-regression.html#cb655-3" aria-hidden="true" tabindex="-1"></a><span class="co"># extract the info to make the equation</span></span>
+<span id="cb655-4"><a href="advanced-r-maup-and-more-regression.html#cb655-4" aria-hidden="true" tabindex="-1"></a><span class="fu">extract_eq</span>(linearMod)</span></code></pre></div>
 <pre><code>## $$
 ## \text{Wardcount} = \alpha + \beta_{1}(\text{Boroughcount}) + \epsilon
 ## $$</code></pre>
 <p>Play around with line length and use the actual coefficient names</p>
-<div class="sourceCode" id="cb659"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb659-1"><a href="advanced-r-maup-and-more-regression.html#cb659-1" aria-hidden="true" tabindex="-1"></a><span class="fu">extract_eq</span>(linearMod, <span class="at">use_coefs =</span> <span class="cn">TRUE</span>, <span class="at">wrap=</span><span class="cn">TRUE</span>, <span class="at">terms_per_line =</span> <span class="dv">2</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb657"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb657-1"><a href="advanced-r-maup-and-more-regression.html#cb657-1" aria-hidden="true" tabindex="-1"></a><span class="fu">extract_eq</span>(linearMod, <span class="at">use_coefs =</span> <span class="cn">TRUE</span>, <span class="at">wrap=</span><span class="cn">TRUE</span>, <span class="at">terms_per_line =</span> <span class="dv">2</span>)</span></code></pre></div>
 <pre><code>## $$
 ## \begin{aligned}
 ## \text{Wardcount} &amp;= -10.89 + 0.06(\text{Boroughcount})\ + \\
@@ -1181,35 +1181,68 @@ Where <span class="math inline">\(\beta_{1}\)</span> is the intercept (expected 
 <ol style="list-style-type: decimal">
 <li>We’ve made a regression model using all of our data but there is now no way to test its validity…what if we take 20% as a test sample and use the remaining 80% to train it…</li>
 </ol>
-<div class="sourceCode" id="cb661"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb661-1"><a href="advanced-r-maup-and-more-regression.html#cb661-1" aria-hidden="true" tabindex="-1"></a>joinedID <span class="ot">&lt;-</span> joined <span class="sc">%&gt;%</span> </span>
-<span id="cb661-2"><a href="advanced-r-maup-and-more-regression.html#cb661-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_drop_geometry</span>()<span class="sc">%&gt;%</span></span>
-<span id="cb661-3"><a href="advanced-r-maup-and-more-regression.html#cb661-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Wardcount =</span> <span class="fu">replace_na</span>(Wardcount, <span class="dv">0</span>))<span class="sc">%&gt;%</span></span>
-<span id="cb661-4"><a href="advanced-r-maup-and-more-regression.html#cb661-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">id =</span> <span class="fu">row_number</span>())</span>
-<span id="cb661-5"><a href="advanced-r-maup-and-more-regression.html#cb661-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Create training 80% index</span></span>
-<span id="cb661-6"><a href="advanced-r-maup-and-more-regression.html#cb661-6" aria-hidden="true" tabindex="-1"></a>train <span class="ot">&lt;-</span> joinedID <span class="sc">%&gt;%</span> </span>
-<span id="cb661-7"><a href="advanced-r-maup-and-more-regression.html#cb661-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">sample_frac</span>(.<span class="dv">70</span>)</span>
-<span id="cb661-8"><a href="advanced-r-maup-and-more-regression.html#cb661-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Create test set</span></span>
-<span id="cb661-9"><a href="advanced-r-maup-and-more-regression.html#cb661-9" aria-hidden="true" tabindex="-1"></a>test  <span class="ot">&lt;-</span> <span class="fu">anti_join</span>(joinedID, </span>
-<span id="cb661-10"><a href="advanced-r-maup-and-more-regression.html#cb661-10" aria-hidden="true" tabindex="-1"></a>                   train, </span>
-<span id="cb661-11"><a href="advanced-r-maup-and-more-regression.html#cb661-11" aria-hidden="true" tabindex="-1"></a>                   <span class="at">by =</span> <span class="st">&#39;id&#39;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb659"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb659-1"><a href="advanced-r-maup-and-more-regression.html#cb659-1" aria-hidden="true" tabindex="-1"></a>joinedID <span class="ot">&lt;-</span> joined <span class="sc">%&gt;%</span> </span>
+<span id="cb659-2"><a href="advanced-r-maup-and-more-regression.html#cb659-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_drop_geometry</span>()<span class="sc">%&gt;%</span></span>
+<span id="cb659-3"><a href="advanced-r-maup-and-more-regression.html#cb659-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Wardcount =</span> <span class="fu">replace_na</span>(Wardcount, <span class="dv">0</span>))<span class="sc">%&gt;%</span></span>
+<span id="cb659-4"><a href="advanced-r-maup-and-more-regression.html#cb659-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">id =</span> <span class="fu">row_number</span>())</span>
+<span id="cb659-5"><a href="advanced-r-maup-and-more-regression.html#cb659-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Create training 80% index</span></span>
+<span id="cb659-6"><a href="advanced-r-maup-and-more-regression.html#cb659-6" aria-hidden="true" tabindex="-1"></a>train <span class="ot">&lt;-</span> joinedID <span class="sc">%&gt;%</span> </span>
+<span id="cb659-7"><a href="advanced-r-maup-and-more-regression.html#cb659-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">sample_frac</span>(.<span class="dv">70</span>)</span>
+<span id="cb659-8"><a href="advanced-r-maup-and-more-regression.html#cb659-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Create test set</span></span>
+<span id="cb659-9"><a href="advanced-r-maup-and-more-regression.html#cb659-9" aria-hidden="true" tabindex="-1"></a>test  <span class="ot">&lt;-</span> <span class="fu">anti_join</span>(joinedID, </span>
+<span id="cb659-10"><a href="advanced-r-maup-and-more-regression.html#cb659-10" aria-hidden="true" tabindex="-1"></a>                   train, </span>
+<span id="cb659-11"><a href="advanced-r-maup-and-more-regression.html#cb659-11" aria-hidden="true" tabindex="-1"></a>                   <span class="at">by =</span> <span class="st">&#39;id&#39;</span>)</span></code></pre></div>
 <p>Now let’s build the model…</p>
-<div class="sourceCode" id="cb662"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb662-1"><a href="advanced-r-maup-and-more-regression.html#cb662-1" aria-hidden="true" tabindex="-1"></a><span class="co"># build the model</span></span>
-<span id="cb662-2"><a href="advanced-r-maup-and-more-regression.html#cb662-2" aria-hidden="true" tabindex="-1"></a>lmMod <span class="ot">&lt;-</span> <span class="fu">lm</span>(Wardcount <span class="sc">~</span> Boroughcount, </span>
-<span id="cb662-3"><a href="advanced-r-maup-and-more-regression.html#cb662-3" aria-hidden="true" tabindex="-1"></a>            <span class="at">data=</span>train)  </span>
-<span id="cb662-4"><a href="advanced-r-maup-and-more-regression.html#cb662-4" aria-hidden="true" tabindex="-1"></a><span class="co"># use the model to make some predicitons with our test data</span></span>
-<span id="cb662-5"><a href="advanced-r-maup-and-more-regression.html#cb662-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb662-6"><a href="advanced-r-maup-and-more-regression.html#cb662-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(caret)</span>
-<span id="cb662-7"><a href="advanced-r-maup-and-more-regression.html#cb662-7" aria-hidden="true" tabindex="-1"></a>predictions <span class="ot">&lt;-</span> lmMod <span class="sc">%&gt;%</span> </span>
-<span id="cb662-8"><a href="advanced-r-maup-and-more-regression.html#cb662-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">predict</span>(test)</span>
-<span id="cb662-9"><a href="advanced-r-maup-and-more-regression.html#cb662-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb662-10"><a href="advanced-r-maup-and-more-regression.html#cb662-10" aria-hidden="true" tabindex="-1"></a><span class="co"># get R2, RMSE and MAE</span></span>
-<span id="cb662-11"><a href="advanced-r-maup-and-more-regression.html#cb662-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb662-12"><a href="advanced-r-maup-and-more-regression.html#cb662-12" aria-hidden="true" tabindex="-1"></a>stats<span class="ot">&lt;-</span><span class="fu">data.frame</span>(<span class="at">R2 =</span> <span class="fu">R2</span>(predictions, test<span class="sc">$</span>Wardcount),</span>
-<span id="cb662-13"><a href="advanced-r-maup-and-more-regression.html#cb662-13" aria-hidden="true" tabindex="-1"></a>            <span class="at">RMSE =</span> <span class="fu">RMSE</span>(predictions, test<span class="sc">$</span>Wardcount),</span>
-<span id="cb662-14"><a href="advanced-r-maup-and-more-regression.html#cb662-14" aria-hidden="true" tabindex="-1"></a>            <span class="at">MAE =</span> <span class="fu">MAE</span>(predictions, test<span class="sc">$</span>Wardcount))</span>
-<span id="cb662-15"><a href="advanced-r-maup-and-more-regression.html#cb662-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb662-16"><a href="advanced-r-maup-and-more-regression.html#cb662-16" aria-hidden="true" tabindex="-1"></a>t</span></code></pre></div>
-<p><img src="CASA0005_files/figure-html/unnamed-chunk-511-1.png" width="672" /></p>
+<div class="sourceCode" id="cb660"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb660-1"><a href="advanced-r-maup-and-more-regression.html#cb660-1" aria-hidden="true" tabindex="-1"></a><span class="co"># build the model</span></span>
+<span id="cb660-2"><a href="advanced-r-maup-and-more-regression.html#cb660-2" aria-hidden="true" tabindex="-1"></a>lmMod <span class="ot">&lt;-</span> <span class="fu">lm</span>(Wardcount <span class="sc">~</span> Boroughcount, </span>
+<span id="cb660-3"><a href="advanced-r-maup-and-more-regression.html#cb660-3" aria-hidden="true" tabindex="-1"></a>            <span class="at">data=</span>train)  </span>
+<span id="cb660-4"><a href="advanced-r-maup-and-more-regression.html#cb660-4" aria-hidden="true" tabindex="-1"></a><span class="co"># use the model to make some predicitons with our test data</span></span>
+<span id="cb660-5"><a href="advanced-r-maup-and-more-regression.html#cb660-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb660-6"><a href="advanced-r-maup-and-more-regression.html#cb660-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(caret)</span>
+<span id="cb660-7"><a href="advanced-r-maup-and-more-regression.html#cb660-7" aria-hidden="true" tabindex="-1"></a>predictions <span class="ot">&lt;-</span> lmMod <span class="sc">%&gt;%</span> </span>
+<span id="cb660-8"><a href="advanced-r-maup-and-more-regression.html#cb660-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">predict</span>(test)</span>
+<span id="cb660-9"><a href="advanced-r-maup-and-more-regression.html#cb660-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb660-10"><a href="advanced-r-maup-and-more-regression.html#cb660-10" aria-hidden="true" tabindex="-1"></a><span class="co"># get R2, RMSE and MAE</span></span>
+<span id="cb660-11"><a href="advanced-r-maup-and-more-regression.html#cb660-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb660-12"><a href="advanced-r-maup-and-more-regression.html#cb660-12" aria-hidden="true" tabindex="-1"></a>stats<span class="ot">&lt;-</span><span class="fu">data.frame</span>(<span class="at">R2 =</span> <span class="fu">R2</span>(predictions, test<span class="sc">$</span>Wardcount),</span>
+<span id="cb660-13"><a href="advanced-r-maup-and-more-regression.html#cb660-13" aria-hidden="true" tabindex="-1"></a>            <span class="at">RMSE =</span> <span class="fu">RMSE</span>(predictions, test<span class="sc">$</span>Wardcount),</span>
+<span id="cb660-14"><a href="advanced-r-maup-and-more-regression.html#cb660-14" aria-hidden="true" tabindex="-1"></a>            <span class="at">MAE =</span> <span class="fu">MAE</span>(predictions, test<span class="sc">$</span>Wardcount))</span>
+<span id="cb660-15"><a href="advanced-r-maup-and-more-regression.html#cb660-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb660-16"><a href="advanced-r-maup-and-more-regression.html#cb660-16" aria-hidden="true" tabindex="-1"></a>t</span></code></pre></div>
+<pre><code>## Warning: Method print.summary.sarlm moved to the spatialreg package</code></pre>
+<pre><code>## 
+## Call:
+## lagsarlm(formula = average_gcse_capped_point_scores_2014 ~ unauthorised_absence_in_all_schools_percent_2013 + 
+##     log(median_house_price_2014), data = LonWardProfiles, listw = nb2listw(LWard_nb, 
+##     style = &quot;C&quot;), method = &quot;eigen&quot;)
+## 
+## Residuals:
+##       Min        1Q    Median        3Q       Max 
+## -73.47436 -10.22693  -0.21223   8.94538  50.92267 
+## 
+## Type: lag 
+## Coefficients: (asymptotic standard errors) 
+##                                                  Estimate Std. Error  z value
+## (Intercept)                                      202.3427    20.0987  10.0675
+## unauthorised_absence_in_all_schools_percent_2013 -36.1756     1.9136 -18.9045
+## log(median_house_price_2014)                      12.5878     1.5327   8.2127
+##                                                   Pr(&gt;|z|)
+## (Intercept)                                      &lt; 2.2e-16
+## unauthorised_absence_in_all_schools_percent_2013 &lt; 2.2e-16
+## log(median_house_price_2014)                      2.22e-16
+## 
+## Rho: 0.0051568, LR test value: 0.46178, p-value: 0.49679
+## Asymptotic standard error: 0.0075929
+##     z-value: 0.67916, p-value: 0.49704
+## Wald statistic: 0.46126, p-value: 0.49704
+## 
+## Log likelihood: -2603.509 for lag model
+## ML residual variance (sigma squared): 239.86, (sigma: 15.487)
+## Number of observations: 626 
+## Number of parameters estimated: 5 
+## AIC: 5217, (AIC for lm: 5215.5)
+## LM test for residual autocorrelation
+## test value: 131.82, p-value: &lt; 2.22e-16</code></pre>
 <div class="sourceCode" id="cb663"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb663-1"><a href="advanced-r-maup-and-more-regression.html#cb663-1" aria-hidden="true" tabindex="-1"></a><span class="co">#for some reason this will show in RStudio</span></span>
 <span id="cb663-2"><a href="advanced-r-maup-and-more-regression.html#cb663-2" aria-hidden="true" tabindex="-1"></a><span class="co">#but not the bookdown (this practical) output.</span></span></code></pre></div>
 <ol style="list-style-type: decimal">
@@ -1470,7 +1503,7 @@ Where <span class="math inline">\(d_i\)</span> is the actual value, <span class=
 <h3><span class="header-section-number">10.7.3</span> Ridge regression</h3>
 <p><img src="prac10_images/ridge.jpg" width="300" style="display: block; margin: auto;" /></p>
 <p>Least squares regression tries to minimise how far each point is away from the line…but if you look in this figure…the red dots are the training data and the green dots are the test data. Here normal OLS has been fitted to the training data perfcetly…the sum of the sqaured residuals (squared error distance from the line) is very small, probably 0. But when applied to the test data the sum of the squared residuals is large — it therefore has high variance and would be termed to be overfitting the training data.</p>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-523"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-524"></span>
 <img src="prac10_images/ridge_eg.png" alt="This is a screenshot from the YouTube video Regularization Part 1: Ridge Regression by StatQuest" width="300" />
 <p class="caption">
 Figure 10.1: This is a screenshot from the YouTube video Regularization Part 1: Ridge Regression by StatQuest
@@ -1484,7 +1517,7 @@ Figure 10.1: This is a screenshot from the YouTube video Regularization Part 1: 
 <p>Now we use ridge regression that shifts the line away from the perfect fit (with a bias penalty) that we had in least square regression…this would create residual values as the points no longer perfectly fit the line, assume these add to 0.2, <span class="math inline">\(\lambda\)</span> is 0.5, and the slope is 0.7…so this would give 0.445.</p>
 <p>So if we were trying to minimise the sum of the sqaured residuals plus the ridge regression penatly the ridge regression wins with a lower value.</p>
 <p>The penatly <span class="math inline">\(\lambda * slope^2\)</span> adds a bias (value to the intercept) to reduce the slope of the line as it tries to the minimise the sum of the distance of the points from the line and hopefully the variance between the line and the points…like this — Ridge is the blue line that has become slightly more horizontal…</p>
-<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-524"></span>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-525"></span>
 <img src="prac10_images/ridge_eg2.png" alt="This is a screenshot from the YouTube video Regularization Part 1: Ridge Regression by StatQuest" width="300" />
 <p class="caption">
 Figure 10.2: This is a screenshot from the YouTube video Regularization Part 1: Ridge Regression by StatQuest
@@ -1593,7 +1626,7 @@ Figure 10.2: This is a screenshot from the YouTube video Regularization Part 1: 
 <span id="cb689-9"><a href="advanced-r-maup-and-more-regression.html#cb689-9" aria-hidden="true" tabindex="-1"></a>                    <span class="at">type.measure =</span> <span class="st">&quot;mse&quot;</span>)</span></code></pre></div>
 <p>Combined, this will fit a linear regression with a ridge regression penatly using 10-fold cross validation to find the best <span class="math inline">\(\lambda\)</span> value that minimises mean square error (average squared distance of the data points to the line). Let’s apply it to the model…</p>
 <div class="sourceCode" id="cb690"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb690-1"><a href="advanced-r-maup-and-more-regression.html#cb690-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(cv_out)</span></code></pre></div>
-<p><img src="CASA0005_files/figure-html/unnamed-chunk-528-1.png" width="672" /></p>
+<p><img src="CASA0005_files/figure-html/unnamed-chunk-529-1.png" width="672" /></p>
 <div class="sourceCode" id="cb691"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb691-1"><a href="advanced-r-maup-and-more-regression.html#cb691-1" aria-hidden="true" tabindex="-1"></a><span class="co"># best value </span></span>
 <span id="cb691-2"><a href="advanced-r-maup-and-more-regression.html#cb691-2" aria-hidden="true" tabindex="-1"></a>opt_lambda <span class="ot">&lt;-</span> cv_out<span class="sc">$</span>lambda.min</span>
 <span id="cb691-3"><a href="advanced-r-maup-and-more-regression.html#cb691-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -1625,7 +1658,7 @@ Figure 10.2: This is a screenshot from the YouTube video Regularization Part 1: 
 <span id="cb695-6"><a href="advanced-r-maup-and-more-regression.html#cb695-6" aria-hidden="true" tabindex="-1"></a>                    <span class="at">type.measure =</span> <span class="st">&quot;mse&quot;</span>)</span>
 <span id="cb695-7"><a href="advanced-r-maup-and-more-regression.html#cb695-7" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb695-8"><a href="advanced-r-maup-and-more-regression.html#cb695-8" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(cv_out)</span></code></pre></div>
-<p><img src="CASA0005_files/figure-html/unnamed-chunk-530-1.png" width="672" /></p>
+<p><img src="CASA0005_files/figure-html/unnamed-chunk-531-1.png" width="672" /></p>
 <div class="sourceCode" id="cb696"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb696-1"><a href="advanced-r-maup-and-more-regression.html#cb696-1" aria-hidden="true" tabindex="-1"></a><span class="co"># best value </span></span>
 <span id="cb696-2"><a href="advanced-r-maup-and-more-regression.html#cb696-2" aria-hidden="true" tabindex="-1"></a>opt_lambda <span class="ot">&lt;-</span> cv_out<span class="sc">$</span>lambda.min</span>
 <span id="cb696-3"><a href="advanced-r-maup-and-more-regression.html#cb696-3" aria-hidden="true" tabindex="-1"></a></span>

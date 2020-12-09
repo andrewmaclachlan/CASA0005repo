@@ -27,6 +27,8 @@ This week:
 
 * [Chapter 5 and 6 "Basic Regression and "Multiple Regression"](https://moderndive.com/5-regression.html) from Modern Dive by Ismay and Kim (2019).
 
+* [Chapter 9 Spatial regression models](https://maczokni.github.io/crimemapping_textbook_bookdown/spatial-regression-models.html) from Crime Mapping in R by Juanjo Medina and Reka Solymosi (2019).
+
 Remember this is just a starting point, explore the [reading list](https://rl.talis.com/3/ucl/lists/139FBAF8-DACD-60FB-8BDC-E9C9E09BA885.html?lang=en-GB&login=1), practical and lecture for more ideas.
 :::
 
@@ -34,9 +36,9 @@ Remember this is just a starting point, explore the [reading list](https://rl.ta
 
 Some of these practicals are long, take regular breaks and have a listen to some of our fav tunes each week.
 
-[Andy](https://www.youtube.com/watch?v=z1LLWHroWgA)
+[Andy](https://open.spotify.com/album/6NtEjhPWfZcvJQuvjGX4bk) Haim. Can all play loads of instuments and just switch during live sets. 
 
-[Adam](https://www.bbc.co.uk/sounds/play/m000bvml) This week it's Radio1's DnB 60, recorded live at the Warehouse Project. Die, Bryan G, Jumpin' Jack Frost and it sounds like Dynamite on the mic --- some proper rollers in here!
+[Adam](https://open.spotify.com/album/6EO1grYN4T3D6HQpBdp3Ad) Music this week - time for some big, dirty rock and roll. The Wildhearts have only gone and released a massive live album - oh yes!
 
 ## Introduction
 
@@ -276,7 +278,8 @@ First though, we're going to clean up all our data names with `Janitor` then sel
 #run the linear regression model and store its outputs in an object called model1
 Regressiondata<- LonWardProfiles%>%
   clean_names()%>%
-  dplyr::select(average_gcse_capped_point_scores_2014, unauthorised_absence_in_all_schools_percent_2013)
+  dplyr::select(average_gcse_capped_point_scores_2014, 
+                unauthorised_absence_in_all_schools_percent_2013)
 
 #now model
 model1 <- lm(average_gcse_capped_point_scores_2014 ~
@@ -337,8 +340,6 @@ But wait? Didn't we try to model our GCSE values based on our unauthorised absen
 library(tidypredict)
 Regressiondata %>%
   tidypredict_to_column(model1)
-
-  head(10)
 ```
 
 ### Bootstrap resampling
@@ -350,7 +351,8 @@ So first let's again get rid of all the coloumns we aren't using in this model u
 ```{r, message=FALSE, cache=FALSE}
 Bootstrapdata<- LonWardProfiles%>%
   clean_names()%>%
-  dplyr::select(average_gcse_capped_point_scores_2014, unauthorised_absence_in_all_schools_percent_2013)
+  dplyr::select(average_gcse_capped_point_scores_2014, 
+                unauthorised_absence_in_all_schools_percent_2013)
 ```
 
 Next we are going to create our samples using the function `bootstraps()`. First we set the seed (to any number), which just means are results will be the same if we are to re-run this analysis, if we don't then as we are randomly replacing data the next time we do run the code the results could change. 
@@ -875,9 +877,11 @@ Lward.queens_weight <- LWard_nb %>%
 
 Lward.knn_4_weight <- LWard_knn %>%
   nb2listw(., style="C")
+```
 
-#now run a moran's I test on the residuals
-#first using queens neighbours
+Now run a moran's I test on the residuals, first using queens neighbours
+
+```{r, message=FALSE, cache=TRUE}
 
 Queen <- LonWardProfiles %>%
   st_drop_geometry()%>%
@@ -886,7 +890,11 @@ Queen <- LonWardProfiles %>%
   moran.test(., Lward.queens_weight)%>%
   tidy()
 
-#then knn = 4
+```
+
+Then nearest k-nearest neighbours
+
+```{r, message=FALSE, cache=TRUE}
 Nearest_neighbour <- LonWardProfiles %>%
   st_drop_geometry()%>%
   dplyr::select(model2resids)%>%
@@ -935,11 +943,11 @@ model2 <- lm(average_gcse_capped_point_scores_2014 ~ unauthorised_absence_in_all
 
 tidy(model2)
 ```
+Now run a spatially-lagged regression model with a queen's case weights matrix
 
 ```{r, message=FALSE, cache=TRUE}
 library(spatialreg)
 
-#run a spatially-lagged regression model with a queen's case weights matrix
 slag_dv_model2_queen <- lagsarlm(average_gcse_capped_point_scores_2014 ~ unauthorised_absence_in_all_schools_percent_2013 + 
                log(median_house_price_2014), 
                data = LonWardProfiles, 
@@ -948,9 +956,25 @@ slag_dv_model2_queen <- lagsarlm(average_gcse_capped_point_scores_2014 ~ unautho
 
 #what do the outputs show?
 tidy(slag_dv_model2_queen)
+
+#glance() gives model stats but this need something produced from a linear model
+#here we have used lagsarlm()
+glance(slag_dv_model2_queen)
+
+t<-summary(slag_dv_model2_queen)
 ```
 
 Running the spatially-lagged model with a Queen's case spatial weights matrix reveals that in this example, there is an insignificant and small effect associated with the spatially lagged dependent variable. However, a different conception of neighbours we might get a different outcome
+
+Here:
+
+* Rho is our spatial lag that measures the variable in the surrounding spatial areas as defined by the spatial weight matrix. We use this as an extra explanatory variable to account for clustering (identified by Moran's I)
+
+* Likelihood ratio (LR) test shows if the addition of the lag is an improvement and if that's significant
+
+* Lagrange Multiplier (LM) is a test for the absence of spatial autocorrelation in the lag model residuals. If significant then you can reject the Null (no spatial autocorrelation) and accept the alternative (is spatial autocorrelcation)
+
+*Warning* do not compare the coefficients of this to regular OLS --- see [Fitting and interpreting a spatially lagged model](https://maczokni.github.io/crimemapping_textbook_bookdown/spatial-regression-models.html#fitting-and-interpreting-a-spatially-lagged-model)
 
 ```{r, message=FALSE, cache=TRUE}
 #run a spatially-lagged regression model

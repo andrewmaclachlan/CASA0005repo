@@ -311,11 +311,11 @@ points(QCountTable$Freqquadratcount,
        col="Red", 
        type="o", 
        lwd=3)
-points(Qcount$Expected, col="Blue", 
+points(QCountTable$Expected, col="Blue", 
        type="o", 
        lwd=3)
 ```
-Comparing the observed and expected frequencies for our quadrat counts, we can observe that they both have higher frequency counts at the lower end --- something reminiscent of a Poisson distribution. This could indicate that for this particular set of quadrants, our pattern is close to Complete Spatial Randomness (i.e. no clustering or dispersal of points). But how do we confirm this?
+Comparing the observed and expected frequencies for our quadrant counts, we can observe that they both have higher frequency counts at the lower end --- something reminiscent of a Poisson distribution. This could indicate that for this particular set of quadrants, our pattern is close to Complete Spatial Randomness (i.e. no clustering or dispersal of points). But how do we confirm this?
 
 To check for sure, we can use the `quadrat.test()` function, built into `spatstat`. This uses a Chi Squared test to compare the observed and expected frequencies for each quadrant (rather than for quadrant bins, as we have just computed above).
 
@@ -483,7 +483,7 @@ dbplot + theme_bw() + coord_equal()
 
 Now we are getting there, but wouldn't it be better to add a basemap?!
 
-```{r, cache=TRUE}
+```{r Harrow bbox, fig.height=2, fig.width=2, message=TRUE, warning=TRUE, cache=TRUE, paged.print=TRUE}
 ###add a basemap
 ##First get the bbox in lat long for Harrow
 HarrowWGSbb <- Harrow %>%
@@ -516,6 +516,9 @@ autoplot(basemap_bng) +
                    group=dbcluster,
                    fill=dbcluster), 
                alpha = 0.5)  
+
+ # if error with autoplot try
+ # autoplot.OpenStreetMap(basemap_bng) 
 ```
 
 ## Point pattern analysis summary

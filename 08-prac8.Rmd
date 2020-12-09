@@ -145,7 +145,7 @@ Try performing a log10() transformation on the x variables and plotting a simila
 Agehist <- Groups%>%
   filter(group=="Age")%>%
   ggplot(., aes(x=log10(val))) + 
-  geom_histogram(aes(x = val, y = ..density..))+
+  geom_histogram(aes(x = log10(val), y = ..density..))+
   geom_density(colour="red", size=1, adjust=1)+
   facet_wrap(~All_variables, scales = 'free')
 
@@ -154,10 +154,17 @@ Agehist <- Groups%>%
 * Create a 2D histogram and 2D kernel density estimate of ward centroids in London using the Eastings and Northings data in the x and y columns of your dataset. For example:
 
 ```{r prac8_ggplot}
-Londonpoint <- ggplot(LondonWardsleftjoin, aes(x=x.y,y=y.y))+geom_point()+coord_equal()
+Londonpoint <- ggplot(LondonWardsleftjoin, 
+                      aes(x=x.y,y=y.y))+
+  geom_point()+
+  coord_equal()
+
 Londonpoint
 
-Londonpoint<-ggplot(LondonWardsleftjoin, aes(x=x.y,y=y.y))+stat_bin2d(bins=10)
+Londonpoint<-ggplot(LondonWardsleftjoin, 
+                    aes(x=x.y,y=y.y))+
+  stat_bin2d(bins=10)
+
 Londonpoint
 
 Londonpoint<-ggplot(LondonWardsleftjoin, aes(x=x.y,y=y.y))+geom_point()+coord_equal()
@@ -210,7 +217,8 @@ Create a new column in your data frame and fill it with recoded data for the Ave
 If you wanted to be really fancy, you could try altering the function to calculate these “High”, “Medium” and “Low”
 
 ```{r prac8_recode}
-LondonWards$GCSE_recode <- recode(AvgGCSE201,409.1,358.3,332.3)
+LondonWards <- LondonWards %>%
+  mutate(GCSE_recode = recode(AvgGCSE201,409.1,358.3,332.3))
 
 #or
 
@@ -409,9 +417,9 @@ I haven't even gone into using different clustering algorithms, how to decide on
 
 By the end of this practical you should be able to:
 
-1. Descrbie and explain different methods for producing online maps
-1. Create interative maps using RPubs, RMarkdown site generator and Shiny
-1. Critically appraise the appropriateness of mapping technqiues based on the dataset and purpose of the output map
+1. Describe and explain different methods for producing online maps
+1. Create interactive maps using RPubs, RMarkdown site generator and Shiny
+1. Critically appraise the appropriateness of mapping techniques based on the dataset and purpose of the output map
 
 ### Introduction 
 
@@ -443,7 +451,7 @@ One of the most straight forward publishing tools is RPubs. It takes an ```.Rmd`
 knitr::include_graphics('prac8_images/knitt.png') 
 ```
 
-1. Let's make some changes to your ```.Rmd```. Delete all the text and code except from header inforamtion (that is enclosed by three dashes at the top of the file)
+1. Let's make some changes to your ```.Rmd```. Delete all the text and code except from header information (that is enclosed by three dashes at the top of the file)
 
 1. Insert a new code chunk (go back to [RMarkdown] if you need a refresher)...
 

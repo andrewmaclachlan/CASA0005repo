@@ -34,9 +34,9 @@ Remember this is just a starting point, explore the [reading list](https://rl.ta
 
 Some of these practicals are long, take regular breaks and have a listen to some of our fav tunes each week.
 
-[Andy](https://www.youtube.com/watch?v=P00HMxdsVZI)
+[Andy](https://open.spotify.com/album/1kCHru7uhxBUdzkm4gzRQc) Hamilton.
 
-[Adam](https://open.spotify.com/album/4ATB4gtjhqILtvNRQsTPrh?si=tP-EDP6IQwakAUERx18aRg ) This week, it’s DJ Shadow. Yes, you heard correctly! DJ Shadow is back with an epic double-album. Disc 1 is fully instrumental and, some may say, a little less immediate. Disc 2 will be more reminiscent some of his classic collaborations from earlier albums. It’s hip hop Jim, but not as we know it.
+[Adam](https://open.spotify.com/album/1a9hLKtSfwy54hH18Ni6BS) Straight outa somewhere near Grantham - this week it has to be the Sleaford Mods!
 
 ## Introduction
 
@@ -573,7 +573,7 @@ $$\varepsilon = 0.004*F_v+0.986$$
 emiss <- 0.004*facveg+0.986
 ```
 
-Emissivity is the ratio absorbed radiation engery to total incoming radiation engery compared to a blackbody (which would absorb everything), being ameasure of absoptivity.
+Emissivity is the ratio absorbed radiation energy to total incoming radiation engery compared to a blackbody (which would absorb everything), being ab measure of absoptivity.
 
 1. Great, we're nearly there... get our LST following the equation from Weng et al. 2004 (also summarised in Guja et al. (2018) and Avdan and Jovanovska (2016)):
 
