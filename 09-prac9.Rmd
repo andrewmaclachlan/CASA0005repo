@@ -849,6 +849,8 @@ coordsW <- LonWardProfiles%>%
   st_centroid()%>%
   st_geometry()
 
+par(mfrow=c(1,1))
+
 plot(coordsW)
 
 #Now we need to generate a spatial weights matrix (remember from the lecture a couple of weeks ago). We'll start with a simple binary matrix of queen's case neighbours
