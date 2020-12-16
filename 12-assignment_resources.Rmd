@@ -214,6 +214,7 @@ The UCL Institute for Education (IOE) Writing Centre Online have produced this v
 * [Draw.io](https://www.draw.io/ )
 * [Lucidchart](https://www.lucidchart.com/pages/examples/flowchart-maker)
 * [R Package `DiagrammeR`](https://rich-iannone.github.io/DiagrammeR/)
+* [UML (Unified Modeling Language) diagrams](https://github.com/rstudio/nomnoml)
 
 Free at the time of writing
 
