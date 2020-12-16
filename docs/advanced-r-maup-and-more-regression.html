@@ -24,7 +24,7 @@
 <meta name="author" content="Andy MacLachlan and Adam Dennett" />
 
 
-<meta name="date" content="2020-12-09" />
+<meta name="date" content="2020-12-16" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -1209,7 +1209,6 @@ Where <span class="math inline">\(\beta_{1}\)</span> is the intercept (expected 
 <span id="cb660-14"><a href="advanced-r-maup-and-more-regression.html#cb660-14" aria-hidden="true" tabindex="-1"></a>            <span class="at">MAE =</span> <span class="fu">MAE</span>(predictions, test<span class="sc">$</span>Wardcount))</span>
 <span id="cb660-15"><a href="advanced-r-maup-and-more-regression.html#cb660-15" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb660-16"><a href="advanced-r-maup-and-more-regression.html#cb660-16" aria-hidden="true" tabindex="-1"></a>t</span></code></pre></div>
-<pre><code>## Warning: Method print.summary.sarlm moved to the spatialreg package</code></pre>
 <pre><code>## 
 ## Call:
 ## lagsarlm(formula = average_gcse_capped_point_scores_2014 ~ unauthorised_absence_in_all_schools_percent_2013 + 
@@ -1243,8 +1242,8 @@ Where <span class="math inline">\(\beta_{1}\)</span> is the intercept (expected 
 ## AIC: 5217, (AIC for lm: 5215.5)
 ## LM test for residual autocorrelation
 ## test value: 131.82, p-value: &lt; 2.22e-16</code></pre>
-<div class="sourceCode" id="cb663"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb663-1"><a href="advanced-r-maup-and-more-regression.html#cb663-1" aria-hidden="true" tabindex="-1"></a><span class="co">#for some reason this will show in RStudio</span></span>
-<span id="cb663-2"><a href="advanced-r-maup-and-more-regression.html#cb663-2" aria-hidden="true" tabindex="-1"></a><span class="co">#but not the bookdown (this practical) output.</span></span></code></pre></div>
+<div class="sourceCode" id="cb662"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb662-1"><a href="advanced-r-maup-and-more-regression.html#cb662-1" aria-hidden="true" tabindex="-1"></a><span class="co">#for some reason this will show in RStudio</span></span>
+<span id="cb662-2"><a href="advanced-r-maup-and-more-regression.html#cb662-2" aria-hidden="true" tabindex="-1"></a><span class="co">#but not the bookdown (this practical) output.</span></span></code></pre></div>
 <ol style="list-style-type: decimal">
 <li>We can use the R2, Root Mean Square Error and Mean Absolute Error.</li>
 </ol>
@@ -1259,13 +1258,13 @@ Where <span class="math inline">\(\beta_{1}\)</span> is the intercept (expected 
 <p><span class="math display">\[RMSE= \sqrt{\frac{1}{n}\Sigma_{i=1}^{n}{\Big({d_i -f_i}\Big)^2}}\]</span>
 Where <span class="math inline">\(d_i\)</span> is the actual value, <span class="math inline">\(d_f\)</span> is the predicted value, and <span class="math inline">\(n\)</span> is the number of data points</p>
 <p>We could also just run a correlation between the data we left out and the predicted data to assess the accuracy…</p>
-<div class="sourceCode" id="cb664"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb664-1"><a href="advanced-r-maup-and-more-regression.html#cb664-1" aria-hidden="true" tabindex="-1"></a>actuals_preds <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="fu">cbind</span>(<span class="at">actuals=</span>test<span class="sc">$</span>Wardcount,</span>
-<span id="cb664-2"><a href="advanced-r-maup-and-more-regression.html#cb664-2" aria-hidden="true" tabindex="-1"></a>                                  <span class="at">predicteds=</span>predictions))</span>
-<span id="cb664-3"><a href="advanced-r-maup-and-more-regression.html#cb664-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb664-4"><a href="advanced-r-maup-and-more-regression.html#cb664-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb664-5"><a href="advanced-r-maup-and-more-regression.html#cb664-5" aria-hidden="true" tabindex="-1"></a>actuals_preds_correlation <span class="ot">&lt;-</span> actuals_preds <span class="sc">%&gt;%</span></span>
-<span id="cb664-6"><a href="advanced-r-maup-and-more-regression.html#cb664-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">correlate</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb664-7"><a href="advanced-r-maup-and-more-regression.html#cb664-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb663"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb663-1"><a href="advanced-r-maup-and-more-regression.html#cb663-1" aria-hidden="true" tabindex="-1"></a>actuals_preds <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="fu">cbind</span>(<span class="at">actuals=</span>test<span class="sc">$</span>Wardcount,</span>
+<span id="cb663-2"><a href="advanced-r-maup-and-more-regression.html#cb663-2" aria-hidden="true" tabindex="-1"></a>                                  <span class="at">predicteds=</span>predictions))</span>
+<span id="cb663-3"><a href="advanced-r-maup-and-more-regression.html#cb663-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb663-4"><a href="advanced-r-maup-and-more-regression.html#cb663-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb663-5"><a href="advanced-r-maup-and-more-regression.html#cb663-5" aria-hidden="true" tabindex="-1"></a>actuals_preds_correlation <span class="ot">&lt;-</span> actuals_preds <span class="sc">%&gt;%</span></span>
+<span id="cb663-6"><a href="advanced-r-maup-and-more-regression.html#cb663-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">correlate</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb663-7"><a href="advanced-r-maup-and-more-regression.html#cb663-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">print</span>()</span></code></pre></div>
 <pre><code>## # A tibble: 2 x 3
 ##   rowname    actuals predicteds
 ##   &lt;chr&gt;        &lt;dbl&gt;      &lt;dbl&gt;
@@ -1276,19 +1275,19 @@ Where <span class="math inline">\(d_i\)</span> is the actual value, <span class=
 <li>We can also use min-max accuracy to see how close the actual and predicted values are…using the equation…</li>
 </ol>
 <p><span class="math display">\[MinMaxAccuracy= mean\left( \frac{min(actuals, predicteds}{max(actuals, predicteds)} \right)\]</span></p>
-<div class="sourceCode" id="cb666"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb666-1"><a href="advanced-r-maup-and-more-regression.html#cb666-1" aria-hidden="true" tabindex="-1"></a>min_max_accuracy <span class="ot">&lt;-</span> <span class="fu">mean</span>(<span class="fu">apply</span>(actuals_preds, <span class="dv">1</span>, min, <span class="at">na.rm=</span><span class="cn">TRUE</span>) <span class="sc">/</span></span>
-<span id="cb666-2"><a href="advanced-r-maup-and-more-regression.html#cb666-2" aria-hidden="true" tabindex="-1"></a>                          <span class="fu">apply</span>(actuals_preds, <span class="dv">1</span>, max, <span class="at">na.rm=</span><span class="cn">TRUE</span>))  </span>
-<span id="cb666-3"><a href="advanced-r-maup-and-more-regression.html#cb666-3" aria-hidden="true" tabindex="-1"></a>min_max_accuracy</span></code></pre></div>
+<div class="sourceCode" id="cb665"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb665-1"><a href="advanced-r-maup-and-more-regression.html#cb665-1" aria-hidden="true" tabindex="-1"></a>min_max_accuracy <span class="ot">&lt;-</span> <span class="fu">mean</span>(<span class="fu">apply</span>(actuals_preds, <span class="dv">1</span>, min, <span class="at">na.rm=</span><span class="cn">TRUE</span>) <span class="sc">/</span></span>
+<span id="cb665-2"><a href="advanced-r-maup-and-more-regression.html#cb665-2" aria-hidden="true" tabindex="-1"></a>                          <span class="fu">apply</span>(actuals_preds, <span class="dv">1</span>, max, <span class="at">na.rm=</span><span class="cn">TRUE</span>))  </span>
+<span id="cb665-3"><a href="advanced-r-maup-and-more-regression.html#cb665-3" aria-hidden="true" tabindex="-1"></a>min_max_accuracy</span></code></pre></div>
 <pre><code>## [1] 0.5168844</code></pre>
-<ol start="22" style="list-style-type: decimal">
+<ol style="list-style-type: decimal">
 <li>This gives around a 60% accuracy…another alternative is mean absolute percentage deviation which is a statistical measure showing how accurate the prediciton was…through the equation…</li>
 </ol>
 <p><span class="math display">\[MAPE= mean\left( \frac{abs(predicteds - actuals}{actuals} \right)\]</span></p>
-<div class="sourceCode" id="cb668"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb668-1"><a href="advanced-r-maup-and-more-regression.html#cb668-1" aria-hidden="true" tabindex="-1"></a>mape <span class="ot">&lt;-</span> <span class="fu">mean</span>(<span class="fu">abs</span>((actuals_preds<span class="sc">$</span>predicteds <span class="sc">-</span></span>
-<span id="cb668-2"><a href="advanced-r-maup-and-more-regression.html#cb668-2" aria-hidden="true" tabindex="-1"></a>                    actuals_preds<span class="sc">$</span>actuals))<span class="sc">/</span></span>
-<span id="cb668-3"><a href="advanced-r-maup-and-more-regression.html#cb668-3" aria-hidden="true" tabindex="-1"></a>               actuals_preds<span class="sc">$</span>actuals, <span class="at">na.rm=</span><span class="cn">TRUE</span>)  </span>
-<span id="cb668-4"><a href="advanced-r-maup-and-more-regression.html#cb668-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb668-5"><a href="advanced-r-maup-and-more-regression.html#cb668-5" aria-hidden="true" tabindex="-1"></a>mape</span></code></pre></div>
+<div class="sourceCode" id="cb667"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb667-1"><a href="advanced-r-maup-and-more-regression.html#cb667-1" aria-hidden="true" tabindex="-1"></a>mape <span class="ot">&lt;-</span> <span class="fu">mean</span>(<span class="fu">abs</span>((actuals_preds<span class="sc">$</span>predicteds <span class="sc">-</span></span>
+<span id="cb667-2"><a href="advanced-r-maup-and-more-regression.html#cb667-2" aria-hidden="true" tabindex="-1"></a>                    actuals_preds<span class="sc">$</span>actuals))<span class="sc">/</span></span>
+<span id="cb667-3"><a href="advanced-r-maup-and-more-regression.html#cb667-3" aria-hidden="true" tabindex="-1"></a>               actuals_preds<span class="sc">$</span>actuals, <span class="at">na.rm=</span><span class="cn">TRUE</span>)  </span>
+<span id="cb667-4"><a href="advanced-r-maup-and-more-regression.html#cb667-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb667-5"><a href="advanced-r-maup-and-more-regression.html#cb667-5" aria-hidden="true" tabindex="-1"></a>mape</span></code></pre></div>
 <pre><code>## [1] Inf</code></pre>
 <p>Here we’ve got a very high MAPE — this is most likely because of the range of values of the wards for individual boroughs…</p>
 </div>
@@ -1298,27 +1297,27 @@ Where <span class="math inline">\(d_i\)</span> is the actual value, <span class=
 <li>Our validation approach so far was OK, but what if the test data was a different 20% — would it still hold up? We can test this by dividing all our data into blocks and then running the analysis several times, each time selecting a different block to be the test data…this is called cross validation …</li>
 </ol>
 <p><img src="prac10_images/cross_validation.jpg" width="600" style="display: block; margin: auto;" /></p>
-<ol start="24" style="list-style-type: decimal">
+<ol style="list-style-type: decimal">
 <li>To start with we’ll remove the geomtery, set up a data frame and replace any NAs with 0 — this is appropraite here as if there are no Airbnbs within the ward they would be 0.</li>
 </ol>
-<div class="sourceCode" id="cb670"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb670-1"><a href="advanced-r-maup-and-more-regression.html#cb670-1" aria-hidden="true" tabindex="-1"></a>joined_CV <span class="ot">&lt;-</span> joined <span class="sc">%&gt;%</span></span>
-<span id="cb670-2"><a href="advanced-r-maup-and-more-regression.html#cb670-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_drop_geometry</span>()<span class="sc">%&gt;%</span></span>
-<span id="cb670-3"><a href="advanced-r-maup-and-more-regression.html#cb670-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Wardcount =</span> <span class="fu">replace_na</span>(Wardcount, <span class="dv">0</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb669"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb669-1"><a href="advanced-r-maup-and-more-regression.html#cb669-1" aria-hidden="true" tabindex="-1"></a>joined_CV <span class="ot">&lt;-</span> joined <span class="sc">%&gt;%</span></span>
+<span id="cb669-2"><a href="advanced-r-maup-and-more-regression.html#cb669-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_drop_geometry</span>()<span class="sc">%&gt;%</span></span>
+<span id="cb669-3"><a href="advanced-r-maup-and-more-regression.html#cb669-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Wardcount =</span> <span class="fu">replace_na</span>(Wardcount, <span class="dv">0</span>))</span></code></pre></div>
 <ol style="list-style-type: decimal">
 <li>Now let’s change our training data… here i’ve got 5 iterations then the whole lot is repeated 3 times. Search literautre for the right number to use, i think 10 iterations with no repeats is a good place to start.</li>
 </ol>
-<div class="sourceCode" id="cb671"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb671-1"><a href="advanced-r-maup-and-more-regression.html#cb671-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(caret)</span>
-<span id="cb671-2"><a href="advanced-r-maup-and-more-regression.html#cb671-2" aria-hidden="true" tabindex="-1"></a>model<span class="ot">&lt;-</span> <span class="fu">train</span>(Wardcount <span class="sc">~</span> Boroughcount, </span>
-<span id="cb671-3"><a href="advanced-r-maup-and-more-regression.html#cb671-3" aria-hidden="true" tabindex="-1"></a>              joined_CV,</span>
-<span id="cb671-4"><a href="advanced-r-maup-and-more-regression.html#cb671-4" aria-hidden="true" tabindex="-1"></a>              <span class="at">method=</span><span class="st">&quot;lm&quot;</span>, </span>
-<span id="cb671-5"><a href="advanced-r-maup-and-more-regression.html#cb671-5" aria-hidden="true" tabindex="-1"></a>              <span class="at">trControl=</span><span class="fu">trainControl</span>(<span class="at">method=</span><span class="st">&quot;repeatedcv&quot;</span>,</span>
-<span id="cb671-6"><a href="advanced-r-maup-and-more-regression.html#cb671-6" aria-hidden="true" tabindex="-1"></a>                                     <span class="at">number=</span><span class="dv">5</span>,</span>
-<span id="cb671-7"><a href="advanced-r-maup-and-more-regression.html#cb671-7" aria-hidden="true" tabindex="-1"></a>                                     <span class="at">repeats=</span><span class="dv">3</span>,</span>
-<span id="cb671-8"><a href="advanced-r-maup-and-more-regression.html#cb671-8" aria-hidden="true" tabindex="-1"></a>                                     <span class="co"># change to true to</span></span>
-<span id="cb671-9"><a href="advanced-r-maup-and-more-regression.html#cb671-9" aria-hidden="true" tabindex="-1"></a>                                     <span class="co"># see it iterate</span></span>
-<span id="cb671-10"><a href="advanced-r-maup-and-more-regression.html#cb671-10" aria-hidden="true" tabindex="-1"></a>                                     <span class="at">verboseIter=</span><span class="cn">FALSE</span>))</span>
-<span id="cb671-11"><a href="advanced-r-maup-and-more-regression.html#cb671-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb671-12"><a href="advanced-r-maup-and-more-regression.html#cb671-12" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(model)</span></code></pre></div>
+<div class="sourceCode" id="cb670"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb670-1"><a href="advanced-r-maup-and-more-regression.html#cb670-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(caret)</span>
+<span id="cb670-2"><a href="advanced-r-maup-and-more-regression.html#cb670-2" aria-hidden="true" tabindex="-1"></a>model<span class="ot">&lt;-</span> <span class="fu">train</span>(Wardcount <span class="sc">~</span> Boroughcount, </span>
+<span id="cb670-3"><a href="advanced-r-maup-and-more-regression.html#cb670-3" aria-hidden="true" tabindex="-1"></a>              joined_CV,</span>
+<span id="cb670-4"><a href="advanced-r-maup-and-more-regression.html#cb670-4" aria-hidden="true" tabindex="-1"></a>              <span class="at">method=</span><span class="st">&quot;lm&quot;</span>, </span>
+<span id="cb670-5"><a href="advanced-r-maup-and-more-regression.html#cb670-5" aria-hidden="true" tabindex="-1"></a>              <span class="at">trControl=</span><span class="fu">trainControl</span>(<span class="at">method=</span><span class="st">&quot;repeatedcv&quot;</span>,</span>
+<span id="cb670-6"><a href="advanced-r-maup-and-more-regression.html#cb670-6" aria-hidden="true" tabindex="-1"></a>                                     <span class="at">number=</span><span class="dv">5</span>,</span>
+<span id="cb670-7"><a href="advanced-r-maup-and-more-regression.html#cb670-7" aria-hidden="true" tabindex="-1"></a>                                     <span class="at">repeats=</span><span class="dv">3</span>,</span>
+<span id="cb670-8"><a href="advanced-r-maup-and-more-regression.html#cb670-8" aria-hidden="true" tabindex="-1"></a>                                     <span class="co"># change to true to</span></span>
+<span id="cb670-9"><a href="advanced-r-maup-and-more-regression.html#cb670-9" aria-hidden="true" tabindex="-1"></a>                                     <span class="co"># see it iterate</span></span>
+<span id="cb670-10"><a href="advanced-r-maup-and-more-regression.html#cb670-10" aria-hidden="true" tabindex="-1"></a>                                     <span class="at">verboseIter=</span><span class="cn">FALSE</span>))</span>
+<span id="cb670-11"><a href="advanced-r-maup-and-more-regression.html#cb670-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb670-12"><a href="advanced-r-maup-and-more-regression.html#cb670-12" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(model)</span></code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = .outcome ~ ., data = dat)
@@ -1337,8 +1336,8 @@ Where <span class="math inline">\(d_i\)</span> is the actual value, <span class=
 ## Residual standard error: 100.7 on 554 degrees of freedom
 ## Multiple R-squared:  0.6236, Adjusted R-squared:  0.6229 
 ## F-statistic: 917.7 on 1 and 554 DF,  p-value: &lt; 2.2e-16</code></pre>
-<div class="sourceCode" id="cb673"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb673-1"><a href="advanced-r-maup-and-more-regression.html#cb673-1" aria-hidden="true" tabindex="-1"></a><span class="co">#print R2, MAE and RMSE</span></span>
-<span id="cb673-2"><a href="advanced-r-maup-and-more-regression.html#cb673-2" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(model)</span></code></pre></div>
+<div class="sourceCode" id="cb672"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb672-1"><a href="advanced-r-maup-and-more-regression.html#cb672-1" aria-hidden="true" tabindex="-1"></a><span class="co">#print R2, MAE and RMSE</span></span>
+<span id="cb672-2"><a href="advanced-r-maup-and-more-regression.html#cb672-2" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(model)</span></code></pre></div>
 <pre><code>## Linear Regression 
 ## 
 ## 556 samples
@@ -1364,55 +1363,55 @@ Where <span class="math inline">\(d_i\)</span> is the actual value, <span class=
 <li>We’re going to have a look at Ridge and LASSO regression next…however, they require us to have more than 1 predictor variable, so we’ll load a few in and demonstrate how to use them in normal regression first…</li>
 </ol>
 <p>We’ll get our OSM data, project it, extract only hotels, join it with the boroughs, set any NAs to 0, join it with the wards, rename the new ‘freq’ coloumn to Hotel count, remove the geometry and then set any more NAs to 0…</p>
-<div class="sourceCode" id="cb675"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb675-1"><a href="advanced-r-maup-and-more-regression.html#cb675-1" aria-hidden="true" tabindex="-1"></a><span class="co"># read in OSM data</span></span>
-<span id="cb675-2"><a href="advanced-r-maup-and-more-regression.html#cb675-2" aria-hidden="true" tabindex="-1"></a>OSM <span class="ot">&lt;-</span> <span class="fu">st_read</span>(here<span class="sc">::</span><span class="fu">here</span>(<span class="st">&quot;prac10_data&quot;</span>, <span class="st">&quot;geofabrik&quot;</span>, <span class="st">&quot;gis_osm_pois_a_free_1.shp&quot;</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb674"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb674-1"><a href="advanced-r-maup-and-more-regression.html#cb674-1" aria-hidden="true" tabindex="-1"></a><span class="co"># read in OSM data</span></span>
+<span id="cb674-2"><a href="advanced-r-maup-and-more-regression.html#cb674-2" aria-hidden="true" tabindex="-1"></a>OSM <span class="ot">&lt;-</span> <span class="fu">st_read</span>(here<span class="sc">::</span><span class="fu">here</span>(<span class="st">&quot;prac10_data&quot;</span>, <span class="st">&quot;geofabrik&quot;</span>, <span class="st">&quot;gis_osm_pois_a_free_1.shp&quot;</span>))</span></code></pre></div>
 <pre><code>## Reading layer `gis_osm_pois_a_free_1&#39; from data source `C:\Users\Andy\OneDrive - University College London\Teaching\CASA0005\2020_2021\CASA0005repo\prac10_data\geofabrik\gis_osm_pois_a_free_1.shp&#39; using driver `ESRI Shapefile&#39;
 ## Simple feature collection with 37108 features and 4 fields
 ## geometry type:  MULTIPOLYGON
 ## dimension:      XY
 ## bbox:           xmin: -0.5108706 ymin: 51.28117 xmax: 0.322123 ymax: 51.68948
 ## geographic CRS: WGS 84</code></pre>
-<div class="sourceCode" id="cb677"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb677-1"><a href="advanced-r-maup-and-more-regression.html#cb677-1" aria-hidden="true" tabindex="-1"></a><span class="co"># project and filter</span></span>
-<span id="cb677-2"><a href="advanced-r-maup-and-more-regression.html#cb677-2" aria-hidden="true" tabindex="-1"></a>OSM <span class="ot">&lt;-</span> OSM <span class="sc">%&gt;%</span></span>
-<span id="cb677-3"><a href="advanced-r-maup-and-more-regression.html#cb677-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_transform</span>(., <span class="dv">27700</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb677-4"><a href="advanced-r-maup-and-more-regression.html#cb677-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(fclass <span class="sc">==</span> <span class="st">&quot;hotel&quot;</span>)</span>
-<span id="cb677-5"><a href="advanced-r-maup-and-more-regression.html#cb677-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb677-6"><a href="advanced-r-maup-and-more-regression.html#cb677-6" aria-hidden="true" tabindex="-1"></a><span class="co"># join hotels with the boroughs</span></span>
-<span id="cb677-7"><a href="advanced-r-maup-and-more-regression.html#cb677-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb677-8"><a href="advanced-r-maup-and-more-regression.html#cb677-8" aria-hidden="true" tabindex="-1"></a>Hotels_borough <span class="ot">&lt;-</span> OSM <span class="sc">%&gt;%</span></span>
-<span id="cb677-9"><a href="advanced-r-maup-and-more-regression.html#cb677-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">Joinfun</span>(., boroughsandwardssf[[<span class="dv">1</span>]]) <span class="sc">%&gt;%</span></span>
-<span id="cb677-10"><a href="advanced-r-maup-and-more-regression.html#cb677-10" aria-hidden="true" tabindex="-1"></a>  <span class="co"># rename hotels</span></span>
-<span id="cb677-11"><a href="advanced-r-maup-and-more-regression.html#cb677-11" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">rename</span>(<span class="at">hotels =</span> airbnbs) <span class="sc">%&gt;%</span></span>
-<span id="cb677-12"><a href="advanced-r-maup-and-more-regression.html#cb677-12" aria-hidden="true" tabindex="-1"></a>  <span class="co"># replae NA with 0</span></span>
-<span id="cb677-13"><a href="advanced-r-maup-and-more-regression.html#cb677-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">hotels =</span> <span class="fu">replace_na</span>(hotels, <span class="dv">0</span>))</span>
-<span id="cb677-14"><a href="advanced-r-maup-and-more-regression.html#cb677-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb677-15"><a href="advanced-r-maup-and-more-regression.html#cb677-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb677-16"><a href="advanced-r-maup-and-more-regression.html#cb677-16" aria-hidden="true" tabindex="-1"></a>joined2<span class="ot">&lt;-</span>joined <span class="sc">%&gt;%</span></span>
-<span id="cb677-17"><a href="advanced-r-maup-and-more-regression.html#cb677-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_drop_geometry</span>()<span class="sc">%&gt;%</span></span>
-<span id="cb677-18"><a href="advanced-r-maup-and-more-regression.html#cb677-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(., </span>
-<span id="cb677-19"><a href="advanced-r-maup-and-more-regression.html#cb677-19" aria-hidden="true" tabindex="-1"></a>            Hotels_borough,</span>
-<span id="cb677-20"><a href="advanced-r-maup-and-more-regression.html#cb677-20" aria-hidden="true" tabindex="-1"></a>            <span class="at">by=</span> <span class="fu">c</span>(<span class="st">&quot;GSS_CODE.x&quot;</span> <span class="ot">=</span> <span class="st">&quot;GSS_CODE&quot;</span>))<span class="sc">%&gt;%</span></span>
-<span id="cb677-21"><a href="advanced-r-maup-and-more-regression.html#cb677-21" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(NAME.y,GSS_CODE.x, Boroughcount, Wardcount, hotels)<span class="sc">%&gt;%</span></span>
-<span id="cb677-22"><a href="advanced-r-maup-and-more-regression.html#cb677-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">distinct</span>()<span class="sc">%&gt;%</span></span>
-<span id="cb677-23"><a href="advanced-r-maup-and-more-regression.html#cb677-23" aria-hidden="true" tabindex="-1"></a>  <span class="co">#replace NA in wards with 0</span></span>
-<span id="cb677-24"><a href="advanced-r-maup-and-more-regression.html#cb677-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Wardcount =</span> <span class="fu">replace_na</span>(Wardcount, <span class="dv">0</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb676"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb676-1"><a href="advanced-r-maup-and-more-regression.html#cb676-1" aria-hidden="true" tabindex="-1"></a><span class="co"># project and filter</span></span>
+<span id="cb676-2"><a href="advanced-r-maup-and-more-regression.html#cb676-2" aria-hidden="true" tabindex="-1"></a>OSM <span class="ot">&lt;-</span> OSM <span class="sc">%&gt;%</span></span>
+<span id="cb676-3"><a href="advanced-r-maup-and-more-regression.html#cb676-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_transform</span>(., <span class="dv">27700</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb676-4"><a href="advanced-r-maup-and-more-regression.html#cb676-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(fclass <span class="sc">==</span> <span class="st">&quot;hotel&quot;</span>)</span>
+<span id="cb676-5"><a href="advanced-r-maup-and-more-regression.html#cb676-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb676-6"><a href="advanced-r-maup-and-more-regression.html#cb676-6" aria-hidden="true" tabindex="-1"></a><span class="co"># join hotels with the boroughs</span></span>
+<span id="cb676-7"><a href="advanced-r-maup-and-more-regression.html#cb676-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb676-8"><a href="advanced-r-maup-and-more-regression.html#cb676-8" aria-hidden="true" tabindex="-1"></a>Hotels_borough <span class="ot">&lt;-</span> OSM <span class="sc">%&gt;%</span></span>
+<span id="cb676-9"><a href="advanced-r-maup-and-more-regression.html#cb676-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">Joinfun</span>(., boroughsandwardssf[[<span class="dv">1</span>]]) <span class="sc">%&gt;%</span></span>
+<span id="cb676-10"><a href="advanced-r-maup-and-more-regression.html#cb676-10" aria-hidden="true" tabindex="-1"></a>  <span class="co"># rename hotels</span></span>
+<span id="cb676-11"><a href="advanced-r-maup-and-more-regression.html#cb676-11" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">rename</span>(<span class="at">hotels =</span> airbnbs) <span class="sc">%&gt;%</span></span>
+<span id="cb676-12"><a href="advanced-r-maup-and-more-regression.html#cb676-12" aria-hidden="true" tabindex="-1"></a>  <span class="co"># replae NA with 0</span></span>
+<span id="cb676-13"><a href="advanced-r-maup-and-more-regression.html#cb676-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">hotels =</span> <span class="fu">replace_na</span>(hotels, <span class="dv">0</span>))</span>
+<span id="cb676-14"><a href="advanced-r-maup-and-more-regression.html#cb676-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb676-15"><a href="advanced-r-maup-and-more-regression.html#cb676-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb676-16"><a href="advanced-r-maup-and-more-regression.html#cb676-16" aria-hidden="true" tabindex="-1"></a>joined2<span class="ot">&lt;-</span>joined <span class="sc">%&gt;%</span></span>
+<span id="cb676-17"><a href="advanced-r-maup-and-more-regression.html#cb676-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_drop_geometry</span>()<span class="sc">%&gt;%</span></span>
+<span id="cb676-18"><a href="advanced-r-maup-and-more-regression.html#cb676-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(., </span>
+<span id="cb676-19"><a href="advanced-r-maup-and-more-regression.html#cb676-19" aria-hidden="true" tabindex="-1"></a>            Hotels_borough,</span>
+<span id="cb676-20"><a href="advanced-r-maup-and-more-regression.html#cb676-20" aria-hidden="true" tabindex="-1"></a>            <span class="at">by=</span> <span class="fu">c</span>(<span class="st">&quot;GSS_CODE.x&quot;</span> <span class="ot">=</span> <span class="st">&quot;GSS_CODE&quot;</span>))<span class="sc">%&gt;%</span></span>
+<span id="cb676-21"><a href="advanced-r-maup-and-more-regression.html#cb676-21" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(NAME.y,GSS_CODE.x, Boroughcount, Wardcount, hotels)<span class="sc">%&gt;%</span></span>
+<span id="cb676-22"><a href="advanced-r-maup-and-more-regression.html#cb676-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">distinct</span>()<span class="sc">%&gt;%</span></span>
+<span id="cb676-23"><a href="advanced-r-maup-and-more-regression.html#cb676-23" aria-hidden="true" tabindex="-1"></a>  <span class="co">#replace NA in wards with 0</span></span>
+<span id="cb676-24"><a href="advanced-r-maup-and-more-regression.html#cb676-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Wardcount =</span> <span class="fu">replace_na</span>(Wardcount, <span class="dv">0</span>))</span></code></pre></div>
 </div>
 <div id="multiple-linear-regression" class="section level3" number="10.7.2">
 <h3><span class="header-section-number">10.7.2</span> Multiple linear regression</h3>
 <ol style="list-style-type: decimal">
 <li>Re run the model including Hotel count…you simply use a +</li>
 </ol>
-<div class="sourceCode" id="cb678"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb678-1"><a href="advanced-r-maup-and-more-regression.html#cb678-1" aria-hidden="true" tabindex="-1"></a>model2<span class="ot">&lt;-</span> <span class="fu">train</span>(Wardcount <span class="sc">~</span> Boroughcount<span class="sc">+</span>hotels, </span>
-<span id="cb678-2"><a href="advanced-r-maup-and-more-regression.html#cb678-2" aria-hidden="true" tabindex="-1"></a>              joined2,</span>
-<span id="cb678-3"><a href="advanced-r-maup-and-more-regression.html#cb678-3" aria-hidden="true" tabindex="-1"></a>              <span class="at">method=</span><span class="st">&quot;lm&quot;</span>, </span>
-<span id="cb678-4"><a href="advanced-r-maup-and-more-regression.html#cb678-4" aria-hidden="true" tabindex="-1"></a>              <span class="at">trControl=</span><span class="fu">trainControl</span>(<span class="at">method=</span><span class="st">&quot;repeatedcv&quot;</span>,</span>
-<span id="cb678-5"><a href="advanced-r-maup-and-more-regression.html#cb678-5" aria-hidden="true" tabindex="-1"></a>                                     <span class="at">number=</span><span class="dv">5</span>,</span>
-<span id="cb678-6"><a href="advanced-r-maup-and-more-regression.html#cb678-6" aria-hidden="true" tabindex="-1"></a>                                     <span class="at">repeats=</span><span class="dv">3</span>,</span>
-<span id="cb678-7"><a href="advanced-r-maup-and-more-regression.html#cb678-7" aria-hidden="true" tabindex="-1"></a>                                     <span class="co"># change to true to see it </span></span>
-<span id="cb678-8"><a href="advanced-r-maup-and-more-regression.html#cb678-8" aria-hidden="true" tabindex="-1"></a>                                     <span class="co"># iterate</span></span>
-<span id="cb678-9"><a href="advanced-r-maup-and-more-regression.html#cb678-9" aria-hidden="true" tabindex="-1"></a>                                     <span class="at">verboseIter=</span><span class="cn">FALSE</span>))</span>
-<span id="cb678-10"><a href="advanced-r-maup-and-more-regression.html#cb678-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb678-11"><a href="advanced-r-maup-and-more-regression.html#cb678-11" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(model2)</span></code></pre></div>
+<div class="sourceCode" id="cb677"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb677-1"><a href="advanced-r-maup-and-more-regression.html#cb677-1" aria-hidden="true" tabindex="-1"></a>model2<span class="ot">&lt;-</span> <span class="fu">train</span>(Wardcount <span class="sc">~</span> Boroughcount<span class="sc">+</span>hotels, </span>
+<span id="cb677-2"><a href="advanced-r-maup-and-more-regression.html#cb677-2" aria-hidden="true" tabindex="-1"></a>              joined2,</span>
+<span id="cb677-3"><a href="advanced-r-maup-and-more-regression.html#cb677-3" aria-hidden="true" tabindex="-1"></a>              <span class="at">method=</span><span class="st">&quot;lm&quot;</span>, </span>
+<span id="cb677-4"><a href="advanced-r-maup-and-more-regression.html#cb677-4" aria-hidden="true" tabindex="-1"></a>              <span class="at">trControl=</span><span class="fu">trainControl</span>(<span class="at">method=</span><span class="st">&quot;repeatedcv&quot;</span>,</span>
+<span id="cb677-5"><a href="advanced-r-maup-and-more-regression.html#cb677-5" aria-hidden="true" tabindex="-1"></a>                                     <span class="at">number=</span><span class="dv">5</span>,</span>
+<span id="cb677-6"><a href="advanced-r-maup-and-more-regression.html#cb677-6" aria-hidden="true" tabindex="-1"></a>                                     <span class="at">repeats=</span><span class="dv">3</span>,</span>
+<span id="cb677-7"><a href="advanced-r-maup-and-more-regression.html#cb677-7" aria-hidden="true" tabindex="-1"></a>                                     <span class="co"># change to true to see it </span></span>
+<span id="cb677-8"><a href="advanced-r-maup-and-more-regression.html#cb677-8" aria-hidden="true" tabindex="-1"></a>                                     <span class="co"># iterate</span></span>
+<span id="cb677-9"><a href="advanced-r-maup-and-more-regression.html#cb677-9" aria-hidden="true" tabindex="-1"></a>                                     <span class="at">verboseIter=</span><span class="cn">FALSE</span>))</span>
+<span id="cb677-10"><a href="advanced-r-maup-and-more-regression.html#cb677-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb677-11"><a href="advanced-r-maup-and-more-regression.html#cb677-11" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(model2)</span></code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = .outcome ~ ., data = dat)
@@ -1433,47 +1432,47 @@ Where <span class="math inline">\(d_i\)</span> is the actual value, <span class=
 ## Multiple R-squared:  0.6237, Adjusted R-squared:  0.6223 
 ## F-statistic: 458.2 on 2 and 553 DF,  p-value: &lt; 2.2e-16</code></pre>
 <p>The summary here shows that the hotel count predictor is not statistically significant so we should remove it…how about we add some population and house price data….download <a href="https://data.london.gov.uk/dataset/ward-profiles-and-atlas">the excel data from here</a></p>
-<div class="sourceCode" id="cb680"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb680-1"><a href="advanced-r-maup-and-more-regression.html#cb680-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readxl)</span>
-<span id="cb680-2"><a href="advanced-r-maup-and-more-regression.html#cb680-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(janitor)</span>
-<span id="cb680-3"><a href="advanced-r-maup-and-more-regression.html#cb680-3" aria-hidden="true" tabindex="-1"></a><span class="co"># read the excel sheet</span></span>
-<span id="cb680-4"><a href="advanced-r-maup-and-more-regression.html#cb680-4" aria-hidden="true" tabindex="-1"></a>my_data <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(here<span class="sc">::</span><span class="fu">here</span>(<span class="st">&quot;prac10_data&quot;</span>,<span class="st">&quot;ward-profiles-excel-version.xls&quot;</span>),</span>
-<span id="cb680-5"><a href="advanced-r-maup-and-more-regression.html#cb680-5" aria-hidden="true" tabindex="-1"></a>                                 <span class="at">sheet=</span><span class="dv">2</span>,</span>
-<span id="cb680-6"><a href="advanced-r-maup-and-more-regression.html#cb680-6" aria-hidden="true" tabindex="-1"></a>                                 <span class="at">col_names=</span><span class="cn">TRUE</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb680-7"><a href="advanced-r-maup-and-more-regression.html#cb680-7" aria-hidden="true" tabindex="-1"></a>  <span class="co"># set it as a data frame</span></span>
-<span id="cb680-8"><a href="advanced-r-maup-and-more-regression.html#cb680-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as.data.frame</span>()<span class="sc">%&gt;%</span></span>
-<span id="cb680-9"><a href="advanced-r-maup-and-more-regression.html#cb680-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">clean_names</span>()<span class="sc">%&gt;%</span></span>
-<span id="cb680-10"><a href="advanced-r-maup-and-more-regression.html#cb680-10" aria-hidden="true" tabindex="-1"></a>  <span class="co"># extract everything that begins with E</span></span>
-<span id="cb680-11"><a href="advanced-r-maup-and-more-regression.html#cb680-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">str_detect</span>(new_code, <span class="st">&quot;^E&quot;</span>))</span>
-<span id="cb680-12"><a href="advanced-r-maup-and-more-regression.html#cb680-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb680-13"><a href="advanced-r-maup-and-more-regression.html#cb680-13" aria-hidden="true" tabindex="-1"></a><span class="co"># is our data num</span></span>
-<span id="cb680-14"><a href="advanced-r-maup-and-more-regression.html#cb680-14" aria-hidden="true" tabindex="-1"></a>Datatypelist <span class="ot">&lt;-</span> my_data <span class="sc">%&gt;%</span> </span>
-<span id="cb680-15"><a href="advanced-r-maup-and-more-regression.html#cb680-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise_all</span>(class) <span class="sc">%&gt;%</span></span>
-<span id="cb680-16"><a href="advanced-r-maup-and-more-regression.html#cb680-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="fu">everything</span>(), </span>
-<span id="cb680-17"><a href="advanced-r-maup-and-more-regression.html#cb680-17" aria-hidden="true" tabindex="-1"></a>               <span class="at">names_to=</span><span class="st">&quot;All_variables&quot;</span>, </span>
-<span id="cb680-18"><a href="advanced-r-maup-and-more-regression.html#cb680-18" aria-hidden="true" tabindex="-1"></a>               <span class="at">values_to=</span><span class="st">&quot;Variable_class&quot;</span>)</span>
-<span id="cb680-19"><a href="advanced-r-maup-and-more-regression.html#cb680-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb680-20"><a href="advanced-r-maup-and-more-regression.html#cb680-20" aria-hidden="true" tabindex="-1"></a><span class="co"># make sure the variables are numeric</span></span>
-<span id="cb680-21"><a href="advanced-r-maup-and-more-regression.html#cb680-21" aria-hidden="true" tabindex="-1"></a>my_data <span class="ot">&lt;-</span> my_data <span class="sc">%&gt;%</span></span>
-<span id="cb680-22"><a href="advanced-r-maup-and-more-regression.html#cb680-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="fu">across</span>(<span class="at">.cols =</span> <span class="dv">4</span><span class="sc">:</span><span class="dv">67</span>, as.numeric))</span>
-<span id="cb680-23"><a href="advanced-r-maup-and-more-regression.html#cb680-23" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb680-24"><a href="advanced-r-maup-and-more-regression.html#cb680-24" aria-hidden="true" tabindex="-1"></a><span class="co"># merge the new data to the existing data</span></span>
-<span id="cb680-25"><a href="advanced-r-maup-and-more-regression.html#cb680-25" aria-hidden="true" tabindex="-1"></a>joined3 <span class="ot">&lt;-</span>joined2 <span class="sc">%&gt;%</span></span>
-<span id="cb680-26"><a href="advanced-r-maup-and-more-regression.html#cb680-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(.,</span>
-<span id="cb680-27"><a href="advanced-r-maup-and-more-regression.html#cb680-27" aria-hidden="true" tabindex="-1"></a>            my_data,</span>
-<span id="cb680-28"><a href="advanced-r-maup-and-more-regression.html#cb680-28" aria-hidden="true" tabindex="-1"></a>            <span class="at">by=</span> <span class="fu">c</span>(<span class="st">&quot;GSS_CODE.x&quot;</span> <span class="ot">=</span> <span class="st">&quot;new_code&quot;</span>))</span></code></pre></div>
-<ol start="28" style="list-style-type: decimal">
+<div class="sourceCode" id="cb679"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb679-1"><a href="advanced-r-maup-and-more-regression.html#cb679-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readxl)</span>
+<span id="cb679-2"><a href="advanced-r-maup-and-more-regression.html#cb679-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(janitor)</span>
+<span id="cb679-3"><a href="advanced-r-maup-and-more-regression.html#cb679-3" aria-hidden="true" tabindex="-1"></a><span class="co"># read the excel sheet</span></span>
+<span id="cb679-4"><a href="advanced-r-maup-and-more-regression.html#cb679-4" aria-hidden="true" tabindex="-1"></a>my_data <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(here<span class="sc">::</span><span class="fu">here</span>(<span class="st">&quot;prac10_data&quot;</span>,<span class="st">&quot;ward-profiles-excel-version.xls&quot;</span>),</span>
+<span id="cb679-5"><a href="advanced-r-maup-and-more-regression.html#cb679-5" aria-hidden="true" tabindex="-1"></a>                                 <span class="at">sheet=</span><span class="dv">2</span>,</span>
+<span id="cb679-6"><a href="advanced-r-maup-and-more-regression.html#cb679-6" aria-hidden="true" tabindex="-1"></a>                                 <span class="at">col_names=</span><span class="cn">TRUE</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb679-7"><a href="advanced-r-maup-and-more-regression.html#cb679-7" aria-hidden="true" tabindex="-1"></a>  <span class="co"># set it as a data frame</span></span>
+<span id="cb679-8"><a href="advanced-r-maup-and-more-regression.html#cb679-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as.data.frame</span>()<span class="sc">%&gt;%</span></span>
+<span id="cb679-9"><a href="advanced-r-maup-and-more-regression.html#cb679-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">clean_names</span>()<span class="sc">%&gt;%</span></span>
+<span id="cb679-10"><a href="advanced-r-maup-and-more-regression.html#cb679-10" aria-hidden="true" tabindex="-1"></a>  <span class="co"># extract everything that begins with E</span></span>
+<span id="cb679-11"><a href="advanced-r-maup-and-more-regression.html#cb679-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">str_detect</span>(new_code, <span class="st">&quot;^E&quot;</span>))</span>
+<span id="cb679-12"><a href="advanced-r-maup-and-more-regression.html#cb679-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb679-13"><a href="advanced-r-maup-and-more-regression.html#cb679-13" aria-hidden="true" tabindex="-1"></a><span class="co"># is our data num</span></span>
+<span id="cb679-14"><a href="advanced-r-maup-and-more-regression.html#cb679-14" aria-hidden="true" tabindex="-1"></a>Datatypelist <span class="ot">&lt;-</span> my_data <span class="sc">%&gt;%</span> </span>
+<span id="cb679-15"><a href="advanced-r-maup-and-more-regression.html#cb679-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise_all</span>(class) <span class="sc">%&gt;%</span></span>
+<span id="cb679-16"><a href="advanced-r-maup-and-more-regression.html#cb679-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="fu">everything</span>(), </span>
+<span id="cb679-17"><a href="advanced-r-maup-and-more-regression.html#cb679-17" aria-hidden="true" tabindex="-1"></a>               <span class="at">names_to=</span><span class="st">&quot;All_variables&quot;</span>, </span>
+<span id="cb679-18"><a href="advanced-r-maup-and-more-regression.html#cb679-18" aria-hidden="true" tabindex="-1"></a>               <span class="at">values_to=</span><span class="st">&quot;Variable_class&quot;</span>)</span>
+<span id="cb679-19"><a href="advanced-r-maup-and-more-regression.html#cb679-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb679-20"><a href="advanced-r-maup-and-more-regression.html#cb679-20" aria-hidden="true" tabindex="-1"></a><span class="co"># make sure the variables are numeric</span></span>
+<span id="cb679-21"><a href="advanced-r-maup-and-more-regression.html#cb679-21" aria-hidden="true" tabindex="-1"></a>my_data <span class="ot">&lt;-</span> my_data <span class="sc">%&gt;%</span></span>
+<span id="cb679-22"><a href="advanced-r-maup-and-more-regression.html#cb679-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="fu">across</span>(<span class="at">.cols =</span> <span class="dv">4</span><span class="sc">:</span><span class="dv">67</span>, as.numeric))</span>
+<span id="cb679-23"><a href="advanced-r-maup-and-more-regression.html#cb679-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb679-24"><a href="advanced-r-maup-and-more-regression.html#cb679-24" aria-hidden="true" tabindex="-1"></a><span class="co"># merge the new data to the existing data</span></span>
+<span id="cb679-25"><a href="advanced-r-maup-and-more-regression.html#cb679-25" aria-hidden="true" tabindex="-1"></a>joined3 <span class="ot">&lt;-</span>joined2 <span class="sc">%&gt;%</span></span>
+<span id="cb679-26"><a href="advanced-r-maup-and-more-regression.html#cb679-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(.,</span>
+<span id="cb679-27"><a href="advanced-r-maup-and-more-regression.html#cb679-27" aria-hidden="true" tabindex="-1"></a>            my_data,</span>
+<span id="cb679-28"><a href="advanced-r-maup-and-more-regression.html#cb679-28" aria-hidden="true" tabindex="-1"></a>            <span class="at">by=</span> <span class="fu">c</span>(<span class="st">&quot;GSS_CODE.x&quot;</span> <span class="ot">=</span> <span class="st">&quot;new_code&quot;</span>))</span></code></pre></div>
+<ol style="list-style-type: decimal">
 <li>Now run the model again</li>
 </ol>
-<div class="sourceCode" id="cb681"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb681-1"><a href="advanced-r-maup-and-more-regression.html#cb681-1" aria-hidden="true" tabindex="-1"></a>model3<span class="ot">&lt;-</span> <span class="fu">train</span>(Wardcount <span class="sc">~</span> Boroughcount<span class="sc">+</span>population_2015</span>
-<span id="cb681-2"><a href="advanced-r-maup-and-more-regression.html#cb681-2" aria-hidden="true" tabindex="-1"></a>               <span class="sc">+</span>median_house_price_2014,</span>
-<span id="cb681-3"><a href="advanced-r-maup-and-more-regression.html#cb681-3" aria-hidden="true" tabindex="-1"></a>              joined3,</span>
-<span id="cb681-4"><a href="advanced-r-maup-and-more-regression.html#cb681-4" aria-hidden="true" tabindex="-1"></a>              <span class="at">method=</span><span class="st">&quot;lm&quot;</span>, </span>
-<span id="cb681-5"><a href="advanced-r-maup-and-more-regression.html#cb681-5" aria-hidden="true" tabindex="-1"></a>              <span class="at">trControl=</span><span class="fu">trainControl</span>(<span class="at">method=</span><span class="st">&quot;repeatedcv&quot;</span>,</span>
-<span id="cb681-6"><a href="advanced-r-maup-and-more-regression.html#cb681-6" aria-hidden="true" tabindex="-1"></a>                                     <span class="at">number=</span><span class="dv">5</span>,</span>
-<span id="cb681-7"><a href="advanced-r-maup-and-more-regression.html#cb681-7" aria-hidden="true" tabindex="-1"></a>                                     <span class="at">repeats=</span><span class="dv">3</span>,</span>
-<span id="cb681-8"><a href="advanced-r-maup-and-more-regression.html#cb681-8" aria-hidden="true" tabindex="-1"></a>                                     <span class="at">verboseIter=</span><span class="cn">FALSE</span>))</span>
-<span id="cb681-9"><a href="advanced-r-maup-and-more-regression.html#cb681-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb681-10"><a href="advanced-r-maup-and-more-regression.html#cb681-10" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(model3)</span></code></pre></div>
+<div class="sourceCode" id="cb680"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb680-1"><a href="advanced-r-maup-and-more-regression.html#cb680-1" aria-hidden="true" tabindex="-1"></a>model3<span class="ot">&lt;-</span> <span class="fu">train</span>(Wardcount <span class="sc">~</span> Boroughcount<span class="sc">+</span>population_2015</span>
+<span id="cb680-2"><a href="advanced-r-maup-and-more-regression.html#cb680-2" aria-hidden="true" tabindex="-1"></a>               <span class="sc">+</span>median_house_price_2014,</span>
+<span id="cb680-3"><a href="advanced-r-maup-and-more-regression.html#cb680-3" aria-hidden="true" tabindex="-1"></a>              joined3,</span>
+<span id="cb680-4"><a href="advanced-r-maup-and-more-regression.html#cb680-4" aria-hidden="true" tabindex="-1"></a>              <span class="at">method=</span><span class="st">&quot;lm&quot;</span>, </span>
+<span id="cb680-5"><a href="advanced-r-maup-and-more-regression.html#cb680-5" aria-hidden="true" tabindex="-1"></a>              <span class="at">trControl=</span><span class="fu">trainControl</span>(<span class="at">method=</span><span class="st">&quot;repeatedcv&quot;</span>,</span>
+<span id="cb680-6"><a href="advanced-r-maup-and-more-regression.html#cb680-6" aria-hidden="true" tabindex="-1"></a>                                     <span class="at">number=</span><span class="dv">5</span>,</span>
+<span id="cb680-7"><a href="advanced-r-maup-and-more-regression.html#cb680-7" aria-hidden="true" tabindex="-1"></a>                                     <span class="at">repeats=</span><span class="dv">3</span>,</span>
+<span id="cb680-8"><a href="advanced-r-maup-and-more-regression.html#cb680-8" aria-hidden="true" tabindex="-1"></a>                                     <span class="at">verboseIter=</span><span class="cn">FALSE</span>))</span>
+<span id="cb680-9"><a href="advanced-r-maup-and-more-regression.html#cb680-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb680-10"><a href="advanced-r-maup-and-more-regression.html#cb680-10" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(model3)</span></code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = .outcome ~ ., data = dat)
@@ -1509,58 +1508,58 @@ Where <span class="math inline">\(d_i\)</span> is the actual value, <span class=
 Figure 10.1: This is a screenshot from the YouTube video Regularization Part 1: Ridge Regression by StatQuest
 </p>
 </div>
-<p>Ridge regression probably won’t fit our training data as well, becuase we introduce a small amount of bias (adding value to the intercept — which is the Y value when X=0) to give us less overall variance (the difference between the point and line value)…So essentially when the values are calculated the formula is trying to get the line of best fit through all the points with each point having minimum distance to the line.</p>
-<p>Ridge regression also tries to minimise the sum of the sqaured residuals (distance to the line) but then adds <span class="math inline">\(\lambda\)</span> x <span class="math inline">\(slope^2\)</span> — this increases the value of Y when X=0.</p>
+<p>Ridge regression probably won’t fit our training data as well, because we introduce a small amount of bias (adding value to the intercept — which is the Y value when X=0, normally making the line of best fit more horizontal) to give us less overall variance (the difference between the point and line value)…So essentially when the values are calculated the formula is trying to get the line of best fit through all the points with each point having minimum distance to the line.</p>
+<p>Ridge regression also tries to minimise the sum of the squared residuals (distance to the line) but then adds <span class="math inline">\(\lambda\)</span> x <span class="math inline">\(slope^2\)</span> — this is the bias changing the line of best fit</p>
 <p>Ok so let’s try and look at this with numbers…</p>
-<p>The goal here is to minimise the sum of the sqaured residuals…plus the ridge regression penalty <span class="math inline">\(\lambda * slope^2\)</span>…</p>
+<p>The goal here is to minimise the sum of the squared residuals…plus the ridge regression penalty <span class="math inline">\(\lambda * slope^2\)</span>…</p>
 <p>Firstly let’s assume you have a perfectly fit line — the sum of the least sqaure residuals would be 0 (the line overlaps the points). Assume <span class="math inline">\(\lambda\)</span> is 0.5 and the slope is 1.2, we have 0 + 1.44 = 1.44</p>
 <p>Now we use ridge regression that shifts the line away from the perfect fit (with a bias penalty) that we had in least square regression…this would create residual values as the points no longer perfectly fit the line, assume these add to 0.2, <span class="math inline">\(\lambda\)</span> is 0.5, and the slope is 0.7…so this would give 0.445.</p>
-<p>So if we were trying to minimise the sum of the sqaured residuals plus the ridge regression penatly the ridge regression wins with a lower value.</p>
-<p>The penatly <span class="math inline">\(\lambda * slope^2\)</span> adds a bias (value to the intercept) to reduce the slope of the line as it tries to the minimise the sum of the distance of the points from the line and hopefully the variance between the line and the points…like this — Ridge is the blue line that has become slightly more horizontal…</p>
+<p>So if we were trying to minimise the sum of the squared residuals plus the ridge regression penalty the ridge regression wins with a lower value.</p>
+<p>The penalty <span class="math inline">\(\lambda * slope^2\)</span> adds a bias (value to the intercept) to reduce the slope of the line as it tries to the minimise the sum of the distance of the points from the line and hopefully the variance between the line and the points…like this — Ridge is the blue line that has become slightly more horizontal…</p>
 <div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-525"></span>
 <img src="prac10_images/ridge_eg2.png" alt="This is a screenshot from the YouTube video Regularization Part 1: Ridge Regression by StatQuest" width="300" />
 <p class="caption">
 Figure 10.2: This is a screenshot from the YouTube video Regularization Part 1: Ridge Regression by StatQuest
 </p>
 </div>
-<p>But wait…. how do we calcualte <span class="math inline">\(\lambda\)</span>, well we try a load of values and use cross validation (10 fold) to get the overall lowest variance from the line to the data points! COOL!!!!</p>
-<ol start="29" style="list-style-type: decimal">
-<li>Let’s see an exmaple to show that if <span class="math inline">\(\lambda\)</span> is 0, then we have our box standard linear regression…as the penalty <span class="math inline">\(\lambda * the slope^2\)</span> will be 0, so we will just be minimising the sum of the sqaured residuals.</li>
+<p>But wait…. how do we calculate <span class="math inline">\(\lambda\)</span>, well we try a load of values and use cross validation (10 fold) to get the overall lowest variance from the line to the data points! COOL!!!!</p>
+<ol style="list-style-type: decimal">
+<li>Let’s see an example to show that if <span class="math inline">\(\lambda\)</span> is 0, then we have our box standard linear regression…as the penalty <span class="math inline">\(\lambda * the slope^2\)</span> will be 0, so we will just be minimising the sum of the squared residuals.</li>
 </ol>
-<div class="sourceCode" id="cb683"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb683-1"><a href="advanced-r-maup-and-more-regression.html#cb683-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb683-2"><a href="advanced-r-maup-and-more-regression.html#cb683-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(broom)</span>
-<span id="cb683-3"><a href="advanced-r-maup-and-more-regression.html#cb683-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(glmnet)</span>
-<span id="cb683-4"><a href="advanced-r-maup-and-more-regression.html#cb683-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb683-5"><a href="advanced-r-maup-and-more-regression.html#cb683-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb683-6"><a href="advanced-r-maup-and-more-regression.html#cb683-6" aria-hidden="true" tabindex="-1"></a><span class="co"># sort the data our for ridge regression</span></span>
-<span id="cb683-7"><a href="advanced-r-maup-and-more-regression.html#cb683-7" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> joined3<span class="sc">$</span>Wardcount <span class="sc">%&gt;%</span></span>
-<span id="cb683-8"><a href="advanced-r-maup-and-more-regression.html#cb683-8" aria-hidden="true" tabindex="-1"></a>  <span class="co"># set NAs to 0</span></span>
-<span id="cb683-9"><a href="advanced-r-maup-and-more-regression.html#cb683-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">replace_na</span>(., <span class="dv">0</span>)</span>
-<span id="cb683-10"><a href="advanced-r-maup-and-more-regression.html#cb683-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb683-11"><a href="advanced-r-maup-and-more-regression.html#cb683-11" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> joined3 <span class="sc">%&gt;%</span> </span>
-<span id="cb683-12"><a href="advanced-r-maup-and-more-regression.html#cb683-12" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(Boroughcount, hotels,</span>
-<span id="cb683-13"><a href="advanced-r-maup-and-more-regression.html#cb683-13" aria-hidden="true" tabindex="-1"></a>                                 population_2015,</span>
-<span id="cb683-14"><a href="advanced-r-maup-and-more-regression.html#cb683-14" aria-hidden="true" tabindex="-1"></a>                                 median_house_price_2014) <span class="sc">%&gt;%</span></span>
-<span id="cb683-15"><a href="advanced-r-maup-and-more-regression.html#cb683-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">data.matrix</span>()<span class="sc">%&gt;%</span></span>
-<span id="cb683-16"><a href="advanced-r-maup-and-more-regression.html#cb683-16" aria-hidden="true" tabindex="-1"></a>  <span class="co"># set NAs to 0</span></span>
-<span id="cb683-17"><a href="advanced-r-maup-and-more-regression.html#cb683-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">replace_na</span>(., <span class="dv">0</span>)</span>
-<span id="cb683-18"><a href="advanced-r-maup-and-more-regression.html#cb683-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb683-19"><a href="advanced-r-maup-and-more-regression.html#cb683-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb683-20"><a href="advanced-r-maup-and-more-regression.html#cb683-20" aria-hidden="true" tabindex="-1"></a><span class="co"># set seed means that if we re run this </span></span>
-<span id="cb683-21"><a href="advanced-r-maup-and-more-regression.html#cb683-21" aria-hidden="true" tabindex="-1"></a><span class="co"># we will get the same results</span></span>
-<span id="cb683-22"><a href="advanced-r-maup-and-more-regression.html#cb683-22" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">489</span>)</span>
-<span id="cb683-23"><a href="advanced-r-maup-and-more-regression.html#cb683-23" aria-hidden="true" tabindex="-1"></a><span class="co"># this gives us a 50/50 split between</span></span>
-<span id="cb683-24"><a href="advanced-r-maup-and-more-regression.html#cb683-24" aria-hidden="true" tabindex="-1"></a><span class="co"># training and test data</span></span>
-<span id="cb683-25"><a href="advanced-r-maup-and-more-regression.html#cb683-25" aria-hidden="true" tabindex="-1"></a>train <span class="ot">=</span> <span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(x), <span class="fu">nrow</span>(x)<span class="sc">/</span><span class="dv">2</span>)</span>
-<span id="cb683-26"><a href="advanced-r-maup-and-more-regression.html#cb683-26" aria-hidden="true" tabindex="-1"></a>test <span class="ot">=</span> (<span class="sc">-</span>train)</span>
-<span id="cb683-27"><a href="advanced-r-maup-and-more-regression.html#cb683-27" aria-hidden="true" tabindex="-1"></a>ytest <span class="ot">=</span> y[test]</span>
-<span id="cb683-28"><a href="advanced-r-maup-and-more-regression.html#cb683-28" aria-hidden="true" tabindex="-1"></a>xtest <span class="ot">=</span>x[test]</span>
-<span id="cb683-29"><a href="advanced-r-maup-and-more-regression.html#cb683-29" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb683-30"><a href="advanced-r-maup-and-more-regression.html#cb683-30" aria-hidden="true" tabindex="-1"></a><span class="co"># run normmal regression</span></span>
-<span id="cb683-31"><a href="advanced-r-maup-and-more-regression.html#cb683-31" aria-hidden="true" tabindex="-1"></a>normallm <span class="ot">&lt;-</span> <span class="fu">lm</span>(Wardcount <span class="sc">~</span> hotels<span class="sc">+</span>Boroughcount<span class="sc">+</span>population_2015</span>
-<span id="cb683-32"><a href="advanced-r-maup-and-more-regression.html#cb683-32" aria-hidden="true" tabindex="-1"></a>               <span class="sc">+</span>median_house_price_2014,</span>
-<span id="cb683-33"><a href="advanced-r-maup-and-more-regression.html#cb683-33" aria-hidden="true" tabindex="-1"></a>               <span class="at">data =</span> joined3)</span>
-<span id="cb683-34"><a href="advanced-r-maup-and-more-regression.html#cb683-34" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(normallm)</span></code></pre></div>
+<div class="sourceCode" id="cb682"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb682-1"><a href="advanced-r-maup-and-more-regression.html#cb682-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb682-2"><a href="advanced-r-maup-and-more-regression.html#cb682-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(broom)</span>
+<span id="cb682-3"><a href="advanced-r-maup-and-more-regression.html#cb682-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(glmnet)</span>
+<span id="cb682-4"><a href="advanced-r-maup-and-more-regression.html#cb682-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb682-5"><a href="advanced-r-maup-and-more-regression.html#cb682-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb682-6"><a href="advanced-r-maup-and-more-regression.html#cb682-6" aria-hidden="true" tabindex="-1"></a><span class="co"># sort the data our for ridge regression</span></span>
+<span id="cb682-7"><a href="advanced-r-maup-and-more-regression.html#cb682-7" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> joined3<span class="sc">$</span>Wardcount <span class="sc">%&gt;%</span></span>
+<span id="cb682-8"><a href="advanced-r-maup-and-more-regression.html#cb682-8" aria-hidden="true" tabindex="-1"></a>  <span class="co"># set NAs to 0</span></span>
+<span id="cb682-9"><a href="advanced-r-maup-and-more-regression.html#cb682-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">replace_na</span>(., <span class="dv">0</span>)</span>
+<span id="cb682-10"><a href="advanced-r-maup-and-more-regression.html#cb682-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb682-11"><a href="advanced-r-maup-and-more-regression.html#cb682-11" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> joined3 <span class="sc">%&gt;%</span> </span>
+<span id="cb682-12"><a href="advanced-r-maup-and-more-regression.html#cb682-12" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(Boroughcount, hotels,</span>
+<span id="cb682-13"><a href="advanced-r-maup-and-more-regression.html#cb682-13" aria-hidden="true" tabindex="-1"></a>                                 population_2015,</span>
+<span id="cb682-14"><a href="advanced-r-maup-and-more-regression.html#cb682-14" aria-hidden="true" tabindex="-1"></a>                                 median_house_price_2014) <span class="sc">%&gt;%</span></span>
+<span id="cb682-15"><a href="advanced-r-maup-and-more-regression.html#cb682-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">data.matrix</span>()<span class="sc">%&gt;%</span></span>
+<span id="cb682-16"><a href="advanced-r-maup-and-more-regression.html#cb682-16" aria-hidden="true" tabindex="-1"></a>  <span class="co"># set NAs to 0</span></span>
+<span id="cb682-17"><a href="advanced-r-maup-and-more-regression.html#cb682-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">replace_na</span>(., <span class="dv">0</span>)</span>
+<span id="cb682-18"><a href="advanced-r-maup-and-more-regression.html#cb682-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb682-19"><a href="advanced-r-maup-and-more-regression.html#cb682-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb682-20"><a href="advanced-r-maup-and-more-regression.html#cb682-20" aria-hidden="true" tabindex="-1"></a><span class="co"># set seed means that if we re run this </span></span>
+<span id="cb682-21"><a href="advanced-r-maup-and-more-regression.html#cb682-21" aria-hidden="true" tabindex="-1"></a><span class="co"># we will get the same results</span></span>
+<span id="cb682-22"><a href="advanced-r-maup-and-more-regression.html#cb682-22" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">489</span>)</span>
+<span id="cb682-23"><a href="advanced-r-maup-and-more-regression.html#cb682-23" aria-hidden="true" tabindex="-1"></a><span class="co"># this gives us a 50/50 split between</span></span>
+<span id="cb682-24"><a href="advanced-r-maup-and-more-regression.html#cb682-24" aria-hidden="true" tabindex="-1"></a><span class="co"># training and test data</span></span>
+<span id="cb682-25"><a href="advanced-r-maup-and-more-regression.html#cb682-25" aria-hidden="true" tabindex="-1"></a>train <span class="ot">=</span> <span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(x), <span class="fu">nrow</span>(x)<span class="sc">/</span><span class="dv">2</span>)</span>
+<span id="cb682-26"><a href="advanced-r-maup-and-more-regression.html#cb682-26" aria-hidden="true" tabindex="-1"></a>test <span class="ot">=</span> (<span class="sc">-</span>train)</span>
+<span id="cb682-27"><a href="advanced-r-maup-and-more-regression.html#cb682-27" aria-hidden="true" tabindex="-1"></a>ytest <span class="ot">=</span> y[test]</span>
+<span id="cb682-28"><a href="advanced-r-maup-and-more-regression.html#cb682-28" aria-hidden="true" tabindex="-1"></a>xtest <span class="ot">=</span>x[test]</span>
+<span id="cb682-29"><a href="advanced-r-maup-and-more-regression.html#cb682-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb682-30"><a href="advanced-r-maup-and-more-regression.html#cb682-30" aria-hidden="true" tabindex="-1"></a><span class="co"># run normmal regression</span></span>
+<span id="cb682-31"><a href="advanced-r-maup-and-more-regression.html#cb682-31" aria-hidden="true" tabindex="-1"></a>normallm <span class="ot">&lt;-</span> <span class="fu">lm</span>(Wardcount <span class="sc">~</span> hotels<span class="sc">+</span>Boroughcount<span class="sc">+</span>population_2015</span>
+<span id="cb682-32"><a href="advanced-r-maup-and-more-regression.html#cb682-32" aria-hidden="true" tabindex="-1"></a>               <span class="sc">+</span>median_house_price_2014,</span>
+<span id="cb682-33"><a href="advanced-r-maup-and-more-regression.html#cb682-33" aria-hidden="true" tabindex="-1"></a>               <span class="at">data =</span> joined3)</span>
+<span id="cb682-34"><a href="advanced-r-maup-and-more-regression.html#cb682-34" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(normallm)</span></code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = Wardcount ~ hotels + Boroughcount + population_2015 + 
@@ -1583,16 +1582,16 @@ Figure 10.2: This is a screenshot from the YouTube video Regularization Part 1: 
 ## Residual standard error: 100.3 on 552 degrees of freedom
 ## Multiple R-squared:  0.6286, Adjusted R-squared:  0.6259 
 ## F-statistic: 233.5 on 4 and 552 DF,  p-value: &lt; 2.2e-16</code></pre>
-<div class="sourceCode" id="cb685"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb685-1"><a href="advanced-r-maup-and-more-regression.html#cb685-1" aria-hidden="true" tabindex="-1"></a><span class="co"># make a variable for loads of lambda values</span></span>
-<span id="cb685-2"><a href="advanced-r-maup-and-more-regression.html#cb685-2" aria-hidden="true" tabindex="-1"></a><span class="co"># just for the example here</span></span>
-<span id="cb685-3"><a href="advanced-r-maup-and-more-regression.html#cb685-3" aria-hidden="true" tabindex="-1"></a>lambda <span class="ot">&lt;-</span> <span class="dv">10</span><span class="sc">^</span><span class="fu">seq</span>(<span class="dv">10</span>, <span class="sc">-</span><span class="dv">2</span>, <span class="at">length =</span> <span class="dv">100</span>)</span>
-<span id="cb685-4"><a href="advanced-r-maup-and-more-regression.html#cb685-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb685-5"><a href="advanced-r-maup-and-more-regression.html#cb685-5" aria-hidden="true" tabindex="-1"></a><span class="co">#run ridge regression, here we use x to predict y</span></span>
-<span id="cb685-6"><a href="advanced-r-maup-and-more-regression.html#cb685-6" aria-hidden="true" tabindex="-1"></a>ridge_mod <span class="ot">&lt;-</span> <span class="fu">glmnet</span>(x, y, <span class="at">alpha =</span> <span class="dv">0</span>, <span class="at">lambda =</span> lambda)</span>
-<span id="cb685-7"><a href="advanced-r-maup-and-more-regression.html#cb685-7" aria-hidden="true" tabindex="-1"></a><span class="co"># x and y are our original data,</span></span>
-<span id="cb685-8"><a href="advanced-r-maup-and-more-regression.html#cb685-8" aria-hidden="true" tabindex="-1"></a><span class="co">#s is the size of the penalty which is 0</span></span>
-<span id="cb685-9"><a href="advanced-r-maup-and-more-regression.html#cb685-9" aria-hidden="true" tabindex="-1"></a><span class="co"># and we want the coefficients out</span></span>
-<span id="cb685-10"><a href="advanced-r-maup-and-more-regression.html#cb685-10" aria-hidden="true" tabindex="-1"></a><span class="fu">predict</span>(ridge_mod, <span class="at">x=</span>x,<span class="at">y=</span>y, <span class="at">s =</span> <span class="dv">0</span>, <span class="at">exact =</span> T, <span class="at">type =</span> <span class="st">&#39;coefficients&#39;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb684"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb684-1"><a href="advanced-r-maup-and-more-regression.html#cb684-1" aria-hidden="true" tabindex="-1"></a><span class="co"># make a variable for loads of lambda values</span></span>
+<span id="cb684-2"><a href="advanced-r-maup-and-more-regression.html#cb684-2" aria-hidden="true" tabindex="-1"></a><span class="co"># just for the example here</span></span>
+<span id="cb684-3"><a href="advanced-r-maup-and-more-regression.html#cb684-3" aria-hidden="true" tabindex="-1"></a>lambda <span class="ot">&lt;-</span> <span class="dv">10</span><span class="sc">^</span><span class="fu">seq</span>(<span class="dv">10</span>, <span class="sc">-</span><span class="dv">2</span>, <span class="at">length =</span> <span class="dv">100</span>)</span>
+<span id="cb684-4"><a href="advanced-r-maup-and-more-regression.html#cb684-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb684-5"><a href="advanced-r-maup-and-more-regression.html#cb684-5" aria-hidden="true" tabindex="-1"></a><span class="co">#run ridge regression, here we use x to predict y</span></span>
+<span id="cb684-6"><a href="advanced-r-maup-and-more-regression.html#cb684-6" aria-hidden="true" tabindex="-1"></a>ridge_mod <span class="ot">&lt;-</span> <span class="fu">glmnet</span>(x, y, <span class="at">alpha =</span> <span class="dv">0</span>, <span class="at">lambda =</span> lambda)</span>
+<span id="cb684-7"><a href="advanced-r-maup-and-more-regression.html#cb684-7" aria-hidden="true" tabindex="-1"></a><span class="co"># x and y are our original data,</span></span>
+<span id="cb684-8"><a href="advanced-r-maup-and-more-regression.html#cb684-8" aria-hidden="true" tabindex="-1"></a><span class="co">#s is the size of the penalty which is 0</span></span>
+<span id="cb684-9"><a href="advanced-r-maup-and-more-regression.html#cb684-9" aria-hidden="true" tabindex="-1"></a><span class="co"># and we want the coefficients out</span></span>
+<span id="cb684-10"><a href="advanced-r-maup-and-more-regression.html#cb684-10" aria-hidden="true" tabindex="-1"></a><span class="fu">predict</span>(ridge_mod, <span class="at">x=</span>x,<span class="at">y=</span>y, <span class="at">s =</span> <span class="dv">0</span>, <span class="at">exact =</span> T, <span class="at">type =</span> <span class="st">&#39;coefficients&#39;</span>)</span></code></pre></div>
 <pre><code>## 5 x 1 sparse Matrix of class &quot;dgCMatrix&quot;
 ##                                     1
 ## (Intercept)              3.172445e+01
@@ -1603,91 +1602,95 @@ Figure 10.2: This is a screenshot from the YouTube video Regularization Part 1: 
 <ol style="list-style-type: decimal">
 <li>The coefficient estaimtes should be the same or very very similar…now let’s try and use ridge regression to improve upon our least squares regression…first let’s show linear regression for comparison using the train data..</li>
 </ol>
-<div class="sourceCode" id="cb687"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb687-1"><a href="advanced-r-maup-and-more-regression.html#cb687-1" aria-hidden="true" tabindex="-1"></a>normallm2 <span class="ot">&lt;-</span> <span class="fu">lm</span>(Wardcount <span class="sc">~</span> hotels<span class="sc">+</span>Boroughcount<span class="sc">+</span>population_2015</span>
-<span id="cb687-2"><a href="advanced-r-maup-and-more-regression.html#cb687-2" aria-hidden="true" tabindex="-1"></a>               <span class="sc">+</span>median_house_price_2014, </span>
-<span id="cb687-3"><a href="advanced-r-maup-and-more-regression.html#cb687-3" aria-hidden="true" tabindex="-1"></a>               <span class="at">data =</span> joined3, </span>
-<span id="cb687-4"><a href="advanced-r-maup-and-more-regression.html#cb687-4" aria-hidden="true" tabindex="-1"></a>               <span class="at">subset =</span> train)</span>
-<span id="cb687-5"><a href="advanced-r-maup-and-more-regression.html#cb687-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb687-6"><a href="advanced-r-maup-and-more-regression.html#cb687-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb687-7"><a href="advanced-r-maup-and-more-regression.html#cb687-7" aria-hidden="true" tabindex="-1"></a>s_pred <span class="ot">&lt;-</span> <span class="fu">predict</span>(normallm2, <span class="at">newdata =</span> joined3[test,])</span>
-<span id="cb687-8"><a href="advanced-r-maup-and-more-regression.html#cb687-8" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>((s_pred<span class="sc">-</span>ytest)<span class="sc">^</span><span class="dv">2</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb686"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb686-1"><a href="advanced-r-maup-and-more-regression.html#cb686-1" aria-hidden="true" tabindex="-1"></a>normallm2 <span class="ot">&lt;-</span> <span class="fu">lm</span>(Wardcount <span class="sc">~</span> hotels<span class="sc">+</span>Boroughcount<span class="sc">+</span>population_2015</span>
+<span id="cb686-2"><a href="advanced-r-maup-and-more-regression.html#cb686-2" aria-hidden="true" tabindex="-1"></a>               <span class="sc">+</span>median_house_price_2014, </span>
+<span id="cb686-3"><a href="advanced-r-maup-and-more-regression.html#cb686-3" aria-hidden="true" tabindex="-1"></a>               <span class="at">data =</span> joined3, </span>
+<span id="cb686-4"><a href="advanced-r-maup-and-more-regression.html#cb686-4" aria-hidden="true" tabindex="-1"></a>               <span class="at">subset =</span> train)</span>
+<span id="cb686-5"><a href="advanced-r-maup-and-more-regression.html#cb686-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb686-6"><a href="advanced-r-maup-and-more-regression.html#cb686-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb686-7"><a href="advanced-r-maup-and-more-regression.html#cb686-7" aria-hidden="true" tabindex="-1"></a>s_pred <span class="ot">&lt;-</span> <span class="fu">predict</span>(normallm2, <span class="at">newdata =</span> joined3[test,])</span>
+<span id="cb686-8"><a href="advanced-r-maup-and-more-regression.html#cb686-8" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>((s_pred<span class="sc">-</span>ytest)<span class="sc">^</span><span class="dv">2</span>)</span></code></pre></div>
 <pre><code>## [1] 8068.011</code></pre>
 <ol style="list-style-type: decimal">
 <li>Now we will find the best value for <span class="math inline">\(\lambda\)</span> using cross validation</li>
 </ol>
-<div class="sourceCode" id="cb689"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb689-1"><a href="advanced-r-maup-and-more-regression.html#cb689-1" aria-hidden="true" tabindex="-1"></a><span class="co">#find the best lambda from our list via cross-validation</span></span>
-<span id="cb689-2"><a href="advanced-r-maup-and-more-regression.html#cb689-2" aria-hidden="true" tabindex="-1"></a><span class="co"># family = gaussian means linear regression</span></span>
-<span id="cb689-3"><a href="advanced-r-maup-and-more-regression.html#cb689-3" aria-hidden="true" tabindex="-1"></a><span class="co"># type.measure = how cross evaluation will be evaluated </span></span>
-<span id="cb689-4"><a href="advanced-r-maup-and-more-regression.html#cb689-4" aria-hidden="true" tabindex="-1"></a><span class="co"># mse is mean square error</span></span>
-<span id="cb689-5"><a href="advanced-r-maup-and-more-regression.html#cb689-5" aria-hidden="true" tabindex="-1"></a>cv_out <span class="ot">&lt;-</span> <span class="fu">cv.glmnet</span>(x[train,], </span>
-<span id="cb689-6"><a href="advanced-r-maup-and-more-regression.html#cb689-6" aria-hidden="true" tabindex="-1"></a>                    y[train],</span>
-<span id="cb689-7"><a href="advanced-r-maup-and-more-regression.html#cb689-7" aria-hidden="true" tabindex="-1"></a>                    <span class="at">alpha =</span> <span class="dv">0</span>, </span>
-<span id="cb689-8"><a href="advanced-r-maup-and-more-regression.html#cb689-8" aria-hidden="true" tabindex="-1"></a>                    <span class="at">family=</span><span class="st">&quot;gaussian&quot;</span>,</span>
-<span id="cb689-9"><a href="advanced-r-maup-and-more-regression.html#cb689-9" aria-hidden="true" tabindex="-1"></a>                    <span class="at">type.measure =</span> <span class="st">&quot;mse&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb688"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb688-1"><a href="advanced-r-maup-and-more-regression.html#cb688-1" aria-hidden="true" tabindex="-1"></a><span class="co">#find the best lambda from our list via cross-validation</span></span>
+<span id="cb688-2"><a href="advanced-r-maup-and-more-regression.html#cb688-2" aria-hidden="true" tabindex="-1"></a><span class="co"># family = gaussian means linear regression</span></span>
+<span id="cb688-3"><a href="advanced-r-maup-and-more-regression.html#cb688-3" aria-hidden="true" tabindex="-1"></a><span class="co"># type.measure = how cross evaluation will be evaluated </span></span>
+<span id="cb688-4"><a href="advanced-r-maup-and-more-regression.html#cb688-4" aria-hidden="true" tabindex="-1"></a><span class="co"># mse is mean square error</span></span>
+<span id="cb688-5"><a href="advanced-r-maup-and-more-regression.html#cb688-5" aria-hidden="true" tabindex="-1"></a>cv_out <span class="ot">&lt;-</span> <span class="fu">cv.glmnet</span>(x[train,], </span>
+<span id="cb688-6"><a href="advanced-r-maup-and-more-regression.html#cb688-6" aria-hidden="true" tabindex="-1"></a>                    y[train],</span>
+<span id="cb688-7"><a href="advanced-r-maup-and-more-regression.html#cb688-7" aria-hidden="true" tabindex="-1"></a>                    <span class="at">alpha =</span> <span class="dv">0</span>, </span>
+<span id="cb688-8"><a href="advanced-r-maup-and-more-regression.html#cb688-8" aria-hidden="true" tabindex="-1"></a>                    <span class="at">family=</span><span class="st">&quot;gaussian&quot;</span>,</span>
+<span id="cb688-9"><a href="advanced-r-maup-and-more-regression.html#cb688-9" aria-hidden="true" tabindex="-1"></a>                    <span class="at">type.measure =</span> <span class="st">&quot;mse&quot;</span>)</span></code></pre></div>
 <p>Combined, this will fit a linear regression with a ridge regression penatly using 10-fold cross validation to find the best <span class="math inline">\(\lambda\)</span> value that minimises mean square error (average squared distance of the data points to the line). Let’s apply it to the model…</p>
-<div class="sourceCode" id="cb690"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb690-1"><a href="advanced-r-maup-and-more-regression.html#cb690-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(cv_out)</span></code></pre></div>
+<div class="sourceCode" id="cb689"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb689-1"><a href="advanced-r-maup-and-more-regression.html#cb689-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(cv_out)</span></code></pre></div>
 <p><img src="CASA0005_files/figure-html/unnamed-chunk-529-1.png" width="672" /></p>
-<div class="sourceCode" id="cb691"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb691-1"><a href="advanced-r-maup-and-more-regression.html#cb691-1" aria-hidden="true" tabindex="-1"></a><span class="co"># best value </span></span>
-<span id="cb691-2"><a href="advanced-r-maup-and-more-regression.html#cb691-2" aria-hidden="true" tabindex="-1"></a>opt_lambda <span class="ot">&lt;-</span> cv_out<span class="sc">$</span>lambda.min</span>
-<span id="cb691-3"><a href="advanced-r-maup-and-more-regression.html#cb691-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb691-4"><a href="advanced-r-maup-and-more-regression.html#cb691-4" aria-hidden="true" tabindex="-1"></a><span class="co"># prediction to the testing data</span></span>
-<span id="cb691-5"><a href="advanced-r-maup-and-more-regression.html#cb691-5" aria-hidden="true" tabindex="-1"></a><span class="co"># s is set to optimal lambda</span></span>
-<span id="cb691-6"><a href="advanced-r-maup-and-more-regression.html#cb691-6" aria-hidden="true" tabindex="-1"></a><span class="co"># you could also use lambda.1se as</span></span>
-<span id="cb691-7"><a href="advanced-r-maup-and-more-regression.html#cb691-7" aria-hidden="true" tabindex="-1"></a><span class="co"># technically they are indistinguishable </span></span>
-<span id="cb691-8"><a href="advanced-r-maup-and-more-regression.html#cb691-8" aria-hidden="true" tabindex="-1"></a>ridge_pred <span class="ot">&lt;-</span> <span class="fu">predict</span>(ridge_mod, <span class="at">s =</span> opt_lambda, <span class="at">newx =</span> x[test,])</span>
-<span id="cb691-9"><a href="advanced-r-maup-and-more-regression.html#cb691-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb691-10"><a href="advanced-r-maup-and-more-regression.html#cb691-10" aria-hidden="true" tabindex="-1"></a><span class="co"># rsquared</span></span>
-<span id="cb691-11"><a href="advanced-r-maup-and-more-regression.html#cb691-11" aria-hidden="true" tabindex="-1"></a>ridge_r <span class="ot">&lt;-</span> <span class="fu">cor</span>(y[test], ridge_pred)<span class="sc">^</span><span class="dv">2</span></span>
-<span id="cb691-12"><a href="advanced-r-maup-and-more-regression.html#cb691-12" aria-hidden="true" tabindex="-1"></a>ridge_r</span></code></pre></div>
+<div class="sourceCode" id="cb690"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb690-1"><a href="advanced-r-maup-and-more-regression.html#cb690-1" aria-hidden="true" tabindex="-1"></a><span class="co"># best value </span></span>
+<span id="cb690-2"><a href="advanced-r-maup-and-more-regression.html#cb690-2" aria-hidden="true" tabindex="-1"></a>opt_lambda <span class="ot">&lt;-</span> cv_out<span class="sc">$</span>lambda.min</span>
+<span id="cb690-3"><a href="advanced-r-maup-and-more-regression.html#cb690-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb690-4"><a href="advanced-r-maup-and-more-regression.html#cb690-4" aria-hidden="true" tabindex="-1"></a><span class="co"># prediction to the testing data</span></span>
+<span id="cb690-5"><a href="advanced-r-maup-and-more-regression.html#cb690-5" aria-hidden="true" tabindex="-1"></a><span class="co"># s is set to optimal lambda</span></span>
+<span id="cb690-6"><a href="advanced-r-maup-and-more-regression.html#cb690-6" aria-hidden="true" tabindex="-1"></a><span class="co"># you could also use lambda.1se as</span></span>
+<span id="cb690-7"><a href="advanced-r-maup-and-more-regression.html#cb690-7" aria-hidden="true" tabindex="-1"></a><span class="co"># technically they are indistinguishable </span></span>
+<span id="cb690-8"><a href="advanced-r-maup-and-more-regression.html#cb690-8" aria-hidden="true" tabindex="-1"></a>ridge_pred <span class="ot">&lt;-</span> <span class="fu">predict</span>(ridge_mod, <span class="at">s =</span> opt_lambda, <span class="at">newx =</span> x[test,])</span>
+<span id="cb690-9"><a href="advanced-r-maup-and-more-regression.html#cb690-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb690-10"><a href="advanced-r-maup-and-more-regression.html#cb690-10" aria-hidden="true" tabindex="-1"></a><span class="co"># rsquared</span></span>
+<span id="cb690-11"><a href="advanced-r-maup-and-more-regression.html#cb690-11" aria-hidden="true" tabindex="-1"></a>ridge_r <span class="ot">&lt;-</span> <span class="fu">cor</span>(y[test], ridge_pred)<span class="sc">^</span><span class="dv">2</span></span>
+<span id="cb690-12"><a href="advanced-r-maup-and-more-regression.html#cb690-12" aria-hidden="true" tabindex="-1"></a>ridge_r</span></code></pre></div>
 <pre><code>##              1
 ## [1,] 0.6543214</code></pre>
-<div class="sourceCode" id="cb693"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb693-1"><a href="advanced-r-maup-and-more-regression.html#cb693-1" aria-hidden="true" tabindex="-1"></a><span class="co"># mean square error</span></span>
-<span id="cb693-2"><a href="advanced-r-maup-and-more-regression.html#cb693-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>((ridge_pred<span class="sc">-</span>ytest)<span class="sc">^</span><span class="dv">2</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb692"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb692-1"><a href="advanced-r-maup-and-more-regression.html#cb692-1" aria-hidden="true" tabindex="-1"></a><span class="co"># mean square error</span></span>
+<span id="cb692-2"><a href="advanced-r-maup-and-more-regression.html#cb692-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>((ridge_pred<span class="sc">-</span>ytest)<span class="sc">^</span><span class="dv">2</span>)</span></code></pre></div>
 <pre><code>## [1] 7134.638</code></pre>
 <p>You can also doing this in a few less steps with the <code>ridge</code> package</p>
 </div>
 <div id="lasso" class="section level3" number="10.7.4">
 <h3><span class="header-section-number">10.7.4</span> LASSO</h3>
 <p><img src="prac10_images/LASSO.jpg" width="200" style="display: block; margin: auto;" /></p>
-<p>Least absolute shrinkage and selection operator (LASSO) performs variable selection and regularisation to increase prediction accuracy of the model…the only difference to ridge is that the regularisation term is an absolute value. So instead of squaring the slope (like i metioned in Ridge regression), we take the absolute value. As a result LASSO regression can increase <span class="math inline">\(\lambda\)</span> then set irrelevant parameters to 0 (Ridge will just shrink them but not set to 0) — relevant paramters might shink a little bit in both too. The advantage here is that LASSO can exclude useless variables — so if you have a lot of variables it might be preferable. However, if most variables are useful then Ridge regression would probably work better.</p>
-<div class="sourceCode" id="cb695"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb695-1"><a href="advanced-r-maup-and-more-regression.html#cb695-1" aria-hidden="true" tabindex="-1"></a><span class="co">#find the best lambda from our list via cross-validation</span></span>
-<span id="cb695-2"><a href="advanced-r-maup-and-more-regression.html#cb695-2" aria-hidden="true" tabindex="-1"></a>cv_out <span class="ot">&lt;-</span> <span class="fu">cv.glmnet</span>(x[train,], </span>
-<span id="cb695-3"><a href="advanced-r-maup-and-more-regression.html#cb695-3" aria-hidden="true" tabindex="-1"></a>                    y[train], </span>
-<span id="cb695-4"><a href="advanced-r-maup-and-more-regression.html#cb695-4" aria-hidden="true" tabindex="-1"></a>                    <span class="at">alpha =</span> <span class="dv">1</span>, </span>
-<span id="cb695-5"><a href="advanced-r-maup-and-more-regression.html#cb695-5" aria-hidden="true" tabindex="-1"></a>                    <span class="at">family=</span><span class="st">&quot;gaussian&quot;</span>, </span>
-<span id="cb695-6"><a href="advanced-r-maup-and-more-regression.html#cb695-6" aria-hidden="true" tabindex="-1"></a>                    <span class="at">type.measure =</span> <span class="st">&quot;mse&quot;</span>)</span>
-<span id="cb695-7"><a href="advanced-r-maup-and-more-regression.html#cb695-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb695-8"><a href="advanced-r-maup-and-more-regression.html#cb695-8" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(cv_out)</span></code></pre></div>
+<p>Least absolute shrinkage and selection operator (LASSO) performs variable selection and regularisation to increase prediction accuracy of the model…the only difference to ridge is that the regularisation term is an absolute value. So instead of squaring the slope (like i mentioned in Ridge regression), we take the absolute value (of the slope, as opposed the the squared value in Ridge) and as the slope can be 0 it can be removed from the model. As a result LASSO regression can increase <span class="math inline">\(\lambda\)</span> then set irrelevant parameters to 0 (Ridge will just shrink them but not set to 0) — relevant parameters might shrink a little bit in both too. The advantage here is that LASSO can exclude useless variables — so if you have a lot of variables it might be preferable. However, if most variables are useful then Ridge regression would probably work better.</p>
+<ul>
+<li><p>LASSO has an absolute penalty (also known as L1 penalty)</p></li>
+<li><p>Ridge has a square penalty (also known as L2 penalty)</p></li>
+</ul>
+<div class="sourceCode" id="cb694"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb694-1"><a href="advanced-r-maup-and-more-regression.html#cb694-1" aria-hidden="true" tabindex="-1"></a><span class="co">#find the best lambda from our list via cross-validation</span></span>
+<span id="cb694-2"><a href="advanced-r-maup-and-more-regression.html#cb694-2" aria-hidden="true" tabindex="-1"></a>cv_out <span class="ot">&lt;-</span> <span class="fu">cv.glmnet</span>(x[train,], </span>
+<span id="cb694-3"><a href="advanced-r-maup-and-more-regression.html#cb694-3" aria-hidden="true" tabindex="-1"></a>                    y[train], </span>
+<span id="cb694-4"><a href="advanced-r-maup-and-more-regression.html#cb694-4" aria-hidden="true" tabindex="-1"></a>                    <span class="at">alpha =</span> <span class="dv">1</span>, </span>
+<span id="cb694-5"><a href="advanced-r-maup-and-more-regression.html#cb694-5" aria-hidden="true" tabindex="-1"></a>                    <span class="at">family=</span><span class="st">&quot;gaussian&quot;</span>, </span>
+<span id="cb694-6"><a href="advanced-r-maup-and-more-regression.html#cb694-6" aria-hidden="true" tabindex="-1"></a>                    <span class="at">type.measure =</span> <span class="st">&quot;mse&quot;</span>)</span>
+<span id="cb694-7"><a href="advanced-r-maup-and-more-regression.html#cb694-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb694-8"><a href="advanced-r-maup-and-more-regression.html#cb694-8" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(cv_out)</span></code></pre></div>
 <p><img src="CASA0005_files/figure-html/unnamed-chunk-531-1.png" width="672" /></p>
-<div class="sourceCode" id="cb696"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb696-1"><a href="advanced-r-maup-and-more-regression.html#cb696-1" aria-hidden="true" tabindex="-1"></a><span class="co"># best value </span></span>
-<span id="cb696-2"><a href="advanced-r-maup-and-more-regression.html#cb696-2" aria-hidden="true" tabindex="-1"></a>opt_lambda <span class="ot">&lt;-</span> cv_out<span class="sc">$</span>lambda.min</span>
-<span id="cb696-3"><a href="advanced-r-maup-and-more-regression.html#cb696-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb696-4"><a href="advanced-r-maup-and-more-regression.html#cb696-4" aria-hidden="true" tabindex="-1"></a><span class="co"># make the model</span></span>
-<span id="cb696-5"><a href="advanced-r-maup-and-more-regression.html#cb696-5" aria-hidden="true" tabindex="-1"></a>lasso_mod <span class="ot">&lt;-</span> <span class="fu">glmnet</span>(x[train,], y[train], <span class="at">alpha =</span> <span class="dv">1</span>, <span class="at">lambda =</span> opt_lambda)</span>
-<span id="cb696-6"><a href="advanced-r-maup-and-more-regression.html#cb696-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb696-7"><a href="advanced-r-maup-and-more-regression.html#cb696-7" aria-hidden="true" tabindex="-1"></a><span class="co"># make the prediction </span></span>
-<span id="cb696-8"><a href="advanced-r-maup-and-more-regression.html#cb696-8" aria-hidden="true" tabindex="-1"></a>lasso_pred <span class="ot">&lt;-</span> <span class="fu">predict</span>(lasso_mod, <span class="at">s =</span> opt_lambda, <span class="at">newx =</span> x[test,])</span>
-<span id="cb696-9"><a href="advanced-r-maup-and-more-regression.html#cb696-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb696-10"><a href="advanced-r-maup-and-more-regression.html#cb696-10" aria-hidden="true" tabindex="-1"></a><span class="co"># r sqaured</span></span>
-<span id="cb696-11"><a href="advanced-r-maup-and-more-regression.html#cb696-11" aria-hidden="true" tabindex="-1"></a>LASSO_r <span class="ot">&lt;-</span> <span class="fu">cor</span>(y[test], lasso_pred)<span class="sc">^</span><span class="dv">2</span></span>
-<span id="cb696-12"><a href="advanced-r-maup-and-more-regression.html#cb696-12" aria-hidden="true" tabindex="-1"></a>LASSO_r</span></code></pre></div>
+<div class="sourceCode" id="cb695"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb695-1"><a href="advanced-r-maup-and-more-regression.html#cb695-1" aria-hidden="true" tabindex="-1"></a><span class="co"># best value </span></span>
+<span id="cb695-2"><a href="advanced-r-maup-and-more-regression.html#cb695-2" aria-hidden="true" tabindex="-1"></a>opt_lambda <span class="ot">&lt;-</span> cv_out<span class="sc">$</span>lambda.min</span>
+<span id="cb695-3"><a href="advanced-r-maup-and-more-regression.html#cb695-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb695-4"><a href="advanced-r-maup-and-more-regression.html#cb695-4" aria-hidden="true" tabindex="-1"></a><span class="co"># make the model</span></span>
+<span id="cb695-5"><a href="advanced-r-maup-and-more-regression.html#cb695-5" aria-hidden="true" tabindex="-1"></a>lasso_mod <span class="ot">&lt;-</span> <span class="fu">glmnet</span>(x[train,], y[train], <span class="at">alpha =</span> <span class="dv">1</span>, <span class="at">lambda =</span> opt_lambda)</span>
+<span id="cb695-6"><a href="advanced-r-maup-and-more-regression.html#cb695-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb695-7"><a href="advanced-r-maup-and-more-regression.html#cb695-7" aria-hidden="true" tabindex="-1"></a><span class="co"># make the prediction </span></span>
+<span id="cb695-8"><a href="advanced-r-maup-and-more-regression.html#cb695-8" aria-hidden="true" tabindex="-1"></a>lasso_pred <span class="ot">&lt;-</span> <span class="fu">predict</span>(lasso_mod, <span class="at">s =</span> opt_lambda, <span class="at">newx =</span> x[test,])</span>
+<span id="cb695-9"><a href="advanced-r-maup-and-more-regression.html#cb695-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb695-10"><a href="advanced-r-maup-and-more-regression.html#cb695-10" aria-hidden="true" tabindex="-1"></a><span class="co"># r sqaured</span></span>
+<span id="cb695-11"><a href="advanced-r-maup-and-more-regression.html#cb695-11" aria-hidden="true" tabindex="-1"></a>LASSO_r <span class="ot">&lt;-</span> <span class="fu">cor</span>(y[test], lasso_pred)<span class="sc">^</span><span class="dv">2</span></span>
+<span id="cb695-12"><a href="advanced-r-maup-and-more-regression.html#cb695-12" aria-hidden="true" tabindex="-1"></a>LASSO_r</span></code></pre></div>
 <pre><code>##              1
 ## [1,] 0.6423348</code></pre>
-<div class="sourceCode" id="cb698"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb698-1"><a href="advanced-r-maup-and-more-regression.html#cb698-1" aria-hidden="true" tabindex="-1"></a><span class="co"># mean square error</span></span>
-<span id="cb698-2"><a href="advanced-r-maup-and-more-regression.html#cb698-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>((lasso_pred<span class="sc">-</span>ytest)<span class="sc">^</span><span class="dv">2</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb697"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb697-1"><a href="advanced-r-maup-and-more-regression.html#cb697-1" aria-hidden="true" tabindex="-1"></a><span class="co"># mean square error</span></span>
+<span id="cb697-2"><a href="advanced-r-maup-and-more-regression.html#cb697-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>((lasso_pred<span class="sc">-</span>ytest)<span class="sc">^</span><span class="dv">2</span>)</span></code></pre></div>
 <pre><code>## [1] 7588.756</code></pre>
 </div>
 <div id="elastic-net-regression" class="section level3" number="10.7.5">
 <h3><span class="header-section-number">10.7.5</span> Elastic net regression</h3>
-<p>When you don’t know much about our variables in a model you can use Elastic-Net Regression. It starts with least squares then adds the LASSO and ridge regression penatly, allowing you to use the strengths of both. Both the LASSO penatly and ridge penatly get their own <span class="math inline">\(\lambda\)</span> values, <span class="math inline">\(\lambda_1\)</span> for LASSO, <span class="math inline">\(\lambda_2\)</span> for ridge. Cross validation runs for both <span class="math inline">\(\lambda_1\)</span> and <span class="math inline">\(\lambda_2\)</span>. If both <span class="math inline">\(\lambda_1\)</span> and <span class="math inline">\(\lambda_2\)</span> &gt; 0 then we get a hybrid approach, this is good when we have correlated variables. LASSO will pick just one correlated variable and eliminate the other, whereas ridge will just shrink all of them. Using both LASSO and ridge we can group and shrink correlated variables or remove them all at the same time.</p>
+<p>When you don’t know much about our variables in a model you can use Elastic-Net Regression. It starts with least squares then adds the LASSO and ridge regression penalty, allowing you to use the strengths of both. Both the LASSO penalty and ridge penalty get their own <span class="math inline">\(\lambda\)</span> values, <span class="math inline">\(\lambda_1\)</span> for LASSO, <span class="math inline">\(\lambda_2\)</span> for ridge. Cross validation runs for both <span class="math inline">\(\lambda_1\)</span> and <span class="math inline">\(\lambda_2\)</span>. If both <span class="math inline">\(\lambda_1\)</span> and <span class="math inline">\(\lambda_2\)</span> &gt; 0 then we get a hybrid approach, this is good when we have correlated variables. LASSO will pick just one correlated variable and eliminate the other, whereas ridge will just shrink all of them. Using both LASSO and ridge we can group and shrink correlated variables or remove them all at the same time.</p>
 <p>In R, Elastic-Net Regression is where you change the alpha value between 0 and 1. You would use elastic net regression to see if it is possible to reduce the mean square error any further. Have a look at <a href="https://www.youtube.com/watch?v=ctmNq7FgbvI">this video</a> to see how to use a for loop to test different values for alpha.</p>
 </div>
 <div id="whats-the-best-here" class="section level3" number="10.7.6">
 <h3><span class="header-section-number">10.7.6</span> What’s the best here</h3>
 <p>Let’s compare the results of the MSE and r sqaured for the normallm2, LASSO and Ridge as we used the same predictors…this is the code to get the values we don’t already have…</p>
-<div class="sourceCode" id="cb700"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb700-1"><a href="advanced-r-maup-and-more-regression.html#cb700-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(normallm2)<span class="sc">$</span>r.squared</span></code></pre></div>
+<div class="sourceCode" id="cb699"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb699-1"><a href="advanced-r-maup-and-more-regression.html#cb699-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(normallm2)<span class="sc">$</span>r.squared</span></code></pre></div>
 <pre><code>## [1] 0.6274311</code></pre>
-<p>Our lowest MSE and highest R sqaured value here is provided by Ridge regression…so from this anaylsis i’d select Ridge regression to predict any missing or future values of Airbnbs within the London wards…i’d probably also conisder exploring using machine learning methods that are linked to below…</p>
+<p>Our lowest MSE and highest R sqaured value here is provided by Ridge regression…so from this analysis i’d select Ridge regression to predict any missing or future values of Airbnbs within the London wards…i’d probably also consider exploring using machine learning methods that are linked to below…</p>
 <blockquote>
 <p><strong>Warning</strong> The data used within this practical is purely for demonstration purposes!</p>
 </blockquote>
@@ -1699,10 +1702,10 @@ Figure 10.2: This is a screenshot from the YouTube video Regularization Part 1: 
 <div id="so-how-do-i-predict" class="section level3" number="10.7.8">
 <h3><span class="header-section-number">10.7.8</span> So how do i predict</h3>
 <p>Easy…just go back through the code and use the the <code>predict()</code> function — this will also work for linear models…</p>
-<div class="sourceCode" id="cb702"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb702-1"><a href="advanced-r-maup-and-more-regression.html#cb702-1" aria-hidden="true" tabindex="-1"></a><span class="co"># replace with your data - this is just an example</span></span>
-<span id="cb702-2"><a href="advanced-r-maup-and-more-regression.html#cb702-2" aria-hidden="true" tabindex="-1"></a><span class="co"># setting intervals specifies confidence intervals</span></span>
-<span id="cb702-3"><a href="advanced-r-maup-and-more-regression.html#cb702-3" aria-hidden="true" tabindex="-1"></a><span class="co"># at the required level</span></span>
-<span id="cb702-4"><a href="advanced-r-maup-and-more-regression.html#cb702-4" aria-hidden="true" tabindex="-1"></a><span class="fu">predict</span>(linearmodel, newdata, <span class="at">interval=</span><span class="st">&quot;confidence&quot;</span>, <span class="at">level=</span><span class="fl">0.95</span>) </span></code></pre></div>
+<div class="sourceCode" id="cb701"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb701-1"><a href="advanced-r-maup-and-more-regression.html#cb701-1" aria-hidden="true" tabindex="-1"></a><span class="co"># replace with your data - this is just an example</span></span>
+<span id="cb701-2"><a href="advanced-r-maup-and-more-regression.html#cb701-2" aria-hidden="true" tabindex="-1"></a><span class="co"># setting intervals specifies confidence intervals</span></span>
+<span id="cb701-3"><a href="advanced-r-maup-and-more-regression.html#cb701-3" aria-hidden="true" tabindex="-1"></a><span class="co"># at the required level</span></span>
+<span id="cb701-4"><a href="advanced-r-maup-and-more-regression.html#cb701-4" aria-hidden="true" tabindex="-1"></a><span class="fu">predict</span>(linearmodel, newdata, <span class="at">interval=</span><span class="st">&quot;confidence&quot;</span>, <span class="at">level=</span><span class="fl">0.95</span>) </span></code></pre></div>
 <blockquote>
 <p><strong>WARNING</strong> Never try and predict data outside the range of your values, for example in the first regression model we ran when the count within Boroughs was 0 we had -3.8188 for Airbnbs within wards and it’s impossible to have negative Airbnbs.</p>
 </blockquote>

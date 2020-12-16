@@ -708,7 +708,7 @@ min_max_accuracy <- mean(apply(actuals_preds, 1, min, na.rm=TRUE) /
 min_max_accuracy
 ```
 
-22. This gives around a 60% accuracy...another alternative is mean absolute percentage deviation which is a statistical measure showing how accurate the prediciton was...through the equation...
+1. This gives around a 60% accuracy...another alternative is mean absolute percentage deviation which is a statistical measure showing how accurate the prediciton was...through the equation...
 
 $$MAPE= mean\left( \frac{abs(predicteds - actuals}{actuals} \right)$$
 
@@ -731,7 +731,7 @@ Here we've got a very high MAPE --- this is most likely because of the range of 
 knitr::include_graphics('prac10_images/cross_validation.jpg') 
 ```
 
-24. To start with we'll remove the geomtery, set up a data frame and replace any NAs with 0 --- this is appropraite here as if there are no Airbnbs within the ward they would be 0.
+1. To start with we'll remove the geomtery, set up a data frame and replace any NAs with 0 --- this is appropraite here as if there are no Airbnbs within the ward they would be 0.
 
 ```{r, cache=FALSE, warning=FALSE, message=FALSE}
 joined_CV <- joined %>%
@@ -853,7 +853,7 @@ joined3 <-joined2 %>%
             by= c("GSS_CODE.x" = "new_code"))
 ```
 
-28. Now run the model again
+1. Now run the model again
 
 ```{r, cache=FALSE, warning=FALSE, message=FALSE}
 model3<- train(Wardcount ~ Boroughcount+population_2015
@@ -878,36 +878,36 @@ Our R squared and adjusted R squared have increased (albeit slightly) and all pr
 knitr::include_graphics('prac10_images/ridge.jpg') 
 ```
 
-Least squares regression tries to minimise how far each point is away from the line...but if you look in this figure...the red dots are the training data and the green dots are the test data. Here normal OLS has been fitted to the training data perfcetly...the sum of the sqaured residuals (squared error distance from the line) is very small, probably 0. But when applied to the test data the sum of the squared residuals is large --- it therefore has high variance and would be termed to be overfitting the training data.
+Least squares regression tries to minimise how far each point is away from the line...but if you look in this figure...the red dots are the training data and the green dots are the test data. Here normal OLS has been fitted to the training data perfectly...the sum of the squared residuals (squared error distance from the line) is very small, probably 0. But when applied to the test data the sum of the squared residuals is large --- it therefore has high variance and would be termed to be overfitting the training data.
 
 ```{r echo=FALSE, out.width = "300", fig.align='center',fig.cap="This is a screenshot from the YouTube video Regularization Part 1: Ridge Regression by StatQuest", cache=FALSE}
 knitr::include_graphics('prac10_images/ridge_eg.png') 
 ```
 
-Ridge regression probably won't fit our training data as well, becuase we introduce a small amount of bias (adding value to the intercept --- which is the Y value when X=0) to give us less overall variance (the difference between the point and line value)...So essentially when the values are calculated the formula is trying to get the line of best fit through all the points with each point having minimum distance to the line.
+Ridge regression probably won't fit our training data as well, because we introduce a small amount of bias (adding value to the intercept --- which is the Y value when X=0, normally making the line of best fit more horizontal) to give us less overall variance (the difference between the point and line value)...So essentially when the values are calculated the formula is trying to get the line of best fit through all the points with each point having minimum distance to the line. This is usually useful in trying to get predicitions from the model.
 
-Ridge regression also tries to minimise the sum of the sqaured residuals (distance to the line) but then adds $\lambda$ x $slope^2$ --- this  increases the value of Y when X=0. 
+Ridge regression also tries to minimise the sum of the squared residuals (distance to the line) but then adds $\lambda$ x $slope^2$ --- this is the bias changing the line of best fit
 
 Ok so let's try and look at this with numbers...
 
-The goal here is to minimise the sum of the sqaured residuals...plus the ridge regression penalty $\lambda * slope^2$...
+The goal here is to minimise the sum of the squared residuals...plus the ridge regression penalty $\lambda * slope^2$...
 
 Firstly let's assume you have a perfectly fit line --- the sum of the least sqaure residuals would be 0 (the line overlaps the points). Assume $\lambda$ is 0.5 and the slope is 1.2, we have 0 + 1.44 = 1.44
 
 Now we use ridge regression that shifts the line away from the perfect fit (with a bias penalty) that we had in least square regression...this would create residual values as the points no longer perfectly fit the line, assume these add to 0.2, $\lambda$ is 0.5, and the slope is 0.7...so this would give 0.445.
 
-So if we were trying to minimise the sum of the sqaured residuals plus the ridge regression penatly the ridge regression wins with a lower value.
+So if we were trying to minimise the sum of the squared residuals plus the ridge regression penalty the ridge regression wins with a lower value.
 
-The penatly $\lambda * slope^2$ adds a bias (value to the intercept) to reduce the slope of the line as it tries to the minimise the sum of the distance of the points from the line and hopefully the variance between the line and the points...like this --- Ridge is the blue line that has become slightly more horizontal...
+The penalty $\lambda * slope^2$ adds a bias (value to the intercept) to reduce the slope of the line as it tries to the minimise the sum of the distance of the points from the line and hopefully the variance between the line and the points...like this --- Ridge is the blue line that has become slightly more horizontal...
 
 ```{r echo=FALSE, out.width = "300", fig.align='center',fig.cap="This is a screenshot from the YouTube video Regularization Part 1: Ridge Regression by StatQuest", cache=FALSE}
 knitr::include_graphics('prac10_images/ridge_eg2.png') 
 ```
 
-But wait.... how do we calcualte $\lambda$, well we try a load of values and use cross validation (10 fold) to get the overall lowest variance from the line to the data points! COOL!!!!
+But wait.... how do we calculate $\lambda$, well we try a load of values and use cross validation (10 fold) to get the overall lowest variance from the line to the data points! COOL!!!!
 
 
-29. Let's see an exmaple to show that if $\lambda$ is 0, then we have our box standard linear regression...as the penalty $\lambda * the slope^2$ will be 0, so we will just be minimising the sum of the sqaured residuals. 
+1. Let's see an example to show that if $\lambda$ is 0, then we have our box standard linear regression...as the penalty $\lambda * the slope^2$ will be 0, so we will just be minimising the sum of the squared residuals. 
 
 ```{r, cache=FALSE, warning=FALSE, message=FALSE}
 library(tidyverse)
@@ -1016,7 +1016,11 @@ You can also doing this in a few less steps with the `ridge` package
 knitr::include_graphics('prac10_images/LASSO.jpg') 
 ```
 
-Least absolute shrinkage and selection operator (LASSO) performs variable selection and regularisation to increase prediction accuracy of the model...the only difference to ridge is that the regularisation term is an absolute value. So instead of squaring the slope (like i metioned in Ridge regression), we take the absolute value. As a result LASSO regression can increase $\lambda$ then set irrelevant parameters to 0 (Ridge will just shrink them but not set to 0) --- relevant paramters might shink a little bit in both too. The advantage here is that LASSO can exclude useless variables --- so if you have a lot of variables it might be preferable. However, if most variables are useful then Ridge regression would probably work better.  
+Least absolute shrinkage and selection operator (LASSO) performs variable selection and regularisation to increase prediction accuracy of the model...the only difference to ridge is that the regularisation term is an absolute value. So instead of squaring the slope (like i mentioned in Ridge regression), we take the absolute value (of the slope, as opposed the the squared value in Ridge) and as the slope can be 0 it can be removed from the model. As a result LASSO regression can increase $\lambda$ then set irrelevant parameters to 0 (Ridge will just shrink them but not set to 0) --- relevant parameters might shrink a little bit in both too. The advantage here is that LASSO can exclude useless variables --- so if you have a lot of variables it might be preferable. However, if most variables are useful then Ridge regression would probably work better.
+
+* LASSO has an absolute penalty (also known as L1 penalty)
+
+* Ridge has a square penalty (also known as L2 penalty)
 
 ```{r, cache=FALSE, warning=FALSE, message=FALSE}
 #find the best lambda from our list via cross-validation
@@ -1047,7 +1051,7 @@ mean((lasso_pred-ytest)^2)
 
 ### Elastic net regression
 
-When you don't know much about our variables in a model you can use Elastic-Net Regression. It starts with least squares then adds the LASSO and ridge regression penatly, allowing you to use the strengths of both. Both the LASSO penatly and ridge penatly get their own $\lambda$ values, $\lambda_1$ for LASSO, $\lambda_2$  for ridge. Cross validation runs for both $\lambda_1$ and $\lambda_2$. If both $\lambda_1$ and $\lambda_2$ > 0 then we get a hybrid approach, this is good when we have correlated variables. LASSO will pick just one correlated variable and eliminate the other, whereas ridge will just shrink all of them. Using both LASSO and ridge we can group and shrink correlated variables or remove them all at the same time.
+When you don't know much about our variables in a model you can use Elastic-Net Regression. It starts with least squares then adds the LASSO and ridge regression penalty, allowing you to use the strengths of both. Both the LASSO penalty and ridge penalty get their own $\lambda$ values, $\lambda_1$ for LASSO, $\lambda_2$  for ridge. Cross validation runs for both $\lambda_1$ and $\lambda_2$. If both $\lambda_1$ and $\lambda_2$ > 0 then we get a hybrid approach, this is good when we have correlated variables. LASSO will pick just one correlated variable and eliminate the other, whereas ridge will just shrink all of them. Using both LASSO and ridge we can group and shrink correlated variables or remove them all at the same time.
 
 In R, Elastic-Net Regression is where you change the alpha value between 0 and 1. You would use elastic net regression to see if it is  possible to reduce the mean square error any further. Have a look at [this video](https://www.youtube.com/watch?v=ctmNq7FgbvI) to see how to use a for loop to test different values for alpha.
 
@@ -1059,7 +1063,7 @@ Let's compare the results of the MSE and r sqaured for the normallm2, LASSO and 
 summary(normallm2)$r.squared
 ```
 
-Our lowest MSE and highest R sqaured value here is provided by Ridge regression...so from this anaylsis i'd select Ridge regression to predict any missing or future values of Airbnbs within the London wards...i'd probably also conisder exploring using machine learning methods that are linked to below...
+Our lowest MSE and highest R sqaured value here is provided by Ridge regression...so from this analysis i'd select Ridge regression to predict any missing or future values of Airbnbs within the London wards...i'd probably also consider exploring using machine learning methods that are linked to below...
 
 >**Warning** The data used within this practical is purely for demonstration purposes!
 

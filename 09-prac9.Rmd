@@ -170,9 +170,10 @@ Now you have read in both your boundary data and your attribute data, you need t
 
 ```{r, message=FALSE, cache=TRUE}
 #merge boundaries and data
-LonWardProfiles <- left_join(Londonwards,
-                             LondonWardProfiles, 
-                             by = c("GSS_CODE" = "New code"))
+LonWardProfiles <- Londonwards%>%
+  left_join(.,
+            LondonWardProfiles, 
+            by = c("GSS_CODE" = "New code"))
 
 #let's map our dependent variable to see if the join has worked:
 tmap_mode("view")
@@ -282,9 +283,10 @@ Regressiondata<- LonWardProfiles%>%
                 unauthorised_absence_in_all_schools_percent_2013)
 
 #now model
-model1 <- lm(average_gcse_capped_point_scores_2014 ~
-               unauthorised_absence_in_all_schools_percent_2013, 
-             data = Regressiondata)
+model1 <- Regressiondata %>%
+  lm(average_gcse_capped_point_scores_2014 ~
+               unauthorised_absence_in_all_schools_percent_2013,
+     data=.)
 ```
 
 Let's have a closer look at our model...
@@ -444,7 +446,7 @@ library(rsample)
 int_pctl(GCSE_models_tidy, coef_info, alpha = 0.05)
 ```
 
-A change in 1% of unathorised absence reduces the average GCSE point score between between 41.2 and 45.2 points (this is our confidence interval) with a 95% confidence level.
+A change in 1% of unathorised absence reduces the average GCSE point score between between 37.1 and 45.2 points (this is our confidence interval) with a 95% confidence level.
 
 we can also change alpha to 0.01, which would be the 99% confidence level, but you'd expect the confidence interval range to be greater.
 
