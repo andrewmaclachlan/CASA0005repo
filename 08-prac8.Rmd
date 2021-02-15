@@ -471,7 +471,7 @@ library(tmaptools)
 library(tidyverse)
 
 OSM <- st_read(here::here("prac5_data",
-                          "greater-london-latest-free.shp", 
+                          "greater-london-latest-free", 
                           "gis_osm_pois_a_free_1.shp")) %>%
   st_transform(., 27700) %>%
   #select hotels only
