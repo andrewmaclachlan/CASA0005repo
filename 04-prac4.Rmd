@@ -553,6 +553,7 @@ knitr::include_graphics('prac4_images/code_chunk.png')
 library(plotly)
 library(raster)
 library(weathermetrics)
+library(tidyverse)
 
 GB_auto <- raster::getData('GADM', 
                            country="GBR", 
