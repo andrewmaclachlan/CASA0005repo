@@ -20,6 +20,8 @@ Within each practical the assocaited data is stored in the prac(number)_data fol
 
 The content of the course changes most years and previous version can be found at the links below.
 
+Course for the academic year 2020 - 2021: https://andrewmaclachlan.github.io/CASA0005repo_20202021/
+
 Course for the academic year 2019 - 2020: https://andrewmaclachlan.github.io/CASA0005repo_20192020/
 
 ## Annual updates
