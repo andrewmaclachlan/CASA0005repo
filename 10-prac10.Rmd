@@ -204,7 +204,7 @@ Airbnbward <- Joinfun(Airbnb, boroughsandwardssf[[2]])
 
 But we can also automate this using a loop (either a while or for loop). I've used a while loop here as when i did my MSc you weren't able to put a for loop inside a for loop. I beleive that has now changed but because of that one day i had to spend changing everything i always default to using a while loop. 
 
-Tell us what a loop is aleady?
+Tell us what a loop is already?
 
 A loop let's you go over something adding 1 (or any value) each time...for example let's look a basic loop. You need to run everything in the loop at once from the while to the }. If you make just a normal Rscript you can set breakpoints --- the code will the stop each time it hits the breakpoint within the loop. You can't do this at the moment with RMarkdown code chunks, i normally develop the loop outside of it looping then put it all together.
 

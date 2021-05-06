@@ -730,6 +730,7 @@ Here, we need to convert our `SF` objects to `SP`, the main reason for doing thi
 
 
 ```{r message=FALSE, cache=FALSE}
+library(sp)
 
 samplestempSP <- samplestemp %>%
   as(., 'Spatial')
@@ -753,6 +754,8 @@ gridded(emptygrd) <- TRUE  # Create SpatialPixel object
 fullgrid(emptygrd) <- TRUE  # Create SpatialGrid object
 
 # Add the projection to the grid
+proj4string(samplestempSP) <- proj4string(samplestempSP) 
+#temp fix see: https://mgimond.github.io/Spatial/interpolation-in-r.html
 proj4string(emptygrd) <- proj4string(samplestempSP)
 
 library(gstat)

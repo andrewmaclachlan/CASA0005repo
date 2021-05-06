@@ -466,7 +466,7 @@ Here we will use it to just read in a `.csv` file (directly from the web this ti
 ```{r, message=FALSE, cache=FALSE}
 #wang the data in straight from the web using read_csv, 
 #skipping over the 'n/a' entries as you go...
-LondonData <- read_csv("https://files.datapress.com/london/dataset/ward-profiles-and-atlas/2015-09-24T14:21:24/ward-profiles-excel-version.csv",
+LondonData <- read_csv("https://data.london.gov.uk/download/ward-profiles-and-atlas/772d2d64-e8c6-46cb-86f9-e52b4c7851bc/ward-profiles-excel-version.csv",
                        locale = locale(encoding = "latin1"),
                        na = "n/a")
 ```
@@ -505,7 +505,7 @@ We cover `pivot_longer()` later in this practical, but for now we've simply grou
 You should see that all columns that should be numbers are read in as numeric. Try reading in LondonData again, but this time without excluding the ‘n/a’ values in the file, e.g.
 
 ```{r, message=FALSE, cache=FALSE}
-LondonData <- read_csv("https://files.datapress.com/london/dataset/ward-profiles-and-atlas/2015-09-24T14:21:24/ward-profiles-excel-version.csv", 
+LondonData <- read_csv("https://data.london.gov.uk/download/ward-profiles-and-atlas/772d2d64-e8c6-46cb-86f9-e52b4c7851bc/ward-profiles-excel-version.csv", 
                        locale = locale(encoding = "latin1"))
 ```
 
