@@ -7,9 +7,9 @@
 By the end of this practical you should be able to:
 
 1.  Describe and explain GIS data formats and databases
-2.  Source and pre-process spatial data
-3.  Load and undertaken some basic manipulation of spatial data in QGIS and R
-4.  Evaluate the (dis)advantages of each GIS you have used
+1.  Source and pre-process spatial data
+1.  Load and undertaken some basic manipulation of spatial data in QGIS and R
+1.  Evaluate the (dis)advantages of each GIS you have used
 
 ## Homework
 
@@ -17,8 +17,16 @@ Outside of our schedulded sessions you should be doing around 12 hours of extra 
 
 ::: {.infobox .assignment data-latex="{note}"}
 **Assignment**
+Each week we will provide some questions to test your knowledge, these should be used to guide your study for the module and final exam.
 
-This week you should undertake wider data exploration and reading to find a topic you might be interested in progressing with. Start with a data search first to avoid proposing a research area then forcing potentially unsuitable data to fit it.
+By the end of this week you should be able to answer the following questions:
+
+* Provide an example of raster and vector data and describe why the data are provided in that format.
+
+* Describe the benefits of QGIS and R.
+
+* You have been given a `.csv` file containing some data and you also have a `.shp`. How do you join the non-spatial data to the spatial data. 
+
 :::
 
 ::: {.infobox .note data-latex="{note}"}

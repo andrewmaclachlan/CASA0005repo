@@ -1,11 +1,12 @@
-# Online mapping / descriptive statistics 
+# Advanced raster analysis
 
-This practical is formed of two parts, you can pick one you are more intersted in or complete both.  
-<br/>
+## Learning objectives
 
-* Part A looks at some more spatial descriptive statistics 
+By the end of this practical you should be able to:
 
-* Part B focuses on online mapping 
+1. Explain and execute appropraite pre-proessing steps of raster data
+1. Replicate published methodologies using raster data
+1. Design new R code to undertake further analysis 
 
 ## Homework
 
@@ -20,9 +21,11 @@ From weeks 6-9, learn and practice analysis from the course and identify appropr
 ::: {.infobox .note data-latex="{note}"}
 **Reading**
 
-* For k-means clustering and exploratory data analysis read [Chapter 12 "K-Means Clustering"](https://bookdown.org/rdpeng/exdata/k-means-clustering.html) from Exploratory Data Analysis with R by Peng (2016).
+This week: 
 
-* For interative maps re-read [Chapter 8: "Making maps with R"](https://geocompr.robinlovelace.net/adv-map.html) Geocomputation with R by Lovelace, Nowosad and Muenchow (2020), especially setion 8.4.
+* [Appendix "Raster operations in R"](https://mgimond.github.io/Spatial/raster-operations-in-r.html) from Intro to GIS and Spatial Analysis by Gimond (2019)
+
+* [Raster manipulation"](https://rspatial.org/raster/spatial/8-rastermanip.html) from Spatial data science by Hijmans (2016). This last one is another tutoiral --- it seems there aren't any decent free raster textbook chapters, let me know if you find one.
 
 Remember this is just a starting point, explore the [reading list](https://rl.talis.com/3/ucl/lists/139FBAF8-DACD-60FB-8BDC-E9C9E09BA885.html?lang=en-GB&login=1), practical and lecture for more ideas.
 :::
@@ -31,774 +34,812 @@ Remember this is just a starting point, explore the [reading list](https://rl.ta
 
 Some of these practicals are long, take regular breaks and have a listen to some of our fav tunes each week.
 
-[Andy](https://www.youtube.com/watch?v=6Bh6IL1mNfc)
+[Andy](https://open.spotify.com/album/1kCHru7uhxBUdzkm4gzRQc) Hamilton.
+
+[Adam](https://open.spotify.com/album/1a9hLKtSfwy54hH18Ni6BS) Straight outa somewhere near Grantham - this week it has to be the Sleaford Mods!
+
+## Introduction
+
+Within this practical we are going to be using data from the Landsat satellite series provided for free by the United States Geological Survey (USGS) to replicate published methods. Landsat imagery is the longest free temporal image repository of consistent medium resolution data. It collects data at each point on Earth each every 16 days (temporal resolution) in a raster grid composed of 30 by 30 m cells (spatial resolution). Geographical analysis and concepts are becoming ever more entwined with remote sensing and Earth observation. Back when I was an undergraduate there was specific software for undertaking certain analysis, now you can basically use any GIS. I see remote sensing as the science behind collecting the data with spatial data analysis then taking that data and providing meaning. So whilst i'll give a background to Landsat data and remote sensing, this practical will focus on more advanced methods for analysing and extracting meaning from raster data.
+
+## .gitignore
+
+If you are using Git with your project and have large data it's best to set up a `.gitignore` file. This file tells git to ignore certain files so they aren't in your local repository that is then pushed to GitHub. If you try and push large files to GitHub you will get an error and could run into lots of problems, trust me, i've been there. Look at [my .gitignore for this repository](https://github.com/andrewmaclachlan/CASA0005repo/blob/master/.gitignore) and you will notice:
+
+`prac7_data/Lsatdata/*`
+
+`prac7_data/exampleGoogleDrivedata/*`
+
+`prac7_data/Manchester_boundary/*`
+
+This means igore all files within these folders, all is denoted by the `*`. The `.gitignore` has to be in your main project folder, if you have made a a `git` repo for your project then you should have a `.gitignore` so all you have to do is open it and add the folder or file paths you wish to ignore. 
+
+GitHub has a maximum file upload size of 50mb....image credit [reddit r/ProgrammerHumor](https://www.reddit.com/r/ProgrammerHumor/comments/gm69za/my_girlfriend_crocheted_my_favourite_meme_as_a/)
+
+```{r echo=FALSE, out.width = "500pt", fig.align='center', cache=TRUE}
+knitr::include_graphics('prac7_images/gitignore.jpg')
+```
 
 
-[Adam](https://open.spotify.com/track/3BGF4XAm8jaEi2LcGR57O3?si=gfYc6LS6Tgy9M9oXVVG4SQ)
-Bit different from me this week - I'm not all about drum and bass (although I mostly am). Stumbled across these recently and I should have known about them for much longer. The Joy Formidable - this is a 10th Anniversary revisit of their first EP and is ace. If you like Welsh, you're in for a treat! 
+### Remote sensing background (required)
 
-## Part A spatial descriptive statistics
+* Landsat is raster data
+* It has pixels of 30 by 30m collected every 16 days with global coverage
+* As humans we see in the visible part of the electromagnetic spectrum (red-green-blue) Landsat takes samples in these bands and several more to make a spectral sigature for each pixel (see image below)
+* Each band is provided as a seperate ```.TIFF``` raster layer
 
-### Learning objectives
+```{r echo=FALSE, out.width = "500pt", fig.align='center', cache=TRUE}
+knitr::include_graphics('prac7_images/specsig.jpg')
+```
 
-By the end of this practical you should be able to:
+Later on we will compute temperature from the Landsat data, whilst i refer to and explain each varaiable created don't get overwhelmed by it, take away the process of loading and manipulating raster data in R to extract meaningful information. An optional remote sensing background containing additional information can be found at the end of this practical should you wish to explore this further.
 
-1. Create descriptive plots (histograms and boxplots) to help understand the frequency distributions of your data
-1. Write custom functions to process your data
-1. Produce a location quotient map to highlight interesting (above and below average) patterns in your data
-1. Write a function in R to produce a range of different maps based on user inputs
-1. Perform a very basic cluster analysis and output the results of a basic geodemographic classification
+## Data
 
-### Getting Started
-Before we begin this week’s practical, we need to load our packages and carry out some data preparation... 
+### Shapefile
 
-```{r prac8_load, message=FALSE}
-library(highcharter)
+The shapefile of Manchester is available from the data folder for this week on [GitHub](https://github.com/andrewmaclachlan/CASA0005repo/tree/master/prac7_data). To download this consult [How to download data and files from GitHub], i'd used Option 1.
+
+### Raster data (Landsat)
+
+To access the Landsat data we will use in this practical you can either:
+
+(a) Sign up for a free account at: https://earthexplorer.usgs.gov/. 
+(b) Use the Landsat data provided on Moodle --- this will be available only if the earth explorer website is down (e.g. in the case of US government shutdowns)
+
+To download the data:
+
+1. Search for Manchester in the address/place box and select it. 
+1. Select the date range between the 12/5/2019 and 14/5/2019 --- it's a US website so check the dates are correct.
+1. Click dataset and select Landsat, then Landsat Collection 1 Level-1, check Landsat 8 (level 2 is surface reflectance --- see [Remote sensing background (optional)]
+1. Click results, there should be one image, download it..it might take a while
+1. Landsat data comes zipped twice as a ```.tar.gz```. Use [7Zip](https://www.7-zip.org/) or another file extractor, extract it once to get to a ```.tar``` then extract again and files should appear. Or the code below will also let you extract Landsat data...
+
+#### Alternative raster data
+
+Occasionally the earth explorer website can go down for maintenance or during government shutdowns. If possible I strongly advise you to learn how to use its interface as multiple other data providers have similar interfaces. GitHub also place a strict size limit on files of 100MB. However, in order to account for situations like this I’ve placed the zipped file on GoogleDrive and will demonstrate how to access this from R using the new `googledrive` package. 
+
+This could be a great option for you to gain reproducibility points if you have large files that you can't upload to GitHub.
+
+In GoogleDrive you need to ensure your file is shareable with others --- right click on it > Share > then copy the link. I have done this for my file in the example below, but if you try and replicate this, make sure you've done it otherwise it might not work when other people try and run your code, as they won't have access to the file on your GoogleDrive.
+
+Depending on your internet speed this example might take some time...
+
+Be sure to change the path to your practical 7 folder but make sure you include the filename within it and set overwrite to T (or TRUE) if you are going to run this again.
+```{r, cache=TRUE, eval=F}
+library("googledrive")
+
+o<-drive_download("https://drive.google.com/open?id=1MV7ym_LW3Pz3MxHrk-qErN1c_nR0NWXy",
+                  path="prac7_data/exampleGoogleDrivedata/LC08_L1TP_203023_20190513_20190521_01_T1.tar.gz", 
+                  overwrite=T)
+```
+
+Next we need to uncompress and unzip the file with `untar()`, first list the files that end in the extension `.gz` then pass that to `untar` with the pipe `%>%` remember this basically means after this function... then...do this other function with that data
+
+```{r, eval=F, cache=T}
 library(tidyverse)
-library(downloader)
-library(rgdal)
-library(sf)
-library(ggplot2)
-library(reshape2)
-library(plotly)
-library(raster)
-library(downloader)
-library(rgdal)
-```
-
-
-There is a problem with our London Wards data --- we are missing some data relating to housing tenure. The housing tenure data in this file comes from the 2011 Census and visiting http://www.nomisweb.co.uk/ and interrogating Table KS402EW (the Tenure table), we can discover that data for the percentage of shared owners and those living in accommodation rent free are missing. 
-
-Rather than making you go off to Nomisweb and fetch this data, because I'm really nice, I've posted on GitHub a file containing this and extra categorical, ratio and geographical data that we will need to add to our existing London data file. To download this consult [How to download data and files from GitHub], i'd used Option 1 and it's the prac8_data folder you want to download.
-
-We can easily join this new data to our original data in R.
-
-```{r prac8_read_data}
-
-LondonWards <- st_read(here::here("prac8_data", 
-                                  "New_ward_data",
-                                  "NewLondonWard.shp"))
-
-extradata <- read_csv(here::here("prac8_data", "LondonAdditionalDataFixed.csv"))
-
-LondonWardsleftjoin <- LondonWards %>%
-  left_join(.,extradata,
-            by = c("WD11CD" = "Wardcode"))
-
-#LondonWardsSF <- merge(LondonWards, extradata, by.x = "WD11CD", by.y = "Wardcode")
-```
-
-### Main Tasks
-
-### Task 1 - Descriptive Statistics
-Using the lecture notes for guidance, you should generate the following graphs and descriptive statistics using standard functions and ggplot2 in R. Each element should be copied and saved to a word document or something similar:
-
-Generate the following from your `LondonWardsSF` data frame:
-
-* A simple histogram for a scale/ratio variable of your choice
-* A simple histogram for a scale/ratio variable of your with a different frequency bin-width
-    + The same histogram with vertical lines for the mean, median and mode (the mode will be the mid value for the bin with the largest count) and the inter-quartile range. *hint – use summary(table$variable) to find the values if you are not sure*
-    + The same histogram with three different kernel density smoothed frequency gradients
-* A boxplot of the same variable
-* A faceted grid of histograms with for every variable in your London Wards data file. In order to do this, you will need to remove Factor (non-numeric) variables from your dataset and re-shape your data using the `melt()` function in the `reshape2` package (hint – check the help file for `melt.data.frame()` to understand what the code below is doing). The code below will help you:
-
-```{r prac8_data_manipulate, message=FALSE, warning=FALSE}
-#check which variables are numeric first
-
-Datatypelist <- LondonWardsleftjoin %>% 
-  st_drop_geometry()%>%
-  summarise_all(class) %>%
-  pivot_longer(everything(), 
-               names_to="All_variables", 
-               values_to="Variable_class")
-
-#make groups based on types of variables
-Groups <- LondonWardsleftjoin %>% 
-  st_drop_geometry()%>%
-  dplyr::select(is.numeric)%>%
-  pivot_longer(everything(),
-               names_to="All_variables", 
-               values_to="val")%>%
-  mutate(All_variables = tolower(All_variables))%>%
-  mutate(group = case_when(str_detect(All_variables, "age") ~ "Age",
-                           str_detect(All_variables, "employ|income|job|jsa") ~ "Employment",
-                           str_detect(All_variables,
-                                      "house|rent|detatched|flat|terrace|owned|social|private|share|tax|mortgage") ~ "Housing", TRUE~"Other"))
-
-Agehist <- Groups%>%
-  filter(group=="Age")%>%
-  ggplot(., aes(x=val)) + 
-  geom_histogram(aes(x = val, y = ..density..))+
-  geom_density(colour="red", size=1, adjust=1)+
-  facet_wrap(~All_variables, scales = 'free')
-
-```
-
-To change which group we are plotting, simply alter the `filter()` argument.
-
-Make a note of which variables appear normally distributed and which appear to be skewed. What do the histograms for nominal and ordinal data look like?
-
-Try performing a log10() transformation on the x variables and plotting a similar facet grid of histograms –-- what does this do to some of the skewed variables? For example...
-
-```{r prac8_hist}
-
-Agehist <- Groups%>%
-  filter(group=="Age")%>%
-  ggplot(., aes(x=log10(val))) + 
-  geom_histogram(aes(x = log10(val), y = ..density..))+
-  geom_density(colour="red", size=1, adjust=1)+
-  facet_wrap(~All_variables, scales = 'free')
-
-```
-
-* Create a 2D histogram and 2D kernel density estimate of ward centroids in London using the Eastings and Northings data in the x and y columns of your dataset. For example:
-
-```{r prac8_ggplot}
-Londonpoint <- ggplot(LondonWardsleftjoin, 
-                      aes(x=x.y,y=y.y))+
-  geom_point()+
-  coord_equal()
-
-Londonpoint
-
-Londonpoint<-ggplot(LondonWardsleftjoin, 
-                    aes(x=x.y,y=y.y))+
-  stat_bin2d(bins=10)
-
-Londonpoint
-
-Londonpoint<-ggplot(LondonWardsleftjoin, aes(x=x.y,y=y.y))+geom_point()+coord_equal()
-Londonpoint
-
-Londonpoint+stat_density2d(aes(fill = ..level..), geom="polygon")
-
-```
-
-### Extension 1
-
-If you really want to go down the road of carrying out KDE in a range of different ways, then this [Kernel Density Estimation tutorial](http://egallic.fr/R/sKDE/smooth-maps/kde.html) --- perhaps try it with some of the Blue Plaques data from previous weeks. 
-
-### Task 2 - Function to recode data
-
-In the lecture, it was mentioned that sometimes we should recode variables to reduce the amount of information contained in order that different tests can be carried out on the data. Here we will recode some of our scale/ratio data into some nominal/weak-ordinal data to carry out some basic analysis on. 
-
-A function to recode data in our dataset might look like the one below:
-
-```{r, prac8_fun2, eval=T}
-newvar<-0
-recode<-function(variable,high,medium,low){
-  newvar[variable<=high]<-"High"
-  newvar[variable<=medium]<-"Medium"
-  newvar[variable<=low]<-"Low"
-  return(newvar)
-}
-```
-
-### What's going on in this function?
-
-* First we initialise a new variable called `newvar` and set it to = 0. We then define a new function called `recode`. This takes in 4 pieces of information: A variable (called `variable` but I could have called it anything) and three values called `high`, `medium` and `low`. It outputs a value to the new string variable `newvar` based on the values of high, medium and low that are given to the function. 
-	
-* To create the function in R, highlight the all of the code in the function and then run the whole block (ctrl-Return in R-Studio). You will see that the function is stored in the workspace.
-	
-* We can now use this function to recode any of our continuous variables into high, medium and low values based on the values we enter into the function. 
-
-* We are going to recode the Average GCSE Score variable into High, Medium and Low values – High will be anything above the 3rd Quartile, Low will be anything below the 1st Quartile and Medium – anything in between.
-
-*Note, if your data doesn't have the 2013 GCSE scores but 2014, it will have different figures to these figures below and you will need to call the column by the column header you have*
-
-```{r prac8_attatch, message=FALSE, warning=FALSE}
-attach(LondonWards)
-#Check the name of your column, there could be a slight error and it might be called 'AvgGCSED201'
-summary(AvgGCSE201) 
-```
-
-Create a new column in your data frame and fill it with recoded data for the Average GCSE Score in 2013. To do this, pass the AvgGCSE2013 variable to the `recode()` function, along with and the three values for high, medium and low. You should create a new variable called gcse_recode and use the function to fill it with values
-
-If you wanted to be really fancy, you could try altering the function to calculate these “High”, “Medium” and “Low”
-
-```{r prac8_recode}
-LondonWards <- LondonWards %>%
-  mutate(GCSE_recode = recode(AvgGCSE201,409.1,358.3,332.3))
-
-#or
-
-LondonWards$GCSE_recode <- recode(AvgGCSE201,409.1,358.3,332.3)
-```
-
-You should also create a second re-coded variable from the unauthorised absence variable using the same function – call this variable `unauth_recode` and again, used the 3rd and 1st quartiles to define your high, medium and low values.
-
-On to another function. This time, we will calculate some location quotients for housing tenure in London. If you remember, a location quotient is simply the ratio of a local distribution to the ratio of a global distribution. In our case, our global distribution will be London. 
-
-```{r prac8_LQ}
-#Location Quotient function 1
-LQ1<-function(pctVariable){
-  pctVariable /mean(pctVariable)
-}
-#Location Quotient function 2
-LQ2<-function(variable,rowtotal){
-  localprop<-variable/rowtotal
-  globalprop<-sum(variable)/sum(rowtotal)
-  return(localprop/globalprop)
-}
-```
-
-The two functions above calculate the same Location Quotient, but the first one works on variables which have already been converted into row percentages, the second will work on raw variables where an additional column for the row totals is stored in a separate column – e.g. “age 0-15”, “age 16-64” and “age 65 plus” all sum to the “Pop2013” column in our data London Wards data set:
-
-```{r prac8_head}
-head(LondonWards[,1:7])
-```
-
-Calculate Location Quotients for the 5 Housing tenure variables (Owner Occupied, Private Rent, Social Rent, Shared Ownership, Rent Free) in your data set using either of the functions above. Save these as 5 new variables in your dataset. *Hint – use the function to create the variable directly, for example:
-
-```{r prac8_df, eval=FALSE}
-#this is pseudo code, but you should see how this works
-dataframe$newLQVariable <- LQ1(originalPercentageVariable)
-#or
-dataframe$newLQVariable <- LQ2(originalVariable,rowTotalVariable)
-```
-
-```{r prac8_cols, include=FALSE}
-#note, you will probably need to change the column headers of the columns you are referring to here
-attach(LondonWards)
-summary(LondonWards)
-LondonWards$unauth_recode <- recode(UnauthAbse,2.4657,1.4105,0.8215) 
-LondonWards$LQOwned <- LQ1(PctOwned20)
-LondonWards$LQSocRe <- LQ1(PctSocialR)
-LondonWards$LQPriRe <- LQ1(PctPrivate)
-LondonWards$LQShare <- LQ1(PctSharedO)
-LondonWards$LQRentF <- LQ1(PctRentFre)
-```
-
-### Task 3 – Mapping Location Quotients
-
-You should now try and create a map or series of maps of your housing tenure location quotients using `tmap` or `ggplot`. Try to create a map by referring back earlier practicals in this course and follow the steps from there (or, indeed, use your memory)
-
-### Task 4 – Creating a Basic Geodemographic Classification
-
-As we saw in the lecture, geodemographic classifications are widely used to classify areas according to the characteristics of the population that inhabits them. All geodemographic classifications are created using cluster analysis algorithms. Many of these algorithms exist, but one of the most commonly used is k-means.
-
-```{r echo=FALSE, out.width = "450pt", fig.align='center', cache=TRUE}
-knitr::include_graphics('allisonhorst_images/kmeans_1.jpg')
-```
-
-One of the pitfalls of these algorithms is that they will always find a solution, whether the variables have been selected appropriately or standardised correctly. This means that it’s very easy to create a classification which is misleading. 
-
-All of that said, it is useful to see how straightforward it is to create a classification yourself to describe some spatial data you have. 
-
-In a cluster analysis, you should select variables that are:
-
-* Ranged on the same scale
-
-* Normally distributed
-
-* Not highly correlated
-
-To make this task easier, we will just select two variables to make our classification from. In a real geodemographic classification, hundreds of variables are often used. 
-
-```{r prac8_cluster}
-LondonWardsData <- LondonWards %>%
-  #drop geometry
-  st_drop_geometry()%>%
-  #display list of variables
-  summarise_all(class) %>%
-  pivot_longer(everything(), 
-               names_to="All_variables", 
-               values_to="Variable_class")
-
-slice_head(LondonWardsData, n=5)
-
-# Create a new data frame just containing the two variables we are interested in
-mydata <- LondonWards %>%
-      st_drop_geometry()%>%
-      dplyr::select(c(PctOwned20, PctNoEngli))
-
-#– check variable distributions first
-histplot <- ggplot(data=mydata, aes(x=PctOwned20))
-histplot +geom_histogram()
-histplot <- ggplot(data=mydata, aes(x= PctNoEngli))
-histplot +geom_histogram()
-```
-
-Let's make our k-means find 3 clusters with 25 iterations. The graphics below by [Allison Horst](https://twitter.com/allison_horst) will help explain the process...
-
-```{r echo=FALSE, out.width = "450pt", fig.align='center', cache=TRUE}
-knitr::include_graphics('allisonhorst_images/kmeans_2.jpg')
-```
-
-```{r}
-fit <- mydata %>%
-  kmeans(., 3, nstart=25)
-```
-
-```{r echo=FALSE, out.width = "450pt", fig.align='center', cache=TRUE}
-knitr::include_graphics('allisonhorst_images/kmeans_3.jpg')
-```
-
-```{r echo=FALSE, out.width = "450pt", fig.align='center', cache=TRUE}
-knitr::include_graphics('allisonhorst_images/kmeans_4.jpg')
-```
-
-```{r echo=FALSE, out.width = "450pt", fig.align='center', cache=TRUE}
-knitr::include_graphics('allisonhorst_images/kmeans_5.jpg')
-```
-
-```{r echo=FALSE, out.width = "450pt", fig.align='center', cache=TRUE}
-knitr::include_graphics('allisonhorst_images/kmeans_6.jpg')
-```
-
-```{r echo=FALSE, out.width = "450pt", fig.align='center', cache=TRUE}
-knitr::include_graphics('allisonhorst_images/kmeans_7.jpg')
-```
-
-```{r echo=FALSE, out.width = "450pt", fig.align='center', cache=TRUE}
-knitr::include_graphics('allisonhorst_images/kmeans_8.jpg')
-```
-
-```{r echo=FALSE, out.width = "450pt", fig.align='center', cache=TRUE}
-knitr::include_graphics('allisonhorst_images/kmeans_9.jpg')
-```
-
-```{r echo=FALSE, out.width = "450pt", fig.align='center', cache=TRUE}
-knitr::include_graphics('allisonhorst_images/kmeans_10.jpg')
-```
-
-```{r echo=FALSE, out.width = "450pt", fig.align='center', cache=TRUE}
-knitr::include_graphics('allisonhorst_images/kmeans_11.jpg')
-```
-
-Now let's get out cluster means using `tidy()` from the `tidymodels` package. Tidy creates a tibble that summarizes the model.
-
-Then plot them and then add them to our London wards...
-
-```{r}
-# get cluster means
-library(tidymodels)
-
-centroid <- tidy(fit)%>%
-  #print the results of the cluster groupings
+library(fs)
+library(stringr)
+library(utils)
+
+listfiles<-dir_info(here::here("prac7_data", "exampleGoogleDrivedata")) %>%
+  dplyr::filter(str_detect(path, ".gz")) %>%
+  dplyr::select(path)%>%
+  dplyr::pull()%>%
+  #print out the .gz file
   print()%>%
-  dplyr::select(PctOwned20, PctNoEngli)
-
-# as we only have variable two dimensions we can plot the clusters on a graph
-p <- ggplot(mydata,aes(PctOwned20, PctNoEngli))+
-  geom_point(aes(colour=factor(fit$cluster)))+
-  geom_point(data=centroid,aes(PctOwned20, PctNoEngli), size=7, shape=18)+ theme(legend.position="none")
-
-LondonWards <- fit %>% 
-  # 
-  augment(., LondonWards)%>%
-  dplyr::select(WD11CD, .cluster)%>%
-  #make sure the .cluster column is numeric
-  mutate(across(.cluster, as.numeric))%>%
-  # join the .cluster to our sf layer
-  left_join(LondonWards, 
-            .,
-            by = c("WD11CD" = "WD11CD"))
-
-
-#now map our geodeomographic classification
-map <- ggplot(LondonWards) + 
-  geom_sf(mapping = aes(fill=.cluster))+
-  scale_fill_continuous(breaks=c(1,2,3))
-map
+  as.character()%>%
+  utils::untar(exdir=here::here("prac7_data", "exampleGoogleDrivedata"))
 ```
 
-```{r echo=FALSE, out.width = "450pt", fig.align='center', cache=TRUE}
-knitr::include_graphics('allisonhorst_images/kmeans_12.jpg')
+## Processing raster data
+
+### Loading
+
+Today, we are going to be using a Landsat 8 raster of Manchester. The vector shape file for Manchester has been taken from an ESRI repository. 
+
+1. Let's load the majority of packages we will need here. 
+
+```{r message=FALSE, warning=FALSE, cache=TRUE}
+## listing all possible libraries that all presenters may need following each practical
+library(sp)
+library(raster)
+library(rgeos)
+library(rgdal)
+library(rasterVis)
+library(ggplot2)
 ```
 
-Now of course this is just the most basic of classifications, but you can easily see how you could include more variables or different variables to create a different classification - this is perhaps something you could try. 
+1. Now let's list all our Landsat bands except band 8 (i'll explain why next) along with our study area shapefile. Each band is a seperate ```.TIF``` file.
 
-I haven't even gone into using different clustering algorithms, how to decide on the appropriate number of clusters, using silhoutte plots to assess the strength of the clusters or creating pen-portraits using the variable z-scores for each cluster - this is practically a whole course in its own right... or indeed a dissertation topic!
-
-## Part B Online mapping
-
-### Learning objectives
-
-By the end of this practical you should be able to:
-
-1. Describe and explain different methods for producing online maps
-1. Create interactive maps using RPubs, RMarkdown site generator and Shiny
-1. Critically appraise the appropriateness of mapping techniques based on the dataset and purpose of the output map
-
-### Introduction 
-
-In this practical we are going to preliminary stages of a mini-investigation. Since 2015 the law has capped short-term lets in London at 90 nights per year. However, this is very hard to enforce due to a lack of data and extensive evidence required to prove that the limit has been exceeded. This has been recently reflected in the [Housing Research Note 2020/04: Short-term and holiday letting in London](https://www.london.gov.uk/sites/default/files/housing_research_note_4-_short-term_and_holiday_letting_in_london.pdf) by the Greater London Authority (GLA):
-
->"there are signs that short-term letting platforms are becoming increasingly commercialised and there are concerns that removing housing supply from the market to offer it for short-term letting could be exacerbating London’s housing shortage."
-
-The author, Georgie Cosh, was also kind enough to share some of the code used for this report. Guess what! They used R! Have a look at their code in the R file called GLA_airbnb_analysis in the prac8_data folder.
-
-Whilst Air bnb have implemented a system the removes listings once they have been rented for 90 days per year unless an appropraite permit is in place we want to interactively visualise the the number of air bnb lettings (and hotels for comparison) per borough as a starting point. This could then be used to undertake further investigation into boroughs with high short term lets, for example exploring other websites to see if the properties are listed and jointly exceed 90 days or optimising localised monitoring. As these rules only apply to entire homes we will only extract only these, and for monitoring purposes (e.g. random annual inspections) those are availbale for 365 days of the year.
-
-We will now explore several ways to do this...
-
-::: {.infobox .tip data-latex="{note}"}
-The report by Cosh (2020) goes a bit further than this and implements an occupancy model (based on a number of assumptions) to estimate the number of nights a Air bnb is rented out for, so check it out, perhaps an idea for your final project.
-:::
-
-### RPubs
-
-One of the most straight forward publishing tools is RPubs. It takes an ```.Rmd``` and directly uploads it to rpubs.com --- all files are publically available on this website.
-
-1. To start with you need to make a free account. Go to: https://rpubs.com/users/new and register
-
-1. Create a new project in RStudio and open a new R Markdown file (File > New File > R Markdown)
-
-1. You'll see that the file is automatically populated with some information, have a read through it then click the Knit icon ...
-
-```{r prac8_knitt, echo=FALSE, out.width = "800pt", fig.align='center', cache=FALSE}
-knitr::include_graphics('prac8_images/knitt.png') 
-```
-
-1. Let's make some changes to your ```.Rmd```. Delete all the text and code except from header information (that is enclosed by three dashes at the top of the file)
-
-1. Insert a new code chunk (go back to [RMarkdown] if you need a refresher)...
-
-```{r echo=FALSE, out.width = "450pt", fig.align='center', cache=TRUE}
-knitr::include_graphics('allisonhorst_images/rmarkdown_wizards.png')
-```
-
-...Add add some code of your choice from either a previous practical or your own work. As it's a new project you'll have to either copy the data into your project folder or set the working directory ```setwd()```. If it's all online data that you've loaded directly from the web into R, this shouldn't be an issue. I'm going to use the interactive map we made in practical 5 (the [Advanced interactive map] section).....Here is the code i've put in my chunk:
-
-```{r prac8_airbnb_hotel, warnings=FALSE, message=FALSE, cache=FALSE, eval=FALSE}
-
+```{r message=FALSE, warning=FALSE, cache=TRUE}
+library(stringr)
+library(raster)
+library(fs)
 library(sf)
-library(tmap)
-library(leafpop)
-library(leaflet)
-library(tmaptools)
 library(tidyverse)
 
-OSM <- st_read(here::here("prac5_data",
-                          "greater-london-latest-free.shp", 
-                          "gis_osm_pois_a_free_1.shp")) %>%
-  st_transform(., 27700) %>%
-  #select hotels only
-  filter(fclass == 'hotel')
+# List your raster files excluding band 8 using the patter argument
+listlandsat<-dir_info(here::here("prac7_data", "Lsatdata"))%>%
+  dplyr::filter(str_detect(path, "[B123456790].TIF")) %>%
+  dplyr::select(path)%>%
+  pull()%>%
+  as.character()%>%
+  # Load our raster layers into a stack
+  stack()
 
-Londonborough <- st_read(here::here("Prac1_data",
-                                    "statistical-gis-boundaries-london", 
-                                    "ESRI", 
-                                    "London_Borough_Excluding_MHW.shp"))%>%
-  st_transform(., 27700)
+# Load the manchester boundary
+manchester_boundary <- st_read(here::here("prac7_data", 
+                                          "Manchester_boundary",
+                                          "Manchester_boundary.shp"))
 
-Airbnb <- read_csv("prac5_data/listings.csv") %>%
-  st_as_sf(., coords = c("longitude", "latitude"), 
-                   crs = 4326) %>%
-    st_transform(., 27700)%>%
-    #select entire places that are available all year
-    filter(room_type == 'Entire home/apt' & availability_365 =='365')
+#check they have the same Coordinate Reference System (CRS)
+crs(manchester_boundary)
+crs(listlandsat)
+```
 
+### Resampling
 
-# make a function for the join
-# hint all you have to do is replace data1 and data2
-# with the data you want to use
+1. There is an error with this dataset as band 8 does not fully align with the extent of the other raster layers. There are several ways to fix this, but in this tutorial we will resample the band 8 layer with the extent of band 1. First, read in the band 8 and store it as a raster.
 
-Joinfun <- function(data1, data2){
+```{r eval=FALSE, cache=TRUE}
+# get band 8
+b8list<-dir_info(here::here("prac7_data", "Lsatdata"))%>%
+  dplyr::filter(str_detect(path, "[B8].tif")) %>%
+  dplyr::select(path)%>%
+  pull()%>%
+  as.character()%>%
+  raster()
+```
 
-output<- data1%>%
-  st_join(Londonborough,.)%>%
-  add_count(GSS_CODE, name="hotels_in_borough") 
+Then, `resample()` and write out the new layer, resampling takes awhile, so please be patient or find my output on GitHub.
 
-  return(output)
+```{r, eval=FALSE}
+## ngb is a nearest neighbour sampling method
+b8correct <- b8list%>%
+  resample(., listlandsat$LC08_L1TP_203023_20190513_20190521_01_T1_B1, 
+             method = "ngb") %>%
+  # Write out the raster
+writeRaster(.,str_c(here::here("prac7_data", 
+                             "Lsatdata"), 
+                  names(b8list), 
+                  sep="/"),
+            format='GTiff', 
+            overwrite=TRUE)
+            
+```
+
+1. Load band 8 and add it to our raster stack
+
+```{r, cache=TRUE}
+b8backin<-dir_info(here::here("prac7_data", "Lsatdata"))%>%
+  dplyr::filter(str_detect(path, "[B8].tif")) %>%
+  dplyr::select(path)%>%
+  pull()%>%
+  as.character()%>%
+  raster()
+  
+listlandsat <- listlandsat %>%
+  addLayer(., b8backin)
+  
+```
+
+1. We can compare it to see if both rasters have the same extent, number of rows and columns, projection, resolution and origin
+
+```{r, cache=TRUE}
+raster::compareRaster(listlandsat$LC08_L1TP_203023_20190513_20190521_01_T1_B1,
+              listlandsat$LC08_L1TP_203023_20190513_20190521_01_T1_B8)
+```
+
+### Clipping 
+
+1. Our raster is currently the size of the scene which satellite data is distributed in, to clip it to our study area it's best to first crop it to the extent of the shapefile and then mask it as we have done in previous practicals...
+
+```{r, cache=TRUE}
+
+lsatmask <- listlandsat %>%
+  # now crop our temp data to the extent
+  crop(.,manchester_boundary)%>%
+  mask(.,  manchester_boundary)
+```
+
+1. If all we wanted to do was clip our data, we could now change our filenames in the raster stack and write the ```.TIFF ``` files out again...
+
+```{r, cache=TRUE}
+# add mask to the filenames within the raster stack
+
+names(lsatmask) <- names(lsatmask)%>%
+  str_c(., 
+        "mask", 
+        sep="_")
+
+# I need to write mine out in another location
+outputfilenames <-
+  str_c("prac7_data/Lsatdata/", "mask/", names(lsatmask) ,sep="")
+
+```
+
+In the first line of code i'm taking the original names of the raster layers and adding "mask" to the end of them. This is done using ```str_c()``` from the stringr package and the arguments
+
+* ```names(lsatmask)```: original raster layer names
+* ```"mask"```: what i want to add to the names
+* ```sep=""```: how the names and "mask" should be seperated --- "" means no spaces
+
+As i can't upload my Landsat files to GitHub i'm storing them in a folder that is not linked (remember this is all sotred on GitHub) -- so you won't find ```prac7_data/Lsatdata``` on there. If you want to store your clipped Landsat files in your project directory just use:
+
+```{r eval=FALSE, cache=TRUE}
+lsatmask %>%
+  writeRaster(., names(lsatmask), 
+              bylayer=TRUE, 
+              format='GTiff', 
+              overwrite=TRUE)
+```
+
+For me though it's:
+
+```{r, cache=TRUE}
+lsatmask %>%
+  writeRaster(., outputfilenames, 
+              bylayer=TRUE, 
+              format='GTiff', 
+              overwrite=TRUE)
+```
+
+Here i write out each raster layer individually though specifying ```bylayer=TRUE```.
+
+## Data exploration
+
+### More loading and manipulating
+
+1. For the next stage of analysis we are only interested in bands 1-7, we can either load them back in from the files we just saved or take them directly from the original raster stack.
+
+```{r, cache=TRUE}
+# either read them back in from the saved file:
+
+manc_files<-dir_info(here::here("prac7_data", "Lsatdata", "mask")) %>%
+  dplyr::filter(str_detect(path, "[B1234567]_mask.tif")) %>%
+  dplyr::filter(str_detect(path, "B11", negate=TRUE))%>%
+  dplyr::select(path)%>%
+  pull()%>%
+  stack()
+
+# or extract them from the original stack
+manc<-stack(lsatmask$LC08_L1TP_203023_20190513_20190521_01_T1_B1_mask,
+                   lsatmask$LC08_L1TP_203023_20190513_20190521_01_T1_B2_mask,
+                   lsatmask$LC08_L1TP_203023_20190513_20190521_01_T1_B3_mask,
+                   lsatmask$LC08_L1TP_203023_20190513_20190521_01_T1_B4_mask,
+                   lsatmask$LC08_L1TP_203023_20190513_20190521_01_T1_B5_mask,
+                   lsatmask$LC08_L1TP_203023_20190513_20190521_01_T1_B6_mask,
+                   lsatmask$LC08_L1TP_203023_20190513_20190521_01_T1_B7_mask)
+
+# Name the Bands based on where they sample the electromagentic spectrum
+names(manc) <- c('ultra-blue', 'blue', 'green', 'red', 'NIR', 'SWIR1', 'SWIR2') 
+```
+
+1. If you want to extract specific information from a raster stack use:
+
+```{r results="hide", eval=FALSE, cache=TRUE}
+crs(manc) # projection
+extent(manc) # extent
+ncell(manc) # number of cells
+dim(manc) # number of rows, columns, layers
+nlayers(manc) # number of layers
+res(manc) # xres, yres
+```
+
+### Plotting data
+
+14. Let's actually have a look at our raster data, first in true colour (how humans see the world) and then false colour composites (using any other bands but not the combination of red, green and blue). 
+
+```{r, cache=TRUE}
+# true colour composite
+manc_rgb <- stack(manc$red, manc$green, manc$blue)
+# false colour composite
+manc_false <- stack(manc$NIR, manc$red, manc$green)
+
+manc_rgb %>%
+  plotRGB(.,axes=TRUE, stretch="lin")
+
+manc_false %>%
+    plotRGB(.,axes=TRUE, stretch="lin")
+```
+
+### Data similarity
+
+15. What if you wanted to look at signle bands and also check the similarity between bands? 
+```{r, cache=TRUE}
+# Looking at single bands
+plot(manc$SWIR2)
+
+## How are these bands different?
+#set the plot window size (2 by 2)
+par(mfrow = c(2,2))
+#plot the bands
+plot(manc$blue, main = "Blue")
+plot(manc$green, main = "Green")
+plot(manc$red, main = "Red")
+plot(manc$NIR, main = "NIR")
+
+## Look at the stats of these bands
+pairs(manc[[1:7]])
+```
+
+Low statistical significance means that the bands are sufficiently different enough in their wavelength reflectance to show different things in the image. We can also make this look a bit nicer with ```ggplot2``` and ```GGally```
+
+```{r cache=FALSE, message=FALSE}
+library(ggplot2)
+library(GGally)
+
+manc %>%
+  as.data.frame(., na.rm=TRUE)%>%
+  sample_n(., 100)%>%
+  ggpairs(.,axisLabels="none")
+
+```
+
+You can do much more using ```GGally``` have a look at the great [documentation](https://ggobi.github.io/ggally/#ggallyggpairs)
+
+## Basic raster calculations
+
+Now we will move on to some basic advanced raster analysis to compute temperature from this raster data. To do so we need to generate additional raster layers, the first of which is NDVI
+
+### NDVI
+
+Live green vegetation can be represented with the NIR and Red Bands through the normalised difference vegetation index (NDVI) as chlorophyll reflects in the NIR wavelength, but absorbs in the Red wavelength.
+
+$$NDVI= \frac{NIR-Red}{NIR+Red}$$
+
+### NDVI function
+
+One of the great strengths of R is that is lets users define their own functions. Here we will practice writing a couple of basic functions to process some of the data we have been working with. 
+
+One of the benefits of a function is that it generalises some set of operations that can then be repeated over and again on different data... the structure of a function in R is given below:
+
+```{r prac8_fun,eval=FALSE}
+myfunction <- function(arg1, arg2, ... ){
+  statements
+  return(object)
 }
+```
 
-# use the function for hotels
-Hotels <- Joinfun(OSM, Londonborough)
+We can use NDVI as an example...
 
-# then for airbnb
-Airbnb <- Joinfun(Airbnb, Londonborough)
+1. Let's make a function called ```NDVIfun```
 
-# now try to arrange the plots with tmap
-breaks = c(0, 5, 12, 26, 57, 286) 
+```{r, cache=TRUE}
+NDVIfun <- function(NIR, Red) {
+  NDVI <- (NIR - Red) / (NIR + Red)
+  return(NDVI)
+}
+```
 
-#change the column name from hotels_in_borough for the legend
-Hotels <- Hotels %>%
-  dplyr::rename(`Accomodation count` = hotels_in_borough)
+Here we have said our function needs two arguments NIR and Red, the next line calcualtes NDVI based on the formula and returns it. To be able to use this function throughout our analysis either copy it into the console or make a new R script, save it in your project then call it within this code using the ```source()``` function e.g...
 
-Airbnb <- Airbnb %>%
-  dplyr::rename(`Accomodation count` = hotels_in_borough)
+```{r eval=FALSE, cache=TRUE}
+source('insert file name')
+```
+
+1. To use the function do so through...
+
+```{r, cache=TRUE}
+ndvi <- NDVIfun(manc$NIR, manc$red)
+```
+
+Here we call the function ```NDVIfun()``` and then provide the NIR and Red band.
+
+1. Check the output
+
+```{r, cache=TRUE}
+ndvi %>%
+  plot(.,col = rev(terrain.colors(10)), main = "Landsat-NDVI")
+
+# Let's look at the histogram for this dataset
+ndvi %>%
+  hist(., breaks = 40, main = "NDVI Histogram", xlim = c(-.3,.8))
+```
+
+1. We can reclassify to the raster to show use what is most likely going to vegetation based on the histogram using the 3rd quartile --- anything above the 3rd quartile we assume is vegetation.
+
+> Note, this is an assumption for demonstration purposes, if you were to do something similar in your assignment be sure to provide reasoning with linkage to literature (e.g. policy or academic)
+
+```{r, cache=TRUE}
+
+veg <- ndvi %>%
+  reclassify(., cbind(-Inf, 0.3, NA))
+
+veg %>%
+  plot(.,main = 'Possible Veg cover')
+
+```
+
+1. Let's look at this in relation to Manchester as a whole
+
+```{r, cache=TRUE}
+
+manc_rgb %>%
+  plotRGB(.,axes = TRUE, stretch = "lin", main = "Landsat True Color Composite")
+
+veg %>%
+  plot(., add=TRUE, legend=FALSE)
+
+```
+
+## Advanced raster calculations
+
+The goal of this final section is to set up a mini investigation to see if there is a relationship between urban area and temperature. If our hypothesis is that there is a relationship then our null is that there is not a relationship...
+
+### Calucating tempearture from Landsat data
+
+Here we are going to compute temperature from Landsat data --- there are many methods that can be found within literature to do so but we will use the one originally developed by Artis & Carnahan (1982), recently summarised by Guha et al. 2018 and and Avdan and Jovanovska (2016).
+
+Some of the terms used our outlined in the remote sensing background section at the end of the document, so check back there if you get confused.
 
 
-Airbnb_count <- Airbnb %>% 
-  count(GSS_CODE)
-Hotels_count <- Hotels %>% 
-  count(NAME)
+1. Calcualte the Top of Atmopshere (TOA) spectral radiance from the Digital Number (DN) using:
 
-#join data
-Joined <- Airbnb_count%>%
-  st_join(., Hotels_count, join = st_equals)%>%
-  st_transform(., 4326)%>%
-  rename(`Airbnb count` = `n.x`, 
-         `GSS Code`= GSS_CODE,
-         `Borough`=NAME,
-         `Hotel count` = `n.y`) 
+$$\lambda= Grescale * QCAL + Brescale$$
 
-popupairbnb <-Joined %>%
-  st_drop_geometry()%>%
-  dplyr::select(`Airbnb count`, Borough)%>%
-  popupTable()
+TOA spectral radiance is light reflected off the Earth as seen from the satellite measure in radiance units.
 
-popuphotel <-Joined %>%
-  st_drop_geometry()%>%
-  dplyr::select(`Hotel count`, Borough)%>%
-  popupTable()
+In this equation Grescale and Brescale represent the gain and bias of the image, with QCAL the Digital Number (DN) --- how the raw Landsat image is captured. 
 
-tmap_mode("view")
+Grescale and Brescale are available from the ```.MTL``` file provided when you downloaded the Landsat data. Either open this file in notepad and extract the required values for band 10 gain (MULT_BAND) and bias (ADD_BAND) 
 
-# set the colour palettes using our previously defined breaks
+...Or we can automate it using the ```MTL()``` function within the ```RStoolbox``` package
 
+```{r results="hide", warnings=FALSE, message=FALSE, cache=TRUE}
+library(RStoolbox)
 
-pal1 <- Joined %>%
-  colorBin(palette = "YlOrRd", domain=.$`Airbnb count`, bins=breaks)
+MTL<-dir_info(here::here("prac7_data", "Lsatdata")) %>%
+  dplyr::filter(str_detect(path, "MTL.txt")) %>%
+  dplyr::select(path)%>%
+  pull()%>%
+  readMeta()
 
-pal1 <-colorBin(palette = "YlOrRd", domain=Joined$`Airbnb count`, bins=breaks)
+ #To see all the attributes
+head(MTL)
+```
 
-pal2 <- Joined %>%
-  colorBin(palette = "YlOrRd", domain=.$`Hotel count`, bins=breaks)
+1. Now let's extract the values from the readMTL variable for Band 10...we can either use the function `getMeta()` from `RStoolbox` of just extract the values ourselves...
 
+```{r, cache=TRUE}
 
-map<- leaflet(Joined) %>%
-  # add basemap options
-  addTiles(group = "OSM (default)") %>%
-  addProviderTiles(providers$Stamen.Toner, group = "Toner") %>%
-  addProviderTiles(providers$Stamen.TonerLite, group = "Toner Lite") %>%
-  addProviderTiles(providers$CartoDB.Positron, group = "CartoDB")%>%
+offsetandgain <-MTL %>%
+  getMeta("B10_dn", metaData = ., what = "CALRAD")
+
+offsetandgain
+
+##OR  
+offsetandgain <- subset(MTL$CALRAD, rownames(MTL$CALRAD) == "B10_dn")
+```
+
+1. Run the calculation using the band 10 raster layer
+
+```{r, cache=TRUE}
+TOA <- offsetandgain$gain *
+  lsatmask$LC08_L1TP_203023_20190513_20190521_01_T1_B10_mask + 
+  offsetandgain$offset
+```
+
+24. Next convert the TOA to Brightness Temperature $T_b$ using the following equation:
+
+$$T_b=\frac{K_2}{ln((K_1/\lambda)+1)}$$
+
+Brightness temperature is the radiance travelling upward from the top of the atmosphere to the satellite in units of the temperature of an equivalent black body.
+
+K1 (774.8853) and K2 (1321.0789) are pre launch calibration constants provided by USGS.
+
+Check the [handbook](https://prd-wret.s3-us-west-2.amazonaws.com/assets/palladium/production/atoms/files/LSDS-1574_L8_Data_Users_Handbook_v4.0.pdf) for these values 
+
+1. Instead of hardcoding these values...yep, you guessed it... we can extract them from our ```MTL```
+
+```{r, cache=TRUE}
+
+Calidata <- MTL$CALBT%>%
+  as.data.frame()%>%
+  mutate(Band=rownames(.))%>%
+  filter(Band=="B10_dn")
+
+# subset the columns
+K1 <- Calidata %>%
+  dplyr::select(K1)%>%
+  pull()
+
+K2 <- Calidata %>%
+  dplyr::select(K2)%>%
+  pull()
+
+Brighttemp <- (K2 / log((K1 / TOA) + 1))
+```
+
+Earlier we calcualted NDVI, let's use that to determine emissivity of each pixel.
+
+1. First we need to calcualte the fractional vegetation of each pixel, through the equation:
+
+$$F_v= \left( \frac{NDVI - NDVI_{min}}{NDVI_{max}-NDVI_{min}} \right)^2$$
+```{r, cache=TRUE}
+facveg <- (ndvi-0.2/0.5-0.2)^2
+```
+
+Fractional vegetation cover is the ratio of vertically projected area of vegetation to the total surface extent.
+
+Here, $NDVI_{min}$ is the minimum NDVI value (0.2) where pixels are considered bare earth and $NDVI_{max}$ is the value at which pixels are considered healthy vegetation (0.5)
+
+1. Now compute the emissivity using:
+
+$$\varepsilon = 0.004*F_v+0.986$$
+
+```{r, cache=TRUE}
+emiss <- 0.004*facveg+0.986
+```
+
+Emissivity is the ratio absorbed radiation energy to total incoming radiation engery compared to a blackbody (which would absorb everything), being ab measure of absoptivity.
+
+1. Great, we're nearly there... get our LST following the equation from Weng et al. 2004 (also summarised in Guja et al. (2018) and Avdan and Jovanovska (2016)):
+
+$$LST= \frac{T_b}{1+(\lambda \varrho T_b / (p))ln\varepsilon}$$
+
+Where:
+
+$$p= h\frac{c}{\varrho}$$
+
+Ok, don't freak out....let's start with calculating $p$
+
+Here we have:
+
+* $h$ which is Plank's constant $6.626 × 10^-34 Js$
+
+* $c$ which is the velocity of light in a vaccum $2.998 × 10^8 m/sec$
+
+* $\varrho$ which is the Boltzmann constant of $1.38 × 10^-23 J/K$
+
+```{r, cache=TRUE}
+Boltzmann <- 1.38*10e-23
+Plank <- 6.626*10e-34
+c <- 2.998*10e8
+
+p <- Plank*(c/Boltzmann)
+```
+
+Now for the rest of the equation....we have the values for:
+
+* $\lambda$ which is the effective wavelength of our data (10.9 for Landsat 8 band 10)
+
+* $\varepsilon$ emissivity 
+
+* $T_b$ Brightness Temperature
+
+30. Run the equation with our data
+
+```{r, cache=TRUE}
+#define remaining varaibles
+lambda <- 1.09e-5
+#run the LST calculation
+LST <- Brighttemp/(1 +(lambda*Brighttemp/p)*log(emiss))
+# check the values
+LST
+```
+
+1. Are the values very high?... That's because we are in Kevlin not degrees Celcius...let's fix that and plot the map
+
+```{r, cache=TRUE}
+LST <- LST-273.15
+plot(LST)
+```
+
+Nice that's our temperature data sorted.
+
+## Calucating urban area from Landsat data
+
+How about we extract some urban area using another index and then see how our temperature data is related?
+
+We will use the Normalized Difference Built-up Index (NDBI) algorithm for identification of built up regions using the reflective bands: Red, Near-Infrared (NIR) and Mid-Infrared (MIR) originally proposed by Zha et al. (2003).
+
+It is very similar to our earlier NDVI calculation but using different bands...
+
+$$NDBI= \frac{Short-wave Infrared (SWIR)-Near Infrared (NIR)}{Short-wave Infrared (SWIR)+Near Infrared (NIR)}$$
+
+In Landsat 8 data the SWIR is band 6 and the NIR band 5
+
+1. Let's compute this index now...
+
+```{r, cache=TRUE}
+NDBI=((lsatmask$LC08_L1TP_203023_20190513_20190521_01_T1_B6_mask-
+         lsatmask$LC08_L1TP_203023_20190513_20190521_01_T1_B5_mask)/
+        (lsatmask$LC08_L1TP_203023_20190513_20190521_01_T1_B6_mask+
+        lsatmask$LC08_L1TP_203023_20190513_20190521_01_T1_B5_mask))
+```
+
+But do you remember our function? ...Well this is the same calculation we used there just with different raster layers (or bands) so we could reuse it...
+
+```{r, cache=TRUE}
+NDBIfunexample <- NDVIfun(lsatmask$LC08_L1TP_203023_20190513_20190521_01_T1_B6_mask,
+                          lsatmask$LC08_L1TP_203023_20190513_20190521_01_T1_B5_mask)
+```
+
+## Urban area and temperature relationship
+
+1. We could plot the varaibles agaisnt each other but there are a lot of data points
+
+```{r, cache=TRUE}
+
+plot(values(NDBI), values(LST))
+```
+
+This is termed the overplotting problem. So, let's just take a random subset of the same pixels from both raster layers. 
+
+1. To do so we need to again stack our layers
+
+```{r, cache=TRUE}
+# stack the layers
+
+computeddata <- LST%>%
+  stack(.,NDBI)%>%
+  as.data.frame()%>%
+  na.omit()%>%
+  # take a random subset
+  sample_n(., 500)%>%
+  dplyr::rename(Temp="layer.1", NDBI="layer.2")
+
+ # check the output
+plot(computeddata$Temp, computeddata$NDBI)
   
-  #add our polygons, linking to the tables we just made
-  addPolygons(color="white", 
-              weight = 2,
-              opacity = 1,
-              dashArray = "3",
-              popup = popupairbnb,
-              fillOpacity = 0.7,
-              fillColor = ~pal2(`Airbnb count`),
-              group = "Airbnb")%>%
-  
-  addPolygons(fillColor = ~pal2(`Hotel count`), 
-              weight = 2,
-              opacity = 1,
-              color = "white",
-              dashArray = "3",
-              popup = popupairbnb,
-              fillOpacity = 0.7,group = "Hotels")%>%
-  # add a legend
-  addLegend(pal = pal2, values = ~`Hotel count`, group = c("Airbnb","Hotel"), 
-            position ="bottomleft", title = "Accomodation count") %>%
-  # specify layers control
-  addLayersControl(
-    baseGroups = c("OSM (default)", "Toner", "Toner Lite", "CartoDB"),
-    overlayGroups = c("Airbnb", "Hotels"),
-    options = layersControlOptions(collapsed = FALSE)
-  )
-
-# plot the map
-map
 ```
 
-1. Add some text at the start of your ```.Rmd``` you can include titles and subtitle using # followed by a space, a second level subtitle would be ##, and third ###
+1. Let's jazz things up, load some more packages
 
-```{r prac8_titles, warnings=FALSE, message=FALSE, cache=FALSE, eval=FALSE}
-# Title
-## Second sub title
-### Third sub title
+```{r message=FALSE, warning=FALSE, cache=TRUE}
+library(plotly)
+library(htmlwidgets)
 ```
 
-7. Save the file, Knitt it to HTML, this should be default and specified in the header --- enclosed by three dashes.
+1. Transfrom the data to a data.frame to work with `ggplot`, then plot
 
-8. Once knitted you can easily publish the file to Ppubs using the Publish icon either in the viewer pane or the toolbar area (by run)
+```{r, cache=TRUE}
 
-```{r prac8_publish, echo=FALSE, out.width = "200pt", fig.align='center', cache=FALSE}
-knitr::include_graphics('prac8_images/publish.png') 
+heat<-ggplot(computeddata, aes(x = NDBI, y = Temp))+
+  geom_point(alpha=2, colour = "#51A0D5")+
+  labs(x = "Temperature", 
+       y = "Urban index",
+       title = "Manchester urban and temperature relationship")+
+   geom_smooth(method='lm', se=FALSE)+
+  theme_classic()+
+  theme(plot.title = element_text(hjust = 0.5))
+
+# interactive plot
+ggplotly(heat)
 ```
 
-Now how about adding a few design features...i've changed my header section to...
+It's a masterpiece!
 
-```{r prac8_header, eval=FALSE}
----
-title: "publishexample"
-output:
-  html_document:
-    theme: yeti
-    smart: true
-    highlight: textmate
-    toc: true
-    number_sections: true
-    toc_float:
-      collapsed: false
-      smooth_scroll: true
----
+```{r echo=FALSE, out.width = "450pt", fig.align='center', cache=TRUE}
+knitr::include_graphics('allisonhorst_images/ggplot2_masterpiece.png')
 ```
 
-9. Knit and then publish again...you'll notice a few aesthetic changes
 
-10. To learn more about these go explore:
+1. How about plotting the whole dataset rather than a random subset...
 
-* https://bookdown.org/yihui/rmarkdown/html-document.html
-* http://www.datadreaming.org/post/r-markdown-theme-gallery/
-* https://cran.r-project.org/web/packages/prettydoc/vignettes/architect.html
+```{r message=FALSE, warning=FALSE, cache=TRUE}
 
-And for more code chunk control..
+computeddatafull <- LST%>%
+  stack(.,NDBI)%>%
+  as.data.frame()%>%
+  na.omit()%>%
+  # take a random subset
+  dplyr::rename(Temp="layer.1", NDBI="layer.2")
 
-* https://bookdown.org/yihui/rmarkdown/r-code.html
-* https://rmarkdown.rstudio.com/lesson-3.html
+hexbins <- ggplot(computeddatafull, 
+                  aes(x=NDBI, y=Temp)) +
+  geom_hex(bins=100, na.rm=TRUE) +
+  labs(fill = "Count per bin")+
+  geom_smooth(method='lm', se=FALSE, size=0.6)+
+  theme_bw()
 
-### RMarkdown site generator 
+ggplotly(hexbins)
 
-#### Set the file structure
-
-RPubs are useful but what if you wanted to make a full site with different tabs for introduction, methodology, results and recommedations...one way is to use the RMarkdown site generator hosted on GitHub
-
-RMarkdown site generator is useful as it does not require any third-party add ons like blogdown which is reliant on the hugo site generator
-
-To make a site you'll need the following to be within your project:
-
-(a) A configuration file with the filename ```_site.yml```
-
-(b) An ```index.Rmd```
-
-(c) Any other ```.Rmd``` files you want to create into pages on the site
-
-For the site to work you only require (a) and (b)....but that would be a pretty boring site...
-
-11. In your new project add two new RMarkdown files called:
-* ```_site.yml``` 
-* ```index.Rmd``` 
-
-
-```{r prac8_sitegenerator, echo=FALSE, out.width = "500pt", fig.align='center', cache=FALSE}
-knitr::include_graphics('prac8_images/rsitegenerator.png') 
 ```
 
-12. In the ```_site.yml``` remove all code and add the following
+## Statistical summary
 
-```{r prac8_yml, eval=FALSE, message=FALSE, warning=FALSE, cache=FALSE}
-name: "Hello world"
-output_dir: "."
-navbar:
-  title: "My example website"
-  left:
-    - text: "Home"
-      href: index.html
-    - text: "About"
-      href: publishexample.html
+1. To see if our varaibles are related let's run some basic correlation
+
+```{r, cache=TRUE}
+library(rstatix)
+Correlation <- computeddatafull %>%
+  cor_test(Temp, NDBI, use = "complete.obs", method = c("pearson"))
+
+Correlation
 ```
 
-#### Link to GitHub
+Let's walk through the results here...
 
-There are two ways to do this....
+* statistic value (or t, or test statistic), we can work out the critical t value using:
 
-##### GitHub first
-
-This is the 'easy' way as you woould repeat the steps in [Practical 4][Git, GitHub and RMarkdown] by firstly making a new repository on GitHub then loading a new project in RStudio, linking that to GitHub and copying all your files into your new project from the exisiting one. 
-
-##### GitHub last
-
-So if you already have a RStudio project...like we do...we can link this to GitHub but the steps are a bit more invovled and there are several ways to acheive it --- as with most things in R.
-
-13. Make a Git repo in RStudio. Go to Tools > Project Options > Git/SVN and select Git under Version control system and initialize a new repository, then restart RStudio. The Git tab should appear..
-
-14. Next we need to make a new repository on GitHub. Go to GitHub, login and make a new repository. Make sure that it is **empty** with no README.. you should have something similar to this appear:
-
-```{r prac8_newrepo, echo=FALSE, out.width = "800pt", fig.align='center', cache=FALSE}
-knitr::include_graphics('prac8_images/gitnewrepo.png') 
+```{r, cache=TRUE}
+abs(qt(0.05/2, 198268))
 ```
 
-15. Clone the repository by copying the HTTPS 
+Within this formula
 
-```{r prac8_HTTPS, echo=FALSE, out.width = "700pt", fig.align='center', cache=FALSE}
-knitr::include_graphics('prac8_images/HTTPS.png') 
+* 0.05 is the confidence level (95%)
+
+* 2 means a 2 sided test
+
+* 198268 is the degrees of freedom (df), being the number of values we have -2
+
+```{r, cache=TRUE}
+computeddatafull %>%
+  pull(Temp)%>%
+  length()
+
+length(computeddatafull)
 ```
 
-16. Make one local commit. Under the Git tab > Diff > Stage the files > Add a commit message and click commit
+Here, as our t values is > than the critial value we can say that there is a relationship between the datasets. However, we would normally report the p-value...which we can get from..
 
-17. Now we need to connect our local repository to the GitHub one. So Under the Git tab you'll the new brach button (two purple boxes linked to a white box)...
+* p-value: tells us wheather there is a statistically significant correlation between the datasets and if that we can reject the null hypothesis if p<0.05 (there is a 95% chance that the relationship is real).
 
-```{r prac8_addremote, echo=FALSE, out.width = "400pt", fig.align='center', cache=FALSE}
-knitr::include_graphics('prac8_images/addremote.png') 
-```
+* cor: Product moment correlation coefficient
 
-18. Click it > Add Remote. Paste in the URL use the remote name origin and the branch name of master --- which you can get from the GitHub Quick setup screen after creating your repo. Check sync the branch with the remote > click create then select overwrite
+* conf.low and con.high intervals: 95% confident that the population correlation coeffieicent is within this interval
 
-```{r prac8_addremote2, echo=FALSE, out.width = "400pt", fig.align='center', cache=FALSE}
-knitr::include_graphics('prac8_images/addremote2.png') 
-```
+As p<0.05 is shows that are variables are have a statistically significant correlation... so as urban area (assuming the index in representative) per pixel increases so does temperature...therefore we can reject our null hypothesis... but remember that this does not imply causation!! 
 
-19. Push the files to your GitHub and they will appear on your GitHub repo
+If you want more information on statistics in R go and read [YaRrr! A Pirate's Guide to R](https://bookdown.org/ndphillips/YaRrr/), chapter 13 on hypothesis tests.
 
-20. Next we need to actually build the site...there are a few ways to do this...Go to the Git tab you should see the Build tab, if you can't then go to Tools > Project Options > Build Tools and select website under Project build tools. Now click Build Website under the build tab
+## Considerations
 
-21. Alternatively you write the following in the console 
+If you wanted to explore this type of analysis further then you would need to consider the following:
 
-```{r prac8_render_site, eval=FALSE, message=FALSE, warning=FALSE, cache=FALSE}
-rmarkdown::render_site()
-```
+* Other methods for extracting temperature from Landsat data
+* Validation of your temperature layer (e.g. weather station data)
+* The formula used to calculate emissivity --- there are many
+* The use of raw satellite data as opposed to remove the effects of the atmosphere. Within this practical we have only used relative spatial indexes (e.g. NDVI). However, if you were to use alternative methods it might be more appropraite to use surface reflectance data (also provided by USGS). 
 
-If you wanted to just build a page from your site --- say if you have made a rather big site with lots of analysis use:
+## Extension
 
-```{r prac8_rendersite2, eval=FALSE, message=FALSE, warning=FALSE, cache=FALSE}
-rmarkdown::render_site("index.Rmd")
-```
+Already an expert with raster data and R? Here we have just looked at one temperature image and concluded that urban area and temperature are realted, but does that hold true for other time periods?
 
-22. Stage, commit and then push the files to your GitHub. I had some issues staging the ```site_libs``` folder in the Git tab. I fixed it by closing and reloading my R project then clicking the cog symbol (under Git tab) > Shell and typing ```git add .``` If you get an error message about the index file being locked... go and delete it and try again. If you can't delete restart the machine and try again. You will find it in the .git folder within your project. Once ```git add .``` runs you should see all the files staged, be able to commit and then push the changes to GitHub   
+If you found this practical straightforward source some Landsat data for an area of interest and create some R code to explore the temporal relationship between urban area and temperature. 
 
-Help:
+...Or run the analysis with different data and methods.
 
-* https://stackoverflow.com/questions/5834014/lf-will-be-replaced-by-crlf-in-git-what-is-that-and-is-it-important
-* https://stackoverflow.com/questions/9282632/git-index-lock-file-exists-when-i-try-to-commit-but-cannot-delete-the-file
+Data:
 
-23. So your 'built' website is up on GitHub, but you need to tell it where to build the site from...Go to your GitHub repo > Settings, scroll down to GitHub pages and select the Source as the master branch
+MODIS daily LST: https://modis.gsfc.nasa.gov/data/dataprod/mod11.php
 
-```{r prac8_githubpages, echo=FALSE, out.width = "800pt", fig.align='center', cache=FALSE}
-knitr::include_graphics('prac8_images/GitHubpages.png') 
-```
+MODIS imagery: https://modis.gsfc.nasa.gov/
 
-24. Click on the link that is provided where your site is published and you should have a website with two tabs. Here is what mine looks like:
+Methods:
 
-```{r prac8_markdownsite, echo=FALSE, out.width = "800pt", fig.align='center', cache=FALSE}
-knitr::include_graphics('prac8_images/Markdownsite.png') 
-```
+Supervised or unsupervised landcover classificaiton: https://rspatial.org/rs/5-supclassification.html#
 
-For more information on hosting your code from RStudio on GitHub check out the book [Happy Git and GitHub for the useR](https://happygitwithr.com/usage-intro.html)
+Here you could classify an image into several landcover classes and explore their relationship with temperature
 
-My RMarkdown site can be found [at this GitHub pages link](https://andrewmaclachlan.github.io/PUBLISHEXAMPLE/), but note that i've added a Shiny tab...which is covered in an optional extra.
+## References
 
-At this stage, it's important to highlight the need for sensible representations of data and analysis. This especially true with the advent of GitHub and journals publishing data and code meaning it is almost impossible to present false representations of analysis. 
+Thanks to CASA gradaute student Matt Ng for providing the outline to the start of this practical
 
-### Warning
+Avdan, U. and Jovanovska, G., 2016. Algorithm for automated mapping of land surface temperature using LANDSAT 8 satellite data. Journal of Sensors, 2016.
 
-Whilst it might seem tempting to use the most advanced interactive maps for your the assignments within this module and course it is important to think and reflect upon the appropriateness of the mapped output. You should ask yourself the following questions:
+Guha, S., Govil, H., Dey, A. and Gill, N., 2018. Analytical study of land surface temperature with NDVI and NDBI using Landsat 8 OLI and TIRS data in Florence and Naples city, Italy. European Journal of Remote Sensing, 51(1), pp.667-678.
 
-* What am i trying to show with this map
-* Will interative elements aid this in anyway or just confuse users
-* Is there a more concise way to display this data
-* Do i need all this information --- is it all relevant to the message you are trying to portray with the map
+Weng, Q., Lu, D. and Schubring, J., 2004. Estimation of land surface temperature–vegetation abundance relationship for urban heat island studies. Remote sensing of Environment, 89(4), pp.467-483.
 
-In all these examples i've used the same data (Hotels and Airbnbs in London boroughs), however as i'm only showing two datasets could this be represeted without all this complexity?--- in this case the answer really depends on the audience you are tyring to get something across to. For example, for use in an academic journal, as there are only two data sets being mapped a static map like we produced in the [Map making] practical would be more appropraite. However an interative map (similar to what we have produced) might be more useful for incorpation on a website...
+Young, N.E., Anderson, R.S., Chignell, S.M., Vorster, A.G., Lawrence, R. and Evangelista, P.H., 2017. A survival guide to Landsat preprocessing. Ecology, 98(4), pp.920-932.
 
-The take home message from this is to critically think about the best way to map and disseminate your data/results.
+Zha, Y., Gao, J. and Ni, S., 2003. Use of normalized difference built-up index in automatically mapping urban areas from TM imagery. International journal of remote sensing, 24(3), pp.583-594.
 
-### Advanced online publishing
+## Remote sensing background (optional)
 
-Already familiar with RPubs, RMarkdown site generator or even Shiny? Try and and produce an online document using either: bookdown, flexdashboard, blogdown or shinydashboard. These are listed in order of difficutly from my experience. 
+Landsat sensors capture reflected solar energy, convert these data to radiance, then rescale this data into a Digital Number (DN), the latter representing the intensity of the electromagnetic radiation per pixel. The range of possible DN values depends on the sensor radiometric resolution. For example Landsat Thematic Mapper 5 (TM) measures between 0 and 255 (termed 8 bit), whilst Landsat 8 OLI measures between 0 and 65536 (termed 12 bit). These DN values can then be converted into Top of Atmosphere (TOA) radiance and TOA reflectance [through available equations and known constants](https://landsat.usgs.gov/landsat-8-l8-data-users-handbook-section-5¬) that are preloaded into certain software. The former is how much light the instrument sees in meaningful units whilst the latter removes the effects of the light source. However, TOA reflectance is still influenced by atmospheric effects. These atmospheric effects can be removed through atmospheric correction achievable in software such as ENVI and QGIS to give surface reflectance representing a ratio of the amount of light leaving a target to the amount of light striking it. 
 
-**Hint** this document is made using bookdown, so checkout my GitHub for how i set it up
+We must also consider the spectral resolution of satellite imagery, Landsat 8 OLI has 11 spectral bands and as a result is a multi-spectral sensor. As humans we see in the visible part of the electromagnetic spectrum (red-green-blue) --- this would be three bands of satellite imagery --- however satellites can take advantage of the rest of the spectrum. Each band of Landsat measures in a certain part of the spectrum to produce a DN value. We can then combine these values to produce ‘colour composites’. So a ‘true’ colour composite is where red, green and blue Landsat bands are displayed (the visible spectrum). Based on the differing DN values obtained, we can pick out the unique signatures (values of all spectral bands) of each land cover type, termed spectral signature.
 
-<div class="col2">
-
-* [Bookdown](https://bookdown.org/yihui/bookdown/), [minimal bookdown example](https://github.com/rstudio/bookdown-demo)
-
-If you want to extend bookdown or automate the process of building, have a look at [continuous integration using github actions](https://www.hvitfeldt.me/blog/bookdown-netlify-github-actions/)
-
-* [Flexdashboard](https://rmarkdown.rstudio.com/flexdashboard/)
-
-* [Blogdown](https://bookdown.org/yihui/blogdown/)
-
-* [Interactive Shiny dashboards](https://rstudio.github.io/shinydashboard/get_started.html)
-</div><br/>
-
+For more information read [Young et al. (2017) A survival guide to Landsat preprocessing](https://esajournals.onlinelibrary.wiley.com/doi/pdf/10.1002/ecy.1730)
 
 ## Feedback
 
 Was anything that we explained unclear this week or was something really clear...let us know using the [feedback form](https://forms.gle/w2GUDYc7tSavGy7r6). It's anonymous and we'll use the responses to clear any issues up in the future / adapt the material. 
+
+

@@ -6,12 +6,10 @@ By the end of this practical you should be able to:
 
 1. Load, manipulate and interpret raster layers
 1. Observe and critique different descriptive data manipulation methods and outputs
-1. Execute interpolation of points to a raster layer
-1. Construct a methodology for comparing raster 
 
 ## Homework
 
-Outside of our schedulded sessions you should be doing around 12 hours of extra study per week. Feel free to follow your own GIS interests, but good places to start include the following:
+Outside of our scheduled sessions you should be doing around 12 hours of extra study per week. Feel free to follow your own GIS interests, but good places to start include the following:
 
 ::: {.infobox .assignment data-latex="{note}"}
 **Assignment**
@@ -30,8 +28,6 @@ This week you need to
 This week: 
 
 * [Chapter 5 "Descriptive statistics"](https://learningstatisticswithr.com/book/descriptives.html) from Learning statistics with R: A tutorial for psychology students and other beginners by Navarro (2019)
-
-* [Appendix "Interpolation in R"](https://mgimond.github.io/Spatial/interpolation-in-r.html) from Intro to GIS and Spatial Analysis by Gimond (2019).
 
 **Watching**
 
@@ -52,7 +48,7 @@ Some of these practicals are long, take regular breaks and have a listen to some
 
 ## Introduction 
 
-This practical is composed of four parts. To start with we're going to explore projection systems in more detail. In the second part we will load some global raster data into R. In the third part we extract data points (cities and towns) from this data and generate some descriptive statistics and histograms. In the final section we explore interpolation using point data. 
+This practical is composed of three parts. To start with we're going to explore projection systems in more detail. In the second part we will load some global raster data into R. In the final part we extract data points (cities and towns) from this data and generate some descriptive statistics and histograms. 
 
 ## Part 1 projections
 
@@ -95,7 +91,6 @@ When you do analysis on multiple datasets make sure they are all use the same Co
 
 If it's local (e.g. city of country analysis) then use a local projected CRS where possible.
 :::
-
 
 ### Changing projections
 
@@ -207,7 +202,7 @@ This is the best resources i've come across explaining coordiate reference syste
 
 * [ESRI's coordinate systems and projections for beginners](https://communityhub.esriuk.com/geoxchange/2012/3/26/coordinate-systems-and-projections-for-beginners.html)
 
-* [The story of Mercator!](https://mercator.tass.com/mercator-heritage)
+* [The story of Mercator](https://mercator.tass.com/mercator-heritage)
 
 
 ### WorldClim data 
@@ -351,7 +346,7 @@ Aucitytemp2 <- AUcitytemp %>%
 
 ## Part 2 descriptive statistics
 
-Descriptive (or summary) statistics provide a summary of our data, often forming the base of quantitiatve analysis leading to inferential statistics which we use to make infereces about our data (e.g.  judegements of the probability that the observed difference between two datasets is not by chance) 
+Descriptive (or summary) statistics provide a summary of our data, often forming the base of quantitative analysis leading to inferential statistics which we use to make inferences about our data (e.g. judegements of the probability that the observed difference between two data sets is not by chance) 
 
 ```{r echo=FALSE, out.width = "450pt", fig.align='center', cache=FALSE}
 knitr::include_graphics('allisonhorst_images/summary_statistics.png')
@@ -476,7 +471,7 @@ You could also run this using the original worldclimtemp raster, however, it may
 
 Both our Austemp and exactAus are raster bricks. A brick is similar to a stack except it is now stored as one file instead of a collection.
 
-1. Let's re-compute our histogram for Australia in March. We could just use hist like we have done before. We can either subset using the location (we know March is thrid in the RasterBrick).
+1. Let's re-compute our histogram for Australia in March. We could just use hist like we have done before. We can either subset using the location (we know March is third in the RasterBrick).
 
 ```{r, cache=FALSE}
 #subset using the known location of the raster
@@ -523,7 +518,7 @@ gghist + geom_vline(aes(xintercept=mean(Mar,
 
 How about plotting multiple months of temperature data on the same histogram 
 
-1. As we did in practical 2, we need to put our variaible (months) into a one coloumn using ```pivot_longer()```. Here, we are saying select columns 1-12 (all the months) and place them in a new column called `Month` and their values in another called `Temp`
+1. As we did in practical 2, we need to put our variable (months) into a one column using ```pivot_longer()```. Here, we are saying select columns 1-12 (all the months) and place them in a new column called `Month` and their values in another called `Temp`
 
 ```{r, cache=FALSE}
 squishdata<-exactAusdf%>%
@@ -603,7 +598,7 @@ Does this seem right to you? Well...yes. It shows that the distribution of tempe
 
 How about an interactive histogram using ```plotly```...
 
-1. See if you can understand what is going on in the code below. Run each line seperately.
+1. See if you can understand what is going on in the code below. Run each line separately.
 
 ```{r, message=FALSE, warning=FALSE, cache=FALSE}
 library(plotly)
@@ -683,133 +678,13 @@ meanwholeyear=squishdata %>%
   
 ```
 
-## Part 3 interpolation 
-
-What if you had a selection of points over a spatial area but wanted to generate a complete raster. For this example, we will take our sample points (Australian cities) and estimate data between them using interpolation.
-
-1. If you look at our samples and AUcitytemp data the lat and lon is only in the former. We need to have this with our temperature data so let's combine it using ```cbind```
-
-```{r, cache=FALSE}
-samplestemp<-AUcitytemp%>%
-  cbind(.,samples)
-```
-
-1. Now we need to tell R that our points are spatial points using `st_as_sf()` from the `sf` package
-```{r, message=FALSE, cache=FALSE}
-# convert samples temp to a data frame 
-samplestemp<-samplestemp%>%
-  st_as_sf(.,coords = c("lon", "lat"), 
-           crs =4326, 
-           agr = "constant")
-```
-
-1. You'll notice that here i've just nicked the CRS from our worldclimtemp. In general it's good practice to avoid using *static* or *hard coding* references. 
-
-1. Right...plot the Australian geometry outline then add our spatial data points ontop...
-
-```{r, cache=FALSE}
-plot(Ausoutline$geom)
-plot(st_geometry(samplestemp), add=TRUE)
-```
-
-1. Let's interpolate using Inverse Distance Weighting, or IDW as it's more commonly known. IDW is a deterministic method for multivaraite interpolation that estaimtes values for a surface using a weighted average of the provided data. The values closer to the point being predicted have more weight than those further away. The rate at which distance from the provided point imapcts the predcted point is controlled by the power of ```p```. If ```p=0``` then there is no decrease with distance.
-
-For more infomation see: https://pro.arcgis.com/en/pro-app/help/analysis/geostatistical-analyst/how-inverse-distance-weighted-interpolation-works.htm
-
-36. To get a meaningful result we could run some more calucaltions on let's project our data to [GDA94 (EPSG:3112)](https://epsg.io/3112)
-
-```{r message=FALSE, cache=FALSE}
-samplestemp <- samplestemp %>%
-  st_transform(., 3112)
-
-Ausoutline <- Ausoutline %>%
-  st_transform(., 3112)
-```
-
-Here, we need to convert our `SF` objects to `SP`, the main reason for doing this is that i will make a grid to store my interpolation and having a remote sensing background i wanted to specify the pixel size. The equivalent function if `SF` won't let you specify pixel size or there is no easy and straightforward way to do it (at least to my knowledge).
-
-
-```{r message=FALSE, cache=FALSE}
-library(sp)
-
-samplestempSP <- samplestemp %>%
-  as(., 'Spatial')
-
-AusoutlineSP <- Ausoutline %>%
-  as(., 'Spatial')
-
-```
-
-
-1. Next, create an empty grid where cellsize is the spatial resolution, cellsize will overwrite the number of pixels we specified (n). Here as we've used a projected CRS i've put a high cellsize (in metres) so 200km by 200km cells. You can use a smaller number if you wish but it will take much longer to process.
-
-```{r, message=FALSE, warning=FALSE, cache=FALSE}
-emptygrd <- as.data.frame(spsample(AusoutlineSP, n=1000, type="regular", cellsize=200000))
-
-names(emptygrd) <- c("X", "Y")
-
-coordinates(emptygrd) <- c("X", "Y")
-
-gridded(emptygrd) <- TRUE  # Create SpatialPixel object
-fullgrid(emptygrd) <- TRUE  # Create SpatialGrid object
-
-# Add the projection to the grid
-proj4string(samplestempSP) <- proj4string(samplestempSP) 
-#temp fix see: https://mgimond.github.io/Spatial/interpolation-in-r.html
-proj4string(emptygrd) <- proj4string(samplestempSP)
-
-library(gstat)
-# Interpolate the grid cells using a power value of 2 
-interpolate <- gstat::idw(Jan ~ 1, samplestempSP, newdata=emptygrd, idp=2.0)
-
-# Convert output to raster object 
-ras <- raster(interpolate)
-# Clip the raster to Australia outline
-rasmask <- mask(ras, Ausoutline)
-# Plot the raster
-plot(rasmask)
-```
-
-```{r}
-library(gstat)
-detach("package:gstat", unload=TRUE)
-```
-
-IDW is just one method for interpolating data, there are many more, if you are interested check out: https://mgimond.github.io/Spatial/interpolation-in-r.html
-
-## Auto data download
-
-In this practical I've shown you how to source the data online, download it and load it into R. However for both WorldClim and GADM we can do this straight from R using the ```getData``` function....i'm sorry for making you do it the long way, but it's good to do things manually to see how they work.
-
-**WARNING**, this may take some time. I've changed the resolution to 10 degrees, but I'd advise not running this in the practical session.
-
-```{r, eval=FALSE, cache=FALSE}
-#WorldClim data has a scale factor of 10 when using getData!
-tmean_auto <- getData("worldclim", res=10, var="tmean")
-tmean_auto <- tmean_auto/10
-```
-
-Now for GADM
-
-```{r, eval=FALSE, cache=FALSE}
-Aus_auto <- getData('GADM', country="AUS", level=0)
-```
-
-Much more convenient right? 
-
 ## Advanced analysis
 
-Are you already comptent with raster analysis and R, then have a go at completing this task in the practical session. 
+Are you already competent with raster analysis and R, then have a go at completing this task in the practical session. 
 
-Within the practical we've loaded one and created one raster layer. Undertake some comparative analysis to detemrine spatial (and temporal if appropraite) differences between the rasters here and any others you may wish to create (e.g. from other interpolation methods). Try to identify where the varaitions are and explain why they are occuring. 
+1. Select a different city and create a histogram for average summer and average winter temperatures 
+1. Summarise the data with a box or violin plot, [data-to-viz](https://www.data-to-viz.com/) will help.
 
-You could assume that one raster is the 'gold standard' meaning it's beleived to be fully correct and compare others to it.
-
-... Or you could go further than this and obtain weather station temperature data (or any other variable) for multiple sites, interpolate based on 50% of the sites and use the remaining sites to assess the accuracy of your selected method / the WorldClim data.
-
-Free weather station data can be found here: https://rp5.ru/Weather_in_the_world
-
-Have a go and discuss with your fellow students / members of the teaching team during the practical sessions or on slack.
 
 ## Feedback
 

@@ -28,6 +28,17 @@ Course for the academic year 2019 - 2020: https://andrewmaclachlan.github.io/CAS
 
 Provided below are brief descriptions of the main annual updates to the practical material.
 
+Improvements made 2021 - 2022:
+
+1. Removed more non geographic content such as dashboards
+1. Removed:
+  * Practical 8 on online mapping + more descriptive stats
+  * Elements of GitHub practical 
+  * Instructions on citing papers in RMarkdown - this is now on the dissertation template. 
+  * Interpolation from the first raster practical 
+1. Added more info on spatial weights and deciding between Spatial Error Models (SEMs) and Spatially Lagged Models (SLMs)
+1. Markscheme revision for an exam not assignment.
+
 Improvements made 2020 - 2021:
 
 1. All of ArcGIS content removed and replaced with R and QGIS (open source)

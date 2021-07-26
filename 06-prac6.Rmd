@@ -1,6 +1,6 @@
 # (PART) GIS analysis {-}
 
-# Analysing spatial patterns
+# Detecting spatial patterns
 
 ## Learning outcomes
 
@@ -104,8 +104,6 @@ BluePlaques <- st_read(here::here("prac6_data",
                                   "open-plaques-london-2018-04-08.geojson")) %>%
   st_transform(.,27700)
 summary(BluePlaques)
-
-
 
 #plot the blue plaques in the city
 tmap_mode("view")
@@ -444,7 +442,7 @@ BluePlaquesSubPoints<- BluePlaquesSubPoints %>%
   mutate(dbcluster=db$cluster)
 ```
 
-Next we are going to create some convex hull polygons to wrap around the points in our clusters. Use the `ddply()` function in the ```plyr``` package to get the convex hull coordinates from the cluster groups in our dataframe
+Next we are going to create some convex hull polygons to wrap around the points in our clusters.
 
 ```{r, cache=TRUE}
 chulls <- BluePlaquesSubPoints %>%
@@ -506,7 +504,8 @@ basemap_bng <- openproj(basemap, projection="+init=epsg:27700")
 Now we can plot our fancy map with the clusters on...
 
 ```{r, cache=TRUE}
-autoplot(basemap_bng) + 
+#autoplot(basemap_bng) sometimes works
+autoplot.OpenStreetMap(basemap_bng)+ 
   geom_point(data=BluePlaquesSubPoints, 
              aes(coords.x1,coords.x2, 
                  colour=dbcluster, 
@@ -517,8 +516,6 @@ autoplot(basemap_bng) +
                    fill=dbcluster), 
                alpha = 0.5)  
 
- # if error with autoplot try
- # autoplot.OpenStreetMap(basemap_bng) 
 ```
 
 ## Point pattern analysis summary
@@ -536,6 +533,8 @@ Before we get any further, let's get some ward boundaries read in to R --- downl
 
 ```{r, cache=TRUE}
 library(here)
+library(janitor)
+library(dplyr)
 #read the ward data in
 LondonWards <- st_read(here::here("prac6_data", "LondonWards.shp"))
 
@@ -552,8 +551,9 @@ WardData <- read_csv("https://data.london.gov.uk/download/ward-profiles-and-atla
 LondonWardsMerged <- LondonWardsMerged %>% 
   left_join(WardData, 
             by = c("GSS_CODE" = "new_code"))%>%
-  distinct(GSS_CODE, ward_name, average_gcse_capped_point_scores_2014)
-
+  dplyr::distinct(GSS_CODE, .keep_all = T)%>%
+  dplyr::select(GSS_CODE, ward_name, average_gcse_capped_point_scores_2014)
+  
 ```
 
 It's probably projected correctly, but in case it isn't give it a projection using the ```st_crs()``` function in the ```sf``` package
@@ -645,31 +645,74 @@ plot(coordsW,axes=TRUE)
 
 ```
 
-Now we need to generate a spatial weights matrix (remember from the lecture). We'll start with a simple binary matrix of queen's case neighbours (otherwise known as Contiguity edges corners). Thie method means that polygons with a shared  edge or a corner will be included in computations for the target polygon...
+Now we need to generate a spatial weights matrix (remember from the lecture). We'll start with a simple binary matrix of queen's case neighbours (otherwise known as Contiguity edges corners). This method means that polygons with a shared  edge or a corner will be included in computations for the target polygon...
+
+**A note on spatial weight matrices**
+
+If they features share a boundary they are **contiguous**, this can also be classed as only common boundaries --- a **rook** (like chess a rook can move forwards or side wards) or any point in common (e.g. corners / other boundaries) --- a **queen** (like chess a queen can move forwards, backwards or on a diagonal).
+
+**Alternatively** instead of using contiguous relationships you can use **distance** based relationships. This is frequently done with k nearest neighbours in which k is set to the closest observations. e.g. K=3 means the three closest observations. 
+
+In the first instance we must create a neighbours list --- which is a list of all the neighbours. To do so we will use `poly2nb()` with the argument `queen=T` saying we want a to use Queens case. Let's see a summary of the output
 
 ```{r message=FALSE, warning=FALSE, cache=TRUE}
 #create a neighbours list
-
 LWard_nb <- points_sf_joined %>%
   poly2nb(., queen=T)
 
+```
+
+The output is a neighbour list object hence why i've called the object `LWard_nb`. We can get some summary info and plot the matrix.
+
+```{r message=FALSE, warning=FALSE, cache=TRUE}
+summary(LWard_nb)
+```
+Here it is telling us that the average number of neighbours is 5.88. Now let's plot the neighbours.
+
+```{r message=FALSE, warning=FALSE, cache=TRUE}
 #plot them
 plot(LWard_nb, st_geometry(coordsW), col="red")
 #add a map underneath
 plot(points_sf_joined$geometry, add=T)
-
-#create a spatial weights object from these weights
-Lward.lw <- LWard_nb %>%
-  nb2listw(., style="C")
-
-head(Lward.lw$neighbours)
 ```
+
+From the weights list we must now make a spatial weight matrix. This makes a matrix the size of the number of neighbourhoods with values indicating if the elements in the rows are a neighbour or not. The style of weight is especially important here:
+
+* B is the basic binary coding (1/0)
+* W is **row** standardised (sums over all links to n)
+* C is **globally** standardised (sums over all links to n)
+* U is equal to C divided by the number of neighbours (sums over all links to unity)
+* S is the variance-stabilizing coding scheme proposed by Tiefelsdorf et al. 1999, p. 167-168 (sums over all links to n).
+
+To understand this further let's start with binary. 
+
+```{r message=FALSE, warning=FALSE, cache=TRUE}
+#create a spatial weights matrix from these weights
+Lward.lw <- LWard_nb %>%
+  nb2mat(., style="B")
+
+sum(Lward.lw)
+```
+Summing the binary (1/0) shows that we have 3680 neighbours. Now if we were to do **global** standardisation this would mean dividing our 625 wards by the total number of neighbours meaning each spatial weight has a value of 0.169.
+
+Alternatively we can do **row** standardisation where 1 is divided by the sum of the number of neighbours in each row. For example, row 1 here sums to 6, meaning each weight would be 0.166 in row 1 only.
+
+```{r message=FALSE, warning=FALSE, cache=TRUE}
+sum(Lward.lw[,1])
+```
+Standardisation permits comparable spatial parameters.
 
 ### Spatial autocorrelation
 
-Now we have defined our \(W_{ij}\) matrix, we can calculate the Moran's I and other associated statistics
+Now we have defined our \(W_{ij}\) matrix, we can calculate the Moran's I and other associated statistics. However, Moran's I requires a spatial weight **list** type object as opposed to **matrix**, this is simply...
+
+```{r message=FALSE, warning=FALSE, cache=TRUE}
+Lward.lw <- LWard_nb %>%
+  nb2listw(., style="C")
+```
 
 Moran's I test tells us whether we have clustered values (close to 1) or dispersed values (close to -1), we will calculate for the densities rather than raw values
+
 ```{r, cache=TRUE}
 I_LWard_Global_Density <- points_sf_joined %>%
   pull(density) %>%
@@ -679,7 +722,7 @@ I_LWard_Global_Density <- points_sf_joined %>%
 I_LWard_Global_Density
 ```
 
-Geary's C as well..? This tells us whether similar values or dissimilar values are clusering
+Geary's C as well..? This tells us whether similar values or dissimilar values are clustering
 
 ```{r, cache=TRUE}
 C_LWard_Global_Density <- 
