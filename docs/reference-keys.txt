@@ -84,7 +84,7 @@ attribute-data
 simple-mapping
 tidying-data
 feedback-1
-rasters-descriptive-statistics-and-interpolation
+descriptive-statistics
 learning-outcomes-2
 homework-2
 recommended-listening-2

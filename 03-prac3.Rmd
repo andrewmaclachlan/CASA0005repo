@@ -1,4 +1,4 @@
-# Rasters, descriptive statistics and interpolation
+# Descriptive statistics
 
 ## Learning outcomes
 
@@ -194,9 +194,9 @@ AusoutlineSF <- AusoutlineSP %>%
 
 ```
 
-If you are still a bit confused by coordiate reference systems then **stop** and take some time to have a look at the resources listed here. It is very important to understand projection systems.
+If you are still a bit confused by coordinate reference systems then **stop** and take some time to have a look at the resources listed here. It is very important to understand projection systems.
 
-This is the best resources i've come across explaining coordiate reference systems are:
+This is the best resources I've come across explaining coordinate reference systems are:
 
 * [I hate coordinate systems](https://ihatecoordinatesystems.com/#mental-model)
 

@@ -48,11 +48,15 @@ The code within this pracical book is available under the [MIT license](https://
 
 ## Version {-}
 
-This is version 2.0 of the practical book
+This is version 3.0 of the practical book
 
 Previous versions can be found at the following links.
 
+2020-2021 academic year: https://andrewmaclachlan.github.io/CASA0005repo_20202021/
+
 2019-2020 academic year: https://andrewmaclachlan.github.io/CASA0005repo_20192020/
+
+A summary of changes is provided on the current README.md file: https://github.com/andrewmaclachlan/CASA0005repo
 
 ## Packages {-}
 
