@@ -919,7 +919,7 @@ Usually you will run OLS regression first then look for spatial autocorrelation 
 
 Once at this stage you need to make a decision about the model:
 
-* Is it a global model (error / lag) or a local model (G
+* Is it a global model (error / lag) or a local model (GWR)?
 * Can a single model (error/lag) be fitted to the study area?
 * Is the spatial autocorrelation a problem (error) or showing local trends (GWR)?
 

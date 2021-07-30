@@ -17,15 +17,15 @@ Outside of our schedulded sessions you should be doing around 12 hours of extra 
 
 ::: {.infobox .assignment data-latex="{note}"}
 **Assignment**
-Each week we will provide some questions to test your knowledge, these should be used to guide your study for the module and final exam.
+Each week we will provide a short task to test your knowledge, these should be used to guide your study for the final exam.
 
-By the end of this week you should be able to answer the following questions:
+The task is to join some non spatial data to some spatial data.
 
-* Provide an example of raster and vector data and describe why the data are provided in that format.
+* Go to the [New Zealand spatial data portal](https://datafinder.stats.govt.nz/) and download the file Territorial Authority 2018 (generalised), [these are city or district councils](https://www.localcouncils.govt.nz/lgip.nsf/wpg_url/About-Local-Government-Local-Government-In-New-Zealand-Councils-roles-and-functions#TerritorialAuthorities(District%20and%20City%20Councils). 
 
-* Describe the benefits of QGIS and R.
+* Go to the [Stats NZ website](https://www.stats.govt.nz/information-releases/statistical-area-1-dataset-for-2018-census-updated-march-2020) and download the Statistical area 1 dataset for 2018 for the whole of New Zealand. 
 
-* You have been given a `.csv` file containing some data and you also have a `.shp`. How do you join the non-spatial data to the spatial data. 
+* Unzip the downloaded census file and open  2018-SA1-dataset-individual-part-3a-total-NZ_updated_16-7-20, you will see a tab for Territorial authority. Join the 2018 paid employee field to the spatial data and make a basic map. Hint, you may need to make a new `.csv` file from the data.
 
 :::
 
