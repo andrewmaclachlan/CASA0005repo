@@ -16,6 +16,14 @@ Outside of our scheduled sessions you should be doing around 12 hours of extra s
 ::: {.infobox .assignment data-latex="{note}"}
 **Exam**
 
+Each week we will provide a short task to test your knowledge, these should be used to guide your study for the final exam.
+
+The task this week is to:
+
+* Fork the repository below you from the spreadsheet last week
+* Run the code, editing it if required
+* Create a map (you can use additional data if you wish)
+* submit a pull request to the original person
 
 :::
 
@@ -247,11 +255,11 @@ Make sure you save your model from the top tool bar either as a standalone model
 
 ## R
 
-Your R and geogprahical are certainly improving by now, so i'm just going to provide you with the R code i used to do this analysis...
+Your R and geographical skills are certainly improving by now, so i'm just going to provide you with the R code i used to do this analysis...
 
 ### Static map
 
-```{r, warning=FALSE, message=FALSE, out.width = "800pt", cache=FALSE}
+```{r message=FALSE, warning=FALSE, cache=FALSE, out.width="800pt"}
 ##Load all our data
 library(sf)
 library(tmap)
@@ -446,6 +454,7 @@ library(grid)
 main
 print(inset, vp = viewport(0.86, 0.29, width = 0.5, height = 0.55))
 ```
+
 ### Export
 
 So how do we output our map then...

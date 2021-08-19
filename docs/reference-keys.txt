@@ -96,14 +96,13 @@ proj4
 epsg
 reprojecting-your-spatial-data
 worldclim-data
-worldclim-data-loading-efficiently
-location-data-from-a-raster
+data-loading
+raster-location
 part-2-descriptive-statistics
 data-preparation
 histogram
 using-more-data
 histogram-with-ggplot
-advanced-analysis
 feedback-2
 git-github-and-rmarkdown
 learning-outcomes-3
@@ -161,6 +160,7 @@ graphical-modeler
 r-2
 static-map
 inset-map
+export
 basic-interactive-map
 advanced-interactive-map
 bad-maps
@@ -188,7 +188,6 @@ data-manipulation
 spatial-autocorrelation
 mapping-outputs
 other-variables
-extension
 feedback-5
 explaining-spatial-patterns
 learning-objectives
@@ -255,7 +254,6 @@ calucating-urban-area-from-landsat-data
 urban-area-and-temperature-relationship
 statistical-summary
 considerations
-extension-1
 references
 remote-sensing-background-optional
 feedback-7

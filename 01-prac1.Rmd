@@ -17,6 +17,7 @@ Outside of our schedulded sessions you should be doing around 12 hours of extra 
 
 ::: {.infobox .assignment data-latex="{note}"}
 **Exam**
+
 Each week we will provide a short task to test your knowledge, these should be used to guide your study for the final exam.
 
 The task is to join some non spatial data to some spatial data.
@@ -509,7 +510,7 @@ plot(shape)
 
 That plots everything in the shapefile (all the attitbues) if you just wanted the geometry (outline of the shape) you could use...
 
-```{r}
+```{r, message=FALSE}
 library(sf)
 shape %>% 
   st_geometry() %>%
@@ -520,7 +521,7 @@ From what we did in QGIS this should look familiar.
 
 We now need to load our `.csv` file:
 
-```{r, cache=TRUE, warnings=FALSE, messages=FALSE}
+```{r message=TRUE, warning=FALSE, cache=TRUE}
 library(tidyverse)
 #this needs to be your file path again
 mycsv <-  read_csv("C:/Users/Andy/OneDrive - University College London/Teaching/CASA0005/2020_2021/CASA0005repo/Prac1_data/fly_tipping_borough_edit.csv")  
@@ -568,7 +569,7 @@ Now, let's make a quick thematic map (or a qtm) using the package `tmap`. I've m
 knitr::include_graphics('prac1_images/colname.png') 
 ```
 
-```{r cache=TRUE}
+```{r cache=TRUE, message=FALSE}
 library(tmap)
 tmap_mode("plot")
 # change the fill to your column name if different
@@ -580,7 +581,7 @@ shape %>%
 
 Finally write shape to a new GeoPackage (`.gpkg`) giving it the layer name of your choice:
 
-```{r cache=TRUE}
+```{r cache=TRUE, message=FALSE}
 shape %>%
   st_write(.,"C:/Users/Andy/OneDrive - University College London/Teaching/CASA0005/2020_2021/CASA0005repo/Prac1_data/Rwk1.gpkg",
            "london_boroughs_fly_tipping",

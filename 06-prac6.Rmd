@@ -13,12 +13,28 @@ By the end of this practical you should be able to:
 
 ## Homework 
 
-Outside of our schedulded sessions you should be doing around 12 hours of extra study per week. Feel free to follow your own GIS interests, but good places to start include the following:
+Outside of our scheduled sessions you should be doing around 12 hours of extra study per week. Feel free to follow your own GIS interests, but good places to start include the following:
 
 ::: {.infobox .assignment data-latex="{note}"}
-**Assignment**
+**Exam**
 
-From weeks 6-9, learn and practice analysis from the course and identify appropriate techniques (from wider research) that might be applicable/relevant to your data. Conduct an extensive methodological review – this could include analysis from within academic literature and/or government departments (or any reputable source).
+Each week we will provide a short task to test your knowledge, these should be used to guide your study for the final exam.
+
+For the task this week we want to understand instances of drunken anti-social behaviour in Brighton through the following questions:
+
+* What could a DBSCAN, Moran’s I analysis of pub locations tell us about where instances of anti-social behaviour **might** occur? 
+* What limitations might there be in just looking at categorical point data? 
+* What other information might we need to carry out a better analysis? 
+* What are the limitations of spatial pattern analysis? 
+
+**Data**
+
+* [Open Street Map POI data](http://slipo.eu/?p=1551)
+* [Police data](https://data.police.uk/data/), Brighton is within the Sussex Police force
+* [LSOA shapefile](https://data-communities.opendata.arcgis.com/datasets/6bced6c6f81448cf9692ed3f472b11ce_0/explore?location=50.844392%2C-0.105705%2C13.82)
+
+**Hint** the question is just asking what can pub locations tell us.
+
 :::
 
 ::: {.infobox .note data-latex="{note}"}
@@ -28,7 +44,9 @@ This week:
 
 * [Chapter 11 "Point Pattern Analysis"](https://mgimond.github.io/Spatial/point-pattern-analysis.html) and [Chapter 13 "Spatial Autocorrelation"](https://mgimond.github.io/Spatial/spatial-autocorrelation.html) from Intro to GIS and Spatial Analysis by Gimond (2019).
 
-* [Chapter 9 "Hypothesis testing"](https://moderndive.com/9-hypothesis-testing.html) from Modern Dive by Ismay and Kim (2019) if you have not already done so.
+* [Chapter 9 "Hypothesis testing"](https://moderndive.com/9-hypothesis-testing.html) from Modern Dive by Ismay and Kim (2019).
+
+* [Using OpenStreetMap point-of-interest data to model urban change—A feasibility study](https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0212606) by Zhang and Pfoser (2019).
 
 Remember this is just a starting point, explore the [reading list](https://rl.talis.com/3/ucl/lists/139FBAF8-DACD-60FB-8BDC-E9C9E09BA885.html?lang=en-GB&login=1), practical and lecture for more ideas.
 :::
@@ -380,7 +398,7 @@ library(fpc)
 
 We will now carry out a DBSCAN analysis of blue plaques in my borough to see if there are any clusters present.
 
-```{r, cache=TRUE}
+```{r, cache=TRUE, message=FALSE, warning=FALSE}
 #first check the coordinate reference system of the Harrow spatial polygon:
 st_geometry(BoroughMap)
 ```
@@ -531,7 +549,7 @@ In this section we are going to explore patterns of spatially referenced continu
 
 Before we get any further, let's get some ward boundaries read in to R --- download LondonWardData from [the London Data store](https://data.london.gov.uk/dataset/statistical-gis-boundary-files-london) and read it in...
 
-```{r, cache=TRUE}
+```{r, cache=TRUE, message=FALSE, warning=FALSE}
 library(here)
 library(janitor)
 library(dplyr)
@@ -649,7 +667,7 @@ Now we need to generate a spatial weights matrix (remember from the lecture). We
 
 **A note on spatial weight matrices**
 
-If they features share a boundary they are **contiguous**, this can also be classed as only common boundaries --- a **rook** (like chess a rook can move forwards or side wards) or any point in common (e.g. corners / other boundaries) --- a **queen** (like chess a queen can move forwards, backwards or on a diagonal).
+If the features share a boundary they are **contiguous**, this can also be classed as only common boundaries --- a **rook** (like chess a rook can move forwards or side wards) or any point in common (e.g. corners / other boundaries) --- a **queen** (like chess a queen can move forwards, backwards or on a diagonal).
 
 **Alternatively** instead of using contiguous relationships you can use **distance** based relationships. This is frequently done with k nearest neighbours in which k is set to the closest observations. e.g. K=3 means the three closest observations. 
 
@@ -700,7 +718,7 @@ Alternatively we can do **row** standardisation where 1 is divided by the sum of
 ```{r message=FALSE, warning=FALSE, cache=TRUE}
 sum(Lward.lw[,1])
 ```
-Standardisation permits comparable spatial parameters.
+Standardisation permits comparable spatial parameters. But you also need to consider geographical features --- should a neighbour be a neighbour if there is a river between them?
 
 ### Spatial autocorrelation
 
@@ -923,22 +941,6 @@ tm_shape(points_sf_joined) +
 ```
 
 So this is the end of the practical. Hopefully you have learned a lot about the different methods we can employ to analyse patterns in spatial data. 
-
-This practical was deliberately designed as a walk through, but this may have given you ideas about where you could perhaps take these techniques in your coursework if this is something you wanted to explore further with different data or in different contexts. 
-
-## Extension 
-
-Already a pro with point pattern and spatial autocorrelation analysis?
-
-Then try the following out:
-
-1. We have used `sp` objects in this practical (because I wrote it before `sf` became the defacto spatial data type in R). Can you convert some of this so it works with`sf`?
-
-2. Could you automate any of the functions so that you could quickly produce maps of any of the variables in the LondonWards dataset?
-
-3. Could you get these outputs into a faceted ```ggplot2``` map?
-
-4. Make an interactive map with selectable layers for Gi* and Moran's I like we did in the [Maps with extra features] or [Advanced interactive map] sections...
 
 ## Feedback
 

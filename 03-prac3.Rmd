@@ -33,6 +33,8 @@ This week:
 
 * [Chapter 5 "Descriptive statistics"](https://learningstatisticswithr.com/book/descriptives.html) from Learning statistics with R: A tutorial for psychology students and other beginners by Navarro (2019)
 
+*[Exploratory data analysis: using colour and layout for comparison](https://www.roger-beecham.com/comp-sds/class/04-class/) by Beecham (2021).
+
 **Watching**
 
 * [Hadley Wickham's Keynote from the European Molecular Biology Laboratory (EMBL)](https://www.youtube.com/watch?v=9YTNYT1maa4). This will be the same for a few weeks.
@@ -257,7 +259,7 @@ pr1 <- pr1 %>%
 plot(pr1)
 ```
 
-### WorldClim data loading efficiently
+### Data loading
 
 Ok, projections over. Let's move forward with the practical...
 
@@ -322,7 +324,7 @@ Last week we used `rename()` from the `dplyr` package, however, this isn't yet a
 worldclimtemp$Jan
 ```
 
-### Location data from a raster
+### Raster location
 
 1. Using a raster stack we can extract data with a single command!! For example let's make a dataframe of some sample sites --- Australian cities/towns.
 
@@ -681,15 +683,6 @@ meanwholeyear=squishdata %>%
   summarize(meanyear = mean(Temp, na.rm=TRUE))
   
 ```
-
-## Advanced analysis
-
-Are you already competent with raster analysis and R, then have a go at completing this task in the practical session. 
-
-1. Select a different city and create a histogram for average summer and average winter temperatures 
-1. Summarise the data with a box or violin plot, [data-to-viz](https://www.data-to-viz.com/) will help.
-
-
 ## Feedback
 
 Was anything that we explained unclear this week or was something really clear...let us know using the [feedback form](https://forms.gle/w2GUDYc7tSavGy7r6). It's anonymous and we'll use the responses to clear any issues up in the future / adapt the material. 

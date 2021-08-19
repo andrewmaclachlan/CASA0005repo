@@ -173,7 +173,7 @@ As you can see R performs these calculations instantly and prints the results in
 
 1. Usually one of the first things to do when starting a new R Script is to check that you are in the correct working directory. This is important especially if you are working on multiple projects in different locations. To do this type the following into your new empty R Script:
 
-```{r cache=FALSE}
+```{r cache=FALSE, echo=FALSE, results=FALSE}
 getwd()
 ```
 
@@ -429,11 +429,11 @@ However, this is also another more straightforward way to read in files that was
 install.packages("here")
 ```
 
-```{r, cache=FALSE, results=FALSE}
+```{r, cache=FALSE, results=FALSE, message=FALSE}
 library(here)
 ```
 
-Think of `here()` as a command that is just poitning to a file path, to find out where is pointing use...
+Think of `here()` as a command that is just pointing to a file path, to find out where is pointing use...
 
 ```{r, cache=FALSE, results=FALSE}
 here::here()
@@ -979,7 +979,7 @@ We're going to create a simple map with our spatial data, mapping and cartograph
 
 1. We can create a choropleth map very quickly now using ```qtm()``` as we've done before
 
-```{r, cache=FALSE}
+```{r, cache=FALSE, message=FALSE}
 library(tmap)
 library(tmaptools)
 tmap_mode("plot")
@@ -1042,7 +1042,7 @@ Life_expectancy4map <- EW %>%
 
 Now let's make the map!
 
-```{r}
+```{r, message=FALSE}
 tmap_mode("plot")
 
 tm_shape(tmaplondon)+

@@ -12,11 +12,20 @@ By the end of this practical you should be able to:
 ## Homework 
 
 ::: {.infobox .assignment data-latex="{note}"}
-Outside of our schedulded sessions you should be doing around 12 hours of extra study per week. Feel free to follow your own GIS interests, but good places to start include the following:
 
-**Assignment**
+Outside of our scheduled sessions you should be doing around 12 hours of extra study per week. Feel free to follow your own GIS interests, but good places to start include the following:
 
-From weeks 6-9, learn and practice analysis from the course and identify appropriate techniques (from wider research) that might be applicable/relevant to your data. Conduct an extensive methodological review – this could include analysis from within academic literature and/or government departments (or any reputable source).
+**Exam**
+
+Each week we will provide a short task to test your knowledge, these should be used to guide your study for the final exam.
+
+For the task this week have a go at the practice exam questions, you should be able to answer either of the following questions:
+
+* New York Eviction
+* Graffiti mitigation
+
+The actual exam will be distributed using the same format, so it's vital to do this.
+
 :::
 
 ::: {.infobox .note data-latex="{note}"}
@@ -251,7 +260,7 @@ As a general rule, the better the blue line is at summarising the relationship b
 
 The equation for the blue line in the graph above can be written:
 
-(1)$$y_i = \beta_0 + \beta_1x_i + \epsilon_i$$
+$$y_i = \beta_0 + \beta_1x_i + \epsilon_i$$
 
 where:
 
@@ -346,7 +355,7 @@ Regressiondata %>%
 
 ### Bootstrap resampling
 
-If we only fit our model once, how can we be confident about that estimate? Bootstrap re sampling is where we take the original dataset and select random data points from within it, but in order to keep it the same size as the original dataset some records are duplicated. This is known as bootstrap resampling by replacement. We used to briefly cover this within this practical but have recently removed it. If you wish to explore it then consult the [bootstrap resampling section from previous years](https://andrewmaclachlan.github.io/CASA0005repo_20202021/gwr-and-spatially-lagged-regression.html#bootstrap-resampling), but this is not a requirement and only for interest. 
+If we only fit our model once, how can we be confident about that estimate? Bootstrap resampling is where we take the original dataset and select random data points from within it, but in order to keep it the same size as the original dataset some records are duplicated. This is known as bootstrap resampling by replacement. We used to briefly cover this within this practical but have recently removed it. If you wish to explore it then consult the [bootstrap resampling section from previous years](https://andrewmaclachlan.github.io/CASA0005repo_20202021/gwr-and-spatially-lagged-regression.html#bootstrap-resampling), but this is not a requirement and only for interest. 
 
 ### Assumptions Underpinning Linear Regression
 
@@ -751,7 +760,7 @@ As such the average GCSE score in one ward could be related to that in another a
 
 Ward and Gleditsch (2008) describe this situation (where the value of our $y$ dependent variable - GCSE scores - may be influenced by neighbouring values) and suggest the way to deal with it is to incorporate a *spatially-lagged* version of this variable amongst the independent variables on the right-hand side of the equation. In this case, Equation 1 would be updated to look like this:
 
-(2)$$y_i = \beta_0 + \beta_1x_i + \rho w_i.y_i + \epsilon_i$$
+$$y_i = \beta_0 + \beta_1x_i + \rho w_i.y_i + \epsilon_i$$
 
 In this equation, $w$ is the spatial weights matrix you generated and $w_i$ is vector of all neighbouring areas (in our case, Wards) for any Ward $y_i$. 
 
@@ -844,7 +853,7 @@ Ward and Gleditsch (2008) characterise this model as seeing spatial autocorrelat
 
 The spatial error model can be written:
 
-(3)$$y_i = \beta_0 + \beta_1x_i + \lambda w_i.\xi_i + \epsilon_i$$
+$$y_i = \beta_0 + \beta_1x_i + \lambda w_i.\xi_i + \epsilon_i$$
 
 where $\lambda$ is a measure of the spatial autocorrelation of the residuals for neighbouring residuals and $\xi_i$ is the spatial component of the error term
 
@@ -869,11 +878,11 @@ Both the $\lambda$ parameter in the spatial error model and the $\rho$ parameter
 
 ### Key advice
 
-The **lag** model is where the value of the dependent might be influenced by neighboring dependent (yes dependent) variables being incorporated into the model with a spatial weight matrix. It is saying that GCSE scores in one area might be influenced by GCSE scores in another. You might run a lag model if you identify spatial autocorrelation (closer spatial units have similar values) with Moran's I.
+The **lag** model accounts for situations where the value of the dependent variable in one area might be associated with or influenced by the values of that variable in neighbouring zones (however we choose to define neighbouring in our spatial weights matrix). With our example, average GCSE scores in one neighbourhood might be related to average GCSE scores in another as the students in both neighbourhoods could attend the same school. You may be able to think of other examples where similar associations may occur. You might run a lag model if you identify spatial autocorrelation in the dependent variable (closer spatial units have similar values) with Moran’s I.
 
-The **error** model deals with spatial autocorrelation (closer spatial units have similar values) of the residuals (vertical distance between your point and line of model) again, shown here through Moran's I. Here **we do not** assume that neighboring independent variables are influencing the dependent variable but through an issue with the model or data (e.g. it's from some independent variable not included) - it's a **problem** we include in the model. For example, GCSE scores are may be similar in near London Boroughs but **not because many** students cross Borough boundaries because students (or families where students usually have higher scores) cluster. There is no spatial process (no cross Borough interaction) just a cluster of the variable of interest. 
+The **error** model deals with spatial autocorrelation (closer spatial units have similar values) of the residuals (vertical distance between your point and line of model – errors – over-predictions or under-predictions) again, potentially revealed though a Moran’s I analysis. The error model is not assuming that neighbouring independent variables are influencing the dependent variable but rather the assumption is of an **issue with the specification of the model or the data used** (e.g. clustered errors are due to some un-observed clustered variables not included in the model). For example, GCSE scores may be similar in bordering neighbourhoods but not because students attend the same school but because students in these neighbouring places come from similar socio-economic or cultural backgrounds and this was not included as an independent variable in the original model. There is no spatial process (no cross Borough interaction) just a cluster of an un-accounted for but influential variable.
 
-Usually you might run an **lag** model when you have an idea of what is causing the spatial autocorrelation and an **error** model when you aren't sure. However, you can also use a more scientific method - the Lagrange Multiplier test.
+Usually you might run a **lag** model when you have an idea of what is causing the spatial autocorrelation in the dependent variable and an **error** model when you aren’t sure what might be missing. However, you can also use a more scientific method - the Lagrange Multiplier test.
 
 But! recall from a few weeks ago when I made a big deal of type of standardisation for the spatial weight matrix? This test **expects** row standardisation.  
 
@@ -883,7 +892,6 @@ The Lagrange multiple tests are within the function `lm.LMtests` from the packag
 * `LMlag` is the lagged test
 
 With each also having a robust form, being robust to insensitivities to changes (e.g. outliers, non-normality). 
-
 
 ```{r}
 library(spdep)

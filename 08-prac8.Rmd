@@ -13,9 +13,14 @@ By the end of this practical you should be able to:
 Outside of our schedulded sessions you should be doing around 12 hours of extra study per week. Feel free to follow your own GIS interests, but good places to start include the following:
 
 ::: {.infobox .assignment data-latex="{note}"}
-**Assignment**
+**Exam**
 
-From weeks 6-9, learn and practice analysis from the course and identify appropriate techniques (from wider research) that might be applicable/relevant to your data. Conduct an extensive methodological review – this could include analysis from within academic literature and/or government departments (or any reputable source).
+Each week we will provide a short task to test your knowledge, these should be used to guide your study for the final exam.
+
+For the task this week have a go at the practice exam questions, you should be able to answer any of the practice questions:
+
+The actual exam will be distributed using the same format, so it's vital to do this.
+
 :::
 
 ::: {.infobox .note data-latex="{note}"}
@@ -25,7 +30,7 @@ This week:
 
 * [Appendix "Raster operations in R"](https://mgimond.github.io/Spatial/raster-operations-in-r.html) from Intro to GIS and Spatial Analysis by Gimond (2019)
 
-* [Raster manipulation"](https://rspatial.org/raster/spatial/8-rastermanip.html) from Spatial data science by Hijmans (2016). This last one is another tutoiral --- it seems there aren't any decent free raster textbook chapters, let me know if you find one.
+* [Raster manipulation](https://rspatial.org/raster/spatial/8-rastermanip.html) from Spatial data science by Hijmans (2016). This last one is another tutorial --- it seems there aren't any decent free raster textbook chapters, let me know if you find one.
 
 Remember this is just a starting point, explore the [reading list](https://rl.talis.com/3/ucl/lists/139FBAF8-DACD-60FB-8BDC-E9C9E09BA885.html?lang=en-GB&login=1), practical and lecture for more ideas.
 :::
@@ -753,12 +758,19 @@ Correlation
 
 Let's walk through the results here...
 
-* statistic value (or t, or test statistic), we can work out the critical t value using:
+* p-value: tells us whether there is a statistically significant correlation between the datasets and if that we can reject the null hypothesis if p<0.05 (there is a 95% chance that the relationship is real).
+
+* cor: Product moment correlation coefficient
+
+* conf.low and con.high intervals: 95% confident that the population correlation coeffieicent is within this interval
+
+* statistic value (or t, or test statistic)
+
+We can work out the critical t value using:
 
 ```{r, cache=TRUE}
 abs(qt(0.05/2, 198268))
 ```
-
 Within this formula
 
 * 0.05 is the confidence level (95%)
@@ -775,13 +787,7 @@ computeddatafull %>%
 length(computeddatafull)
 ```
 
-Here, as our t values is > than the critial value we can say that there is a relationship between the datasets. However, we would normally report the p-value...which we can get from..
-
-* p-value: tells us wheather there is a statistically significant correlation between the datasets and if that we can reject the null hypothesis if p<0.05 (there is a 95% chance that the relationship is real).
-
-* cor: Product moment correlation coefficient
-
-* conf.low and con.high intervals: 95% confident that the population correlation coeffieicent is within this interval
+Here, as our t values is > than the critical value we can say that there is a relationship between the datasets. However, we would normally report the p-value...which we can get from..
 
 As p<0.05 is shows that are variables are have a statistically significant correlation... so as urban area (assuming the index in representative) per pixel increases so does temperature...therefore we can reject our null hypothesis... but remember that this does not imply causation!! 
 
@@ -796,29 +802,9 @@ If you wanted to explore this type of analysis further then you would need to co
 * The formula used to calculate emissivity --- there are many
 * The use of raw satellite data as opposed to remove the effects of the atmosphere. Within this practical we have only used relative spatial indexes (e.g. NDVI). However, if you were to use alternative methods it might be more appropraite to use surface reflectance data (also provided by USGS). 
 
-## Extension
-
-Already an expert with raster data and R? Here we have just looked at one temperature image and concluded that urban area and temperature are realted, but does that hold true for other time periods?
-
-If you found this practical straightforward source some Landsat data for an area of interest and create some R code to explore the temporal relationship between urban area and temperature. 
-
-...Or run the analysis with different data and methods.
-
-Data:
-
-MODIS daily LST: https://modis.gsfc.nasa.gov/data/dataprod/mod11.php
-
-MODIS imagery: https://modis.gsfc.nasa.gov/
-
-Methods:
-
-Supervised or unsupervised landcover classificaiton: https://rspatial.org/rs/5-supclassification.html#
-
-Here you could classify an image into several landcover classes and explore their relationship with temperature
-
 ## References
 
-Thanks to CASA gradaute student Matt Ng for providing the outline to the start of this practical
+Thanks to former CASA graduate student Dr Matt Ng for providing the outline to the start of this practical
 
 Avdan, U. and Jovanovska, G., 2016. Algorithm for automated mapping of land surface temperature using LANDSAT 8 satellite data. Journal of Sensors, 2016.
 
