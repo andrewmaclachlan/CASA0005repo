@@ -13,11 +13,15 @@ By the end of this practical you should be able to:
 Outside of our scheduled sessions you should be doing around 12 hours of extra study per week. Feel free to follow your own GIS interests, but good places to start include the following:
 
 ::: {.infobox .assignment data-latex="{note}"}
-**Assignment**
+**Exam**
+Each week we will provide a short task to test your knowledge, these should be used to guide your study for the final exam.
 
-This week, based on your knowledge of available data and literature compose a research
-question or hypothesis. Review your introduction and literature review to ensure
-you are guiding the reader to understanding the importance of the project
+The task this week is to:
+
+* Read in [global gender inequality data](http://hdr.undp.org/en/indicators/68606#) 
+* Join the global gender inequality index to spatial data, creating a new column of difference in inequality between 2010 and 2019
+* Share it with the World on GitHub
+
 :::
 
 ::: {.infobox .note data-latex="{note}"}
@@ -31,8 +35,6 @@ This week:
 * [Chapter 2 "Why RMarkdown"](https://rmd4sci.njtierney.com/why-rmarkdown.html#reproducibility-is-a-problem) from RMarkdown for Scientists by Tierney (2020).  
 
 * [The paper "Packaging Data Analytical Work Reproducibly Using R (and Friends)"](https://amstat.tandfonline.com/doi/full/10.1080/00031305.2017.1375986?scroll=top&needAccess=true) by Marwick, Boettiger & Mullen (2018).
-
-* [Chapter 9 "Hypothesis testing"](https://moderndive.com/9-hypothesis-testing.html) from Modern Dive by Ismay and Kim (2019) --- also see [Analysing spatial patterns]
 
 **Watching**
 

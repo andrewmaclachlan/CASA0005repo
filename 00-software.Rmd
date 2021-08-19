@@ -32,6 +32,4 @@ UCL students (and staff) can now also make use of R Studio Server. It's RStudio 
 
 ## ArcGIS {-}
 
-As ArcGIS is not open soure and from my experience analysis within it is largely not reproducible and therefore it is not included within this practical book. If you are interested in it please [consult previous iterations of this course](https://andrewmaclachlan.github.io/CASA0005repo_20192020/). You will find tutorials on: [Joining data](https://andrewmaclachlan.github.io/CASA0005repo_20192020/geographic-information.html#data-loading), [Map Making](https://andrewmaclachlan.github.io/CASA0005repo_20192020/map-making.html#mapping-in-arcmap) and [Spatial Patterns](https://andrewmaclachlan.github.io/CASA0005repo_20192020/analysing-spatial-patterns.html#arcmap-part-2). 
-
-**However**, the analysis for your coursework must be done in either R and/or QGIS.
+As ArcGIS is not open source and from my experience analysis within it is largely not reproducible and therefore it is not included within this practical book. If you are interested in it please [consult previous iterations of this course](https://andrewmaclachlan.github.io/CASA0005repo_20192020/). You will find tutorials on: [Joining data](https://andrewmaclachlan.github.io/CASA0005repo_20192020/geographic-information.html#data-loading), [Map Making](https://andrewmaclachlan.github.io/CASA0005repo_20192020/map-making.html#mapping-in-arcmap) and [Spatial Patterns](https://andrewmaclachlan.github.io/CASA0005repo_20192020/analysing-spatial-patterns.html#arcmap-part-2). 

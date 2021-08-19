@@ -319,7 +319,7 @@ To check for sure, we can use the `quadrat.test()` function, built into `spatsta
 
 A Chi-Squared test determines if there is an association between two categorical variables. The higher the Chi-Squared value, the greater the difference.
 
-If the p-value of our Chi-Squared test is > 0.05, then we can reject a null hypothesis that says "there is *no* complete spatial randomness in our data" (think of a null-hypothesis as the opposite of a hypothesis that says our data exhibit complete spatial randomness). What we need to look for is a value for p > 0.05. If our p-value is > 0.05 then this indicates that we have CSR and there is no pattern in our points. If it is < 0.05, this indicates that we do have clustering in our points. 
+If the p-value of our Chi-Squared test is < 0.05, then we can reject a null hypothesis that says “there is no pattern - i.e. complete spatial randomness - in our data” (think of a null-hypothesis as the opposite of a hypothesis that says our data exhibit a pattern). What we need to look for is a value for p > 0.05. If our p-value is > 0.05 then this indicates that we have CSR and there is no pattern in our points. If it is < 0.05, this indicates that we do have clustering in our points. 
 
 ```{r message=FALSE, warning=FALSE, cache=TRUE}
 
@@ -329,7 +329,7 @@ plot(BluePlaquesSub.ppp,pch=16,cex=0.5, main="Blue Plaques in Harrow")
 plot(teststats, add=T, col = "red")
 ```
 
-So we can see that the indications are there is no spatial patterning for Blue Plaques in Harrow --- at least for this particular grid. Note the warning message --- some of the observed counts are very small (0) and this may affect the accuracy of the quadrant test. Recall that the Poisson distribution only describes observed occurrances that are counted in integers --- where our occurrences = 0 (i.e. not observed), this can be an issue. We also know that there are various other problems that might affect our quadrat analysis, such as the [modifiable areal unit problem](https://www.youtube.com/watch?v=cZdlxDx4Nvs).
+"So we can see that the indications are there is some spatial patterning (clustering) of Blue Plaques in Harrow — at least for this particular grid --- at least for this particular grid. Note the warning message --- some of the observed counts are very small (0) and this may affect the accuracy of the quadrant test. Recall that the Poisson distribution only describes observed occurrances that are counted in integers --- where our occurrences = 0 (i.e. not observed), this can be an issue. We also know that there are various other problems that might affect our quadrat analysis, such as the [modifiable areal unit problem](https://www.youtube.com/watch?v=cZdlxDx4Nvs).
 
 In the new plot, we can see three figures for each quadrant. The top-left figure is the observed count of points; the top-right is the Poisson expected number of points; the bottom value is the  residual value (also known as Pearson residual value), or (Observed - Expected) / Sqrt(Expected).
 

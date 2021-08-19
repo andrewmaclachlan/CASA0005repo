@@ -15,7 +15,7 @@ By the end of this practical you should be able to:
 Outside of our schedulded sessions you should be doing around 12 hours of extra study per week. Feel free to follow your own GIS interests, but good places to start include the following:
 
 ::: {.infobox .assignment data-latex="{note}"}
-**Assignment**
+**Exam**
 
 Each week we will provide a short task to test your knowledge, these should be used to guide your study for the final exam.
 

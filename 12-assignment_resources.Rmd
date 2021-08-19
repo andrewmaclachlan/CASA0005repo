@@ -1,32 +1,26 @@
-# (PART\*) Assignment {-}
+# (PART\*) Extra {-}
 
-# Assignment resources
+# Module resources
 
 ```{r echo=FALSE}
 library(knitr)
 ```
 
-Listed below are some helpful website, books, datasets and tools you might find useful when completing your assignments.
-
-## Timeline
-
-There is a suggested timeline of work for your assignment provided in the GIS coursework requirements PDF on Moodle. 
+Listed below are some helpful website, books, datasets and tools you might find useful.
 
 ## Markscheme
 
-The markscheme can be found on Moodle with a break down of how much percent is given to each criteron. Read it closely **and often** when writing your assignment.
-
-## Examples of previous work
-
-Closer to the assignment deadline we will release examples of good student projects from previous years as a tab on Moodle. **Note** that the requirements / markscheme have been altered this year.
+The markscheme can be found on Moodle with a break down of how much percent is given to each criteron. Read it closely **and often** when preparing for the final exam.
 
 ## Events / meet other spatial data professionals
 
-The [UK ESRI conference](https://www.esriuk.com/en-gb/about/events/ac/overview) is normally free to go to and whilst (in my opinion) it's mostly just ESRI marketing their latest products it is good to go along and see how industry are using spatial software. It might also be useful for dissertation ideas / networking. Next year it's scheduled for the 19/5/2020.
+The [UK ESRI conference](https://www.esriuk.com/en-gb/about/events/ac/overview) is normally free to go to and whilst (in my opinion) it's mostly just ESRI marketing their latest products it is good to go along and see how industry are using spatial software. It might also be useful for dissertation ideas / networking. 
 
 [Missing maps](http://www.missingmaps.org/events/)
 
 [LondonR group](https://www.londonr.org/#content)
+
+[R Ladies](https://www.meetup.com/pro/rladies/)
 
 ## Cool stuff to explore
 
@@ -40,13 +34,6 @@ New packages and functions that i've recently come across that are worth explori
 * [R Cartography package](http://riatelab.github.io/cartography/docs/)
 * [Data is beautiful reddit](https://www.reddit.com/r/dataisbeautiful/)
 * [Network visualisation](https://kateto.net/network-visualization)
-</div><br/>
-
-## Assignment ideas
-<div class="col2">
-
-* [The Value of GIS & Spatial Data Science in Achieving the Sustainable Development Goals by Cobus van Rooyen](https://complexsystemstheory.net/2020/09/23/gis-and-the-sustainable-development-goals/)
-
 </div><br/>
 
 ## Books/reading resources
@@ -181,76 +168,4 @@ This is by no means an extensive data list, but summarises data used within some
 ## Data lists
 
 [Awesome public datasets](https://github.com/awesomedata/awesome-public-datasets) have a wide range all data (some geographic, some not): 
-
 [Robin Wilson](https://twitter.com/sciremotesense) has authored one of [the most extensive data lists that i've come across](https://freegisdata.rtwilson.com/)
-
-## Reading and writing critically
-
-[Hugh Kerans](https://twitter.com/ithinkwellhugh?lang=en) from Flinders Unversity, Adelaide has developed a range of materials to assist graduate students in producing effective reports and publications...check out his website and resouces here: https://www.ithinkwell.com.au/
-
-The most useful templates for the assignments are the critical reading one:
-
-```{r echo=FALSE, out.height = "600pt", out.width = "800pt", cache=TRUE}
-include_graphics('assignment/CriticalReading.pdf', auto_pdf = getOption("knitr.graphics.auto_pdf", FALSE)
-)
-```
-
-and questions to ask as you write a paper (or assignment):
-
-```{r echo=FALSE, out.height = "600pt", out.width = "800pt", cache=TRUE}
-include_graphics('assignment/QuestionsToAskAsYouWriteAPaper.pdf', auto_pdf = getOption("knitr.graphics.auto_pdf", FALSE)
-)
-```
-
-You can download these from this website directly, my GitHub or [Hugh's website](https://www.ithinkwell.com.au/).
-
-The UCL Institute for Education (IOE) Writing Centre Online have produced this very short (< 2 minutes read) [critical writing guide](https://www.ucl.ac.uk/ioe-writing-centre/critical-reading-and-writing/writing-critically) giving an example of how to change writing from largely descriptive to critical. 
-
-...And of coruse the paper ['How to write a paper for publicaiton'](https://onlinelibrary.wiley.com/doi/full/10.1046/j.1444-2892.2000.00031.x) by Rosenfeldt et al. (2000)
-
-## Free flow diagram tools
-
-* PowerPoint (from UCL software site)
-* [Draw.io](https://www.draw.io/ )
-* [Lucidchart](https://www.lucidchart.com/pages/examples/flowchart-maker)
-* [R Package `DiagrammeR`](https://rich-iannone.github.io/DiagrammeR/)
-* [UML (Unified Modeling Language) diagrams](https://github.com/rstudio/nomnoml)
-
-Free at the time of writing
-
-## Basics
-
-Here are some tips based on common marker comments of how to write a decent assingment...
-
-* Don't cut and paste maps / figures / formulas / tables, export them properly or remake them nicely and credit a source somewhere such as the figure caption (e.g. source Smith et al. 2009 or adapted from Smith et al. 2009).
-* Make maps and figures the right way --- don't just leave layer names (e.g. osm_points_road) in a legend, rename them to something with meaning!
-* If you use a formula write it properly --- don't cut and paste, fully explain all the symbols / variables too.
-* Make sure you write a sufficient caption for figures / maps / flow diagrams / tables. The reader should be able to understand them without any other information. In other words, if you gave someone a figure with just the caption they should be able to tell you what it shows.
-* Don't bullet point methods, summarise with sentances and use a flow diagram if appropraite.
-
-Here is a quick guide to writing a report...
-
-### Introduction
-
-Make sure you say why your mini investiation is important near the start--- why should we care! Try to answer the so what question. The introduction should set the scene and introduce the reader to issue (what is the background to it), its importance (so what?) and lead onto outlining the research question of the study.
-
-### Literature review
-
-The literature review should evaluate exisiting research, demonstrate contrasting and/or similar views whilst highlight research gaps (that hopefully your research will contribute to / address). This could also include policy documents or documents from reputable soruces (e.g. UN / EU / authoritative bodies). Wikepedia is not a valid academic source and please don't just list what authors have done in the past (e.g. Smith 2009 did x but Jones 2008 did y then Frank 2010 did x). Synthesise previous work / policy documents and provide a narrative through it whilst trying to show where the research gap is / where you question fits in. Try to end the literature review with a concluding paragraph that concisely summarises everything within it and states what your work is going to contribute or address. Think of this section as providing a story to what everyone else has done (whilst also showing issues / reseach gaps) then at then end BAMMM... this is what you are going to do.
-
-### Methodology
-
-Methodology is what you did (analysis, data processing, data cleaning, etc), a reader should be able to replicate your analysis but you don't need excessive detail --- you do not need to list every tool you used. For example, data was loaded uisng `read_csv()` and then reprojected using `st_transform()` is too much information for the assignment (you could include this type of information in the comments of your code / RMarkdown document). 
-
-### Results
-
-Results is what you found --- be selective about figures you include and provide. To do so ask yourself what does this contribute to my research / aim / objective to see if you need it. Please provide a narrative that guides the reader through your findings, don't just present result after result after result after result.
-
-### Discussion
-
-Discussion should have lots of critical reflection...by that i mean... how do your results fit in with and then advance the ideas presented by others either in academic or policy literature. Really say why this is important with appropriate referencing. 
-
-### Conclusion
-
-Your conclusion should restate what you set out to investigate, summarise how you acheived it, what your results showed, why it is important and in this case specify recommendations (e.g. what should be changed or altered to fix the issue / question you explored). Do not add any new material in this section (e.g. talk about new ideas or add new references). Whilst it seems like i've listed a lot of things to inlcude it short be relatively short --- a concise summary. 
-

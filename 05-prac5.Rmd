@@ -14,13 +14,9 @@ By the end of this practical you should be able to:
 Outside of our scheduled sessions you should be doing around 12 hours of extra study per week. Feel free to follow your own GIS interests, but good places to start include the following:
 
 ::: {.infobox .assignment data-latex="{note}"}
-**Assignment homework**
+**Exam**
 
-This week
 
-1. Fill in [this short assignment proposal form](https://forms.office.com/Pages/ResponsePage.aspx?id=_oivH5ipW0yTySEKEdmlwmn4XmBirltMqACHJtPhCelUQ1k5Q0VBWUJGS0cwMDhZT1BSOExVTURXVC4u) by 9am the Tuesday of reading week (10th November)
-
-1. Create a draft of the methodology / initial ideas that can be expanded on as we move to more advanced analysis in the second part of the course.
 :::
 
 ::: {.infobox .note data-latex="{note}"}
