@@ -1,6 +1,6 @@
 # (PART\*) Extra {-}
 
-# Module resources
+# Module resources {-}
 
 ```{r echo=FALSE}
 library(knitr)

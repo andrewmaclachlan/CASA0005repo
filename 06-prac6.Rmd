@@ -142,8 +142,9 @@ library(tidyverse)
 library(sf)
 BluePlaques <- distinct(BluePlaques)
 ```
+### Spatial subsetting
 
-Now just select the points inside London - thanks to Robin Lovelace for posting how to do this one, very useful!
+Now just select the points inside London - thanks to Robin Lovelace for posting how to do this one, very useful! 
 
 ```{r, cache=FALSE, warning=FALSE, message=FALSE}
 BluePlaquesSub <- BluePlaques[BoroughMap,]
@@ -154,6 +155,11 @@ tm_shape(BoroughMap) +
 tm_shape(BluePlaquesSub) +
   tm_dots(col = "blue")
 ```
+When we spatial subset data like this there are different topological relations we can specify. The default is intersects, but we could also use `BluePlaquesSub <- BluePlaques[BoroughMap, , op = st_within]`, with the operator or op set to `st_within`, to identify points completely within the borough outline, [or a variety of other options](http://postgis.net/workshops/postgis-intro/spatial_relationships.html).
+
+What is the difference between intersects and within?
+
+Here, the second operator is blank `, ,` - this controls which attributes are kept, although I'd rather keep all of them and manipulate with the `tidyverse`.
 
 ### Study area
 

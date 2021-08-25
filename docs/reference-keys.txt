@@ -3,6 +3,7 @@ fig:unnamed-chunk-141
 fig:unnamed-chunk-147
 fig:unnamed-chunk-148
 fig:vectorplots
+fig:unnamed-chunk-428
 geographic-information
 learning-outcomes
 homework
@@ -172,6 +173,7 @@ recommended-listening-5
 introduction-5
 setting-up-your-data
 data-cleaning
+spatial-subsetting
 study-area
 point-pattern-analysis
 kernel-density-estimation
@@ -253,11 +255,14 @@ calucating-tempearture-from-landsat-data
 calucating-urban-area-from-landsat-data
 urban-area-and-temperature-relationship
 statistical-summary
+lsoamsoa-stats
+mapping
+bivariate-mapping-optional
+map-notes
 considerations
 references
 remote-sensing-background-optional
 feedback-7
-module-resources
 markscheme
 events-meet-other-spatial-data-professionals
 cool-stuff-to-explore

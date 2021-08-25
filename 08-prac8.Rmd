@@ -4,13 +4,13 @@
 
 By the end of this practical you should be able to:
 
-1. Explain and execute appropraite pre-proessing steps of raster data
+1. Explain and execute appropriate pre-proessing steps of raster data
 1. Replicate published methodologies using raster data
 1. Design new R code to undertake further analysis 
 
 ## Homework
 
-Outside of our schedulded sessions you should be doing around 12 hours of extra study per week. Feel free to follow your own GIS interests, but good places to start include the following:
+Outside of our scheduled sessions you should be doing around 12 hours of extra study per week. Feel free to follow your own GIS interests, but good places to start include the following:
 
 ::: {.infobox .assignment data-latex="{note}"}
 **Exam**
@@ -244,8 +244,8 @@ raster::compareRaster(listlandsat$LC08_L1TP_203023_20190513_20190521_01_T1_B1,
 
 lsatmask <- listlandsat %>%
   # now crop our temp data to the extent
-  crop(.,manchester_boundary)%>%
-  mask(.,  manchester_boundary)
+  raster::crop(.,manchester_boundary)%>%
+  raster::mask(.,  manchester_boundary)
 ```
 
 1. If all we wanted to do was clip our data, we could now change our filenames in the raster stack and write the ```.TIFF ``` files out again...
@@ -793,14 +793,263 @@ As p<0.05 is shows that are variables are have a statistically significant corre
 
 If you want more information on statistics in R go and read [YaRrr! A Pirate's Guide to R](https://bookdown.org/ndphillips/YaRrr/), chapter 13 on hypothesis tests.
 
+## LSOA/MSOA stats
+
+This is all useful, but what if we wanted to present this analysis to local leaders in Manchester to show which areas experience the highest temperature (remember, with the limitation of this being one day!)
+
+Next, we will aggregate our raster data to LSOAs, taking a mean of the pixles in each LSOA.
+
+LSOA data: https://data-communities.opendata.arcgis.com/datasets/5e1c399d787e48c0902e5fe4fc1ccfe3
+
+MOSA data: https://data.cambridgeshireinsight.org.uk/dataset/output-areas/resource/0e5ac3b8-de71-4123-a334-0d1506a50288
+
+Let's prepare the new spatial data:
+```{r, warning=FALSE, message=FALSE}
+library(dplyr)
+
+# read in LSOA data
+UK_LSOA <- st_read(here::here("prac7_data", 
+                                          "Lower_Super_Output_Area_(LSOA)_IMD2019__(WGS84)-shp",
+                                          "5878ebcf-f091-4bde-8864-aa547dd45afd2020330-1-8g4usn.8evuq.shp"))
+
+# project it to match Manchester boundary
+UK_LSOA <- UK_LSOA %>%
+  st_transform(., 32630)
+
+# read in MSOA and project it
+MSOA <- st_read(here::here("prac7_data",
+                           "MSOA_EngWal_Dec_2011_Generalised_ClippedEW_0",
+                           "Middle_Layer_Super_Output_Areas_December_2011_Generalised_Clipped_Boundaries_in_England_and_Wales.shp")) %>%
+   st_transform(., 32630)
+
+#select only MSOA within boundary
+manchester_MSOA <- MSOA[manchester_boundary, , op=st_within]
+
+#select only LSOA that intersect MSOA
+manchester_LSOA <- UK_LSOA[manchester_MSOA,]
+```
+
+Next, we need to do the extraction with `raster::extract()`. `fun()` specifies how to summarise the pixels within the spatial unit (LSOA), `na.rm()=TRUE` ignores NA values and `df=TRUE` outputs the result to a dataframe. 
+
+```{r, warning=FALSE, message=FALSE}
+# extract mean LST value per LSOA
+LST_per_LSOA <- raster::extract(LST, manchester_LSOA, fun=mean, na.rm=TRUE, df=TRUE)
+
+# add the LSOA ID back
+LST_per_LSOA$FID<-manchester_LSOA$FID
+
+# join the average temp to the sf
+manchester_LSOA_temp <- manchester_LSOA %>%
+  left_join(.,
+            LST_per_LSOA,
+            by="FID")%>%
+  dplyr::rename(temp=layer)
+
+```
+
+Now we have the temperature per LSOA, but what about the amount of land considered urban? Here, we will assume that any NDBI value above 0 means the whole pixel is considered urban. `raster::extract()` can also be used to get all the pixels within each spatial area (LSOA)..
+
+```{r, warning=FALSE, message=FALSE}
+#define urban as NDBI greater than 0
+NDBI_urban<- NDBI > 0
+
+# Sum the pixels that are grater than 0 per LSOA
+NDBI_urban_per_LSOA <- raster::extract(NDBI_urban, manchester_LSOA, na.rm=TRUE, df=TRUE, fun=sum)
+
+# list the pixels per LSOA
+NDBI_per_LSOA_cells <- raster::extract(NDBI_urban, manchester_LSOA, na.rm=TRUE, df=TRUE, cellnumbers=TRUE)
+
+#count the pixels per LSOA
+NDBI_per_LSOA2_cells<- NDBI_per_LSOA_cells %>%
+  count(ID)
+
+#add the LSOA ID to the urban area
+NDBI_urban_per_LSOA$FID<-manchester_LSOA$FID
+
+#add the LSOA ID to the number of cells
+NDBI_per_LSOA2_cells$FID<-manchester_LSOA$FID
+
+#join these two
+Urban_info_LSOA <- NDBI_urban_per_LSOA %>%
+  left_join(.,
+            NDBI_per_LSOA2_cells,
+            by="FID")
+
+# remove what you don't need and rename
+Urban_info_LSOA_core_needed <- Urban_info_LSOA %>%
+  dplyr::rename(urban_count=layer, 
+                LSOA_cells=n) %>%
+  dplyr::select(urban_count,
+         LSOA_cells,
+         FID)%>%
+  dplyr::mutate(percent_urban=urban_count/LSOA_cells*100)
+
+# join the data 
+# one sf with temp and % urban per LSOA
+manchester_LSOA_temp_urban <- manchester_LSOA_temp %>%
+  left_join(.,
+             Urban_info_LSOA_core_needed,
+             by="FID")
+```
+
+## Mapping
+
+Now, we could  map both temperature (and the % of urban area) within a LSOA individually....In our map we want to include some place names from Open Street Map, so let's get those...
+
+```{r, warning=FALSE, message=FALSE}
+Places <- st_read(here::here("prac7_data", 
+                                          "greater-manchester-latest-free.shp",
+                                          "gis_osm_places_free_1.shp")) %>%
+   st_transform(., 32630)
+
+manchester_Places <- Places[manchester_boundary,]%>%
+  filter(fclass=="city")
+
+```
+
+Let's make a map, like we did earlier in the module using the `tmap` package, remember to add a caption in Rmarkdown include the argument `fig.cap="caption here"` in the code chunk header.
+
+```{r, fig.cap="Average temperature per LSOA in Manchester, calcualted from Landsat imagery dated 13/5/19, following the methodology specified by Guha et al. 2018", warning=FALSE, message=FALSE}
+# this first bit makes the box bigger
+# so we can have a north arrow not overlapping the data
+# see: https://www.jla-data.net/eng/adjusting-bounding-box-of-a-tmap-map/
+bbox_new <- st_bbox(manchester_LSOA_temp_urban) # current bounding box
+
+yrange <- bbox_new$ymax - bbox_new$ymin # range of y values
+
+bbox_new[4] <- bbox_new[4] + (0.1 * yrange) # ymax - top
+bbox_new[2] <- bbox_new[2] - (0.1 * yrange) # ymin - bottom
+
+# the plot starts here
+library(tmap)
+tmap_mode("plot")
+# set the new bbox
+# remove bbox=bbox_new to see the difference
+tm1 <- tm_shape(manchester_LSOA_temp_urban, bbox = bbox_new) + 
+  tm_polygons("temp",
+              palette="OrRd",
+              legend.hist=TRUE,
+              title="Temperature")+
+  tm_shape(manchester_Places, bbox=bbox_new)+
+  tm_dots(size=0.1, col="white")+
+  tm_text(text="name", size=0.75, ymod=-0.5, col="white", fontface = "bold")+
+  #tm_legend(show=FALSE)+
+  tm_layout(frame=FALSE,
+            legend.outside=TRUE)+
+  tm_compass(type = "arrow", size=1, position = c("left", "top")) +
+  tm_scale_bar(position= c("left", "bottom"), breaks=c(0,2,4), text.size = .75)
+  #tm_credits("(a)", position=c(0,0.85), size=1.5)
+
+tm1
+```
+
+This could also be repeated for urban area and plotted in one figure, perhaps with an inset map like we previously did. But, we can also now plot two choropleth maps over each other, this is made much easier with the `biscale()` package, however, now we must use `ggplot` as opposed to `tmap`, you can force `tmap` to do it, but the feature is still in development. 
+
+## Bivariate mapping (optional)
+
+Whilst bivaraite maps look cool, they don't tell us anything about the actual data values, simply dividing the data into classes based on the style parameter which we have seen before - jenks, equal and so on. So here I want to produce:
+
+* A central bivariate map of LSOAs within Manchester
+* The central bivariate will have the MSOA boundaries and some place names
+* Two plots showing the distribution of the data
+
+```{r, warning=FALSE, message=FALSE}
+library(biscale)
+library(cowplot)
+library(sysfonts)
+library(extrafont) 
+library(showtext) # more fonts
+#font_add_google("Lato", regular.wt = 300, bold.wt = 700) # I like using Lato for data viz (and everything else...). Open sans is also great for web viewing.
+showtext_auto()
+
+# create classes
+data <- bi_class(manchester_LSOA_temp_urban, x = temp, y = percent_urban, style = "jenks", dim = 3)
+
+#ggplot map
+map <- ggplot() +
+ geom_sf(data = data, mapping = aes(fill = bi_class), color=NA, lwd = 0.1, show.legend = FALSE) +
+  bi_scale_fill(pal = "DkViolet", dim = 3) +
+  geom_sf(data = manchester_MSOA, mapping = aes(fill=NA), color="black", size = .7, alpha = .75, show.legend = FALSE)+
+  geom_sf(data=manchester_Places, mapping=aes(fill=NA), color="white", show.legend = FALSE)+
+  geom_sf_text(data=manchester_Places, aes(label = name, hjust = 0.5, vjust = -0.5),
+               nudge_x = 0, nudge_y = 0,
+               fontface = "bold",
+             color = "white",
+             show.legend = FALSE,
+             inherit.aes = TRUE)+
+  labs(
+    title = "",
+    x="", y=""
+  ) +
+  bi_theme()
+
+legend <- bi_legend(pal = "DkViolet",
+                    dim = 3,
+                    xlab = "Temperature ",
+                    ylab = "% Urban",
+                    size = 8)
+
+credit<- ("Landsat dervied temperature and urban area, taken 13/5/19")
+
+# combine map with legend
+finalPlot <- ggdraw() +
+  draw_plot(map, 0, 0, 1, 1) +
+  draw_plot(legend, 0.1, 0.1, 0.2, 0.2)
+  #draw_text(credit, 0.68, 0.1, 0.2, 0.2, size=10)
+
+finalPlot
+```
+
+That's the main bivaraite plot, now to the side plots...
+
+```{r}
+urban_box<-ggplot(data, aes(x=bi_class, y=percent_urban, fill=bi_class)) +
+  geom_boxplot()+
+  scale_fill_manual(values=c("#CABED0", "#BC7C8F", "#806A8A", "#435786", "#AE3A4E", "#77324C", "#3F2949", "#3F2949"))+
+  labs(x="Bivariate class (temp, urban)", 
+       y="Urban %")+
+  theme_light()+
+  theme(legend.position="none") # Remove legend
+
+temp_violin<-ggplot(data, aes(x=bi_class, y=temp, fill=bi_class))+
+  geom_violin()+
+  scale_fill_manual(values=c("#CABED0", "#BC7C8F", "#806A8A", "#435786", "#AE3A4E", "#77324C", "#3F2949", "#3F2949"))+
+  labs(x="", 
+       y="Temperature")+
+   guides(fill=guide_legend(title="Class"))+
+  theme_light()+
+  theme(legend.position="none") # Remove legend
+```
+
+Joint them all together in two steps - make the side plots, then join that to the main plot
+
+```{r, message=FALSE, warning=FALSE}
+side <- plot_grid(temp_violin, urban_box, labels=c("B","C"),label_size = 12, ncol=1)
+
+all <- plot_grid(finalPlot, side, labels = c('A'), label_size = 12, ncol = 2,  rel_widths = c(2, 1))
+
+all
+dev.copy(device = png, filename = 'MyPlot.png', width = 687, height = 455) 
+dev.off()
+
+```
+
+## Map notes
+
+* The Manchester outline shapefile doesn't match up with either the MSOA or LSOA boundaries, this could be solved by making sure the boundary data (e.g. city outline) matches any other spatial units. 
+* When selecting the data (within the Manchester boundary) any MSOA shape that was within the boundary selected
+* Then any LSOA that intersected the MSOA layer was selected
+* To resolve this you could clip the MSOA layer to the current displayed layer to force a boundary around the map
+* A box plot was used as the data was very spread out in the urban % plot, so a violin plot didn't show much.
+
 ## Considerations
 
 If you wanted to explore this type of analysis further then you would need to consider the following:
 
 * Other methods for extracting temperature from Landsat data
-* Validation of your temperature layer (e.g. weather station data)
+* Other methods for identifying urban area from Landsat data such as image classificaiton
 * The formula used to calculate emissivity --- there are many
-* The use of raw satellite data as opposed to remove the effects of the atmosphere. Within this practical we have only used relative spatial indexes (e.g. NDVI). However, if you were to use alternative methods it might be more appropraite to use surface reflectance data (also provided by USGS). 
+* The use of raw satellite data as opposed to remove the effects of the atmosphere. Within this practical we have only used relative spatial indexes (e.g. NDVI). However, if you were to use alternative methods it might be more appropriate to use surface reflectance data (also provided by USGS). 
 
 ## References
 
