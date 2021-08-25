@@ -6,7 +6,7 @@ bookdown::gitbook:
   config:
     search:
       engine: fuse # lunr is the default
-      options: null # can override, see: https://fusejs.io/api/options.html
+      options: includeMatches # can override, see: https://fusejs.io/api/options.html
     toc:
       collapse: section
       scroll_highlight: yes
