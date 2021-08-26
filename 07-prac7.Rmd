@@ -185,7 +185,7 @@ LonWardProfiles <- Londonwards%>%
             by = c("GSS_CODE" = "New code"))
 
 #let's map our dependent variable to see if the join has worked:
-tmap_mode("view")
+tmap_mode("plot")
 qtm(LonWardProfiles, 
     fill = "Average GCSE capped point scores - 2014", 
     borders = NULL,  
@@ -210,7 +210,7 @@ lon_schools_sf <- st_as_sf(london_schools,
 lond_sec_schools_sf <- lon_schools_sf %>%
   filter(PHASE=="Secondary")
 
-tmap_mode("view")
+tmap_mode("plot")
 qtm(lond_sec_schools_sf)
 ```
 

@@ -153,9 +153,11 @@ library(rgeos)
 library(rgdal)
 library(rasterVis)
 library(ggplot2)
+library(terra)
+library(sf)
 ```
 
-1. Now let's list all our Landsat bands except band 8 (i'll explain why next) along with our study area shapefile. Each band is a seperate ```.TIF``` file.
+1. Now let's list all our Landsat bands except band 8 (i'll explain why next) along with our study area shapefile. Each band is a separate ```.TIF``` file.
 
 ```{r message=FALSE, warning=FALSE, cache=TRUE}
 library(stringr)
@@ -334,7 +336,7 @@ res(manc) # xres, yres
 
 ### Plotting data
 
-14. Let's actually have a look at our raster data, first in true colour (how humans see the world) and then false colour composites (using any other bands but not the combination of red, green and blue). 
+1. Let's actually have a look at our raster data, first in true colour (how humans see the world) and then false colour composites (using any other bands but not the combination of red, green and blue). 
 
 ```{r, cache=TRUE}
 # true colour composite
@@ -351,7 +353,7 @@ manc_false %>%
 
 ### Data similarity
 
-15. What if you wanted to look at signle bands and also check the similarity between bands? 
+1. What if you wanted to look at signle bands and also check the similarity between bands? 
 ```{r, cache=TRUE}
 # Looking at single bands
 plot(manc$SWIR2)
@@ -376,8 +378,8 @@ library(ggplot2)
 library(GGally)
 
 manc %>%
-  as.data.frame(., na.rm=TRUE)%>%
-  sample_n(., 100)%>%
+  terra::as.data.frame(., na.rm=TRUE)%>%
+  dplyr::sample_n(., 100)%>%
   ggpairs(.,axisLabels="none")
 
 ```
@@ -541,7 +543,7 @@ Check the [handbook](https://prd-wret.s3-us-west-2.amazonaws.com/assets/palladiu
 ```{r, cache=TRUE}
 
 Calidata <- MTL$CALBT%>%
-  as.data.frame()%>%
+  terra::as.data.frame()%>%
   mutate(Band=rownames(.))%>%
   filter(Band=="B10_dn")
 
@@ -680,10 +682,10 @@ This is termed the overplotting problem. So, let's just take a random subset of 
 
 computeddata <- LST%>%
   stack(.,NDBI)%>%
-  as.data.frame()%>%
+  terra::as.data.frame()%>%
   na.omit()%>%
   # take a random subset
-  sample_n(., 500)%>%
+  dplyr::sample_n(., 500)%>%
   dplyr::rename(Temp="layer.1", NDBI="layer.2")
 
  # check the output
@@ -728,7 +730,7 @@ knitr::include_graphics('allisonhorst_images/ggplot2_masterpiece.png')
 
 computeddatafull <- LST%>%
   stack(.,NDBI)%>%
-  as.data.frame()%>%
+  terra::as.data.frame()%>%
   na.omit()%>%
   # take a random subset
   dplyr::rename(Temp="layer.1", NDBI="layer.2")
@@ -806,6 +808,7 @@ MOSA data: https://data.cambridgeshireinsight.org.uk/dataset/output-areas/resour
 Let's prepare the new spatial data:
 ```{r, warning=FALSE, message=FALSE}
 library(dplyr)
+library(sf)
 
 # read in LSOA data
 UK_LSOA <- st_read(here::here("prac7_data", 
@@ -969,7 +972,7 @@ data <- bi_class(manchester_LSOA_temp_urban, x = temp, y = percent_urban, style 
 map <- ggplot() +
  geom_sf(data = data, mapping = aes(fill = bi_class), color=NA, lwd = 0.1, show.legend = FALSE) +
   bi_scale_fill(pal = "DkViolet", dim = 3) +
-  geom_sf(data = manchester_MSOA, mapping = aes(fill=NA), color="black", size = .7, alpha = .75, show.legend = FALSE)+
+  geom_sf(data = manchester_MSOA, mapping = aes(fill=NA), color="black", alpha=0, show.legend = FALSE)+
   geom_sf(data=manchester_Places, mapping=aes(fill=NA), color="white", show.legend = FALSE)+
   geom_sf_text(data=manchester_Places, aes(label = name, hjust = 0.5, vjust = -0.5),
                nudge_x = 0, nudge_y = 0,
@@ -996,13 +999,13 @@ finalPlot <- ggdraw() +
   draw_plot(map, 0, 0, 1, 1) +
   draw_plot(legend, 0.1, 0.1, 0.2, 0.2)
   #draw_text(credit, 0.68, 0.1, 0.2, 0.2, size=10)
-
 finalPlot
+
 ```
 
 That's the main bivaraite plot, now to the side plots...
 
-```{r}
+```{r, message=FALSE, warning=FALSE}
 urban_box<-ggplot(data, aes(x=bi_class, y=percent_urban, fill=bi_class)) +
   geom_boxplot()+
   scale_fill_manual(values=c("#CABED0", "#BC7C8F", "#806A8A", "#435786", "#AE3A4E", "#77324C", "#3F2949", "#3F2949"))+
@@ -1027,14 +1030,22 @@ Joint them all together in two steps - make the side plots, then join that to th
 side <- plot_grid(temp_violin, urban_box, labels=c("B","C"),label_size = 12, ncol=1)
 
 all <- plot_grid(finalPlot, side, labels = c('A'), label_size = 12, ncol = 2,  rel_widths = c(2, 1))
+```
+Now this looks a bit rubbish on the page. Usually, you might want to export the map to a `.png` to use elsewhere, but you will need to resize it. I like to plot the map in the console (type all in the console then press enter), click export in the plots tab, reszie the image and note down the numbers then input them below..  
 
+```{r, echo=TRUE, message=FALSE, warning=FALSE}
 all
-dev.copy(device = png, filename = 'MyPlot.png', width = 687, height = 455) 
+dev.copy(device = png, filename = here::here("prac7_images", "bivaraite.png"), width = 687, height = 455) 
 dev.off()
-
 ```
 
-## Map notes
+
+```{r echo=FALSE, out.width = "600", fig.align='center', cache=TRUE}
+knitr::include_graphics(here::here("prac7_images", "bivaraite.png"))
+```
+
+
+### Map notes
 
 * The Manchester outline shapefile doesn't match up with either the MSOA or LSOA boundaries, this could be solved by making sure the boundary data (e.g. city outline) matches any other spatial units. 
 * When selecting the data (within the Manchester boundary) any MSOA shape that was within the boundary selected

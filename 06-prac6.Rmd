@@ -124,7 +124,7 @@ BluePlaques <- st_read(here::here("prac6_data",
 summary(BluePlaques)
 
 #plot the blue plaques in the city
-tmap_mode("view")
+tmap_mode("plot")
 tm_shape(BoroughMap) +
   tm_polygons(col = NA, alpha = 0.5) +
 tm_shape(BluePlaques) +
@@ -149,7 +149,7 @@ Now just select the points inside London - thanks to Robin Lovelace for posting 
 ```{r, cache=FALSE, warning=FALSE, message=FALSE}
 BluePlaquesSub <- BluePlaques[BoroughMap,]
 #check to see that they've been removed
-tmap_mode("view")
+tmap_mode("plot")
 tm_shape(BoroughMap) +
   tm_polygons(col = NA, alpha = 0.5) +
 tm_shape(BluePlaquesSub) +
@@ -182,7 +182,7 @@ Next we need to clip our Blue Plaques so that we have a subset of just those tha
 #clip the data to our single borough
 BluePlaquesSub <- BluePlaques[Harrow,]
 #check that it's worked
-tmap_mode("view")
+tmap_mode("plot")
 tm_shape(Harrow) +
   tm_polygons(col = NA, alpha = 0.5) +
 tm_shape(BluePlaquesSub) +
