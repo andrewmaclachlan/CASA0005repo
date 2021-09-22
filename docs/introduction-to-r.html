@@ -24,7 +24,7 @@
 <meta name="author" content="Andy MacLachlan and Adam Dennett" />
 
 
-<meta name="date" content="2021-08-26" />
+<meta name="date" content="2021-09-22" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -91,6 +91,742 @@
   gtag('config', 'UA-151934476-1');
 </script>
 <script src="assets/book.js"></script>
+
+<script>
+/* ========================================================================
+ * Bootstrap: transition.js v3.3.7
+ * http://getbootstrap.com/javascript/#transitions
+ * ========================================================================
+ * Copyright 2011-2016 Twitter, Inc.
+ * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
+ * ======================================================================== */
+
+
++function ($) {
+  'use strict';
+
+  // CSS TRANSITION SUPPORT (Shoutout: http://www.modernizr.com/)
+  // ============================================================
+
+  function transitionEnd() {
+    var el = document.createElement('bootstrap')
+
+    var transEndEventNames = {
+      WebkitTransition : 'webkitTransitionEnd',
+      MozTransition    : 'transitionend',
+      OTransition      : 'oTransitionEnd otransitionend',
+      transition       : 'transitionend'
+    }
+
+    for (var name in transEndEventNames) {
+      if (el.style[name] !== undefined) {
+        return { end: transEndEventNames[name] }
+      }
+    }
+
+    return false // explicit for ie8 (  ._.)
+  }
+
+  // http://blog.alexmaccaw.com/css-transitions
+  $.fn.emulateTransitionEnd = function (duration) {
+    var called = false
+    var $el = this
+    $(this).one('bsTransitionEnd', function () { called = true })
+    var callback = function () { if (!called) $($el).trigger($.support.transition.end) }
+    setTimeout(callback, duration)
+    return this
+  }
+
+  $(function () {
+    $.support.transition = transitionEnd()
+
+    if (!$.support.transition) return
+
+    $.event.special.bsTransitionEnd = {
+      bindType: $.support.transition.end,
+      delegateType: $.support.transition.end,
+      handle: function (e) {
+        if ($(e.target).is(this)) return e.handleObj.handler.apply(this, arguments)
+      }
+    }
+  })
+
+}(jQuery);
+</script>
+<script>
+/* ========================================================================
+ * Bootstrap: collapse.js v3.3.7
+ * http://getbootstrap.com/javascript/#collapse
+ * ========================================================================
+ * Copyright 2011-2016 Twitter, Inc.
+ * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
+ * ======================================================================== */
+
+/* jshint latedef: false */
+
++function ($) {
+  'use strict';
+
+  // COLLAPSE PUBLIC CLASS DEFINITION
+  // ================================
+
+  var Collapse = function (element, options) {
+    this.$element      = $(element)
+    this.options       = $.extend({}, Collapse.DEFAULTS, options)
+    this.$trigger      = $('[data-toggle="collapse"][href="#' + element.id + '"],' +
+                           '[data-toggle="collapse"][data-target="#' + element.id + '"]')
+    this.transitioning = null
+
+    if (this.options.parent) {
+      this.$parent = this.getParent()
+    } else {
+      this.addAriaAndCollapsedClass(this.$element, this.$trigger)
+    }
+
+    if (this.options.toggle) this.toggle()
+  }
+
+  Collapse.VERSION  = '3.3.7'
+
+  Collapse.TRANSITION_DURATION = 350
+
+  Collapse.DEFAULTS = {
+    toggle: true
+  }
+
+  Collapse.prototype.dimension = function () {
+    var hasWidth = this.$element.hasClass('width')
+    return hasWidth ? 'width' : 'height'
+  }
+
+  Collapse.prototype.show = function () {
+    if (this.transitioning || this.$element.hasClass('in')) return
+
+    var activesData
+    var actives = this.$parent && this.$parent.children('.panel').children('.in, .collapsing')
+
+    if (actives && actives.length) {
+      activesData = actives.data('bs.collapse')
+      if (activesData && activesData.transitioning) return
+    }
+
+    var startEvent = $.Event('show.bs.collapse')
+    this.$element.trigger(startEvent)
+    if (startEvent.isDefaultPrevented()) return
+
+    if (actives && actives.length) {
+      Plugin.call(actives, 'hide')
+      activesData || actives.data('bs.collapse', null)
+    }
+
+    var dimension = this.dimension()
+
+    this.$element
+      .removeClass('collapse')
+      .addClass('collapsing')[dimension](0)
+      .attr('aria-expanded', true)
+
+    this.$trigger
+      .removeClass('collapsed')
+      .attr('aria-expanded', true)
+
+    this.transitioning = 1
+
+    var complete = function () {
+      this.$element
+        .removeClass('collapsing')
+        .addClass('collapse in')[dimension]('')
+      this.transitioning = 0
+      this.$element
+        .trigger('shown.bs.collapse')
+    }
+
+    if (!$.support.transition) return complete.call(this)
+
+    var scrollSize = $.camelCase(['scroll', dimension].join('-'))
+
+    this.$element
+      .one('bsTransitionEnd', $.proxy(complete, this))
+      .emulateTransitionEnd(Collapse.TRANSITION_DURATION)[dimension](this.$element[0][scrollSize])
+  }
+
+  Collapse.prototype.hide = function () {
+    if (this.transitioning || !this.$element.hasClass('in')) return
+
+    var startEvent = $.Event('hide.bs.collapse')
+    this.$element.trigger(startEvent)
+    if (startEvent.isDefaultPrevented()) return
+
+    var dimension = this.dimension()
+
+    this.$element[dimension](this.$element[dimension]())[0].offsetHeight
+
+    this.$element
+      .addClass('collapsing')
+      .removeClass('collapse in')
+      .attr('aria-expanded', false)
+
+    this.$trigger
+      .addClass('collapsed')
+      .attr('aria-expanded', false)
+
+    this.transitioning = 1
+
+    var complete = function () {
+      this.transitioning = 0
+      this.$element
+        .removeClass('collapsing')
+        .addClass('collapse')
+        .trigger('hidden.bs.collapse')
+    }
+
+    if (!$.support.transition) return complete.call(this)
+
+    this.$element
+      [dimension](0)
+      .one('bsTransitionEnd', $.proxy(complete, this))
+      .emulateTransitionEnd(Collapse.TRANSITION_DURATION)
+  }
+
+  Collapse.prototype.toggle = function () {
+    this[this.$element.hasClass('in') ? 'hide' : 'show']()
+  }
+
+  Collapse.prototype.getParent = function () {
+    return $(this.options.parent)
+      .find('[data-toggle="collapse"][data-parent="' + this.options.parent + '"]')
+      .each($.proxy(function (i, element) {
+        var $element = $(element)
+        this.addAriaAndCollapsedClass(getTargetFromTrigger($element), $element)
+      }, this))
+      .end()
+  }
+
+  Collapse.prototype.addAriaAndCollapsedClass = function ($element, $trigger) {
+    var isOpen = $element.hasClass('in')
+
+    $element.attr('aria-expanded', isOpen)
+    $trigger
+      .toggleClass('collapsed', !isOpen)
+      .attr('aria-expanded', isOpen)
+  }
+
+  function getTargetFromTrigger($trigger) {
+    var href
+    var target = $trigger.attr('data-target')
+      || (href = $trigger.attr('href')) && href.replace(/.*(?=#[^\s]+$)/, '') // strip for ie7
+
+    return $(target)
+  }
+
+
+  // COLLAPSE PLUGIN DEFINITION
+  // ==========================
+
+  function Plugin(option) {
+    return this.each(function () {
+      var $this   = $(this)
+      var data    = $this.data('bs.collapse')
+      var options = $.extend({}, Collapse.DEFAULTS, $this.data(), typeof option == 'object' && option)
+
+      if (!data && options.toggle && /show|hide/.test(option)) options.toggle = false
+      if (!data) $this.data('bs.collapse', (data = new Collapse(this, options)))
+      if (typeof option == 'string') data[option]()
+    })
+  }
+
+  var old = $.fn.collapse
+
+  $.fn.collapse             = Plugin
+  $.fn.collapse.Constructor = Collapse
+
+
+  // COLLAPSE NO CONFLICT
+  // ====================
+
+  $.fn.collapse.noConflict = function () {
+    $.fn.collapse = old
+    return this
+  }
+
+
+  // COLLAPSE DATA-API
+  // =================
+
+  $(document).on('click.bs.collapse.data-api', '[data-toggle="collapse"]', function (e) {
+    var $this   = $(this)
+
+    if (!$this.attr('data-target')) e.preventDefault()
+
+    var $target = getTargetFromTrigger($this)
+    var data    = $target.data('bs.collapse')
+    var option  = data ? 'toggle' : $this.data()
+
+    Plugin.call($target, option)
+  })
+
+}(jQuery);
+</script>
+<script>
+window.initializeCodeFolding = function(show) {
+
+  // handlers for show-all and hide all
+  $("#rmd-show-all-code").click(function() {
+    // close the dropdown menu when an option is clicked
+    $("#allCodeButton").dropdown("toggle");
+    $('div.r-code-collapse').each(function() {
+      $(this).collapse('show');
+    });
+  });
+  $("#rmd-hide-all-code").click(function() {
+    // close the dropdown menu when an option is clicked
+    $("#allCodeButton").dropdown("toggle");
+    $('div.r-code-collapse').each(function() {
+      $(this).collapse('hide');
+    });
+  });
+
+  // index for unique code element ids
+  var currentIndex = 1;
+
+  // select all R code blocks
+  var rCodeBlocks = $('pre.sourceCode, pre.r, pre.python, pre.bash, pre.sql, pre.cpp, pre.stan');
+  rCodeBlocks.each(function() {
+
+    // if code block has been labeled with class `fold-show`, show the code on init!
+    var classList = $(this).attr('class').split(/\s+/);
+    for (var i = 0; i < classList.length; i++) {
+    if (classList[i] === 'fold-show') {
+        show = true;
+      }
+    }
+
+    // create a collapsable div to wrap the code in
+    var div = $('<div class="collapse r-code-collapse"></div>');
+    if (show)
+      div.addClass('in');
+    var id = 'rcode-643E0F36' + currentIndex++;
+    div.attr('id', id);
+    $(this).before(div);
+    $(this).detach().appendTo(div);
+
+    // add a show code button right above
+    var showCodeText = $('<span>' + (show ? 'Hide' : 'Code') + '</span>');
+    var showCodeButton = $('<button type="button" class="btn btn-default btn-xs code-folding-btn pull-right"></button>');
+    showCodeButton.append(showCodeText);
+    showCodeButton
+        .attr('data-toggle', 'collapse')
+        .attr('data-target', '#' + id)
+        .attr('aria-expanded', show)
+        .attr('aria-controls', id);
+
+    var buttonRow = $('<div class="row"></div>');
+    var buttonCol = $('<div class="col-md-12"></div>');
+
+    buttonCol.append(showCodeButton);
+    buttonRow.append(buttonCol);
+
+    div.before(buttonRow);
+
+    // hack: return show to false, otherwise all next codeBlocks will be shown!
+    show = false;
+
+    // update state of button on show/hide
+    div.on('hidden.bs.collapse', function () {
+      showCodeText.text('Code');
+    });
+    div.on('show.bs.collapse', function () {
+      showCodeText.text('Hide');
+    });
+  });
+
+}
+</script>
+<script>
+/* ========================================================================
+ * Bootstrap: dropdown.js v3.3.7
+ * http://getbootstrap.com/javascript/#dropdowns
+ * ========================================================================
+ * Copyright 2011-2016 Twitter, Inc.
+ * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
+ * ======================================================================== */
+
+
++function ($) {
+  'use strict';
+
+  // DROPDOWN CLASS DEFINITION
+  // =========================
+
+  var backdrop = '.dropdown-backdrop'
+  var toggle   = '[data-toggle="dropdown"]'
+  var Dropdown = function (element) {
+    $(element).on('click.bs.dropdown', this.toggle)
+  }
+
+  Dropdown.VERSION = '3.3.7'
+
+  function getParent($this) {
+    var selector = $this.attr('data-target')
+
+    if (!selector) {
+      selector = $this.attr('href')
+      selector = selector && /#[A-Za-z]/.test(selector) && selector.replace(/.*(?=#[^\s]*$)/, '') // strip for ie7
+    }
+
+    var $parent = selector && $(selector)
+
+    return $parent && $parent.length ? $parent : $this.parent()
+  }
+
+  function clearMenus(e) {
+    if (e && e.which === 3) return
+    $(backdrop).remove()
+    $(toggle).each(function () {
+      var $this         = $(this)
+      var $parent       = getParent($this)
+      var relatedTarget = { relatedTarget: this }
+
+      if (!$parent.hasClass('open')) return
+
+      if (e && e.type == 'click' && /input|textarea/i.test(e.target.tagName) && $.contains($parent[0], e.target)) return
+
+      $parent.trigger(e = $.Event('hide.bs.dropdown', relatedTarget))
+
+      if (e.isDefaultPrevented()) return
+
+      $this.attr('aria-expanded', 'false')
+      $parent.removeClass('open').trigger($.Event('hidden.bs.dropdown', relatedTarget))
+    })
+  }
+
+  Dropdown.prototype.toggle = function (e) {
+    var $this = $(this)
+
+    if ($this.is('.disabled, :disabled')) return
+
+    var $parent  = getParent($this)
+    var isActive = $parent.hasClass('open')
+
+    clearMenus()
+
+    if (!isActive) {
+      if ('ontouchstart' in document.documentElement && !$parent.closest('.navbar-nav').length) {
+        // if mobile we use a backdrop because click events don't delegate
+        $(document.createElement('div'))
+          .addClass('dropdown-backdrop')
+          .insertAfter($(this))
+          .on('click', clearMenus)
+      }
+
+      var relatedTarget = { relatedTarget: this }
+      $parent.trigger(e = $.Event('show.bs.dropdown', relatedTarget))
+
+      if (e.isDefaultPrevented()) return
+
+      $this
+        .trigger('focus')
+        .attr('aria-expanded', 'true')
+
+      $parent
+        .toggleClass('open')
+        .trigger($.Event('shown.bs.dropdown', relatedTarget))
+    }
+
+    return false
+  }
+
+  Dropdown.prototype.keydown = function (e) {
+    if (!/(38|40|27|32)/.test(e.which) || /input|textarea/i.test(e.target.tagName)) return
+
+    var $this = $(this)
+
+    e.preventDefault()
+    e.stopPropagation()
+
+    if ($this.is('.disabled, :disabled')) return
+
+    var $parent  = getParent($this)
+    var isActive = $parent.hasClass('open')
+
+    if (!isActive && e.which != 27 || isActive && e.which == 27) {
+      if (e.which == 27) $parent.find(toggle).trigger('focus')
+      return $this.trigger('click')
+    }
+
+    var desc = ' li:not(.disabled):visible a'
+    var $items = $parent.find('.dropdown-menu' + desc)
+
+    if (!$items.length) return
+
+    var index = $items.index(e.target)
+
+    if (e.which == 38 && index > 0)                 index--         // up
+    if (e.which == 40 && index < $items.length - 1) index++         // down
+    if (!~index)                                    index = 0
+
+    $items.eq(index).trigger('focus')
+  }
+
+
+  // DROPDOWN PLUGIN DEFINITION
+  // ==========================
+
+  function Plugin(option) {
+    return this.each(function () {
+      var $this = $(this)
+      var data  = $this.data('bs.dropdown')
+
+      if (!data) $this.data('bs.dropdown', (data = new Dropdown(this)))
+      if (typeof option == 'string') data[option].call($this)
+    })
+  }
+
+  var old = $.fn.dropdown
+
+  $.fn.dropdown             = Plugin
+  $.fn.dropdown.Constructor = Dropdown
+
+
+  // DROPDOWN NO CONFLICT
+  // ====================
+
+  $.fn.dropdown.noConflict = function () {
+    $.fn.dropdown = old
+    return this
+  }
+
+
+  // APPLY TO STANDARD DROPDOWN ELEMENTS
+  // ===================================
+
+  $(document)
+    .on('click.bs.dropdown.data-api', clearMenus)
+    .on('click.bs.dropdown.data-api', '.dropdown form', function (e) { e.stopPropagation() })
+    .on('click.bs.dropdown.data-api', toggle, Dropdown.prototype.toggle)
+    .on('keydown.bs.dropdown.data-api', toggle, Dropdown.prototype.keydown)
+    .on('keydown.bs.dropdown.data-api', '.dropdown-menu', Dropdown.prototype.keydown)
+
+}(jQuery);
+</script>
+<style type="text/css">
+.code-folding-btn {
+  margin-bottom: 4px;
+}
+
+.row { display: flex; }
+.collapse { display: none; }
+.in { display:block }
+.pull-right > .dropdown-menu {
+    right: 0;
+    left: auto;
+}
+
+.dropdown-menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    z-index: 1000;
+    display: none;
+    float: left;
+    min-width: 160px;
+    padding: 5px 0;
+    margin: 2px 0 0;
+    font-size: 14px;
+    text-align: left;
+    list-style: none;
+    background-color: #fff;
+    -webkit-background-clip: padding-box;
+    background-clip: padding-box;
+    border: 1px solid #ccc;
+    border: 1px solid rgba(0,0,0,.15);
+    border-radius: 4px;
+    -webkit-box-shadow: 0 6px 12px rgba(0,0,0,.175);
+    box-shadow: 0 6px 12px rgba(0,0,0,.175);
+}
+
+.open > .dropdown-menu {
+    display: block;
+    color: #ffffff;
+    background-color: #ffffff;
+    background-image: none;
+    border-color: #92897e;
+}
+
+.dropdown-menu > li > a {
+  display: block;
+  padding: 3px 20px;
+  clear: both;
+  font-weight: 400;
+  line-height: 1.42857143;
+  color: #000000;
+  white-space: nowrap;
+}
+
+.dropdown-menu > li > a:hover,
+.dropdown-menu > li > a:focus {
+  color: #ffffff;
+  text-decoration: none;
+  background-color: #e95420;
+}
+
+.dropdown-menu > .active > a,
+.dropdown-menu > .active > a:hover,
+.dropdown-menu > .active > a:focus {
+  color: #ffffff;
+  text-decoration: none;
+  background-color: #e95420;
+  outline: 0;
+}
+.dropdown-menu > .disabled > a,
+.dropdown-menu > .disabled > a:hover,
+.dropdown-menu > .disabled > a:focus {
+  color: #aea79f;
+}
+
+.dropdown-menu > .disabled > a:hover,
+.dropdown-menu > .disabled > a:focus {
+  text-decoration: none;
+  cursor: not-allowed;
+  background-color: transparent;
+  background-image: none;
+  filter: progid:DXImageTransform.Microsoft.gradient(enabled = false);
+}
+
+.btn {
+  display: inline-block;
+  margin-bottom: 1;
+  font-weight: normal;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: middle;
+  -ms-touch-action: manipulation;
+      touch-action: manipulation;
+  cursor: pointer;
+  background-image: none;
+  border: 1px solid transparent;
+  padding: 4px 8px;
+  font-size: 14px;
+  line-height: 1.42857143;
+  border-radius: 4px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.btn:focus,
+.btn:active:focus,
+.btn.active:focus,
+.btn.focus,
+.btn:active.focus,
+.btn.active.focus {
+  outline: 5px auto -webkit-focus-ring-color;
+  outline-offset: -2px;
+}
+.btn:hover,
+.btn:focus,
+.btn.focus {
+  color: #ffffff;
+  text-decoration: none;
+}
+.btn:active,
+.btn.active {
+  background-image: none;
+  outline: 0;
+  box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+}
+.btn.disabled,
+.btn[disabled],
+fieldset[disabled] .btn {
+  cursor: not-allowed;
+  filter: alpha(opacity=65);
+  opacity: 0.65;
+  box-shadow: none;
+}
+a.btn.disabled,
+fieldset[disabled] a.btn {
+  pointer-events: none;
+}
+.btn-default {
+  color: #ffffff;
+  background-color: #aea79f; #important
+  border-color: #aea79f;
+}
+
+.btn-default:focus,
+.btn-default.focus {
+  color: #ffffff;
+  background-color: #978e83;
+  border-color: #6f675e;
+}
+
+.btn-default:hover {
+  color: #ffffff;
+  background-color: #978e83;
+  border-color: #92897e;
+}
+.btn-default:active,
+.btn-default.active,
+.btn-group > .btn:not(:first-child):not(:last-child):not(.dropdown-toggle) {
+  border-radius: 0;
+}
+.btn-group > .btn:first-child {
+  margin-left: 0;
+}
+.btn-group > .btn:first-child:not(:last-child):not(.dropdown-toggle) {
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+.btn-group > .btn:last-child:not(:first-child),
+.btn-group > .dropdown-toggle:not(:first-child) {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+}
+.btn-group > .btn-group {
+  float: left;
+}
+.btn-group > .btn-group:not(:first-child):not(:last-child) > .btn {
+  border-radius: 0;
+}
+.btn-group > .btn-group:first-child:not(:last-child) > .btn:last-child,
+.btn-group > .btn-group:first-child:not(:last-child) > .dropdown-toggle {
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+.btn-group > .btn-group:last-child:not(:first-child) > .btn:first-child {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+}
+.btn-group .dropdown-toggle:active,
+.btn-group.open .dropdown-toggle {
+  outline: 0;
+}
+.btn-group > .btn + .dropdown-toggle {
+  padding-right: 8px;
+  padding-left: 8px;
+}
+.btn-group > .btn-lg + .dropdown-toggle {
+  padding-right: 12px;
+  padding-left: 12px;
+}
+.btn-group.open .dropdown-toggle {
+  box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+}
+.btn-group.open .dropdown-toggle.btn-link {
+  box-shadow: none;
+}
+
+</style>
+<script>
+var str = '<div class="btn-group pull-right" style="position: fixed; right: 50px; top: 10px; z-index: 200"><button type="button" class="btn btn-default btn-xs dropdown-toggle" id="allCodeButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" data-_extension-text-contrast=""><span>Code</span> <span class="caret"></span></button><ul class="dropdown-menu" style="min-width: 50px;"><li><a id="rmd-show-all-code" href="#">Show All Code</a></li><li><a id="rmd-hide-all-code" href="#">Hide All Code</a></li></ul></div>';
+document.write(str);
+</script>
+<script>
+$(document).ready(function () {
+  window.initializeCodeFolding("show" === "hide");
+});
+</script>
 
 
 <style type="text/css">
@@ -193,7 +929,6 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="hello-gis.html"><a href="hello-gis.html#interactive-lectures"><i class="fa fa-check"></i>Interactive lectures</a></li>
 <li class="chapter" data-level="" data-path="hello-gis.html"><a href="hello-gis.html#more-help"><i class="fa fa-check"></i>More help</a></li>
 <li class="chapter" data-level="" data-path="hello-gis.html"><a href="hello-gis.html#noticed-a-mistake"><i class="fa fa-check"></i>Noticed a mistake?</a></li>
-<li class="chapter" data-level="" data-path="hello-gis.html"><a href="hello-gis.html#assignment-resources"><i class="fa fa-check"></i>Assignment resources</a></li>
 <li class="chapter" data-level="" data-path="hello-gis.html"><a href="hello-gis.html#reading-list"><i class="fa fa-check"></i>Reading list</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="software-installation.html"><a href="software-installation.html"><i class="fa fa-check"></i>Software installation</a>
@@ -754,7 +1489,7 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb49-1"><a href="introduction-to-r.html#cb49-1" aria-hidden="true" tabindex="-1"></a>df <span class="sc">%&gt;%</span></span>
 <span id="cb49-2"><a href="introduction-to-r.html#cb49-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tail</span>()</span></code></pre></div>
 <div class="infobox warning">
-<p>You might have noticed the syntax (code) <code>%&gt;%</code>, this is called a <strong>pipe</strong> and is an operator is part from the <code>magrittr</code> package. <code>magrittr</code> is an entirely new way of thinking about R syntax that cleraly expresses a sequence of multiple operations. It is useful to think of the pipe operator as simply meaning “then.” Do this <strong>THEN</strong> do this <strong>THEN</strong> do that.</p>
+<p>You might have noticed the syntax (code) <code>%&gt;%</code>, this is called a <strong>pipe</strong> and is an operator is part from the <code>magrittr</code> package. <code>magrittr</code> is an entirely new way of thinking about R syntax that cleraly expresses a sequence of multiple operations. It is useful to think of the pipe operator as simply meaning “then”. Do this <strong>THEN</strong> do this <strong>THEN</strong> do that.</p>
 </div>
 <p>You can also view elements of your data frame in RStudio by simply clicking on it in the top-right Environment window:</p>
 <p><img src="prac2_images/dataview.png" width="800px" style="display: block; margin: auto;" /></p>
@@ -1040,7 +1775,7 @@ Here, we could filter based on a variable, for example extracting all the wards 
 <div id="levelling-up-withdplyr" class="section level4" number="2.5.5.5">
 <h4><span class="header-section-number">2.5.5.5</span> Levelling up with<code>dplyr</code></h4>
 <p>So far, we’ve really just covered basic operations with <code>dplyr</code> that you might have previously done in Excel. However, <code>dplyr</code> has much more powerful functions that can make advanced data wrangling a breeze. Whilst we’ve looked at life expectancy in the London boroughs relative to each other, how does the life expectancy of the London Boroughs compare the the UK average of 81.16?</p>
-<p>To answer this question we can use the <code>case_when()</code>, whereby if the value is greater than 81.16 we can assign the Borough a string of “above UK average,” and if below a string of “below UK average”….</p>
+<p>To answer this question we can use the <code>case_when()</code>, whereby if the value is greater than 81.16 we can assign the Borough a string of “above UK average”, and if below a string of “below UK average”….</p>
 <p><img src="allisonhorst_images/dplyr_case_when.png" width="500pt" style="display: block; margin: auto;" /></p>
 <div class="sourceCode" id="cb92"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb92-1"><a href="introduction-to-r.html#cb92-1" aria-hidden="true" tabindex="-1"></a>Life_expectancy2 <span class="ot">&lt;-</span> Life_expectancy <span class="sc">%&gt;%</span></span>
 <span id="cb92-2"><a href="introduction-to-r.html#cb92-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">UKcompare =</span> <span class="fu">case_when</span>(averagelifeexpectancy<span class="sc">&gt;</span><span class="fl">81.16</span> <span class="sc">~</span> <span class="st">&quot;above UK average&quot;</span>,</span>
@@ -1154,7 +1889,7 @@ Here we need to:</p>
 <span id="cb102-9"><a href="introduction-to-r.html#cb102-9" aria-hidden="true" tabindex="-1"></a>        <span class="at">type =</span> <span class="st">&quot;scatter&quot;</span>, </span>
 <span id="cb102-10"><a href="introduction-to-r.html#cb102-10" aria-hidden="true" tabindex="-1"></a>        <span class="at">mode =</span> <span class="st">&quot;markers&quot;</span>)</span></code></pre></div>
 <div id="htmlwidget-76ad6e2d719a5afb242b" style="width:672px;height:480px;" class="plotly html-widget"></div>
-<script type="application/json" data-for="htmlwidget-76ad6e2d719a5afb242b">{"x":{"visdat":{"d18416e97bd0":["function () ","plotlyVisDat"]},"cur_data":"d18416e97bd0","attrs":{"d18416e97bd0":{"x":{},"y":{},"text":{},"mode":"markers","alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"type":"scatter"}},"layout":{"margin":{"b":40,"l":60,"t":25,"r":10},"xaxis":{"domain":[0,1],"automargin":true,"title":"male_life_expectancy_2009_13"},"yaxis":{"domain":[0,1],"automargin":true,"title":"percent_children_in_reception_year_who_are_obese_2011_12_to_2013_14","type":"category","categoryorder":"array","categoryarray":["10.2","10.3","10.6","11.0","11.1","11.2","11.5","11.6","12.2","12.5","12.7","12.8","13.2","13.3","13.6","5.7","6.0","7.8","8.1","9.0","9.2","9.5","9.6","9.8"]},"hovermode":"closest","showlegend":false},"source":"A","config":{"showSendToCloud":false},"data":[{"x":[84.3,77.7,81.9,80.3,80,81.3,81.1,80,79.9,80.6,78.7,78.2,79.1,80.1,82.4,79.8,80.4,79.7,78.2,82.6,81.3,78.4,78.7,80.3,78.5,80.7,81.9,78.6,80.8,77.5,79.7,79.2,81.7],"y":["11.1","13.6","9.5","11.6","12.2","7.8","9.8","11.1","11.2","12.7","13.2","13.3","10.2","11.1","9.6","10.3","9.6","11.2","10.6","9.2","6.0","11.5","11.0","9.0","12.5","10.6","5.7","12.8","8.1","12.7","10.6","9.2","11.1"],"text":["City of London","Barking and Dagenham","Barnet","Bexley","Brent","Bromley","Camden","Croydon","Ealing","Enfield","Greenwich","Hackney","Hammersmith and Fulham","Haringey","Harrow","Havering","Hillingdon","Hounslow","Islington","Kensington and Chelsea","Kingston upon Thames","Lambeth","Lewisham","Merton","Newham","Redbridge","Richmond upon Thames","Southwark","Sutton","Tower Hamlets","Waltham Forest","Wandsworth","Westminster"],"mode":"markers","type":"scatter","marker":{"color":"rgba(31,119,180,1)","line":{"color":"rgba(31,119,180,1)"}},"error_y":{"color":"rgba(31,119,180,1)"},"error_x":{"color":"rgba(31,119,180,1)"},"line":{"color":"rgba(31,119,180,1)"},"xaxis":"x","yaxis":"y","frame":null}],"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.2,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
+<script type="application/json" data-for="htmlwidget-76ad6e2d719a5afb242b">{"x":{"visdat":{"561c56321a00":["function () ","plotlyVisDat"]},"cur_data":"561c56321a00","attrs":{"561c56321a00":{"x":{},"y":{},"text":{},"mode":"markers","alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"type":"scatter"}},"layout":{"margin":{"b":40,"l":60,"t":25,"r":10},"xaxis":{"domain":[0,1],"automargin":true,"title":"male_life_expectancy_2009_13"},"yaxis":{"domain":[0,1],"automargin":true,"title":"percent_children_in_reception_year_who_are_obese_2011_12_to_2013_14","type":"category","categoryorder":"array","categoryarray":["10.2","10.3","10.6","11.0","11.1","11.2","11.5","11.6","12.2","12.5","12.7","12.8","13.2","13.3","13.6","5.7","6.0","7.8","8.1","9.0","9.2","9.5","9.6","9.8"]},"hovermode":"closest","showlegend":false},"source":"A","config":{"showSendToCloud":false},"data":[{"x":[84.3,77.7,81.9,80.3,80,81.3,81.1,80,79.9,80.6,78.7,78.2,79.1,80.1,82.4,79.8,80.4,79.7,78.2,82.6,81.3,78.4,78.7,80.3,78.5,80.7,81.9,78.6,80.8,77.5,79.7,79.2,81.7],"y":["11.1","13.6","9.5","11.6","12.2","7.8","9.8","11.1","11.2","12.7","13.2","13.3","10.2","11.1","9.6","10.3","9.6","11.2","10.6","9.2","6.0","11.5","11.0","9.0","12.5","10.6","5.7","12.8","8.1","12.7","10.6","9.2","11.1"],"text":["City of London","Barking and Dagenham","Barnet","Bexley","Brent","Bromley","Camden","Croydon","Ealing","Enfield","Greenwich","Hackney","Hammersmith and Fulham","Haringey","Harrow","Havering","Hillingdon","Hounslow","Islington","Kensington and Chelsea","Kingston upon Thames","Lambeth","Lewisham","Merton","Newham","Redbridge","Richmond upon Thames","Southwark","Sutton","Tower Hamlets","Waltham Forest","Wandsworth","Westminster"],"mode":"markers","type":"scatter","marker":{"color":"rgba(31,119,180,1)","line":{"color":"rgba(31,119,180,1)"}},"error_y":{"color":"rgba(31,119,180,1)"},"error_x":{"color":"rgba(31,119,180,1)"},"line":{"color":"rgba(31,119,180,1)"},"xaxis":"x","yaxis":"y","frame":null}],"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.2,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
 </div>
 <div id="spatial-data-in-r" class="section level3" number="2.5.8">
 <h3><span class="header-section-number">2.5.8</span> Spatial Data in R</h3>

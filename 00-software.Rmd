@@ -4,7 +4,7 @@ This course primarily uses the R data science programming language and we strong
 
 ## QGIS {-}
 
-QGIS is an open-source garphic user interface GIS with many community developed add on packages that (or plugins) that provide additional functionality to the software.  
+QGIS is an open-source graphic user interface GIS with many community developed add on packages that (or plugins) that provide additional functionality to the software.  
 
 To get QGIS on your personal machine go to: https://qgis.org/en/site/forusers/download.html
 

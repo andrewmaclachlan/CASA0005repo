@@ -1,6 +1,6 @@
 bookdown::gitbook:
   includes:
-    in_header: [assets/google_analytics.html, assets/javaheader.html]
+    in_header: [assets/google_analytics.html, assets/javaheader.html, assets/hide_code.html]
   css: assets/style.css
   highlight: tango
   config:

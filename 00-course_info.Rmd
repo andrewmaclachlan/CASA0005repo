@@ -2,7 +2,7 @@
 
 # Hello GIS {-}
 
-Spatial analysis can yield fascinating insights into geographical relationships. However, at times it can be difficult to work with. You will get lots of error messages and have software crash. The academic staff are here to help you work through these practicals but we do not know everything. It's a good idea to become familar with online sources of help, such as:
+Spatial analysis can yield fascinating insights into geographical relationships. However, at times it can be difficult to work with. You will get lots of error messages and have software crash. The academic staff are here to help you work through these practicals but we do not know everything. It's a good idea to become familiar with online sources of help, such as:
 
 * [Stack Exchange](https://stackexchange.com/)
 * [RStudio community](https://community.rstudio.com/)
@@ -129,13 +129,13 @@ The meeting ID we will use is: 186-395-009
 
 If you need specific assistance with this course please:
 
-* Check the Moodle assessment tab for queries relating to assignments / deadlines. There is also an expected assignment timeline and frequently asked questions section within the assessment outline document.
+* Check the Moodle assessment tab for queries relating to assignments / deadlines. 
 
 * Speak to a member of the teaching team in the computer lab sessions
 
 * Ask a question at the end of a lecture (time permitting)
 
-* Ask a question on slack under the GIS channel--- you should have recevied an invite email from Steve Gray otherwise use [this link](https://join.slack.com/t/casastudents2019-2020/signup). The teaching team will monitor this --- use the #gis channel for this course.
+* Ask a question on slack under the GIS channel
 
 Due to the size of the class we will **only reply** to messages **on slack** so all students can see the discussion. If you have a personal matter in relation to completing the course then please speak to or email Andy or Adam.
 
@@ -171,10 +171,6 @@ If you give us minimal information in this form (e.g. one word) we will cancel t
 No one is perfect, if you notice a mistake let us know through the [GitHub issues tab](https://github.com/andrewmaclachlan/CASA0005repo/issues)
 
 Don't worry if you are unsure about what GitHub is we cover it in the course.
-
-## Assignment resources {-}
-
-Want some tips for resources on your assignment?.... head over to the [Assignment resources] pages
 
 ## Reading list {-}
 
