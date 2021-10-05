@@ -24,7 +24,7 @@
 <meta name="author" content="Andy MacLachlan and Adam Dennett" />
 
 
-<meta name="date" content="2021-09-22" />
+<meta name="date" content="2021-10-05" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -1472,7 +1472,7 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <p>To this…</p>
 <p><img src="prac1_images/csv_pivot.png" width="600pt" style="display: block; margin: auto;" /></p>
 <div class="infobox tip">
-<p>Scroll to the end of the <code>.csv</code> and look at the data in the final rows. The last year should be 2017-2018. If you have years such as 2018-2020 then delete these rows.</p>
+<p>In previous years there have errors in this <code>.csv</code>, for example there used to be year value of 2017-2018 that was incorrect. Whilst these have been resolved, it’s always important to check your data.</p>
 </div>
 <p>As we are going to use this dataset in QGIS and R I’ve done it in Excel using a pivot table. In future we’ll use R to automate tasks like this.</p>
 <ol style="list-style-type: decimal">
@@ -1555,12 +1555,15 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <li>Right click on your London boroughs layer &gt; Properties &gt; Symbology</li>
 <li>Select categorised and choose a data column and color ramp &gt; click Classify</li>
 </ol>
-<p>You could also select graduated, however our joined data fields are in the wrong data type. If you wish to change them follow <a href="https://wiki.tuflow.com/index.php?title=QGIS_Change_Attribute_Type">this guide</a></p>
+<p>You could also select graduated, to do so, simply change the number of classes.</p>
 <ol style="list-style-type: decimal">
 <li>Save your QGIS project</li>
 </ol>
 <p>You should have produced something like this:</p>
 <p><img src="prac1_images/QGIS_final.png" width="800pt" style="display: block; margin: auto;" /></p>
+<div class="infobox tip">
+<p>This a very basic map and we’ve just used raw counts to show how to join and map data. You should (almost) never do this, as counts can be misleading. This is because the counts are collected over areas of unequal size. It’s best to divide the values by some sort of denominator (e.g. area of borough, population) to normalise the data giving something like occurrence of flytipping per km2 enabling comparison between the boroughs. We cover this in more detail before reading week.</p>
+</div>
 <p><strong>We haven’t talked about the Coordiante Reference System (CRS) (or Spatial Reference System (SRS)) of our map document</strong></p>
 <p>A coordinate reference system is a series of parameters that define the coordinate system. Within GIS we use geographic or projected coordinate systems. The former uses a three-dimensional spherical surface to define locations of Earth, whereas the latter is defined on a flat, two-dimensional surface giving it constant lengths, angles and areas. We cover this in much more detail later on in subsequent weeks.</p>
 <p>QGIS defaults to the Coordinate Reference System (CRS) WGS 84, or known by its European Petroleum Survey Group (EPSG) code 4326. However, when you add your first layer it will default the CRS of the layer. We’ll go into the background of EPSG next time.</p>

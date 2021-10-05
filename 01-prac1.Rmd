@@ -268,7 +268,7 @@ knitr::include_graphics('prac1_images/csv_pivot.png')
 ```
 
 ::: {.infobox .tip data-latex="{note}"}
-Scroll to the end of the `.csv` and look at the data in the final rows. The last year should be 2017-2018. If you have years such as 2018-2020 then delete these rows.
+In previous years there have errors in this `.csv`, for example there used to be year value of 2017-2018 that was incorrect. Whilst these have been resolved, it's always important to check your data. 
 :::
 
 As we are going to use this dataset in QGIS and R I've done it in Excel using a pivot table. In future we'll use R to automate tasks like this.
@@ -372,7 +372,7 @@ Now let's make a quick thematic map...
 1.  Right click on your London boroughs layer \> Properties \> Symbology
 2.  Select categorised and choose a data column and color ramp \> click Classify
 
-You could also select graduated, however our joined data fields are in the wrong data type. If you wish to change them follow [this guide](https://wiki.tuflow.com/index.php?title=QGIS_Change_Attribute_Type)
+You could also select graduated, to do so, simply change the number of classes. 
 
 1.  Save your QGIS project
 
@@ -381,6 +381,10 @@ You should have produced something like this:
 ```{r echo=FALSE, out.width = "800pt", fig.align='center', cache=TRUE}
 knitr::include_graphics('prac1_images/QGIS_final.png') 
 ```
+
+::: {.infobox .tip data-latex="{note}"}
+This a very basic map and we've just used raw counts to show how to join and map data. You should (almost) never do this, as counts can be misleading. This is because the counts are collected over areas of unequal size. It's best to divide the values by some sort of denominator (e.g. area of borough, population) to normalise the data giving something like occurrence of flytipping per km2 enabling comparison between the boroughs. We cover this in more detail before reading week.
+:::
 
 **We haven't talked about the Coordiante Reference System (CRS) (or Spatial Reference System (SRS)) of our map document**
 
