@@ -22,9 +22,9 @@ Each week we will provide a short task to test your knowledge, these should be u
 
 The task is to join some non spatial data to some spatial data.
 
-* Go to the [New Zealand spatial data portal](https://datafinder.stats.govt.nz/) and download the file Territorial Authority 2018 (generalised), [these are city or district councils](https://www.localcouncils.govt.nz/lgip.nsf/wpg_url/About-Local-Government-Local-Government-In-New-Zealand-Councils-roles-and-functions#TerritorialAuthorities(District%20and%20City%20Councils)) 
+* Go to the [New Zealand spatial data portal](https://datafinder.stats.govt.nz/) and download the file Territorial Authority 2018 (generalised), [these are city or district councils](https://www.localcouncils.govt.nz/lgip.nsf/wpg_url/About-Local-Government-Local-Government-In-New-Zealand-Councils-roles-and-functions#TerritorialAuthorities(District%20and%20City%20Councils)). Make sure it's the Territorial Authority 2018 data **not** SA1. 
 
-* Go to the [Stats NZ website](https://www.stats.govt.nz/information-releases/statistical-area-1-dataset-for-2018-census-updated-march-2020) and download the Statistical area 1 dataset for 2018 for the whole of New Zealand. 
+* Go to the [Stats NZ website](https://www.stats.govt.nz/information-releases/statistical-area-1-dataset-for-2018-census-updated-march-2020) and download the Statistical area 1 dataset for 2018 for the whole of New Zealand. Download the excel file this week, **not** the `.csv`.
 
 * Unzip the downloaded census file and open  2018-SA1-dataset-individual-part-3a-total-NZ_updated_16-7-20, you will see a tab for Territorial authority. Join the 2018 paid employee field to the spatial data and make a basic map. Hint, you may need to make a new `.csv` file from the data.
 
