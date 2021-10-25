@@ -39,6 +39,8 @@ This week:
 
 **Watching**
 
+* [Git for Humas by Alice Bartlett from UX Brighton](https://www.youtube.com/watch?v=eWxxfttcMts)
+
 * [Hadley Wickham's Keynote from the European Molecular Biology Laboratory (EMBL)](https://www.youtube.com/watch?v=9YTNYT1maa4). This will be the same for a few weeks.
 
 * [Karthik Ram's "A guide to modern reproducible data science with R"](https://rstudio.com/resources/rstudioconf-2019/a-guide-to-modern-reproducible-data-science-with-r-karthik-ram/)

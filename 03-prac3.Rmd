@@ -33,7 +33,7 @@ This week:
 
 * [Chapter 5 "Descriptive statistics"](https://learningstatisticswithr.com/book/descriptives.html) from Learning statistics with R: A tutorial for psychology students and other beginners by Navarro (2019)
 
-*[Exploratory data analysis: using colour and layout for comparison](https://www.roger-beecham.com/comp-sds/class/04-class/) by Beecham (2021).
+* [Exploratory data analysis: using colour and layout for comparison](https://www.roger-beecham.com/comp-sds/class/04-class/) by Beecham (2021).
 
 **Watching**
 
@@ -83,7 +83,7 @@ Units are linear (e.g. feet, metres) or data is at a local level (e.g. national,
 
 You might hear some key words about projections that could terrify you! Let's break them down:
 
-* Ellipsoid (or spheriod) = size of shape of the Earth (3d)
+* Ellipsoid (or spheroid) = size of shape of the Earth (3d)
 * Datum = contains the point relationship (where the origin (0,0) of the map is) between a Cartesian coordinates (flat surface) and Earth's surface. They can be local or geocentric. They set the origin, the scale and orientation of the Coordiante Reference System (CRS).
 * Local datum = changes the Ellispoid to align with a certain location on the surface (e.g. BNG that uses the OSGB36 datum). A local datum is anything that isn't the centre of the Earth.
 * Geocentric datum =  the centre is equal to the Earth's centre of gravity (e.g. WGS84).

@@ -21,7 +21,7 @@ Each week we will provide a short task to test your knowledge, these should be u
 
 The task is to join some non spatial data to some spatial data and wrangle it.
 
-You need create identify the average percent of science students (in all) grades per county meeting the required standards and produce a map to show where the Country averages are above or below the State of Washington average.
+You need calcuate the average percent of science students (in all) grades per county meeting the required standards and produce a map to show where the Country averages are above or below the State of Washington average.
 
 * [Download Washing Counties](https://hub.arcgis.com/datasets/kingcounty::washington-counties-with-natural-shoreline-washsh-area/explore?location=47.272700%2C-120.740400%2C7.67)
 
