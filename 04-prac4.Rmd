@@ -98,15 +98,31 @@ knitr::include_graphics('prac4_images/github.png')
 
 ### Using RStudio with Git
 
-Now, as I’ve mentioned before, RStudio is totally bad-ass. Not only does it make R fun to use, but the lovely people who created it also built in support for things like git!
+In summer 2021 GitHub changed it's authentication process to a token based system as opposed to a password based system. David Keys provided an [excellent overview with some videos that documented this change and how to now set things up, which i have adapted here](https://rfortherestofus.com/2021/02/how-to-use-git-github-with-r/)
 
-For a full and excellent tutorial on using Git with R Studio, watch [this webinar](https://rstudio.com/resources/webinars/managing-part-2-github-and-rstudio/)
+#### Check Git is installed 
 
-If you don’t want to watch the vid, I’ll do a quick summary below. So, to use git, first you need to enable it in RStudio:
+In the console window you will see a terminal tab, check Git is installed with `which git` then `git --version` you should get a message in response that says where your git installation is and the version you have 
 
-At the time of writing git integration *should* work within RStudio. If it doesn't try this again on your laptop.
+#### Configure your Git
 
-The next part of the practical is going run through the three ways of using Git and GitHub with RStudio as I laid out in [The three ways]
+You need to tell Git who you are and your GitHub username. The easiest way is to use the `usethis` package, you will need to install and library it.
+
+Then, in the console, type the function `edit_git_config()`
+
+A Git config will load and you need to change your name and email to match GitHub.
+
+#### Start your Git
+
+To start Git you **need to be in a RStudio project**. Instructions below show you how to do this in various scenarios. In the first instance we just copy it from the remote (GitHub) - so don't do this now....but a very simple way is to again load the `usethis` package in the console and the function `use_git()`, then type option 1. 
+
+#### Connect Git to GitHub
+
+From GitHub you need to generate a personal access token. You can use the function `create_github_token()` from the `usethis` package or also through GitHub > settings > Developer settings > personal access tokens > generate new token.
+
+Use a descriptive name and consider saving the token - it won't save on GitHub
+
+The last step is to store this token in Git with the `gitcreds` package > install and load it > then use the function `gitcreds_set()` > copy your token in.
 
 ### Using the Git GUI - way 1
 
@@ -144,7 +160,7 @@ knitr::include_graphics('prac4_images/existing.png')
 
 There is an easier way to set up Git and GitHub with your project, but this assumes you are starting fresh (with no code in an RProject)!
 
-1. Under [Set up your GitHub] we made a respository on GitHub. Copy that URL.
+1. Under [Set up your GitHub] we made a repository on GitHub. Copy that URL.
 
 1. Open RStudio > File New Project > Version Control > Git
 
@@ -156,8 +172,6 @@ knitr::include_graphics('prac4_images/easyway.png')
 
 ### If have have an existing project - way 3
 
-> Start with a fesh GitHub repository, we're assuming here that you have some code and then want to share it. DO NOT SELECT a README.md file...it should be an empty GitHub repo...
-
 1. Open RStudio and your existing project (or make a new one...i will make one here). In RStudio Tools > Global Options, under ‘Git/SVN’ check the box to allow version control and locate the folder on your computer where the git.exe file is located --- if you have installed git then this should be automatically there. If you make a new project make sure you create a file (`.R` or `.Rmd` through File > New File), add something to it, then save it (File > Save As) into your project folder. When it saves it should apprear in the bottom right Files window.
 
 1. Next go Tools > Project Options > Git/SVN > and select the version control system as Git. You should now see a git tab in the environment window of RStudio (top right) and the files also appear under the Git tab. It should look something like this....
@@ -166,7 +180,7 @@ knitr::include_graphics('prac4_images/easyway.png')
 knitr::include_graphics('prac4_images/makeafile.png') 
 ```
 
-Now you will be able to use Git and GitHub as per the following instructions...you can also refer to practical 8 [GitHub last] to avoid using the shell (as i did in the lecture) and just use RStudio GUI.
+Now you will be able to use Git and GitHub as per the following instructions...
 
 ### Commiting to Git
 
@@ -192,6 +206,27 @@ knitr::include_graphics('prac4_images/commit2.png')
 knitr::include_graphics('prac4_images/commit3.png') 
 ```
 
+### Push to Github
+
+We need to create a new GitHub repo for our local project. Luckily the `usethis` package can do this for us. Simply type the function `use_github()` in the console and a new GitHub repo will appear using the name of your project! 
+
+Now we can push our changes to GitHub using the up arrow either in the RStudio Git tab (environment quadrant), or from the review changes box (opens when you click commit).
+
+But....if the push button is greyed out go to the section [Greyed out push button]
+
+### Pull from GitHub
+
+1. Pull will take any changes to the global repo and bring them into your local repo. Go to your example GitHub repo (online) and click on your test file > edit this file.
+
+1. Add a line of code or a comment, preview the changes then commit directly to the main branch.
+
+```{r echo=FALSE, out.width = "800pt", fig.align='center', cache=TRUE}
+knitr::include_graphics('prac4_images/pullexample.png') 
+```
+
+1. Now in RStudio click the down arrow (Pull) request. Your file should update in RStudio. 
+If you were to update your file on GitHub and your local one in RStudio separately you would receive an error message in RStudio when you attempted to commit.
+
 ### Using Git outside RStudio
 
 Sometimes RStudio Git can be a bit temperamental. For example, when staging the files they can take some time to appear with the ticked box (I think this is because we are working from the Network). Normally in RStudio you click the commit button, select to stage all the files, wait a few seconds then close the review changes box and commit from the buttons in the Git tab in the environment quadrant. 
@@ -209,34 +244,13 @@ b. stage them ready for committing
 c. commit the changes
 d. push the changes to your GitHub repo
 
-### Push to Github
-
-Now we can push our changes to GitHub using the up arrow either in the RStudio Git tab (envrionment quadrant), or from the review changes box (opens when you click commit).
-
-1. To do this, first make sure you have committed any changes to your local cloned repo and then click the ‘Push’ button to whizz your code up to your main GitHub repo --- you might be prompted to enter your github username and password to enable this...
-
-But....if the push button is greyed out go to the section [Greyed out push button]
-
-### Pull from GitHub
-
-1. Pull will take any changes to the global repo and bring them into your local repo. Go to your example GitHub repo (online) and click on your test file > edit this file.
-
-1. Add a line of code or a comment, preview the changes then commit directly to the main branch.
-
-```{r echo=FALSE, out.width = "800pt", fig.align='center', cache=TRUE}
-knitr::include_graphics('prac4_images/pullexample.png') 
-```
-
-1. Now in RStudio click the down arrow (Pull) request. Your file should update in RStudio. 
-If you were to update your file on GitHub and your local one in RStudio separately you would receive an error message in RStudio when you attempted to commit.
-
 ### Troubleshooting
 
 #### Were you challenged for your password?
 
-As of January 2019 it is possible that Git will use a credential helper provided by the operating system. So you should be asked for your GitHub username and password only once. As I am already logged into mine and I started using GitHub a while ago i'm not exactly sure when you will be asked for you details.  
+As of January 2019 it is possible that Git will use a credential helper provided by the operating system. However, as of summer 2021 the token system has replaced this, so this is very unlikely.
 
-You can however set your usename and email manually using the git prompt.
+You can however set your username and email manually using the git prompt.
 
 Go Tools > Shell and enter: 
 
@@ -250,8 +264,7 @@ These only need to be set once.
 
 Is your push button greyed out? Mine was when i tried to set it up within an existing project in the section [If have have an existing project] ... Fear not....
 
-First, let's check your local repostiority (Git) is connected to a remote one (GitHub). 
-
+First, let's check your local repository (Git) is connected to a remote one (GitHub). 
 Open the Shell again (Tools > Shell) and enter:
 
 ```{r, eval=FALSE, cache=TRUE}
@@ -300,7 +313,7 @@ For more trouble shooting on Git and GitHub have a look at the book [Happy Git a
 
 ### Fork a repository 
 
-A *Fork* in GitHub is a copy of someone else's repository. You could use it as a base starting point for your project or to make a fix and then submit a pull request to the original owner who would then *pull* your changes to their repository. 
+A *Fork* in GitHub is a copy of someone else's repository to your own GitHub account. You could use it as a base starting point for your project or to make a fix and then submit a pull request to the original owner who would then *pull* your changes to their repository. 
 
 1. You can fork a GitHub example repository from: https://github.com/octocat/Spoon-Knife 
 

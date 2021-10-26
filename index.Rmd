@@ -46,6 +46,7 @@ Thanks to the following people who have either contributed directly or provided 
 * [Garrick Aden‑Buie](https://twitter.com/grrrck)
 * [Edzer Pebesma](https://twitter.com/edzerpebesma?lang=en)
 * [Roger Bivand](https://twitter.com/RogerBivand)
+* [David Keys](https://twitter.com/dgkeyes)
 </div><br/>
 
 The R package and analysis artwork used within this book has been produced by [allison_horst](https://twitter.com/allison_horst), whilst artwork used in information boxes has been produced by [Desirée De Leon](https://twitter.com/dcossyle). You can find Allison's images on the [stats illustration GitHub repository](https://github.com/allisonhorst/stats-illustrations) and Desirée's on the [rstudio4edu GitHub repository](https://github.com/rstudio4edu/rmd4edu).

@@ -24,7 +24,7 @@
 <meta name="author" content="Andy MacLachlan and Adam Dennett" />
 
 
-<meta name="date" content="2021-10-25" />
+<meta name="date" content="2021-10-26" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -1057,9 +1057,9 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="4.5.5" data-path="git-github-and-rmarkdown.html"><a href="git-github-and-rmarkdown.html#create-a-new-version-control-in-rstudio---way-2"><i class="fa fa-check"></i><b>4.5.5</b> Create a new version control in RStudio - way 2</a></li>
 <li class="chapter" data-level="4.5.6" data-path="git-github-and-rmarkdown.html"><a href="git-github-and-rmarkdown.html#if-have-have-an-existing-project---way-3"><i class="fa fa-check"></i><b>4.5.6</b> If have have an existing project - way 3</a></li>
 <li class="chapter" data-level="4.5.7" data-path="git-github-and-rmarkdown.html"><a href="git-github-and-rmarkdown.html#commiting-to-git"><i class="fa fa-check"></i><b>4.5.7</b> Commiting to Git</a></li>
-<li class="chapter" data-level="4.5.8" data-path="git-github-and-rmarkdown.html"><a href="git-github-and-rmarkdown.html#using-git-outside-rstudio"><i class="fa fa-check"></i><b>4.5.8</b> Using Git outside RStudio</a></li>
-<li class="chapter" data-level="4.5.9" data-path="git-github-and-rmarkdown.html"><a href="git-github-and-rmarkdown.html#push-to-github"><i class="fa fa-check"></i><b>4.5.9</b> Push to Github</a></li>
-<li class="chapter" data-level="4.5.10" data-path="git-github-and-rmarkdown.html"><a href="git-github-and-rmarkdown.html#pull-from-github"><i class="fa fa-check"></i><b>4.5.10</b> Pull from GitHub</a></li>
+<li class="chapter" data-level="4.5.8" data-path="git-github-and-rmarkdown.html"><a href="git-github-and-rmarkdown.html#push-to-github"><i class="fa fa-check"></i><b>4.5.8</b> Push to Github</a></li>
+<li class="chapter" data-level="4.5.9" data-path="git-github-and-rmarkdown.html"><a href="git-github-and-rmarkdown.html#pull-from-github"><i class="fa fa-check"></i><b>4.5.9</b> Pull from GitHub</a></li>
+<li class="chapter" data-level="4.5.10" data-path="git-github-and-rmarkdown.html"><a href="git-github-and-rmarkdown.html#using-git-outside-rstudio"><i class="fa fa-check"></i><b>4.5.10</b> Using Git outside RStudio</a></li>
 <li class="chapter" data-level="4.5.11" data-path="git-github-and-rmarkdown.html"><a href="git-github-and-rmarkdown.html#troubleshooting"><i class="fa fa-check"></i><b>4.5.11</b> Troubleshooting</a></li>
 <li class="chapter" data-level="4.5.12" data-path="git-github-and-rmarkdown.html"><a href="git-github-and-rmarkdown.html#fork-a-repository"><i class="fa fa-check"></i><b>4.5.12</b> Fork a repository</a></li>
 <li class="chapter" data-level="4.5.13" data-path="git-github-and-rmarkdown.html"><a href="git-github-and-rmarkdown.html#branches"><i class="fa fa-check"></i><b>4.5.13</b> Branches</a></li>
@@ -1357,11 +1357,27 @@ Each week we will provide a short task to test your knowledge, these should be u
 </div>
 <div id="using-rstudio-with-git" class="section level3" number="4.5.3">
 <h3><span class="header-section-number">4.5.3</span> Using RStudio with Git</h3>
-<p>Now, as I’ve mentioned before, RStudio is totally bad-ass. Not only does it make R fun to use, but the lovely people who created it also built in support for things like git!</p>
-<p>For a full and excellent tutorial on using Git with R Studio, watch <a href="https://rstudio.com/resources/webinars/managing-part-2-github-and-rstudio/">this webinar</a></p>
-<p>If you don’t want to watch the vid, I’ll do a quick summary below. So, to use git, first you need to enable it in RStudio:</p>
-<p>At the time of writing git integration <em>should</em> work within RStudio. If it doesn’t try this again on your laptop.</p>
-<p>The next part of the practical is going run through the three ways of using Git and GitHub with RStudio as I laid out in <a href="git-github-and-rmarkdown.html#the-three-ways">The three ways</a></p>
+<p>In summer 2021 GitHub changed it’s authentication process to a token based system as opposed to a password based system. David Keys provided an <a href="https://rfortherestofus.com/2021/02/how-to-use-git-github-with-r/">excellent overview with some videos that documented this change and how to now set things up, which i have adapted here</a></p>
+<div id="check-git-is-installed" class="section level4" number="4.5.3.1">
+<h4><span class="header-section-number">4.5.3.1</span> Check Git is installed</h4>
+<p>In the console window you will see a terminal tab, check Git is installed with <code>which git</code> then <code>git --version</code> you should get a message in response that says where your git installation is and the version you have</p>
+</div>
+<div id="configure-your-git" class="section level4" number="4.5.3.2">
+<h4><span class="header-section-number">4.5.3.2</span> Configure your Git</h4>
+<p>You need to tell Git who you are and your GitHub username. The easiest way is to use the <code>usethis</code> package, you will need to install and library it.</p>
+<p>Then, in the console, type the function <code>edit_git_config()</code></p>
+<p>A Git config will load and you need to change your name and email to match GitHub.</p>
+</div>
+<div id="start-your-git" class="section level4" number="4.5.3.3">
+<h4><span class="header-section-number">4.5.3.3</span> Start your Git</h4>
+<p>To start Git you <strong>need to be in a RStudio project</strong>. Instructions below show you how to do this in various scenarios. In the first instance we just copy it from the remote (GitHub) - so don’t do this now….but a very simple way is to again load the <code>usethis</code> package in the console and the function <code>use_git()</code>, then type option 1.</p>
+</div>
+<div id="connect-git-to-github" class="section level4" number="4.5.3.4">
+<h4><span class="header-section-number">4.5.3.4</span> Connect Git to GitHub</h4>
+<p>From GitHub you need to generate a personal access token. You can use the function <code>create_github_token()</code> from the <code>usethis</code> package or also through GitHub &gt; settings &gt; Developer settings &gt; personal access tokens &gt; generate new token.</p>
+<p>Use a descriptive name and consider saving the token - it won’t save on GitHub</p>
+<p>The last step is to store this token in Git with the <code>gitcreds</code> package &gt; install and load it &gt; then use the function <code>gitcreds_set()</code> &gt; copy your token in.</p>
+</div>
 </div>
 <div id="using-the-git-gui---way-1" class="section level3" number="4.5.4">
 <h3><span class="header-section-number">4.5.4</span> Using the Git GUI - way 1</h3>
@@ -1394,7 +1410,7 @@ Each week we will provide a short task to test your knowledge, these should be u
 <h3><span class="header-section-number">4.5.5</span> Create a new version control in RStudio - way 2</h3>
 <p>There is an easier way to set up Git and GitHub with your project, but this assumes you are starting fresh (with no code in an RProject)!</p>
 <ol style="list-style-type: decimal">
-<li><p>Under <a href="git-github-and-rmarkdown.html#set-up-your-github">Set up your GitHub</a> we made a respository on GitHub. Copy that URL.</p></li>
+<li><p>Under <a href="git-github-and-rmarkdown.html#set-up-your-github">Set up your GitHub</a> we made a repository on GitHub. Copy that URL.</p></li>
 <li><p>Open RStudio &gt; File New Project &gt; Version Control &gt; Git</p></li>
 <li><p>Copy in the repository URL and provide a project directory name…but it should populate when you paste in the URL</p></li>
 </ol>
@@ -1402,15 +1418,12 @@ Each week we will provide a short task to test your knowledge, these should be u
 </div>
 <div id="if-have-have-an-existing-project---way-3" class="section level3" number="4.5.6">
 <h3><span class="header-section-number">4.5.6</span> If have have an existing project - way 3</h3>
-<blockquote>
-<p>Start with a fesh GitHub repository, we’re assuming here that you have some code and then want to share it. DO NOT SELECT a README.md file…it should be an empty GitHub repo…</p>
-</blockquote>
 <ol style="list-style-type: decimal">
 <li><p>Open RStudio and your existing project (or make a new one…i will make one here). In RStudio Tools &gt; Global Options, under ‘Git/SVN’ check the box to allow version control and locate the folder on your computer where the git.exe file is located — if you have installed git then this should be automatically there. If you make a new project make sure you create a file (<code>.R</code> or <code>.Rmd</code> through File &gt; New File), add something to it, then save it (File &gt; Save As) into your project folder. When it saves it should apprear in the bottom right Files window.</p></li>
 <li><p>Next go Tools &gt; Project Options &gt; Git/SVN &gt; and select the version control system as Git. You should now see a git tab in the environment window of RStudio (top right) and the files also appear under the Git tab. It should look something like this….</p></li>
 </ol>
 <p><img src="prac4_images/makeafile.png" width="800pt" style="display: block; margin: auto;" /></p>
-<p>Now you will be able to use Git and GitHub as per the following instructions…you can also refer to practical 8 [GitHub last] to avoid using the shell (as i did in the lecture) and just use RStudio GUI.</p>
+<p>Now you will be able to use Git and GitHub as per the following instructions…</p>
 </div>
 <div id="commiting-to-git" class="section level3" number="4.5.7">
 <h3><span class="header-section-number">4.5.7</span> Commiting to Git</h3>
@@ -1427,8 +1440,26 @@ Each week we will provide a short task to test your knowledge, these should be u
 </ol>
 <p><img src="prac4_images/commit3.png" width="600pt" style="display: block; margin: auto;" /></p>
 </div>
-<div id="using-git-outside-rstudio" class="section level3" number="4.5.8">
-<h3><span class="header-section-number">4.5.8</span> Using Git outside RStudio</h3>
+<div id="push-to-github" class="section level3" number="4.5.8">
+<h3><span class="header-section-number">4.5.8</span> Push to Github</h3>
+<p>We need to create a new GitHub repo for our local project. Luckily the <code>usethis</code> package can do this for us. Simply type the function <code>use_github()</code> in the console and a new GitHub repo will appear using the name of your project!</p>
+<p>Now we can push our changes to GitHub using the up arrow either in the RStudio Git tab (environment quadrant), or from the review changes box (opens when you click commit).</p>
+<p>But….if the push button is greyed out go to the section <a href="git-github-and-rmarkdown.html#greyed-out-push-button">Greyed out push button</a></p>
+</div>
+<div id="pull-from-github" class="section level3" number="4.5.9">
+<h3><span class="header-section-number">4.5.9</span> Pull from GitHub</h3>
+<ol style="list-style-type: decimal">
+<li><p>Pull will take any changes to the global repo and bring them into your local repo. Go to your example GitHub repo (online) and click on your test file &gt; edit this file.</p></li>
+<li><p>Add a line of code or a comment, preview the changes then commit directly to the main branch.</p></li>
+</ol>
+<p><img src="prac4_images/pullexample.png" width="800pt" style="display: block; margin: auto;" /></p>
+<ol style="list-style-type: decimal">
+<li>Now in RStudio click the down arrow (Pull) request. Your file should update in RStudio.
+If you were to update your file on GitHub and your local one in RStudio separately you would receive an error message in RStudio when you attempted to commit.</li>
+</ol>
+</div>
+<div id="using-git-outside-rstudio" class="section level3" number="4.5.10">
+<h3><span class="header-section-number">4.5.10</span> Using Git outside RStudio</h3>
 <p>Sometimes RStudio Git can be a bit temperamental. For example, when staging the files they can take some time to appear with the ticked box (I think this is because we are working from the Network). Normally in RStudio you click the commit button, select to stage all the files, wait a few seconds then close the review changes box and commit from the buttons in the Git tab in the environment quadrant.</p>
 <p>Alternatively if you would like to use Git but you’re working on the UCL Remote Desktop or you are experiening other problems with getting git working in RStudio, fear not, you can just use your raw Git installation.</p>
 <ol style="list-style-type: decimal">
@@ -1443,32 +1474,12 @@ Each week we will provide a short task to test your knowledge, these should be u
 <li>push the changes to your GitHub repo</li>
 </ol>
 </div>
-<div id="push-to-github" class="section level3" number="4.5.9">
-<h3><span class="header-section-number">4.5.9</span> Push to Github</h3>
-<p>Now we can push our changes to GitHub using the up arrow either in the RStudio Git tab (envrionment quadrant), or from the review changes box (opens when you click commit).</p>
-<ol style="list-style-type: decimal">
-<li>To do this, first make sure you have committed any changes to your local cloned repo and then click the ‘Push’ button to whizz your code up to your main GitHub repo — you might be prompted to enter your github username and password to enable this…</li>
-</ol>
-<p>But….if the push button is greyed out go to the section <a href="git-github-and-rmarkdown.html#greyed-out-push-button">Greyed out push button</a></p>
-</div>
-<div id="pull-from-github" class="section level3" number="4.5.10">
-<h3><span class="header-section-number">4.5.10</span> Pull from GitHub</h3>
-<ol style="list-style-type: decimal">
-<li><p>Pull will take any changes to the global repo and bring them into your local repo. Go to your example GitHub repo (online) and click on your test file &gt; edit this file.</p></li>
-<li><p>Add a line of code or a comment, preview the changes then commit directly to the main branch.</p></li>
-</ol>
-<p><img src="prac4_images/pullexample.png" width="800pt" style="display: block; margin: auto;" /></p>
-<ol style="list-style-type: decimal">
-<li>Now in RStudio click the down arrow (Pull) request. Your file should update in RStudio.
-If you were to update your file on GitHub and your local one in RStudio separately you would receive an error message in RStudio when you attempted to commit.</li>
-</ol>
-</div>
 <div id="troubleshooting" class="section level3" number="4.5.11">
 <h3><span class="header-section-number">4.5.11</span> Troubleshooting</h3>
 <div id="were-you-challenged-for-your-password" class="section level4" number="4.5.11.1">
 <h4><span class="header-section-number">4.5.11.1</span> Were you challenged for your password?</h4>
-<p>As of January 2019 it is possible that Git will use a credential helper provided by the operating system. So you should be asked for your GitHub username and password only once. As I am already logged into mine and I started using GitHub a while ago i’m not exactly sure when you will be asked for you details.</p>
-<p>You can however set your usename and email manually using the git prompt.</p>
+<p>As of January 2019 it is possible that Git will use a credential helper provided by the operating system. However, as of summer 2021 the token system has replaced this, so this is very unlikely.</p>
+<p>You can however set your username and email manually using the git prompt.</p>
 <p>Go Tools &gt; Shell and enter:</p>
 <div class="sourceCode" id="cb186"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb186-1"><a href="git-github-and-rmarkdown.html#cb186-1" aria-hidden="true" tabindex="-1"></a>git config <span class="sc">--</span>global user.name <span class="st">&#39;yourGitHubUsername&#39;</span></span>
 <span id="cb186-2"><a href="git-github-and-rmarkdown.html#cb186-2" aria-hidden="true" tabindex="-1"></a>git config <span class="sc">--</span>global user.email <span class="st">&#39;name@provider.com&#39;</span></span></code></pre></div>
@@ -1477,8 +1488,8 @@ If you were to update your file on GitHub and your local one in RStudio separate
 <div id="greyed-out-push-button" class="section level4" number="4.5.11.2">
 <h4><span class="header-section-number">4.5.11.2</span> Greyed out push button</h4>
 <p>Is your push button greyed out? Mine was when i tried to set it up within an existing project in the section [If have have an existing project] … Fear not….</p>
-<p>First, let’s check your local repostiority (Git) is connected to a remote one (GitHub).</p>
-<p>Open the Shell again (Tools &gt; Shell) and enter:</p>
+<p>First, let’s check your local repository (Git) is connected to a remote one (GitHub).
+Open the Shell again (Tools &gt; Shell) and enter:</p>
 <div class="sourceCode" id="cb187"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb187-1"><a href="git-github-and-rmarkdown.html#cb187-1" aria-hidden="true" tabindex="-1"></a>git remote <span class="sc">-</span>v</span>
 <span id="cb187-2"><a href="git-github-and-rmarkdown.html#cb187-2" aria-hidden="true" tabindex="-1"></a><span class="do">## output</span></span>
 <span id="cb187-3"><a href="git-github-and-rmarkdown.html#cb187-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -1506,7 +1517,7 @@ If you were to update your file on GitHub and your local one in RStudio separate
 </div>
 <div id="fork-a-repository" class="section level3" number="4.5.12">
 <h3><span class="header-section-number">4.5.12</span> Fork a repository</h3>
-<p>A <em>Fork</em> in GitHub is a copy of someone else’s repository. You could use it as a base starting point for your project or to make a fix and then submit a pull request to the original owner who would then <em>pull</em> your changes to their repository.</p>
+<p>A <em>Fork</em> in GitHub is a copy of someone else’s repository to your own GitHub account. You could use it as a base starting point for your project or to make a fix and then submit a pull request to the original owner who would then <em>pull</em> your changes to their repository.</p>
 <ol style="list-style-type: decimal">
 <li>You can fork a GitHub example repository from: <a href="https://github.com/octocat/Spoon-Knife" class="uri">https://github.com/octocat/Spoon-Knife</a></li>
 </ol>
