@@ -102,7 +102,7 @@ In summer 2021 GitHub changed it's authentication process to a token based syste
 
 #### Check Git is installed 
 
-In the console window you will see a terminal tab, check Git is installed with `which git` then `git --version` you should get a message in response that says where your git installation is and the version you have 
+In the console window you will see a terminal tab, check Git is installed with `which git` then `git --version` you should get a message in response that says where your git installation is and the version you have.
 
 #### Configure your Git
 
@@ -114,9 +114,13 @@ A Git config will load and you need to change your name and email to match GitHu
 
 #### Start your Git
 
-To start Git you **need to be in a RStudio project**. Instructions below show you how to do this in various scenarios. In the first instance we just copy it from the remote (GitHub) - so don't do this now....but a very simple way is to again load the `usethis` package in the console and the function `use_git()`, then type option 1. 
+To start Git you **need to be in a RStudio project**. Instructions below show you how to do this in various scenarios. For example, in the first Git way, we clone (copy) a remote repository (of our own) then if we wanted to make changes (to the remote) we would need to follow these instructions to link our Git to GitHub
+
+In the first instance we just copy it from the remote (GitHub), that will have git ready to go - so don't do this now....but a very simple way is to again load the `usethis` package in the console and the function `use_git()`, then type option 1. You would do this for a project that you have started, which doesn't have git enabled. 
 
 #### Connect Git to GitHub
+
+Once we have an RStudio project with Git, either making it oursevles or downloading one from GitHub, we need to connect it to GitHub.
 
 From GitHub you need to generate a personal access token. You can use the function `create_github_token()` from the `usethis` package or also through GitHub > settings > Developer settings > personal access tokens > generate new token.
 

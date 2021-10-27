@@ -24,7 +24,7 @@
 <meta name="author" content="Andy MacLachlan and Adam Dennett" />
 
 
-<meta name="date" content="2021-10-26" />
+<meta name="date" content="2021-10-27" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -1360,7 +1360,7 @@ Each week we will provide a short task to test your knowledge, these should be u
 <p>In summer 2021 GitHub changed it’s authentication process to a token based system as opposed to a password based system. David Keys provided an <a href="https://rfortherestofus.com/2021/02/how-to-use-git-github-with-r/">excellent overview with some videos that documented this change and how to now set things up, which i have adapted here</a></p>
 <div id="check-git-is-installed" class="section level4" number="4.5.3.1">
 <h4><span class="header-section-number">4.5.3.1</span> Check Git is installed</h4>
-<p>In the console window you will see a terminal tab, check Git is installed with <code>which git</code> then <code>git --version</code> you should get a message in response that says where your git installation is and the version you have</p>
+<p>In the console window you will see a terminal tab, check Git is installed with <code>which git</code> then <code>git --version</code> you should get a message in response that says where your git installation is and the version you have.</p>
 </div>
 <div id="configure-your-git" class="section level4" number="4.5.3.2">
 <h4><span class="header-section-number">4.5.3.2</span> Configure your Git</h4>
@@ -1370,10 +1370,12 @@ Each week we will provide a short task to test your knowledge, these should be u
 </div>
 <div id="start-your-git" class="section level4" number="4.5.3.3">
 <h4><span class="header-section-number">4.5.3.3</span> Start your Git</h4>
-<p>To start Git you <strong>need to be in a RStudio project</strong>. Instructions below show you how to do this in various scenarios. In the first instance we just copy it from the remote (GitHub) - so don’t do this now….but a very simple way is to again load the <code>usethis</code> package in the console and the function <code>use_git()</code>, then type option 1.</p>
+<p>To start Git you <strong>need to be in a RStudio project</strong>. Instructions below show you how to do this in various scenarios. For example, in the first Git way, we clone (copy) a remote repository (of our own) then if we wanted to make changes (to the remote) we would need to follow these instructions to link our Git to GitHub</p>
+<p>In the first instance we just copy it from the remote (GitHub), that will have git ready to go - so don’t do this now….but a very simple way is to again load the <code>usethis</code> package in the console and the function <code>use_git()</code>, then type option 1. You would do this for a project that you have started, which doesn’t have git enabled.</p>
 </div>
 <div id="connect-git-to-github" class="section level4" number="4.5.3.4">
 <h4><span class="header-section-number">4.5.3.4</span> Connect Git to GitHub</h4>
+<p>Once we have an RStudio project with Git, either making it oursevles or downloading one from GitHub, we need to connect it to GitHub.</p>
 <p>From GitHub you need to generate a personal access token. You can use the function <code>create_github_token()</code> from the <code>usethis</code> package or also through GitHub &gt; settings &gt; Developer settings &gt; personal access tokens &gt; generate new token.</p>
 <p>Use a descriptive name and consider saving the token - it won’t save on GitHub</p>
 <p>The last step is to store this token in Git with the <code>gitcreds</code> package &gt; install and load it &gt; then use the function <code>gitcreds_set()</code> &gt; copy your token in.</p>
