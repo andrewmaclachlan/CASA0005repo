@@ -39,6 +39,10 @@ This week:
 * [Chapter 9 Spatial regression models](https://maczokni.github.io/crime_mapping_textbook/spatial-regression-models.html) from Crime Mapping in R by Juanjo Medina and Reka Solymosi (2019).
 
 Remember this is just a starting point, explore the [reading list](https://rl.talis.com/3/ucl/lists/139FBAF8-DACD-60FB-8BDC-E9C9E09BA885.html?lang=en-GB&login=1), practical and lecture for more ideas.
+
+**Doing**
+
+If you need a refresher/into to summary stats go through [Teacup Giraffes](https://tinystats.github.io/teacups-giraffes-and-statistics/02_bellCurve.html)
 :::
 
 ## Recommended listening `r emo::ji("headphones")`
@@ -382,6 +386,8 @@ ggplot(LonWardProfiles, aes(x=average_gcse_capped_point_scores_2014)) +
 
 ```
 
+Here, adding `..density..` means that the histogram is a density plot, this plots the chance that any value in the data is equal to that value.
+
 ```{r, message=FALSE, cache=TRUE}
 ggplot(LonWardProfiles, aes(x=unauthorised_absence_in_all_schools_percent_2013)) +
   geom_histogram(aes(y = ..density..),
@@ -464,6 +470,8 @@ qplot(x = log(median_house_price_2014),
       y = average_gcse_capped_point_scores_2014, 
       data=LonWardProfiles)
 ```
+
+Depending on if the independent or dependent (GCSE point score) variables have been transformed depends on how we interpret them - [see these rules for interpretation](https://data.library.virginia.edu/interpreting-log-transformations-in-a-linear-model/)
 
 #### Should I transform my variables?
 
@@ -629,6 +637,8 @@ plot(model2)
 
 In the series of plots above, the first plot (residuals vs fitted), we would hope to find a random cloud of points with a straight horizontal red line. Looking at the plot, the curved red line would suggest some hetroscedasticity, but the cloud looks quite random. Similarly we are looking for a random cloud of points with no apparent patterning or shape in the third plot of standardised residuals vs fitted values. Here, the cloud of points also looks fairly random, with perhaps some shaping indicated by the red line. 
 
+[Section 5.7.6 in Tidyverse Skills for Data Science explains each of these plots in more detail](https://jhudatascience.org/tidyversecourse/model.html#model-diagnostics)
+
 ### Assumption 5 - Independence of Errors
 
 This assumption simply states that the residual values (errors) in your model must not be correlated in any way. If they are, then they exhibit *autocorrelation* which suggests that something might be going on in the background that we have not sufficiently accounted for in our model. 
@@ -682,7 +692,9 @@ coordsW <- LonWardProfiles%>%
 
 plot(coordsW)
 
-#Now we need to generate a spatial weights matrix (remember from the lecture a couple of weeks ago). We'll start with a simple binary matrix of queen's case neighbours
+#Now we need to generate a spatial weights matrix 
+#(remember from the lecture a couple of weeks ago). 
+#We'll start with a simple binary matrix of queen's case neighbours
 
 LWard_nb <- LonWardProfiles %>%
   poly2nb(., queen=T)
@@ -705,13 +717,13 @@ plot(LWard_knn, st_geometry(coordsW), col="blue")
 #create a spatial weights matrix object from these weights
 
 Lward.queens_weight <- LWard_nb %>%
-  nb2listw(., style="C")
+  nb2listw(., style="W")
 
 Lward.knn_4_weight <- LWard_knn %>%
-  nb2listw(., style="C")
+  nb2listw(., style="W")
 ```
 
-The `style` argument means the style of the output --- `B` is binary encoding listing them as neighbours or not, `C` globally standardised ()
+The `style` argument means the style of the output --- `B` is binary encoding listing them as neighbours or not, `W` row standardised that we saw last week.
 
 Now run a moran's I test on the residuals, first using queens neighbours
 
@@ -1122,6 +1134,14 @@ GWRbandwidth <- gwr.sel(average_gcse_capped_point_scores_2014 ~ unauthorised_abs
                         coords=coordsWSP,
                         adapt=T)
 
+GWRbandwidth
+```
+
+Setting `adapt=T` here means to automatically find the proportion of observations for the weighting using k nearest neighbours (an adaptive bandwidth), False would mean a global bandwidth
+
+The optional bandwidth is about 0.015 meaning 1.5% of all the total spatial units should be used for the local regression based on k-nearest neighbours. Which is about 9 of the 626 wards. 
+```{r }
+
 #run the gwr model
 gwr.model = gwr(average_gcse_capped_point_scores_2014 ~ unauthorised_absence_in_all_schools_percent_2013 + 
                     log(median_house_price_2014) + 
@@ -1131,14 +1151,16 @@ gwr.model = gwr(average_gcse_capped_point_scores_2014 ~ unauthorised_absence_in_
                   data = LonWardProfilesSP, 
                 coords=coordsWSP, 
                 adapt=GWRbandwidth, 
-                hatmatrix=TRUE, 
+                # matrix output
+                hatmatrix=TRUE,
+                #return standard errors 
                 se.fit=TRUE)
 
 #print the results of the model
 gwr.model
 ```
 
-The output from the GWR model reveals how the coefficients vary across the 625 Wards in our London Study region. You will see how the global coefficients are exactly the same as the coefficients in the earlier `lm` model. In this particular model (yours will look a little different if you have used different explanatory variables), if we take unauthorised absence from school, we can see that the coefficients range from a minimum value of -47.06 (1 unit change in unauthorised absence resulting in a drop in average GCSE score of -47.06) to +6.8 (1 unit change in unauthorised absence resulting in an increase in average GCSE score of +6.8). For half of the wards in the dataset, as unauthorised absence rises by 1 point, GCSE scores will decrease between -30.80 and -14.34 points (the inter-quartile range between the 1st Qu and the 3rd Qu). 
+The output from the GWR model reveals how the coefficients vary across the 626 Wards in our London Study region. You will see how the global coefficients are exactly the same as the coefficients in the earlier `lm` model. In this particular model (yours will look a little different if you have used different explanatory variables), if we take unauthorised absence from school, we can see that the coefficients range from a minimum value of -47.06 (1 unit change in unauthorised absence resulting in a drop in average GCSE score of -47.06) to +6.8 (1 unit change in unauthorised absence resulting in an increase in average GCSE score of +6.8). For half of the wards in the dataset, as unauthorised absence rises by 1 point, GCSE scores will decrease between -30.80 and -14.34 points (the inter-quartile range between the 1st Qu and the 3rd Qu). 
 
 You will notice that the R-Squared value has improved - this is not uncommon for GWR models, but it doesn't necessarily mean they are definitely better than global models. The small number of cases under the kernel means that GW models have been criticised for lacking statistical robustness.
 
@@ -1190,6 +1212,8 @@ tm_shape(LonWardProfiles2) +
 
 Taking the first plot, which is for the unauthorised absence coefficients, we can see that for the majority of boroughs in London, there is the negative relationship we would expect - i.e. as unauthorised absence goes up, exam scores go down. For three boroughs (Westminster, Kensington & Chelsea and Hammersmith and Fulham, as well as an area near Bexleyheath in South East London - some of the richest in London), however, the relationship is positive - as unauthorised school absence increases, so does average GCSE score. This is a very interesting pattern and counterintuitive pattern, but may partly be explained the multiple homes owned by many living in these boroughs (students living in different parts of the country and indeed the world for significant periods of the year), foreign holidays and the over representation of private schooling of those living in these areas. If this is not the case and unauthorised absence from school is reflecting the unauthorised absence of poorer students attending local, inner city schools, then high GCSE grades may also reflect the achievements of those who are sent away to expensive fee-paying schools elsewhere in the country and who return to their parental homes later in the year. Either way, these factors could explain these results. 
 Of course, these results may not be statistically significant across the whole of London. Roughly speaking, if a coefficient estimate is more than 2 standard errors away from zero, then it is "statistically significant".
+
+Remember from earlier the standard error is "the average amount the coefficient varies from the average value of the dependent variable (its standard deviation). So, for a 1% increase in unauthorised absence from school, while the model says we might expect GSCE scores to drop by -41.2 points, this might vary, on average, by about 1.9 points. As a rule of thumb, we are looking for a lower value in the standard error relative to the size of the coefficient."
 
 To calculate standard errors, for each variable you can use a formula similar to this:
 

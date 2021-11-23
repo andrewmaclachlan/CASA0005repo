@@ -157,13 +157,17 @@ tm_shape(BluePlaquesSub) +
 ```
 When we spatial subset data like this there are different topological relations we can specify. The default is intersects, but we could also use `BluePlaquesSub <- BluePlaques[BoroughMap, , op = st_within]`, with the operator or op set to `st_within`, to identify points completely within the borough outline, [or a variety of other options](http://postgis.net/workshops/postgis-intro/spatial_relationships.html).
 
-What is the difference between intersects and within?
-
 Here, the second operator is blank `, ,` - this controls which attributes are kept, although I'd rather keep all of them and manipulate with the `tidyverse`.
+
+If you have used a graphic user interface GIS before, this is the same as select by location, where as using filter from `dplyr` is the same as select by attribute. 
+
+::: {.infobox .warning data-latex="{note}"}
+What is the [difference between intersects and within for points like ours?](https://gis.stackexchange.com/questions/345184/st-intersects-vs-st-within/345186#:~:text=ST_Intersects%3A%20https%3A%2F%2Fpostgis.net,of%20space%20then%20they%20intersect.&text=For%20points%2C%20there%20is%20no,do%20the%20same%20with%20lines.)
+:::
 
 ### Study area
 
-From this point, we could try and carry out our analysis on the whole of London, but you might be waiting until next week for Ripley's K to be calculated for this many points. Therefore to speed things up and to enable us to compare areas within London, we will select some individual boroughs. First we need to subset our SpatialPolygonsDataFrame to pull out a borough we are interested in. I'm going to choose Harrow as I know there are few enough points for the analysis to definitely work. If you wish, feel free to choose another borough in London and run the same analysis, but beware that if it happens that there are a lot of blue plaques in your borough, the analysis could fall over!!
+From this point, we could try and carry out our analysis on the whole of London, but you might be waiting until next week for Ripley's K to be calculated for this many points. Therefore to speed things up and to enable us to compare areas within London, we will select some individual boroughs. First we need to subset our sf object to pull out a borough we are interested in. I'm going to choose Harrow as I know there are few enough points for the analysis to definitely work. If you wish, feel free to choose another borough in London and run the same analysis, but beware that if it happens that there are a lot of blue plaques in your borough, the analysis could fall over!!
 
 ```{r, cache=TRUE, warning=FALSE, message=FALSE}
 #extract the borough
@@ -200,10 +204,10 @@ plot(window)
 [`spatstat`](https://spatstat.org/) has its own set of spatial objects that it works with (one of the delights of R is that different packages are written by different people and many have developed their own data types) --- it does not work directly with the SpatialPolygonsDataFrames, SpatialPointsDataFrames or `sf` objects that we are used to. For point pattern analysis, we need to create a point pattern (ppp) object.
 
 ```{r, cache=TRUE, warning=FALSE, message=FALSE}
-#create a ppp object
+#create a sp object
 BluePlaquesSub<- BluePlaquesSub %>%
   as(., 'Spatial')
-
+#create a ppp object
 BluePlaquesSub.ppp <- ppp(x=BluePlaquesSub@coords[,1],
                           y=BluePlaquesSub@coords[,2],
                           window=window)
@@ -377,7 +381,6 @@ K <- BluePlaquesSub.ppp %>%
   Kest(., correction="border") %>%
   plot()
 ```
-
 The plot for K has a number of elements that are worth explaining. First, the *Kpois(r)* line in Red is the theoretical value of K for each distance window (r) under a Poisson assumption of Complete Spatial Randomness. The Black line is the estimated values of K accounting for the effects of the edge of the study area. 
 
 Where the value of K falls above the line, the data appear to be clustered at that distance. Where the value of K is below the line, the data are dispersed. From the graph, we can see that up until distances of around 1300 metres, Blue Plaques appear to be clustered in Harrow, however, at around 1500 m, the distribution appears random and then dispersed between about 1600 and 2100 metres. 
@@ -438,6 +441,8 @@ library(dbscan)
 BluePlaquesSubPoints%>%
   dbscan::kNNdistplot(.,k=4)
 ```
+
+This plot shows for each point the average distance to the k neighbours, which are then plotted in ascending order. The knee is where this value (of distance to neighbours) increases. See [this article from Data Novia](https://www.datanovia.com/en/lessons/dbscan-density-based-clustering-essentials/) for more information on this
 
 So the DBSCAN analysis shows that for these values of eps and MinPts there are three clusters in the area I am analysing. Try varying eps and MinPts to see what difference it makes to the output. 
 
