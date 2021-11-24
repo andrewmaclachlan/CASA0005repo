@@ -1107,40 +1107,32 @@ This part of the practical will only skirt the edges of GWR, for much more detai
 
 There are various packages which will carry out GWR in R, for this pracical we we use `spgwr` (mainly because it was the first one I came across), although you could also use `GWmodel` or `gwrr`. 
 
-I should also acknowledge [the guide on GWR produced by the University of Bristol](http://www.bris.ac.uk/cmpo/events/2009/segregation/gwr.pdf), which was a great help when producing this exercise. However, to use `spgwr` we need to convert our data from `sf` to `sp` format, this is simply done using `as(data, "Spatial")`...
+I should also acknowledge [the guide on GWR produced by the University of Bristol](http://www.bris.ac.uk/cmpo/events/2009/segregation/gwr.pdf), which was a great help when producing this exercise.
 
 ```{r message=FALSE, warning=FALSE, cache=TRUE}
 library(spgwr)
 
-st_crs(LonWardProfiles) = 27700
+coordsW2 <- st_coordinates(coordsW)
 
-LonWardProfilesSP <- LonWardProfiles %>%
-  as(., "Spatial")
+LonWardProfiles2 <- cbind(LonWardProfiles,coordsW2)
 
-st_crs(coordsW) = 27700
-coordsWSP <- coordsW %>%
-  as(., "Spatial")
-
-coordsWSP
-
-
-#calculate kernel bandwidth
 GWRbandwidth <- gwr.sel(average_gcse_capped_point_scores_2014 ~ unauthorised_absence_in_all_schools_percent_2013 + 
                     log(median_house_price_2014) + 
                     inner_outer + 
                     rate_of_job_seekers_allowance_jsa_claimants_2015 +
                     percent_with_level_4_qualifications_and_above_2011, 
-                  data = LonWardProfilesSP, 
-                        coords=coordsWSP,
-                        adapt=T)
-
+                  data = LonWardProfiles2, 
+                        coords=cbind(LonWardProfiles2$X, LonWardProfiles2$Y),
+                  adapt=T)
 GWRbandwidth
 ```
 
-Setting `adapt=T` here means to automatically find the proportion of observations for the weighting using k nearest neighbours (an adaptive bandwidth), False would mean a global bandwidth
+Setting `adapt=T` here means to automatically find the proportion of observations for the weighting using k nearest neighbours (an adaptive bandwidth), False would mean a global bandwidth and that would be in meters (as our data is projected).
+
+Occasionally data can come with longitude and latitude as columns (e.g. WGS84) and we can use this straight in the function to save making centroids, calculating the coordinates and then joining - the argument for this is `longlat=TRUE` and then the columns selected in the `coords` argument e.g. `coords=cbind(long, lat)`. The distance result will then be in KM. 
 
 The optional bandwidth is about 0.015 meaning 1.5% of all the total spatial units should be used for the local regression based on k-nearest neighbours. Which is about 9 of the 626 wards. 
-```{r }
+```{r message=FALSE, warning=FALSE}
 
 #run the gwr model
 gwr.model = gwr(average_gcse_capped_point_scores_2014 ~ unauthorised_absence_in_all_schools_percent_2013 + 
@@ -1148,12 +1140,12 @@ gwr.model = gwr(average_gcse_capped_point_scores_2014 ~ unauthorised_absence_in_
                     inner_outer + 
                     rate_of_job_seekers_allowance_jsa_claimants_2015 +
                     percent_with_level_4_qualifications_and_above_2011, 
-                  data = LonWardProfilesSP, 
-                coords=coordsWSP, 
-                adapt=GWRbandwidth, 
-                # matrix output
+                  data = LonWardProfiles2, 
+                coords=cbind(LonWardProfiles2$X, LonWardProfiles2$Y), 
+                adapt=GWRbandwidth,
+                #matrix output
                 hatmatrix=TRUE,
-                #return standard errors 
+                #standard error
                 se.fit=TRUE)
 
 #print the results of the model
@@ -1229,6 +1221,18 @@ LonWardProfiles2 <- LonWardProfiles2 %>%
 ```
 
 If this is greater than zero (i.e. the estimate is more than two standard errors away from zero), it is very unlikely that the true value is zero, i.e. it is statistically significant (at nearly the 95% confidence level)
+
+This is a combination of two ideas:
+
+* 95% of data in a normal distribution is within two standard deviations of the mean
+* Statistical significance in a regression is normally measured at the 95% level. If the p-value is less than 5% — 0.05 — then there's a 95% probability that a coefficient as large as you are observing didn't occur by chance
+
+Combining these two means if...
+
+* the coefficient is large in relation to its standard error **and**
+* the p-value tells you if that largeness statistically acceptable - at the 95% level (less than 5% — 0.05)
+
+You can be confident that in your sample, nearly all of the time, that is a real and reliable coefficient value.
 
 You should now calculate these for each variable in your GWR model and See if you can plot them on a map, for example: 
 
