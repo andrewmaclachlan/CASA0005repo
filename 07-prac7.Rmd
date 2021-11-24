@@ -1109,7 +1109,7 @@ There are various packages which will carry out GWR in R, for this pracical we w
 
 I should also acknowledge [the guide on GWR produced by the University of Bristol](http://www.bris.ac.uk/cmpo/events/2009/segregation/gwr.pdf), which was a great help when producing this exercise.
 
-```{r message=FALSE, warning=FALSE, cache=TRUE}
+```{r message=FALSE, warning=FALSE, cache=FALSE}
 library(spgwr)
 
 coordsW2 <- st_coordinates(coordsW)
@@ -1131,9 +1131,27 @@ Setting `adapt=T` here means to automatically find the proportion of observation
 
 Occasionally data can come with longitude and latitude as columns (e.g. WGS84) and we can use this straight in the function to save making centroids, calculating the coordinates and then joining - the argument for this is `longlat=TRUE` and then the columns selected in the `coords` argument e.g. `coords=cbind(long, lat)`. The distance result will then be in KM. 
 
-The optional bandwidth is about 0.015 meaning 1.5% of all the total spatial units should be used for the local regression based on k-nearest neighbours. Which is about 9 of the 626 wards. 
-```{r message=FALSE, warning=FALSE}
+The optimal bandwidth is about 0.015 meaning 1.5% of all the total spatial units should be used for the local regression based on k-nearest neighbours. Which is about 9 of the 626 wards. 
 
+This approach uses cross validation to search for the optimal bandwidth, it compares different bandwidths to minimise model residuals --- this is why we specify the regression mnodel within `gwr.sel()`. It does this with a Gaussian weighting scheme (which is the default) - meaning that near points have greater influence in the regression and the influence decreases with distance - there are variations of this, but Gaussian is a fine to use in most applications. To change this we would set the argument  `gweight = gwr.Gauss` in the `gwr.sel()` function --- `gwr.bisquare()` is the other option. We don't go into cross validation in this module. 
+
+**However** we could set either the number of neighbours considered or the distance within which to considered points ourselves, manually, in the `gwr()` function below.
+
+To set the number of other neighbours considered simply change the `adapt` argument to the value you want - it must be the number of neighbours divided by the total (e.g. to consider 20 neighbours it would be 20/626 and you'd use the value of 0.0319)
+
+The set the bandwidth, **remove** the `adapt` argument and replace it with `bandwidth` and set it, in this case, in meters.
+
+To conclude, we can:
+
+* set the bandwidth in `gwr.sel()` automatically using:
+  * the number of neighbors
+  * a distance threshold
+  
+* Or, we can set it manually in `gwr()` using:
+  * a number of neighbors
+  * a distance threshold
+
+```{r message=FALSE, warning=FALSE}
 #run the gwr model
 gwr.model = gwr(average_gcse_capped_point_scores_2014 ~ unauthorised_absence_in_all_schools_percent_2013 + 
                     log(median_house_price_2014) + 
