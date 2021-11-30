@@ -4,7 +4,7 @@
 
 By the end of this practical you should be able to:
 
-1. Explain and execute appropriate pre-proessing steps of raster data
+1. Explain and execute appropriate pre-processing steps of raster data
 1. Replicate published methodologies using raster data
 1. Design new R code to undertake further analysis 
 
@@ -94,7 +94,11 @@ To access the Landsat data we will use in this practical you can either:
 
 To download the data:
 
-1. Search for Manchester in the address/place box and select it. 
+1. Enter Manchester in the address/place box > select the country as United Kingdom > click Show and then click on the word Manchester in the box that appears.
+```{r echo=FALSE, out.width = "200pt", fig.align='center', cache=TRUE}
+knitr::include_graphics('prac7_images/earthexplorer.png')
+```
+
 1. Select the date range between the 12/5/2019 and 14/5/2019 --- it's a US website so check the dates are correct.
 1. Click dataset and select Landsat, then Landsat Collection 1 Level-1, check Landsat 8 (level 2 is surface reflectance --- see [Remote sensing background (optional)]
 1. Click results, there should be one image, download it..it might take a while
@@ -488,7 +492,7 @@ $$\lambda= Grescale * QCAL + Brescale$$
 
 TOA spectral radiance is light reflected off the Earth as seen from the satellite measure in radiance units.
 
-In this equation Grescale and Brescale represent the gain and bias of the image, with QCAL the Digital Number (DN) --- how the raw Landsat image is captured. 
+In this equation Grescale and Brescale represent the gain and bias of the image, with QCAL the Digital Number (DN) --- how the raw Landsat image is captured. To go from DN to spectral radiance we use the calibration curve, created before the launch of the sensor. Bias is the spectral radiance of the sensor for a DN of 0, Gain is the gradient of the slope for other values of DN. See page 84 in [RADIOMETRIC CORRECTION OF SATELLITE IMAGES: WHEN AND WHY RADIOMETRIC CORRECTION IS NECESSARY](https://www.ncl.ac.uk/tcmweb/bilko/module7/lesson3.pdf) for further information.
 
 Grescale and Brescale are available from the ```.MTL``` file provided when you downloaded the Landsat data. Either open this file in notepad and extract the required values for band 10 gain (MULT_BAND) and bias (ADD_BAND) 
 
@@ -616,7 +620,7 @@ Now for the rest of the equation....we have the values for:
 
 * $T_b$ Brightness Temperature
 
-30. Run the equation with our data
+1. Run the equation with our data
 
 ```{r, cache=TRUE}
 #define remaining varaibles
@@ -1024,7 +1028,7 @@ temp_violin<-ggplot(data, aes(x=bi_class, y=temp, fill=bi_class))+
   theme(legend.position="none") # Remove legend
 ```
 
-Joint them all together in two steps - make the side plots, then join that to the main plot
+Join them all together in two steps - make the side plots, then join that to the main plot
 
 ```{r, message=FALSE, warning=FALSE}
 side <- plot_grid(temp_violin, urban_box, labels=c("B","C"),label_size = 12, ncol=1)

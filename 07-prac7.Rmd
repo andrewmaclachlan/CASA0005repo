@@ -639,6 +639,10 @@ In the series of plots above, the first plot (residuals vs fitted), we would hop
 
 [Section 5.7.6 in Tidyverse Skills for Data Science explains each of these plots in more detail](https://jhudatascience.org/tidyversecourse/model.html#model-diagnostics)
 
+In the plots here we are looking for:
+
+* Residuals vs Fitted: ******HERE******
+
 ### Assumption 5 - Independence of Errors
 
 This assumption simply states that the residual values (errors) in your model must not be correlated in any way. If they are, then they exhibit *autocorrelation* which suggests that something might be going on in the background that we have not sufficiently accounted for in our model. 
@@ -1133,7 +1137,7 @@ Occasionally data can come with longitude and latitude as columns (e.g. WGS84) a
 
 The optimal bandwidth is about 0.015 meaning 1.5% of all the total spatial units should be used for the local regression based on k-nearest neighbours. Which is about 9 of the 626 wards. 
 
-This approach uses cross validation to search for the optimal bandwidth, it compares different bandwidths to minimise model residuals --- this is why we specify the regression mnodel within `gwr.sel()`. It does this with a Gaussian weighting scheme (which is the default) - meaning that near points have greater influence in the regression and the influence decreases with distance - there are variations of this, but Gaussian is a fine to use in most applications. To change this we would set the argument  `gweight = gwr.Gauss` in the `gwr.sel()` function --- `gwr.bisquare()` is the other option. We don't go into cross validation in this module. 
+This approach uses cross validation to search for the optimal bandwidth, it compares different bandwidths to minimise model residuals --- this is why we specify the regression model within `gwr.sel()`. It does this with a Gaussian weighting scheme (which is the default) - meaning that near points have greater influence in the regression and the influence decreases with distance - there are variations of this, but Gaussian is a fine to use in most applications. To change this we would set the argument  `gweight = gwr.Gauss` in the `gwr.sel()` function --- `gwr.bisquare()` is the other option. We don't go into cross validation in this module. 
 
 **However** we could set either the number of neighbours considered or the distance within which to considered points ourselves, manually, in the `gwr()` function below.
 
