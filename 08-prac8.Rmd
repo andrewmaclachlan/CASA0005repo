@@ -424,7 +424,7 @@ NDVIfun <- function(NIR, Red) {
 }
 ```
 
-Here we have said our function needs two arguments NIR and Red, the next line calcualtes NDVI based on the formula and returns it. To be able to use this function throughout our analysis either copy it into the console or make a new R script, save it in your project then call it within this code using the ```source()``` function e.g...
+Here we have said our function needs two arguments NIR and Red, the next line calculates NDVI based on the formula and returns it. To be able to use this function throughout our analysis either copy it into the console or make a new R script, save it in your project then call it within this code using the ```source()``` function e.g...
 
 ```{r eval=FALSE, cache=TRUE}
 source('insert file name')
@@ -451,7 +451,7 @@ ndvi %>%
 
 1. We can reclassify to the raster to show use what is most likely going to vegetation based on the histogram using the 3rd quartile --- anything above the 3rd quartile we assume is vegetation.
 
-> Note, this is an assumption for demonstration purposes, if you were to do something similar in your assignment be sure to provide reasoning with linkage to literature (e.g. policy or academic)
+> Note, this is an assumption for demonstration purposes, if you were to do something similar in future analysis be sure to provide reasoning with linkage to literature (e.g. policy or academic)
 
 ```{r, cache=TRUE}
 
@@ -486,7 +486,7 @@ Here we are going to compute temperature from Landsat data --- there are many me
 Some of the terms used our outlined in the remote sensing background section at the end of the document, so check back there if you get confused.
 
 
-1. Calcualte the Top of Atmopshere (TOA) spectral radiance from the Digital Number (DN) using:
+1. Calculate the Top of Atmosphere (TOA) spectral radiance from the Digital Number (DN) using:
 
 $$\lambda= Grescale * QCAL + Brescale$$
 
@@ -532,7 +532,7 @@ TOA <- offsetandgain$gain *
   offsetandgain$offset
 ```
 
-24. Next convert the TOA to Brightness Temperature $T_b$ using the following equation:
+1. Next convert the TOA to Brightness Temperature $T_b$ using the following equation:
 
 $$T_b=\frac{K_2}{ln((K_1/\lambda)+1)}$$
 
@@ -563,9 +563,9 @@ K2 <- Calidata %>%
 Brighttemp <- (K2 / log((K1 / TOA) + 1))
 ```
 
-Earlier we calcualted NDVI, let's use that to determine emissivity of each pixel.
+Earlier we calculated NDVI, let's use that to determine emissivity of each pixel.
 
-1. First we need to calcualte the fractional vegetation of each pixel, through the equation:
+1. First we need to calculate the fractional vegetation of each pixel, through the equation:
 
 $$F_v= \left( \frac{NDVI - NDVI_{min}}{NDVI_{max}-NDVI_{min}} \right)^2$$
 ```{r, cache=TRUE}
@@ -584,7 +584,7 @@ $$\varepsilon = 0.004*F_v+0.986$$
 emiss <- 0.004*facveg+0.986
 ```
 
-Emissivity is the ratio absorbed radiation energy to total incoming radiation engery compared to a blackbody (which would absorb everything), being ab measure of absoptivity.
+Emissivity is the ratio absorbed radiation energy to total incoming radiation energy compared to a blackbody (which would absorb everything), being a measure of absorptivity.
 
 1. Great, we're nearly there... get our LST following the equation from Weng et al. 2004 (also summarised in Guja et al. (2018) and Avdan and Jovanovska (2016)):
 
@@ -752,7 +752,7 @@ ggplotly(hexbins)
 
 ## Statistical summary
 
-1. To see if our varaibles are related let's run some basic correlation
+1. To see if our variables are related let's run some basic correlation
 
 ```{r, cache=TRUE}
 library(rstatix)
@@ -768,7 +768,7 @@ Let's walk through the results here...
 
 * cor: Product moment correlation coefficient
 
-* conf.low and con.high intervals: 95% confident that the population correlation coeffieicent is within this interval
+* conf.low and con.high intervals: 95% confident that the population correlation coefficient is within this interval
 
 * statistic value (or t, or test statistic)
 
@@ -793,7 +793,7 @@ computeddatafull %>%
 length(computeddatafull)
 ```
 
-Here, as our t values is > than the critical value we can say that there is a relationship between the datasets. However, we would normally report the p-value...which we can get from..
+Here, as our t values is > than the critical value we can say that there is a relationship between the datasets. However, we would normally report the p-value...
 
 As p<0.05 is shows that are variables are have a statistically significant correlation... so as urban area (assuming the index in representative) per pixel increases so does temperature...therefore we can reject our null hypothesis... but remember that this does not imply causation!! 
 
@@ -803,7 +803,7 @@ If you want more information on statistics in R go and read [YaRrr! A Pirate's G
 
 This is all useful, but what if we wanted to present this analysis to local leaders in Manchester to show which areas experience the highest temperature (remember, with the limitation of this being one day!)
 
-Next, we will aggregate our raster data to LSOAs, taking a mean of the pixles in each LSOA.
+Next, we will aggregate our raster data to LSOAs, taking a mean of the pixels in each LSOA.
 
 LSOA data: https://data-communities.opendata.arcgis.com/datasets/5e1c399d787e48c0902e5fe4fc1ccfe3
 
