@@ -479,7 +479,7 @@ veg %>%
 
 The goal of this final section is to set up a mini investigation to see if there is a relationship between urban area and temperature. If our hypothesis is that there is a relationship then our null is that there is not a relationship...
 
-### Calucating tempearture from Landsat data
+### Calculating tempearture from Landsat data
 
 Here we are going to compute temperature from Landsat data --- there are many methods that can be found within literature to do so but we will use the one originally developed by Artis & Carnahan (1982), recently summarised by Guha et al. 2018 and and Avdan and Jovanovska (2016).
 

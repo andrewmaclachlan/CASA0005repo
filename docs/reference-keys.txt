@@ -255,7 +255,7 @@ basic-raster-calculations
 ndvi
 ndvi-function
 advanced-raster-calculations
-calucating-tempearture-from-landsat-data
+calculating-tempearture-from-landsat-data
 calucating-urban-area-from-landsat-data
 urban-area-and-temperature-relationship
 statistical-summary
