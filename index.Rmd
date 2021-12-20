@@ -21,10 +21,10 @@ favicon: "assets/favicon.ico"
 htmltools::tagList(rmarkdown::html_dependency_font_awesome())
 ```
 
-[![status](https://jose.theoj.org/papers/a05734775775d1ef968e582ce9a7cb17/status.svg)](https://jose.theoj.org/papers/a05734775775d1ef968e582ce9a7cb17)
-
 
 # Welcome {-}
+
+[![status](https://jose.theoj.org/papers/a05734775775d1ef968e582ce9a7cb17/status.svg)](https://jose.theoj.org/papers/a05734775775d1ef968e582ce9a7cb17)
 
 Hello <a href="https://www.ucl.ac.uk/bartlett/casa/"><img src="general_images/casa_logo.jpg" width="120" alt="CASA0005 course" align="right" style="margin: 0 1em 0 1em" /></a> and a warm welcome to the CASA0005 Geographic Information Systems and Science online pratical handbook. This website is hosted on GitHub and holds all the practical instructions and data. Data used within the practicals is available online, however occasionally websites can undergo maintenance or be inaccessible due to political factors such as government shutdowns. Accessing this data is explained in the [section hello GIS](#Hello GIS).
 

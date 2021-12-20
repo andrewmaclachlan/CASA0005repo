@@ -6,6 +6,10 @@ htmltools::tagList(rmarkdown::html_dependency_font_awesome())
 
 ## How to adopt this course {-}
 
+Not all data used within the practicals are distributed on GitHub due to size limitations. Each practical will describe how to access 
+
+
+
 All the required data to run this course or individual practicals is provided in the GitHub repository except for the raw earth observation data used in [Advanced raster analysis] due to its size. Instructions are provided within the practical to either download the dataset from the USGS website or download it from a shared GoogleDrive folder.
 
 There are two main options to adopt this course:
@@ -15,6 +19,7 @@ There are two main options to adopt this course:
 2. Adopt a single practical by downloading the `.rmd` file and associated data. 
 
 Instructions can be found in the section [How to download data and files from GitHub]
+
 
 ## Issues / contributions {-}
 
@@ -43,8 +48,6 @@ for any purpose, even commercially.
 However, you  give appropriate credit, provide a link to the license, and indicate if changes were made. If you remix, transform, or build upon the material, you must distribute your contributions under the same license as the original.
 
 But, you do not have to comply with the license for elements of the material in the public domain or where your use is permitted by an applicable exception or limitation.
-
-The code within this pracical book is available under the [MIT license](https://opensource.org/licenses/MIT); so it is free to use (for any purpose) as long as you cite the source.
 
 ## Version {-}
 
