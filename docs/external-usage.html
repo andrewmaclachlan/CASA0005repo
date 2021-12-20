@@ -944,7 +944,7 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="external-usage.html"><a href="external-usage.html"><i class="fa fa-check"></i>External usage</a>
 <ul>
 <li class="chapter" data-level="" data-path="external-usage.html"><a href="external-usage.html#how-to-adopt-this-course"><i class="fa fa-check"></i>How to adopt this course</a></li>
-<li class="chapter" data-level="" data-path="external-usage.html"><a href="external-usage.html#issues-contributions"><i class="fa fa-check"></i>Issues / contributions</a></li>
+<li class="chapter" data-level="" data-path="external-usage.html"><a href="external-usage.html#how-to-contribute"><i class="fa fa-check"></i>How to contribute</a></li>
 <li class="chapter" data-level="" data-path="external-usage.html"><a href="external-usage.html#license"><i class="fa fa-check"></i>License</a></li>
 <li class="chapter" data-level="" data-path="external-usage.html"><a href="external-usage.html#version"><i class="fa fa-check"></i>Version</a></li>
 <li class="chapter" data-level="" data-path="external-usage.html"><a href="external-usage.html#packages"><i class="fa fa-check"></i>Packages</a></li>
@@ -1276,19 +1276,42 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <h1>External usage</h1>
 <div id="how-to-adopt-this-course" class="section level2 unnumbered">
 <h2>How to adopt this course</h2>
-<p>All the required data to run this course or individual practicals is provided in the GitHub repository except for the raw earth observation data used in <a href="advanced-raster-analysis.html#advanced-raster-analysis">Advanced raster analysis</a> due to its size. Instructions are provided within the practical to either download the dataset from the USGS website or download it from a shared GoogleDrive folder.</p>
+<p>Not all data used within the practicals is distributed on GitHub due to size limitations. Each practical describe how to access the datasets used within.</p>
 <p>There are two main options to adopt this course:</p>
 <ol style="list-style-type: decimal">
-<li><p>Adopt the course in its entirety by forking the repository on GitHub and Pulling to your local machine or simply download a <code>.zip</code> file containing the entire course.</p></li>
-<li><p>Adopt a single practical by downloading the <code>.rmd</code> file and associated data.</p></li>
+<li>Adopt the course in its entirety:</li>
+<li>Install R and RStudio</li>
+<li>Clone the project from GitHub to RStudio (in RStudio, File &gt; New Project &gt; Version Control &gt; Git)
+1. Install the <code>renv</code> package and install all packages within the project using <code>renv::restore()</code></li>
+<li>If you wish to build the book at any point, practicals (RMarkdown files) without data can be removed by commenting out the file (with a #) in the <code>_bookdown.yml</code> file</li>
 </ol>
-<p>Instructions can be found in the section <a href="hello-gis.html#how-to-download-data-and-files-from-github">How to download data and files from GitHub</a></p>
+<p>For more details on how to use Git, GitHub and <code>renv</code> see the practical <a href="git-github-and-rmarkdown.html#git-github-and-rmarkdown">Git, GitHub and RMarkdown</a></p>
+<ol start="2" style="list-style-type: decimal">
+<li>Adopt a single practical by downloading the <code>.rmd</code> file, packages loaded within the <code>.rmd</code> file and associated data from the links listed within it.</li>
+</ol>
 </div>
-<div id="issues-contributions" class="section level2 unnumbered">
-<h2>Issues / contributions</h2>
-<p>To raise an issue simply log it on the <a href="https://github.com/andrewmaclachlan/CASA0005repo/issues">GitHub issues tab for the repository</a>.</p>
-<p>To propose an edit click on the edit symbol in the top tool bar (see <a href="hello-gis.html#how-to-use-this-book">How to use this book</a>) and submit it for review.</p>
-<p>If you wish to contribute material or data then please contact the course convenor Andy MacLachlan (details below).</p>
+<div id="how-to-contribute" class="section level2 unnumbered">
+<h2>How to contribute</h2>
+<p>We welcome contributions to the material either directly, for any small issues or errors (e.g. typos) or through a GitHub issue for larger issues (e.g. further explanation requests, bugs in the code)</p>
+<p><strong>For smaller issues</strong> click the <i class ="fa fa-edit fa-lg"></i> button in the top tool bar:</p>
+<ul>
+<li>Create a fork of the repository and clone it to your local computer</li>
+<li>Create a local branch</li>
+<li>Make changes to that branch (commit them)</li>
+<li>Push the changes to your GitHub fork</li>
+<li>Once you have made then <a href="https://github.com/andrewmaclachlan/CASA0005repo/pulls">open a pull request</a> for it to be considered.</li>
+</ul>
+<p><strong>For larger issues</strong> <a href="https://github.com/andrewmaclachlan/CASA0005repo/issues">open a issue on the project’s GitHub issue page</a>.</p>
+<p>If raising an issue provide sufficient detail that it can be reproduced with a minimal worked example (where possible). Be sure to include the following:</p>
+<ul>
+<li>A short explanation of the bug and it’s environment (e.g. operating system).</li>
+<li>A step by step guide to reproduce it.</li>
+</ul>
+<p>Alternatively, reach out to us on Twitter:</p>
+<ul>
+<li><a href="https://twitter.com/andymaclachlan">Andy MacLachlan</a></li>
+<li><a href="https://twitter.com/adam_dennett">Adam Dennett</a></li>
+</ul>
 </div>
 <div id="license" class="section level2 unnumbered">
 <h2>License</h2>
@@ -1305,7 +1328,6 @@ for any purpose, even commercially.</p></li>
 </ul>
 <p>However, you give appropriate credit, provide a link to the license, and indicate if changes were made. If you remix, transform, or build upon the material, you must distribute your contributions under the same license as the original.</p>
 <p>But, you do not have to comply with the license for elements of the material in the public domain or where your use is permitted by an applicable exception or limitation.</p>
-<p>The code within this pracical book is available under the <a href="https://opensource.org/licenses/MIT">MIT license</a>; so it is free to use (for any purpose) as long as you cite the source.</p>
 </div>
 <div id="version" class="section level2 unnumbered">
 <h2>Version</h2>

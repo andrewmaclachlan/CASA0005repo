@@ -2,7 +2,7 @@
 
 <img src="general_images/casa_logo.jpg" width="100" >
 
-[![status](https://jose.theoj.org/papers/a05734775775d1ef968e582ce9a7cb17/status.svg)](https://jose.theoj.org/papers/a05734775775d1ef968e582ce9a7cb17)
+[![CC BY-SA 4.0][cc-by-sa-shield]][cc-by-sa][![status](https://jose.theoj.org/papers/a05734775775d1ef968e582ce9a7cb17/status.svg)](https://jose.theoj.org/papers/a05734775775d1ef968e582ce9a7cb17)
 
 ## Description
 
@@ -35,8 +35,6 @@ If instructors wish to replicate the practical book follow the guidance in [Exte
 
 ## License
 
-Shield: [![CC BY-SA 4.0][cc-by-sa-shield]][cc-by-sa]
-
 This work is licensed under a
 [Creative Commons Attribution-ShareAlike 4.0 International License][cc-by-sa].
 
@@ -45,6 +43,11 @@ This work is licensed under a
 [cc-by-sa]: http://creativecommons.org/licenses/by-sa/4.0/
 [cc-by-sa-image]: https://licensebuttons.net/l/by-sa/4.0/88x31.png
 [cc-by-sa-shield]: https://img.shields.io/badge/License-CC%20BY--SA%204.0-lightgrey.svg
+
+## Contributions
+
+We welcome contributions to the content, see
+
 
 ## Previous versions
 
@@ -70,6 +73,7 @@ Improvements made 2021 - 2022:
 1. Added more info on creating GWR bandwidths. 
 1. Mark scheme revision for an open book exam not written assignment.
 1. Github classroom for submission of the exam.
+1. Added weekly homework tasks.
 
 Improvements made 2020 - 2021:
 

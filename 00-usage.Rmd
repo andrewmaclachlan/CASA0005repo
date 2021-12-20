@@ -6,28 +6,43 @@ htmltools::tagList(rmarkdown::html_dependency_font_awesome())
 
 ## How to adopt this course {-}
 
-Not all data used within the practicals are distributed on GitHub due to size limitations. Each practical will describe how to access 
-
-
-
-All the required data to run this course or individual practicals is provided in the GitHub repository except for the raw earth observation data used in [Advanced raster analysis] due to its size. Instructions are provided within the practical to either download the dataset from the USGS website or download it from a shared GoogleDrive folder.
+Not all data used within the practicals is distributed on GitHub due to size limitations. Each practical describe how to access the datasets used within.
 
 There are two main options to adopt this course:
 
-1. Adopt the course in its entirety by forking the repository on GitHub and Pulling to your local machine or simply download a `.zip` file containing the entire course.
+1. Adopt the course in its entirety:
+  1. Install R and RStudio
+  1. Clone the project from GitHub to RStudio (in RStudio, File > New Project > Version Control > Git)
+    1. Install the  `renv` package and install all packages within the project using `renv::restore()`
+  1. If you wish to build the book at any point, practicals (RMarkdown files) without data can be removed by commenting out the file (with a #) in the `_bookdown.yml` file
+  
+For more details on how to use Git, GitHub and `renv` see the practical [Git, GitHub and RMarkdown]
 
-2. Adopt a single practical by downloading the `.rmd` file and associated data. 
+2. Adopt a single practical by downloading the `.rmd` file, packages loaded within the `.rmd` file and associated data from the links listed within it.  
 
-Instructions can be found in the section [How to download data and files from GitHub]
+## How to contribute {-}
 
+We welcome contributions to the material either directly, for any small issues or errors (e.g. typos) or through a GitHub issue for larger issues (e.g. further explanation requests, bugs in the code)
 
-## Issues / contributions {-}
+**For smaller issues** click the <i class ="fa fa-edit fa-lg"></i> button in the top tool bar: 
 
-To raise an issue simply log it on the [GitHub issues tab for the repository](https://github.com/andrewmaclachlan/CASA0005repo/issues).
+* Create a fork of the repository and clone it to your local computer
+* Create a local branch 
+* Make changes to that branch (commit them)
+* Push the changes to your GitHub fork
+* Once you have made then [open a pull request](https://github.com/andrewmaclachlan/CASA0005repo/pulls) for it to be considered. 
 
-To propose an edit click on the edit symbol in the top tool bar (see [How to use this book]) and submit it for review.
+**For larger issues** [open a issue on the project's GitHub issue page](https://github.com/andrewmaclachlan/CASA0005repo/issues). 
 
-If you wish to contribute material or data then please contact the course convenor Andy MacLachlan (details below).
+If raising an issue provide sufficient detail that it can be reproduced with a minimal worked example (where possible). Be sure to include the following:
+
+* A short explanation of the bug and it's environment (e.g. operating system).
+* A step by step guide to reproduce it.
+
+Alternatively, reach out to us on Twitter:
+
+* [Andy MacLachlan](https://twitter.com/andymaclachlan)
+* [Adam Dennett](https://twitter.com/adam_dennett)
 
 ## License {-}
 
