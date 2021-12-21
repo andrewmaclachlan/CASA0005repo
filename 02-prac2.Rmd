@@ -947,7 +947,7 @@ An alternative to ```merge()``` would be to use a ```left_join()``` (like in SQL
 knitr::include_graphics('prac2_images/sql-joins.png') 
 ```
 
-```{r echo=FALSE, out.width = "500px", fig.align='center', cache=FALSE, fig.cap="Taken from Tidy explain by Garrick Aden‑Buie"}
+```{r echo=FALSE, out.width = "500px", fig.align='center', cache=FALSE, fig.cap=" Types of join --- Source: [Tidy explain by Garrick Aden‑Buie](https://www.garrickadenbuie.com/project/tidyexplain/)"}
 knitr::include_graphics('prac2_images/left-join.gif') 
 ```
 

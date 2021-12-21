@@ -166,15 +166,9 @@ These meetings are **not** to be used for specific technical issues. Problems of
 
 If you give us minimal information in this form (e.g. one word) we will cancel the meeting.
 
-## Noticed a mistake? {-}
-
-No one is perfect, if you notice a mistake let us know through the [GitHub issues tab](https://github.com/andrewmaclachlan/CASA0005repo/issues)
-
-Don't worry if you are unsure about what GitHub is we cover it in the course.
-
 ## Reading list {-}
 
-We link to books and resources throughout each practical and in the [Assignment resources] pages, but a full reading list for the course is provided [on the UCL library reading list page for the course](https://rl.talis.com/3/ucl/lists/139FBAF8-DACD-60FB-8BDC-E9C9E09BA885.html?lang=en-GB&login=1), there is also a link to it over on Moodle.
+We link to books and resources throughout each practical and in the [Module resources] pages, but a full reading list for the course is provided [on the UCL library reading list page for the course](https://rl.talis.com/3/ucl/lists/139FBAF8-DACD-60FB-8BDC-E9C9E09BA885.html?lang=en-GB&login=1), there is also a link to it over on Moodle.
 
 We've tried to mostly recommend open source and free books, any others are available from the library.
 

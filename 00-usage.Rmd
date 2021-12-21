@@ -11,10 +11,10 @@ Not all data used within the practicals is distributed on GitHub due to size lim
 There are two main options to adopt this course:
 
 1. Adopt the course in its entirety:
-  1. Install R and RStudio
-  1. Clone the project from GitHub to RStudio (in RStudio, File > New Project > Version Control > Git)
-    1. Install the  `renv` package and install all packages within the project using `renv::restore()`
-  1. If you wish to build the book at any point, practicals (RMarkdown files) without data can be removed by commenting out the file (with a #) in the `_bookdown.yml` file
+  + Install R and RStudio
+  + Clone the project from GitHub to RStudio (in RStudio, File > New Project > Version Control > Git)
+  + Install the  `renv` package and install all packages within the project using `renv::restore()`. On the project's GitHub the `renv.lock` file contains all of the packages (and versions) used within it.  
+  + If you wish to build the book at any point, practicals (RMarkdown files) without data can be removed by commenting out the file (with a #) in the `_bookdown.yml` file.
   
 For more details on how to use Git, GitHub and `renv` see the practical [Git, GitHub and RMarkdown]
 
@@ -34,10 +34,12 @@ We welcome contributions to the material either directly, for any small issues o
 
 **For larger issues** [open a issue on the project's GitHub issue page](https://github.com/andrewmaclachlan/CASA0005repo/issues). 
 
-If raising an issue provide sufficient detail that it can be reproduced with a minimal worked example (where possible). Be sure to include the following:
+If raising an issue please provide sufficient detail that it can be reproduced with a minimal worked example (where possible). Be sure to include the following:
 
 * A short explanation of the bug and it's environment (e.g. operating system).
 * A step by step guide to reproduce it.
+
+**For clarification on concepts** please either [open an issue on the project's GitHub issue page](https://github.com/andrewmaclachlan/CASA0005repo/issues) or submit the anonymous feedback form at the end of each practical. 
 
 Alternatively, reach out to us on Twitter:
 

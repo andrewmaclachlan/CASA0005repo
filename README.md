@@ -2,7 +2,7 @@
 
 <img src="general_images/casa_logo.jpg" width="100" >
 
-[![CC BY-SA 4.0][cc-by-sa-shield]][cc-by-sa][![status](https://jose.theoj.org/papers/a05734775775d1ef968e582ce9a7cb17/status.svg)](https://jose.theoj.org/papers/a05734775775d1ef968e582ce9a7cb17)
+[![CC BY-SA 4.0][cc-by-sa-shield]][cc-by-sa] [![status](https://jose.theoj.org/papers/a05734775775d1ef968e582ce9a7cb17/status.svg)](https://jose.theoj.org/papers/a05734775775d1ef968e582ce9a7cb17)
 
 ## Description
 
@@ -18,7 +18,7 @@ The practical material has primarily been developed for MSc (or MRes) level stud
 
 However, there is no requirement to have any background in these disciplines to go through the material and anyone with an interest in spatial analysis in the R data science programming language will be able to successfully complete the practicals. 
 
-If you have any questions reach out to us on Twitter:
+If you have any questions, reach out to us on Twitter:
 
 * [Andy MacLachlan](https://twitter.com/andymaclachlan)
 * [Adam Dennett](https://twitter.com/adam_dennett)
@@ -46,8 +46,7 @@ This work is licensed under a
 
 ## Contributions
 
-We welcome contributions to the content, see
-
+We welcome contributions to the content, [see the how to contribute section](https://andrewmaclachlan.github.io/CASA0005repo/external-usage.html#how-to-contribute) in the practical book.
 
 ## Previous versions
 
