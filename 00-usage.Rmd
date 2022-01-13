@@ -66,13 +66,13 @@ However, you  give appropriate credit, provide a link to the license, and indica
 
 But, you do not have to comply with the license for elements of the material in the public domain or where your use is permitted by an applicable exception or limitation.
 
-## Version {-}
+## Updates {-}
 
-This is version 3.0 of the practical book
+This is the third iteration of the practical book, representing the third year it has been hosted in this format.
 
 Previous versions can be found at the following links.
 
-2020-2021 academic year: https://andrewmaclachlan.github.io/CASA0005repo_20202021/
+2020-2021 academic year (on which the JOSE paper is based): https://andrewmaclachlan.github.io/CASA0005repo_20202021/
 
 2019-2020 academic year: https://andrewmaclachlan.github.io/CASA0005repo_20192020/
 

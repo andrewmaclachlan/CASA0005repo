@@ -396,9 +396,9 @@ There are a number of alternative measures of spatial clustering which can be co
 
 * Bivand, R. S., Pebesma, E. J., & Gómez-Rubio, V. (2008). "Applied spatial data analysis with R." New York: Springer.
 
-* Brundson, C., Comber, L., (2015) "An Introduction to R for Spatial Analysis & Mapping". Sage.
+* Brundson, C., Comber, L. (2015) "An Introduction to R for Spatial Analysis & Mapping". Sage.
 
-* https://research.csiro.au/software/wp-content/uploads/sites/6/2015/02/Rspatialcourse_CMIS_PDF-Standard.pdf
+* Baddeley, A. (2010) ["Analysing spatial point patterns in R"](https://research.csiro.au/software/wp-content/uploads/sites/6/2015/02/Rspatialcourse_CMIS_PDF-Standard.pdf)
 
 ## Density-based spatial clustering of applications with noise: DBSCAN
 

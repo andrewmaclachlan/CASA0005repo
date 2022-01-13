@@ -12,6 +12,10 @@ The module is a combination of lectures and practicals, with this repository hol
 
 The content covers the principles underlying the conception, representation/measurement and analysis of spatial phenomena. As such, it presents an overview of the core organising concepts and techniques of Geographic Information Systems, and the software and analysis systems that are integral to their effective deployment in spatial analysis. It is concerned with unearthing and understanding the importance of spatial data in a range of applied contexts.
 
+### JOSE paper
+
+The content discussed within the JOSE paper specifically refers to the module created for the academic year 2020-2021: https://andrewmaclachlan.github.io/CASA0005repo_20202021/. At the conclusion of each year content is copied to a new repository ending with the academic year it was taught, whilst the content applicable to the current academic year remains on the primary repository: https://github.com/andrewmaclachlan/CASA0005repo. This allows the authors and external users to track the development of the content. 
+
 ## Target audience
 
 The practical material has primarily been developed for MSc (or MRes) level students who have little or no background in GIS, spatial analysis or the R data science language, but have studied in a related field such as: geography, architecture, computer science, statistics, mathematics or planning.

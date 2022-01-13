@@ -17,6 +17,9 @@ affiliations:
 date: 05 May 2020
 bibliography: paper.bib
 ---
+# Updates
+
+The content discussed within this paper refers to the module created for the academic year 2020-2021: https://andrewmaclachlan.github.io/CASA0005repo_20202021/. At the conclusion of each year content is copied to a new repository ending with the academic year it was taught, whilst the content applicable to the current academic year remains on the primary repository: https://github.com/andrewmaclachlan/CASA0005repo. This allows the authors and external users to track the development of the content. 
 
 # Summary
 
@@ -24,7 +27,7 @@ This paper presents a masters level geographic information systems and science c
 
 ## Resource story
 
-The geographic information systems and science course (CASA0005) is a core module on the CASA MSc and MRes programmes. Originally conceived primarily using ESRI's ArcMap with some Quantum GIS (QGIS), in recent years, consecutive module leaders and module staff, namely the authors of this paper, have transitioned and developed the content to R, with some QGIS. This reflects feedback from alumni, academia and industry that value programmatic and importantly reproducible GIS analysis. The course is representative of the expertise of the module staff with point pattern originating from Adam Dennett, raster analysis from Andrew MacLachlan and geographical regression a collaboration.   
+The geographic information systems and science course (CASA0005) is a core module on the CASA MSc and MRes programmes. Originally conceived primarily using ESRI's ArcMap with some Quantum GIS (QGIS), in recent years, consecutive module leaders and module staff, namely the authors of this paper, have transitioned and developed the content to R, with some QGIS. This reflects feedback from alumni, academia and industry that value programmatic and importantly reproducible GIS analysis. The course is representative of the expertise of the module staff with point pattern originating from Adam Dennett, raster analysis from Andrew MacLachlan and geographical regression a collaboration between the two.   
 
 # Statement of need
 
