@@ -59,7 +59,7 @@ Some of these practicals are long, take regular breaks and have a listen to some
 
 Geographic data, geospatial data or geographic information is data that identifies the location of features on Earth. There are two main types of data which are used in GIS applications to represent the real world. **Vectors** that are composed of points, lines and polygons and **rasters** that are grids of cells with individual values...
 
-```{r echo=FALSE, out.width = "300pt", fig.align='center', cache=TRUE}
+```{r echo=FALSE, out.width = "300pt", fig.align='center', cache=TRUE, fig.cap="Types of spatial data. Source: [Spatial data models](https://planet.uwc.ac.za/nisl/gis/web_page/page_15.htm)"}
 knitr::include_graphics('prac1_images/rasvec.jpg') 
 ```
 
@@ -75,7 +75,7 @@ Discrete data have finite values. It can be numeric such as number of shoes or c
 
 Foot length would be continuous data but shoe size would be discrete data.
 
-```{r echo=FALSE, out.width = "450", fig.align='center', cache=TRUE}
+```{r echo=FALSE, out.width = "450", fig.align='center', cache=TRUE, fig.cap="Continuous and discrete data. Source: [Allison Horst data science and stats illustrations](https://github.com/allisonhorst/stats-illustrations)"}
 knitr::include_graphics('allisonhorst_images/continuous_discrete.png')
 ```
 
@@ -85,7 +85,7 @@ Ordinal data has an order or scale, for example if you have ever seen the chilli
 
 Binary data is that that can have only two possible outcomes, yes and no or shark and not shark.
 
-```{r echo=FALSE, out.width = "550pt", fig.align='center', cache=TRUE}
+```{r echo=FALSE, out.width = "550pt", fig.align='center', cache=TRUE, fig.cap="Nominal, ordinal and binary data. Source: [Allison Horst data science and stats illustrations](https://github.com/allisonhorst/stats-illustrations)"}
 knitr::include_graphics('allisonhorst_images/nominal_ordinal_binary.png')
 ```
 
@@ -154,7 +154,7 @@ knitr::include_graphics('prac1_images/geodatabase.png')
 
 #### GeoPackage
 
-```{r echo=FALSE, out.width = "100pt", fig.align='center', cache=TRUE}
+```{r echo=FALSE, out.width = "100pt", fig.align='center', cache=TRUE, fig.cap="GeoPacakge logo"}
 knitr::include_graphics('prac1_images/geopkg.png')
 ```
 
@@ -162,7 +162,7 @@ A GeoPackage is an open, standards-based, platform-independent, portable, self-d
 
 #### SpatiaLite
 
-```{r echo=FALSE, out.width = "100pt", fig.align='center', cache=TRUE}
+```{r echo=FALSE, out.width = "100pt", fig.align='center', cache=TRUE, fig.cap="SpatialLite logo"}
 knitr::include_graphics('prac1_images/spatialite.png')
 ```
 
@@ -170,7 +170,7 @@ SpatialLite is an open-source library that extends SQLite core. Support is fairl
 
 #### PostGIS
 
-```{r echo=FALSE, out.width = "100pt", fig.align='center', cache=TRUE}
+```{r echo=FALSE, out.width = "100pt", fig.align='center', cache=TRUE, fig.cap="PostGIS logo"}
 knitr::include_graphics('prac1_images/postGIS.jpg') 
 ```
 
@@ -186,13 +186,13 @@ As Grolemund and Wickham state in [R for Data Science](https://r4ds.had.co.nz/).
 
 > "Data science is a huge field, and there's no way you can master it by reading a single book."
 
-However, a nice place to start is looking at the typical workflow of a data science (or GIS) project which you will see throuhgout these practicals, which is summarised nicely in this diagram produced by [Dr. Julia Lowndes](https://twitter.com/juliesquid) adpted from Grolemund and Wickham.
+However, a nice place to start is looking at the typical workflow of a data science (or GIS) project which you will see throughout these practicals, which is summarised nicely in this diagram produced by [Dr. Julia Lowndes](https://twitter.com/juliesquid) adapted from Grolemund and Wickham.
 
-```{r echo=FALSE, out.width = "600pt", fig.align='center', cache=TRUE}
+```{r echo=FALSE, out.width = "600pt", fig.align='center', cache=TRUE, fig.cap="Updated from Grolemund & Wickham's classis R4DS schematic, envisioned by Dr. Julia Lowndes for her 2019 useR! keynote talk and illustrated by Allison Horst. Source: [Allison Horst data science and stats illustrations](https://github.com/allisonhorst/stats-illustrations)"}
 knitr::include_graphics('allisonhorst_images/environmental_data_science_r4ds_general.png')
 ```
 
-To begin you have to **import** your data (not necessarily environmental) into R or someother kind of GIS to acatually be able to do any kind of analysis on it.
+To begin you have to **import** your data (not necessarily environmental) into R or some other kind of GIS to actually be able to do any kind of analysis on it.
 
 Once imported you might need to **tidy** the data. This really depends on what kind of data it is and we cover this later on in the course. However, putting all of your data into a consistent structure will be very beneficial when you have to do analysis on it --- as you can treat it all in the same way. Grolemund and Wickham state that data is tidy when "each column is a variable, and each row is an observation", we cover this more in next week in the [Tidying data] section.
 
@@ -200,7 +200,7 @@ When you have (or haven't) tidied data you then will most likely want to **trans
 
 Tidying and transfrom = data wrangling. Remember from the introduction this could be 50-80% of a data science job!
 
-```{r echo=FALSE, out.width = "450pt", fig.align='center', cache=TRUE}
+```{r echo=FALSE, out.width = "450pt", fig.align='center', cache=TRUE, fig.cap="dplyr introduction graphic. Source: [Allison Horst data science and stats illustrations](https://github.com/allisonhorst/stats-illustrations)"}
 knitr::include_graphics('allisonhorst_images/dplyr_wrangling.png')
 ```
 
@@ -230,8 +230,9 @@ In your N drive: create a new folder called GIS and within this a sub folder cal
 
 Firstly we need to get a spatial outline of the London boroughs. The geographic boundaries that are used in the UK are a complex, often inter-related, but ever changing mass of areas. For anyone new to the UK (or indeed not a trained quantitative geographer), it can be quite a daunting task to attempt to understand all of the boundaries that are in use. Fortunately the Office for National Statistics (ONS) has an online beginners guide to UK geography. If you need more information on the vast array of different UK geographies, go and explore these resources:
 
--   [A Beginners Guide to UK Geography (2019) v1.0](https://geoportal.statistics.gov.uk/datasets/a31e552c8a214ac2935dbb5701009a64)
 -   <https://geoportal.statistics.gov.uk/datasets/9c04ff58854040d09a5a7ce146ab59b4>
+
+Another [easy to read guide on census / administrative geography](https://www.towerhamlets.gov.uk/Documents/Borough_statistics/Research-tools-and-guidance/RB-Census2011-Census-Geography-Guide-2013-05.pdf) was produced by the London Borough of Tower Hamlets - skip to page 2 for a visual summary
 
 Let's download some data..
 
@@ -426,9 +427,9 @@ knitr::include_graphics('prac1_images/RStudio.png')
 
 Below are bits of code, to start we will work using the **console**. So just copy the bits of code into the console window, changing the file names to where your data is stored. Then at the end of this section I'll show you how to make a script.
 
-R works on packages that are collections of functions and data. Packages are bits of code that extend R beyond the basic statistical functionality it was originally designed for. For spatial data, they enable R to process spatial data formats, carry out analysis tasks and create some of the maps that follow. Most pacakges are easily recognisable through a hexagon (hex) logo, or sticker. [Mitchell O'Hara-Wild has even produced some code to make your own](https://www.mitchelloharawild.com/blog/hexwall/)!
+R works on packages that are collections of functions and data. Packages are bits of code that extend R beyond the basic statistical functionality it was originally designed for. For spatial data, they enable R to process spatial data formats, carry out analysis tasks and create some of the maps that follow. Most packages are easily recognisable through a hexagon (hex) logo, or sticker. 
 
-```{r echo=FALSE, out.width = "500px", fig.align='center', cache=FALSE}
+```{r echo=FALSE, out.width = "500px", fig.align='center', cache=FALSE, fig.cap="R pacakge hex sticker wall. Source: [Mitchell O'Hara-Wild arranging Hex stickers in R](https://www.mitchelloharawild.com/blog/hexwall/)"}
 knitr::include_graphics('prac1_images/hex_stickers.png') 
 ```
 
@@ -454,9 +455,9 @@ Packages we've installed with our code:
 -   `tmaptools`: set of tools for reading and processing spatial data
 -   `RSQLite`: embeds the SQLite database engine in R
 
-Here, `repos` stands for repository where we will download the packages from. Once you have set it, you shouldn't need to specify it again. Whilst we've installed the packages we haven't loaded them...this is done through using `library()` function. Thanks to [Dianne Cook](https://twitter.com/visnut) for this image...
+Here, `repos` stands for repository where we will download the packages from. Once you have set it, you shouldn't need to specify it again. Whilst we've installed the packages we haven't loaded them...this is done through using `library()` function.
 
-```{r echo=FALSE, out.width = "600pt", fig.align='center', cache=TRUE}
+```{r echo=FALSE, out.width = "600pt", fig.align='center', cache=TRUE, fig.cap="Installing vs loading (with library) packages. Source: [Dianne Cook](https://twitter.com/visnut)"}
 knitr::include_graphics('prac1_images/install_library.jfif') 
 ```
 
@@ -478,13 +479,13 @@ If you still have issues the check out the [Mac R issues] section
 
 Load the `sf` package so we can read our shapefile in --- remember to change to filepath to your shapefile.
 
-```{r echo=FALSE, out.width = "450pt", fig.align='center', cache=TRUE}
-knitr::include_graphics('allisonhorst_images/sf.png')
+```{r echo=FALSE, out.width = "450pt", fig.align='center', cache=TRUE, fig.cap="sf introduction graphic. Source: [Allison Horst data science and stats illustrations](https://github.com/allisonhorst/stats-illustrations)"}
+knitr::include_graphics('allisonhorst_images/sf.png', )
 ```
 
 For this first practical we'll just leave the data where it is, next week we'll show you how to use projects to make calling data much easier.
 
-> **Note** by default in R, the file path should be defined with `/` but on a windows file system it is defined with `\`. Using `\\` instead allows R to read the path correctly -- alternatively, just use `/`
+> **Note** by default in R, the file path should be defined with `/` but on a windows file system it is defined with `\` (e.g. when looking at files on your computer they will be folder\file). Using `\\` instead allows R to read the path correctly -- alternatively, just use `/`
 
 ```{r, message=FALSE, warning=FALSE, cache=TRUE}
 library(sf)

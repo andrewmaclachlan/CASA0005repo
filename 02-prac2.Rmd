@@ -280,9 +280,9 @@ A vector, matrix and array must only contain data of the **same type** (e.g. num
 
 A list or data frame can contain a mixture of data types (e.g. numeric and text). 
 
-Further divisions are then made based on the number of dimesions (1D, 2D, 3D or more) each can have...
+Further divisions are then made based on the number of dimensions (1D, 2D, 3D or more) each can have...
 
-```{r echo=FALSE, out.width = "450px", fig.align='center', cache=FALSE}
+```{r echo=FALSE, out.width = "450px", fig.align='center', cache=FALSE, fig.cap="R's most common data structures are vectors, matrices, arrays, lists and data frames. Source: [ Figure 3.6, NUS BACT](https://nusbasdata.wordpress.com/2018/01/06/r-tutorial-4-data-structures/)"}
 knitr::include_graphics('prac2_images/data_structures.png') 
 ```
 
@@ -309,6 +309,9 @@ df %>%
 
 ::: {.infobox .warning data-latex="{note}"}
 You might have noticed the syntax (code) `%>%`, this is called a **pipe** and is an operator is part from the `magrittr` package. `magrittr` is an entirely new way of thinking about R syntax that cleraly expresses a sequence of multiple operations. It is useful to think of the pipe operator as simply meaning “then”. Do this **THEN** do this **THEN** do that.
+
+In R version 4.1 there is a new pipe `|>`. It is exactly at the same as `%>%` but means there is no reliance on the `magrittr` package. The good news is they can *mostly* be used interchangeably. I 
+
 :::
 
 You can also view elements of your data frame in RStudio by simply clicking on it in the top-right Environment window:
@@ -349,7 +352,7 @@ df <- df %>%
 In the majority of cases you provide some kind of data to `dplyr` followed by a `%>%` then a verb (or other function), then another `%>%` and more verbs of functions if needed. As in the code above you can also assign the output to an object with `<-`.
 
 
-```{r echo=FALSE, out.width = "450pt", fig.align='center', cache=FALSE}
+```{r echo=FALSE, out.width = "450pt", fig.align='center', cache=FALSE, fig.cap="dplyr introduction graphic. Source: [Allison Horst data science and stats illustrations](https://github.com/allisonhorst/stats-illustrations)"}
 knitr::include_graphics('allisonhorst_images/dplyr_wrangling.png')
 ```
 
@@ -449,7 +452,7 @@ LondonDataOSK<- read.csv(here::here("prac2_data","ward-profiles-excel-version.cs
 
 This just removes any need for ever using a `/` or `\\` in your file path. As with everything in code, there is no right way, use what suits you.
 
-```{r echo=FALSE, out.width = "450pt", fig.align='center', cache=FALSE}
+```{r echo=FALSE, out.width = "450pt", fig.align='center', cache=FALSE, fig.cap="here::here() example. Source: [Allison Horst data science and stats illustrations](https://github.com/allisonhorst/stats-illustrations)"}
 knitr::include_graphics('allisonhorst_images/here.png')
 ```
 
@@ -457,7 +460,7 @@ knitr::include_graphics('allisonhorst_images/here.png')
 
 To clean our data as we read it in, we are going to use a package called ```readr``` which also comes bundled as part of the ```tidyverse``` package.
 
-```{r echo=FALSE, out.width = "450pt", fig.align='center', cache=FALSE}
+```{r echo=FALSE, out.width = "450pt", fig.align='center', cache=FALSE, fig.cap="tidyverse introduction graphic. Source: [Allison Horst data science and stats illustrations](https://github.com/allisonhorst/stats-illustrations)"}
 knitr::include_graphics('allisonhorst_images/tidyverse_celestial.png')
 ```
 
@@ -465,7 +468,7 @@ The [`tidyverse`](https://www.tidyverse.org/) is simply a collection of pacakges
 
 Now let's  use the ```readr``` package... that allows loads of data manipulation ...for example...
 
-```{r echo=FALSE, out.width = "450pt", fig.align='center', cache=FALSE}
+```{r echo=FALSE, out.width = "450pt", fig.align='center', cache=FALSE, fig.cap="readr::parse_number() example. Source: [Allison Horst data science and stats illustrations](https://github.com/allisonhorst/stats-illustrations)"}
 knitr::include_graphics('allisonhorst_images/parse_number.png')
 ```
 
@@ -563,7 +566,7 @@ However, we can instead try a cool ‘data sciency’ way of pulling out the row
 
 `dplyr` has a cool function called `filter()`that let's you subset rows based on conditions...
 
-```{r echo=FALSE, out.width = "500pt", fig.align='center', cache=FALSE}
+```{r echo=FALSE, out.width = "500pt", fig.align='center', cache=FALSE, fig.cap="dplyr::filter() example. Source: [Allison Horst data science and stats illustrations](https://github.com/allisonhorst/stats-illustrations)"}
 knitr::include_graphics('allisonhorst_images/dplyr_filter.jpg')
 ```
 Here, we could filter based on a variable, for example extracting all the wards where female life expextancy is greather than 90. 
@@ -649,7 +652,7 @@ LondonBoroughs <- LondonBoroughs %>%
 
 By defualt `Janitor` removes all capitals and uses an underscore wherever there is a space, this would be the same as using setting the `case` argument to snake... 
 
-```{r echo=FALSE, out.width = "500pt", fig.align='center', cache=FALSE}
+```{r echo=FALSE, out.width = "500pt", fig.align='center', cache=FALSE, fig.cap="janitor::clean_names() example. Source: [Allison Horst data science and stats illustrations](https://github.com/allisonhorst/stats-illustrations)"}
 knitr::include_graphics('allisonhorst_images/janitor_clean_names.png')
 ```
 
@@ -672,7 +675,7 @@ Then selecting only the name of the Borough, mean life expectancy and normalised
 
 To do this we will rely on the `mutate()` function that let's us add new variables based on existing ones...
 
-```{r echo=FALSE, out.width = "500pt", fig.align='center', cache=FALSE}
+```{r echo=FALSE, out.width = "500pt", fig.align='center', cache=FALSE, fig.cap="dyplr mutate() example. Source: [Allison Horst data science and stats illustrations](https://github.com/allisonhorst/stats-illustrations)"}
 knitr::include_graphics('allisonhorst_images/dplyr_mutate.png')
 ```
 
@@ -711,7 +714,7 @@ So far, we've really just covered basic operations with `dplyr` that you might h
 
 To answer this question we can use the `case_when()`, whereby if the value is greater than 81.16 we can assign the Borough a string of "above UK average", and if below a string of "below UK average"....
 
-```{r echo=FALSE, out.width = "500pt", fig.align='center', cache=FALSE}
+```{r echo=FALSE, out.width = "500pt", fig.align='center', cache=FALSE, fig.cap="dplyr case_when() example. Source: [Allison Horst data science and stats illustrations](https://github.com/allisonhorst/stats-illustrations)"}
 knitr::include_graphics('allisonhorst_images/dplyr_case_when.png')
 ```
 
@@ -740,13 +743,13 @@ We are going to:
 1. Again work out difference between the life expectancy of the Boroughs compared to the national average
 1. Round the whole table based on if the column is numeric (this isn't required and we're not adding a new column). Here we are using `across` that applies some kind of transformation across the columns selected (or that are numeric in this case).
 
-```{r echo=FALSE, out.width = "450pt", fig.align='center', cache=FALSE}
+```{r echo=FALSE, out.width = "450pt", fig.align='center', cache=FALSE, fig.cap="dyplr::across() example. Source: [Allison Horst data science and stats illustrations](https://github.com/allisonhorst/stats-illustrations)"}
 knitr::include_graphics('allisonhorst_images/dplyr_across.png')
 ```
 Here we need to:
 
-1. Round the column `UKdiff` to 0 decimcal places (not adding a new column)
-1. Use `case_when()` to find Boroughs that have an average age of equal to or over 81 and create a new column that containts text based combining `equal or above UK average by` then the years created in UKdiff. We do this through the `str_c()` function from the `stringr` pacakge that let's us join two or more vector elements into a single character vector. Here `sep` determines how these two vectors are separated.
+1. Round the column `UKdiff` to 0 decimal places (not adding a new column)
+1. Use `case_when()` to find Boroughs that have an average age of equal to or over 81 and create a new column that contains text based combining `equal or above UK average by` then the years created in UKdiff. We do this through the `str_c()` function from the `stringr` package that let's us join two or more vector elements into a single character vector. Here `sep` determines how these two vectors are separated.
 1. Then group by the `UKcompare` column
 1. Finally, count the number in each group.
 
@@ -779,9 +782,9 @@ Life_expectancy4 <- Life_expectancy %>%
   mutate(across(UKdiff, round, 0))
 ```
 
-Before you move on consider what you have learnt about `dplyr` in relation to this concept map [by Greg Wilson](https://github.com/rstudio/concept-maps). The teaching team will also explain it...
+Before you move on consider what you have learnt about `dplyr` in relation to this concept map. The teaching team will also explain it...
 
-```{r echo=FALSE, out.width = "600pt", fig.align='center', cache=FALSE}
+```{r echo=FALSE, out.width = "600pt", fig.align='center', cache=FALSE, fig.cap="dplyr concept map. Source: [Monica Alonso and Greg Wilson](https://github.com/rstudio/concept-maps)"}
 knitr::include_graphics('prac2_images/dplyr.svg')
 ```
 
@@ -867,7 +870,7 @@ R has a very well developed ecosystem of packages for working with Spatial Data.
 
 Whilst these packages were extremely important for advancing spatial data analysis in R, they were not always the most straightforward to use --- making a map in R could take quite a lot of effort and they were static and visually basic. However, more recently new packages have arrived to change this. Now ```leaflet``` enables R to interface with the leaflet javascript library for online, dynamic maps. ```ggplot2``` which was developed by Hadley Wickham and colleagues radically changed the way that people thought about and created graphical objects in R, including maps, and introduced a graphical style which has been the envy of other software to the extent that there are now libraries in Python which copy the ```ggplot2``` style!
 
-```{r echo=FALSE, out.width = "450pt", fig.align='center', cache=FALSE}
+```{r echo=FALSE, out.width = "450pt", fig.align='center', cache=FALSE, fig.cap="ggplot2 introduction graphic. Source: [Allison Horst data science and stats illustrations](https://github.com/allisonhorst/stats-illustrations)"}
 knitr::include_graphics('allisonhorst_images/ggplot2_exploratory.png')
 ```
 
@@ -943,11 +946,11 @@ We've added some more arguments to `distinct()` that mean we only have unique ro
 
 An alternative to ```merge()``` would be to use a ```left_join()``` (like in SQL)...but it's the same thing as `merge()`.
 
-```{r echo=FALSE, out.width = "500px", fig.align='center', cache=FALSE}
+```{r echo=FALSE, out.width = "500px", fig.align='center', cache=FALSE, fig.cap="SQL join types. Source: [SQL Join Diagram, dofactory](https://www.dofactory.com/sql/join)"}
 knitr::include_graphics('prac2_images/sql-joins.png') 
 ```
 
-```{r echo=FALSE, out.width = "500px", fig.align='center', cache=FALSE, fig.cap=" Types of join --- Source: [Tidy explain by Garrick Aden‑Buie](https://www.garrickadenbuie.com/project/tidyexplain/)"}
+```{r echo=FALSE, out.width = "500px", fig.align='center', cache=FALSE, fig.cap="dplyr::left_join() example. Source: [Tidy explain by Garrick Aden‑Buie](https://www.garrickadenbuie.com/project/tidyexplain/)"}
 knitr::include_graphics('prac2_images/left-join.gif') 
 ```
 
@@ -963,7 +966,7 @@ BoroughDataMap2 <- EW %>%
 
 If there are mutliple matches then all hits are returned...
 
-```{r echo=FALSE, out.width = "500px", fig.align='center', cache=FALSE, fig.cap="Taken from Tidy explain by Garrick Aden‑Buie"}
+```{r echo=FALSE, out.width = "500px", fig.align='center', cache=FALSE, fig.cap="dplyr::left_join() example with multiple matches. Source: [Tidy explain by Garrick Aden‑Buie](https://www.garrickadenbuie.com/project/tidyexplain/)"}
 knitr::include_graphics('prac2_images/left-join-extra.gif') 
 ```
 

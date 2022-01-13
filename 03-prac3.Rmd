@@ -60,13 +60,19 @@ This practical is composed of three parts. To start with we're going to explore 
 
 Projections systems are mathematical formulas that specify how our data is represented on a map. These can either be call geographic coordiate reference systems or projected coordinate reference systems. The former  treats data as a sphere and the latter as a flat object. You might come across phrases such as a resolution of 5 minutes or a resolution of 30 metres, which can be used to establish what kind of projection system has been used. Let me explain...
 
-A minute type of resolution (e.g. 5 minute resolution) is a geographic reference system that treats the globe as if it was a sphere divided into 360 equal parts called degrees (which are angular units). Each degree has 60 minutes and each minute has 60 seconds. Arc-seconds of latitude (horizontal lines in the globe figure below) remain almost constant whilst arc-seconds of longitude (vertical lines in the globe figure below) decrease in a trigonometric cosine-based fashion as you move towards the Earth's poles. This causes problems as you increase or decrease latitude the longitudial lengths alter...For example at the equator (0°, such as Quito) a degree is 111.3 km whereas at 60° (such as Saint Petersburg) a degree is 55.80 km  ...In contrast a projected coordinate system is defined on a flat, two-dimensional plane (through projecting a spheriod onto a 2D surface) giving it constant lengths, angles and areas...
+A minute type of resolution (e.g. 5 minute resolution) is a geographic reference system that treats the globe as if it was a sphere divided into 360 equal parts called degrees (which are angular units). Each degree has 60 minutes and each minute has 60 seconds. Arc-seconds of latitude (horizontal lines in the globe figure below) remain almost constant whilst arc-seconds of longitude (vertical lines in the globe figure below) decrease in a trigonometric cosine-based fashion as you move towards the Earth's poles...
 
-```{r echo=FALSE, out.width = "400pt", fig.align='center', cache=FALSE, results=FALSE}
+```{r echo=FALSE, out.width = "400pt", fig.align='center', cache=FALSE, results=FALSE, fig.cap="Latitude and Longitude. Source: [ThoughtCo.](https://www.thoughtco.com/degree-of-latitude-and-longitude-distance-4070616)"}
 knitr::include_graphics('prac3_images/arcseconds.jpg')
 ```
 
-```{r vectorplots, fig.cap="This figure is taken directly from Lovelace et al. (2019) section 2.2. Illustration of vector (point) data in which location of London (the red X) is represented with reference to an origin (the blue circle). The left plot represents a geographic CRS with an origin at 0° longitude and latitude. The right plot represents a projected CRS with an origin located in the sea west of the South West Peninsula.", out.width="49%", fig.show='hold', echo=FALSE, cache=FALSE}
+
+This causes problems as you increase or decrease latitude the longitudinal lengths alter...For example at the equator (0°, such as Quito) a degree is 111.3 km whereas at 60° (such as Saint Petersburg) a degree is 55.80 km  ...
+
+**In contrast** a projected coordinate system is defined on a flat, two-dimensional plane (through projecting a spheroid onto a 2D surface) giving it constant lengths, angles and areas...
+
+
+```{r vectorplots, fig.cap="Illustration of vector (point) data in which location of London (the red X) is represented with reference to an origin (the blue circle). The left plot represents a geographic CRS with an origin at 0° longitude and latitude. The right plot represents a projected CRS with an origin located in the sea west of the South West Peninsula. Source: [Lovelace et al. (2019) section 2.2](https://geocompr.robinlovelace.net/spatial-class.html)", out.width="49%", fig.show='hold', echo=FALSE, cache=FALSE}
 knitr::include_graphics(c("prac3_images/vector_lonlat.png","prac3_images/vector_projected.png"))
 ```
 
@@ -354,7 +360,7 @@ Aucitytemp2 <- AUcitytemp %>%
 
 Descriptive (or summary) statistics provide a summary of our data, often forming the base of quantitative analysis leading to inferential statistics which we use to make inferences about our data (e.g. judegements of the probability that the observed difference between two data sets is not by chance) 
 
-```{r echo=FALSE, out.width = "450pt", fig.align='center', cache=FALSE}
+```{r echo=FALSE, out.width = "450pt", fig.align='center', cache=FALSE, fig.cap="Summary statistics. Source: [Allison Horst data science and stats illustrations](https://github.com/allisonhorst/stats-illustrations)"}
 knitr::include_graphics('allisonhorst_images/summary_statistics.png')
 ```
 

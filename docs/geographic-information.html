@@ -24,7 +24,7 @@
 <meta name="author" content="Andy MacLachlan and Adam Dennett" />
 
 
-<meta name="date" content="2021-12-21" />
+<meta name="date" content="2022-01-13" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -1320,7 +1320,12 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <div id="the-basics-of-geographic-information" class="section level2" number="1.4">
 <h2><span class="header-section-number">1.4</span> The Basics of Geographic Information</h2>
 <p>Geographic data, geospatial data or geographic information is data that identifies the location of features on Earth. There are two main types of data which are used in GIS applications to represent the real world. <strong>Vectors</strong> that are composed of points, lines and polygons and <strong>rasters</strong> that are grids of cells with individual values…</p>
-<p><img src="prac1_images/rasvec.jpg" width="300pt" style="display: block; margin: auto;" /></p>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-9"></span>
+<img src="prac1_images/rasvec.jpg" alt="Types of spatial data. Source: [Spatial data models](https://planet.uwc.ac.za/nisl/gis/web_page/page_15.htm)" width="300pt" />
+<p class="caption">
+Figure 1.1: Types of spatial data. Source: <a href="https://planet.uwc.ac.za/nisl/gis/web_page/page_15.htm">Spatial data models</a>
+</p>
+</div>
 <p>In the above example the features in the real world (e.g. lake, forest, marsh and grassland) have been represented by points, lines and polygons (vector) or discrete grid cells (raster) of a certain size (e.g. 1 x 1m) specifying land cover type.</p>
 <div id="data-types-in-statistics" class="section level3" number="1.4.1">
 <h3><span class="header-section-number">1.4.1</span> Data types in statistics</h3>
@@ -1328,11 +1333,21 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <p>Continuous data can be measured on some sort of scale and can have any value on it such as height and weight.</p>
 <p>Discrete data have finite values. It can be numeric such as number of shoes or categorial such as positive or negative.</p>
 <p>Foot length would be continuous data but shoe size would be discrete data.</p>
-<p><img src="allisonhorst_images/continuous_discrete.png" width="450" style="display: block; margin: auto;" /></p>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-10"></span>
+<img src="allisonhorst_images/continuous_discrete.png" alt="Continuous and discrete data. Source: [Allison Horst data science and stats illustrations](https://github.com/allisonhorst/stats-illustrations)" width="450" />
+<p class="caption">
+Figure 1.2: Continuous and discrete data. Source: <a href="https://github.com/allisonhorst/stats-illustrations">Allison Horst data science and stats illustrations</a>
+</p>
+</div>
 <p>Nominal data has labels without any quantitative value such as hair colour or type of animal.</p>
 <p>Ordinal data has an order or scale, for example if you have ever seen the chilli rating system on food labels or filled a happiness survey with a range between 1 and 10 — that’s ordinal. Here the order matters, but not the difference between them.</p>
 <p>Binary data is that that can have only two possible outcomes, yes and no or shark and not shark.</p>
-<p><img src="allisonhorst_images/nominal_ordinal_binary.png" width="550pt" style="display: block; margin: auto;" /></p>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-11"></span>
+<img src="allisonhorst_images/nominal_ordinal_binary.png" alt="Nominal, ordinal and binary data. Source: [Allison Horst data science and stats illustrations](https://github.com/allisonhorst/stats-illustrations)" width="550pt" />
+<p class="caption">
+Figure 1.3: Nominal, ordinal and binary data. Source: <a href="https://github.com/allisonhorst/stats-illustrations">Allison Horst data science and stats illustrations</a>
+</p>
+</div>
 </div>
 <div id="important-gis-data-formats" class="section level3" number="1.4.2">
 <h3><span class="header-section-number">1.4.2</span> Important GIS data formats</h3>
@@ -1390,17 +1405,32 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <div id="geopackage" class="section level4" number="1.4.2.7">
 <h4><span class="header-section-number">1.4.2.7</span> GeoPackage</h4>
-<p><img src="prac1_images/geopkg.png" width="100pt" style="display: block; margin: auto;" /></p>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-14"></span>
+<img src="prac1_images/geopkg.png" alt="GeoPacakge logo" width="100pt" />
+<p class="caption">
+Figure 1.4: GeoPacakge logo
+</p>
+</div>
 <p>A GeoPackage is an open, standards-based, platform-independent, portable, self-describing, compact format for transferring geospatial data. It stores spatial data layers (vector and raster) as a single file, and is based upon an SQLite database, a widely used relational database management system, permitting code based, reproducible and transparent workflows. As it stores data in a single file it is very easy to share, copy or move.</p>
 </div>
 <div id="spatialite" class="section level4" number="1.4.2.8">
 <h4><span class="header-section-number">1.4.2.8</span> SpatiaLite</h4>
-<p><img src="prac1_images/spatialite.png" width="100pt" style="display: block; margin: auto;" /></p>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-15"></span>
+<img src="prac1_images/spatialite.png" alt="SpatialLite logo" width="100pt" />
+<p class="caption">
+Figure 1.5: SpatialLite logo
+</p>
+</div>
 <p>SpatialLite is an open-source library that extends SQLite core. Support is fairly limited and most software that supports SpatiaLite also supports GeoPackage, as they both build upon SQLite. It doesn’t have any clear advantage over GeoPackage, however it is unable to support raster data.</p>
 </div>
 <div id="postgis" class="section level4" number="1.4.2.9">
 <h4><span class="header-section-number">1.4.2.9</span> PostGIS</h4>
-<p><img src="prac1_images/postGIS.jpg" width="100pt" style="display: block; margin: auto;" /></p>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-16"></span>
+<img src="prac1_images/postGIS.jpg" alt="PostGIS logo" width="100pt" />
+<p class="caption">
+Figure 1.6: PostGIS logo
+</p>
+</div>
 <p>PostGIS is an opensource database extender for PostrgeSQL. Essentially PostgreSQL is a database and PostGIS is an add on which permits spatial functions. The advantages of using PostGIS over a GeoPackage are that it allows users to access the data at the same time, can handle large data more efficiently and reduces processing time. In <a href="https://medium.com/@GispoLearning/learn-spatial-sql-and-master-geopackage-with-qgis-3-16b1e17f0291">this example</a> calculating the number of bars per neighbourhood in Leon, Mexico the processing time reduced from 1.443 seconds (SQLite) to 0.08 seconds in PostGIS. However, data stored in PostGIS is much harder to share, move or copy.</p>
 </div>
 <div id="what-will-i-use" class="section level4" number="1.4.2.10">
@@ -1415,13 +1445,23 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <blockquote>
 <p>“Data science is a huge field, and there’s no way you can master it by reading a single book.”</p>
 </blockquote>
-<p>However, a nice place to start is looking at the typical workflow of a data science (or GIS) project which you will see throuhgout these practicals, which is summarised nicely in this diagram produced by <a href="https://twitter.com/juliesquid">Dr. Julia Lowndes</a> adpted from Grolemund and Wickham.</p>
-<p><img src="allisonhorst_images/environmental_data_science_r4ds_general.png" width="600pt" style="display: block; margin: auto;" /></p>
-<p>To begin you have to <strong>import</strong> your data (not necessarily environmental) into R or someother kind of GIS to acatually be able to do any kind of analysis on it.</p>
+<p>However, a nice place to start is looking at the typical workflow of a data science (or GIS) project which you will see throughout these practicals, which is summarised nicely in this diagram produced by <a href="https://twitter.com/juliesquid">Dr. Julia Lowndes</a> adapted from Grolemund and Wickham.</p>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-17"></span>
+<img src="allisonhorst_images/environmental_data_science_r4ds_general.png" alt="Updated from Grolemund &amp; Wickham's classis R4DS schematic, envisioned by Dr. Julia Lowndes for her 2019 useR! keynote talk and illustrated by Allison Horst. Source: [Allison Horst data science and stats illustrations](https://github.com/allisonhorst/stats-illustrations)" width="600pt" />
+<p class="caption">
+Figure 1.7: Updated from Grolemund &amp; Wickham’s classis R4DS schematic, envisioned by Dr. Julia Lowndes for her 2019 useR! keynote talk and illustrated by Allison Horst. Source: <a href="https://github.com/allisonhorst/stats-illustrations">Allison Horst data science and stats illustrations</a>
+</p>
+</div>
+<p>To begin you have to <strong>import</strong> your data (not necessarily environmental) into R or some other kind of GIS to actually be able to do any kind of analysis on it.</p>
 <p>Once imported you might need to <strong>tidy</strong> the data. This really depends on what kind of data it is and we cover this later on in the course. However, putting all of your data into a consistent structure will be very beneficial when you have to do analysis on it — as you can treat it all in the same way. Grolemund and Wickham state that data is tidy when “each column is a variable, and each row is an observation”, we cover this more in next week in the <a href="introduction-to-r.html#tidying-data">Tidying data</a> section.</p>
 <p>When you have (or haven’t) tidied data you then will most likely want to <strong>transform</strong> it. Grolemund and Wickham define this as “narrowing in on observations of interest (like all people in one city, or all data from the last year), creating new variables that are functions of existing variables (like computing speed from distance and time), and calculating a set of summary statistics (like counts or means)”. However, from a GIS point of view I would also include putting all of your data into a similar projection, covered next week in <a href="spatial-descriptive-statistics.html#changing-projections">Changing projections</a> and any other basic process you might do before the core analysis. Arguably these processes could include things such as: clipping (cookie cutting your study area), buffering (making areas within a distance of a point) and intersecting (where two datasets overlap).</p>
 <p>Tidying and transfrom = data wrangling. Remember from the introduction this could be 50-80% of a data science job!</p>
-<p><img src="allisonhorst_images/dplyr_wrangling.png" width="450pt" style="display: block; margin: auto;" /></p>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-18"></span>
+<img src="allisonhorst_images/dplyr_wrangling.png" alt="dplyr introduction graphic. Source: [Allison Horst data science and stats illustrations](https://github.com/allisonhorst/stats-illustrations)" width="450pt" />
+<p class="caption">
+Figure 1.8: dplyr introduction graphic. Source: <a href="https://github.com/allisonhorst/stats-illustrations">Allison Horst data science and stats illustrations</a>
+</p>
+</div>
 <p>After you have transformed the data the next best thing to do is <strong>visualise</strong> it — even with some basic summary statistics. This simple step will often let you look at your data in a different way and select more appropraite analysis.</p>
 <p>Next up is <strong>modelling</strong>. Personally within GIS i’d say a better term is processing as the very data itself is usually a computer model of reality. The modelling or processing section is where you conduct the core analysis (more than the basic analysis already mentioned) and try to provide an answer to your research question.</p>
 <p>Fianlly you have to <strong>communicate</strong> your study and outputs, it doesn’t matter how good your data wrangling, modelling or processing is, if your intended audience can’t interpret it, well, it’s pretty much useless.</p>
@@ -1442,9 +1482,9 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <h3><span class="header-section-number">1.6.2</span> Data download</h3>
 <p>Firstly we need to get a spatial outline of the London boroughs. The geographic boundaries that are used in the UK are a complex, often inter-related, but ever changing mass of areas. For anyone new to the UK (or indeed not a trained quantitative geographer), it can be quite a daunting task to attempt to understand all of the boundaries that are in use. Fortunately the Office for National Statistics (ONS) has an online beginners guide to UK geography. If you need more information on the vast array of different UK geographies, go and explore these resources:</p>
 <ul>
-<li><a href="https://geoportal.statistics.gov.uk/datasets/a31e552c8a214ac2935dbb5701009a64">A Beginners Guide to UK Geography (2019) v1.0</a></li>
 <li><a href="https://geoportal.statistics.gov.uk/datasets/9c04ff58854040d09a5a7ce146ab59b4" class="uri">https://geoportal.statistics.gov.uk/datasets/9c04ff58854040d09a5a7ce146ab59b4</a></li>
 </ul>
+<p>Another <a href="https://www.towerhamlets.gov.uk/Documents/Borough_statistics/Research-tools-and-guidance/RB-Census2011-Census-Geography-Guide-2013-05.pdf">easy to read guide on census / administrative geography</a> was produced by the London Borough of Tower Hamlets - skip to page 2 for a visual summary</p>
 <p>Let’s download some data..</p>
 <ul>
 <li>Spatial Data</li>
@@ -1589,8 +1629,13 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <p>You should be able to see these quadrants (without the code):</p>
 <p><img src="prac1_images/RStudio.png" width="800pt" style="display: block; margin: auto;" /></p>
 <p>Below are bits of code, to start we will work using the <strong>console</strong>. So just copy the bits of code into the console window, changing the file names to where your data is stored. Then at the end of this section I’ll show you how to make a script.</p>
-<p>R works on packages that are collections of functions and data. Packages are bits of code that extend R beyond the basic statistical functionality it was originally designed for. For spatial data, they enable R to process spatial data formats, carry out analysis tasks and create some of the maps that follow. Most pacakges are easily recognisable through a hexagon (hex) logo, or sticker. <a href="https://www.mitchelloharawild.com/blog/hexwall/">Mitchell O’Hara-Wild has even produced some code to make your own</a>!</p>
-<p><img src="prac1_images/hex_stickers.png" width="500px" style="display: block; margin: auto;" /></p>
+<p>R works on packages that are collections of functions and data. Packages are bits of code that extend R beyond the basic statistical functionality it was originally designed for. For spatial data, they enable R to process spatial data formats, carry out analysis tasks and create some of the maps that follow. Most packages are easily recognisable through a hexagon (hex) logo, or sticker.</p>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-29"></span>
+<img src="prac1_images/hex_stickers.png" alt="R pacakge hex sticker wall. Source: [Mitchell O'Hara-Wild arranging Hex stickers in R](https://www.mitchelloharawild.com/blog/hexwall/)" width="500px" />
+<p class="caption">
+Figure 1.9: R pacakge hex sticker wall. Source: <a href="https://www.mitchelloharawild.com/blog/hexwall/">Mitchell O’Hara-Wild arranging Hex stickers in R</a>
+</p>
+</div>
 <p>Bascially, without packages, R would be very limited. With packages, you can do virtually anything! One of the issues you will come across is that packages are being continually developed and updated and unless you keep your version of R updated and your packages updated, there may be some functions and options not available to you. This can be a problem, particularly with University installations which (at best) may only get updated once a year. Therefore, apologies in advance if things don’t work as intended, but there is often a work around.</p>
 <p>For this practical we will need the ones listed in the code chunk below. Whilst we’ve installed them (with the code below), we haven’t yet loaded them. It’s best practice to do all this at the start of your code, however, for demonstration purposes I’ll load each one as we need it.</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="geographic-information.html#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="fu">c</span>(<span class="st">&quot;sf&quot;</span>, <span class="st">&quot;tmap&quot;</span>, <span class="st">&quot;tmaptools&quot;</span>, <span class="st">&quot;RSQLite&quot;</span>, <span class="st">&quot;tidyverse&quot;</span>), </span>
@@ -1606,8 +1651,13 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <li><code>tmaptools</code>: set of tools for reading and processing spatial data</li>
 <li><code>RSQLite</code>: embeds the SQLite database engine in R</li>
 </ul>
-<p>Here, <code>repos</code> stands for repository where we will download the packages from. Once you have set it, you shouldn’t need to specify it again. Whilst we’ve installed the packages we haven’t loaded them…this is done through using <code>library()</code> function. Thanks to <a href="https://twitter.com/visnut">Dianne Cook</a> for this image…</p>
-<p><img src="prac1_images/install_library.jfif" width="600pt" style="display: block; margin: auto;" /></p>
+<p>Here, <code>repos</code> stands for repository where we will download the packages from. Once you have set it, you shouldn’t need to specify it again. Whilst we’ve installed the packages we haven’t loaded them…this is done through using <code>library()</code> function.</p>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-32"></span>
+<img src="prac1_images/install_library.jfif" alt="Installing vs loading (with library) packages. Source: [Dianne Cook](https://twitter.com/visnut)" width="600pt" />
+<p class="caption">
+Figure 1.10: Installing vs loading (with library) packages. Source: <a href="https://twitter.com/visnut">Dianne Cook</a>
+</p>
+</div>
 <p>If you are <strong>using a Mac</strong> you might also need <code>rgdal</code>… this is because a lot of packages are dependent on it and it might not properly install…</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="geographic-information.html#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;rgdal&quot;</span>)</span></code></pre></div>
 <p>Then load <code>rgdal</code>…</p>
@@ -1617,10 +1667,15 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <div id="load-data-1" class="section level4" number="1.6.5.2">
 <h4><span class="header-section-number">1.6.5.2</span> Load data</h4>
 <p>Load the <code>sf</code> package so we can read our shapefile in — remember to change to filepath to your shapefile.</p>
-<p><img src="allisonhorst_images/sf.png" width="450pt" style="display: block; margin: auto;" /></p>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-35"></span>
+<img src="allisonhorst_images/sf.png" alt="sf introduction graphic. Source: [Allison Horst data science and stats illustrations](https://github.com/allisonhorst/stats-illustrations)" width="450pt" />
+<p class="caption">
+Figure 1.11: sf introduction graphic. Source: <a href="https://github.com/allisonhorst/stats-illustrations">Allison Horst data science and stats illustrations</a>
+</p>
+</div>
 <p>For this first practical we’ll just leave the data where it is, next week we’ll show you how to use projects to make calling data much easier.</p>
 <blockquote>
-<p><strong>Note</strong> by default in R, the file path should be defined with <code>/</code> but on a windows file system it is defined with <code>\</code>. Using <code>\\</code> instead allows R to read the path correctly – alternatively, just use <code>/</code></p>
+<p><strong>Note</strong> by default in R, the file path should be defined with <code>/</code> but on a windows file system it is defined with <code>\</code> (e.g. when looking at files on your computer they will be folder). Using <code>\\</code> instead allows R to read the path correctly – alternatively, just use <code>/</code></p>
 </blockquote>
 <div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="geographic-information.html#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sf)</span>
 <span id="cb6-2"><a href="geographic-information.html#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="co"># change this to your file path!!!</span></span>
