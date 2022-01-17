@@ -16,15 +16,56 @@ R is both a programming language and software environment, originally designed f
 
 ### Setup 1 {-}
 
-Search for and open RStudio.
+#### Basics {-}
 
-You can install R Studio on your own machine from: https://www.rstudio.com/products/rstudio/download/#download
+The advised method for using R is to download it to your personal machine, so you can use it in future without any issues.
 
-R studio requires R which you can download from: https://cran.rstudio.com/
+To use "R" we need to bits of software:
 
-RStudio is a free and open-source integrated development environment for R --- it makes R much easier to use.
+- R itself: https://cran.rstudio.com/
+- Then also RStudio: https://www.rstudio.com/products/rstudio/download/#download
 
-If you are using a Mac and run into issues, firstly follow the instructions below then check out the [Mac R issues] section if the problem persists. 
+R is the core software and RStudio gives a simpler interface for us to use it. If you used R (which you could) you'd be just typing code, with no other features. RStudio gives us other features to make this much easier, just like how you would never type a report in notepad (Windows) or notes (on Apple), you'd use the word processor to make it easier. Chester Ismay and Albert Y. Kim explain this with a car analogy: 
+
+```{r echo=FALSE, out.width = "500pt", fig.align='center', cache=TRUE, fig.cap="R vs RStudio. Source: [A ModernDive into R and the Tidyverse, Ismay and Kim, 2021](https://moderndive.com/1-getting-started.html)"}
+knitr::include_graphics('general_images/r_vs_rstudio_1.png') 
+```
+
+R and RStudio are software that require updating over time. It's easy to forget!
+
+#### Packages {-}
+
+##### Basics {-}
+
+Base R (controlled or driven through RStudio) is very limited. As a result people develop packages to make data loading, wrangling, analysis and visulisation much easier than having to write all the code. All packages will have lots of functions that just look up code from the package to make what you are doing easier (we will go into this in more detail later).
+
+Packages develop over time and have different versions (like software). This can cause some issues with updates and code not working like it did once before. This book means i have to run all the code anyway, so every year it is checked and most packages are updated. 
+
+There are many errors and issues that can arise with package installation. You should read the following section now so you are aware of it, but you won't need it until you hit an issue.
+
+The most common package errors and issues are:
+
+* The package relies on another package which you might not have --- this is called a dependency. Think about building a house --- moving in and living in the house is dependent on the foundations, the walls, the windows. The solution is to install the package you are missing.
+
+* The package has a new version --- simply update it, in RStudio the package tab (which we will see in the module) has an update option.
+
+* Your version of R might not support the package. This is unlikely as I update this every year. But to solve it either use an older version of the package and/or update your version of R. 
+
+* There is an error with the package. If all else fails i remove the package and the re-install it. Again, in the package tab there is a small cross next to each package, clicking it let's you remove it. 
+
+If the problem persists then assuming the error is `package xxx is not available` consult the relevant stack overflow question: https://stackoverflow.com/questions/25721884/how-should-i-deal-with-package-xxx-is-not-available-for-r-version-x-y-z-wa 
+
+##### Macs {-}
+
+We (Andy and Adam) use windows machines and whilst R runs across all operating systems, Mac users often need to install some extra software and packages, but this will be apparent during the module. As the Mac operating system updates new issues do appear which we will address in the module, Twitter or slack.  
+
+**However** don't do this until you get the error and if you get stuck then contact us via Twitter or Slack.  
+
+You will likely need the package `rgdal` as the package `sf`, which we use extensively, is dependent on it. `rgdal` needs the `gdal` library to be installed on the computer (not as an R package), and it usually isn't installed on Macs.
+
+To install it, follow the stack overflow guide: https://stackoverflow.com/questions/34333624/trouble-installing-rgdal
+
+Mac users may need to install Java (which might involve removing the existing version) this is covered in the [Mac R issues] section. 
 
 ### Setup 2 {-}
 

@@ -19,7 +19,8 @@ bibliography: paper.bib
 ---
 # Updates
 
-The content discussed within this paper refers to the module created for the academic year 2020-2021: https://andrewmaclachlan.github.io/CASA0005repo_20202021/. At the conclusion of each year content is copied to a new repository ending with the academic year it was taught, whilst the content applicable to the current academic year remains on the primary repository: https://github.com/andrewmaclachlan/CASA0005repo. This allows the authors and external users to track the development of the content. 
+The content discussed within this paper refers to the module created for the academic year 2020-2021: https://andrewmaclachlan.github.io/CASA0005repo_20202021/. At the conclusion of each year content is copied to a new repository ending with the academic year it was taught, whilst the content applicable to the current academic year remains on the primary repository: https://github.com/andrewmaclachlan/CASA0005repo. 
+This allows the authors and external users to track the development of the content. 
 
 # Summary
 

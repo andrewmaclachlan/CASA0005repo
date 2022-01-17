@@ -51,18 +51,18 @@ Within this practical we are going to be using data from the Landsat satellite s
 
 If you are using Git with your project and have large data it's best to set up a `.gitignore` file. This file tells git to ignore certain files so they aren't in your local repository that is then pushed to GitHub. If you try and push large files to GitHub you will get an error and could run into lots of problems, trust me, i've been there. Look at [my .gitignore for this repository](https://github.com/andrewmaclachlan/CASA0005repo/blob/master/.gitignore) and you will notice:
 
-`prac7_data/Lsatdata/*`
+`prac8_data/Lsatdata/*`
 
-`prac7_data/exampleGoogleDrivedata/*`
+`prac8_data/exampleGoogleDrivedata/*`
 
-`prac7_data/Manchester_boundary/*`
+`prac8_data/Manchester_boundary/*`
 
 This means igore all files within these folders, all is denoted by the `*`. The `.gitignore` has to be in your main project folder, if you have made a a `git` repo for your project then you should have a `.gitignore` so all you have to do is open it and add the folder or file paths you wish to ignore. 
 
-GitHub has a maximum file upload size of 50mb....image credit [reddit r/ProgrammerHumor](https://www.reddit.com/r/ProgrammerHumor/comments/gm69za/my_girlfriend_crocheted_my_favourite_meme_as_a/)
+GitHub has a maximum file upload size of 50mb....
 
-```{r echo=FALSE, out.width = "500pt", fig.align='center', cache=TRUE}
-knitr::include_graphics('prac7_images/gitignore.jpg')
+```{r echo=FALSE, out.width = "500pt", fig.align='center', cache=TRUE, fig.cap="GitHub maximum file upload of 50mb. Source: [reddit r/ProgrammerHumor](https://www.reddit.com/r/ProgrammerHumor/comments/gm69za/my_girlfriend_crocheted_my_favourite_meme_as_a/)"}
+knitr::include_graphics('prac8_images/gitignore.jpg')
 ```
 
 
@@ -70,11 +70,11 @@ knitr::include_graphics('prac7_images/gitignore.jpg')
 
 * Landsat is raster data
 * It has pixels of 30 by 30m collected every 16 days with global coverage
-* As humans we see in the visible part of the electromagnetic spectrum (red-green-blue) Landsat takes samples in these bands and several more to make a spectral sigature for each pixel (see image below)
-* Each band is provided as a seperate ```.TIFF``` raster layer
+* As humans we see in the visible part of the electromagnetic spectrum (red-green-blue) Landsat takes samples in these bands and several more to make a spectral signature for each pixel (see image below)
+* Each band is provided as a separate ```.TIFF``` raster layer
 
-```{r echo=FALSE, out.width = "500pt", fig.align='center', cache=TRUE}
-knitr::include_graphics('prac7_images/specsig.jpg')
+```{r echo=FALSE, out.width = "500pt", fig.align='center', cache=TRUE, fig.cap="Spectral signatures of different landcover types. Source: [Introduction to Categorisation of Objects from their Data, Science Education through Earth Observation for High Schools (SEOS)](https://seos-project.eu/classification/classification-c01-p05.html)"}
+knitr::include_graphics('prac8_images/specsig.jpg')
 ```
 
 Later on we will compute temperature from the Landsat data, whilst i refer to and explain each varaiable created don't get overwhelmed by it, take away the process of loading and manipulating raster data in R to extract meaningful information. An optional remote sensing background containing additional information can be found at the end of this practical should you wish to explore this further.
@@ -83,7 +83,7 @@ Later on we will compute temperature from the Landsat data, whilst i refer to an
 
 ### Shapefile
 
-The shapefile of Manchester is available from the data folder for this week on [GitHub](https://github.com/andrewmaclachlan/CASA0005repo/tree/master/prac7_data). To download this consult [How to download data and files from GitHub], i'd used Option 1.
+The shapefile of Manchester is available from the data folder for this week on [GitHub](https://github.com/andrewmaclachlan/CASA0005repo/tree/master/prac8_data). To download this consult [How to download data and files from GitHub], i'd used Option 1.
 
 ### Raster data (Landsat)
 
@@ -96,7 +96,7 @@ To download the data:
 
 1. Enter Manchester in the address/place box > select the country as United Kingdom > click Show and then click on the word Manchester in the box that appears.
 ```{r echo=FALSE, out.width = "200pt", fig.align='center', cache=TRUE}
-knitr::include_graphics('prac7_images/earthexplorer.png')
+knitr::include_graphics('prac8_images/earthexplorer.png')
 ```
 
 1. Select the date range between the 12/5/2019 and 14/5/2019 --- it's a US website so check the dates are correct.
@@ -119,7 +119,7 @@ Be sure to change the path to your practical 7 folder but make sure you include 
 library("googledrive")
 
 o<-drive_download("https://drive.google.com/open?id=1MV7ym_LW3Pz3MxHrk-qErN1c_nR0NWXy",
-                  path="prac7_data/exampleGoogleDrivedata/LC08_L1TP_203023_20190513_20190521_01_T1.tar.gz", 
+                  path="prac8_data/exampleGoogleDrivedata/LC08_L1TP_203023_20190513_20190521_01_T1.tar.gz", 
                   overwrite=T)
 ```
 
@@ -131,14 +131,14 @@ library(fs)
 library(stringr)
 library(utils)
 
-listfiles<-dir_info(here::here("prac7_data", "exampleGoogleDrivedata")) %>%
+listfiles<-dir_info(here::here("prac8_data", "exampleGoogleDrivedata")) %>%
   dplyr::filter(str_detect(path, ".gz")) %>%
   dplyr::select(path)%>%
   dplyr::pull()%>%
   #print out the .gz file
   print()%>%
   as.character()%>%
-  utils::untar(exdir=here::here("prac7_data", "exampleGoogleDrivedata"))
+  utils::untar(exdir=here::here("prac8_data", "exampleGoogleDrivedata"))
 ```
 
 ## Processing raster data
@@ -171,16 +171,16 @@ library(sf)
 library(tidyverse)
 
 # List your raster files excluding band 8 using the patter argument
-listlandsat<-dir_info(here::here("prac7_data", "Lsatdata"))%>%
+listlandsat<-dir_info(here::here("prac8_data", "Lsatdata"))%>%
   dplyr::filter(str_detect(path, "[B123456790].TIF")) %>%
   dplyr::select(path)%>%
   pull()%>%
   as.character()%>%
   # Load our raster layers into a stack
-  stack()
+  raster::stack()
 
 # Load the manchester boundary
-manchester_boundary <- st_read(here::here("prac7_data", 
+manchester_boundary <- st_read(here::here("prac8_data", 
                                           "Manchester_boundary",
                                           "Manchester_boundary.shp"))
 
@@ -195,7 +195,7 @@ crs(listlandsat)
 
 ```{r eval=FALSE, cache=TRUE}
 # get band 8
-b8list<-dir_info(here::here("prac7_data", "Lsatdata"))%>%
+b8list<-dir_info(here::here("prac8_data", "Lsatdata"))%>%
   dplyr::filter(str_detect(path, "[B8].tif")) %>%
   dplyr::select(path)%>%
   pull()%>%
@@ -211,7 +211,7 @@ b8correct <- b8list%>%
   resample(., listlandsat$LC08_L1TP_203023_20190513_20190521_01_T1_B1, 
              method = "ngb") %>%
   # Write out the raster
-writeRaster(.,str_c(here::here("prac7_data", 
+writeRaster(.,str_c(here::here("prac8_data", 
                              "Lsatdata"), 
                   names(b8list), 
                   sep="/"),
@@ -223,7 +223,7 @@ writeRaster(.,str_c(here::here("prac7_data",
 1. Load band 8 and add it to our raster stack
 
 ```{r, cache=TRUE}
-b8backin<-dir_info(here::here("prac7_data", "Lsatdata"))%>%
+b8backin<-dir_info(here::here("prac8_data", "Lsatdata"))%>%
   dplyr::filter(str_detect(path, "[B8].tif")) %>%
   dplyr::select(path)%>%
   pull()%>%
@@ -266,7 +266,7 @@ names(lsatmask) <- names(lsatmask)%>%
 
 # I need to write mine out in another location
 outputfilenames <-
-  str_c("prac7_data/Lsatdata/", "mask/", names(lsatmask) ,sep="")
+  str_c("prac8_data/Lsatdata/", "mask/", names(lsatmask) ,sep="")
 
 ```
 
@@ -276,7 +276,7 @@ In the first line of code i'm taking the original names of the raster layers and
 * ```"mask"```: what i want to add to the names
 * ```sep=""```: how the names and "mask" should be seperated --- "" means no spaces
 
-As i can't upload my Landsat files to GitHub i'm storing them in a folder that is not linked (remember this is all sotred on GitHub) -- so you won't find ```prac7_data/Lsatdata``` on there. If you want to store your clipped Landsat files in your project directory just use:
+As i can't upload my Landsat files to GitHub i'm storing them in a folder that is not linked (remember this is all sotred on GitHub) -- so you won't find ```prac8_data/Lsatdata``` on there. If you want to store your clipped Landsat files in your project directory just use:
 
 ```{r eval=FALSE, cache=TRUE}
 lsatmask %>%
@@ -307,7 +307,7 @@ Here i write out each raster layer individually though specifying ```bylayer=TRU
 ```{r, cache=TRUE}
 # either read them back in from the saved file:
 
-manc_files<-dir_info(here::here("prac7_data", "Lsatdata", "mask")) %>%
+manc_files<-dir_info(here::here("prac8_data", "Lsatdata", "mask")) %>%
   dplyr::filter(str_detect(path, "[B1234567]_mask.tif")) %>%
   dplyr::filter(str_detect(path, "B11", negate=TRUE))%>%
   dplyr::select(path)%>%
@@ -501,7 +501,7 @@ Grescale and Brescale are available from the ```.MTL``` file provided when you d
 ```{r results="hide", warnings=FALSE, message=FALSE, cache=TRUE}
 library(RStoolbox)
 
-MTL<-dir_info(here::here("prac7_data", "Lsatdata")) %>%
+MTL<-dir_info(here::here("prac8_data", "Lsatdata")) %>%
   dplyr::filter(str_detect(path, "MTL.txt")) %>%
   dplyr::select(path)%>%
   pull()%>%
@@ -723,7 +723,7 @@ ggplotly(heat)
 
 It's a masterpiece!
 
-```{r echo=FALSE, out.width = "450pt", fig.align='center', cache=TRUE}
+```{r echo=FALSE, out.width = "450pt", fig.align='center', cache=TRUE, fig.cap="ggplot2 masterpiece. Source: [Allison Horst data science and stats illustrations](https://github.com/allisonhorst/stats-illustrations)"}
 knitr::include_graphics('allisonhorst_images/ggplot2_masterpiece.png')
 ```
 
@@ -815,7 +815,7 @@ library(dplyr)
 library(sf)
 
 # read in LSOA data
-UK_LSOA <- st_read(here::here("prac7_data", 
+UK_LSOA <- st_read(here::here("prac8_data", 
                                           "Lower_Super_Output_Area_(LSOA)_IMD2019__(WGS84)-shp",
                                           "5878ebcf-f091-4bde-8864-aa547dd45afd2020330-1-8g4usn.8evuq.shp"))
 
@@ -824,7 +824,7 @@ UK_LSOA <- UK_LSOA %>%
   st_transform(., 32630)
 
 # read in MSOA and project it
-MSOA <- st_read(here::here("prac7_data",
+MSOA <- st_read(here::here("prac8_data",
                            "MSOA_EngWal_Dec_2011_Generalised_ClippedEW_0",
                            "Middle_Layer_Super_Output_Areas_December_2011_Generalised_Clipped_Boundaries_in_England_and_Wales.shp")) %>%
    st_transform(., 32630)
@@ -904,7 +904,7 @@ manchester_LSOA_temp_urban <- manchester_LSOA_temp %>%
 Now, we could  map both temperature (and the % of urban area) within a LSOA individually....In our map we want to include some place names from Open Street Map, so let's get those...
 
 ```{r, warning=FALSE, message=FALSE}
-Places <- st_read(here::here("prac7_data", 
+Places <- st_read(here::here("prac8_data", 
                                           "greater-manchester-latest-free.shp",
                                           "gis_osm_places_free_1.shp")) %>%
    st_transform(., 32630)
@@ -1039,13 +1039,13 @@ Now this looks a bit rubbish on the page. Usually, you might want to export the 
 
 ```{r, echo=TRUE, message=FALSE, warning=FALSE}
 all
-dev.copy(device = png, filename = here::here("prac7_images", "bivaraite.png"), width = 687, height = 455) 
+dev.copy(device = png, filename = here::here("prac8_images", "bivaraite.png"), width = 687, height = 455) 
 dev.off()
 ```
 
 
 ```{r echo=FALSE, out.width = "600", fig.align='center', cache=TRUE}
-knitr::include_graphics(here::here("prac7_images", "bivaraite.png"))
+knitr::include_graphics(here::here("prac8_images", "bivaraite.png"))
 ```
 
 

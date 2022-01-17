@@ -90,21 +90,20 @@ Read some ward data in
 #download a zip file containing some boundaries we want to use
 
 download.file("https://data.london.gov.uk/download/statistical-gis-boundary-files-london/9ba8c833-6370-4b11-abdc-314aa020d5e0/statistical-gis-boundaries-london.zip", 
-              destfile="prac9_data/statistical-gis-boundaries-london.zip")
+              destfile="prac7_data/statistical-gis-boundaries-london.zip")
 ```
 
 Get the zip file and extract it
 
-
 ```{r, eval=FALSE}
-listfiles<-dir_info(here::here("prac9_data")) %>%
+listfiles<-dir_info(here::here("prac7_data")) %>%
   dplyr::filter(str_detect(path, ".zip")) %>%
   dplyr::select(path)%>%
   pull()%>%
   #print out the .gz file
   print()%>%
   as.character()%>%
-  utils::unzip(exdir=here::here("prac9_data"))
+  utils::unzip(exdir=here::here("prac7_data"))
 ```
 
 Look inside the zip and read in the `.shp`
@@ -113,7 +112,7 @@ Look inside the zip and read in the `.shp`
 
 #look what is inside the zip
 
-Londonwards<-dir_info(here::here("prac9_data", 
+Londonwards<-dir_info(here::here("prac7_data", 
                                  "statistical-gis-boundaries-london", 
                                  "ESRI"))%>%
   #$ means exact match
@@ -1234,7 +1233,7 @@ To calculate standard errors, for each variable you can use a formula similar to
 ```{r, message=FALSE, cache=TRUE}
 
 #run the significance test
-sigTest = abs(gwr.model$SDF$"log.median_house_price_2014.")-2 * gwr.model$SDF$"log.median_house_price_2014._se"
+sigTest = abs(gwr.model$SDF$"log(median_house_price_2014)")-2 * gwr.model$SDF$"log(median_house_price_2014)_se"
 
 
 #store significance results

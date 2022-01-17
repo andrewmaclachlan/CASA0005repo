@@ -64,31 +64,35 @@ Course for the academic year 2019 - 2020: https://andrewmaclachlan.github.io/CAS
 
 Provided below are brief descriptions of the main annual updates to the practical material.
 
-Improvements made 2021 - 2022:
+### 2021 - 2022:
 
-1. Removed more non geographic content such as dashboards
-1. Removed:
-  * Practical 8 on online mapping + more descriptive stats
-  * Elements of GitHub practical 
-  * Instructions on citing papers in RMarkdown - this is now on the dissertation template. 
-  * Interpolation from the first raster practical 
-1. Added more info on spatial weights and deciding between Spatial Error Models (SEMs) and Spatially Lagged Models (SLMs)
-1. Added more info on creating GWR bandwidths. 
-1. Mark scheme revision for an open book exam not written assignment.
-1. Github classroom for submission of the exam.
-1. Added weekly homework tasks.
+Removed:
+  * more non geographic content such as dashboards
+  * practical 8 on online mapping + more descriptive stats
+  * elements of GitHub practical 
+  * instructions on citing papers in RMarkdown - this is now on the dissertation template. 
+  * interpolation from the first raster practical 
 
-Improvements made 2020 - 2021:
+Added 
+* more info on spatial weights and deciding between Spatial Error Models (SEMs) and Spatially Lagged Models (SLMs)
+* more info on creating GWR bandwidths. 
+* weekly homework tasks.
 
-1. All of ArcGIS content removed and replaced with R and QGIS (open source)
-1. Set clear weekly homework tasks 
-1. Custom styling of the bookdown website
-1. Revision of nearly all code, moving towards the `tidyverse` and piped (`%>%`) syntax
-1. More focus on `dplyr` and other data wrangling/tidying tools (e.g. `Janitor`)
+Changed
+* mark scheme,  for an open book exam not written assignment.
+* Github classroom for submission of the exam.
 
-Improvements made 2019 - 2020:
+### 2020 - 2021:
 
-1. All material moved to bookdown
-1. Majority of practicals moved to R
-1. Addition of raster practicals
-1. Revised assignment markscheme and assignment requirements 
+* all of ArcGIS content removed and replaced with R and QGIS (open source)
+* set clear weekly homework tasks 
+* custom styling of the bookdown website
+* revision of nearly all code, moving towards the `tidyverse` and piped (`%>%`) syntax
+* more focus on `dplyr` and other data wrangling/tidying tools (e.g. `Janitor`)
+
+### 2019 - 2020:
+
+* all material moved to bookdown
+* majority of practicals moved to R
+* addition of raster practicals
+* revised assignment markscheme and assignment requirements 

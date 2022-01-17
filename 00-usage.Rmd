@@ -46,6 +46,19 @@ Alternatively, reach out to us on Twitter:
 * [Andy MacLachlan](https://twitter.com/andymaclachlan)
 * [Adam Dennett](https://twitter.com/adam_dennett)
 
+## Supporting the module {-}
+
+If you found the content useful, please support us by:
+
+* Telling your friends about it
+* [Citing the book](https://jose.theoj.org/papers/a05734775775d1ef968e582ce9a7cb17)
+* [linking to the book home page](https://andrewmaclachlan.github.io/CASA0005repo/)
+* [Starring](https://docs.github.com/en/get-started/exploring-projects-on-github/saving-repositories-with-stars) the [GitHub repository](https://github.com/andrewmaclachlan/CASA0005repo)
+* Tweeting us: 
+- [Andy MacLachlan](https://twitter.com/andymaclachlan)
+- [Adam Dennett](https://twitter.com/adam_dennett)
+- [CASA](https://twitter.com/CASAUCL)
+
 ## License {-}
 
 If you use this material for teaching, research or anything else please let me (Andy) know via [Twitter](https://twitter.com/andymaclachlan) or email --- a [dot] maclachlan [at] ucl [dot] ac [dot] uk).
@@ -72,9 +85,9 @@ This is the third iteration of the practical book, representing the third year i
 
 Previous versions can be found at the following links.
 
-2020-2021 academic year (on which the JOSE paper is based): https://andrewmaclachlan.github.io/CASA0005repo_20202021/
+* 2020-2021 academic year (on which the JOSE paper is based): https://andrewmaclachlan.github.io/CASA0005repo_20202021/
 
-2019-2020 academic year: https://andrewmaclachlan.github.io/CASA0005repo_20192020/
+* 2019-2020 academic year: https://andrewmaclachlan.github.io/CASA0005repo_20192020/
 
 A summary of changes is provided on the current README.md file: https://github.com/andrewmaclachlan/CASA0005repo
 

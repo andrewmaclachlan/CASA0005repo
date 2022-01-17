@@ -24,7 +24,7 @@
 <meta name="author" content="Andy MacLachlan and Adam Dennett" />
 
 
-<meta name="date" content="2022-01-13" />
+<meta name="date" content="2022-01-14" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -893,6 +893,28 @@ code span.vs { color: #4e9a06; } /* VerbatimString */
 code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
 
 <link rel="stylesheet" href="assets/style.css" type="text/css" />
 </head>
@@ -944,9 +966,10 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li class="chapter" data-level="" data-path="external-usage.html"><a href="external-usage.html#how-to-adopt-this-course"><i class="fa fa-check"></i>How to adopt this course</a></li>
 <li class="chapter" data-level="" data-path="external-usage.html"><a href="external-usage.html#how-to-contribute"><i class="fa fa-check"></i>How to contribute</a></li>
+<li class="chapter" data-level="" data-path="external-usage.html"><a href="external-usage.html#supporting-the-module"><i class="fa fa-check"></i>Supporting the module</a></li>
 <li class="chapter" data-level="" data-path="external-usage.html"><a href="external-usage.html#license"><i class="fa fa-check"></i>License</a></li>
 <li class="chapter" data-level="" data-path="external-usage.html"><a href="external-usage.html#updates"><i class="fa fa-check"></i>Updates</a></li>
-<li class="chapter" data-level="" data-path="external-usage.html"><a href="external-usage.html#packages"><i class="fa fa-check"></i>Packages</a></li>
+<li class="chapter" data-level="" data-path="external-usage.html"><a href="external-usage.html#packages-1"><i class="fa fa-check"></i>Packages</a></li>
 </ul></li>
 <li class="part"><span><b>I GIS tools</b></span></li>
 <li class="chapter" data-level="1" data-path="geographic-information.html"><a href="geographic-information.html"><i class="fa fa-check"></i><b>1</b> Geographic Information</a>
@@ -996,7 +1019,7 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="2.4.2" data-path="introduction-to-r.html"><a href="introduction-to-r.html#health-warning"><i class="fa fa-check"></i><b>2.4.2</b> Health warning</a></li>
 <li class="chapter" data-level="2.4.3" data-path="introduction-to-r.html"><a href="introduction-to-r.html#r-and-rstudio"><i class="fa fa-check"></i><b>2.4.3</b> R and RStudio</a></li>
 <li class="chapter" data-level="2.4.4" data-path="introduction-to-r.html"><a href="introduction-to-r.html#getting-started-1"><i class="fa fa-check"></i><b>2.4.4</b> Getting started</a></li>
-<li class="chapter" data-level="2.4.5" data-path="introduction-to-r.html"><a href="introduction-to-r.html#basics"><i class="fa fa-check"></i><b>2.4.5</b> Basics</a></li>
+<li class="chapter" data-level="2.4.5" data-path="introduction-to-r.html"><a href="introduction-to-r.html#basics-2"><i class="fa fa-check"></i><b>2.4.5</b> Basics</a></li>
 <li class="chapter" data-level="2.4.6" data-path="introduction-to-r.html"><a href="introduction-to-r.html#scripts-and-some-basic-commands"><i class="fa fa-check"></i><b>2.4.6</b> Scripts and some basic commands</a></li>
 <li class="chapter" data-level="2.4.7" data-path="introduction-to-r.html"><a href="introduction-to-r.html#functions"><i class="fa fa-check"></i><b>2.4.7</b> Functions</a></li>
 <li class="chapter" data-level="2.4.8" data-path="introduction-to-r.html"><a href="introduction-to-r.html#basic-plotting"><i class="fa fa-check"></i><b>2.4.8</b> Basic plotting</a></li>
@@ -1659,7 +1682,7 @@ Open the Shell again (Tools &gt; Shell) and enter:</p>
 <span id="cb192-3"><a href="git-github-and-rmarkdown.html#cb192-3" aria-hidden="true" tabindex="-1"></a>jan<span class="ot">&lt;-</span><span class="fu">raster</span>(<span class="fu">here</span>(<span class="st">&quot;prac3_data&quot;</span>, <span class="st">&quot;wc2.0_5m_tavg_01.tif&quot;</span>))</span>
 <span id="cb192-4"><a href="git-github-and-rmarkdown.html#cb192-4" aria-hidden="true" tabindex="-1"></a><span class="co"># have a look at the raster layer jan</span></span>
 <span id="cb192-5"><a href="git-github-and-rmarkdown.html#cb192-5" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(jan)</span></code></pre></div>
-<p><img src="CASA0005_files/figure-html/unnamed-chunk-227-1.png" width="672" /></p>
+<p><img src="CASA0005_files/figure-html/unnamed-chunk-228-1.png" width="672" /></p>
 <p>When including code chunks in your work, there are various options that allow you to do things like include the code, but not run it: display the output but not the code, hide warnings etc. Most of these can be input automatically by clicking the cog icon in the top-right of the chunk, or you can specify them in the code header of the chunk…if you toggle the buttons you’ll see the code change in the chunk ‘header’. There are also two useful icons to the right of the settings cog, the first will run all code above the current chunck (play symbol facing downwards) and the second will run the current code chunk (regular play symbol)</p>
 <p><img src="prac4_images/code_chunk_options.png" width="400pt" style="display: block; margin: auto;" /></p>
 </div>

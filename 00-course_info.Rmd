@@ -41,6 +41,8 @@ This is a 15 credit module, equivalent to 150 hours of study (including the taug
 
 ## How to use this book {-}
 
+This website is hosted on GitHub and holds all the practical instructions and data. Data used within the practicals is available online, however occasionally websites can undergo maintenance or be inaccessible due to political factors such as government shutdowns.
+
 To get the most out of this book spend a few minutes learning how to control it, in the top right of this webpage you will see this tools bar:
 
 ```{r echo=FALSE, out.width = "600pt", fig.align='center', cache=TRUE, message=FALSE}

@@ -24,7 +24,7 @@
 <meta name="author" content="Andy MacLachlan and Adam Dennett" />
 
 
-<meta name="date" content="2022-01-13" />
+<meta name="date" content="2022-01-14" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -893,6 +893,28 @@ code span.vs { color: #4e9a06; } /* VerbatimString */
 code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
 
 <link rel="stylesheet" href="assets/style.css" type="text/css" />
 </head>
@@ -944,9 +966,10 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li class="chapter" data-level="" data-path="external-usage.html"><a href="external-usage.html#how-to-adopt-this-course"><i class="fa fa-check"></i>How to adopt this course</a></li>
 <li class="chapter" data-level="" data-path="external-usage.html"><a href="external-usage.html#how-to-contribute"><i class="fa fa-check"></i>How to contribute</a></li>
+<li class="chapter" data-level="" data-path="external-usage.html"><a href="external-usage.html#supporting-the-module"><i class="fa fa-check"></i>Supporting the module</a></li>
 <li class="chapter" data-level="" data-path="external-usage.html"><a href="external-usage.html#license"><i class="fa fa-check"></i>License</a></li>
 <li class="chapter" data-level="" data-path="external-usage.html"><a href="external-usage.html#updates"><i class="fa fa-check"></i>Updates</a></li>
-<li class="chapter" data-level="" data-path="external-usage.html"><a href="external-usage.html#packages"><i class="fa fa-check"></i>Packages</a></li>
+<li class="chapter" data-level="" data-path="external-usage.html"><a href="external-usage.html#packages-1"><i class="fa fa-check"></i>Packages</a></li>
 </ul></li>
 <li class="part"><span><b>I GIS tools</b></span></li>
 <li class="chapter" data-level="1" data-path="geographic-information.html"><a href="geographic-information.html"><i class="fa fa-check"></i><b>1</b> Geographic Information</a>
@@ -996,7 +1019,7 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="2.4.2" data-path="introduction-to-r.html"><a href="introduction-to-r.html#health-warning"><i class="fa fa-check"></i><b>2.4.2</b> Health warning</a></li>
 <li class="chapter" data-level="2.4.3" data-path="introduction-to-r.html"><a href="introduction-to-r.html#r-and-rstudio"><i class="fa fa-check"></i><b>2.4.3</b> R and RStudio</a></li>
 <li class="chapter" data-level="2.4.4" data-path="introduction-to-r.html"><a href="introduction-to-r.html#getting-started-1"><i class="fa fa-check"></i><b>2.4.4</b> Getting started</a></li>
-<li class="chapter" data-level="2.4.5" data-path="introduction-to-r.html"><a href="introduction-to-r.html#basics"><i class="fa fa-check"></i><b>2.4.5</b> Basics</a></li>
+<li class="chapter" data-level="2.4.5" data-path="introduction-to-r.html"><a href="introduction-to-r.html#basics-2"><i class="fa fa-check"></i><b>2.4.5</b> Basics</a></li>
 <li class="chapter" data-level="2.4.6" data-path="introduction-to-r.html"><a href="introduction-to-r.html#scripts-and-some-basic-commands"><i class="fa fa-check"></i><b>2.4.6</b> Scripts and some basic commands</a></li>
 <li class="chapter" data-level="2.4.7" data-path="introduction-to-r.html"><a href="introduction-to-r.html#functions"><i class="fa fa-check"></i><b>2.4.7</b> Functions</a></li>
 <li class="chapter" data-level="2.4.8" data-path="introduction-to-r.html"><a href="introduction-to-r.html#basic-plotting"><i class="fa fa-check"></i><b>2.4.8</b> Basic plotting</a></li>
@@ -1285,11 +1308,48 @@ code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warni
 <p>R is both a programming language and software environment, originally designed for statistical computing and graphics. R’s great strength is that it is open-source, can be used on any computer operating system and free for anyone to use and contribute to. Because of this, it is rapidly becoming the statistical language of choice for many academics and has a huge user community with people constantly contributing new packages to carry out all manner of statistical, graphical and importantly for us, geographical tasks.</p>
 <div id="setup-1" class="section level3 unnumbered">
 <h3>Setup 1</h3>
-<p>Search for and open RStudio.</p>
-<p>You can install R Studio on your own machine from: <a href="https://www.rstudio.com/products/rstudio/download/#download" class="uri">https://www.rstudio.com/products/rstudio/download/#download</a></p>
-<p>R studio requires R which you can download from: <a href="https://cran.rstudio.com/" class="uri">https://cran.rstudio.com/</a></p>
-<p>RStudio is a free and open-source integrated development environment for R — it makes R much easier to use.</p>
-<p>If you are using a Mac and run into issues, firstly follow the instructions below then check out the <a href="geographic-information.html#mac-r-issues">Mac R issues</a> section if the problem persists.</p>
+<div id="basics" class="section level4 unnumbered">
+<h4>Basics</h4>
+<p>The advised method for using R is to download it to your personal machine, so you can use it in future without any issues.</p>
+<p>To use “R” we need to bits of software:</p>
+<ul>
+<li>R itself: <a href="https://cran.rstudio.com/" class="uri">https://cran.rstudio.com/</a></li>
+<li>Then also RStudio: <a href="https://www.rstudio.com/products/rstudio/download/#download" class="uri">https://www.rstudio.com/products/rstudio/download/#download</a></li>
+</ul>
+<p>R is the core software and RStudio gives a simpler interface for us to use it. If you used R (which you could) you’d be just typing code, with no other features. RStudio gives us other features to make this much easier, just like how you would never type a report in notepad (Windows) or notes (on Apple), you’d use the word processor to make it easier. Chester Ismay and Albert Y. Kim explain this with a car analogy:</p>
+<div class="figure" style="text-align: center"><span id="fig:unnamed-chunk-6"></span>
+<img src="general_images/r_vs_rstudio_1.png" alt="R vs RStudio. Source: [A ModernDive into R and the Tidyverse, Ismay and Kim, 2021](https://moderndive.com/1-getting-started.html)" width="500pt" />
+<p class="caption">
+Figure 0.1: R vs RStudio. Source: <a href="https://moderndive.com/1-getting-started.html">A ModernDive into R and the Tidyverse, Ismay and Kim, 2021</a>
+</p>
+</div>
+<p>R and RStudio are software that require updating over time. It’s easy to forget!</p>
+</div>
+<div id="packages" class="section level4 unnumbered">
+<h4>Packages</h4>
+<div id="basics-1" class="section level5 unnumbered">
+<h5>Basics</h5>
+<p>Base R (controlled or driven through RStudio) is very limited. As a result people develop packages to make data loading, wrangling, analysis and visulisation much easier than having to write all the code. All packages will have lots of functions that just look up code from the package to make what you are doing easier (we will go into this in more detail later).</p>
+<p>Packages develop over time and have different versions (like software). This can cause some issues with updates and code not working like it did once before. This book means i have to run all the code anyway, so every year it is checked and most packages are updated.</p>
+<p>There are many errors and issues that can arise with package installation. You should read the following section now so you are aware of it, but you won’t need it until you hit an issue.</p>
+<p>The most common package errors and issues are:</p>
+<ul>
+<li><p>The package relies on another package which you might not have — this is called a dependency. Think about building a house — moving in and living in the house is dependent on the foundations, the walls, the windows. The solution is to install the package you are missing.</p></li>
+<li><p>The package has a new version — simply update it, in RStudio the package tab (which we will see in the module) has an update option.</p></li>
+<li><p>Your version of R might not support the package. This is unlikely as I update this every year. But to solve it either use an older version of the package and/or update your version of R.</p></li>
+<li><p>There is an error with the package. If all else fails i remove the package and the re-install it. Again, in the package tab there is a small cross next to each package, clicking it let’s you remove it.</p></li>
+</ul>
+<p>If the problem persists then assuming the error is <code>package xxx is not available</code> consult the relevant stack overflow question: <a href="https://stackoverflow.com/questions/25721884/how-should-i-deal-with-package-xxx-is-not-available-for-r-version-x-y-z-wa" class="uri">https://stackoverflow.com/questions/25721884/how-should-i-deal-with-package-xxx-is-not-available-for-r-version-x-y-z-wa</a></p>
+</div>
+<div id="macs" class="section level5 unnumbered">
+<h5>Macs</h5>
+<p>We (Andy and Adam) use windows machines and whilst R runs across all operating systems, Mac users often need to install some extra software and packages, but this will be apparent during the module. As the Mac operating system updates new issues do appear which we will address in the module, Twitter or slack.</p>
+<p><strong>However</strong> don’t do this until you get the error and if you get stuck then contact us via Twitter or Slack.</p>
+<p>You will likely need the package <code>rgdal</code> as the package <code>sf</code>, which we use extensively, is dependent on it. <code>rgdal</code> needs the <code>gdal</code> library to be installed on the computer (not as an R package), and it usually isn’t installed on Macs.</p>
+<p>To install it, follow the stack overflow guide: <a href="https://stackoverflow.com/questions/34333624/trouble-installing-rgdal" class="uri">https://stackoverflow.com/questions/34333624/trouble-installing-rgdal</a></p>
+<p>Mac users may need to install Java (which might involve removing the existing version) this is covered in the <a href="geographic-information.html#mac-r-issues">Mac R issues</a> section.</p>
+</div>
+</div>
 </div>
 <div id="setup-2" class="section level3 unnumbered">
 <h3>Setup 2</h3>
