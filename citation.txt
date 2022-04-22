@@ -1,0 +1,12 @@
+@article{MacLachlan2022,
+  doi = {10.21105/jose.00141},
+  url = {https://doi.org/10.21105/jose.00141},
+  year = {2022},
+  publisher = {The Open Journal},
+  volume = {5},
+  number = {50},
+  pages = {141},
+  author = {Andrew MacLachlan and Adam Dennett},
+  title = {An Applied Geographic Information Systems and Science Course in R},
+  journal = {Journal of Open Source Education}
+}
