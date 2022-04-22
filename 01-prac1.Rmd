@@ -1,4 +1,4 @@
-# (PART) GIS tools {.unnumbered}
+# (PART) GIS tools {-}
 
 # Geographic Information
 

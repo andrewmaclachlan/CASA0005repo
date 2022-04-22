@@ -13,6 +13,7 @@ rmd_files:
 - 07-prac7.Rmd
 - 08-prac8.Rmd
 - 12-assignment_resources.Rmd
+
 output_dir: docs
 language:
   ui:

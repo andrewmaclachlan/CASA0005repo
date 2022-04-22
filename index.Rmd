@@ -21,10 +21,9 @@ favicon: "assets/favicon.ico"
 htmltools::tagList(rmarkdown::html_dependency_font_awesome())
 ```
 
-
-# Welcome {-}
-
 [![status](https://jose.theoj.org/papers/a05734775775d1ef968e582ce9a7cb17/status.svg)](https://jose.theoj.org/papers/a05734775775d1ef968e582ce9a7cb17)
+ 
+# Welcome {-}
 
 Hello <a href="https://www.ucl.ac.uk/bartlett/casa/"><img src="general_images/casa_logo.jpg" width="120" alt="CASA0005 course" align="right" style="margin: 0 1em 0 1em" /></a> and a warm welcome to the CASA0005 Geographic Information Systems and Science online practical handbook. 
 
@@ -59,3 +58,10 @@ Thanks to the following people who have either contributed directly or provided 
 The R package and analysis artwork used within this book has been produced by [allison_horst](https://twitter.com/allison_horst), whilst artwork used in information boxes has been produced by [Desirée De Leon](https://twitter.com/dcossyle). You can find Allison's images on the [stats illustration GitHub repository](https://github.com/allisonhorst/stats-illustrations) and Desirée's on the [rstudio4edu GitHub repository](https://github.com/rstudio4edu/rmd4edu).
 
 I've certainly learnt a lot from their open code repositories!
+
+## Citation {-}
+
+To cite this resource, please use: 
+
+> MacLachlan et al., (2022). An Applied Geographic Information Systems and Science Course in R. Journal of Open Source Education, 5(50), 141, https://doi.org/10.21105/jose.00141 or [copy the Bibtex citation string](https://github.com/andrewmaclachlan/CASA0005repo/blob/master/citation.txt).
+
