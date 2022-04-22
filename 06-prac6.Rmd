@@ -349,7 +349,7 @@ A Chi-Squared test determines if there is an association between two categorical
 
 If the p-value of our Chi-Squared test is < 0.05, then we can reject a null hypothesis that says “there is no pattern - i.e. complete spatial randomness - in our data” (think of a null-hypothesis as the opposite of a hypothesis that says our data exhibit a pattern). What we need to look for is a value for p > 0.05. If our p-value is > 0.05 then this indicates that we have CSR and there is no pattern in our points. If it is < 0.05, this indicates that we do have clustering in our points. 
 
-```{r message=FALSE, warning=FALSE, cache=TRUE}
+```{r message=FALSE, warning=TRUE, cache=TRUE}
 
 teststats <- quadrat.test(BluePlaquesSub.ppp, nx = 6, ny = 6)
 
@@ -357,7 +357,9 @@ plot(BluePlaquesSub.ppp,pch=16,cex=0.5, main="Blue Plaques in Harrow")
 plot(teststats, add=T, col = "red")
 ```
 
-"So we can see that the indications are there is some spatial patterning (clustering) of Blue Plaques in Harrow — at least for this particular grid --- at least for this particular grid. Note the warning message --- some of the observed counts are very small (0) and this may affect the accuracy of the quadrant test. Recall that the Poisson distribution only describes observed occurrances that are counted in integers --- where our occurrences = 0 (i.e. not observed), this can be an issue. We also know that there are various other problems that might affect our quadrat analysis, such as the [modifiable areal unit problem](https://www.youtube.com/watch?v=cZdlxDx4Nvs).
+Here our p-value = 0.2594, implying complete spatial randomness. But there are limitations of using qudrants like this...that we will explore next. 
+
+Note the warning message --- some of the observed counts are very small (0) and this may affect the accuracy of the quadrant test. Recall that the Poisson distribution only describes observed occurrances that are counted in integers --- where our occurrences = 0 (i.e. not observed), this can be an issue. We also know that there are various other problems that might affect our quadrat analysis, such as the [modifiable areal unit problem](https://www.youtube.com/watch?v=cZdlxDx4Nvs).
 
 In the new plot, we can see three figures for each quadrant. The top-left figure is the observed count of points; the top-right is the Poisson expected number of points; the bottom value is the  residual value (also known as Pearson residual value), or (Observed - Expected) / Sqrt(Expected).
 
@@ -381,7 +383,7 @@ K <- BluePlaquesSub.ppp %>%
   Kest(., correction="border") %>%
   plot()
 
-Kval <- as.data.frame(Kest(BluePlaquesSub.ppp, correction = "border"))
+Kval <- as.data.frame(Kest(BluePlaquesSub.ppp, correction = "Ripley"))
 
 ```
 The plot for K has a number of elements that are worth explaining. First, the *Kpois(r)* line in Red is the theoretical value of K for each distance window (r) under a Poisson assumption of Complete Spatial Randomness. The Black line is the estimated values of K accounting for the effects of the edge of the study area. 
