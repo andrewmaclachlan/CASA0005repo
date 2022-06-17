@@ -112,6 +112,15 @@ Then, in the console, type the function `edit_git_config()`
 
 A Git config will load and you need to change your name and email to match GitHub.
 
+If this is empty use the following template and save the file.
+
+```{r, eval=FALSE}
+[user]
+	name = 
+	email = 
+	username = 
+```
+
 #### Start your Git
 
 To start Git you **need to be in a RStudio project**. Instructions below show you how to do this in various scenarios. For example, in the first Git way, we clone (copy) a remote repository (of our own) then if we wanted to make changes (to the remote) we would need to follow these instructions to link our Git to GitHub

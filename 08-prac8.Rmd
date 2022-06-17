@@ -224,7 +224,7 @@ writeRaster(.,str_c(here::here("prac8_data",
 
 ```{r, cache=TRUE}
 b8backin<-dir_info(here::here("prac8_data", "Lsatdata"))%>%
-  dplyr::filter(path == "C:/Users/Andy/OneDrive - University College London/Teaching/CASA0005/2020_2021/CASA0005repo/prac8_data/Lsatdata/LC08_L1TP_203023_20190513_20190521_01_T1_B8.tif") %>%
+  dplyr::filter(path == "C:/Users/Andy/OneDrive - University College London/Teaching/CASA0005/2022_2023/CASA0005repo/prac8_data/Lsatdata/LC08_L1TP_203023_20190513_20190521_01_T1_B8.tif") %>%
   dplyr::select(path)%>%
   pull()%>%
   as.character()%>%
