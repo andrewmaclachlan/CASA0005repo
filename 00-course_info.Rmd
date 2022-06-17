@@ -111,7 +111,7 @@ The lectures and practicals of this course only form a part of the learning proc
 
 If you find a practical particularly easy or straightforward then please move on to the next one. Practicals that look at analytical relationships also have extension activities for you to try.
 
-```{r include=FALSE}
+```{r include=FALSE, eval=FALSE}
 # automatically create a bib database for R packages
 knitr::write_bib(c(
   .packages(), 'bookdown', 'knitr', 'rmarkdown'

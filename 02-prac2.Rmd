@@ -905,8 +905,8 @@ EW <- st_read("https://opendata.arcgis.com/datasets/8edafbe3276d4b56aec60991cbdd
 
 # shapefile in local folder
 EW <- st_read(here::here("prac2_data",
-                        "Local_Authority_Districts__December_2015__Boundaries-shp",
-                        "Local_Authority_Districts__December_2015__Boundaries.shp"))
+                        "Local_Authority_Districts_(December_2015)_Boundaries",
+                        "Local_Authority_Districts_(December_2015)_Boundaries.shp"))
 ```
 
 Pull out London using the  `str_detect()` function from the `stringr` package in combination with `filter()` from `dplyr` (again!). We will  look for the bit of the district code that relates to London (E09) from the 'lad15cd' column data frame of our `sf` object. 

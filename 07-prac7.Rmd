@@ -84,7 +84,7 @@ library(car)
 library(fs)
 library(janitor)
 ```
-Read some ward data in
+Read some ward data in [from London Data Store](https://data.london.gov.uk/dataset/statistical-gis-boundary-files-london)
 
 ```{r, eval=FALSE}
 #download a zip file containing some boundaries we want to use
@@ -96,6 +96,7 @@ download.file("https://data.london.gov.uk/download/statistical-gis-boundary-file
 Get the zip file and extract it
 
 ```{r, eval=FALSE}
+library(fs)
 listfiles<-dir_info(here::here("prac7_data")) %>%
   dplyr::filter(str_detect(path, ".zip")) %>%
   dplyr::select(path)%>%

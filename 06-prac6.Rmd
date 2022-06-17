@@ -580,7 +580,8 @@ LondonWardsMerged <- st_read(here::here("prac6_data",
                                         "ESRI",
                                         "London_Ward_CityMerged.shp"))%>%
   st_transform(.,27700)
-WardData <- read_csv("https://data.london.gov.uk/download/ward-profiles-and-atlas/772d2d64-e8c6-46cb-86f9-e52b4c7851bc/ward-profiles-excel-version.csv", 
+WardData <- read_csv("https://data.london.gov.uk/download/ward-profiles-and-atlas/772d2d64-e8c6-46cb-86f9-e52b4c7851bc/ward-profiles-excel-version.csv",
+                    locale = locale(encoding = "latin1"),
                      na = c("NA", "n/a")) %>% 
   clean_names()
 

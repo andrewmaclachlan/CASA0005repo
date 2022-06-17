@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 2 Introduction to R | CASA0005 Geographic Information Systems and Science</title>
   <meta name="description" content="The CASA0005 Geographic Information Systems and Science practical book" />
-  <meta name="generator" content="bookdown 0.26 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.27 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 2 Introduction to R | CASA0005 Geographic Information Systems and Science" />
   <meta property="og:type" content="book" />
@@ -23,7 +23,7 @@
 <meta name="author" content="Andy MacLachlan and Adam Dennett" />
 
 
-<meta name="date" content="2022-04-22" />
+<meta name="date" content="2022-06-16" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -32,7 +32,7 @@
   <link rel="shortcut icon" href="assets/favicon.ico" type="image/x-icon" />
 <link rel="prev" href="geographic-information.html"/>
 <link rel="next" href="spatial-descriptive-statistics.html"/>
-<script src="libs/jquery-3.5.1/jquery-3.5.1.min.js"></script>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -54,31 +54,31 @@
 <script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
 <link href="libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
 <link href="libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
-<script src="libs/htmlwidgets-1.5.3/htmlwidgets.js"></script>
+<script src="libs/htmlwidgets-1.5.4/htmlwidgets.js"></script>
 <link href="libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet" />
-<script src="libs/datatables-binding-0.17/datatables.js"></script>
-<link href="libs/dt-core-1.10.20/css/jquery.dataTables.min.css" rel="stylesheet" />
-<link href="libs/dt-core-1.10.20/css/jquery.dataTables.extra.css" rel="stylesheet" />
-<script src="libs/dt-core-1.10.20/js/jquery.dataTables.min.js"></script>
+<script src="libs/datatables-binding-0.23/datatables.js"></script>
+<link href="libs/dt-core-1.11.3/css/jquery.dataTables.min.css" rel="stylesheet" />
+<link href="libs/dt-core-1.11.3/css/jquery.dataTables.extra.css" rel="stylesheet" />
+<script src="libs/dt-core-1.11.3/js/jquery.dataTables.min.js"></script>
 <link href="libs/nouislider-7.0.10/jquery.nouislider.min.css" rel="stylesheet" />
 <script src="libs/nouislider-7.0.10/jquery.nouislider.min.js"></script>
 <link href="libs/selectize-0.12.0/selectize.bootstrap3.css" rel="stylesheet" />
 <script src="libs/selectize-0.12.0/selectize.min.js"></script>
-<link href="libs/crosstalk-1.1.1/css/crosstalk.css" rel="stylesheet" />
-<script src="libs/crosstalk-1.1.1/js/crosstalk.min.js"></script>
-<script src="libs/plotly-binding-4.9.3/plotly.js"></script>
+<link href="libs/crosstalk-1.2.0/css/crosstalk.min.css" rel="stylesheet" />
+<script src="libs/crosstalk-1.2.0/js/crosstalk.min.js"></script>
+<script src="libs/plotly-binding-4.10.0/plotly.js"></script>
 <script src="libs/typedarray-0.1/typedarray.min.js"></script>
-<link href="libs/plotly-htmlwidgets-css-1.57.1/plotly-htmlwidgets.css" rel="stylesheet" />
-<script src="libs/plotly-main-1.57.1/plotly-latest.min.js"></script>
+<link href="libs/plotly-htmlwidgets-css-2.5.1/plotly-htmlwidgets.css" rel="stylesheet" />
+<script src="libs/plotly-main-2.5.1/plotly-latest.min.js"></script>
 <link href="libs/leaflet-1.3.1/leaflet.css" rel="stylesheet" />
 <script src="libs/leaflet-1.3.1/leaflet.js"></script>
 <link href="libs/leafletfix-1.0.0/leafletfix.css" rel="stylesheet" />
 <script src="libs/proj4-2.6.2/proj4.min.js"></script>
 <script src="libs/Proj4Leaflet-1.0.1/proj4leaflet.js"></script>
 <link href="libs/rstudio_leaflet-1.3.1/rstudio_leaflet.css" rel="stylesheet" />
-<script src="libs/leaflet-binding-2.0.4.1/leaflet.js"></script>
+<script src="libs/leaflet-binding-2.1.1/leaflet.js"></script>
 <script src="libs/leaflet-providers-1.9.0/leaflet-providers_1.9.0.js"></script>
-<script src="libs/leaflet-providers-plugin-2.0.4.1/leaflet-providers-plugin.js"></script>
+<script src="libs/leaflet-providers-plugin-2.1.1/leaflet-providers-plugin.js"></script>
 <script src="libs/clipboard-0.0.1/setClipboardText.js"></script>
 <!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-151934476-1"></script>
@@ -1658,7 +1658,7 @@ Figure 2.5: readr::parse_number() example. Source: <a href="https://github.com/a
 <span id="cb67-5"><a href="introduction-to-r.html#cb67-5" aria-hidden="true" tabindex="-1"></a>               <span class="at">values_to=</span><span class="st">&quot;Variable_class&quot;</span>)</span>
 <span id="cb67-6"><a href="introduction-to-r.html#cb67-6" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb67-7"><a href="introduction-to-r.html#cb67-7" aria-hidden="true" tabindex="-1"></a>Datatypelist</span></code></pre></div>
-<pre><code>## # A tibble: 67 x 2
+<pre><code>## # A tibble: 67 × 2
 ##    All_variables                      Variable_class
 ##    &lt;chr&gt;                              &lt;chr&gt;         
 ##  1 Ward name                          character     
@@ -1671,7 +1671,7 @@ Figure 2.5: readr::parse_number() example. Source: <a href="https://github.com/a
 ##  8 % All Children aged 0-15 - 2015    numeric       
 ##  9 % All Working-age (16-64) - 2015   numeric       
 ## 10 % All Older people aged 65+ - 2015 numeric       
-## # ... with 57 more rows</code></pre>
+## # … with 57 more rows</code></pre>
 <p>We cover <code>pivot_longer()</code> later in this practical, but for now we’ve simply grouped all our variables into one <strong>LONG</strong> column adding another column that contains the class.</p>
 <p>You should see that all columns that should be numbers are read in as numeric. Try reading in LondonData again, but this time without excluding the ‘n/a’ values in the file, e.g.</p>
 <div class="sourceCode" id="cb69"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb69-1"><a href="introduction-to-r.html#cb69-1" aria-hidden="true" tabindex="-1"></a>LondonData <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;https://data.london.gov.uk/download/ward-profiles-and-atlas/772d2d64-e8c6-46cb-86f9-e52b4c7851bc/ward-profiles-excel-version.csv&quot;</span>, </span>
@@ -1816,7 +1816,7 @@ Figure 2.8: dyplr mutate() example. Source: <a href="https://github.com/allisonh
 <p>We can also use <code>dplyr</code> to show us the top and bottom number of rows instead of using <code>head</code> or <code>tail</code> like we did earlier.</p>
 <div class="sourceCode" id="cb88"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb88-1"><a href="introduction-to-r.html#cb88-1" aria-hidden="true" tabindex="-1"></a><span class="co">#top of data</span></span>
 <span id="cb88-2"><a href="introduction-to-r.html#cb88-2" aria-hidden="true" tabindex="-1"></a><span class="fu">slice_head</span>(Life_expectancy, <span class="at">n=</span><span class="dv">5</span>)</span></code></pre></div>
-<pre><code>## # A tibble: 5 x 4
+<pre><code>## # A tibble: 5 × 4
 ##   new_code  borough                averagelifeexpectancy normalisedlifeepectancy
 ##   &lt;chr&gt;     &lt;chr&gt;                                  &lt;dbl&gt;                   &lt;dbl&gt;
 ## 1 E09000001 City of London                          86.4                    1.05
@@ -1826,7 +1826,7 @@ Figure 2.8: dyplr mutate() example. Source: <a href="https://github.com/allisonh
 ## 5 E09000033 Westminster                             83.8                    1.02</code></pre>
 <div class="sourceCode" id="cb90"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb90-1"><a href="introduction-to-r.html#cb90-1" aria-hidden="true" tabindex="-1"></a><span class="co">#bottom of data</span></span>
 <span id="cb90-2"><a href="introduction-to-r.html#cb90-2" aria-hidden="true" tabindex="-1"></a><span class="fu">slice_tail</span>(Life_expectancy,<span class="at">n=</span><span class="dv">5</span>)</span></code></pre></div>
-<pre><code>## # A tibble: 5 x 4
+<pre><code>## # A tibble: 5 × 4
 ##   new_code  borough              averagelifeexpectancy normalisedlifeepectancy
 ##   &lt;chr&gt;     &lt;chr&gt;                                &lt;dbl&gt;                   &lt;dbl&gt;
 ## 1 E09000011 Greenwich                             80.8                   0.983
@@ -1849,20 +1849,20 @@ Figure 2.9: dplyr case_when() example. Source: <a href="https://github.com/allis
 <span id="cb92-2"><a href="introduction-to-r.html#cb92-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">UKcompare =</span> <span class="fu">case_when</span>(averagelifeexpectancy<span class="sc">&gt;</span><span class="fl">81.16</span> <span class="sc">~</span> <span class="st">&quot;above UK average&quot;</span>,</span>
 <span id="cb92-3"><a href="introduction-to-r.html#cb92-3" aria-hidden="true" tabindex="-1"></a>                               <span class="cn">TRUE</span> <span class="sc">~</span> <span class="st">&quot;below UK average&quot;</span>))</span>
 <span id="cb92-4"><a href="introduction-to-r.html#cb92-4" aria-hidden="true" tabindex="-1"></a>Life_expectancy2</span></code></pre></div>
-<pre><code>## # A tibble: 33 x 5
-##    new_code  borough                averagelifeexpec~ normalisedlifee~ UKcompare
+<pre><code>## # A tibble: 33 × 5
+##    new_code  borough                averagelifeexpec… normalisedlifee… UKcompare
 ##    &lt;chr&gt;     &lt;chr&gt;                              &lt;dbl&gt;            &lt;dbl&gt; &lt;chr&gt;    
-##  1 E09000001 City of London                      86.4             1.05 above UK~
-##  2 E09000020 Kensington and Chelsea              84.4             1.03 above UK~
-##  3 E09000015 Harrow                              84.2             1.02 above UK~
-##  4 E09000027 Richmond upon Thames                83.9             1.02 above UK~
-##  5 E09000033 Westminster                         83.8             1.02 above UK~
-##  6 E09000007 Camden                              83.6             1.02 above UK~
-##  7 E09000003 Barnet                              83.4             1.02 above UK~
-##  8 E09000006 Bromley                             83.1             1.01 above UK~
-##  9 E09000021 Kingston upon Thames                82.9             1.01 above UK~
-## 10 E09000005 Brent                               82.4             1.00 above UK~
-## # ... with 23 more rows</code></pre>
+##  1 E09000001 City of London                      86.4             1.05 above UK…
+##  2 E09000020 Kensington and Chelsea              84.4             1.03 above UK…
+##  3 E09000015 Harrow                              84.2             1.02 above UK…
+##  4 E09000027 Richmond upon Thames                83.9             1.02 above UK…
+##  5 E09000033 Westminster                         83.8             1.02 above UK…
+##  6 E09000007 Camden                              83.6             1.02 above UK…
+##  7 E09000003 Barnet                              83.4             1.02 above UK…
+##  8 E09000006 Bromley                             83.1             1.01 above UK…
+##  9 E09000021 Kingston upon Thames                82.9             1.01 above UK…
+## 10 E09000005 Brent                               82.4             1.00 above UK…
+## # … with 23 more rows</code></pre>
 <p>Now whilst this is useful, it doesn’t tell is much more about the data itself, what if we wanted to know the range of life expectancies for London Boroughs that are above the national average….</p>
 <div class="sourceCode" id="cb94"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb94-1"><a href="introduction-to-r.html#cb94-1" aria-hidden="true" tabindex="-1"></a>Life_expectancy2_group <span class="ot">&lt;-</span> Life_expectancy2 <span class="sc">%&gt;%</span></span>
 <span id="cb94-2"><a href="introduction-to-r.html#cb94-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">UKdiff =</span> averagelifeexpectancy<span class="fl">-81.16</span>) <span class="sc">%&gt;%</span></span>
@@ -1870,7 +1870,7 @@ Figure 2.9: dplyr case_when() example. Source: <a href="https://github.com/allis
 <span id="cb94-4"><a href="introduction-to-r.html#cb94-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">range=</span><span class="fu">max</span>(UKdiff)<span class="sc">-</span><span class="fu">min</span>(UKdiff), <span class="at">count=</span><span class="fu">n</span>(), <span class="at">Average=</span><span class="fu">mean</span>(UKdiff))</span>
 <span id="cb94-5"><a href="introduction-to-r.html#cb94-5" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb94-6"><a href="introduction-to-r.html#cb94-6" aria-hidden="true" tabindex="-1"></a>Life_expectancy2_group</span></code></pre></div>
-<pre><code>## # A tibble: 2 x 4
+<pre><code>## # A tibble: 2 × 4
 ##   UKcompare        range count Average
 ##   &lt;chr&gt;            &lt;dbl&gt; &lt;int&gt;   &lt;dbl&gt;
 ## 1 above UK average 5.25     25   1.52 
@@ -1911,7 +1911,7 @@ Figure 2.10: dyplr::across() example. Source: <a href="https://github.com/alliso
 <span id="cb96-15"><a href="introduction-to-r.html#cb96-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">count=</span><span class="fu">n</span>())</span>
 <span id="cb96-16"><a href="introduction-to-r.html#cb96-16" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb96-17"><a href="introduction-to-r.html#cb96-17" aria-hidden="true" tabindex="-1"></a>Life_expectancy3</span></code></pre></div>
-<pre><code>## # A tibble: 7 x 2
+<pre><code>## # A tibble: 7 × 2
 ##   UKcompare                            count
 ##   &lt;chr&gt;                                &lt;int&gt;
 ## 1 below UK average by -1 years             3
@@ -1934,7 +1934,7 @@ Figure 2.10: dyplr::across() example. Source: <a href="https://github.com/alliso
 ##   # Good
 ##   data %&gt;% select(where(is.numeric))
 ## 
-## i Please update your code.
+## ℹ Please update your code.
 ## This message is displayed once per session.</code></pre>
 <p>Before you move on consider what you have learnt about <code>dplyr</code> in relation to this concept map. The teaching team will also explain it…</p>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-127"></span>
@@ -1966,8 +1966,8 @@ Figure 2.11: dplyr concept map. Source: <a href="https://github.com/rstudio/conc
 <span id="cb102-8"><a href="introduction-to-r.html#cb102-8" aria-hidden="true" tabindex="-1"></a>        <span class="at">text =</span> <span class="sc">~</span>borough, </span>
 <span id="cb102-9"><a href="introduction-to-r.html#cb102-9" aria-hidden="true" tabindex="-1"></a>        <span class="at">type =</span> <span class="st">&quot;scatter&quot;</span>, </span>
 <span id="cb102-10"><a href="introduction-to-r.html#cb102-10" aria-hidden="true" tabindex="-1"></a>        <span class="at">mode =</span> <span class="st">&quot;markers&quot;</span>)</span></code></pre></div>
-<div id="htmlwidget-6b01e07a70592ed295ce" style="width:672px;height:480px;" class="plotly html-widget"></div>
-<script type="application/json" data-for="htmlwidget-6b01e07a70592ed295ce">{"x":{"visdat":{"4aa8324e41e5":["function () ","plotlyVisDat"]},"cur_data":"4aa8324e41e5","attrs":{"4aa8324e41e5":{"x":{},"y":{},"text":{},"mode":"markers","alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"type":"scatter"}},"layout":{"margin":{"b":40,"l":60,"t":25,"r":10},"xaxis":{"domain":[0,1],"automargin":true,"title":"male_life_expectancy_2009_13"},"yaxis":{"domain":[0,1],"automargin":true,"title":"percent_children_in_reception_year_who_are_obese_2011_12_to_2013_14","type":"category","categoryorder":"array","categoryarray":["10.2","10.3","10.6","11.0","11.1","11.2","11.5","11.6","12.2","12.5","12.7","12.8","13.2","13.3","13.6","5.7","6.0","7.8","8.1","9.0","9.2","9.5","9.6","9.8"]},"hovermode":"closest","showlegend":false},"source":"A","config":{"showSendToCloud":false},"data":[{"x":[84.3,77.7,81.9,80.3,80,81.3,81.1,80,79.9,80.6,78.7,78.2,79.1,80.1,82.4,79.8,80.4,79.7,78.2,82.6,81.3,78.4,78.7,80.3,78.5,80.7,81.9,78.6,80.8,77.5,79.7,79.2,81.7],"y":["11.1","13.6","9.5","11.6","12.2","7.8","9.8","11.1","11.2","12.7","13.2","13.3","10.2","11.1","9.6","10.3","9.6","11.2","10.6","9.2","6.0","11.5","11.0","9.0","12.5","10.6","5.7","12.8","8.1","12.7","10.6","9.2","11.1"],"text":["City of London","Barking and Dagenham","Barnet","Bexley","Brent","Bromley","Camden","Croydon","Ealing","Enfield","Greenwich","Hackney","Hammersmith and Fulham","Haringey","Harrow","Havering","Hillingdon","Hounslow","Islington","Kensington and Chelsea","Kingston upon Thames","Lambeth","Lewisham","Merton","Newham","Redbridge","Richmond upon Thames","Southwark","Sutton","Tower Hamlets","Waltham Forest","Wandsworth","Westminster"],"mode":"markers","type":"scatter","marker":{"color":"rgba(31,119,180,1)","line":{"color":"rgba(31,119,180,1)"}},"error_y":{"color":"rgba(31,119,180,1)"},"error_x":{"color":"rgba(31,119,180,1)"},"line":{"color":"rgba(31,119,180,1)"},"xaxis":"x","yaxis":"y","frame":null}],"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.2,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-9eb00c74fa71d127b56a" style="width:672px;height:480px;" class="plotly html-widget"></div>
+<script type="application/json" data-for="htmlwidget-9eb00c74fa71d127b56a">{"x":{"visdat":{"18606704640":["function () ","plotlyVisDat"]},"cur_data":"18606704640","attrs":{"18606704640":{"x":{},"y":{},"text":{},"mode":"markers","alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"type":"scatter"}},"layout":{"margin":{"b":40,"l":60,"t":25,"r":10},"xaxis":{"domain":[0,1],"automargin":true,"title":"male_life_expectancy_2009_13"},"yaxis":{"domain":[0,1],"automargin":true,"title":"percent_children_in_reception_year_who_are_obese_2011_12_to_2013_14","type":"category","categoryorder":"array","categoryarray":["10.2","10.3","10.6","11.0","11.1","11.2","11.5","11.6","12.2","12.5","12.7","12.8","13.2","13.3","13.6","5.7","6.0","7.8","8.1","9.0","9.2","9.5","9.6","9.8"]},"hovermode":"closest","showlegend":false},"source":"A","config":{"modeBarButtonsToAdd":["hoverclosest","hovercompare"],"showSendToCloud":false},"data":[{"x":[84.3,77.7,81.9,80.3,80,81.3,81.1,80,79.9,80.6,78.7,78.2,79.1,80.1,82.4,79.8,80.4,79.7,78.2,82.6,81.3,78.4,78.7,80.3,78.5,80.7,81.9,78.6,80.8,77.5,79.7,79.2,81.7],"y":["11.1","13.6","9.5","11.6","12.2","7.8","9.8","11.1","11.2","12.7","13.2","13.3","10.2","11.1","9.6","10.3","9.6","11.2","10.6","9.2","6.0","11.5","11.0","9.0","12.5","10.6","5.7","12.8","8.1","12.7","10.6","9.2","11.1"],"text":["City of London","Barking and Dagenham","Barnet","Bexley","Brent","Bromley","Camden","Croydon","Ealing","Enfield","Greenwich","Hackney","Hammersmith and Fulham","Haringey","Harrow","Havering","Hillingdon","Hounslow","Islington","Kensington and Chelsea","Kingston upon Thames","Lambeth","Lewisham","Merton","Newham","Redbridge","Richmond upon Thames","Southwark","Sutton","Tower Hamlets","Waltham Forest","Wandsworth","Westminster"],"mode":"markers","type":"scatter","marker":{"color":"rgba(31,119,180,1)","line":{"color":"rgba(31,119,180,1)"}},"error_y":{"color":"rgba(31,119,180,1)"},"error_x":{"color":"rgba(31,119,180,1)"},"line":{"color":"rgba(31,119,180,1)"},"xaxis":"x","yaxis":"y","frame":null}],"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.2,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
 </div>
 <div id="spatial-data-in-r" class="section level3 hasAnchor" number="2.5.8">
 <h3><span class="header-section-number">2.5.8</span> Spatial Data in R<a href="introduction-to-r.html#spatial-data-in-r" class="anchor-section" aria-label="Anchor link to header"></a></h3>
@@ -2040,9 +2040,9 @@ Figure 2.12: ggplot2 introduction graphic. Source: <a href="https://github.com/a
 <span id="cb107-5"><a href="introduction-to-r.html#cb107-5" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb107-6"><a href="introduction-to-r.html#cb107-6" aria-hidden="true" tabindex="-1"></a><span class="co"># shapefile in local folder</span></span>
 <span id="cb107-7"><a href="introduction-to-r.html#cb107-7" aria-hidden="true" tabindex="-1"></a>EW <span class="ot">&lt;-</span> <span class="fu">st_read</span>(here<span class="sc">::</span><span class="fu">here</span>(<span class="st">&quot;prac2_data&quot;</span>,</span>
-<span id="cb107-8"><a href="introduction-to-r.html#cb107-8" aria-hidden="true" tabindex="-1"></a>                        <span class="st">&quot;Local_Authority_Districts__December_2015__Boundaries-shp&quot;</span>,</span>
-<span id="cb107-9"><a href="introduction-to-r.html#cb107-9" aria-hidden="true" tabindex="-1"></a>                        <span class="st">&quot;Local_Authority_Districts__December_2015__Boundaries.shp&quot;</span>))</span></code></pre></div>
-<pre><code>## Reading layer `Local_Authority_Districts__December_2015__Boundaries&#39; from data source `C:\Users\Andy\OneDrive - University College London\Teaching\CASA0005\2020_2021\CASA0005repo\prac2_data\Local_Authority_Districts__December_2015__Boundaries-shp\Local_Authority_Districts__December_2015__Boundaries.shp&#39; 
+<span id="cb107-8"><a href="introduction-to-r.html#cb107-8" aria-hidden="true" tabindex="-1"></a>                        <span class="st">&quot;Local_Authority_Districts_(December_2015)_Boundaries&quot;</span>,</span>
+<span id="cb107-9"><a href="introduction-to-r.html#cb107-9" aria-hidden="true" tabindex="-1"></a>                        <span class="st">&quot;Local_Authority_Districts_(December_2015)_Boundaries.shp&quot;</span>))</span></code></pre></div>
+<pre><code>## Reading layer `Local_Authority_Districts_(December_2015)_Boundaries&#39; from data source `C:\Users\Andy\OneDrive - University College London\Teaching\CASA0005\2020_2021\CASA0005repo\prac2_data\Local_Authority_Districts_(December_2015)_Boundaries\Local_Authority_Districts_(December_2015)_Boundaries.shp&#39; 
 ##   using driver `ESRI Shapefile&#39;
 ## Simple feature collection with 380 features and 6 fields
 ## Geometry type: MULTIPOLYGON
@@ -2086,9 +2086,9 @@ Figure 2.13: SQL join types. Source: <a href="https://www.dofactory.com/sql/join
 </p>
 </div>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-140"></span>
-<img src="prac2_images/left-join.gif" alt="dplyr::left_join() example. Source: [Tidy explain by Garrick Aden-Buie](https://www.garrickadenbuie.com/project/tidyexplain/)" width="500px" />
+<img src="prac2_images/left-join.gif" alt="dplyr::left_join() example. Source: [Tidy explain by Garrick Aden‑Buie](https://www.garrickadenbuie.com/project/tidyexplain/)" width="500px" />
 <p class="caption">
-Figure 2.14: dplyr::left_join() example. Source: <a href="https://www.garrickadenbuie.com/project/tidyexplain/">Tidy explain by Garrick Aden-Buie</a>
+Figure 2.14: dplyr::left_join() example. Source: <a href="https://www.garrickadenbuie.com/project/tidyexplain/">Tidy explain by Garrick Aden‑Buie</a>
 </p>
 </div>
 <div class="sourceCode" id="cb111"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb111-1"><a href="introduction-to-r.html#cb111-1" aria-hidden="true" tabindex="-1"></a>BoroughDataMap2 <span class="ot">&lt;-</span> EW <span class="sc">%&gt;%</span> </span>
@@ -2099,9 +2099,9 @@ Figure 2.14: dplyr::left_join() example. Source: <a href="https://www.garrickade
 <span id="cb111-6"><a href="introduction-to-r.html#cb111-6" aria-hidden="true" tabindex="-1"></a>            <span class="at">by =</span> <span class="fu">c</span>(<span class="st">&quot;lad15cd&quot;</span> <span class="ot">=</span> <span class="st">&quot;new_code&quot;</span>))</span></code></pre></div>
 <p>If there are mutliple matches then all hits are returned…</p>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-142"></span>
-<img src="prac2_images/left-join-extra.gif" alt="dplyr::left_join() example with multiple matches. Source: [Tidy explain by Garrick Aden-Buie](https://www.garrickadenbuie.com/project/tidyexplain/)" width="500px" />
+<img src="prac2_images/left-join-extra.gif" alt="dplyr::left_join() example with multiple matches. Source: [Tidy explain by Garrick Aden‑Buie](https://www.garrickadenbuie.com/project/tidyexplain/)" width="500px" />
 <p class="caption">
-Figure 2.15: dplyr::left_join() example with multiple matches. Source: <a href="https://www.garrickadenbuie.com/project/tidyexplain/">Tidy explain by Garrick Aden-Buie</a>
+Figure 2.15: dplyr::left_join() example with multiple matches. Source: <a href="https://www.garrickadenbuie.com/project/tidyexplain/">Tidy explain by Garrick Aden‑Buie</a>
 </p>
 </div>
 <p>However, i’ve left out <code>filter()</code> and <code>distinct()</code> which you would need to reduce the data to London and remove the duplicate City of London row afterwards…like in the step before with <code>merge</code> and as we did earlier on in the session.</p>

@@ -95,13 +95,13 @@ To access the Landsat data we will use in this practical you can either:
 To download the data:
 
 1. Enter Manchester in the address/place box > select the country as United Kingdom > click Show and then click on the word Manchester in the box that appears.
-```{r echo=FALSE, out.width = "200pt", fig.align='center', cache=TRUE}
+```{r echo=FALSE, out.width = "350pt", fig.align='center', cache=TRUE}
 knitr::include_graphics('prac8_images/earthexplorer.png')
 ```
 
 1. Select the date range between the 12/5/2019 and 14/5/2019 --- it's a US website so check the dates are correct.
 1. Click dataset and select Landsat, then Landsat Collection 1 Level-1, check Landsat 8 (level 2 is surface reflectance --- see [Remote sensing background (optional)]
-1. Click results, there should be one image, download it..it might take a while
+1. Click results, there should be one image (GEOTiff), download it..it might take a while
 1. Landsat data comes zipped twice as a ```.tar.gz```. Use [7Zip](https://www.7-zip.org/) or another file extractor, extract it once to get to a ```.tar``` then extract again and files should appear. Or the code below will also let you extract Landsat data...
 
 #### Alternative raster data
@@ -182,7 +182,7 @@ listlandsat<-dir_info(here::here("prac8_data", "Lsatdata"))%>%
 # Load the manchester boundary
 manchester_boundary <- st_read(here::here("prac8_data", 
                                           "Manchester_boundary",
-                                          "Manchester_boundary.shp"))
+                                          "manchester_boundary.shp"))
 
 #check they have the same Coordinate Reference System (CRS)
 crs(manchester_boundary)
@@ -196,7 +196,7 @@ crs(listlandsat)
 ```{r eval=FALSE, cache=TRUE}
 # get band 8
 b8list<-dir_info(here::here("prac8_data", "Lsatdata"))%>%
-  dplyr::filter(str_detect(path, "[B8].tif")) %>%
+  dplyr::filter(str_detect(path, "[B8].TIF")) %>%
   dplyr::select(path)%>%
   pull()%>%
   as.character()%>%
@@ -224,7 +224,7 @@ writeRaster(.,str_c(here::here("prac8_data",
 
 ```{r, cache=TRUE}
 b8backin<-dir_info(here::here("prac8_data", "Lsatdata"))%>%
-  dplyr::filter(str_detect(path, "[B8].tif")) %>%
+  dplyr::filter(path == "C:/Users/Andy/OneDrive - University College London/Teaching/CASA0005/2020_2021/CASA0005repo/prac8_data/Lsatdata/LC08_L1TP_203023_20190513_20190521_01_T1_B8.tif") %>%
   dplyr::select(path)%>%
   pull()%>%
   as.character()%>%
@@ -282,7 +282,7 @@ As i can't upload my Landsat files to GitHub i'm storing them in a folder that i
 lsatmask %>%
   writeRaster(., names(lsatmask), 
               bylayer=TRUE, 
-              format='GTiff', 
+              format='raster', 
               overwrite=TRUE)
 ```
 
@@ -290,13 +290,13 @@ For me though it's:
 
 ```{r, cache=TRUE}
 lsatmask %>%
-  writeRaster(., outputfilenames, 
+  raster::writeRaster(., outputfilenames, 
               bylayer=TRUE, 
-              format='GTiff', 
+              format='raster', 
               overwrite=TRUE)
 ```
 
-Here i write out each raster layer individually though specifying ```bylayer=TRUE```.
+Here i write out each raster layer individually though specifying ```bylayer=TRUE```. For some reason using the `format=GTiff` causes an error so i have changed this to the native raster format from the `raster` pacakge - it doesn't really matter as all GIS software can read all types.
 
 ## Data exploration
 
@@ -308,7 +308,7 @@ Here i write out each raster layer individually though specifying ```bylayer=TRU
 # either read them back in from the saved file:
 
 manc_files<-dir_info(here::here("prac8_data", "Lsatdata", "mask")) %>%
-  dplyr::filter(str_detect(path, "[B1234567]_mask.tif")) %>%
+  dplyr::filter(str_detect(path, "[B1234567]_mask.grd")) %>%
   dplyr::filter(str_detect(path, "B11", negate=TRUE))%>%
   dplyr::select(path)%>%
   pull()%>%
@@ -816,8 +816,8 @@ library(sf)
 
 # read in LSOA data
 UK_LSOA <- st_read(here::here("prac8_data", 
-                                          "Lower_Super_Output_Area_(LSOA)_IMD2019__(WGS84)-shp",
-                                          "5878ebcf-f091-4bde-8864-aa547dd45afd2020330-1-8g4usn.8evuq.shp"))
+                                          "LSOA",
+                                          "Lower_Super_Output_Area_(LSOA)_IMD_2019__(OSGB1936).shp"))
 
 # project it to match Manchester boundary
 UK_LSOA <- UK_LSOA %>%
@@ -825,7 +825,7 @@ UK_LSOA <- UK_LSOA %>%
 
 # read in MSOA and project it
 MSOA <- st_read(here::here("prac8_data",
-                           "MSOA_EngWal_Dec_2011_Generalised_ClippedEW_0",
+                           "MSOA",
                            "Middle_Layer_Super_Output_Areas_December_2011_Generalised_Clipped_Boundaries_in_England_and_Wales.shp")) %>%
    st_transform(., 32630)
 
@@ -901,11 +901,11 @@ manchester_LSOA_temp_urban <- manchester_LSOA_temp %>%
 
 ## Mapping
 
-Now, we could  map both temperature (and the % of urban area) within a LSOA individually....In our map we want to include some place names from Open Street Map, so let's get those...
+Now, we could  map both temperature (and the % of urban area) within a LSOA individually....In our map we want to include some place names from Open Street Map, so let's get those from [OSM that is stored on Geofabrik](https://download.geofabrik.de/europe/great-britain/england/greater-manchester.html)
 
 ```{r, warning=FALSE, message=FALSE}
 Places <- st_read(here::here("prac8_data", 
-                                          "greater-manchester-latest-free.shp",
+                                          "OSM",
                                           "gis_osm_places_free_1.shp")) %>%
    st_transform(., 32630)
 
