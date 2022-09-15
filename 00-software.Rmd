@@ -10,9 +10,17 @@ To get QGIS on your personal machine go to: https://qgis.org/en/site/forusers/do
 
 I install the OSGeo4W version. The nature of open-source means that several programs will rely on each other for features. OSGeo4W tracks all the shared requirements and does not install any duplicates. 
 
+When you click through the dialogue boxes you need to search for QGIS in the OSGeo4W setup and click the refresh button so it changes from skip to install....
+
+
+
 ## R {-}
 
 R is both a programming language and software environment, originally designed for statistical computing and graphics. R’s great strength is that it is open-source, can be used on any computer operating system and free for anyone to use and contribute to. Because of this, it is rapidly becoming the statistical language of choice for many academics and has a huge user community with people constantly contributing new packages to carry out all manner of statistical, graphical and importantly for us, geographical tasks.
+
+### R Java {-}
+
+Some R packages require you to download Java - it's just an extra bit of software you can get from the [Java website](https://www.java.com/en/download/manual.jsp). Select the offline version.
 
 ### Setup 1 {-}
 
