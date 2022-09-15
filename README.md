@@ -56,6 +56,8 @@ We welcome contributions to the content, [see the how to contribute section](htt
 
 The content of the course changes most years and previous version can be found at the links below.
 
+Course for the academic year 2021 - 2022: https://andrewmaclachlan.github.io/CASA0005repo_20212022/
+
 Course for the academic year 2020 - 2021: https://andrewmaclachlan.github.io/CASA0005repo_20202021/
 
 Course for the academic year 2019 - 2020: https://andrewmaclachlan.github.io/CASA0005repo_20192020/
@@ -63,6 +65,12 @@ Course for the academic year 2019 - 2020: https://andrewmaclachlan.github.io/CAS
 ## Annual updates
 
 Provided below are brief descriptions of the main annual updates to the practical material.
+
+### 2022 - 2023:
+
+Better alignment with other CASA modules:
+ * moved OLS to supplementary material 
+ * moved some reprodubicle material to supplementary (e.g. renv)
 
 ### 2021 - 2022:
 
