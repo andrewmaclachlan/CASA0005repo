@@ -21,14 +21,6 @@ Each week we will provide a short task to test your knowledge, these should be u
 
 For the task this week use the tools you have learnt to start on a relevant practice exam question, **however**, next week we will explore spatial autocorrelation so you are not expected to finish your practice attempt this week.
 
-**Data**
-
-* [Open Street Map POI data](http://slipo.eu/?p=1551)
-* [Police data](https://data.police.uk/data/), Brighton is within the Sussex Police force
-* [LSOA shapefile](https://data-communities.opendata.arcgis.com/datasets/6bced6c6f81448cf9692ed3f472b11ce_0/explore?location=50.844392%2C-0.105705%2C13.82)
-
-**Hint** the question is just asking what can pub locations tell us.
-
 :::
 
 ::: {.infobox .note data-latex="{note}"}
@@ -74,7 +66,6 @@ library(here)
 library(sp)
 library(rgeos)
 library(maptools)
-#library(GISTools)
 library(tmap)
 library(sf)
 library(geojson)
@@ -140,7 +131,7 @@ BluePlaques <- distinct(BluePlaques)
 ```
 ### Spatial subsetting
 
-Now just select the points inside London - thanks to Robin Lovelace for posting how to do this one, very useful! 
+Now just select the points inside London - thanks to Robin Lovelace for posting how to do this one, very useful! Here, the second operator is blank `, ,` - this controls which attributes are kept, although I'd rather keep all of them and manipulate with the `tidyverse`.
 
 ```{r, cache=FALSE, warning=FALSE, message=FALSE}
 BluePlaquesSub <- BluePlaques[BoroughMap,]
@@ -151,15 +142,167 @@ tm_shape(BoroughMap) +
 tm_shape(BluePlaquesSub) +
   tm_dots(col = "blue")
 ```
-When we spatial subset data like this there are different topological relations we can specify. The default is intersects, but we could also use `BluePlaquesSub <- BluePlaques[BoroughMap, , op = st_within]`, with the operator or op set to `st_within`, to identify points completely within the borough outline, [or a variety of other options](http://postgis.net/workshops/postgis-intro/spatial_relationships.html).
+When we spatial subset data like this there are different topological relations we can specify. The default is intersects, but we could also use `BluePlaquesSub <- BluePlaques[BoroughMap, , op = st_within]`, with the operator or op set to `st_within`, to identify points completely within the borough outline, [or a variety of other options](http://postgis.net/workshops/postgis-intro/spatial_relationships.html) such as `st_overlaps`, `st_touches`, `st_contains`, `st_disjoint`. Any possible topological relationship you can think of a function will exist for it...visually this looks like...where each tick denotes the relations that apply to the polygons. Note, that in several cases multiple topological relations would work. 
 
-Here, the second operator is blank `, ,` - this controls which attributes are kept, although I'd rather keep all of them and manipulate with the `tidyverse`.
+```{r echo=FALSE, out.width = "500px", fig.align='center', cache=FALSE, fig.cap="Topological relations between vector geometries. Source: [Lovelace et al. 2022](https://geocompr.robinlovelace.net/spatial-operations.html)"}
+knitr::include_graphics('prac6_images/relations-1.png') 
+```
 
-If you have used a graphic user interface GIS before, this is the same as select by location, where as using filter from `dplyr` is the same as select by attribute. 
+
+
+If you have used a graphic user interface GIS before, this is the same as `select by location` (e.g. [select by location in QGIS](https://docs.qgis.org/3.22/en/docs/user_manual/processing_algs/qgis/vectorselection.html#select-by-location)), and as using filter from `dplyr` is the same as `select by attribute`. 
 
 ::: {.infobox .warning data-latex="{note}"}
 What is the [difference between intersects and within for points like ours?](https://gis.stackexchange.com/questions/345184/st-intersects-vs-st-within/345186#:~:text=ST_Intersects%3A%20https%3A%2F%2Fpostgis.net,of%20space%20then%20they%20intersect.&text=For%20points%2C%20there%20is%20no,do%20the%20same%20with%20lines.)
 :::
+
+### Spatial clipping
+
+Whilst on the topic of spatial operations, in a similar theme to topological relations we can also use spatial clipping. This is where we take to layers and extract something. For example, where do the polygons from two different datasets overlap? We want to make a new layer of just the overlapping area...this is somewhat similar to the joins we explored with attribute data (e.g. joining based on a unique attribute column) but here we use shapes...
+
+```{r echo=FALSE, out.width = "500px", fig.align='center', cache=FALSE, fig.cap="Topological relations between vector geometries. Source: [Lovelace et al. 2022](https://geocompr.robinlovelace.net/geometry-operations.html?q=st_intersection#clipping)"}
+knitr::include_graphics('prac6_images/venn-clip-1.png') 
+```
+
+### Spatial joining
+
+Recall from last week we also touched on spatial joining....well using the same example what if i changed the left dataset (in the left join) to the OSM data. We see that there are 715 rows compared to 712 from last week. This is because the hotels outside London are being included as all data on the left is retained....
+
+```{r}
+Londonborough <- st_read(here::here("Prac1_data",
+                                    "statistical-gis-boundaries-london", 
+                                    "ESRI", 
+                                    "London_Borough_Excluding_MHW.shp"))%>%
+  st_transform(., 27700)
+
+OSM <- st_read(here::here("prac5_data",
+                          "greater-london-latest-free.shp", 
+                          "gis_osm_pois_a_free_1.shp")) %>%
+  st_transform(., 27700) %>%
+  #select hotels only
+  filter(fclass == 'hotel')
+
+
+join_example <-  st_join(OSM, Londonborough)
+
+nrow(join_example)
+```
+
+In the example from last week I
+
+* Loaded in OSM and airbnb data
+* Counted it within each London Borough
+* Joined the two sf datasets to make one sf object that had the number of hotels and airbnb...
+
+Let's get to the point where i joined the two datasets...i've removed some of the other mapping code...
+
+```{r, message=FALSE}
+OSM <- st_read(here::here("prac5_data",
+                          "greater-london-latest-free.shp", 
+                          "gis_osm_pois_a_free_1.shp")) %>%
+  st_transform(., 27700) %>%
+  #select hotels only
+  filter(fclass == 'hotel')
+
+
+#London Borough data is already in 277000
+Londonborough <- st_read(here::here("Prac1_data",
+                                    "statistical-gis-boundaries-london", 
+                                    "ESRI", 
+                                    "London_Borough_Excluding_MHW.shp"))%>%
+  st_transform(., 27700)
+
+# read in the .csv
+# and make it into spatial data
+
+Airbnb <- read_csv("prac5_data/listings.csv") %>%
+  st_as_sf(., coords = c("longitude", "latitude"), 
+                   crs = 4326) %>%
+    st_transform(., 27700)%>%
+    #select entire places that are available all year
+    filter(room_type == 'Entire home/apt' & availability_365 =='365')
+
+
+# make a function for the join
+# functions are covered in practical 7
+# but see if you can work out what is going on
+# hint all you have to do is replace data1 and data2
+# with the data you want to use
+
+Joinfun <- function(data1, data2){
+
+output<- data1%>%
+  st_join(Londonborough,.) %>%
+  add_count(GSS_CODE, name="hotels_in_borough") 
+
+  return(output)
+}
+
+# use the function for hotels
+Hotels <- Joinfun(OSM, Londonborough)
+
+# then for airbnb
+Airbnb <- Joinfun(Airbnb, Londonborough)
+ 
+Hotels <- Hotels %>%
+  #at the moment each hotel is a row for the borough
+  #we just one one row that has number of airbnbs
+  group_by(., GSS_CODE, NAME)%>%
+  summarise(`Accomodation count` = unique(hotels_in_borough))
+
+Airbnb <- Airbnb %>%
+  group_by(., GSS_CODE, NAME)%>%
+  summarise(`Accomodation count` = unique(hotels_in_borough))
+
+```
+At this point I have
+
+* `Airbnb` sf object = airbnbs per borough
+* `Hotels` sf object = hotels per borough
+
+Now how do i join them? Well i could try and use a `left_join()` but it won't work with spatial data...the error message says to use `st_join()`
+
+```{r, message=FALSE, eval=FALSE}
+ left_join<- left_join(Hotels, Airbnb,
+            by = c("GSS_CODE" = "GSS_CODE"))
+```
+Ok, so `st_join()`
+
+```{r, message=FALSE}
+
+all_accomidation <- st_join(Hotels, Hotels)
+
+head(all_accomidation)
+```
+
+Now this produces something that looks wrong, but recall:
+
+* `st_join` is a left join, here the left table is hotels
+* `st_join` uses `st_intersects()` by default. This means for the hotel data, where the airbnb intersects each hotel borough a new row is added.
+
+To rectify this we can change the argument to `st_equals()` that retutns the data based on the same geonetries (or polygons)....
+
+
+```{r, message=FALSE}
+
+all_accomidation <- st_join(Hotels, Hotels, join = st_equals)
+
+head(all_accomidation)
+```
+
+You don't need to learn all the functions here, but you need to know where to look and essentially the responses to these questions...
+
+Question....do i want to:
+
+* Select points or polygons in a polygon = Selecting data by location = **spatial sub-setting**
+
+* Determine where datasets overlap (or touch, or don't overlap) and extract those parts = **spatial clipping**
+
+* Join two spatial datasets together = **spatial joining**, which can use spatial subsetting functions as the default is `st_intersects()`.
+
+Finally,
+
+* Selecting data by attributes = filtering or selecting rows / columns with dplyr 
 
 ### Study area
 
@@ -168,6 +311,7 @@ From this point, we could try and carry out our analysis on the whole of London,
 ```{r, cache=FALSE, warning=FALSE, message=FALSE}
 #extract the borough
 
+# select by attribute
 Harrow <- BoroughMap %>%
   filter(., NAME=="Harrow")
 
@@ -553,4 +697,5 @@ autoplot.OpenStreetMap(basemap_bng)+
 ## Point pattern analysis summary
 
 This is end of the point pattern analysis section of the practical. You have  been introduced to the basics of Point Pattern Analysis examining the distribution of Blue Plaques in a London Borough. At this point, you may wish to try running similar analyses on different boroughs (or indeed the whole city) and playing with some of the outputs --- although you will find that Ripley's K will fall over very quickly if you try to run the analysis on that many points) 
+
 This how you might make use of these techniques in another context or with different point data...

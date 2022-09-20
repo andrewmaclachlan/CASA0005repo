@@ -878,7 +878,7 @@ Here:
 
 ##### Lag impacts
 
-*Warning* according to Solymosi and Medina (2022) you must not not compare the coefficients of this to regular OLS...**Why ?**
+**Warning** according to Solymosi and Medina (2022) you must not not compare the coefficients of this to regular OLS...**Why ?**
 
 Well in OLS recall we can use the coefficients to say...a 1 unit change in the independent variable means a drop or rise in the dependent (for a 1% increase in unauthorised absence from school GSCE scores to drop by -41.2 points). **BUT** here the model is not consistent as the observations will change based on the weight matrix neighbours selected which might vary (almost certainly in a distance based matrix). This means we have a direct effect (standard OLS) and then an indirect effect in the model (impact of the spatial lag).
 
@@ -931,13 +931,15 @@ sum
 
 The results on the entire datasets will differ as that used `C` which is a globally standardised weight matrix.
 
-In the sparse example, there are two examples different arguments, this is a beyond the scope here but for reference.... 
+In the sparse example, there are different two examples using slightly different arguments that control the sparse matrix, this is beyond the scope here (so don't worry about it) but for reference.... 
 
 * `mult` which is (default) for powering a sparse matrix (with moderate or larger N, the matrix becomes dense, and may lead to swapping)
 
 *  `MC` for Monte Carlo simulation of the traces (the first two simulated traces are replaced by their analytical equivalents)
 
-**However**, when discussing this with Adam, he believes the coefficients can be compared as essentially you are still trying to model the same dependent variable...what do you think?
+The purpose of providing this extra step is in case you have a large data set in the exam and wish to do compute the direct and indirect.  
+
+**However**, when discussing this with Adam, he believes the coefficients across models can be compared as essentially you are still trying to model the same dependent variable...what do you think?
   
 For more details and another example see [Fitting and interpreting a spatially lagged model](https://maczokni.github.io/crime_mapping_textbook/spatial-regression-models.html#fitting-and-interpreting-a-spatially-lagged-model) by Solymosi and Medina (2022).
 

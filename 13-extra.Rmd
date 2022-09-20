@@ -1,4 +1,4 @@
-# Extra reproducibility 
+# Extra reproducibility {-}
 
 This file contains extra notes that aren't required for the module, but might be if you get stuck in future analysis. 
 

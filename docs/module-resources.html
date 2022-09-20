@@ -31,7 +31,7 @@
   <link rel="apple-touch-icon-precomposed" sizes="120x120" href="assets/apple-touch-icon.png" />
   <link rel="shortcut icon" href="assets/favicon.ico" type="image/x-icon" />
 <link rel="prev" href="explaining-spatial-patterns.html"/>
-
+<link rel="next" href="extra-reproducibility.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -1093,8 +1093,6 @@ div.csl-indent {
 <li class="chapter" data-level="4.6.1" data-path="git-github-and-rmarkdown.html"><a href="git-github-and-rmarkdown.html#html"><i class="fa fa-check"></i><b>4.6.1</b> HTML</a></li>
 <li class="chapter" data-level="4.6.2" data-path="git-github-and-rmarkdown.html"><a href="git-github-and-rmarkdown.html#knit-options"><i class="fa fa-check"></i><b>4.6.2</b> Knit options</a></li>
 <li class="chapter" data-level="4.6.3" data-path="git-github-and-rmarkdown.html"><a href="git-github-and-rmarkdown.html#shortcuts"><i class="fa fa-check"></i><b>4.6.3</b> Shortcuts</a></li>
-<li class="chapter" data-level="4.6.4" data-path="git-github-and-rmarkdown.html"><a href="git-github-and-rmarkdown.html#renv"><i class="fa fa-check"></i><b>4.6.4</b> renv</a></li>
-<li class="chapter" data-level="4.6.5" data-path="git-github-and-rmarkdown.html"><a href="git-github-and-rmarkdown.html#referencing-and-more"><i class="fa fa-check"></i><b>4.6.5</b> Referencing and more</a></li>
 </ul></li>
 <li class="chapter" data-level="4.7" data-path="git-github-and-rmarkdown.html"><a href="git-github-and-rmarkdown.html#further-reading"><i class="fa fa-check"></i><b>4.7</b> Further reading</a></li>
 <li class="chapter" data-level="4.8" data-path="git-github-and-rmarkdown.html"><a href="git-github-and-rmarkdown.html#feedback-3"><i class="fa fa-check"></i><b>4.8</b> Feedback</a></li>
@@ -1126,11 +1124,12 @@ div.csl-indent {
 </ul></li>
 <li class="chapter" data-level="5.7" data-path="map-making.html"><a href="map-making.html#r-2"><i class="fa fa-check"></i><b>5.7</b> R</a>
 <ul>
-<li class="chapter" data-level="5.7.1" data-path="map-making.html"><a href="map-making.html#static-map"><i class="fa fa-check"></i><b>5.7.1</b> Static map</a></li>
-<li class="chapter" data-level="5.7.2" data-path="map-making.html"><a href="map-making.html#inset-map"><i class="fa fa-check"></i><b>5.7.2</b> Inset map</a></li>
-<li class="chapter" data-level="5.7.3" data-path="map-making.html"><a href="map-making.html#export"><i class="fa fa-check"></i><b>5.7.3</b> Export</a></li>
-<li class="chapter" data-level="5.7.4" data-path="map-making.html"><a href="map-making.html#basic-interactive-map"><i class="fa fa-check"></i><b>5.7.4</b> Basic interactive map</a></li>
-<li class="chapter" data-level="5.7.5" data-path="map-making.html"><a href="map-making.html#advanced-interactive-map"><i class="fa fa-check"></i><b>5.7.5</b> Advanced interactive map</a></li>
+<li class="chapter" data-level="5.7.1" data-path="map-making.html"><a href="map-making.html#spatial-joining"><i class="fa fa-check"></i><b>5.7.1</b> Spatial joining</a></li>
+<li class="chapter" data-level="5.7.2" data-path="map-making.html"><a href="map-making.html#static-map"><i class="fa fa-check"></i><b>5.7.2</b> Static map</a></li>
+<li class="chapter" data-level="5.7.3" data-path="map-making.html"><a href="map-making.html#inset-map"><i class="fa fa-check"></i><b>5.7.3</b> Inset map</a></li>
+<li class="chapter" data-level="5.7.4" data-path="map-making.html"><a href="map-making.html#export"><i class="fa fa-check"></i><b>5.7.4</b> Export</a></li>
+<li class="chapter" data-level="5.7.5" data-path="map-making.html"><a href="map-making.html#basic-interactive-map"><i class="fa fa-check"></i><b>5.7.5</b> Basic interactive map</a></li>
+<li class="chapter" data-level="5.7.6" data-path="map-making.html"><a href="map-making.html#advanced-interactive-map"><i class="fa fa-check"></i><b>5.7.6</b> Advanced interactive map</a></li>
 </ul></li>
 <li class="chapter" data-level="5.8" data-path="map-making.html"><a href="map-making.html#bad-maps"><i class="fa fa-check"></i><b>5.8</b> Bad maps</a></li>
 <li class="chapter" data-level="5.9" data-path="map-making.html"><a href="map-making.html#feedback-4"><i class="fa fa-check"></i><b>5.9</b> Feedback</a></li>
@@ -1146,7 +1145,9 @@ div.csl-indent {
 <ul>
 <li class="chapter" data-level="6.5.1" data-path="detecting-spatial-patterns.html"><a href="detecting-spatial-patterns.html#data-cleaning"><i class="fa fa-check"></i><b>6.5.1</b> Data cleaning</a></li>
 <li class="chapter" data-level="6.5.2" data-path="detecting-spatial-patterns.html"><a href="detecting-spatial-patterns.html#spatial-subsetting"><i class="fa fa-check"></i><b>6.5.2</b> Spatial subsetting</a></li>
-<li class="chapter" data-level="6.5.3" data-path="detecting-spatial-patterns.html"><a href="detecting-spatial-patterns.html#study-area"><i class="fa fa-check"></i><b>6.5.3</b> Study area</a></li>
+<li class="chapter" data-level="6.5.3" data-path="detecting-spatial-patterns.html"><a href="detecting-spatial-patterns.html#spatial-clipping"><i class="fa fa-check"></i><b>6.5.3</b> Spatial clipping</a></li>
+<li class="chapter" data-level="6.5.4" data-path="detecting-spatial-patterns.html"><a href="detecting-spatial-patterns.html#spatial-joining-1"><i class="fa fa-check"></i><b>6.5.4</b> Spatial joining</a></li>
+<li class="chapter" data-level="6.5.5" data-path="detecting-spatial-patterns.html"><a href="detecting-spatial-patterns.html#study-area"><i class="fa fa-check"></i><b>6.5.5</b> Study area</a></li>
 </ul></li>
 <li class="chapter" data-level="6.6" data-path="detecting-spatial-patterns.html"><a href="detecting-spatial-patterns.html#point-pattern-analysis"><i class="fa fa-check"></i><b>6.6</b> Point pattern analysis</a>
 <ul>
@@ -1235,6 +1236,15 @@ div.csl-indent {
 </ul></li>
 <li class="chapter" data-level="8.15" data-path="module-resources.html"><a href="module-resources.html#data-2"><i class="fa fa-check"></i><b>8.15</b> Data</a></li>
 <li class="chapter" data-level="8.16" data-path="module-resources.html"><a href="module-resources.html#data-lists-1"><i class="fa fa-check"></i><b>8.16</b> Data lists</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="extra-reproducibility.html"><a href="extra-reproducibility.html"><i class="fa fa-check"></i>Extra reproducibility</a>
+<ul>
+<li class="chapter" data-level="8.17" data-path="extra-reproducibility.html"><a href="extra-reproducibility.html#git-and-github-1"><i class="fa fa-check"></i><b>8.17</b> Git and GitHub</a>
+<ul>
+<li class="chapter" data-level="8.17.1" data-path="extra-reproducibility.html"><a href="extra-reproducibility.html#back-in-time"><i class="fa fa-check"></i><b>8.17.1</b> Back in time</a></li>
+</ul></li>
+<li class="chapter" data-level="8.18" data-path="extra-reproducibility.html"><a href="extra-reproducibility.html#renv"><i class="fa fa-check"></i><b>8.18</b> renv</a></li>
+<li class="chapter" data-level="8.19" data-path="extra-reproducibility.html"><a href="extra-reproducibility.html#referencing-and-more"><i class="fa fa-check"></i><b>8.19</b> Referencing and more</a></li>
 </ul></li>
 <li class="divider"></li>
 <li><center>
@@ -1435,51 +1445,15 @@ Every year there is a useR conference that provides a load to tutorials on the l
 <p><a href="https://github.com/awesomedata/awesome-public-datasets">Awesome public datasets</a> have a wide range all data (some geographic, some not):
 <a href="https://twitter.com/sciremotesense">Robin Wilson</a> has authored one of <a href="https://freegisdata.rtwilson.com/">the most extensive data lists that i’ve come across</a></p>
 
-<div id="refs" class="references csl-bib-body hanging-indent">
-<div class="csl-entry">
-Cosh, Georgie. 2020. <span>“<span class="nocase">GLA Housing and Land Short-term and holiday letting in London</span>.”</span>
-</div>
-<div class="csl-entry">
-Donoho, David. 2017. <span>“<span class="nocase">50 Years of Data Science</span>.”</span> <em>Journal of Computational and Graphical Statistics</em> 26 (4): 745–66. <a href="https://doi.org/10.1080/10618600.2017.1384734">https://doi.org/10.1080/10618600.2017.1384734</a>.
-</div>
-<div class="csl-entry">
-Glassdoor. 2020. <span>“<span class="nocase">50 Best Jobs in America for 2019</span>.”</span> <a href="https://www.glassdoor.co.uk/List/Best-Jobs-in-America-LST_KQ0,20.htm">https://www.glassdoor.co.uk/List/Best-Jobs-in-America-LST_KQ0,20.htm</a>.
-</div>
-<div class="csl-entry">
-Grolemund, Garrett., and Hadley. Wickham. 2017. <em><span class="nocase">R for Data Science</span></em>. O’Reilly.
-</div>
-<div class="csl-entry">
-Guha, Subhanil, Himanshu Govil, Anindita Dey, and Neetu Gill. 2018. <span>“<span class="nocase">Analytical study of land surface temperature with NDVI and NDBI using Landsat 8 OLI and TIRS data in Florence and Naples city, Italy</span>.”</span> <em>European Journal of Remote Sensing</em> 51 (1): 667–78. <a href="https://doi.org/10.1080/22797254.2018.1474494">https://doi.org/10.1080/22797254.2018.1474494</a>.
-</div>
-<div class="csl-entry">
-Li, Songnian, Suzana Dragicevic, Francesc Antón Castro, Monika Sester, Stephan Winter, Arzu Coltekin, Christopher Pettit, et al. 2016. <span>“<span class="nocase">Geospatial big data handling theory and methods: A review and research challenges</span>.”</span> <em>ISPRS Journal of Photogrammetry and Remote Sensing</em> 115: 119–33. <a href="https://doi.org/10.1016/j.isprsjprs.2015.10.012">https://doi.org/10.1016/j.isprsjprs.2015.10.012</a>.
-</div>
-<div class="csl-entry">
-Lovelace, Robin., Jakub. Nowosad, and Jannes. Muenchow. 2019. <em><span class="nocase">Geocomputation with R</span></em>. CRC Press. <a href="https://doi.org/10.1201/9780203730058">https://doi.org/10.1201/9780203730058</a>.
-</div>
-<div class="csl-entry">
-Pattabiraman, Kumaresh. 2019. <span>“<span class="nocase">LinkedIn’s Most Promising Jobs of 2019</span>.”</span> <a href="https://blog.linkedin.com/2019/january/10/linkedins-most-promising-jobs-of-2019">https://blog.linkedin.com/2019/january/10/linkedins-most-promising-jobs-of-2019</a>.
-</div>
-<div class="csl-entry">
-The Universities and Colleges Admissions Service. 2020. <span>“<span class="nocase">UCAS Postgraduate courses</span>.”</span> <a href="https://digital.ucas.com/coursedisplay/results/providers?studyYear=2019{\&amp;}destination=Postgraduate{\&amp;}postcodeDistanceSystem=imperial{\&amp;}pageNumber=1{\&amp;}sort=MostRelevant{\&amp;}searchTerm=data science">https://digital.ucas.com/coursedisplay/results/providers?studyYear=2019{\&amp;}destination=Postgraduate{\&amp;}postcodeDistanceSystem=imperial{\&amp;}pageNumber=1{\&amp;}sort=MostRelevant{\&amp;}searchTerm=data science</a>.
 </div>
 </div>
-</div>
-</div>
-
-
-
-
-
-
-
             </section>
 
           </div>
         </div>
       </div>
-<a href="explaining-spatial-patterns.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-
+<a href="explaining-spatial-patterns.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="extra-reproducibility.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

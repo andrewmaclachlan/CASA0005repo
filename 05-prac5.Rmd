@@ -259,6 +259,32 @@ Make sure you save your model from the top tool bar either as a standalone model
 
 Your R and geographical skills are certainly improving by now, so i'm just going to provide you with the R code i used to do this analysis...
 
+### Spatial joining
+
+I will note that i have made use of a new function called `st_join()`. This is similar to the the joins we explored with attribute data (e.g. joining based on a unique attribute column) but here we just want to join datasets together and keep all their attribute data, this is useful in the code below where i want to join assign the London Borough to each hotel in London. The output will be a massive dataset where each hotel will be a new row and will retain the attributes of the hotel data but also append the attribute of the borough....`st_join()` defaults to a left join, so in this case the borough data is the left dataset and all the right data has been appended to it. If the left data (borough) had no matches (so no hotels) they would still appear in the final dataset. The default argument for this is `st_intersects` but we will explore this more next week.
+
+
+```{r, message=FALSE}
+Londonborough <- st_read(here::here("Prac1_data",
+                                    "statistical-gis-boundaries-london", 
+                                    "ESRI", 
+                                    "London_Borough_Excluding_MHW.shp"))%>%
+  st_transform(., 27700)
+
+OSM <- st_read(here::here("prac5_data",
+                          "greater-london-latest-free.shp", 
+                          "gis_osm_pois_a_free_1.shp")) %>%
+  st_transform(., 27700) %>%
+  #select hotels only
+  filter(fclass == 'hotel')
+
+
+join_example <-  st_join(Londonborough, OSM)
+
+head(join_example)
+```
+
+
 ### Static map
 
 ```{r message=FALSE, warning=FALSE, cache=FALSE, out.width="800pt"}
@@ -316,7 +342,7 @@ Airbnb <- read_csv("prac5_data/listings.csv") %>%
 Joinfun <- function(data1, data2){
 
 output<- data1%>%
-  st_join(Londonborough,.)%>%
+  st_join(Londonborough,.) %>%
   add_count(GSS_CODE, name="hotels_in_borough") 
 
   return(output)
@@ -395,7 +421,7 @@ t=tmap_arrange(tm1, tm2, tm3, legend, ncol=2)
 t
 ```
 
-We can also arrage our maps using the ```grid``` package...
+We can also arrange our maps using the ```grid``` package...
 
 ```{r warning=FALSE, message=FALSE, out.width = "800pt", cache=FALSE}
 
