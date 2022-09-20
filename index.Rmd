@@ -23,7 +23,7 @@ htmltools::tagList(rmarkdown::html_dependency_font_awesome())
  
 # Welcome {-}
 
-[![status](https://jose.theoj.org/papers/a05734775775d1ef968e582ce9a7cb17/status.svg)](https://jose.theoj.org/papers/a05734775775d1ef968e582ce9a7cb17)[![CC BY-SA 4.0][cc-by-sa-shield]][cc-by-sa]
+[![status](https://jose.theoj.org/papers/a05734775775d1ef968e582ce9a7cb17/status.svg)](https://jose.theoj.org/papers/a05734775775d1ef968e582ce9a7cb17)[![License: CC BY-SA 4.0](https://img.shields.io/badge/License-CC_BY--SA_4.0-lightgrey.svg)](https://creativecommons.org/licenses/by-sa/4.0/)
 
 
 Hello <a href="https://www.ucl.ac.uk/bartlett/casa/"><img src="general_images/casa_logo.jpg" width="120" alt="CASA0005 course" align="right" style="margin: 0 1em 0 1em" /></a> and a warm welcome to the CASA0005 Geographic Information Systems and Science online practical handbook. 

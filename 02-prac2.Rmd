@@ -892,12 +892,12 @@ As with all plots in R, there are multiple ways we can do this. The basic ```plo
 
 Move either to your project folder and read it in. The `.shp` is normally quicker to load.
 
-```{r, cache=TRUE, eval=FALSE}
+```{r, cache=FALSE, eval=FALSE}
 # this will take a few minutes
 EW <- st_read("https://opendata.arcgis.com/datasets/8edafbe3276d4b56aec60991cbddda50_2.geojson")
 ```
 
-```{r, cache=TRUE, eval=TRUE}
+```{r, cache=FALSE, eval=TRUE}
 # this will take a few minutes
 # geojson in local folder
 #EW <- st_read(here::here("prac2_data",

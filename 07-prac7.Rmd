@@ -1,7 +1,51 @@
+# Spatial autocorrelation
 
-# Spatial Autocorrelation
+## Learning outcomes
 
-## Analysing Spatial Autocorrelation with Moran's I, LISA and friends
+By the end of this practical you should be able to:
+
+1. Execute data cleaning and manipulation appropriate for analysis 
+1. Explain and implement different models for spatial relationships (e.g. spatial weights)
+1. Investigate the degree to which values at spatial points are similar (or different) to each other
+1. Interpret the meaning of spatial autocorrleation in spatial data
+
+## Homework 
+
+Outside of our scheduled sessions you should be doing around 12 hours of extra study per week. Feel free to follow your own GIS interests, but good places to start include the following:
+
+::: {.infobox .assignment data-latex="{note}"}
+**Exam**
+
+Each week we will provide a short task to test your knowledge, these should be used to guide your study for the final exam.
+
+For the task this week complete the practice exam question you started last week with the new tools you have learnt.
+
+:::
+
+::: {.infobox .note data-latex="{note}"}
+**Reading**
+
+This week:
+
+* [What Problem? Spatial Autocorrelation and Geographic Information Science](https://onlinelibrary.wiley.com/doi/10.1111/j.1538-4632.2009.00769.x) by Goodchild (2009).
+
+* [Chapter 13 "Spatial Autocorrelation"](https://mgimond.github.io/Spatial/spatial-autocorrelation.html) from Intro to GIS and Spatial Analysis by Gimond (2019).
+
+* [Spatial Point Pattern Analysis and Its Application in Geographical Epidemiology](https://www.jstor.org/stable/pdf/622936.pdf) by Gatrell et al. (1996)
+
+Remember this is just a starting point, explore the [reading list](https://rl.talis.com/3/ucl/lists/139FBAF8-DACD-60FB-8BDC-E9C9E09BA885.html?lang=en-GB&login=1), practical and lecture for more ideas.
+:::
+## Recommended listening `r emo::ji("headphones")`
+
+Some of these practicals are long, take regular breaks and have a listen to some of our fav tunes each week.
+
+[Andy](https://www.youtube.com/watch?v=hlVBg7_08n0)
+
+[Adam](https://open.spotify.com/album/4OCAtcMneSzQKZGJK95ayo?si=YRtNrsspTF6XpTPRjv2XFg) This week it's the head honcho himself, the man, the legend that is Tony Colman, CEO and founder of Hospital Records --- his new album Building Better Worlds is a masterpiece! Enjoy!  
+
+## Introduction
+
+### Analysing Spatial Autocorrelation with Moran's I, LISA and friends
 
 In this section we are going to explore patterns of spatially referenced continuous observations using various measures of spatial autocorrelation. Spatial autocorrelation is a measure of similarity between nearby data. Check out the various references in the reading list for more information about the methods we will explore today. There are also useful links in the help file of the `spdep` package which we will be using here.
 
@@ -9,7 +53,7 @@ In this section we are going to explore patterns of spatially referenced continu
 
 Before we get any further, let's get some ward boundaries read in to R --- download LondonWardData from [the London Data store](https://data.london.gov.uk/dataset/statistical-gis-boundary-files-london) and read it in...
 
-```{r, cache=TRUE, message=FALSE, warning=FALSE}
+```{r, cache=FALSE, message=FALSE, warning=FALSE}
 library(here)
 library(janitor)
 library(dplyr)
@@ -41,15 +85,20 @@ It's probably projected correctly, but in case it isn't give it a projection usi
 #have a look to check that it's 
 #in the right projection
 st_crs(LondonWardsMerged)
+```
 
-tmap_mode("view")
+Always plot the data to check it looks reasonable (e.g. there are no points in other countries / the latitude and longitdue are correct)
+
+```{r, cache=FALSE, message=FALSE, warning=FALSE}
+
+tmap_mode("plot")
 tm_shape(LondonWardsMerged) +
   tm_polygons(col = NA, alpha = 0.5) +
 tm_shape(BluePlaques) +
   tm_dots(col = "blue")
 ```
 
-### Data cleaning 
+## Data cleaning 
 
 Ah yes, we might need to lose the blue plaques that fall outside of London
 
@@ -63,7 +112,7 @@ tm_shape(BluePlaquesSub) +
   tm_dots(col = "blue")
 ```
 
-### Data manipulation 
+## Data manipulation 
 
 The measures of spatial autocorrelation that we will be using require continuous observations (counts of blue plaques, average GCSE scores, average incomes etc.) to be spatially referenced (i.e. attached to a spatial unit like a ward or a borough). The file you have already has the various obervations associated with the London Ward data file already attached to it, but let's continue with our blue plaques example for now. 
 
@@ -105,6 +154,8 @@ tm_shape(points_sf_joined) +
 
 So, from the map, it looks as though we might have some clustering of blue plaques in the centre of London so let's check this with Moran's I and some other statistics. 
 
+## Weight matrix
+
 Before being able to calculate Moran's I and any similar statistics, we need to first define a \(W_{ij}\) spatial weights matrix
 
 ```{r, message=FALSE, warning=FALSE, cache=FALSE}
@@ -113,7 +164,7 @@ library(spdep)
 
 First calculate the centroids of all Wards in London
 
-```{r message=FALSE, warning=FALSE, cache=TRUE}
+```{r message=FALSE, warning=FALSE, cache=FALSE}
 #First calculate the centroids of all Wards in London
 
 coordsW <- points_sf_joined%>%
@@ -124,17 +175,22 @@ plot(coordsW,axes=TRUE)
 
 ```
 
-Now we need to generate a spatial weights matrix (remember from the lecture). We'll start with a simple binary matrix of queen's case neighbours (otherwise known as Contiguity edges corners). This method means that polygons with a shared  edge or a corner will be included in computations for the target polygon...
+Now we need to generate a spatial weights matrix (remember from the lecture). We'll start with a simple binary matrix of queen's case neighbours (otherwise known as Contiguity edges corners). This method means that polygons with a shared  edge or a corner will be included in computations for the target polygon...A **spatial weight matrix represents the spatial element of our data**, this means we are trying to conceptualize and model how parts of the data are linked (or not linked) to each other spatially, using rules that we will set. 
 
 **A note on spatial weight matrices**
 
 If the features share a boundary they are **contiguous**, this can also be classed as only common boundaries --- a **rook** (like chess a rook can move forwards or side wards) or any point in common (e.g. corners / other boundaries) --- a **queen** (like chess a queen can move forwards, backwards or on a diagonal).
 
+
+```{r echo=FALSE, out.width = "450pt", fig.align='center', cache=FALSE, message=FALSE, fig.cap="Source: [Manuel S. Gonzalez Canche](https://rpubs.com/msgc/matrices_influence)"}
+knitr::include_graphics('prac6_images/weights.png')
+```
+
 **Alternatively** instead of using contiguous relationships you can use **distance** based relationships. This is frequently done with k nearest neighbours in which k is set to the closest observations. e.g. K=3 means the three closest observations. 
 
 In the first instance we must create a neighbours list --- which is a list of all the neighbours. To do so we will use `poly2nb()` with the argument `queen=T` saying we want a to use Queens case. Let's see a summary of the output
 
-```{r message=FALSE, warning=FALSE, cache=TRUE}
+```{r message=FALSE, warning=FALSE, cache=FALSE}
 #create a neighbours list
 LWard_nb <- points_sf_joined %>%
   poly2nb(., queen=T)
@@ -143,17 +199,19 @@ LWard_nb <- points_sf_joined %>%
 
 The output is a neighbour list object hence why i've called the object `LWard_nb`. We can get some summary info and plot the matrix.
 
-```{r message=FALSE, warning=FALSE, cache=TRUE}
+```{r message=FALSE, warning=FALSE, cache=FALSE}
 summary(LWard_nb)
 ```
 Here it is telling us that the average number of neighbours is 5.88. Now let's plot the neighbours.
 
-```{r message=FALSE, warning=FALSE, cache=TRUE}
+```{r message=FALSE, warning=FALSE, cache=FALSE}
 #plot them
 plot(LWard_nb, st_geometry(coordsW), col="red")
 #add a map underneath
 plot(points_sf_joined$geometry, add=T)
 ```
+
+### Matrix style
 
 From the weights list we must now make a spatial weight matrix. This makes a matrix the size of the number of neighbourhoods with values indicating if the elements in the rows are a neighbour or not. The style of weight is especially important here:
 
@@ -165,7 +223,7 @@ From the weights list we must now make a spatial weight matrix. This makes a mat
 
 To understand this further let's start with binary. 
 
-```{r message=FALSE, warning=FALSE, cache=TRUE}
+```{r message=FALSE, warning=FALSE, cache=FALSE}
 #create a spatial weights matrix from these weights
 Lward.lw <- LWard_nb %>%
   nb2mat(., style="B")
@@ -176,23 +234,25 @@ Summing the binary (1/0) shows that we have 3680 neighbours. Now if we were to d
 
 Alternatively we can do **row** standardisation where 1 is divided by the sum of the number of neighbours in each row. For example, row 1 here sums to 6, meaning each weight would be 0.166 in row 1 only.
 
-```{r message=FALSE, warning=FALSE, cache=TRUE}
+```{r message=FALSE, warning=FALSE, cache=FALSE}
 sum(Lward.lw[,1])
 ```
 Standardisation permits comparable spatial parameters. But you also need to consider geographical features --- should a neighbour be a neighbour if there is a river between them?
 
-### Spatial autocorrelation
+## Autocorrelation
 
 Now we have defined our \(W_{ij}\) matrix, we can calculate the Moran's I and other associated statistics. However, Moran's I requires a spatial weight **list** type object as opposed to **matrix**, this is simply...
 
-```{r message=FALSE, warning=FALSE, cache=TRUE}
+```{r message=FALSE, warning=FALSE, cache=FALSE}
 Lward.lw <- LWard_nb %>%
   nb2listw(., style="C")
 ```
 
-Moran's I test tells us whether we have clustered values (close to 1) or dispersed values (close to -1), we will calculate for the densities rather than raw values
+### Moran's I
 
-```{r, cache=TRUE}
+Moran's I test tells us whether we have clustered values (close to 1) or dispersed values (close to -1), we will calculate for the densities rather than raw values (think about why this is?). 
+
+```{r, cache=FALSE}
 I_LWard_Global_Density <- points_sf_joined %>%
   pull(density) %>%
   as.vector()%>%
@@ -201,9 +261,11 @@ I_LWard_Global_Density <- points_sf_joined %>%
 I_LWard_Global_Density
 ```
 
+### Geary's C
+
 Geary's C as well..? This tells us whether similar values or dissimilar values are clustering
 
-```{r, cache=TRUE}
+```{r, cache=FALSE}
 C_LWard_Global_Density <- 
   points_sf_joined %>%
   pull(density) %>%
@@ -213,9 +275,11 @@ C_LWard_Global_Density <-
 C_LWard_Global_Density
 ```
 
+### Getis Ord
+
 Getis Ord General G...? This tells us whether high or low values are clustering. If G > Expected = High values clustering; if G < expected = low values clustering
 
-```{r, cache=TRUE}
+```{r, cache=FALSE}
 G_LWard_Global_Density <- 
   points_sf_joined %>%
   pull(density) %>%
@@ -227,6 +291,8 @@ G_LWard_Global_Density
 
 So the global statistics are indicating that we have spatial autocorrelation of Blue Plaques in London:
 
+### Summary
+
 The Moran's I statistic = 0.67 (remember 1 = clustered, 0 = no pattern, -1 = dispersed) which shows that we have some distinctive clustering
 
 The Geary's C statistic = 0.41 (remember Geary's C falls between 0 and 2; 1 means no spatial autocorrelation, <1 - positive spatial autocorrelation or similar values clustering, >1 - negative spatial autocorreation or dissimilar values clustering) which shows that similar values are clustering
@@ -235,7 +301,7 @@ The General G statistic = G > expected, so high values are tending to cluster.
 
 We can now also calculate local versions of the Moran's I statistic (for each Ward) and a Getis Ord \(G_{i}^{*}\) statistic to see *where* we have hot-spots...
 
-```{r, cache=TRUE}
+```{r, cache=FALSE}
 #use the localmoran function to generate I for each ward in the city
 
 I_LWard_Local_count <- points_sf_joined %>%
@@ -256,7 +322,7 @@ slice_head(I_LWard_Local_Density, n=5)
 
 There are 5 columns of data. We want to copy some of the columns (the I score (column 1) and the z-score standard deviation (column 4)) back into the LondonWards spatialPolygonsDataframe
 
-```{r, cache=TRUE}
+```{r, cache=FALSE}
 points_sf_joined <- points_sf_joined %>%
   mutate(plaque_count_I = as.numeric(I_LWard_Local_count$Ii))%>%
   mutate(plaque_count_Iz =as.numeric(I_LWard_Local_count$Z.Ii))%>%
@@ -264,25 +330,25 @@ points_sf_joined <- points_sf_joined %>%
   mutate(density_Iz =as.numeric(I_LWard_Local_Density$Z.Ii))
 ```
 
-### Mapping outputs 
+## Mapping 
 
 No we can plot a map of the local Moran's I outputs...
 
 We'll set the breaks manually based on the rule that data points >2.58 or <-2.58 standard deviations away from the mean are significant at the 99% level (<1% chance that autocorrelation not present); >1.96 - <2.58 or <-1.96 to >-2.58 standard deviations are significant at the 95% level (<5% change that autocorrelation not present). >1.65 = 90% etc.
 
-```{r, cache=TRUE}
+```{r, cache=FALSE}
 breaks1<-c(-1000,-2.58,-1.96,-1.65,1.65,1.96,2.58,1000)
 ```
 
 Now create a new diverging colour brewer palette and reverse the order using `rev()` (reverse) so higher values correspond to red
 
-```{r, cache=TRUE}
+```{r, cache=FALSE}
 MoranColours<- rev(brewer.pal(8, "RdGy"))
 ```
 
 Plot on an interactive map
 
-```{r, cache=TRUE}
+```{r, cache=FALSE}
 tm_shape(points_sf_joined) +
     tm_polygons("plaque_count_Iz",
         style="fixed",
@@ -296,7 +362,7 @@ This map shows some areas in the centre of London that have relatively high scor
 
 What about the Getis Ord \(G_{i}^{*}\) statisic for hot and cold spots?
 
-```{r, cache=TRUE}
+```{r, cache=FALSE}
 Gi_LWard_Local_Density <- points_sf_joined %>%
   pull(density) %>%
   as.vector()%>%
@@ -309,14 +375,14 @@ head(Gi_LWard_Local_Density)
 Check the help file  (?localG) to see what a localG object looks like - it is a bit different from a localMoran object as it only contains just a single value - the z-score (standardised value relating to whether high values or low values are clustering together)
 And map the outputs...
 
-```{r, cache=TRUE}
+```{r, cache=FALSE}
 points_sf_joined <- points_sf_joined %>%
   mutate(density_G = as.numeric(Gi_LWard_Local_Density))
 ```
 
 And map the outputs...
 
-```{r, cache=TRUE}
+```{r, cache=FALSE}
 GIColours<- rev(brewer.pal(8, "RdBu"))
 
 #now plot on an interactive map
@@ -330,11 +396,11 @@ tm_shape(points_sf_joined) +
 
 ```
 
-### Other variables
+## Other variables
 
 The local Moran's I and \(G_{i}^{*}\) statistics for wards clearly show that the density of blue plaques in the centre of the city exhibits strong (and postitive) spatial autocorrelation, but neither of these maps are very interesting. Why not try some alternative variables and see what patterns emerge... here I'm going to have a look at Average GSCE scores...
 
-```{r, cache=TRUE}
+```{r, cache=FALSE}
 #use head to see what other variables are in the data file
 
 slice_head(points_sf_joined, n=2)
@@ -354,7 +420,7 @@ Datatypelist
 ```
 
 
-```{r, echo=TRUE, eval=FALSE, cache=TRUE}
+```{r, echo=TRUE, eval=FALSE, cache=FALSE}
 
 I_LWard_Local_GCSE <- LondonWardsMerged %>%
   arrange(GSS_CODE)%>%
@@ -377,9 +443,9 @@ tm_shape(points_sf_joined) +
         title="Local Moran's I, GCSE Scores")
 ```
 
-Now the Gi* statistic to look at clusters of high and low scores...
+Now the Gi* statistic to look at clusters of high and low scores and explain what the output map is showing and what other questions this can lead us to ask next week.....
 
-```{r, cache=TRUE}
+```{r, cache=FALSE}
 
 G_LWard_Local_GCSE <- LondonWardsMerged %>%
   dplyr::arrange(GSS_CODE)%>%

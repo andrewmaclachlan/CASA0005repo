@@ -61,7 +61,16 @@ In the worked example, we will explore the factors that might affect the average
 
 The London Data Store collates a range of other variables for each Ward and so we will see if any of these are able to help explain the patterns of exam performance that we see.
 
-This practical will walk you through the common steps that you should go through when building a regression model using spatial data to test a stated research hypothsis; from carrying out some descriptive visualisation and summary statistics, to interpreting the results and using the outputs of the model to inform your next steps. 
+This practical will walk you through the common steps that you should go through when building a regression model using spatial data to test a stated research hypothesis; from carrying out some descriptive visualisation and summary statistics, to interpreting the results and using the outputs of the model to inform your next steps.
+
+::: {.infobox .warning data-latex="{note}"}
+
+This practical is long and we will have two weeks to cover it. 
+
+It will first cover **linear regression** which you may have covered in other modules. It will then move to **spatial regression models**. 
+
+If you have a solid understanding of linear regression please progress to the [spatial regression models](https://andrewmaclachlan.github.io/CASA0005repo/explaining-spatial-patterns.html#spatial-regression-models) section.   
+:::
 
 ### Setting up your Data
 
@@ -580,9 +589,7 @@ Correlation <- LonWardProfiles %>%
 rplot(Correlation)
 ```
 
-Looking at either the correlation matrix or the correlation plot of that matrix, it's easy to see that there is a low correlation (around 30%) between our two independent variables. 
-
-Multiple linear regression can be explained nicely with this example from [allison_horst](https://twitter.com/allison_horst).
+Looking at either the correlation matrix or the correlation plot of that matrix, it's easy to see that there is a low correlation (around 30%) between our two independent variables. However, at this stage we might wish to introduce more variables into our model to improve our prediction of the dependent variable (GCSE scores), this is called **multiple linear regression**...multiple linear regression can be explained nicely with this example from [allison_horst](https://twitter.com/allison_horst).
 
 Let's meet our Multiple Linear Regression teaching assistants:
 
@@ -836,6 +843,8 @@ model2 <- lm(average_gcse_capped_point_scores_2014 ~ unauthorised_absence_in_all
 
 tidy(model2)
 ```
+##### Queen's case lag
+
 Now run a spatially-lagged regression model with a queen's case weights matrix
 
 ```{r, message=FALSE, cache=FALSE}
@@ -867,7 +876,74 @@ Here:
 
 * Lagrange Multiplier (LM) is a test for the absence of spatial autocorrelation in the lag model residuals. If significant then you can reject the Null (no spatial autocorrelation) and accept the alternative (is spatial autocorrelcation)
 
-*Warning* do not compare the coefficients of this to regular OLS --- see [Fitting and interpreting a spatially lagged model](https://maczokni.github.io/crimemapping_textbook_bookdown/spatial-regression-models.html#fitting-and-interpreting-a-spatially-lagged-model)
+##### Lag impacts
+
+*Warning* according to Solymosi and Medina (2022) you must not not compare the coefficients of this to regular OLS...**Why ?**
+
+Well in OLS recall we can use the coefficients to say...a 1 unit change in the independent variable means a drop or rise in the dependent (for a 1% increase in unauthorised absence from school GSCE scores to drop by -41.2 points). **BUT** here the model is not consistent as the observations will change based on the weight matrix neighbours selected which might vary (almost certainly in a distance based matrix). This means we have a direct effect (standard OLS) and then an indirect effect in the model (impact of the spatial lag).
+
+We can compute these direct and indirect effects using code from Solymosi and Medina (2022) and the [spatialreg](https://r-spatial.github.io/spatialreg/reference/impacts.html) package. Here the `impacts()` function calculates the impact of the spatial lag. We can fit this to our entire spatial weights....
+
+```{r, message=FALSE, cache=FALSE}
+
+# weight list is just the code from the lagsarlm
+weight_list<-nb2listw(LWard_knn, style="C")
+
+imp <- impacts(slag_dv_model2_queen, listw=weight_list)
+
+imp
+
+```
+
+Now it is appropriate to compare these coefficients to the OLS outputs...**however** if you have a very large matrix this might not work, instead a sparse matrix that uses approximation methods (see Solymosi and Medina (2022) and within that resource, Lesage and Pace 2009). This is beyond the scope of the content here, but essentially this makes the method faster on larger data...but only row standardised is permitted here...
+
+```{r, message=FALSE, cache=FALSE}
+
+slag_dv_model2_queen_row <- lagsarlm(average_gcse_capped_point_scores_2014 ~ unauthorised_absence_in_all_schools_percent_2013 + 
+               log(median_house_price_2014), 
+               data = LonWardProfiles, 
+               nb2listw(LWard_nb, style="W"), 
+               method = "eigen")
+
+
+W <- as(weight_list, "CsparseMatrix")
+
+trMatc <- trW(W, type="mult")
+trMC <- trW(W, type="MC")
+
+imp2 <- impacts(slag_dv_model2_queen_row, tr=trMatc, R=200)
+
+imp3 <- impacts(slag_dv_model2_queen_row, tr=trMC, R=200)
+
+imp2
+imp3
+```
+
+We can also get the p-values (where an R is set, this is the number of simulations to use)...from the sparse computation
+
+```{r, message=FALSE, cache=FALSE}
+
+sum <- summary(imp2,  zstats=TRUE, short=TRUE)
+
+sum
+
+```
+
+The results on the entire datasets will differ as that used `C` which is a globally standardised weight matrix.
+
+In the sparse example, there are two examples different arguments, this is a beyond the scope here but for reference.... 
+
+* `mult` which is (default) for powering a sparse matrix (with moderate or larger N, the matrix becomes dense, and may lead to swapping)
+
+*  `MC` for Monte Carlo simulation of the traces (the first two simulated traces are replaced by their analytical equivalents)
+
+**However**, when discussing this with Adam, he believes the coefficients can be compared as essentially you are still trying to model the same dependent variable...what do you think?
+  
+For more details and another example see [Fitting and interpreting a spatially lagged model](https://maczokni.github.io/crime_mapping_textbook/spatial-regression-models.html#fitting-and-interpreting-a-spatially-lagged-model) by Solymosi and Medina (2022).
+
+##### KNN case lag
+
+Now let's run a model with nearest neigh ours as opposed to queens neighbours
 
 ```{r, message=FALSE, cache=FALSE}
 #run a spatially-lagged regression model
@@ -882,7 +958,7 @@ slag_dv_model2_knn4 <- lagsarlm(average_gcse_capped_point_scores_2014 ~ unauthor
 tidy(slag_dv_model2_knn4)
 ```
 
-Using the 4 nearest neighbours instead of just considering all adjcent zones in the spatial weights matrix, the size and significance of the spatially lagged term changes quite dramatically. In the 4 nearest neighbour model it is both quite large, postitive and statistically significant (<0.05), conversely the effects of unauthorised absence and median house-price are reduced. What this means is that in our study area, the average GCSE score recorded in Wards across the city varies partially with the average GCSE score found in neighbouring Wards. Given the distribution of schools in the captial in relation to where pupils live, this makes sense as schools might draw pupils from a few close neighbouring wards rather than all neighbour bordering a particular Ward. 
+Using the 4 nearest neighbours instead of just considering all adjacent zones in the spatial weights matrix, the size and significance of the spatially lagged term changes quite dramatically. In the 4 nearest neighbour model it is both quite large, positive and statistically significant (<0.05), conversely the effects of unauthorised absence and median house-price are reduced. What this means is that in our study area, the average GCSE score recorded in Wards across the city varies partially with the average GCSE score found in neighbouring Wards. Given the distribution of schools in the capital in relation to where pupils live, this makes sense as schools might draw pupils from a few close neighbouring wards rather than all neighbour bordering a particular Ward. 
 
 Effectively, by ignoring the effects of spatial autocorrelation in the original OLS model, the impacts of unauthorised absence and affluence (as represented by average house price) were slightly overplayed. 
 
@@ -932,6 +1008,8 @@ tidy(sem_model1)
 ```
 
 Comparing the results of the spatial error model with the spatially lagged model and the original OLS model, the suggestion here is that the spatially correlated errors in residuals lead to an over-estimate of the importance of unauthorised absence in the OLS model and an under-estimate of the importance of affluence, represented by median house prices. Conversely, the spatial error model estimates higher parameter values for both variables when compared to the spatially lagged model. 
+
+Note, here we can compare to OLS as there is no spatial lag.
 
 Both the $\lambda$ parameter in the spatial error model and the $\rho$ parameter in the spatially lagged model are larger than their standard errors, so we can conclude that spatial dependence should be borne in mind when interpreteing the results of this regression model. 
 

@@ -10,9 +10,12 @@ To get QGIS on your personal machine go to: https://qgis.org/en/site/forusers/do
 
 I install the OSGeo4W version. The nature of open-source means that several programs will rely on each other for features. OSGeo4W tracks all the shared requirements and does not install any duplicates. 
 
-When you click through the dialogue boxes you need to search for QGIS in the OSGeo4W setup and click the refresh button so it changes from skip to install....
+When you click through the dialogue boxes you need to **search for QGIS in the OSGeo4W setup and click the refresh button** so it **changes from skip to install**....
 
 
+```{r echo=FALSE, out.width = "450", fig.align='center', cache=FALSE, fig.cap="Continuous and discrete data. Source: [GIS Stackexchange](https://gis.stackexchange.com/questions/230672/how-to-install-osgeo4w-libraries-in-older-version-of-qgis-2-16)"}
+knitr::include_graphics('general_images/QGIS_install2.png')
+```
 
 ## R {-}
 
@@ -35,7 +38,7 @@ To use "R" we need to bits of software:
 
 R is the core software and RStudio gives a simpler interface for us to use it. If you used R (which you could) you'd be just typing code, with no other features. RStudio gives us other features to make this much easier, just like how you would never type a report in notepad (Windows) or notes (on Apple), you'd use the word processor to make it easier. Chester Ismay and Albert Y. Kim explain this with a car analogy: 
 
-```{r echo=FALSE, out.width = "500pt", fig.align='center', cache=TRUE, fig.cap="R vs RStudio. Source: [A ModernDive into R and the Tidyverse, Ismay and Kim, 2021](https://moderndive.com/1-getting-started.html)"}
+```{r echo=FALSE, out.width = "500pt", fig.align='center', cache=FALSE, fig.cap="R vs RStudio. Source: [A ModernDive into R and the Tidyverse, Ismay and Kim, 2021](https://moderndive.com/1-getting-started.html)"}
 knitr::include_graphics('general_images/r_vs_rstudio_1.png') 
 ```
 

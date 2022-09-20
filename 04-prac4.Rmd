@@ -35,6 +35,8 @@ This week:
 
 * [Chapter 2 "Why RMarkdown"](https://rmd4sci.njtierney.com/why-rmarkdown.html#reproducibility-is-a-problem) from RMarkdown for Scientists by Tierney (2020).  
 
+* [Replication across space and time must be weak in the social and environmental sciences](https://www.pnas.org/doi/10.1073/pnas.2015759118?cookieSet=1) by Goodchild and Wenwen (2020).
+
 * [The paper "Packaging Data Analytical Work Reproducibly Using R (and Friends)"](https://amstat.tandfonline.com/doi/full/10.1080/00031305.2017.1375986?scroll=top&needAccess=true) by Marwick, Boettiger & Mullen (2018).
 
 **Watching**
@@ -44,6 +46,8 @@ This week:
 * [Hadley Wickham's Keynote from the European Molecular Biology Laboratory (EMBL)](https://www.youtube.com/watch?v=9YTNYT1maa4). This will be the same for a few weeks.
 
 * [Karthik Ram's "A guide to modern reproducible data science with R"](https://rstudio.com/resources/rstudioconf-2019/a-guide-to-modern-reproducible-data-science-with-r-karthik-ram/)
+
+* [R Markdown Notebooks](https://www.youtube.com/embed/zNzZ1PfUDNk)
 
 Remember this is just a starting point, explore the [reading list](https://rl.talis.com/3/ucl/lists/139FBAF8-DACD-60FB-8BDC-E9C9E09BA885.html?lang=en-GB&login=1), practical and lecture for more ideas.
 :::
@@ -90,7 +94,7 @@ My advice is to read the Git and GitHub parts of the practical before you start 
 
 1. Go to http://github.com, create an account and create a new repository (call it anything you like - ‘gis_code’ or something similar), making sure it is public and you check the box that says ‘initialise new repository with a README’ --- click ‘create repository’ at the bottom
 
-```{r echo=FALSE, out.width = "700pt", fig.align='center', cache=TRUE}
+```{r echo=FALSE, out.width = "700pt", fig.align='center', cache=FALSE}
 knitr::include_graphics('prac4_images/github.png') 
 ```
 
@@ -145,7 +149,7 @@ There are a couple of ways of doing this, but the easy one is to use the GUI tha
 
 1. The first thing you need to do is copy the Clone URL for your repo from the github website --- click the green button in your repo for ‘Clone or Download’ and copy the link:
 
-```{r echo=FALSE, out.width = "700pt", fig.align='center', cache=TRUE}
+```{r echo=FALSE, out.width = "700pt", fig.align='center', cache=FALSE}
 knitr::include_graphics('prac4_images/githubrepodownload.png') 
 ```
 
@@ -153,7 +157,7 @@ knitr::include_graphics('prac4_images/githubrepodownload.png')
 
 1. Select ‘Clone Existing Repository’ and paste the link from your GitHub account into the top box and the local directory that you want to create to store your repo in the bottom box (note, you will need to add a name for a new folder, once you have selected an existing directory, don't create a new folder in windows explorer you have to specify it in the file path).
 
-```{r echo=FALSE, out.width = "600pt", fig.align='center', cache=TRUE}
+```{r echo=FALSE, out.width = "600pt", fig.align='center', cache=FALSE}
 knitr::include_graphics('prac4_images/gitsetup.png') 
 ```
 
@@ -161,7 +165,7 @@ knitr::include_graphics('prac4_images/gitsetup.png')
 
 1. Open RStudio and go File > New Project > Existing Directory
 
-```{r echo=FALSE, out.width = "400pt", fig.align='center', cache=TRUE}
+```{r echo=FALSE, out.width = "400pt", fig.align='center', cache=FALSE}
 knitr::include_graphics('prac4_images/existing.png') 
 ```
 
@@ -179,7 +183,7 @@ There is an easier way to set up Git and GitHub with your project, but this assu
 
 1. Copy in the repository URL and provide a project directory name...but it should populate when you paste in the URL
 
-```{r echo=FALSE, out.width = "400pt", fig.align='center', cache=TRUE}
+```{r echo=FALSE, out.width = "400pt", fig.align='center', cache=FALSE}
 knitr::include_graphics('prac4_images/easyway.png') 
 ```
 
@@ -189,7 +193,7 @@ knitr::include_graphics('prac4_images/easyway.png')
 
 1. Next go Tools > Project Options > Git/SVN > and select the version control system as Git. You should now see a git tab in the environment window of RStudio (top right) and the files also appear under the Git tab. It should look something like this....
 
-```{r echo=FALSE, out.width = "800pt", fig.align='center', cache=TRUE}
+```{r echo=FALSE, out.width = "800pt", fig.align='center', cache=FALSE}
 knitr::include_graphics('prac4_images/makeafile.png') 
 ```
 
@@ -201,13 +205,13 @@ Now you will be able to use Git and GitHub as per the following instructions...
 
 1. To do this, you should click the ‘Git’ icon and up will pop a menu like the one below:
 
-```{r echo=FALSE, out.width = "400pt", fig.align='center', cache=TRUE}
+```{r echo=FALSE, out.width = "400pt", fig.align='center', cache=FALSE}
 knitr::include_graphics('prac4_images/commit1.png') 
 ```
 
 You can also click the Git tab that will have appeared in the top-right window of RStudio. Up will then pop another window that looks a little like the one below:
 
-```{r echo=FALSE, out.width = "800pt", fig.align='center', cache=TRUE}
+```{r echo=FALSE, out.width = "800pt", fig.align='center', cache=FALSE}
 knitr::include_graphics('prac4_images/commit2.png') 
 ```
 
@@ -215,7 +219,7 @@ knitr::include_graphics('prac4_images/commit2.png')
 
 1. Make some more changes to your file and save it. Click commit again then in the review changes box you will be able to see what has changed within your file. Add a commit message and click commit:
 
-```{r echo=FALSE, out.width = "600pt", fig.align='center', cache=TRUE}
+```{r echo=FALSE, out.width = "600pt", fig.align='center', cache=FALSE}
 knitr::include_graphics('prac4_images/commit3.png') 
 ```
 
@@ -233,7 +237,7 @@ But....if the push button is greyed out go to the section [Greyed out push butto
 
 1. Add a line of code or a comment, preview the changes then commit directly to the main branch.
 
-```{r echo=FALSE, out.width = "800pt", fig.align='center', cache=TRUE}
+```{r echo=FALSE, out.width = "800pt", fig.align='center', cache=FALSE}
 knitr::include_graphics('prac4_images/pullexample.png') 
 ```
 
@@ -267,7 +271,7 @@ You can however set your username and email manually using the git prompt.
 
 Go Tools > Shell and enter: 
 
-```{r, eval=FALSE, cache=TRUE}
+```{r, eval=FALSE, cache=FALSE}
 git config --global user.name 'yourGitHubUsername'
 git config --global user.email 'name@provider.com'
 ```
@@ -280,7 +284,7 @@ Is your push button greyed out? Mine was when i tried to set it up within an exi
 First, let's check your local repository (Git) is connected to a remote one (GitHub). 
 Open the Shell again (Tools > Shell) and enter:
 
-```{r, eval=FALSE, cache=TRUE}
+```{r, eval=FALSE, cache=FALSE}
 git remote -v
 ## output
 
@@ -290,7 +294,7 @@ origin  https://github.com/andrewmaclachlan/example.git (push)
 
 The fetch and push should be your repository on GitHub. If you need to set the remote repo use:
 
-```{r, eval=FALSE, cache=TRUE}
+```{r, eval=FALSE, cache=FALSE}
 git remote add origin https://github.com/andrewmaclachlanc/myrepo.git
 ```
 
@@ -300,7 +304,7 @@ Was it setup correctly ? Yes...
 
 Then check the current branch in RStudio (and Git) is tracking a branch on the remote repo --- mine wasn't.
 
-```{r, eval=FALSE, cache=TRUE}
+```{r, eval=FALSE, cache=FALSE}
 git branch -vv
 
 ## output
@@ -309,7 +313,7 @@ main 3abe929 [origin/main] test3
 
 Origin/main shows that the local main is tracking the origin/main on the remote repo. If you can't see origin/main then set it using the following code. At the moment RStudio and git still defaults to the starting branch of master so the fist line below will change it to main --- which is required to match with the remote (GitHub).
 
-```{r, eval=FALSE, cache=TRUE}
+```{r, eval=FALSE, cache=FALSE}
 git branch -M main
 git push -u origin main
 ```
@@ -318,7 +322,7 @@ git push -u origin main
 
 If you need to change the URL of your GitHub .... so where you push your local Git to the GitHub account (changing this), perhaps you have made a new GitHub repo...
 
-```{r, eval=FALSE, cache=TRUE}
+```{r, eval=FALSE, cache=FALSE}
 git remote set-url origin [enter your cloned URL from GitHUB here]```
 ```
 
@@ -338,7 +342,7 @@ Each repository you make in git has a default branch but you can create new bran
 
 1. Go to the test repository you just forked on github. Click the branch drop down and type in the name for a new branch:
 
-```{r echo=FALSE, out.width = "800pt", fig.align='center', cache=TRUE}
+```{r echo=FALSE, out.width = "800pt", fig.align='center', cache=FALSE}
 knitr::include_graphics('prac4_images/branch.png') 
 ```
 
@@ -346,7 +350,7 @@ knitr::include_graphics('prac4_images/branch.png')
 
 1. Add some changes, preview them and complete the commit changes box at the bottom of the screen.
 
-```{r echo=FALSE, out.width = "800pt", fig.align='center', cache=TRUE}
+```{r echo=FALSE, out.width = "800pt", fig.align='center', cache=FALSE}
 knitr::include_graphics('prac4_images/branchtest.png') 
 ```
 
@@ -360,7 +364,7 @@ Now let's create a **pull** request to the main branch. If you had modified some
 
 1. At the top you will see the branches that are being compared --- the base defaults to githubs example repository, change it to yours.
 
-```{r echo=FALSE, out.width = "800pt", fig.align='center', cache=TRUE}
+```{r echo=FALSE, out.width = "800pt", fig.align='center', cache=FALSE}
 knitr::include_graphics('prac4_images/branchcompare.png') 
 ```
 
@@ -371,92 +375,6 @@ knitr::include_graphics('prac4_images/branchcompare.png')
 1. Go back to your main branch repository and you should see the changes from the example branch have been merged.
 
 We will show you how to publish RMarkdown documents online in a later practical.
-
-### Back in time
-
-#### Git
-
-Here, we're going to use code seen [in the section of existing project (way 3)](#If have have an existing project - way 3).
-
-To quick recap here, i have an RProject with some files in, one of which is the test_file.R seen in the [in the section of existing project (way 3)](#If have have an existing project - way 3).
-
-We also added some code to this file [in the section pulling from GitHub](#Pull from GitHub).
-
-Now, we are going to add some more code then go back in time to remove it. I've added `z<-5+5` to my script and you can see the file has come up in the Git tab (also called the Git working directory) on the right hand side.
-
-```{r echo=FALSE, out.width = "800pt", fig.align='center', cache=TRUE}
-knitr::include_graphics('prac4_images/backtime1.png')
-```
-
-Now, as we have done before, Commit(in the Git tab) then the review changes window comes up. Add a commit message, click stage and the Commit. ** Don't push to GitHub yet**
-
-```{r echo=FALSE, out.width = "600pt", fig.align='center', cache=TRUE}
-knitr::include_graphics('prac4_images/backtime2.png')
-```
-
-But wait, you've just received an urgent email (probably using the high importance flag) that the variable `z` should be deleted, renamed `t` and be equal to 2. Now, of course, we could just rename it here manually and Commit our changes. But what if you have a large project (like this book!) and make mistakes on several scripts or RMarkdown documents and you need to undo them (like the undo button in Microsoft software). Here we are going to show that.
-
-To do this we need to clearly know what we are trying to acheive, for us it's easy, go back one commit.
-
-We have to use the shell again, click the cog icon then shell..
-
-Now, there are two commands we can use here `git reset --hard HEAD~1` or `git reset --soft HEAD~1`. These simply tell Git to reset to Head-1 commit (your current commit is the Head). Changing the number will alter how many commits you go back. Hard will delete all the changes in the previous commit, soft will move the changes we committed to the Git tab, reversing out commit --- always use soft!
-
-Type the command `git reset --soft HEAD~1`, the press enter...
-
-```{r echo=FALSE, out.width = "600pt", fig.align='center', cache=TRUE}
-knitr::include_graphics('prac4_images/backtime3.png')
-```
-
-You'll see that the `test_file.R`  has moved back to the Git tab. Now if you have forgotten what changes you actually made in the last commit, click the Diff icon (next to Commit) and it will show the changes made to each file.
-
-#### GitHub
-
->This section follows on from what we've just been through, however, now will we look at how to go back in time once you have pushed to GitHub
-
-So change `z` to `t` and assign it a value of 2+1. Stage the file, commit to git then now push to GitHub. Think of this as case (a)
-
-But wait...you missed off an extra 1, `t` should be 2+1+1. Add the extra 1 commit to git then now push to GitHub.  Think of this as case (b)
-
-But wait (again!)...more incoming news from management...`t` is wrong, is should be assigned to only 2+1,....but do they not know we've already pushed to GitHub several times!!
-
-If we use `reset` once we've pushed to GitHub it will rewrite the commit history and won't match with GitHub, so if you tried to push to GitHub you will get an error saying the tip of your local branch is behind the remote. This is because you have done back in time locally. It will ask you to pull the changes from the remote. If you have `reset`, made changes, tried to push, got an error, tried to pull --- you will likely get a merge conflict message that you have to correct manually. 
-
-However, we can instead use `revert` to maintain the history and avoid any conflicts --- revert adds a new commit at then end of the 'chain' of commits. In our case (b) is the current head, it will add a new commit that is our original (a) to the end of the chain. On the other hand `reset` will move your local main (or other branch) back in the chain of commits,  but if you moved your local git back whilst your remote (GitHub) remains further along the chain this will cause an error and merge conflicts!
-
-To use git `revert` you have two options either just: `git revert HEAD` or `git revert [input commit ID]` - but just get the commit ID for the latest commit nothing before it! Every commit you make will have an ID (called an SHA). To see the SHA just go to Diff (in the Git tab) > History (top left of the review changes window) --- note down your SHA and use it in the shell command.
-
-Ok, so to use `revert` go to the shell and enter `git revert HEAD`
-
-You will probably be met with the VIM (or viewport) window. The best course of action is to input `:q` to quit and accept the default commit message. You will see already that my `test_file.R` has already been placed back in the Git tab and `t<-2+1` again.
-
-```{r echo=FALSE, out.width = "600pt", fig.align='center', cache=TRUE}
-knitr::include_graphics('prac4_images/VIM.png')
-```
-
-If you really want to change the commit message then you need to get into insert mode by typing `i` > modify text > exit the insert mode with Ctrl+C then > `:q` to quit. Thanks to the article by [Melanie Frazier](https://ohi-science.org/news/github-going-back-in-time) for this information.
-
-::: {.infobox .warning data-latex="{note}"}
-If you are storing your R project in a folder that is synchronises online (e.g. OneDrive) you might have issues with this. When you use `revert` git locks a file which mean it can't synchronise, if you try and do another `revert` git will not know who you are. It looks like the process of reverting still happens, but just be careful!
-:::
-
-Also if you want to go back several commits as opposed to just one you must write the code as `git revert HEAD HEAD~1 HEAD~2` and so on. Remember HEAD is the last commit you sent to Github, HEAD~1 the one before etc.
-
-You could also specify this as `git revert HEAD~2..HEAD`, where i think it's possible to replace HEAD~2 with a commit ID. 
-
-[Boris Serebrov](http://serebrov.github.io/html/2014-01-04-git-revert-multiple-recent-comments.html) explains more advance usage of `revert` very well.
-
-#### One final trick
-
-What if you wanted to go back in time and restart from that point. Of course you could use revert. However another possible way is to trick GitHub by combining ` git reset --hard` and  `git reset --soft`. First do a hard reset to using the commit ID you want to go back to...
-
-1.  `git reset --hard commit ID`
-
-Then do a soft reset to trick git to moving the pointer back to the end (or back to head), which is what the remote is expecting 
-
-1.  `git reset --soft HEAD@{1}`
-
-Then commit `git commit -m "going back to x commit` (or with the commit button) and push `git push` (or with the push button).
 
 #### Git commands
 
@@ -474,33 +392,21 @@ To avoid merge conflicts be careful with your commits, pushes and pulls. Think a
 
 OK, so now you have set everything up so that you can become a reproducible research ninja! All that remains is to do some reproducible research!
 
-For the definitive guide on R Markdown, please read [R Markdown: The Definitive Guide](https://bookdown.org/yihui/rmarkdown/) --- obviously! It will tell you everything you need to know, far beyond what I am telling you here.
-
-The [RMarkdown for scientists](https://rmd4sci.njtierney.com) workshop by Nicholas Tierney is a really quick guide for how to use it for reproducible science.
-
-There is also an excellent guide on the R Studio [website](https://rmarkdown.rstudio.com/lesson-1.html)
-
-And a quick cheatsheet [here](https://github.com/rstudio/cheatsheets/raw/master/rmarkdown-2.0.pdf)
-
-And an older one [here](http://www.rstudio.com/wp-content/uploads/2016/03/rmarkdown-cheatsheet-2.0.pdf)
-
-This video is also pretty good at explaining the benefits of RMarkdown
-
-```{r echo=FALSE, fig.align='center', cache=TRUE}
+```{r echo=FALSE, fig.align='center', cache=FALSE}
 #knitr::include_url("https://www.youtube.com/embed/zNzZ1PfUDNk")
 ```
 
 R Markdown is awesome as you can show code, explanations and results within the same document!!!! Often it could be very hard to reproduce results owing to a lack of information in the methodology / userguides or walkthrougts not matching up with the latest version of software. Think back to a time where you had to use software and consult a massive userguide in how to use it...for me it was a very painful experience. R Markdown is a big improvement as it puts all of the information in the same document, which can then be convereted into a range of different formats --- html for webpages, word documents, PDFs, blogs, books --- virtually everything! 
 
-```{r echo=FALSE, out.width = "450pt", fig.align='center', cache=TRUE}
+```{r echo=FALSE, out.width = "450pt", fig.align='center', cache=FALSE}
 knitr::include_graphics('allisonhorst_images/rmarkdown_rockstar.png')
 ```
 
-It's also not limited to R code!!! To change the code language all you have to do is edit what is between the {} in a code chunk (we cover in point 36). In R by default you get {r}, put for python you just change this to {python}!!! COOL. You've also got to have all the python software installed and the R `reticulate()` package too.. have [a look here](https://rstudio.github.io/reticulate/articles/r_markdown.html#overview) for more information.
+It's also not limited to R code!!! To change the code language all you have to do is edit what is between the {} in a code chunk. In R by default you get {r}, put for python you just change this to {python}!!! COOL. You've also got to have all the python software installed and the R `reticulate()` package too..
 
 Now, earlier on in this exercise, I got you to open a new R Script. You now need to open a new R Markdown document, you could also select an R Notebook...They are both RMarkdown documents, the notebook originally let you run code chunks that could be executed independently, however you can also now do this if you select a markdown file. To my knowledge the only difference is that a R Notebook adds ```output: html_notebook``` in the output option in the header of the file that adds a Preview button in the tool bar. If you don't have this then the preview option will be replaced with Knit.
 
-```{r echo=FALSE, out.width = "300pt", fig.align='center', cache=TRUE}
+```{r echo=FALSE, out.width = "300pt", fig.align='center', cache=FALSE}
 knitr::include_graphics('allisonhorst_images/knit-logo.png')
 ```
 
@@ -512,13 +418,13 @@ There are two ways to create an RMarkdown document
 
 1. You can change the type in the bottom right corner of the script window....
 
-```{r echo=FALSE, out.width = "400pt", fig.align='center', cache=TRUE}
+```{r echo=FALSE, out.width = "400pt", fig.align='center', cache=FALSE}
 knitr::include_graphics('prac4_images/changetype.png') 
 ```
 
 I always use way no.1 (so use that here) and this will be populated with some example data, click Knit to see what it does...the file should load in the viewer pane, if you click the arrow and browser button it will open in an internet browser..
 
-```{r echo=FALSE, out.width = "800pt", fig.align='center', cache=TRUE}
+```{r echo=FALSE, out.width = "800pt", fig.align='center', cache=FALSE}
 knitr::include_graphics('prac4_images/Rmakrdowneg.png')
 ```
 
@@ -528,7 +434,7 @@ knitr::include_graphics('prac4_images/Rmakrdowneg.png')
 
 1. In RStudio, you can either select Code > Insert Chunk or you can Click the ‘Insert’ button and insert an R chunk
 
-```{r echo=FALSE, out.width = "600pt", fig.align='center', cache=TRUE}
+```{r echo=FALSE, out.width = "600pt", fig.align='center', cache=FALSE}
 knitr::include_graphics('prac4_images/code_chunk.png')
 ```
 
@@ -544,7 +450,7 @@ plot(jan)
 
 When including code chunks in your work, there are various options that allow you to do things like include the code, but not run it: display the output but not the code, hide warnings etc. Most of these can be input automatically by clicking the cog icon in the top-right of the chunk, or you can specify them in the code header of the chunk...if you toggle the buttons you'll see the code change in the chunk 'header'. There are also two useful icons to the right of the settings cog, the first will run all code above the current chunck (play symbol facing downwards) and the second will run the current code chunk (regular play symbol)
 
-```{r echo=FALSE, out.width = "400pt", fig.align='center', cache=TRUE}
+```{r echo=FALSE, out.width = "400pt", fig.align='center', cache=FALSE}
 knitr::include_graphics('prac4_images/code_chunk_options.png')
 ```
 
@@ -573,47 +479,6 @@ CTRL + ALT + A
 
 **Insert section label which is fold-able and navigable** --- this only works in a `.R` file not a `.Rmd` but is still useful
 CTRL + SHIFT + R
-
-### renv
-
-Have you ever created an R script, come back to it  later and wonder why it's not working correctly? It's probably because of package updates.  
-
-`renv` (pronounced R - env) can capture the packages used in your project and re-create your current library. You simply:
-
-1. Create a new project - `renv::init()`
-1. Create a snapshot - `renv::snapshot()`
-1. Call the snapshot to load - `renv::restore()`
-
-The package information and dependencies are stored in a `renv.lock` file.
-
-When R loads a package it gets it from the library path, which is where the packages live. Sometimes there are two libraries a system and a user library - use `.libPaths()`. The system library = the packages with R, the user library = packages you have installed. 
-
-When you load a package it loads the first instance it comes across, user comes before system. To check - `find.package("tidyverse")`
-
-All your projects use these paths! If you load different packages and versions of them + dependencies. E.g.
-
-* Project 1 used `sf` version 0.9-8
-* Project 2 used `sf` version 0.9-6
-
-Switching between projects would mean you have the wrong version as they use the same libraries. 
-
-`renv` - each project gets it's own library! Project local libraries. 
-
-When you use `renv::init()` the library path will be changed to a project local one. 
-
-It will create a lock file that holds all the package information. 
-
-To re-create my environment once you have forked and pulled this repository you would use `renv::restore()`. 
-Of course some projects use the same package version --- such as `tidyverse`, `renv` has a global cache of all the libraries. So there is a massive database of your libraries then each project library links it from there, meaning you don't have 10 versions of the same `tidyverse`.
-
-### Referencing and more
-
-You can do almost anything with RMarkdown, but most of these go beyond the scope of this practical. If you are interested have a look at the following links and instructions I've previously written:
-
-* [Citing using Zotero](https://andrewmaclachlan.github.io/CASA-MSc-thesis/crossref.html#citing-using-software) 
-* [Citing using Mendeley](https://andrewmaclachlan.github.io/CASA0005repo_20202021/git-github-and-rmarkdown.html#adding-references)
-* [Using renv with git](https://andrewmaclachlan.github.io/CASA-MSc-thesis/bookdown-basics.html#package-reproducibility)
-* [Creating a Binder for your R project](https://andrewmaclachlan.github.io/CASA0005repo_20202021/git-github-and-rmarkdown.html#binder)
 
 ## Further reading
 

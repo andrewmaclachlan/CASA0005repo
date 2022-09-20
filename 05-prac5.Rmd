@@ -34,6 +34,8 @@ This week:
 
 * [Chapter 8 "Making maps with R"](https://geocompr.robinlovelace.net/adv-map.html) from Geocomputation with R by Lovelace, Nowosad and Muenchow (2020)
 
+* [How to lie with maps, Chapter 10](https://ucl.primo.exlibrisgroup.com/discovery/fulldisplay?docid=alma990000462680204761&context=L&vid=44UCL_INST:UCL_VU2) by Monmonier (1996).
+
 **Watching**
 
 * [Episode 1 of Maptastic from the Financial Times with Professor Alasdair Rae formerly of the University of Sheffield](https://www.youtube.com/watch?v=CfrmHSmwOoo).
@@ -117,7 +119,7 @@ Ok, now we're going to reproduce our map in QIGS.
 
 1. Make sure the processing toolbox is active...go Plugins > Manage and Install Plugins > Installed (left side of the box that opens), Processing should be ticked....then select the cog that is in the toolbar --- within the sqaure box in the image below. 
 
-```{r echo=FALSE, out.width = "700", fig.align='center', cache=TRUE}
+```{r echo=FALSE, out.width = "700", fig.align='center', cache=FALSE}
 knitr::include_graphics('prac5_images/cog.png') 
 ```
 
@@ -131,7 +133,7 @@ The OSM data will load and QGIS is pretty clever here as it will project ‘on t
 
 1. Reproject the OSM data. If you scroll right in the dialogue box you'll be able to save it into your ```GeoPackage```. You might need to refresh the browers to see the layer.
 
-```{r echo=FALSE, out.width = "800", fig.align='center', cache=TRUE}
+```{r echo=FALSE, out.width = "800", fig.align='center', cache=FALSE}
 knitr::include_graphics('prac5_images/QGIS_reproj.png') 
 ```
 
@@ -141,7 +143,7 @@ knitr::include_graphics('prac5_images/QGIS_reproj.png')
 
 1. To get only the hotels out of our OSM data we can use ```extract by attrbitue```...this is my tool dialogue box. You can find extract by attribute by clicking the toolbox cog, then searching for extract by attribute.
 
-```{r echo=FALSE, out.width = "700", fig.align='center', cache=TRUE}
+```{r echo=FALSE, out.width = "700", fig.align='center', cache=FALSE}
 knitr::include_graphics('prac5_images/extractattribute.png') 
 ```
 
@@ -149,19 +151,19 @@ knitr::include_graphics('prac5_images/extractattribute.png')
 
 1. Now ```extract by location using``` the file you just created and the London boroughs (so hotels within the London boroughs). Note that i selected that the hotels are within the Lonon boroughs
 
-```{r echo=FALSE, out.width = "800", fig.align='center', cache=TRUE}
+```{r echo=FALSE, out.width = "800", fig.align='center', cache=FALSE}
 knitr::include_graphics('prac5_images/extractbylocation.png') 
 ```
 
 1. Let's now count our hotels per London borough using ```Join Attributes by Location (Summary)```. Note i selected the ```osm_id``` field to summarise using count in summaries to calcualte....
 
-```{r echo=FALSE, out.width = "800", fig.align='center', cache=TRUE}
+```{r echo=FALSE, out.width = "800", fig.align='center', cache=FALSE}
 knitr::include_graphics('prac5_images/joinosmandlondon.png') 
 ```
 
 1. Next up is the Air b n b data, i'll show you how to load it then you need to produce a count of rentals per London borough using the same rules as before (entire place/apartment and available all year). To load the data click Data Source Manager > Delimited Text:
 
-```{r echo=FALSE, out.width = "800", fig.align='center', cache=TRUE}
+```{r echo=FALSE, out.width = "800", fig.align='center', cache=FALSE}
 knitr::include_graphics('prac5_images/QGISxy.png') 
 ```
 
@@ -181,7 +183,7 @@ You need to:
 
 1. So now you should have two London borough layers one with a count of all the hotels and the other with a count of all the air b n b properties...To make a thematic map right click on the hotel layer > Symbology (tab) select Graduated and your count coloumn as the coloumn, mode as natural breaks and then classify...
 
-```{r echo=FALSE, out.width = "800", fig.align='center', cache=TRUE}
+```{r echo=FALSE, out.width = "800", fig.align='center', cache=FALSE}
 knitr::include_graphics('prac5_images/QGISsymbology.png') 
 ```
 
@@ -197,7 +199,7 @@ knitr::include_graphics('prac5_images/QGISsymbology.png')
 
 1. Make sure you give the same size to both Maps...to do so click on a Map > Item Properties (bottom right) scroll down, expand Position and Size, give the same width and height values
 
-```{r echo=FALSE, out.width = "400", fig.align='center', cache=TRUE}
+```{r echo=FALSE, out.width = "400", fig.align='center', cache=FALSE}
 knitr::include_graphics('prac5_images/positionsize.png') 
 ```
 
@@ -207,7 +209,7 @@ knitr::include_graphics('prac5_images/positionsize.png')
 
 1. Add a legend: Add Item > Add Legend and draw a sqaure. Same process to adjust it. Untick Auto update then you can use the ```+``` and ```-``` icons to remove items along with the edit icon to change the text...this is what mine looks like...
 
-```{r echo=FALSE, out.width = "400", fig.align='center', cache=TRUE}
+```{r echo=FALSE, out.width = "400", fig.align='center', cache=FALSE}
 knitr::include_graphics('prac5_images/QGIS_legend.png') 
 ```
 
@@ -223,7 +225,7 @@ knitr::include_graphics('prac5_images/QGIS_legend.png')
 
 This is what i came up with in my map layout
 
-```{r echo=FALSE, out.width = "600", fig.align='center', cache=TRUE}
+```{r echo=FALSE, out.width = "600", fig.align='center', cache=FALSE}
 knitr::include_graphics('prac5_images/QGIS_maplayout.png') 
 ```
 
@@ -231,7 +233,7 @@ knitr::include_graphics('prac5_images/QGIS_maplayout.png')
 
 To export your map to a file go: Layout > Export as Image and select crop to content...and here is my map...
 
-```{r echo=FALSE, fig.align='center', cache=TRUE}
+```{r echo=FALSE, fig.align='center', cache=FALSE}
 knitr::include_graphics('prac5_data/QGIS_hotel.png') 
 ```
 
@@ -247,7 +249,7 @@ As in ArcMap we can automate the methodological process in QGIS using the graphi
 
 Graphical modeler is a bit different to model builder in ArcMap, here you drag inputs and algorthims from the inputs box (bottom left) into the model, you don't need to specify the inputs here. When you click the run buttom (play on the top toolbar) you'll be asked to provide the layers for the inputs. The options will be limited to those you currently have open in your map...check out the model i made to automate reprojecting cities and the UK outline, then extracting the cities within the UK outline...
 
-```{r echo=FALSE, out.width = "600", fig.align='center', cache=TRUE}
+```{r echo=FALSE, out.width = "600", fig.align='center', cache=FALSE}
 knitr::include_graphics('prac5_images/QGIS_model.png') 
 ```
 
@@ -395,7 +397,7 @@ t
 
 We can also arrage our maps using the ```grid``` package...
 
-```{r warning=FALSE, message=FALSE, out.width = "800pt", cache=TRUE}
+```{r warning=FALSE, message=FALSE, out.width = "800pt", cache=FALSE}
 
 library(grid)
 grid.newpage()
@@ -410,7 +412,7 @@ print(legend, vp=viewport(layout.pos.col=2, layout.pos.row=2, height=5))
 
 ### Inset map
 
-```{r warning=FALSE, message=FALSE, out.width = "800pt", cache=TRUE}
+```{r warning=FALSE, message=FALSE, out.width = "800pt", cache=FALSE}
 
 Londonbb = st_bbox(Airbnb,
                     crs = st_crs(Airbnb)) %>% 
@@ -418,7 +420,7 @@ Londonbb = st_bbox(Airbnb,
 ```
 
 
-```{r warning=FALSE, message=FALSE, out.width = "800pt", cache=TRUE}
+```{r warning=FALSE, message=FALSE, out.width = "800pt", cache=FALSE}
 
 main <- tm_shape(Airbnb, bbbox = Londonbb) + 
   tm_polygons("Accomodation count",
@@ -437,7 +439,7 @@ main <- tm_shape(Airbnb, bbbox = Londonbb) +
   tm_layout(inner.margin=c(0.02,0.02,0.02,0.2))
 ```
 
-```{r warning=FALSE, message=FALSE, out.width = "800pt", cache=TRUE}
+```{r warning=FALSE, message=FALSE, out.width = "800pt", cache=FALSE}
 
 inset = tm_shape(UK_outlinecrop) + tm_polygons() +
   tm_shape(Londonbb)+ 
@@ -449,7 +451,7 @@ inset = tm_shape(UK_outlinecrop) + tm_polygons() +
   tm_text("CITY_NAME", xmod=-1.5, ymod=-0.5)
 ```
 
-```{r warning=FALSE, message=FALSE, out.width = "800pt", cache=TRUE}
+```{r warning=FALSE, message=FALSE, out.width = "800pt", cache=FALSE}
 library(grid)
 main
 print(inset, vp = viewport(0.86, 0.29, width = 0.5, height = 0.55))

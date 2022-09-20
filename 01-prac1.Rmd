@@ -36,7 +36,8 @@ The task is to join some non spatial data to some spatial data.
 Each week i'll provide a core chapter to support the skills taught here. However, **you are free to read whatever interests you** and Adam and I strongly encourage this, so please don't be constrained to this recommendation. Consult the [reading list](https://rl.talis.com/3/ucl/lists/139FBAF8-DACD-60FB-8BDC-E9C9E09BA885.html?lang=en-GB&login=1), practical and lecture each week for more ideas.
 
 This week:
--   [The Value of GIS & Spatial Data Science in Achieving the Sustainable Development Goals by Cobus van Rooyen](https://complexsystemstheory.net/2020/09/23/gis-and-the-sustainable-development-goals/)
+
+-   [GIS and Cartography](https://www.sciencedirect.com/science/article/pii/B9780080449104000341) by Goodchild (2009)
 
 -   [Chapter 2 "Geographic data in R"](https://geocompr.robinlovelace.net/spatial-class.html) from Geocomputation with R by Lovelace, Nowosad and Muenchow (2020).
 
@@ -59,7 +60,7 @@ Some of these practicals are long, take regular breaks and have a listen to some
 
 Geographic data, geospatial data or geographic information is data that identifies the location of features on Earth. There are two main types of data which are used in GIS applications to represent the real world. **Vectors** that are composed of points, lines and polygons and **rasters** that are grids of cells with individual values...
 
-```{r echo=FALSE, out.width = "300pt", fig.align='center', cache=TRUE, fig.cap="Types of spatial data. Source: [Spatial data models](https://planet.uwc.ac.za/nisl/gis/web_page/page_15.htm)"}
+```{r echo=FALSE, out.width = "300pt", fig.align='center', cache=FALSE, fig.cap="Types of spatial data. Source: [Spatial data models](https://planet.uwc.ac.za/nisl/gis/web_page/page_15.htm)"}
 knitr::include_graphics('prac1_images/rasvec.jpg') 
 ```
 
@@ -75,7 +76,7 @@ Discrete data have finite values. It can be numeric such as number of shoes or c
 
 Foot length would be continuous data but shoe size would be discrete data.
 
-```{r echo=FALSE, out.width = "450", fig.align='center', cache=TRUE, fig.cap="Continuous and discrete data. Source: [Allison Horst data science and stats illustrations](https://github.com/allisonhorst/stats-illustrations)"}
+```{r echo=FALSE, out.width = "450", fig.align='center', cache=FALSE, fig.cap="Continuous and discrete data. Source: [Allison Horst data science and stats illustrations](https://github.com/allisonhorst/stats-illustrations)"}
 knitr::include_graphics('allisonhorst_images/continuous_discrete.png')
 ```
 
@@ -85,7 +86,7 @@ Ordinal data has an order or scale, for example if you have ever seen the chilli
 
 Binary data is that that can have only two possible outcomes, yes and no or shark and not shark.
 
-```{r echo=FALSE, out.width = "550pt", fig.align='center', cache=TRUE, fig.cap="Nominal, ordinal and binary data. Source: [Allison Horst data science and stats illustrations](https://github.com/allisonhorst/stats-illustrations)"}
+```{r echo=FALSE, out.width = "550pt", fig.align='center', cache=FALSE, fig.cap="Nominal, ordinal and binary data. Source: [Allison Horst data science and stats illustrations](https://github.com/allisonhorst/stats-illustrations)"}
 knitr::include_graphics('allisonhorst_images/nominal_ordinal_binary.png')
 ```
 
@@ -116,7 +117,7 @@ We're now going to explore a shapefile (`.shp` ) and GeoJSON (`.geojson`) in act
 
 Go to: <http://geojson.io/#map=16/51.5247/-0.1339>
 
-```{r echo=FALSE, out.width = "500pt", fig.align='center', cache=TRUE}
+```{r echo=FALSE, out.width = "500pt", fig.align='center', cache=FALSE}
 knitr::include_graphics('prac1_images/JSONwebsite.png') 
 ```
 
@@ -148,13 +149,13 @@ There are normally valid reasons for storing data in one of these other formats.
 
 A geodatabase is a collection of geographic data held within a database. Geodatabases were developed by ESRI to overcome some of the limitations of shapefiles. They come in two main types: Personal (up to 1 TB) and File (limited to 250 - 500 MB), with Personal Geodatabases storing everything in a Microsoft Access database (`.mdb`) file and File Geodatabases offering more flexibility, storing everything as a series of folders in a file system. In the example below we can see that the FCC_Geodatabase (left hand pane) holds multiple points, lines, polygons, tables and raster layers in the contents tab.
 
-```{r echo=FALSE, out.width = "500pt", fig.align='center', cache=TRUE}
+```{r echo=FALSE, out.width = "500pt", fig.align='center', cache=FALSE}
 knitr::include_graphics('prac1_images/geodatabase.png') 
 ```
 
 #### GeoPackage
 
-```{r echo=FALSE, out.width = "100pt", fig.align='center', cache=TRUE, fig.cap="GeoPacakge logo"}
+```{r echo=FALSE, out.width = "100pt", fig.align='center', cache=FALSE, fig.cap="GeoPacakge logo"}
 knitr::include_graphics('prac1_images/geopkg.png')
 ```
 
@@ -162,7 +163,7 @@ A GeoPackage is an open, standards-based, platform-independent, portable, self-d
 
 #### SpatiaLite
 
-```{r echo=FALSE, out.width = "100pt", fig.align='center', cache=TRUE, fig.cap="SpatialLite logo"}
+```{r echo=FALSE, out.width = "100pt", fig.align='center', cache=FALSE, fig.cap="SpatialLite logo"}
 knitr::include_graphics('prac1_images/spatialite.png')
 ```
 
@@ -170,7 +171,7 @@ SpatialLite is an open-source library that extends SQLite core. Support is fairl
 
 #### PostGIS
 
-```{r echo=FALSE, out.width = "100pt", fig.align='center', cache=TRUE, fig.cap="PostGIS logo"}
+```{r echo=FALSE, out.width = "100pt", fig.align='center', cache=FALSE, fig.cap="PostGIS logo"}
 knitr::include_graphics('prac1_images/postGIS.jpg') 
 ```
 
@@ -188,7 +189,7 @@ As Grolemund and Wickham state in [R for Data Science](https://r4ds.had.co.nz/).
 
 However, a nice place to start is looking at the typical workflow of a data science (or GIS) project which you will see throughout these practicals, which is summarised nicely in this diagram produced by [Dr. Julia Lowndes](https://twitter.com/juliesquid) adapted from Grolemund and Wickham.
 
-```{r echo=FALSE, out.width = "600pt", fig.align='center', cache=TRUE, fig.cap="Updated from Grolemund & Wickham's classis R4DS schematic, envisioned by Dr. Julia Lowndes for her 2019 useR! keynote talk and illustrated by Allison Horst. Source: [Allison Horst data science and stats illustrations](https://github.com/allisonhorst/stats-illustrations)"}
+```{r echo=FALSE, out.width = "600pt", fig.align='center', cache=FALSE, fig.cap="Updated from Grolemund & Wickham's classis R4DS schematic, envisioned by Dr. Julia Lowndes for her 2019 useR! keynote talk and illustrated by Allison Horst. Source: [Allison Horst data science and stats illustrations](https://github.com/allisonhorst/stats-illustrations)"}
 knitr::include_graphics('allisonhorst_images/environmental_data_science_r4ds_general.png')
 ```
 
@@ -200,7 +201,7 @@ When you have (or haven't) tidied data you then will most likely want to **trans
 
 Tidying and transfrom = data wrangling. Remember from the introduction this could be 50-80% of a data science job!
 
-```{r echo=FALSE, out.width = "450pt", fig.align='center', cache=TRUE, fig.cap="dplyr introduction graphic. Source: [Allison Horst data science and stats illustrations](https://github.com/allisonhorst/stats-illustrations)"}
+```{r echo=FALSE, out.width = "450pt", fig.align='center', cache=FALSE, fig.cap="dplyr introduction graphic. Source: [Allison Horst data science and stats illustrations](https://github.com/allisonhorst/stats-illustrations)"}
 knitr::include_graphics('allisonhorst_images/dplyr_wrangling.png')
 ```
 
@@ -258,13 +259,13 @@ Let's download some data..
 
 **Answer** The year is a column and for each area the values are repeated for different years. In our analysis it is easier to have the different years as a column and populated for each area. So, we want to go from this...
 
-```{r echo=FALSE, out.width = "600pt", fig.align='center', cache=TRUE}
+```{r echo=FALSE, out.width = "600pt", fig.align='center', cache=FALSE}
 knitr::include_graphics('prac1_images/csv_original.png')
 ```
 
 To this...
 
-```{r echo=FALSE, out.width = "600pt", fig.align='center', cache=TRUE}
+```{r echo=FALSE, out.width = "600pt", fig.align='center', cache=FALSE}
 knitr::include_graphics('prac1_images/csv_pivot.png')
 ```
 
@@ -282,7 +283,7 @@ As we are going to use this dataset in QGIS and R I've done it in Excel using a 
 
 I've used the following:
 
-```{r echo=FALSE, out.width = "400pt", fig.align='center', cache=TRUE}
+```{r echo=FALSE, out.width = "400pt", fig.align='center', cache=FALSE}
 knitr::include_graphics('prac1_images/pivot_example.png')
 ```
 
@@ -311,7 +312,7 @@ Now it's time to load, inspect and do some basic manipulation of this data. As m
 1.  Search for and open QGIS
 2.  Click on the open data source manager. Just above the word **browser** in the top left of the screen
 
-```{r echo=FALSE, out.width = "700pt", fig.align='center', cache=TRUE}
+```{r echo=FALSE, out.width = "700pt", fig.align='center', cache=FALSE}
 knitr::include_graphics('prac1_images/qgis_datamanager.png') 
 ```
 
@@ -324,7 +325,7 @@ You can right click on the layer to view the attribute table, however the `.csv`
 3.  Under Record and Fields Options make sure the number of header lines to discard is 0 and the First record has field names box is selected (this is assuming you left a title for each column in your `.csv`)
 4.  Under Geometry Definition select No geometry (attribute table only)
 
-```{r echo=FALSE, out.width = "700pt", fig.align='center', cache=TRUE}
+```{r echo=FALSE, out.width = "700pt", fig.align='center', cache=FALSE}
 knitr::include_graphics('prac1_images/csv_datamanager.png') 
 ```
 
@@ -342,7 +343,7 @@ Does the sample data seem right?
 2.  Click the plus button at the bottom of the box
 3.  Complete the dialogue box
 
-```{r echo=FALSE, out.width = "500pt", fig.align='center', cache=TRUE}
+```{r echo=FALSE, out.width = "500pt", fig.align='center', cache=FALSE}
 knitr::include_graphics('prac1_images/qgis_join.png') 
 ```
 
@@ -354,7 +355,7 @@ Now let's export to a GeoPackage.
 2.  Select the GeoPackage format and complete the File name (the saved file name for the GeoPackage) and the Layer name (the name for this layer within the GeoPackage). Recall that a GeoPackage can store many data layers as a single file
 3.  The new layer will be added to the map, so you can remove the old one (Right click on the layer \> Remove Layer). Make sure you remove the right one!
 
-```{r echo=FALSE, out.width = "500pt", fig.align='center', cache=TRUE}
+```{r echo=FALSE, out.width = "500pt", fig.align='center', cache=FALSE}
 knitr::include_graphics('prac1_images/make_geopkg.png') 
 ```
 
@@ -379,7 +380,7 @@ You could also select graduated, to do so, simply change the number of classes.
 
 You should have produced something like this:
 
-```{r echo=FALSE, out.width = "800pt", fig.align='center', cache=TRUE}
+```{r echo=FALSE, out.width = "800pt", fig.align='center', cache=FALSE}
 knitr::include_graphics('prac1_images/QGIS_final.png') 
 ```
 
@@ -395,7 +396,7 @@ QGIS defaults to the Coordinate Reference System (CRS) WGS 84, or known by its E
 
 You can change the CRS by going Project \> Properties and selecting CRS in the left hand pane.
 
-```{r echo=FALSE, out.width = "800pt", fig.align='center', cache=TRUE}
+```{r echo=FALSE, out.width = "800pt", fig.align='center', cache=FALSE}
 knitr::include_graphics('prac1_images/QGIS_CRS.png') 
 ```
 
@@ -421,7 +422,7 @@ In RStudio go:
 
 You should be able to see these quadrants (without the code):
 
-```{r echo=FALSE, out.width = "800pt", fig.align='center', cache=TRUE}
+```{r echo=FALSE, out.width = "800pt", fig.align='center', cache=FALSE}
 knitr::include_graphics('prac1_images/RStudio.png') 
 ```
 
@@ -437,7 +438,7 @@ Bascially, without packages, R would be very limited. With packages, you can do 
 
 For this practical we will need the ones listed in the code chunk below. Whilst we've installed them (with the code below), we haven't yet loaded them. It's best practice to do all this at the start of your code, however, for demonstration purposes I'll load each one as we need it.
 
-```{r, message=FALSE, warning=FALSE, eval=FALSE, cache=TRUE}
+```{r, message=FALSE, warning=FALSE, eval=FALSE, cache=FALSE}
 install.packages(c("sf", "tmap", "tmaptools", "RSQLite", "tidyverse"), 
                  repos = "https://www.stats.bris.ac.uk/R/")
 ```
@@ -457,19 +458,19 @@ Packages we've installed with our code:
 
 Here, `repos` stands for repository where we will download the packages from. Once you have set it, you shouldn't need to specify it again. Whilst we've installed the packages we haven't loaded them...this is done through using `library()` function.
 
-```{r echo=FALSE, out.width = "600pt", fig.align='center', cache=TRUE, fig.cap="Installing vs loading (with library) packages. Source: [Dianne Cook](https://twitter.com/visnut)"}
+```{r echo=FALSE, out.width = "600pt", fig.align='center', cache=FALSE, fig.cap="Installing vs loading (with library) packages. Source: [Dianne Cook](https://twitter.com/visnut)"}
 knitr::include_graphics('prac1_images/install_library.jfif') 
 ```
 
 If you are **using a Mac** you might also need `rgdal`... this is because a lot of packages are dependent on it and it might not properly install...
 
-```{r, message=FALSE, warning=FALSE, eval=FALSE, cache=TRUE}
+```{r, message=FALSE, warning=FALSE, eval=FALSE, cache=FALSE}
 install.packages("rgdal")
 ```
 
 Then load `rgdal`...
 
-```{r, message=FALSE, warning=FALSE, eval=FALSE, cache=TRUE}
+```{r, message=FALSE, warning=FALSE, eval=FALSE, cache=FALSE}
 library(rgdal)
 ```
 
@@ -479,7 +480,7 @@ If you still have issues the check out the [Mac R issues] section
 
 Load the `sf` package so we can read our shapefile in --- remember to change to filepath to your shapefile.
 
-```{r echo=FALSE, out.width = "450pt", fig.align='center', cache=TRUE, fig.cap="sf introduction graphic. Source: [Allison Horst data science and stats illustrations](https://github.com/allisonhorst/stats-illustrations)"}
+```{r echo=FALSE, out.width = "450pt", fig.align='center', cache=FALSE, fig.cap="sf introduction graphic. Source: [Allison Horst data science and stats illustrations](https://github.com/allisonhorst/stats-illustrations)"}
 knitr::include_graphics('allisonhorst_images/sf.png', )
 ```
 
@@ -487,7 +488,7 @@ For this first practical we'll just leave the data where it is, next week we'll 
 
 > **Note** by default in R, the file path should be defined with `/` but on a windows file system it is defined with `\` (e.g. when looking at files on your computer they will be folder\file). Using `\\` instead allows R to read the path correctly -- alternatively, just use `/`
 
-```{r, message=FALSE, warning=FALSE, cache=TRUE}
+```{r, message=FALSE, warning=FALSE, cache=FALSE}
 library(sf)
 # change this to your file path!!!
 shape <- st_read("C:/Users/Andy/OneDrive - University College London/Teaching/CASA0005/2020_2021/CASA0005repo/prac1_data/statistical-gis-boundaries-london/ESRI/London_Borough_Excluding_MHW.shp")
@@ -495,7 +496,7 @@ shape <- st_read("C:/Users/Andy/OneDrive - University College London/Teaching/CA
 
 > **Note** If you are working on the UCL RStudio Server and have a shapefile (along with all the other relevant files required) you will just need to use...
 
-```{r, message=FALSE, warning=FALSE, cache=TRUE, eval=FALSE}
+```{r, message=FALSE, warning=FALSE, cache=FALSE, eval=FALSE}
 shape <- st_read("London_Borough_Excluding_MHW.shp")
 ```
 
@@ -503,13 +504,13 @@ As RStudio cloud knows you have setup a project and to look for files within it.
 
 To get a summary of the data held within the shapefile data (attribute table) enter the following:
 
-```{r, cache=TRUE}
+```{r, cache=FALSE}
 summary(shape)
 ```
 
 To have a quick look what the shapefile looks like enter the following:
 
-```{r, cache=TRUE}
+```{r, cache=FALSE}
 plot(shape)
 ```
 
@@ -526,7 +527,7 @@ From what we did in QGIS this should look familiar.
 
 We now need to load our `.csv` file:
 
-```{r message=TRUE, warning=FALSE, cache=TRUE}
+```{r message=TRUE, warning=FALSE, cache=FALSE}
 library(tidyverse)
 #this needs to be your file path again
 mycsv <-  read_csv("C:/Users/Andy/OneDrive - University College London/Teaching/CASA0005/2020_2021/CASA0005repo/prac1_data/fly_tipping_borough_edit.csv")  
@@ -540,7 +541,7 @@ When you load `tidyverse` you might get a list of conflicts, this basically mean
 
 To view the data just input:
 
-```{r cache=TRUE, warnings=FALSE, messages=FALSE}
+```{r cache=FALSE, warnings=FALSE, messages=FALSE}
 mycsv 
 ```
 
@@ -550,7 +551,7 @@ In R we've given our London boroughs shapefile the name `shape` and our flytippi
 
 Join the `.csv` to the shapefile. Here, replace Row Labels with whatever your GSS_CODE is called in the `.csv`:
 
-```{r, cache=TRUE}
+```{r, cache=FALSE}
 shape <- shape%>%
   merge(.,
         mycsv,
@@ -563,18 +564,18 @@ Let's break this down a bit. We just created a tibble of `mycsv` (this is a new 
 
 Check the merge was successful, this is just going to show the top 10 rows:
 
-```{r cache=TRUE}
+```{r cache=FALSE}
 shape%>%
   head(., n=10)
 ```
 
 Now, let's make a quick thematic map (or a qtm) using the package `tmap`. I've made mine for flytipping between 2011 and 2012 (column 2011_12). But check what your coloumn name is from the adove code `head(shape, n=10)` it might be slightly different like 2011-2012 or x2011_2012....
 
-```{r echo=FALSE, out.width = "600pt", fig.align='center', cache=TRUE}
+```{r echo=FALSE, out.width = "600pt", fig.align='center', cache=FALSE}
 knitr::include_graphics('prac1_images/colname.png') 
 ```
 
-```{r cache=TRUE, message=FALSE}
+```{r cache=FALSE, message=FALSE}
 library(tmap)
 tmap_mode("plot")
 # change the fill to your column name if different
@@ -586,7 +587,7 @@ shape %>%
 
 Finally write shape to a new GeoPackage (`.gpkg`) giving it the layer name of your choice:
 
-```{r cache=TRUE, message=FALSE}
+```{r cache=FALSE, message=FALSE}
 shape %>%
   st_write(.,"C:/Users/Andy/OneDrive - University College London/Teaching/CASA0005/2020_2021/CASA0005repo/prac1_data/Rwk1.gpkg",
            "london_boroughs_fly_tipping",
@@ -606,14 +607,14 @@ con <- dbConnect(RSQLite::SQLite(),dbname="C:/Users/Andy/OneDrive - University C
 
 Now examine what is in the `.gpkg`...you can see that i've already got my `original_csv` stored within the `.gpkg` as when i developed this practical i made sure it was working!
 
-```{r cache=TRUE}
+```{r cache=FALSE}
 con %>%
   dbListTables()
 ```
 
 Add your `.csv` and disconnect from the `.gpkg`:
 
-```{r cache=TRUE}
+```{r cache=FALSE}
 con %>%
   dbWriteTable(.,
                "original_csv",
@@ -630,7 +631,7 @@ Here `overwrite` let's you well..overwrite the exisiting file...if this wasn't s
 
 To convert this bit of analysis into a script that we could save and run again in future, I would write the following in the script quadrant:
 
-```{r, eval=FALSE, cache=TRUE}
+```{r, eval=FALSE, cache=FALSE}
 library(sf)
 library(tmap) 
 library(tmaptools)
@@ -677,7 +678,7 @@ You can then save your script through File \> Save As.
 
 If you are on a Mac you might also need to load `rgdal`...just add the following at the top of the script.
 
-```{r, message=FALSE, warning=FALSE, eval=FALSE, cache=TRUE}
+```{r, message=FALSE, warning=FALSE, eval=FALSE, cache=FALSE}
 library(rgdal)
 ```
 
