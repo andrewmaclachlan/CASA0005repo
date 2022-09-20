@@ -1,6 +1,6 @@
 # Software installation {-}
 
-This course primarily uses the R data science programming language and we strongly advise you complete the assignment using it. We briefly touch upon QGIS to give you a basic foundation in the range of spatial software available, please follow the instructions below before the first practical session to install the software on your local computer if you are planning to use it throughout the course. 
+This course primarily uses the R data science programming language. We briefly touch upon QGIS to give you a basic foundation in the range of spatial software available, please follow the instructions below before the first practical session to install the software on your local computer if you are planning to use it throughout the course. 
 
 ## QGIS {-}
 
@@ -25,9 +25,7 @@ R is both a programming language and software environment, originally designed f
 
 Some R packages require you to download Java - it's just an extra bit of software you can get from the [Java website](https://www.java.com/en/download/manual.jsp). Select the offline version.
 
-### Setup 1 {-}
-
-#### Basics {-}
+### Basics {-}
 
 The advised method for using R is to download it to your personal machine, so you can use it in future without any issues.
 
@@ -44,9 +42,7 @@ knitr::include_graphics('general_images/r_vs_rstudio_1.png')
 
 R and RStudio are software that require updating over time. It's easy to forget!
 
-#### Packages {-}
-
-##### Basics {-}
+### Packages {-}
 
 Base R (controlled or driven through RStudio) is very limited. As a result people develop packages to make data loading, wrangling, analysis and visulisation much easier than having to write all the code. All packages will have lots of functions that just look up code from the package to make what you are doing easier (we will go into this in more detail later).
 
@@ -64,9 +60,9 @@ The most common package errors and issues are:
 
 * There is an error with the package. If all else fails i remove the package and the re-install it. Again, in the package tab there is a small cross next to each package, clicking it let's you remove it. 
 
-If the problem persists then assuming the error is `package xxx is not available` consult the relevant stack overflow question: https://stackoverflow.com/questions/25721884/how-should-i-deal-with-package-xxx-is-not-available-for-r-version-x-y-z-wa 
+If the problem persists then assuming the error is `package xxx is not available` consult the [relevant stack overflow question](https://stackoverflow.com/questions/25721884/how-should-i-deal-with-package-xxx-is-not-available-for-r-version-x-y-z-wa) 
 
-##### Macs {-}
+### Macs {-}
 
 We (Andy and Adam) use windows machines and whilst R runs across all operating systems, Mac users often need to install some extra software and packages, but this will be apparent during the module. As the Mac operating system updates new issues do appear which we will address in the module, Twitter or slack.  
 
@@ -74,13 +70,9 @@ We (Andy and Adam) use windows machines and whilst R runs across all operating s
 
 You will likely need the package `rgdal` as the package `sf`, which we use extensively, is dependent on it. `rgdal` needs the `gdal` library to be installed on the computer (not as an R package), and it usually isn't installed on Macs.
 
-To install it, follow the stack overflow guide: https://stackoverflow.com/questions/34333624/trouble-installing-rgdal
+To install it, follow [the stack overflow guide](https://stackoverflow.com/questions/34333624/trouble-installing-rgdal)
 
 Mac users may need to install Java (which might involve removing the existing version) this is covered in the [Mac R issues] section. 
-
-### Setup 2 {-}
-
-UCL students (and staff) can now also make use of R Studio Server. It's RStudio on a webpage, so no installation is required. Access information will be provided on Moodle and in the lectures. 
 
 ## ArcGIS {-}
 

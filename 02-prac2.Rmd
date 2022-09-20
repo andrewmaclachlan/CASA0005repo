@@ -964,7 +964,7 @@ BoroughDataMap2 <- EW %>%
 
 ```
 
-If there are mutliple matches then all hits are returned...
+If there are multiple matches then all hits are returned...
 
 ```{r echo=FALSE, out.width = "500px", fig.align='center', cache=FALSE, fig.cap="dplyr::left_join() example with multiple matches. Source: [Tidy explain by Garrick Aden‑Buie](https://www.garrickadenbuie.com/project/tidyexplain/)"}
 knitr::include_graphics('prac2_images/left-join-extra.gif') 

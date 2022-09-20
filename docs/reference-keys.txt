@@ -32,13 +32,14 @@ fig:vectorplots
 fig:unnamed-chunk-178
 fig:unnamed-chunk-256
 fig:unnamed-chunk-257
-fig:unnamed-chunk-299
-fig:unnamed-chunk-353
+fig:unnamed-chunk-262
+fig:unnamed-chunk-300
 fig:unnamed-chunk-354
 fig:unnamed-chunk-355
 fig:unnamed-chunk-356
 fig:unnamed-chunk-357
 fig:unnamed-chunk-358
+fig:unnamed-chunk-359
 geographic-information
 learning-outcomes
 homework
@@ -93,7 +94,7 @@ online-forums-are-your-friend
 health-warning
 r-and-rstudio
 getting-started-1
-basics-2
+basics-1
 scripts-and-some-basic-commands
 functions
 basic-plotting
@@ -210,6 +211,7 @@ data-cleaning
 spatial-subsetting
 spatial-clipping
 spatial-joining-1
+key-advice
 study-area
 point-pattern-analysis
 kernel-density-estimation
@@ -271,7 +273,7 @@ queens-case-lag
 lag-impacts
 knn-case-lag
 the-spatial-error-model
-key-advice
+key-advice-1
 which-model-to-use
 more-data
 extending-your-regression-model---dummy-variables
