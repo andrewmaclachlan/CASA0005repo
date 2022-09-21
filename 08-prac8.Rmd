@@ -30,6 +30,7 @@ The actual exam will be distributed using the same format, so it's vital to do t
 
 ::: {.infobox .note data-latex="{note}"}
 **Reading**
+
 This week:
 
 * [Chapter 2 "Linear Regression"](https://bradleyboehmke.github.io/HOML/linear-regression.html#ref-faraway-2016-linear) from Hands-On Machine Learning with R by Boehmke & Greenwell (2020).
@@ -42,7 +43,10 @@ Remember this is just a starting point, explore the [reading list](https://rl.ta
 
 **Doing**
 
-If you need a refresher/into to summary stats go through [Teacup Giraffes](https://tinystats.github.io/teacups-giraffes-and-statistics/02_bellCurve.html)
+*  Read through the start of [MLU Linear Regression](https://mlu-explain.github.io/linear-regression/), until learning the coefficients, which goes beyond the course here. 
+
+* If you need a refresher/into to summary stats go through [Teacup Giraffes](https://tinystats.github.io/teacups-giraffes-and-statistics/02_bellCurve.html)
+
 :::
 
 ## Recommended listening `r emo::ji("headphones")`

@@ -310,7 +310,7 @@ df %>%
 ::: {.infobox .warning data-latex="{note}"}
 You might have noticed the syntax (code) `%>%`, this is called a **pipe** and is an operator is part from the `magrittr` package. `magrittr` is an entirely new way of thinking about R syntax that cleraly expresses a sequence of multiple operations. It is useful to think of the pipe operator as simply meaning “then”. Do this **THEN** do this **THEN** do that.
 
-In R version 4.1 there is a new pipe `|>`. It is exactly at the same as `%>%` but means there is no reliance on the `magrittr` package. The good news is they can *mostly* be used interchangeably. I 
+In R version 4.1 there is a new pipe `|>`. It is exactly at the same as `%>%` but means there is no reliance on the `magrittr` package. The good news is they can *mostly* be used interchangeably.
 
 :::
 

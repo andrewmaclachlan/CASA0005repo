@@ -281,7 +281,7 @@ head(all_accomodation)
 Now this produces something that looks wrong, as the first 6 rows are all for the City of London, but recall:
 
 * `st_join` is a left join, here the left table is hotels
-* `st_join` uses `st_intersects()` by default. This means for the hotel data, where the airbnb intersects each hotel borough a new row is added. Conceptually, this is the same as a left join if there are multiple matches (but the matches here are defined by `st_intersects` not a column ID)...
+* `st_join` uses `st_intersects()` by default. This means for the hotel data, where the airbnb intersects each hotel borough a new row is added. Conceptually, this is the same as a left join  if there are multiple matches (but the matches here are defined by `st_intersects` not a column ID)...
 
 ```{r echo=FALSE, out.width = "500px", fig.align='center', cache=FALSE, fig.cap="dplyr::left_join() example with multiple matches. Source: [Tidy explain by Garrick Aden‑Buie](https://www.garrickadenbuie.com/project/tidyexplain/)"}
 knitr::include_graphics('prac2_images/left-join-extra.gif') 
@@ -295,6 +295,7 @@ all_accomodation <- st_join(Hotels, Hotels, join = st_equals)
 
 head(all_accomodation)
 ```
+
 
 ### Key advice
 
@@ -311,6 +312,12 @@ Question....do i want to:
 Finally,
 
 * Selecting data by attributes = filtering or selecting rows / columns with dplyr 
+
+Most of these functions are not R specific, you will find them other software such as PostGIS (a database for spatial data).
+
+::: {.infobox .warning data-latex="{note}"}
+What is the difference between `st_intersects()` and `st_intersection()`
+:::
 
 ### Study area
 
