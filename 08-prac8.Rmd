@@ -398,6 +398,18 @@ glance(lm_fit)
 
 If we only fit our model once, how can we be confident about that estimate? Bootstrap resampling is where we take the original dataset and select random data points from within it, but in order to keep it the same size as the original dataset some records are duplicated. This is known as bootstrap resampling by replacement. We used to briefly cover this within this practical but have recently removed it. If you wish to explore it then consult the [bootstrap resampling section from previous years](https://andrewmaclachlan.github.io/CASA0005repo_20202021/gwr-and-spatially-lagged-regression.html#bootstrap-resampling), but this is not a requirement and only for interest. 
 
+### Variables 
+
+Common questions i get asked about regression that are **not** within scope of the module, but there are some resources here should you want to use them in future (e.g. dissertations):
+
+> How do i select my variables 
+
+Either with logic and reasoning (e.g. in the exam), with the support of academic literature or methods such as [best subset regression, k-fold cross validation](http://www.sthda.com/english/articles/37-model-selection-essentials-in-r/155-best-subsets-regression-essentials-in-r/) or [gradient descent](https://mlu-explain.github.io/linear-regression/). It does not form part of this module.   
+
+> Should i center and scale my data
+
+This means giving all your variables a mean of 0 (centering) and standard deviation of 1 (scaling). This is done through subtracting the mean from each value and dividing by the standard deviation (this latter part is often called standardizing). There is [much debate on when to do this](https://stats.stackexchange.com/questions/29781/when-conducting-multiple-regression-when-should-you-center-your-predictor-varia). Neal Goldstein has [a good list of why and when to do this](https://www.goldsteinepi.com/blog/thewhyandwhenofcenteringcontinuouspredictorsinregressionmodeling/index.html). To interpret the coefficient of this it you can [transform them back](https://stats.stackexchange.com/questions/388772/normalized-regression-coefficients-interpretation). **But** this does not form part of this module.
+
 ### Assumptions Underpinning Linear Regression
 
 ### Assumption 1 - There is a linear relationship between the dependent and independent variables

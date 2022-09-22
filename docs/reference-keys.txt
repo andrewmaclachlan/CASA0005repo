@@ -256,6 +256,7 @@ interpreting-and-using-the-model-outputs
 broom
 tidymodels
 bootstrap-resampling
+variables
 assumptions-underpinning-linear-regression
 assumption-1---there-is-a-linear-relationship-between-the-dependent-and-independent-variables
 transforming-variables
