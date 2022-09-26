@@ -826,6 +826,10 @@ Observing the Moran's I statistic for both Queen's case neighbours and k-nearest
 
 This means that despite passing most of the assumptions of linear regression, we could have a situation here where the presence of some spatial autocorrelation could be leading to biased estimates of our parameters and significance values. 
 
+##### waywiser
+
+This process of detecting spatial autocorrelation is becoming much easier. Whilst this is a beyond the scope of the module, the new package [waywiser](https://www.mm218.dev/posts/2022-08-11-waywiser-010-is-now-on-cran/) let's you conduct this analysis (build a weight matrix and then run spatial autocorrelation in model residuals) in just a few lines of code...This is beyond the scope here.
+
 ## Spatial Regression Models
 
 ### Dealing with Spatially Autocorrelated Residuals - Spatial Lag and Spatial Error models

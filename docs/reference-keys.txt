@@ -267,6 +267,7 @@ variance-inflation-factor-vif
 assumption-4---homoscedasticity
 assumption-5---independence-of-errors
 standard-autocorrelation
+waywiser
 spatial-regression-models
 dealing-with-spatially-autocorrelated-residuals---spatial-lag-and-spatial-error-models
 the-spatial-lag-lagged-dependent-variable-model
