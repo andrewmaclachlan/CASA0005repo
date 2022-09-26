@@ -404,7 +404,7 @@ Common questions i get asked about regression that are **not** within scope of t
 
 > How do i select my variables 
 
-Either with logic and reasoning (e.g. in the exam), with the support of academic literature or methods such as [best subset regression, k-fold cross validation](http://www.sthda.com/english/articles/37-model-selection-essentials-in-r/155-best-subsets-regression-essentials-in-r/) or [gradient descent](https://mlu-explain.github.io/linear-regression/). It does not form part of this module.   
+Either with logic and reasoning (e.g. in the exam), with the support of academic literature or methods such as [best subset regression, k-fold cross validation](http://www.sthda.com/english/articles/37-model-selection-essentials-in-r/155-best-subsets-regression-essentials-in-r/) or [gradient descent](https://mlu-explain.github.io/linear-regression/). It does not form part of this module. Other regression methods such as [Ridge, LASSO and elastic net regression](https://andrewmaclachlan.github.io/CASA0005repo_20202021/advanced-r-maup-and-more-regression.html#advanced-regression) can reduce the influence of variables that are not useful in the model. But again, this is beyond the scope of this module.     
 
 > Should i center and scale my data
 
