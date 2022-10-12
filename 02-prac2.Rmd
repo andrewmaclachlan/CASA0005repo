@@ -704,7 +704,7 @@ knitr::include_graphics('allisonhorst_images/dplyr_mutate.png')
 Life_expectancy <- LondonBoroughs %>% 
   #new column with average of male and female life expectancy
   mutate(averagelifeexpectancy= (female_life_expectancy_2009_13 +
-                                       male_life_expectancy_2009_13)/2)%>%
+                                    male_life_expectancy_2009_13)/2)%>%
   #new column with normalised life expectancy
   mutate(normalisedlifeepectancy= averagelifeexpectancy /
            mean(averagelifeexpectancy))%>%
@@ -1202,4 +1202,3 @@ What's the take home from this? Basically always try to put your data into a cer
 ## Feedback
 
 Was anything that we explained unclear this week or was something really clear...let us know using the [feedback form](https://forms.gle/w2GUDYc7tSavGy7r6). It's anonymous and we'll use the responses to clear any issues up in the future / adapt the material. 
-
