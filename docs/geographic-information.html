@@ -23,7 +23,7 @@
 <meta name="author" content="Andy MacLachlan and Adam Dennett" />
 
 
-<meta name="date" content="2022-09-26" />
+<meta name="date" content="2022-10-12" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -1717,7 +1717,7 @@ Figure 1.11: sf introduction graphic. Source: <a href="https://github.com/alliso
 <p>To have a quick look what the shapefile looks like enter the following:</p>
 <div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="geographic-information.html#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(shape)</span></code></pre></div>
 <p><img src="CASA0005_files/figure-html/unnamed-chunk-41-1.png" width="672" /></p>
-<p>That plots everything in the shapefile (all the attitbues) if you just wanted the geometry (outline of the shape) you could use…</p>
+<p>That plots everything in the shapefile (all the attributes) if you just wanted the geometry (outline of the shape) you could use…</p>
 <div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="geographic-information.html#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sf)</span>
 <span id="cb12-2"><a href="geographic-information.html#cb12-2" aria-hidden="true" tabindex="-1"></a>shape <span class="sc">%&gt;%</span> </span>
 <span id="cb12-3"><a href="geographic-information.html#cb12-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_geometry</span>() <span class="sc">%&gt;%</span></span>
@@ -1810,7 +1810,7 @@ Figure 1.11: sf introduction graphic. Source: <a href="https://github.com/alliso
 ## 8  MULTIPOLYGON (((535009.2 15...
 ## 9  MULTIPOLYGON (((510253.5 18...
 ## 10 MULTIPOLYGON (((531023.5 20...</code></pre>
-<p>Now, let’s make a quick thematic map (or a qtm) using the package <code>tmap</code>. I’ve made mine for flytipping between 2011 and 2012 (column 2011_12). But check what your coloumn name is from the adove code <code>head(shape, n=10)</code> it might be slightly different like 2011-2012 or x2011_2012….</p>
+<p>Now, let’s make a quick thematic map (or a qtm) using the package <code>tmap</code>. I’ve made mine for flytipping between 2011 and 2012 (column 2011_12). But check what your column name is from the above code <code>head(shape, n=10)</code> it might be slightly different like 2011-2012 or x2011_2012….</p>
 <p><img src="prac1_images/colname.png" width="600pt" style="display: block; margin: auto;" /></p>
 <div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="geographic-information.html#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tmap)</span>
 <span id="cb20-2"><a href="geographic-information.html#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="fu">tmap_mode</span>(<span class="st">&quot;plot&quot;</span>)</span>

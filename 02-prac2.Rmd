@@ -282,15 +282,36 @@ A list or data frame can contain a mixture of data types (e.g. numeric and text)
 
 Further divisions are then made based on the number of dimensions (1D, 2D, 3D or more) each can have...
 
+An applied example....
+
 ```{r echo=FALSE, out.width = "450px", fig.align='center', cache=FALSE, fig.cap="R's most common data structures are vectors, matrices, arrays, lists and data frames. Source: [ Figure 3.6, NUS BACT](https://nusbasdata.wordpress.com/2018/01/06/r-tutorial-4-data-structures/)"}
 knitr::include_graphics('prac2_images/data_structures.png') 
 ```
 
-For the purposes of this practical we will focus on data frames. These are the most flexible data format in R (although tibbles are now becoming popular as well --- they are just more flexible versions of data frames, for example they can have a list as a column). Data frames can be conceptualised in a similar way to a spreadsheet with data held in rows and columns. They are the most commonly used object type in R and the most straightforward to create from the two vector objects we just created.
+An applied example....
+
+```{r echo=FALSE, out.width = "450px", fig.align='center', cache=FALSE, fig.cap="Data Object Type and Structure. Source: [ Exploratory Data Analysis in R, Gimond 2022](https://mgimond.github.io/ES218/Week02a.html#Data_structures)"}
+knitr::include_graphics('prac2_images/data_structures2.png') 
+```
+
+To determine what structure you have ask the following questions
+
+1. Is it a single type of data (e.g. character, numeric, date)
+1. Is it a single row (e.g. vector)
+1. Is there an extra dimension (e.g. matrix or array)
+1. Are there many different types combined (e.g list)
+
+For the purposes of this practical we will focus on data frames. These are the most flexible data format in R (although tibbles are now becoming popular as well --- they are just more flexible versions of data frames, see below). Data frames can be conceptualised in a similar way to a spreadsheet with data held in rows and columns. They are the most commonly used object type in R and the most straightforward to create from the two vector objects we just created.
 
 ```{r, cache=FALSE}
 df <- data.frame(Data1, Data2)
 plot(df, col="green")
+```
+
+Tibble vs data frame....
+
+```{r echo=FALSE, out.width = "450px", fig.align='center', cache=FALSE, fig.cap="Tibble vs dataframe. Source: [  Business Science in R bloggers, 2021](https://www.r-bloggers.com/2021/02/4-ways-to-make-data-frames-in-r/)"}
+knitr::include_graphics('prac2_images/tibble.png') 
 ```
 
 1. If you have a very large data frame (thousands or millions of rows) it is useful to see only a selection of these. There are several ways of doing this:
@@ -347,7 +368,7 @@ df <- df %>%
   dplyr::rename(column1 = Data1, column2=Data2)
 ```
 
-`dplyr` is a grammar of data manipulation, it has multiple verbs that allow you to change your data into a suitable format. These include `select()`, `filter()`, `summarise()`, which can also be applied to groups in datasets using `group_by()`. `dplyr` will be used throughout this course.
+`dplyr` is a grammar of data manipulation, it has multiple **verbs** that allow you to change your data into a suitable format. These include `select()`, `filter()`, `summarise()`, which can also be applied to groups in datasets using `group_by()`. `dplyr` will be used throughout this course.
 
 In the majority of cases you provide some kind of data to `dplyr` followed by a `%>%` then a verb (or other function), then another `%>%` and more verbs of functions if needed. As in the code above you can also assign the output to an object with `<-`.
 

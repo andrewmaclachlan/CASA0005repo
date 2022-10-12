@@ -514,7 +514,7 @@ To have a quick look what the shapefile looks like enter the following:
 plot(shape)
 ```
 
-That plots everything in the shapefile (all the attitbues) if you just wanted the geometry (outline of the shape) you could use...
+That plots everything in the shapefile (all the attributes) if you just wanted the geometry (outline of the shape) you could use...
 
 ```{r, message=FALSE}
 library(sf)
@@ -569,7 +569,7 @@ shape%>%
   head(., n=10)
 ```
 
-Now, let's make a quick thematic map (or a qtm) using the package `tmap`. I've made mine for flytipping between 2011 and 2012 (column 2011_12). But check what your coloumn name is from the adove code `head(shape, n=10)` it might be slightly different like 2011-2012 or x2011_2012....
+Now, let's make a quick thematic map (or a qtm) using the package `tmap`. I've made mine for flytipping between 2011 and 2012 (column 2011_12). But check what your column name is from the above code `head(shape, n=10)` it might be slightly different like 2011-2012 or x2011_2012....
 
 ```{r echo=FALSE, out.width = "600pt", fig.align='center', cache=FALSE}
 knitr::include_graphics('prac1_images/colname.png') 

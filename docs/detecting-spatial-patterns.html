@@ -23,7 +23,7 @@
 <meta name="author" content="Andy MacLachlan and Adam Dennett" />
 
 
-<meta name="date" content="2022-09-26" />
+<meta name="date" content="2022-10-12" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -1401,7 +1401,7 @@ div.csl-indent {
 <span id="cb230-4"><a href="detecting-spatial-patterns.html#cb230-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_polygons</span>(<span class="at">col =</span> <span class="cn">NA</span>, <span class="at">alpha =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
 <span id="cb230-5"><a href="detecting-spatial-patterns.html#cb230-5" aria-hidden="true" tabindex="-1"></a><span class="fu">tm_shape</span>(BluePlaques) <span class="sc">+</span></span>
 <span id="cb230-6"><a href="detecting-spatial-patterns.html#cb230-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_dots</span>(<span class="at">col =</span> <span class="st">&quot;blue&quot;</span>)</span></code></pre></div>
-<p><img src="CASA0005_files/figure-html/unnamed-chunk-253-1.png" width="672" /></p>
+<p><img src="CASA0005_files/figure-html/unnamed-chunk-255-1.png" width="672" /></p>
 <div id="data-cleaning" class="section level3 hasAnchor" number="6.5.1">
 <h3><span class="header-section-number">6.5.1</span> Data cleaning<a href="detecting-spatial-patterns.html#data-cleaning" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Now, you might have noticed that there is at least one Blue Plaque that falls outside of the Borough boundaries. Errant plaques will cause problems with our analysis, so we need to clip the plaques to the boundaries…First we’ll remove any Plaques with the same grid reference as this will cause problems later on in the analysis..</p>
@@ -1421,9 +1421,9 @@ div.csl-indent {
 <span id="cb232-5"><a href="detecting-spatial-patterns.html#cb232-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_polygons</span>(<span class="at">col =</span> <span class="cn">NA</span>, <span class="at">alpha =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
 <span id="cb232-6"><a href="detecting-spatial-patterns.html#cb232-6" aria-hidden="true" tabindex="-1"></a><span class="fu">tm_shape</span>(BluePlaquesSub) <span class="sc">+</span></span>
 <span id="cb232-7"><a href="detecting-spatial-patterns.html#cb232-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_dots</span>(<span class="at">col =</span> <span class="st">&quot;blue&quot;</span>)</span></code></pre></div>
-<p><img src="CASA0005_files/figure-html/unnamed-chunk-255-1.png" width="672" /></p>
+<p><img src="CASA0005_files/figure-html/unnamed-chunk-257-1.png" width="672" /></p>
 <p>When we spatial subset data like this there are different topological relations we can specify. The default is intersects, but we could also use <code>BluePlaquesSub &lt;- BluePlaques[BoroughMap, , op = st_within]</code>, with the operator or op set to <code>st_within</code>, to identify points completely within the borough outline, <a href="http://postgis.net/workshops/postgis-intro/spatial_relationships.html">or a variety of other options</a> such as <code>st_overlaps</code>, <code>st_touches</code>, <code>st_contains</code>, <code>st_disjoint</code>. Any possible topological relationship you can think of a function will exist for it…visually this looks like…where each tick denotes the relations that apply to the polygons. Note, that in several cases multiple topological relations would work.</p>
-<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-256"></span>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-258"></span>
 <img src="prac6_images/relations-1.png" alt="Topological relations between vector geometries. Source: [Lovelace et al. 2022](https://geocompr.robinlovelace.net/spatial-operations.html)" width="600px" />
 <p class="caption">
 Figure 6.1: Topological relations between vector geometries. Source: <a href="https://geocompr.robinlovelace.net/spatial-operations.html">Lovelace et al. 2022</a>
@@ -1437,7 +1437,7 @@ Figure 6.1: Topological relations between vector geometries. Source: <a href="ht
 <div id="spatial-clipping" class="section level3 hasAnchor" number="6.5.3">
 <h3><span class="header-section-number">6.5.3</span> Spatial clipping<a href="detecting-spatial-patterns.html#spatial-clipping" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Whilst on the topic of spatial operations, in a similar theme to topological relations we can also use spatial clipping. This is where we take to layers and extract something. For example, where do the polygons from two different datasets overlap? We want to make a new layer of just the overlapping area…this is somewhat similar to the joins we explored with attribute data (e.g. joining based on a unique attribute column) but here we use shapes…</p>
-<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-257"></span>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-259"></span>
 <img src="prac6_images/venn-clip-1.png" alt="Topological relations between vector geometries. Source: [Lovelace et al. 2022](https://geocompr.robinlovelace.net/geometry-operations.html?q=st_intersection#clipping)" width="600px" />
 <p class="caption">
 Figure 6.2: Topological relations between vector geometries. Source: <a href="https://geocompr.robinlovelace.net/geometry-operations.html?q=st_intersection#clipping">Lovelace et al. 2022</a>
@@ -1588,7 +1588,7 @@ Figure 6.2: Topological relations between vector geometries. Source: <a href="ht
 <li><code>st_join</code> is a left join, here the left table is hotels</li>
 <li><code>st_join</code> uses <code>st_intersects()</code> by default. This means for the hotel data, where the airbnb intersects each hotel borough a new row is added. Conceptually, this is the same as a left join if there are multiple matches (but the matches here are defined by <code>st_intersects</code> not a column ID)…</li>
 </ul>
-<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-262"></span>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-264"></span>
 <img src="prac2_images/left-join-extra.gif" alt="dplyr::left_join() example with multiple matches. Source: [Tidy explain by Garrick Aden‑Buie](https://www.garrickadenbuie.com/project/tidyexplain/)" width="500px" />
 <p class="caption">
 Figure 6.3: dplyr::left_join() example with multiple matches. Source: <a href="https://www.garrickadenbuie.com/project/tidyexplain/">Tidy explain by Garrick Aden‑Buie</a>
@@ -1646,7 +1646,7 @@ Figure 6.3: dplyr::left_join() example with multiple matches. Source: <a href="h
 <span id="cb249-7"><a href="detecting-spatial-patterns.html#cb249-7" aria-hidden="true" tabindex="-1"></a><span class="co">#Check to see that the correct borough has been pulled out</span></span>
 <span id="cb249-8"><a href="detecting-spatial-patterns.html#cb249-8" aria-hidden="true" tabindex="-1"></a><span class="fu">tm_shape</span>(Harrow) <span class="sc">+</span></span>
 <span id="cb249-9"><a href="detecting-spatial-patterns.html#cb249-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_polygons</span>(<span class="at">col =</span> <span class="cn">NA</span>, <span class="at">alpha =</span> <span class="fl">0.5</span>)</span></code></pre></div>
-<p><img src="CASA0005_files/figure-html/unnamed-chunk-264-1.png" width="672" /></p>
+<p><img src="CASA0005_files/figure-html/unnamed-chunk-266-1.png" width="672" /></p>
 <p>Next we need to clip our Blue Plaques so that we have a subset of just those that fall within the borough or interest</p>
 <div class="sourceCode" id="cb250"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb250-1"><a href="detecting-spatial-patterns.html#cb250-1" aria-hidden="true" tabindex="-1"></a><span class="co">#clip the data to our single borough</span></span>
 <span id="cb250-2"><a href="detecting-spatial-patterns.html#cb250-2" aria-hidden="true" tabindex="-1"></a>BluePlaquesSub <span class="ot">&lt;-</span> BluePlaques[Harrow,]</span>
@@ -1657,12 +1657,12 @@ Figure 6.3: dplyr::left_join() example with multiple matches. Source: <a href="h
 <span id="cb252-2"><a href="detecting-spatial-patterns.html#cb252-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_polygons</span>(<span class="at">col =</span> <span class="cn">NA</span>, <span class="at">alpha =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
 <span id="cb252-3"><a href="detecting-spatial-patterns.html#cb252-3" aria-hidden="true" tabindex="-1"></a><span class="fu">tm_shape</span>(BluePlaquesSub) <span class="sc">+</span></span>
 <span id="cb252-4"><a href="detecting-spatial-patterns.html#cb252-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_dots</span>(<span class="at">col =</span> <span class="st">&quot;blue&quot;</span>)</span></code></pre></div>
-<p><img src="CASA0005_files/figure-html/unnamed-chunk-265-1.png" width="672" /></p>
+<p><img src="CASA0005_files/figure-html/unnamed-chunk-267-1.png" width="672" /></p>
 <p>We now have all of our data set up so that we can start the analysis using <code>spatstat</code>. The first thing we need to do is create an observation window for <code>spatstat</code> to carry out its analysis within — we’ll set this to the extent of the Harrow boundary</p>
 <div class="sourceCode" id="cb253"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb253-1"><a href="detecting-spatial-patterns.html#cb253-1" aria-hidden="true" tabindex="-1"></a><span class="co">#now set a window as the borough boundary</span></span>
 <span id="cb253-2"><a href="detecting-spatial-patterns.html#cb253-2" aria-hidden="true" tabindex="-1"></a>window <span class="ot">&lt;-</span> <span class="fu">as.owin</span>(Harrow)</span>
 <span id="cb253-3"><a href="detecting-spatial-patterns.html#cb253-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(window)</span></code></pre></div>
-<p><img src="CASA0005_files/figure-html/unnamed-chunk-266-1.png" width="672" /></p>
+<p><img src="CASA0005_files/figure-html/unnamed-chunk-268-1.png" width="672" /></p>
 <p><a href="https://spatstat.org/"><code>spatstat</code></a> has its own set of spatial objects that it works with (one of the delights of R is that different packages are written by different people and many have developed their own data types) — it does not work directly with the SpatialPolygonsDataFrames, SpatialPointsDataFrames or <code>sf</code> objects that we are used to. For point pattern analysis, we need to create a point pattern (ppp) object.</p>
 <div class="sourceCode" id="cb254"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb254-1"><a href="detecting-spatial-patterns.html#cb254-1" aria-hidden="true" tabindex="-1"></a><span class="co">#create a sp object</span></span>
 <span id="cb254-2"><a href="detecting-spatial-patterns.html#cb254-2" aria-hidden="true" tabindex="-1"></a>BluePlaquesSub<span class="ot">&lt;-</span> BluePlaquesSub <span class="sc">%&gt;%</span></span>
@@ -1682,7 +1682,7 @@ Figure 6.3: dplyr::left_join() example with multiple matches. Source: <a href="h
 <div class="sourceCode" id="cb257"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb257-1"><a href="detecting-spatial-patterns.html#cb257-1" aria-hidden="true" tabindex="-1"></a>BluePlaquesSub.ppp <span class="sc">%&gt;%</span></span>
 <span id="cb257-2"><a href="detecting-spatial-patterns.html#cb257-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot</span>(.,<span class="at">pch=</span><span class="dv">16</span>,<span class="at">cex=</span><span class="fl">0.5</span>, </span>
 <span id="cb257-3"><a href="detecting-spatial-patterns.html#cb257-3" aria-hidden="true" tabindex="-1"></a>       <span class="at">main=</span><span class="st">&quot;Blue Plaques Harrow&quot;</span>)</span></code></pre></div>
-<p><img src="CASA0005_files/figure-html/unnamed-chunk-269-1.png" width="672" /></p>
+<p><img src="CASA0005_files/figure-html/unnamed-chunk-271-1.png" width="672" /></p>
 </div>
 </div>
 <div id="point-pattern-analysis" class="section level2 hasAnchor" number="6.6">
@@ -1693,12 +1693,12 @@ Figure 6.3: dplyr::left_join() example with multiple matches. Source: <a href="h
 <div class="sourceCode" id="cb258"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb258-1"><a href="detecting-spatial-patterns.html#cb258-1" aria-hidden="true" tabindex="-1"></a>BluePlaquesSub.ppp <span class="sc">%&gt;%</span></span>
 <span id="cb258-2"><a href="detecting-spatial-patterns.html#cb258-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">density</span>(., <span class="at">sigma=</span><span class="dv">500</span>) <span class="sc">%&gt;%</span></span>
 <span id="cb258-3"><a href="detecting-spatial-patterns.html#cb258-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot</span>()</span></code></pre></div>
-<p><img src="CASA0005_files/figure-html/unnamed-chunk-270-1.png" width="672" /></p>
+<p><img src="CASA0005_files/figure-html/unnamed-chunk-272-1.png" width="672" /></p>
 <p>The sigma value sets the diameter of the Kernel (in the units your map is in — in this case, as we are in British National Grid the units are in metres). Try experimenting with different values of sigma to see how that affects the density estimate.</p>
 <div class="sourceCode" id="cb259"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb259-1"><a href="detecting-spatial-patterns.html#cb259-1" aria-hidden="true" tabindex="-1"></a>BluePlaquesSub.ppp <span class="sc">%&gt;%</span></span>
 <span id="cb259-2"><a href="detecting-spatial-patterns.html#cb259-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">density</span>(., <span class="at">sigma=</span><span class="dv">1000</span>) <span class="sc">%&gt;%</span></span>
 <span id="cb259-3"><a href="detecting-spatial-patterns.html#cb259-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot</span>()</span></code></pre></div>
-<p><img src="CASA0005_files/figure-html/unnamed-chunk-271-1.png" width="672" /></p>
+<p><img src="CASA0005_files/figure-html/unnamed-chunk-273-1.png" width="672" /></p>
 </div>
 <div id="quadrat-analysis" class="section level3 hasAnchor" number="6.6.2">
 <h3><span class="header-section-number">6.6.2</span> Quadrat Analysis<a href="detecting-spatial-patterns.html#quadrat-analysis" class="anchor-section" aria-label="Anchor link to header"></a></h3>
@@ -1715,7 +1715,7 @@ Figure 6.3: dplyr::left_join() example with multiple matches. Source: <a href="h
 <span id="cb260-9"><a href="detecting-spatial-patterns.html#cb260-9" aria-hidden="true" tabindex="-1"></a>BluePlaquesSub.ppp <span class="sc">%&gt;%</span></span>
 <span id="cb260-10"><a href="detecting-spatial-patterns.html#cb260-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">quadratcount</span>(.,<span class="at">nx =</span> <span class="dv">6</span>, <span class="at">ny =</span> <span class="dv">6</span>)<span class="sc">%&gt;%</span></span>
 <span id="cb260-11"><a href="detecting-spatial-patterns.html#cb260-11" aria-hidden="true" tabindex="-1"></a>    <span class="fu">plot</span>(., <span class="at">add=</span>T, <span class="at">col=</span><span class="st">&quot;red&quot;</span>)</span></code></pre></div>
-<p><img src="CASA0005_files/figure-html/unnamed-chunk-272-1.png" width="672" /></p>
+<p><img src="CASA0005_files/figure-html/unnamed-chunk-274-1.png" width="672" /></p>
 <p>In our case here, want to know whether or not there is any kind of spatial patterning associated with the Blue Plaques in areas of London. If you recall from the lecture, this means comparing our observed distribution of points with a statistically likely (Complete Spatial Random) distibution, based on the Poisson distribution.</p>
 <p>Using the same <code>quadratcount()</code> function again (for the same sized grid) we can save the results into a table:</p>
 <div class="sourceCode" id="cb261"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb261-1"><a href="detecting-spatial-patterns.html#cb261-1" aria-hidden="true" tabindex="-1"></a><span class="co">#run the quadrat count</span></span>
@@ -1768,7 +1768,7 @@ where:</p>
 <span id="cb265-15"><a href="detecting-spatial-patterns.html#cb265-15" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(QCountTable<span class="sc">$</span>Expected, <span class="at">col=</span><span class="st">&quot;Blue&quot;</span>, </span>
 <span id="cb265-16"><a href="detecting-spatial-patterns.html#cb265-16" aria-hidden="true" tabindex="-1"></a>       <span class="at">type=</span><span class="st">&quot;o&quot;</span>, </span>
 <span id="cb265-17"><a href="detecting-spatial-patterns.html#cb265-17" aria-hidden="true" tabindex="-1"></a>       <span class="at">lwd=</span><span class="dv">3</span>)</span></code></pre></div>
-<p><img src="CASA0005_files/figure-html/unnamed-chunk-276-1.png" width="672" />
+<p><img src="CASA0005_files/figure-html/unnamed-chunk-278-1.png" width="672" />
 Comparing the observed and expected frequencies for our quadrant counts, we can observe that they both have higher frequency counts at the lower end — something reminiscent of a Poisson distribution. This could indicate that for this particular set of quadrants, our pattern is close to Complete Spatial Randomness (i.e. no clustering or dispersal of points). But how do we confirm this?</p>
 <p>To check for sure, we can use the <code>quadrat.test()</code> function, built into <code>spatstat</code>. This uses a Chi Squared test to compare the observed and expected frequencies for each quadrant (rather than for quadrant bins, as we have just computed above).</p>
 <p>A Chi-Squared test determines if there is an association between two categorical variables. The higher the Chi-Squared value, the greater the difference.</p>
@@ -1777,7 +1777,7 @@ Comparing the observed and expected frequencies for our quadrant counts, we can 
 <pre><code>## Warning: Some expected counts are small; chi^2 approximation may be inaccurate</code></pre>
 <div class="sourceCode" id="cb268"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb268-1"><a href="detecting-spatial-patterns.html#cb268-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(BluePlaquesSub.ppp,<span class="at">pch=</span><span class="dv">16</span>,<span class="at">cex=</span><span class="fl">0.5</span>, <span class="at">main=</span><span class="st">&quot;Blue Plaques in Harrow&quot;</span>)</span>
 <span id="cb268-2"><a href="detecting-spatial-patterns.html#cb268-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(teststats, <span class="at">add=</span>T, <span class="at">col =</span> <span class="st">&quot;red&quot;</span>)</span></code></pre></div>
-<p><img src="CASA0005_files/figure-html/unnamed-chunk-277-1.png" width="672" /></p>
+<p><img src="CASA0005_files/figure-html/unnamed-chunk-279-1.png" width="672" /></p>
 <p>Here our p-value = 0.2594, implying complete spatial randomness. But there are limitations of using qudrants like this…that we will explore next.</p>
 <p>Note the warning message — some of the observed counts are very small (0) and this may affect the accuracy of the quadrant test. Recall that the Poisson distribution only describes observed occurrances that are counted in integers — where our occurrences = 0 (i.e. not observed), this can be an issue. We also know that there are various other problems that might affect our quadrat analysis, such as the <a href="https://www.youtube.com/watch?v=cZdlxDx4Nvs">modifiable areal unit problem</a>.</p>
 <p>In the new plot, we can see three figures for each quadrant. The top-left figure is the observed count of points; the top-right is the Poisson expected number of points; the bottom value is the residual value (also known as Pearson residual value), or (Observed - Expected) / Sqrt(Expected).</p>
@@ -1796,7 +1796,7 @@ Comparing the observed and expected frequencies for our quadrant counts, we can 
 <div class="sourceCode" id="cb269"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb269-1"><a href="detecting-spatial-patterns.html#cb269-1" aria-hidden="true" tabindex="-1"></a>K <span class="ot">&lt;-</span> BluePlaquesSub.ppp <span class="sc">%&gt;%</span></span>
 <span id="cb269-2"><a href="detecting-spatial-patterns.html#cb269-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">Kest</span>(., <span class="at">correction=</span><span class="st">&quot;border&quot;</span>) <span class="sc">%&gt;%</span></span>
 <span id="cb269-3"><a href="detecting-spatial-patterns.html#cb269-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot</span>()</span></code></pre></div>
-<p><img src="CASA0005_files/figure-html/unnamed-chunk-278-1.png" width="672" /></p>
+<p><img src="CASA0005_files/figure-html/unnamed-chunk-280-1.png" width="672" /></p>
 <div class="sourceCode" id="cb270"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb270-1"><a href="detecting-spatial-patterns.html#cb270-1" aria-hidden="true" tabindex="-1"></a>Kval <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(<span class="fu">Kest</span>(BluePlaquesSub.ppp, <span class="at">correction =</span> <span class="st">&quot;Ripley&quot;</span>))</span></code></pre></div>
 <p>The plot for K has a number of elements that are worth explaining. First, the <em>Kpois(r)</em> line in Red is the theoretical value of K for each distance window (r) under a Poisson assumption of Complete Spatial Randomness. The Black line is the estimated values of K accounting for the effects of the edge of the study area.</p>
 <p>Here, the correction specifies how points towards the edge are dealt with, in this case, border means that points towards the edge are ignored for the calculation but are included for the central points. <a href="https://www.statistics.gov.hk/wsc/IPS031-P2-S.pdf">Section 2.1, here</a> explains the different options.</p>
@@ -1843,7 +1843,7 @@ or consult the <a href="https://en.wikipedia.org/wiki/DBSCAN">wikipedia page</a>
 <span id="cb274-10"><a href="detecting-spatial-patterns.html#cb274-10" aria-hidden="true" tabindex="-1"></a><span class="co">#now plot the results</span></span>
 <span id="cb274-11"><a href="detecting-spatial-patterns.html#cb274-11" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(db, BluePlaquesSubPoints, <span class="at">main =</span> <span class="st">&quot;DBSCAN Output&quot;</span>, <span class="at">frame =</span> F)</span>
 <span id="cb274-12"><a href="detecting-spatial-patterns.html#cb274-12" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(BoroughMap<span class="sc">$</span>geometry, <span class="at">add=</span>T)</span></code></pre></div>
-<p><img src="CASA0005_files/figure-html/unnamed-chunk-281-1.png" width="672" />
+<p><img src="CASA0005_files/figure-html/unnamed-chunk-283-1.png" width="672" />
 You could also use <code>kNNdistplot()</code> from the <code>dbscan</code> pacakge to find a suitable eps value based on the ‘knee’ in the plot…</p>
 <div class="sourceCode" id="cb275"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb275-1"><a href="detecting-spatial-patterns.html#cb275-1" aria-hidden="true" tabindex="-1"></a><span class="co"># used to find suitable eps value based on the knee in plot</span></span>
 <span id="cb275-2"><a href="detecting-spatial-patterns.html#cb275-2" aria-hidden="true" tabindex="-1"></a><span class="co"># k is no of nearest neighbours used, use min points</span></span>
@@ -1893,7 +1893,7 @@ You could also use <code>kNNdistplot()</code> from the <code>dbscan</code> pacak
 <span id="cb284-9"><a href="detecting-spatial-patterns.html#cb284-9" aria-hidden="true" tabindex="-1"></a><span class="co">#now plot, setting the coordinates to scale correctly and as a black and white plot </span></span>
 <span id="cb284-10"><a href="detecting-spatial-patterns.html#cb284-10" aria-hidden="true" tabindex="-1"></a><span class="co">#(just for the hell of it)...</span></span>
 <span id="cb284-11"><a href="detecting-spatial-patterns.html#cb284-11" aria-hidden="true" tabindex="-1"></a>dbplot <span class="sc">+</span> <span class="fu">theme_bw</span>() <span class="sc">+</span> <span class="fu">coord_equal</span>()</span></code></pre></div>
-<p><img src="CASA0005_files/figure-html/unnamed-chunk-289-1.png" width="672" /></p>
+<p><img src="CASA0005_files/figure-html/unnamed-chunk-291-1.png" width="672" /></p>
 <p>Now we are getting there, but wouldn’t it be better to add a basemap?!</p>
 <div class="sourceCode" id="cb285"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb285-1"><a href="detecting-spatial-patterns.html#cb285-1" aria-hidden="true" tabindex="-1"></a><span class="do">###add a basemap</span></span>
 <span id="cb285-2"><a href="detecting-spatial-patterns.html#cb285-2" aria-hidden="true" tabindex="-1"></a><span class="do">##First get the bbox in lat long for Harrow</span></span>
@@ -1921,7 +1921,7 @@ You could also use <code>kNNdistplot()</code> from the <code>dbscan</code> pacak
 <span id="cb287-9"><a href="detecting-spatial-patterns.html#cb287-9" aria-hidden="true" tabindex="-1"></a>                   <span class="at">group=</span>dbcluster,</span>
 <span id="cb287-10"><a href="detecting-spatial-patterns.html#cb287-10" aria-hidden="true" tabindex="-1"></a>                   <span class="at">fill=</span>dbcluster), </span>
 <span id="cb287-11"><a href="detecting-spatial-patterns.html#cb287-11" aria-hidden="true" tabindex="-1"></a>               <span class="at">alpha =</span> <span class="fl">0.5</span>)  </span></code></pre></div>
-<p><img src="CASA0005_files/figure-html/unnamed-chunk-291-1.png" width="672" /></p>
+<p><img src="CASA0005_files/figure-html/unnamed-chunk-293-1.png" width="672" /></p>
 </div>
 <div id="point-pattern-analysis-summary" class="section level2 hasAnchor" number="6.8">
 <h2><span class="header-section-number">6.8</span> Point pattern analysis summary<a href="detecting-spatial-patterns.html#point-pattern-analysis-summary" class="anchor-section" aria-label="Anchor link to header"></a></h2>
