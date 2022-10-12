@@ -661,7 +661,7 @@ LondonBoroughs_contains<-LondonBoroughs %>%
 
 #### Renaming columns
 
-1. You will notice that the column names are slightly misleading as we are now working with boroughs rather than wards. You probably will also be annoyed (like me!) that the column names are full of `...` that just make eveything hard to read. So, let's rename the wards column to boroughs (using `rename()` like we did earlier), then using the `Janitor` package tidy everything up...
+1. You will notice that the column names are slightly misleading as we are now working with boroughs rather than wards. You probably will also be annoyed (like me!) that the column names are full of `...` (they used to be) or - and spaces, that just make everything hard to read. So, let's rename the wards column to boroughs (using `rename()` like we did earlier), then using the `Janitor` package tidy everything up...
 
 ```{r, message=FALSE, cache=FALSE}
 library(janitor)
@@ -959,13 +959,13 @@ BoroughDataMap <- EW %>%
         by.x="lad15cd", 
         by.y="new_code",
         no.dups = TRUE)%>%
-  distinct(.,lad15cd, 
+  distinct(.,lad15cd,
            .keep_all = TRUE)
 ```
 
-We've added some more arguments to `distinct()` that mean we only have unique rows based on the code, but we keep all other variables `.keep_all=TRUE`. If you change to `.keep_all=FALSE` (which is the default) then all the other variables will be removed.
+We've added some more arguments to `distinct()` that mean we only have unique rows based on the code, but we keep all other variables `.keep_all=TRUE`. If you change to `.keep_all=FALSE` (which is the default) then all the other variables (the attributes in the columns) will be removed.
 
-An alternative to ```merge()``` would be to use a ```left_join()``` (like in SQL)...but it's the same thing as `merge()`.
+An alternative to ```merge()``` would be to use a ```left_join()``` (like in SQL)...but it's similar to `merge()`. However, **always use a join type** (e.g. `left_join()`) where possible as it is easier to control how the join works (e.g. inner, left, right, full). `merge()` as default is the same as an inner join...
 
 ```{r echo=FALSE, out.width = "500px", fig.align='center', cache=FALSE, fig.cap="SQL join types. Source: [SQL Join Diagram, dofactory](https://www.dofactory.com/sql/join)"}
 knitr::include_graphics('prac2_images/sql-joins.png') 
@@ -1055,16 +1055,14 @@ So that's our first real map done! Awesome work. But remember our `Life_expectan
 
 ```{r}
 Life_expectancy4map <- EW %>%
-  merge(.,
-        Life_expectancy4, 
-        by.x="lad15cd", 
-        by.y="new_code",
-        no.dups = TRUE)%>%
-  distinct(.,lad15cd, 
+    inner_join(., 
+            Life_expectancy4,
+            by = c("lad15cd" = "new_code"))%>%
+    distinct(.,lad15cd, 
            .keep_all = TRUE)
 ```
 
-Now let's make the map!
+If you change `inner_join()` to `left_join()` what do you get?...now let's make the map!
 
 ```{r, message=FALSE}
 tmap_mode("plot")
