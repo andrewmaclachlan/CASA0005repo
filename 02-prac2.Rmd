@@ -26,6 +26,9 @@ You need calcuate the average percent of science students (in all) grades per co
 * [Download Washing Counties](https://hub.arcgis.com/datasets/kingcounty::washington-counties-with-natural-shoreline-washsh-area/explore?location=47.272700%2C-120.740400%2C7.67)
 
 * [Download school report card data](https://data.wa.gov/Education/Report-Card-Assessment-Data-2018-19-School-Year/5y3z-mgxd)
+
+**Tip** do not try and pull out the number from the % symbol, you have the count of students who expected to test and the count who met standard, so you can calculate the percentage. 
+
 :::
 
 ::: {.infobox .note data-latex="{note}"}
