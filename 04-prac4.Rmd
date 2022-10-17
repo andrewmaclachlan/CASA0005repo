@@ -18,11 +18,15 @@ Each week we will provide a short task to test your knowledge, these should be u
 
 The task this week is to:
 
-* Read in [global gender inequality data](http://hdr.undp.org/en/indicators/68606#) 
+* Read in [global gender inequality data](https://hdr.undp.org/data-center/documentation-and-downloads) 
 * Join the global gender inequality index to [spatial data of the World](https://hub.arcgis.com/datasets/2b93b06dc0dc4e809d3c8db5cb96ba69_0/explore?location=-2.688200%2C0.000000%2C1.41), creating a new column of difference in inequality between 2010 and 2019
 * Share it with the World on GitHub
 * Add you repository URL to the circulated spreadsheet
 
+**Tip** the [countrycode R package](https://github.com/vincentarelbundock/countrycode) will be helpful!
+
+**Tip** the gender inequality has changed in the last year, with row titles (e.g. very high human development) think of a way you can remove these sub titles - perhaps filtering on a column value? or the ID?
+ 
 :::
 
 ::: {.infobox .note data-latex="{note}"}
