@@ -90,10 +90,12 @@ Units are linear (e.g. feet, metres) or data is at a local level (e.g. national,
 You might hear some key words about projections that could terrify you! Let's break them down:
 
 * Ellipsoid (or spheroid) = size of shape of the Earth (3d)
-* Datum = contains the point relationship (where the origin (0,0) of the map is) between a Cartesian coordinates (flat surface) and Earth's surface. They can be local or geocentric. They set the origin, the scale and orientation of the Coordiante Reference System (CRS).
+* Datum = contains the point relationship (where the origin (0,0) of the map is) between a Cartesian coordinates (flat surface) and Earth's surface. They can be local or geocentric (see below). They set the origin, the scale and orientation of the Coordiante Reference System (CRS).
 * Local datum = changes the Ellispoid to align with a certain location on the surface (e.g. BNG that uses the OSGB36 datum). A local datum is anything that isn't the centre of the Earth.
 * Geocentric datum =  the centre is equal to the Earth's centre of gravity (e.g. WGS84).
-* Coordinate reference system (CRS) = Formula that defines how the 2D map (e.g. on your screen or a paper map) relates to the 3D Earth. Also sometimes called a spatial Reference System (SRS). It also stores the datum information.
+* Geodetic datum = global datum (see above for datum meaning) for representing features (e.g. points and polygons) on earth
+* Geodesy (from which we get Geodetic) = measuring Earth's shape and features (e.g. gravity field). 
+* Coordinate reference system (CRS) = Formula that defines how the 2D map (e.g. on your screen or a paper map) relates to the 3D Earth. Sometimes called a spatial Reference System (SRS). It also stores the datum information.
 
 ::: {.infobox .tip data-latex="{note}"}
 
@@ -137,7 +139,7 @@ The coordinates stored in the ```geometry``` column of your ```sf``` object cont
 
 #### Proj4
 
-WGS84 is one of the most common global projection systems, used in nearly all GPS devices. Whilst we were able to identify the CRS of our layer using `print` another alternative is to find the `proj4` string. A `proj4` string is meant to be a compact way of identifying a coordinate reference system. Let's extract ours...
+The World Geodetic System 84 (WGS84 - last revised in 1984) is one of the most common global projection systems, used in nearly all GPS devices. Whilst we were able to identify the CRS of our layer using `print` another alternative is to find the `proj4` string. A `proj4` string is meant to be a compact way of identifying a coordinate reference system. Let's extract ours...
 
 ```{r}
 library(sf)
