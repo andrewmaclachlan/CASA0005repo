@@ -35,6 +35,8 @@ This week:
 
 * [Exploratory data analysis: using colour and layout for comparison](https://www.roger-beecham.com/comp-sds/class/04-class/) by Beecham (2021).
 
+* [Chapter 7 "Reprojecting Geographic Data"](https://geocompr.robinlovelace.net/reproj-geo-data.html) from Geocomputation with R by Lovelace, Nowosad and Muenchow (2022).
+
 **Watching**
 
 * [Hadley Wickham's Keynote from the European Molecular Biology Laboratory (EMBL)](https://www.youtube.com/watch?v=9YTNYT1maa4). This will be the same for a few weeks.
@@ -62,7 +64,7 @@ Projections systems are mathematical formulas that specify how our data is repre
 
 A minute type of resolution (e.g. 5 minute resolution) is a geographic reference system that treats the globe as if it was a sphere divided into 360 equal parts called degrees (which are angular units). Each degree has 60 minutes and each minute has 60 seconds. Arc-seconds of latitude (horizontal lines in the globe figure below) remain almost constant whilst arc-seconds of longitude (vertical lines in the globe figure below) decrease in a trigonometric cosine-based fashion as you move towards the Earth's poles...
 
-```{r echo=FALSE, out.width = "400pt", fig.align='center', cache=FALSE, results=FALSE, fig.cap="Latitude and Longitude. Source: [ThoughtCo.](https://www.thoughtco.com/degree-of-latitude-and-longitude-distance-4070616)"}
+```{r echo=FALSE, out.width = "400pt", fig.align='center', cache=FALSE, fig.cap="Latitude and Longitude. Source: [ThoughtCo.](https://www.thoughtco.com/degree-of-latitude-and-longitude-distance-4070616)"}
 knitr::include_graphics('prac3_images/arcseconds.jpg')
 ```
 
@@ -91,7 +93,7 @@ You might hear some key words about projections that could terrify you! Let's br
 
 * Ellipsoid (or spheroid) = size of shape of the Earth (3d)
 * Datum = contains the point relationship (where the origin (0,0) of the map is) between a Cartesian coordinates (flat surface) and Earth's surface. They can be local or geocentric (see below). They set the origin, the scale and orientation of the Coordiante Reference System (CRS).
-* Local datum = changes the Ellispoid to align with a certain location on the surface (e.g. BNG that uses the OSGB36 datum). A local datum is anything that isn't the centre of the Earth.
+* Local datum = changes the Ellipsoid to align with a certain location on the surface (e.g. BNG that uses the OSGB36 datum). A local datum is anything that isn't the centre of the Earth.
 * Geocentric datum =  the centre is equal to the Earth's centre of gravity (e.g. WGS84).
 * Geodetic datum = global datum (see above for datum meaning) for representing features (e.g. points and polygons) on earth
 * Geodesy (from which we get Geodetic) = measuring Earth's shape and features (e.g. gravity field). 
@@ -135,11 +137,31 @@ You can check that the coordinate reference systems of  ```sf ``` or  ```sp ``` 
 ```{r, cache=FALSE}
 print(Ausoutline)
 ```
-The coordinates stored in the ```geometry``` column of your ```sf``` object contain the information to enable points, lines or polygons to be drawn on the screen. You can see that our `Ausoutline` is a multipolygon and every point within the polygon will have coordinates that are in a certain reference system, here WGS 84.
+The coordinates stored in the ```geometry``` column of your ```sf``` object contain the information to enable points, lines or polygons to be drawn on the screen. You can see that our `Ausoutline` is a multipolygon and every point within the polygon will have coordinates that are in a certain reference system, here Geodetic CRS:  WGS 84. The geodetic means geographic, if it was a projected coordiante reference system it would say projected CRS..like the week 1 data of the London Boroughs said...`## Projected CRS: OSGB 1936 / British National Grid`
+
+#### WGS84
+
+The World Geodetic System 84 (WGS84 - last revised in 1984) is one of the most common global projection systems, used in nearly all GPS devices. However there are many versions of WGS84, some geographic and some projected coordinate reference systems. 
+
+**3D globe**
+* GPS devices and point data sets often use the Geographic version (EPSG code 4326), **usually referred to just as WGS84**
+* Google Earth uses the Geographic version as it is a 3D globe (EPSG code 4326)
+
+**Flat**
+* Google Maps / Carto / Bing / Open street map use Web Mercator, Google Web Mercator, Spherical Mercator, WGS 84 Web Mercator or **WGS 84/Pseudo-Mercator** which is a projected coordinate reference system (EPSG code 3857). It is a variant of the Mercator map projection. 
+* The WGS 1984 world Mercator projection is a projected coordinate reference system following the Mercator map transformation (EPSG code 3395)
+
+The projected versions will have units of meters and the geographic versions units of degrees.
+
+In the rare occasion some data was collected in a Geographic coordinate reference system other than WGS84, you might find that the points / polygons won't line up with data in WGS84. This is because different Geographic coordinate reference systems use different ellipsoids (shape / size of Earth) and/or datums (the origin point (0,0), typically they use Earth's centre of gravity). To make them match you need to transform a dataset. That said QGIS will project 'on the fly' meaning if you add layers with a different CRS it will make them appear the same on the screen (changing the projection live or 'on the fly'). It won't change the CRS of the data itself though, you have to do that manually. 
+
+An example of another Geographic coordinate reference systems is the North American 1983 Datum (NAD83) that uses a different ellipsoid (longer by 0.21mm compared to WGS84), it also just has reference points on the North America plate (that moves 1-2cm a year), WGS84 has them all over the world.
+
+This same logic applies for projected coordinate references systems that could be different, as they use a different origin and the projected coordinate reference system still contains the geographic one, the projected part tells the computer how to draw the shape.
 
 #### Proj4
 
-The World Geodetic System 84 (WGS84 - last revised in 1984) is one of the most common global projection systems, used in nearly all GPS devices. Whilst we were able to identify the CRS of our layer using `print` another alternative is to find the `proj4` string. A `proj4` string is meant to be a compact way of identifying a coordinate reference system. Let's extract ours...
+Whilst we were able to identify the CRS of our layer using `print` another alternative is to find the `proj4` string. A `proj4` string is meant to be a compact way of identifying a coordinate reference system. Let's extract ours...
 
 ```{r}
 library(sf)
@@ -432,18 +454,15 @@ Check the layer by plotting the geometry...we could do this through...
 plot(Ausoutline$geom)
 ```
 
-But as the `.shp` is quite complex (i.e. lots of points) we can simplify it first with the `rmapshaper` package --- install that now..if it doesn't load (or crashes your PC) this isn't an issue. It's just good practice that when you load data into R you check to see what it looks like...
+But as the `.shp` is quite complex (i.e. lots of points) we can simplify it first with the `st_simplify()` function. It's good practice that when you load data into R you check to see what it looks like...Here the argument `dTolerance` controls the level of generalisation in the units of the map, you can also set `preserveTopology` to TRUE or FALSE, when true it means that polyongs aren't removed and holes in polygons are retained.  
 
 ```{r, cache=FALSE, warning=FALSE, message=FALSE}
-#load the rmapshaper package
-library(rmapshaper)
-#simplify the shapefile
-#keep specifies the % of points
-#to keep
-AusoutSIMPLE<-Ausoutline %>%
-  ms_simplify(.,keep=0.05)
 
-plot(AusoutSIMPLE$geom)
+AusoutSIMPLE <- Ausoutline %>%
+  st_simplify(., dTolerance = 1000) %>%
+  st_geometry()%>%
+  plot()
+
 ```
 
 This should load quicker, but for 'publication' or 'best' analysis (i.e. not just demonstrating or testing) i'd recommend using the real file to ensure you don't simply a potentially important variable. 

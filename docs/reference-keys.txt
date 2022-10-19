@@ -30,6 +30,7 @@ fig:unnamed-chunk-143
 fig:unnamed-chunk-145
 fig:unnamed-chunk-151
 fig:unnamed-chunk-152
+fig:unnamed-chunk-159
 fig:vectorplots
 fig:unnamed-chunk-180
 fig:unnamed-chunk-258
@@ -131,6 +132,7 @@ introduction-2
 part-1-projections
 changing-projections
 vector
+wgs84
 proj4
 epsg
 reprojecting-your-spatial-data
