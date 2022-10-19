@@ -64,7 +64,7 @@ Projections systems are mathematical formulas that specify how our data is repre
 
 A minute type of resolution (e.g. 5 minute resolution) is a geographic reference system that treats the globe as if it was a sphere divided into 360 equal parts called degrees (which are angular units). Each degree has 60 minutes and each minute has 60 seconds. Arc-seconds of latitude (horizontal lines in the globe figure below) remain almost constant whilst arc-seconds of longitude (vertical lines in the globe figure below) decrease in a trigonometric cosine-based fashion as you move towards the Earth's poles...
 
-```{r echo=FALSE, out.width = "400pt", fig.align='center', cache=FALSE, fig.cap="Latitude and Longitude. Source: [ThoughtCo.](https://www.thoughtco.com/degree-of-latitude-and-longitude-distance-4070616)"}
+```{r echo=FALSE,  out.width="49%", fig.align='center', cache=FALSE, fig.cap="Latitude and Longitude. Source: [ThoughtCo.](https://www.thoughtco.com/degree-of-latitude-and-longitude-distance-4070616)"}
 knitr::include_graphics('prac3_images/arcseconds.jpg')
 ```
 
@@ -144,10 +144,12 @@ The coordinates stored in the ```geometry``` column of your ```sf``` object cont
 The World Geodetic System 84 (WGS84 - last revised in 1984) is one of the most common global projection systems, used in nearly all GPS devices. However there are many versions of WGS84, some geographic and some projected coordinate reference systems. 
 
 **3D globe**
+
 * GPS devices and point data sets often use the Geographic version (EPSG code 4326), **usually referred to just as WGS84**
 * Google Earth uses the Geographic version as it is a 3D globe (EPSG code 4326)
 
 **Flat**
+
 * Google Maps / Carto / Bing / Open street map use Web Mercator, Google Web Mercator, Spherical Mercator, WGS 84 Web Mercator or **WGS 84/Pseudo-Mercator** which is a projected coordinate reference system (EPSG code 3857). It is a variant of the Mercator map projection. 
 * The WGS 1984 world Mercator projection is a projected coordinate reference system following the Mercator map transformation (EPSG code 3395)
 
@@ -374,6 +376,11 @@ AUcitytemp<- raster::extract(worldclimtemp, samples)
 
 1. Add the city names to the rows of AUcitytemp
 
+::: {.infobox .tip data-latex="{note}"}
+When we extract data from a raster with a point or polygon it is termed **zonal statistics** in GIS - we want to get some statistics from the zone (point / polygon) for the area that is over the raster.
+:::
+
+
 ```{r, cache=FALSE}
 Aucitytemp2 <- AUcitytemp %>% 
   as_tibble()%>% 
@@ -465,9 +472,7 @@ AusoutSIMPLE <- Ausoutline %>%
 
 ```
 
-This should load quicker, but for 'publication' or 'best' analysis (i.e. not just demonstrating or testing) i'd recommend using the real file to ensure you don't simply a potentially important variable. 
-
-Check out [the `rmapshaper` vignette](https://cran.r-project.org/web/packages/rmapshaper/vignettes/rmapshaper.html) for more information
+This should load quicker, but for 'publication' or 'best' analysis (i.e. not just demonstrating or testing) i'd recommend using the real file to ensure you don't simplify a potentially important variable. 
 
 1. Next, set our map extent (where we want to clip the data to) to the outline of Australia then crop our WorldClim dataset to it.
 
