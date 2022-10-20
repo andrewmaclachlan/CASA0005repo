@@ -428,6 +428,8 @@ hist(as.numeric(Perthtemp))
 
 Remember what we're looking at here. The ```x``` axis is the temperature and the ```y``` is the frequency of occurrence. 
 
+There seems to be an outlier with this plot as we haven't removed the columns we don't need - look in the `Perthtemp` tibble and you will see an ID of 3 which is plotted above! We will solve this next...
+
 1. That's a pretty simple histogram, let's improve the aesthetics a bit. 
 
 ```{r, cache=FALSE}
@@ -455,7 +457,7 @@ hist((t$temp),
 1. Check out the histogram information R generated
 
 ```{r warning=FALSE, fig.show='hide', cache=FALSE}
-histinfo <- Perthtemp %>%
+histinfo <- t$temp %>%
   as.numeric()%>%
   hist(.)
 
