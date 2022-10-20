@@ -257,7 +257,8 @@ We are going to use WorldClim data --- this is a dataset of free global climate 
 
 ```{r ,message=FALSE, cache=FALSE}
 library(raster)
-jan<-raster(here("prac3_data", "wc2.0_5m_tavg_01.tif"))
+library(terra)
+jan<-rast(here("prac3_data", "wc2.0_5m_tavg_01.tif"))
 # have a look at the raster layer jan
 jan
 ```
@@ -268,26 +269,28 @@ jan
 plot(jan)
 ```
 
-To reproject a raster the whole grid must be recomputed (for a vector is was just the individual coordinates of the shapes), and the attributes then reestimated to the new grid. To do this we have to use `projectRaster()` from the `Raster` package. However, sadly it only accepts PROJ4 strings.
+To reproject a raster the whole grid must be recomputed (for a vector is was just the individual coordinates of the shapes), and the attributes then reestimated to the new grid. To do this we have to use `project()` from the `terra` package. This is a new(ish) package and function, it still accepts Proj4 strings in the first example below, but also accepts the much easier to deal with spatial references. I have tested some EPSG and ESRI references from [Spatial reference](https://spatialreference.org/ref/?search=Mollweide).
 
 Now we can actually see some data...here is a quick example of using the Mollweide projection saved to a new object. The Mollweide projection retains area proportions whilst compromising accuracy of angle and shape 
 
 ```{r cache=FALSE, warning=FALSE, message=FALSE}
 # set the proj 4 to a new object
-newproj<-"+proj=moll +lon_0=0 +x_0=0 +y_0=0 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"
+
+pr1 <- terra::project(jan, "+proj=moll +lon_0=0 +x_0=0 +y_0=0 +ellps=WGS84 +datum=WGS84 +units=m +no_defs")
+
+#or....
+
+newproj<-"ESRI:54009"
 # get the jan raster and give it the new proj4
 pr1 <- jan %>%
-  projectRaster(., crs=newproj)
+  terra::project(., newproj)
 plot(pr1)
 ```
-
-::: {.infobox .warning data-latex="{note}"}
-It is possible to use only an EPSG code within a PROJ4 string, however, certain projections don't have an EPSG code. For example, if we just wanted to go back from Mollweide to WGS84 we can simply set the crs to `"+init=epsg:4326"`
-:::
+Now back to WGS84.....
 
 ```{r cache=FALSE, warning=FALSE, message=FALSE}
 pr1 <- pr1 %>%
-  projectRaster(., crs="+init=epsg:4326")
+  terra::project(., "EPSG:4326")
 plot(pr1)
 ```
 
@@ -320,23 +323,25 @@ listfiles
 
 Here, we're also using `pull()` from `dplyr` which is the same as the `$` often used to extract columns as in the next stage the input must be filenames as characters (nothing else like a column name).
 
-1. Then load all of the data straight into a raster stack. A raster stack is a collection of raster layers with the same spatial extent and resolution.
+1. Then load all of the data straight into a SpatRaster. A SpatRaster is a collection of raster layers with the same spatial extent and resolution.
 
 ```{r, cache=FALSE}
 worldclimtemp <- listfiles %>%
-  stack()
+  terra::rast()
   
 #have a look at the raster stack
 worldclimtemp
 ```
 
-In the raster stack you'll notice that under dimensions there are 12 layers (nlayers). The stack has loaded the 12 months of average temperature data for us in order. 
+In the stack you'll notice that under dimensions there are 12 layers (nlyr). The stack has loaded the 12 months of average temperature data for us in order. 
 
 1. To access single layers within the stack:
 
 ```{r, cache=FALSE}
+
 # access the january layer
 worldclimtemp[[1]]
+
 ```
 
 1. We can also rename our layers within the stack:
@@ -346,6 +351,7 @@ month <- c("Jan", "Feb", "Mar", "Apr", "May", "Jun",
            "Jul", "Aug", "Sep", "Oct", "Nov", "Dec")
 
 names(worldclimtemp) <- month
+
 ```
 
 Last week we used `rename()` from the `dplyr` package, however, this isn't yet available for raster data `r emo::ji("frowning_face")`
@@ -371,7 +377,7 @@ lat <- c(-27.47, -37.91, -31.95, -33.87, 17.96, -12.46, -33.28, -33.33, -16.92,
 #Put all of this inforamtion into one list 
 samples <- data.frame(site, lon, lat, row.names="site")
 # Extract the data from the Rasterstack for all points 
-AUcitytemp<- raster::extract(worldclimtemp, samples)
+AUcitytemp<- terra::extract(worldclimtemp, samples)
 ```
 
 1. Add the city names to the rows of AUcitytemp
@@ -425,9 +431,20 @@ Remember what we're looking at here. The ```x``` axis is the temperature and the
 1. That's a pretty simple histogram, let's improve the aesthetics a bit. 
 
 ```{r, cache=FALSE}
+library(tidyverse)
 #define where you want the breaks in the historgram
 userbreak<-c(8,10,12,14,16,18,20,22,24,26)
-hist(as.numeric(Perthtemp), 
+
+# remove the ID and site columns
+
+t<-Perthtemp %>%
+ dplyr::select(-ID, -Site)%>%
+  pivot_longer(
+    everything(),
+    names_to = "month",
+    values_to = "temp")
+
+hist((t$temp), 
      breaks=userbreak, 
      col="red", 
      main="Histogram of Perth Temperature", 
@@ -489,7 +506,7 @@ Perfect! Now let's contiune...
 ```{r, cache=FALSE}
 Austemp <- Ausoutline %>%
   # now crop our temp data to the extent
-  crop(worldclimtemp,.)
+  terra::crop(worldclimtemp,.)
 
 # plot the output
 plot(Austemp)
@@ -502,26 +519,15 @@ You'll notice that whilst we have the whole of Australia the raster hasn't been 
 
 ```{r, cache=FALSE}
 exactAus <- Austemp %>%
-  mask(.,Ausoutline, na.rm=TRUE)
+  terra::crop(.,Ausoutline, mask=TRUE)
 ```
 
 You could also run this using the original worldclimtemp raster, however, it may take some time. I'd recommend cropping to the extent first. 
-
-Both our Austemp and exactAus are raster bricks. A brick is similar to a stack except it is now stored as one file instead of a collection.
-
 1. Let's re-compute our histogram for Australia in March. We could just use hist like we have done before. We can either subset using the location (we know March is third in the RasterBrick).
 
 ```{r, cache=FALSE}
 #subset using the known location of the raster
 hist(exactAus[[3]], col="red", main ="March temperature")
-```
-
-We can also subset based on the name of the Brick, sadly we can't apply `filter()` from `dplyr` (like we did earlier when filtering Perth) yet to rasters...
-
-```{r, cache=FALSE}
-#OR
-#subset with the word Mar
-hist(raster::subset(exactAus, "Mar"), col="red", main ="March temperature")
 ```
 
 However we have a bit more control with ```ggplot()```...
