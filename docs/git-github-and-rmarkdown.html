@@ -1608,14 +1608,14 @@ Open the Shell again (Tools &gt; Shell) and enter:</p>
 <ol style="list-style-type: decimal">
 <li>A box will appear and in this box, you will be able to enter and run your R code. Try pasting in:</li>
 </ol>
-<div class="sourceCode" id="cb191"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb191-1"><a href="git-github-and-rmarkdown.html#cb191-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(raster)</span>
+<div class="sourceCode" id="cb191"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb191-1"><a href="git-github-and-rmarkdown.html#cb191-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(terra)</span>
 <span id="cb191-2"><a href="git-github-and-rmarkdown.html#cb191-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(here)</span>
-<span id="cb191-3"><a href="git-github-and-rmarkdown.html#cb191-3" aria-hidden="true" tabindex="-1"></a>jan<span class="ot">&lt;-</span><span class="fu">raster</span>(<span class="fu">here</span>(<span class="st">&quot;prac3_data&quot;</span>, <span class="st">&quot;wc2.0_5m_tavg_01.tif&quot;</span>))</span>
+<span id="cb191-3"><a href="git-github-and-rmarkdown.html#cb191-3" aria-hidden="true" tabindex="-1"></a>jan<span class="ot">&lt;-</span>terra<span class="sc">::</span><span class="fu">rast</span>(<span class="fu">here</span>(<span class="st">&quot;prac3_data&quot;</span>, <span class="st">&quot;wc2.1_5m_tavg_01.tif&quot;</span>))</span>
 <span id="cb191-4"><a href="git-github-and-rmarkdown.html#cb191-4" aria-hidden="true" tabindex="-1"></a><span class="co"># have a look at the raster layer jan</span></span>
 <span id="cb191-5"><a href="git-github-and-rmarkdown.html#cb191-5" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(jan)</span></code></pre></div>
 <p><img src="CASA0005_files/figure-html/unnamed-chunk-227-1.png" width="672" /></p>
 <p>When including code chunks in your work, there are various options that allow you to do things like include the code, but not run it: display the output but not the code, hide warnings etc. Most of these can be input automatically by clicking the cog icon in the top-right of the chunk, or you can specify them in the code header of the chunk…if you toggle the buttons you’ll see the code change in the chunk ‘header’. There are also two useful icons to the right of the settings cog, the first will run all code above the current chunck (play symbol facing downwards) and the second will run the current code chunk (regular play symbol)</p>
-<p><img src="prac4_images/code_chunk_options.png" width="400pt" style="display: block; margin: auto;" /></p>
+<p><img src="prac4_images/code_chunk_options.png" width="800pt" style="display: block; margin: auto;" /></p>
 </div>
 <div id="knit-options" class="section level3 hasAnchor" number="4.6.2">
 <h3><span class="header-section-number">4.6.2</span> Knit options<a href="git-github-and-rmarkdown.html#knit-options" class="anchor-section" aria-label="Anchor link to header"></a></h3>
@@ -1634,7 +1634,7 @@ CTRL + ALT + i</p>
 CTRL + SHIFT + c</p>
 <p><strong>Align code consistently</strong>
 CTRL+i</p>
-<p><strong>Fromant ugly code to nice looking code</strong>
+<p><strong>Format ugly code to nice looking code</strong>
 CTRL + ALT + A</p>
 <p><strong>Insert section label which is fold-able and navigable</strong> — this only works in a <code>.R</code> file not a <code>.Rmd</code> but is still useful
 CTRL + SHIFT + R</p>
