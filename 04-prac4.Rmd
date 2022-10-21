@@ -452,7 +452,7 @@ jan<-terra::rast(here("prac3_data", "wc2.1_5m_tavg_01.tif"))
 plot(jan)
 ```
 
-When including code chunks in your work, there are various options that allow you to do things like include the code, but not run it: display the output but not the code, hide warnings etc. Most of these can be input automatically by clicking the cog icon in the top-right of the chunk, or you can specify them in the code header of the chunk...if you toggle the buttons you'll see the code change in the chunk 'header'. There are also two useful icons to the right of the settings cog, the first will run all code above the current chunck (play symbol facing downwards) and the second will run the current code chunk (regular play symbol)
+When including code chunks in your work, there are various options that allow you to do things like include the code, but not run it: display the output but not the code, hide warnings etc. Most of these can be input automatically by clicking the cog icon in the top-right of the chunk, or you can specify them in the code header of the chunk...if you toggle the buttons you'll see the code change in the chunk 'header'. There are also two useful icons to the right of the settings cog, the first will run all code above the current chunk (play symbol facing downwards) and the second will run the current code chunk (regular play symbol)
 
 ```{r echo=FALSE, out.width = "800pt", fig.align='center', cache=FALSE}
 knitr::include_graphics('prac4_images/code_chunk_options.png')
@@ -480,6 +480,7 @@ CTRL+i
 
 **Format ugly code to nice looking code**
 CTRL + ALT + A 
+
 
 **Insert section label which is fold-able and navigable** --- this only works in a `.R` file not a `.Rmd` but is still useful
 CTRL + SHIFT + R

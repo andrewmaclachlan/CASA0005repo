@@ -501,7 +501,7 @@ print(Ausoutline)
 crs(worldclimtemp)
 ```
 
-Perfect! Now let's contiune...
+Perfect! Now let's continue...
 
 ```{r, cache=FALSE}
 Austemp <- Ausoutline %>%
@@ -515,15 +515,14 @@ plot(Austemp)
 
 You'll notice that whilst we have the whole of Australia the raster hasn't been perfectly clipped to the exact outline....the crop here just specifies an extent box that will cover the whole of the shape. 
 
-1. If want to just get raster data within the outline of the shape we add the argument `mask=TRUE` which uses a cookie cutter of the raster with the vector layer:
+1. If want to just get raster data within the outline of the shape use trhge `mask()`function which uses a cookie cutter of the raster with the vector layer:
 
 ```{r, cache=FALSE}
-exactAus <- Austemp %>%
-  terra::crop(.,Ausoutline, mask=TRUE)
+exactAus<-terra::mask(Austemp, Ausoutline)
 ```
 
 You could also run this using the original worldclimtemp raster, however, it may take some time. I'd recommend cropping to the extent first. 
-1. Let's re-compute our histogram for Australia in March. We could just use hist like we have done before. We can either subset using the location (we know March is third in the RasterBrick).
+1. Let's re-compute our histogram for Australia in March. We could just use hist like we have done before. We can either subset using the location (we know March is third in the raster).
 
 ```{r, cache=FALSE}
 #subset using the known location of the raster

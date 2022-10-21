@@ -451,6 +451,11 @@ We would describe both of these distribution as being relatively ['normally' or 
 Contrast this with the median house price variable:
 
 ```{r, message=FALSE, cache=FALSE}
+
+# from 21/10 there is an error on the website with median_house_price_2014 being called median_house_price<c2>2014
+LonWardProfiles <- LonWardProfiles %>%
+  dplyr::rename(median_house_price_2014 = `median_house_price<c2>2014`)
+
 ggplot(LonWardProfiles, aes(x=median_house_price_2014)) + 
   geom_histogram()
 ```
