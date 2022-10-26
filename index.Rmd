@@ -32,6 +32,45 @@ The buzzword ‘Big data’ and associated roles of data scientists have become 
 
 Whilst materials such as the R for Data Science book provide a foundational and essential resource for learning the R data science programming language, consideration of spatial data is extremely limited [@Grolemund2017]. The welcome addition of Geocomputation with R specifically addressed this resource gap, but often used basic examples that are unrepresentative of the complex spatial data wrangling, transformation and manipulation skills required by masters level graduates [@Lovelace2019]. Consequently, this content presents an academic teaching resource using applied real world government (e.g. [@Cosh2020]) and academic examples (e.g. [@Guha2018]) manipulating complex and large datasets in creating reproducible and actionable outputs, being made possible through delivery as a taught masters level module. 
 
+```{r}
+library(googleAnalyticsR)
+library(ggplot2)
+library(tidyverse)
+library(countrycode)
+library(sf)
+library(tmap)
+#Authorized Google Analytics R- this will open a webpage
+#You must be logged into your Google Analytics account on your web browser
+#ga_auth()
+
+my_id <- 205533049 
+
+# Now, query for some basic data, assigning the data to a 'data frame' object 
+# called 'web_data'
+df1 <- google_analytics(my_id, 
+                          date_range = c("2018-01-01", Sys.Date()),
+                          metrics = c("sessions"),
+                          dimensions = c("dayOfWeek","hour", "country"),
+                          anti_sample = TRUE)
+
+map <- df1 %>%
+  group_by(country)%>%
+  summarise(session_count=sum(sessions))%>%
+  mutate(iso3c = countrycode(country, origin = 'country.name', destination = 'iso2c'))
+
+world <- st_read("prac1_data/world-administrative-boundaries/world-administrative-boundaries.shp")
+
+data_join <- world %>%
+  left_join(.,
+            map,
+            by=c("iso_3166_1_"="iso3c"))
+
+tm_shape(data_join) +
+    tm_polygons("session_count")
+
+```
+
+
 ## Acknowledgement {-}
 
 Thanks to the following people who have either contributed directly or provided code in repositories that have helped me style this book:
