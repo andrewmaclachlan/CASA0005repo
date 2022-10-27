@@ -160,7 +160,7 @@ start-your-git
 connect-git-to-github
 using-the-git-gui---way-1
 create-a-new-version-control-in-rstudio---way-2
-if-have-have-an-existing-project---way-3
+if-have-an-existing-project---way-3
 commiting-to-git
 push-to-github
 pull-from-github

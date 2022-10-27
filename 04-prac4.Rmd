@@ -25,7 +25,7 @@ The task this week is to:
 
 **Tip** the [countrycode R package](https://github.com/vincentarelbundock/countrycode) will be helpful!
 
-**Tip** the gender inequality has changed in the last year, with row titles (e.g. very high human development) think of a way you can remove these sub titles - perhaps filtering on a column value? or the ID?
+**Tip** the gender inequality has changed in the last year, you will find what you need in the "All composite indices and components time series (1990-2021)" dataset, the metadata file beneath it will explain what the columns are.
  
 :::
 
@@ -191,9 +191,9 @@ There is an easier way to set up Git and GitHub with your project, but this assu
 knitr::include_graphics('prac4_images/easyway.png') 
 ```
 
-### If have have an existing project - way 3
+### If have an existing project - way 3
 
-1. Open RStudio and your existing project (or make a new one...i will make one here). In RStudio Tools > Global Options, under ‘Git/SVN’ check the box to allow version control and locate the folder on your computer where the git.exe file is located --- if you have installed git then this should be automatically there. If you make a new project make sure you create a file (`.R` or `.Rmd` through File > New File), add something to it, then save it (File > Save As) into your project folder. When it saves it should apprear in the bottom right Files window.
+1. Open RStudio and your existing project (or make a new one...i will make one here). In RStudio Tools > Global Options, under ‘Git/SVN’ check the box to allow version control and locate the folder on your computer where the git.exe file is located --- if you have installed git then this should be automatically there. If you make a new project make sure you create a file (`.R` or `.Rmd` through File > New File), add something to it, then save it (File > Save As) into your project folder. When it saves it should appear in the bottom right Files window.
 
 1. Next go Tools > Project Options > Git/SVN > and select the version control system as Git. You should now see a git tab in the environment window of RStudio (top right) and the files also appear under the Git tab. It should look something like this....
 

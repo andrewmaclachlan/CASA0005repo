@@ -1,0 +1,37 @@
+```{r, eval=FALSE, echo=FALSE}
+library(googleAnalyticsR)
+library(ggplot2)
+library(tidyverse)
+library(countrycode)
+library(sf)
+library(tmap)
+#Authorized Google Analytics R- this will open a webpage
+#You must be logged into your Google Analytics account on your web browser
+#ga_auth()
+
+my_id <- 205533049 
+
+# Now, query for some basic data, assigning the data to a 'data frame' object 
+# called 'web_data'
+df1 <- google_analytics(my_id, 
+                          date_range = c("2018-01-01", Sys.Date()),
+                          metrics = c("sessions"),
+                          dimensions = c("dayOfWeek","hour", "country"),
+                          anti_sample = TRUE)
+
+map <- df1 %>%
+  group_by(country)%>%
+  summarise(session_count=sum(sessions))%>%
+  mutate(iso3c = countrycode(country, origin = 'country.name', destination = 'iso2c'))
+
+world <- st_read("prac1_data/world-administrative-boundaries/world-administrative-boundaries.shp")
+
+data_join <- world %>%
+  left_join(.,
+            map,
+            by=c("iso_3166_1_"="iso3c"))
+
+tm_shape(data_join) +
+    tm_polygons("session_count")
+
+```
