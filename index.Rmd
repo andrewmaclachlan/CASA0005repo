@@ -32,8 +32,6 @@ The buzzword ‘Big data’ and associated roles of data scientists have become 
 
 Whilst materials such as the R for Data Science book provide a foundational and essential resource for learning the R data science programming language, consideration of spatial data is extremely limited [@Grolemund2017]. The welcome addition of Geocomputation with R specifically addressed this resource gap, but often used basic examples that are unrepresentative of the complex spatial data wrangling, transformation and manipulation skills required by masters level graduates [@Lovelace2019]. Consequently, this content presents an academic teaching resource using applied real world government (e.g. [@Cosh2020]) and academic examples (e.g. [@Guha2018]) manipulating complex and large datasets in creating reproducible and actionable outputs, being made possible through delivery as a taught masters level module. 
 
-
-
 ## Acknowledgement {-}
 
 Thanks to the following people who have either contributed directly or provided code in repositories that have helped me style this book:
