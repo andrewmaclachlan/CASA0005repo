@@ -342,7 +342,7 @@ Airbnb <- read_csv("prac5_data/listings.csv") %>%
 Joinfun <- function(data1, data2){
 
 output<- data1%>%
-  st_join(Londonborough,.) %>%
+  st_join(data2,.) %>%
   add_count(GSS_CODE, name="hotels_in_borough") 
 
   return(output)
