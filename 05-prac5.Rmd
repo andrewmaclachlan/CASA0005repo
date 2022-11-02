@@ -97,6 +97,10 @@ We will use World cities to provide some context to our maps.
 
 1. Download them from the [ArcGIS HUB](https://hub.arcgis.com/datasets/6996f03a1b364dbab4008d99380370ed_0) > Download > Shapefile.
 
+### Uk outline
+
+1. Download [GADM data for the UK](https://gadm.org/download_country.html)
+
 ### Airbnb
 
 1. Download the `listings.csv` from the [inside airbnb website](http://insideairbnb.com/get-the-data.html) for London.
@@ -265,6 +269,8 @@ I will note that i have made use of a new function called `st_join()`. This is s
 
 
 ```{r, message=FALSE}
+library(sf)
+
 Londonborough <- st_read(here::here("Prac1_data",
                                     "statistical-gis-boundaries-london", 
                                     "ESRI", 
@@ -276,7 +282,7 @@ OSM <- st_read(here::here("prac5_data",
                           "gis_osm_pois_a_free_1.shp")) %>%
   st_transform(., 27700) %>%
   #select hotels only
-  filter(fclass == 'hotel')
+  dplyr::filter(fclass == 'hotel')
 
 
 join_example <-  st_join(Londonborough, OSM)
@@ -426,6 +432,8 @@ We can also arrange our maps using the ```grid``` package...
 ```{r warning=FALSE, message=FALSE, out.width = "800pt", cache=FALSE}
 
 library(grid)
+# erases the current device or moves to a new page 
+# probably not needed but makes sure you are plotting on a new page.
 grid.newpage()
 
 pushViewport(viewport(layout=grid.layout(2,2)))
@@ -440,9 +448,13 @@ print(legend, vp=viewport(layout.pos.col=2, layout.pos.row=2, height=5))
 
 ```{r warning=FALSE, message=FALSE, out.width = "800pt", cache=FALSE}
 
-Londonbb = st_bbox(Airbnb,
-                    crs = st_crs(Airbnb)) %>% 
+Londonbb <- st_bbox(Airbnb,
+                    crs = st_crs(Airbnb))%>%
+  #we need this to convert it into a class of sf
+  # otherwise it our bb won't have a class it will just be x and y coordinates for the box
+  # this makes it into a polygon
   st_as_sfc()
+
 ```
 
 

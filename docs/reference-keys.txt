@@ -189,6 +189,7 @@ data-1
 osm-2
 london-boroughs
 world-cities
+uk-outline
 airbnb-1
 qgis-2
 load-data-2
