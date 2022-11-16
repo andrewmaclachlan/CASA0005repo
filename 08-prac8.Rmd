@@ -39,6 +39,10 @@ This week:
 
 * [Chapter 9 Spatial regression models](https://maczokni.github.io/crime_mapping_textbook/spatial-regression-models.html) from Crime Mapping in R by Juanjo Medina and Reka Solymosi (2019).
 
+* [GWR a road map](https://onlinelibrary.wiley.com/doi/full/10.1111/gean.12316) by Comber et al. 2022.There are related papers that have added to this discussion, such as:
+  * [Taylor Oshan](https://onlinelibrary.wiley.com/doi/full/10.1111/gean.12345)
+  * [Levi Wolf](https://onlinelibrary.wiley.com/doi/10.1111/gean.12346)
+
 Remember this is just a starting point, explore the [reading list](https://rl.talis.com/3/ucl/lists/139FBAF8-DACD-60FB-8BDC-E9C9E09BA885.html?lang=en-GB&login=1), practical and lecture for more ideas.
 
 **Doing**

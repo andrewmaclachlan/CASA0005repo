@@ -5,6 +5,8 @@ library(tidyverse)
 library(countrycode)
 library(sf)
 library(tmap)
+library(spData) # example datasets
+
 #Authorized Google Analytics R- this will open a webpage
 #You must be logged into your Google Analytics account on your web browser
 #ga_auth()
@@ -15,23 +17,32 @@ my_id <- 205533049
 # called 'web_data'
 df1 <- google_analytics(my_id, 
                           date_range = c("2018-01-01", Sys.Date()),
-                          metrics = c("sessions"),
-                          dimensions = c("dayOfWeek","hour", "country"),
+                          metrics = c("users"),
+                          dimensions = c("dayOfWeek","date","hour", "country"),
                           anti_sample = TRUE)
 
 map <- df1 %>%
   group_by(country)%>%
-  summarise(session_count=sum(sessions))%>%
-  mutate(iso3c = countrycode(country, origin = 'country.name', destination = 'iso2c'))
+  summarise(user_count=sum(users))%>%
+  mutate(iso2c = countrycode(country, origin = 'country.name', destination = 'iso2c'))
 
-world <- st_read("prac1_data/world-administrative-boundaries/world-administrative-boundaries.shp")
+world <- st_transform(world, crs = "+proj=moll")
+
+#world <- st_read("prac1_data/world-administrative-boundaries/world-administrative-boundaries.shp")%>%
+#  st_transform(., crs = "+proj=moll")
 
 data_join <- world %>%
   left_join(.,
             map,
-            by=c("iso_3166_1_"="iso3c"))
+            by=c("iso_a2"="iso2c"))
 
-tm_shape(data_join) +
-    tm_polygons("session_count")
+t<-tm_shape(data_join) +
+    tm_polygons("user_count",
+                style="log10_pretty",
+                title="Number of users",
+                palette = "Blues") +
+  tm_layout(legend.outside = TRUE) 
+
+tmap_save(t, 'users_CASA0005.png')
 
 ```

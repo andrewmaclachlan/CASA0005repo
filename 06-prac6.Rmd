@@ -151,7 +151,12 @@ When we spatial subset data like this there are different topological relations 
 knitr::include_graphics('prac6_images/relations-1.png') 
 ```
 
+We can also just use the function which will have the indices of where they intersect.
 
+```{r}
+# add sparse=false to get the complete matrix.
+intersect_indices <-st_intersects(BoroughMap, BluePlaques)
+```
 
 If you have used a graphic user interface GIS before, this is the same as `select by location` (e.g. [select by location in QGIS](https://docs.qgis.org/3.22/en/docs/user_manual/processing_algs/qgis/vectorselection.html#select-by-location)), and as using filter from `dplyr` is the same as `select by attribute`. 
 
@@ -273,7 +278,7 @@ Ok, so `st_join()`
 
 ```{r, message=FALSE}
 
-all_accomodation <- st_join(Hotels, Hotels)
+all_accomodation <- st_join(Hotels, Airbnb)
 
 head(all_accomodation)
 ```
@@ -282,16 +287,23 @@ Now this produces something that looks wrong, as the first 6 rows are all for th
 
 * `st_join` is a left join, here the left table is hotels
 * `st_join` uses `st_intersects()` by default. This means for the hotel data, where the airbnb intersects each hotel borough a new row is added. Conceptually, this is the same as a left join  if there are multiple matches (but the matches here are defined by `st_intersects` not a column ID)...
+* To further explain this open the `all_accomodation` and look at the `.y` columns, any borough that **intersects** another is added as a row ...
 
 ```{r echo=FALSE, out.width = "500px", fig.align='center', cache=FALSE, fig.cap="dplyr::left_join() example with multiple matches. Source: [Tidy explain by Garrick Aden‑Buie](https://www.garrickadenbuie.com/project/tidyexplain/)"}
 knitr::include_graphics('prac2_images/left-join-extra.gif') 
 ```
 
+* To further explain this open the `all_accomodation` and look at the `.y` columns, any borough that **intersects** another is added as a row ...
+```{r echo=FALSE, out.width = "600px", fig.align='center', cache=FALSE, fig.cap="st_join example using st_intersects by default"}
+knitr::include_graphics('prac6_images/st_join_example.png') 
+```
+
+
 To rectify this we can change the argument to `st_equals()` that returns the data based on the same geometries (or polygons)....
 
 ```{r, message=FALSE}
 
-all_accomodation <- st_join(Hotels, Hotels, join = st_equals)
+all_accomodation <- st_join(Hotels, Airbnb, join = st_equals)
 
 head(all_accomodation)
 ```
