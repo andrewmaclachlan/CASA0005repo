@@ -56,7 +56,8 @@ Before we get any further, let's get some ward boundaries read in to R --- downl
 ```{r, cache=FALSE, message=FALSE, warning=FALSE}
 library(here)
 library(janitor)
-library(dplyr)
+library(sf)
+library(tidyverse)
 #read the ward data in
 LondonWards <- st_read(here::here("prac6_data", "LondonWards.shp"))
 
@@ -87,9 +88,15 @@ It's probably projected correctly, but in case it isn't give it a projection usi
 st_crs(LondonWardsMerged)
 ```
 
-Always plot the data to check it looks reasonable (e.g. there are no points in other countries / the latitude and longitdue are correct)
+Always plot the data to check it looks reasonable (e.g. there are no points in other countries / the latitude and longitude are correct)
 
 ```{r, cache=FALSE, message=FALSE, warning=FALSE}
+
+library(tmap)
+
+BluePlaques <- st_read(here::here("prac6_data",
+                                  "open-plaques-london-2018-04-08.geojson")) %>%
+    st_transform(.,27700)
 
 tmap_mode("plot")
 tm_shape(LondonWardsMerged) +
@@ -343,6 +350,7 @@ breaks1<-c(-1000,-2.58,-1.96,-1.65,1.65,1.96,2.58,1000)
 Now create a new diverging colour brewer palette and reverse the order using `rev()` (reverse) so higher values correspond to red
 
 ```{r, cache=FALSE}
+library(RColorBrewer)
 MoranColours<- rev(brewer.pal(8, "RdGy"))
 ```
 
@@ -383,6 +391,8 @@ points_sf_joined <- points_sf_joined %>%
 And map the outputs...
 
 ```{r, cache=FALSE}
+library(RColorBrewer)
+
 GIColours<- rev(brewer.pal(8, "RdBu"))
 
 #now plot on an interactive map
