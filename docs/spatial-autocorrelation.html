@@ -23,7 +23,7 @@
 <meta name="author" content="Andy MacLachlan and Adam Dennett" />
 
 
-<meta name="date" content="2022-11-21" />
+<meta name="date" content="2022-11-23" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -1323,6 +1323,7 @@ div.csl-indent {
 <div id="data-download-1" class="section level3 hasAnchor" number="7.4.2">
 <h3><span class="header-section-number">7.4.2</span> Data download<a href="spatial-autocorrelation.html#data-download-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Before we get any further, let’s get some ward boundaries read in to R — download LondonWardData from <a href="https://data.london.gov.uk/dataset/statistical-gis-boundary-files-london">the London Data store</a> and read it in…</p>
+<p><strong>Use the data in the statistical-gis-boundaries-london.zip</strong></p>
 <div class="sourceCode" id="cb287"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb287-1"><a href="spatial-autocorrelation.html#cb287-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(here)</span>
 <span id="cb287-2"><a href="spatial-autocorrelation.html#cb287-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(janitor)</span>
 <span id="cb287-3"><a href="spatial-autocorrelation.html#cb287-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sf)</span>
@@ -1546,7 +1547,7 @@ Figure 7.1: Source: <a href="https://rpubs.com/msgc/matrices_influence">Manuel S
 <pre><code>## [1] 3680</code></pre>
 <p>Summing the binary (1/0) shows that we have 3680 neighbours. Now if we were to do <strong>global</strong> standardisation this would mean dividing our 625 wards by the total number of neighbours meaning each spatial weight has a value of 0.169.</p>
 <p>Alternatively we can do <strong>row</strong> standardisation where 1 is divided by the sum of the number of neighbours in each row. For example, row 1 here sums to 6, meaning each weight would be 0.166 in row 1 only.</p>
-<div class="sourceCode" id="cb310"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb310-1"><a href="spatial-autocorrelation.html#cb310-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(Lward.lw[,<span class="dv">1</span>])</span></code></pre></div>
+<div class="sourceCode" id="cb310"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb310-1"><a href="spatial-autocorrelation.html#cb310-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sum</span>(Lward.lw[<span class="dv">1</span>,])</span></code></pre></div>
 <pre><code>## [1] 6</code></pre>
 <p>Standardisation permits comparable spatial parameters. But you also need to consider geographical features — should a neighbour be a neighbour if there is a river between them?</p>
 </div>
@@ -1707,7 +1708,7 @@ And map the outputs…</p>
 </div>
 <div id="other-variables" class="section level2 hasAnchor" number="7.10">
 <h2><span class="header-section-number">7.10</span> Other variables<a href="spatial-autocorrelation.html#other-variables" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>The local Moran’s I and <span class="math inline">\(G_{i}^{*}\)</span> statistics for wards clearly show that the density of blue plaques in the centre of the city exhibits strong (and postitive) spatial autocorrelation, but neither of these maps are very interesting. Why not try some alternative variables and see what patterns emerge… here I’m going to have a look at Average GSCE scores…</p>
+<p>The local Moran’s I and <span class="math inline">\(G_{i}^{*}\)</span> statistics for wards clearly show that the density of blue plaques in the centre of the city exhibits strong (and positive) spatial autocorrelation, but neither of these maps are very interesting. Why not try some alternative variables and see what patterns emerge… here I’m going to have a look at Average GSCE scores…</p>
 <div class="sourceCode" id="cb329"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb329-1"><a href="spatial-autocorrelation.html#cb329-1" aria-hidden="true" tabindex="-1"></a><span class="co">#use head to see what other variables are in the data file</span></span>
 <span id="cb329-2"><a href="spatial-autocorrelation.html#cb329-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb329-3"><a href="spatial-autocorrelation.html#cb329-3" aria-hidden="true" tabindex="-1"></a><span class="fu">slice_head</span>(points_sf_joined, <span class="at">n=</span><span class="dv">2</span>)</span></code></pre></div>

@@ -53,6 +53,8 @@ In this section we are going to explore patterns of spatially referenced continu
 
 Before we get any further, let's get some ward boundaries read in to R --- download LondonWardData from [the London Data store](https://data.london.gov.uk/dataset/statistical-gis-boundary-files-london) and read it in...
 
+**Use the data in the statistical-gis-boundaries-london.zip**
+
 ```{r, cache=FALSE, message=FALSE, warning=FALSE}
 library(here)
 library(janitor)
@@ -242,7 +244,7 @@ Summing the binary (1/0) shows that we have 3680 neighbours. Now if we were to d
 Alternatively we can do **row** standardisation where 1 is divided by the sum of the number of neighbours in each row. For example, row 1 here sums to 6, meaning each weight would be 0.166 in row 1 only.
 
 ```{r message=FALSE, warning=FALSE, cache=FALSE}
-sum(Lward.lw[,1])
+sum(Lward.lw[1,])
 ```
 Standardisation permits comparable spatial parameters. But you also need to consider geographical features --- should a neighbour be a neighbour if there is a river between them?
 
@@ -408,7 +410,7 @@ tm_shape(points_sf_joined) +
 
 ## Other variables
 
-The local Moran's I and \(G_{i}^{*}\) statistics for wards clearly show that the density of blue plaques in the centre of the city exhibits strong (and postitive) spatial autocorrelation, but neither of these maps are very interesting. Why not try some alternative variables and see what patterns emerge... here I'm going to have a look at Average GSCE scores...
+The local Moran's I and \(G_{i}^{*}\) statistics for wards clearly show that the density of blue plaques in the centre of the city exhibits strong (and positive) spatial autocorrelation, but neither of these maps are very interesting. Why not try some alternative variables and see what patterns emerge... here I'm going to have a look at Average GSCE scores...
 
 ```{r, cache=FALSE}
 #use head to see what other variables are in the data file
