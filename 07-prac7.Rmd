@@ -125,13 +125,33 @@ tm_shape(BluePlaquesSub) +
 
 The measures of spatial autocorrelation that we will be using require continuous observations (counts of blue plaques, average GCSE scores, average incomes etc.) to be spatially referenced (i.e. attached to a spatial unit like a ward or a borough). The file you have already has the various obervations associated with the London Ward data file already attached to it, but let's continue with our blue plaques example for now. 
 
-To create a continuous observation from the blue plaques data we need to count all of the blue plaques that fall within each Ward in the City. Luckily, we can do this using the ```st_join()``` function from the `sf` package.
+To create a continuous observation from the blue plaques data we need to count all of the blue plaques that fall within each Ward in the City. Luckily, we can do this using the ```st_intersects()``` function from the `sf` package.
+
+```st_intersects()``` will return a list of which points (plaques) are in each polygon (wards). So each row will be a polygon and the ID are the point IDs that intersect the polygon.
+
+In this case we don't want to use `st_join()` (which by default uses `st_intersects()`) as `st_join()` is like a left join and will retain all the data in on the left. So if a ward is empty, there will still be a row for that ward. So, we use `st_intersects()` on its own. We could also use other topological relationship functions such as `st_within()` instead...
+
+```{r echo=TRUE, results='hide', cache=FALSE}
+example<-st_intersects(LondonWardsMerged, BluePlaquesSub)
+
+example
+
+```
+
+Here the polygon with the ID of 6 Kingston upon Thames - Coombe Hill has three plaques within it...we can check this with st_join (or using QGIS by opening the data)...we have three plaques...But note the ID column added is different to the ID of the data...open blueplaques from the environment window and you will see the IDs that were returned in `st_intersects()`.
+
+```{r}
+check_example <- LondonWardsMerged%>%
+  st_join(BluePlaquesSub)%>%
+  filter(ward_name=="Kingston upon Thames - Coombe Hill")
+```
+
+Now we just take the length of each list per polygon and add this as new column...
 
 ```{r echo=TRUE, results='hide', cache=FALSE}
 library(sf)
 points_sf_joined <- LondonWardsMerged%>%
-  st_join(BluePlaquesSub)%>%
-  add_count(ward_name)%>%
+  mutate(n = lengths(st_intersects(., BluePlaquesSub)))%>%
   janitor::clean_names()%>%
   #calculate area
   mutate(area=st_area(.))%>%

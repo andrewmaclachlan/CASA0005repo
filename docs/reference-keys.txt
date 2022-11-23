@@ -37,13 +37,13 @@ fig:unnamed-chunk-257
 fig:unnamed-chunk-259
 fig:unnamed-chunk-264
 fig:unnamed-chunk-265
-fig:unnamed-chunk-303
-fig:unnamed-chunk-357
-fig:unnamed-chunk-358
-fig:unnamed-chunk-359
+fig:unnamed-chunk-305
 fig:unnamed-chunk-360
 fig:unnamed-chunk-361
 fig:unnamed-chunk-362
+fig:unnamed-chunk-363
+fig:unnamed-chunk-364
+fig:unnamed-chunk-365
 geographic-information
 learning-outcomes
 homework

@@ -173,7 +173,7 @@ If you examine your data file, you will see why. In a number of columns where da
 
 To deal with these errors, we can force `read_csv` to ignore these values by telling it what values to look out for that indicate missing data
 
-```{r, message=FALSE, cache=FALSE}
+```{r, message=FALSE, cache=FALSE, eval=FALSE}
 #We can use readr to deal with the issues in this dataset - which are to do with text values being stored in columns containing numeric values
 
 #read in some data - couple of things here. Read in specifying a load of likely 'n/a' values, also specify Latin1 as encoding as there is a pound sign (£) in one of the column headers - just to make things fun!
@@ -184,6 +184,16 @@ LondonWardProfiles <- read_csv("https://data.london.gov.uk/download/ward-profile
                                col_names = TRUE)
 
 ```
+
+Or download it and read it in...
+
+```{r}
+LondonWardProfiles <- read_csv("prac7_data/ward-profiles-excel-version.csv", 
+                               na = c("", "NA", "n/a"), 
+                               locale = locale(encoding = 'Latin1'), 
+                               col_names = TRUE)
+```
+
 
 ```{r eval=FALSE}
 #check all of the columns have been read in correctly
@@ -422,7 +432,7 @@ The best way to test for this assumption is to plot a scatter plot similar to th
 
 For example, look at the frequency distributions of our two variables earlier:
 
-```{r }
+```{r}
 # use Janitor to clean up the names.
 
 LonWardProfiles <- LonWardProfiles %>%
@@ -455,10 +465,13 @@ We would describe both of these distribution as being relatively ['normally' or 
 Contrast this with the median house price variable:
 
 ```{r, message=FALSE, cache=FALSE}
+library(ggplot2)
 
-# from 21/10 there is an error on the website with median_house_price_2014 being called median_house_price<c2>2014
-LonWardProfiles <- LonWardProfiles %>%
-  dplyr::rename(median_house_price_2014 = `median_house_price<c2>2014`)
+# from 21/10 there is an error on the website with 
+# median_house_price_2014 being called median_house_price<c2>2014
+# this was corrected around 23/11 but can be corrected with rename..
+#LonWardProfiles <- LonWardProfiles %>%
+#  dplyr::rename(median_house_price_2014 =`median_house_price<c2>2014`)
 
 ggplot(LonWardProfiles, aes(x=median_house_price_2014)) + 
   geom_histogram()
