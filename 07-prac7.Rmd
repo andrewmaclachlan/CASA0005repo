@@ -328,7 +328,34 @@ The Geary's C statistic = 0.41 (remember Geary's C falls between 0 and 2; 1 mean
 
 The General G statistic = G > expected, so high values are tending to cluster. 
 
+### Local Moran's I 
+
 We can now also calculate local versions of the Moran's I statistic (for each Ward) and a Getis Ord \(G_{i}^{*}\) statistic to see *where* we have hot-spots...
+
+Local Moran's I is:
+
+* The difference between a value and neighbours * the sum of differences between neighbours and the mean
+* Where the the difference between a value and neighbours is divided by the standard deviation (how much values in neighbourhood vary about the mean)
+
+It returns several columns, of most interest is the Z score. A z-scores is **how many standard deviations a value is away (above or below) from the mean**. This allows us to state if our value is significantly different than expected at this location considering the neighours. 
+
+We are comparing our value of Moran's I to that of an expected value (computed from a separate equation that uses the spatial weight matrix, and therefore considers the neighbouring values). We are expecting our value of Moran's I to be in the middle of the distribution of the expected values. These expected values follow a normal distribution and the middle part represents complete spatial randomness. This is **typically** between < -1.65 or > +1.65 standard deviations from the mean  
+
+The **null hypothesis** is always there is complete spatial randomness. A null hypothesis means:
+
+>  no statistical significance exists in a set of given observations
+
+If our values is towards the tails of the distribution then it is unlikely that the values are completely spatially random and we can reject the null hypothesis...as they are not what we expect here.
+
+In the example where we use a z-score of >2.58 or <-2.58 we interpret this as...
+
+> >2.58 or <-2.58 standard deviations away from the mean are significant at the 99% level...this means there is a <1% chance that autocorrelation is not present
+
+The [Global vs location spatial autocorrelation resource](https://storymaps.arcgis.com/stories/5b26f25bb81a437b89003423505e2f71) goes through the specific formulas here, but the most important parts are knowing
+
+* What we are comparing values to in Local Moran's I
+* What the results mean 
+* Why the results could be important
 
 ```{r, cache=FALSE}
 #use the localmoran function to generate I for each ward in the city
@@ -359,7 +386,7 @@ points_sf_joined <- points_sf_joined %>%
   mutate(density_Iz =as.numeric(I_LWard_Local_Density$Z.Ii))
 ```
 
-## Mapping 
+#### Mapping 
 
 No we can plot a map of the local Moran's I outputs...
 
@@ -390,7 +417,34 @@ tm_shape(points_sf_joined) +
 
 This map shows some areas in the centre of London that have relatively high scores, indicating areas with lots of blue plaques neighbouring other areas with lots of blue plaques.
 
-What about the Getis Ord \(G_{i}^{*}\) statisic for hot and cold spots?
+### Local Getis Ord \(G_{i}^{*}\) 
+
+What about the Getis Ord \(G_{i}^{*}\) statistic for hot and cold spots...
+
+This is a very similar concept to Local Moran's I except it just returns a z-score...remember that a z-score  shows **how many standard deviations a value (our value) is away (above or below) from the mean (of the expected values)**
+
+Ultimately a z-score is defined as:
+
+ $$Z = \frac{x-\mu}{\sigma}$$
+Where:
+
+* $x$ = the observed value
+* $\mu$ = the mean of the sample
+* $\sigma$ = standard deviation of sample
+
+**Note**, consult the [Global vs location spatial autocorrelation resource](https://storymaps.arcgis.com/stories/5b26f25bb81a437b89003423505e2f71) for how this is computed in Local Moran's I if you are interested, although interpretation is the most important part here.
+
+**However**, in the case of Getis Ord \(G_{i}^{*}\) this is the local sum (of the neighbourhood) compared to the sum of all features
+
+In Moran's I this is just the value of the spatial unit (e.g. polygon of the ward) compared to the neighbouring units.
+
+Here, to be significant (or a hot spot) we will have a high value surrounded by high values. The local sum of these values will be different to the expected sum (think of this as all the values in the area) then where this difference is large we can consider it to be not by chance...
+
+The same Z-score criteria then applies as before..
+
+This summary from L3 Harris nicely summaries the Getis Ord \(G_{i}^{*}\) output...
+
+> The result of Getis Ord \(G_{i}^{*}\) analysis is an array of Z-scores, one for each pixel [or polygon], which is the number of standard deviations that the pixel [or polygon] and its neighbors are from the global mean. High Z-scores indicate more intense clustering of high pixel values, indicating hot spots. Low Z-scores indicate more intense clustering of low values, indicating cold spots. Individual pixels with high or low values by themselves might be interesting but not necessarily significant.
 
 ```{r, cache=FALSE}
 Gi_LWard_Local_Density <- points_sf_joined %>%
@@ -402,7 +456,10 @@ head(Gi_LWard_Local_Density)
 
 ```
 
-Check the help file  (?localG) to see what a localG object looks like - it is a bit different from a localMoran object as it only contains just a single value - the z-score (standardised value relating to whether high values or low values are clustering together)
+Check the help file  (?localG) to see what a localG object looks like 
+
+**Note** that beacause of the differences in Moran's I and Getis Ord \(G_{i}^{*}\) there will be differences between polyogons that are classed as significant. 
+
 And map the outputs...
 
 ```{r, cache=FALSE}

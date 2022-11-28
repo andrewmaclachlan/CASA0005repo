@@ -20,6 +20,9 @@ df1 <- google_analytics(my_id,
                           metrics = c("users"),
                           dimensions = c("dayOfWeek","date","hour", "country"),
                           anti_sample = TRUE)
+users_total <- df1 %>%
+  summarise(user_count=sum(users))
+
 
 map <- df1 %>%
   group_by(country)%>%

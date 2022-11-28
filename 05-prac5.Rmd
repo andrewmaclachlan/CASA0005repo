@@ -332,6 +332,7 @@ Londonborough <- st_read(here::here("Prac1_data",
 # and make it into spatial data
 
 Airbnb <- read_csv("prac5_data/listings.csv") %>%
+  # longitude is considered x value here, latitude is y
   st_as_sf(., coords = c("longitude", "latitude"), 
                    crs = 4326) %>%
     st_transform(., 27700)%>%

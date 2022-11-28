@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 7 Spatial autocorrelation | CASA0005 Geographic Information Systems and Science</title>
   <meta name="description" content="The CASA0005 Geographic Information Systems and Science practical book" />
-  <meta name="generator" content="bookdown 0.27 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.30 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 7 Spatial autocorrelation | CASA0005 Geographic Information Systems and Science" />
   <meta property="og:type" content="book" />
@@ -23,7 +23,7 @@
 <meta name="author" content="Andy MacLachlan and Adam Dennett" />
 
 
-<meta name="date" content="2022-11-23" />
+<meta name="date" content="2022-11-28" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -1185,10 +1185,11 @@ div.csl-indent {
 <li class="chapter" data-level="7.8.2" data-path="spatial-autocorrelation.html"><a href="spatial-autocorrelation.html#gearys-c"><i class="fa fa-check"></i><b>7.8.2</b> Geary’s C</a></li>
 <li class="chapter" data-level="7.8.3" data-path="spatial-autocorrelation.html"><a href="spatial-autocorrelation.html#getis-ord"><i class="fa fa-check"></i><b>7.8.3</b> Getis Ord</a></li>
 <li class="chapter" data-level="7.8.4" data-path="spatial-autocorrelation.html"><a href="spatial-autocorrelation.html#summary-1"><i class="fa fa-check"></i><b>7.8.4</b> Summary</a></li>
+<li class="chapter" data-level="7.8.5" data-path="spatial-autocorrelation.html"><a href="spatial-autocorrelation.html#local-morans-i"><i class="fa fa-check"></i><b>7.8.5</b> Local Moran’s I</a></li>
+<li class="chapter" data-level="7.8.6" data-path="spatial-autocorrelation.html"><a href="spatial-autocorrelation.html#local-getis-ord-g_i"><i class="fa fa-check"></i><b>7.8.6</b> Local Getis Ord <span class="math inline">\(G_{i}^{*}\)</span></a></li>
 </ul></li>
-<li class="chapter" data-level="7.9" data-path="spatial-autocorrelation.html"><a href="spatial-autocorrelation.html#mapping"><i class="fa fa-check"></i><b>7.9</b> Mapping</a></li>
-<li class="chapter" data-level="7.10" data-path="spatial-autocorrelation.html"><a href="spatial-autocorrelation.html#other-variables"><i class="fa fa-check"></i><b>7.10</b> Other variables</a></li>
-<li class="chapter" data-level="7.11" data-path="spatial-autocorrelation.html"><a href="spatial-autocorrelation.html#feedback-5"><i class="fa fa-check"></i><b>7.11</b> Feedback</a></li>
+<li class="chapter" data-level="7.9" data-path="spatial-autocorrelation.html"><a href="spatial-autocorrelation.html#other-variables"><i class="fa fa-check"></i><b>7.9</b> Other variables</a></li>
+<li class="chapter" data-level="7.10" data-path="spatial-autocorrelation.html"><a href="spatial-autocorrelation.html#feedback-5"><i class="fa fa-check"></i><b>7.10</b> Feedback</a></li>
 </ul></li>
 <li class="chapter" data-level="8" data-path="explaining-spatial-patterns.html"><a href="explaining-spatial-patterns.html"><i class="fa fa-check"></i><b>8</b> Explaining spatial patterns</a>
 <ul>
@@ -1637,7 +1638,34 @@ Figure 7.1: Source: <a href="https://rpubs.com/msgc/matrices_influence">Manuel S
 <p>The Moran’s I statistic = 0.67 (remember 1 = clustered, 0 = no pattern, -1 = dispersed) which shows that we have some distinctive clustering</p>
 <p>The Geary’s C statistic = 0.41 (remember Geary’s C falls between 0 and 2; 1 means no spatial autocorrelation, &lt;1 - positive spatial autocorrelation or similar values clustering, &gt;1 - negative spatial autocorreation or dissimilar values clustering) which shows that similar values are clustering</p>
 <p>The General G statistic = G &gt; expected, so high values are tending to cluster.</p>
+</div>
+<div id="local-morans-i" class="section level3 hasAnchor" number="7.8.5">
+<h3><span class="header-section-number">7.8.5</span> Local Moran’s I<a href="spatial-autocorrelation.html#local-morans-i" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>We can now also calculate local versions of the Moran’s I statistic (for each Ward) and a Getis Ord <span class="math inline">\(G_{i}^{*}\)</span> statistic to see <em>where</em> we have hot-spots…</p>
+<p>Local Moran’s I is:</p>
+<ul>
+<li>The difference between a value and neighbours * the sum of differences between neighbours and the mean</li>
+<li>Where the the difference between a value and neighbours is divided by the standard deviation (how much values in neighbourhood vary about the mean)</li>
+</ul>
+<p>It returns several columns, of most interest is the Z score. A z-scores is <strong>how many standard deviations a value is away (above or below) from the mean</strong>. This allows us to state if our value is significantly different than expected at this location considering the neighours.</p>
+<p>We are comparing our value of Moran’s I to that of an expected value (computed from a separate equation that uses the spatial weight matrix, and therefore considers the neighbouring values). We are expecting our value of Moran’s I to be in the middle of the distribution of the expected values. These expected values follow a normal distribution and the middle part represents complete spatial randomness. This is <strong>typically</strong> between &lt; -1.65 or &gt; +1.65 standard deviations from the mean</p>
+<p>The <strong>null hypothesis</strong> is always there is complete spatial randomness. A null hypothesis means:</p>
+<blockquote>
+<p>no statistical significance exists in a set of given observations</p>
+</blockquote>
+<p>If our values is towards the tails of the distribution then it is unlikely that the values are completely spatially random and we can reject the null hypothesis…as they are not what we expect here.</p>
+<p>In the example where we use a z-score of &gt;2.58 or &lt;-2.58 we interpret this as…</p>
+<blockquote>
+<blockquote>
+<p>2.58 or &lt;-2.58 standard deviations away from the mean are significant at the 99% level…this means there is a &lt;1% chance that autocorrelation is not present</p>
+</blockquote>
+</blockquote>
+<p>The <a href="https://storymaps.arcgis.com/stories/5b26f25bb81a437b89003423505e2f71">Global vs location spatial autocorrelation resource</a> goes through the specific formulas here, but the most important parts are knowing</p>
+<ul>
+<li>What we are comparing values to in Local Moran’s I</li>
+<li>What the results mean</li>
+<li>Why the results could be important</li>
+</ul>
 <div class="sourceCode" id="cb321"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb321-1"><a href="spatial-autocorrelation.html#cb321-1" aria-hidden="true" tabindex="-1"></a><span class="co">#use the localmoran function to generate I for each ward in the city</span></span>
 <span id="cb321-2"><a href="spatial-autocorrelation.html#cb321-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb321-3"><a href="spatial-autocorrelation.html#cb321-3" aria-hidden="true" tabindex="-1"></a>I_LWard_Local_count <span class="ot">&lt;-</span> points_sf_joined <span class="sc">%&gt;%</span></span>
@@ -1668,10 +1696,8 @@ Figure 7.1: Source: <a href="https://rpubs.com/msgc/matrices_influence">Manuel S
 <span id="cb323-3"><a href="spatial-autocorrelation.html#cb323-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">plaque_count_Iz =</span><span class="fu">as.numeric</span>(I_LWard_Local_count<span class="sc">$</span>Z.Ii))<span class="sc">%&gt;%</span></span>
 <span id="cb323-4"><a href="spatial-autocorrelation.html#cb323-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">density_I =</span><span class="fu">as.numeric</span>(I_LWard_Local_Density<span class="sc">$</span>Ii))<span class="sc">%&gt;%</span></span>
 <span id="cb323-5"><a href="spatial-autocorrelation.html#cb323-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">density_Iz =</span><span class="fu">as.numeric</span>(I_LWard_Local_Density<span class="sc">$</span>Z.Ii))</span></code></pre></div>
-</div>
-</div>
-<div id="mapping" class="section level2 hasAnchor" number="7.9">
-<h2><span class="header-section-number">7.9</span> Mapping<a href="spatial-autocorrelation.html#mapping" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="mapping" class="section level4 hasAnchor" number="7.8.5.1">
+<h4><span class="header-section-number">7.8.5.1</span> Mapping<a href="spatial-autocorrelation.html#mapping" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>No we can plot a map of the local Moran’s I outputs…</p>
 <p>We’ll set the breaks manually based on the rule that data points &gt;2.58 or &lt;-2.58 standard deviations away from the mean are significant at the 99% level (&lt;1% chance that autocorrelation not present); &gt;1.96 - &lt;2.58 or &lt;-1.96 to &gt;-2.58 standard deviations are significant at the 95% level (&lt;5% change that autocorrelation not present). &gt;1.65 = 90% etc.</p>
 <div class="sourceCode" id="cb324"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb324-1"><a href="spatial-autocorrelation.html#cb324-1" aria-hidden="true" tabindex="-1"></a>breaks1<span class="ot">&lt;-</span><span class="fu">c</span>(<span class="sc">-</span><span class="dv">1000</span>,<span class="sc">-</span><span class="fl">2.58</span>,<span class="sc">-</span><span class="fl">1.96</span>,<span class="sc">-</span><span class="fl">1.65</span>,<span class="fl">1.65</span>,<span class="fl">1.96</span>,<span class="fl">2.58</span>,<span class="dv">1000</span>)</span></code></pre></div>
@@ -1688,7 +1714,29 @@ Figure 7.1: Source: <a href="https://rpubs.com/msgc/matrices_influence">Manuel S
 <span id="cb326-7"><a href="spatial-autocorrelation.html#cb326-7" aria-hidden="true" tabindex="-1"></a>        <span class="at">title=</span><span class="st">&quot;Local Moran&#39;s I, Blue Plaques in London&quot;</span>)</span></code></pre></div>
 <p><img src="CASA0005_files/figure-html/unnamed-chunk-319-1.png" width="672" /></p>
 <p>This map shows some areas in the centre of London that have relatively high scores, indicating areas with lots of blue plaques neighbouring other areas with lots of blue plaques.</p>
-<p>What about the Getis Ord <span class="math inline">\(G_{i}^{*}\)</span> statisic for hot and cold spots?</p>
+</div>
+</div>
+<div id="local-getis-ord-g_i" class="section level3 hasAnchor" number="7.8.6">
+<h3><span class="header-section-number">7.8.6</span> Local Getis Ord <span class="math inline">\(G_{i}^{*}\)</span><a href="spatial-autocorrelation.html#local-getis-ord-g_i" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>What about the Getis Ord <span class="math inline">\(G_{i}^{*}\)</span> statistic for hot and cold spots…</p>
+<p>This is a very similar concept to Local Moran’s I except it just returns a z-score…remember that a z-score shows <strong>how many standard deviations a value (our value) is away (above or below) from the mean (of the expected values)</strong></p>
+<p>Ultimately a z-score is defined as:</p>
+<p><span class="math display">\[Z = \frac{x-\mu}{\sigma}\]</span>
+Where:</p>
+<ul>
+<li><span class="math inline">\(x\)</span> = the observed value</li>
+<li><span class="math inline">\(\mu\)</span> = the mean of the sample</li>
+<li><span class="math inline">\(\sigma\)</span> = standard deviation of sample</li>
+</ul>
+<p><strong>Note</strong>, consult the <a href="https://storymaps.arcgis.com/stories/5b26f25bb81a437b89003423505e2f71">Global vs location spatial autocorrelation resource</a> for how this is computed in Local Moran’s I if you are interested, although interpretation is the most important part here.</p>
+<p><strong>However</strong>, in the case of Getis Ord <span class="math inline">\(G_{i}^{*}\)</span> this is the local sum (of the neighbourhood) compared to the sum of all features</p>
+<p>In Moran’s I this is just the value of the spatial unit (e.g. polygon of the ward) compared to the neighbouring units.</p>
+<p>Here, to be significant (or a hot spot) we will have a high value surrounded by high values. The local sum of these values will be different to the expected sum (think of this as all the values in the area) then where this difference is large we can consider it to be not by chance…</p>
+<p>The same Z-score criteria then applies as before..</p>
+<p>This summary from L3 Harris nicely summaries the Getis Ord <span class="math inline">\(G_{i}^{*}\)</span> output…</p>
+<blockquote>
+<p>The result of Getis Ord <span class="math inline">\(G_{i}^{*}\)</span> analysis is an array of Z-scores, one for each pixel [or polygon], which is the number of standard deviations that the pixel [or polygon] and its neighbors are from the global mean. High Z-scores indicate more intense clustering of high pixel values, indicating hot spots. Low Z-scores indicate more intense clustering of low values, indicating cold spots. Individual pixels with high or low values by themselves might be interesting but not necessarily significant.</p>
+</blockquote>
 <div class="sourceCode" id="cb327"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb327-1"><a href="spatial-autocorrelation.html#cb327-1" aria-hidden="true" tabindex="-1"></a>Gi_LWard_Local_Density <span class="ot">&lt;-</span> points_sf_joined <span class="sc">%&gt;%</span></span>
 <span id="cb327-2"><a href="spatial-autocorrelation.html#cb327-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pull</span>(density) <span class="sc">%&gt;%</span></span>
 <span id="cb327-3"><a href="spatial-autocorrelation.html#cb327-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as.vector</span>()<span class="sc">%&gt;%</span></span>
@@ -1696,8 +1744,9 @@ Figure 7.1: Source: <a href="https://rpubs.com/msgc/matrices_influence">Manuel S
 <span id="cb327-5"><a href="spatial-autocorrelation.html#cb327-5" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb327-6"><a href="spatial-autocorrelation.html#cb327-6" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(Gi_LWard_Local_Density)</span></code></pre></div>
 <pre><code>## [1] -0.8314871 -0.8679202 -0.7655724 -0.8318337 -0.8318337 -0.7937671</code></pre>
-<p>Check the help file (?localG) to see what a localG object looks like - it is a bit different from a localMoran object as it only contains just a single value - the z-score (standardised value relating to whether high values or low values are clustering together)
-And map the outputs…</p>
+<p>Check the help file (?localG) to see what a localG object looks like</p>
+<p><strong>Note</strong> that beacause of the differences in Moran’s I and Getis Ord <span class="math inline">\(G_{i}^{*}\)</span> there will be differences between polyogons that are classed as significant.</p>
+<p>And map the outputs…</p>
 <div class="sourceCode" id="cb329"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb329-1"><a href="spatial-autocorrelation.html#cb329-1" aria-hidden="true" tabindex="-1"></a>points_sf_joined <span class="ot">&lt;-</span> points_sf_joined <span class="sc">%&gt;%</span></span>
 <span id="cb329-2"><a href="spatial-autocorrelation.html#cb329-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">density_G =</span> <span class="fu">as.numeric</span>(Gi_LWard_Local_Density))</span></code></pre></div>
 <p>And map the outputs…</p>
@@ -1715,8 +1764,9 @@ And map the outputs…</p>
 <span id="cb330-12"><a href="spatial-autocorrelation.html#cb330-12" aria-hidden="true" tabindex="-1"></a>        <span class="at">title=</span><span class="st">&quot;Gi*, Blue Plaques in London&quot;</span>)</span></code></pre></div>
 <p><img src="CASA0005_files/figure-html/unnamed-chunk-322-1.png" width="672" /></p>
 </div>
-<div id="other-variables" class="section level2 hasAnchor" number="7.10">
-<h2><span class="header-section-number">7.10</span> Other variables<a href="spatial-autocorrelation.html#other-variables" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+</div>
+<div id="other-variables" class="section level2 hasAnchor" number="7.9">
+<h2><span class="header-section-number">7.9</span> Other variables<a href="spatial-autocorrelation.html#other-variables" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>The local Moran’s I and <span class="math inline">\(G_{i}^{*}\)</span> statistics for wards clearly show that the density of blue plaques in the centre of the city exhibits strong (and positive) spatial autocorrelation, but neither of these maps are very interesting. Why not try some alternative variables and see what patterns emerge… here I’m going to have a look at Average GSCE scores…</p>
 <div class="sourceCode" id="cb331"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb331-1"><a href="spatial-autocorrelation.html#cb331-1" aria-hidden="true" tabindex="-1"></a><span class="co">#use head to see what other variables are in the data file</span></span>
 <span id="cb331-2"><a href="spatial-autocorrelation.html#cb331-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -1790,8 +1840,8 @@ And map the outputs…</p>
 <p><img src="CASA0005_files/figure-html/unnamed-chunk-326-1.png" width="672" /></p>
 <p>So this is the end of the practical. Hopefully you have learned a lot about the different methods we can employ to analyse patterns in spatial data.</p>
 </div>
-<div id="feedback-5" class="section level2 hasAnchor" number="7.11">
-<h2><span class="header-section-number">7.11</span> Feedback<a href="spatial-autocorrelation.html#feedback-5" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="feedback-5" class="section level2 hasAnchor" number="7.10">
+<h2><span class="header-section-number">7.10</span> Feedback<a href="spatial-autocorrelation.html#feedback-5" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Was anything that we explained unclear this week or was something really clear…let us know using the <a href="https://forms.gle/w2GUDYc7tSavGy7r6">feedback form</a>. It’s anonymous and we’ll use the responses to clear any issues up in the future / adapt the material.</p>
 
 </div>
@@ -1865,7 +1915,7 @@ gitbook.start({
     var script = document.createElement("script");
     script.type = "text/javascript";
     var src = "true";
-    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
     if (location.protocol !== "file:")
       if (/^https?:/.test(src))
         src = src.replace(/^https?:/, '');

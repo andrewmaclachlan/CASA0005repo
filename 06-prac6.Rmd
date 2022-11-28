@@ -553,6 +553,18 @@ K <- BluePlaquesSub.ppp %>%
 Kval <- as.data.frame(Kest(BluePlaquesSub.ppp, correction = "Ripley"))
 
 ```
+Ripley's K is defined as...
+
+ $$K(r) = \lambda^{-1} \sum{i}\sum{j}\frac{I(d_ij<r)}{n}$$
+
+* In English: Ripley’s K value for any circle radius $r$ = the average density of points at that radius $\lambda = (n/ \Pi r^2))$
+
+  * Multiplied by the sum of the distances $d_ij$ between all points within that search radius
+
+  * Divided by the total number of points, n
+
+  * I = 1 or 0 depending if $d_ij < r$
+
 The plot for K has a number of elements that are worth explaining. First, the *Kpois(r)* line in Red is the theoretical value of K for each distance window (r) under a Poisson assumption of Complete Spatial Randomness. The Black line is the estimated values of K accounting for the effects of the edge of the study area. 
 
 Here, the correction specifies how points towards the edge are dealt with, in this case, border means that points towards the edge are ignored for the calculation but are included for the central points. [Section 2.1, here](https://www.statistics.gov.hk/wsc/IPS031-P2-S.pdf) explains the different options.

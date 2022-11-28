@@ -185,7 +185,7 @@ LondonWardProfiles <- read_csv("https://data.london.gov.uk/download/ward-profile
 
 ```
 
-Or download it and read it in...
+Or download it from the [London data store](https://data.london.gov.uk/dataset/ward-profiles-and-atlas) and read it in...it's the ward Profiles excel download.
 
 ```{r}
 LondonWardProfiles <- read_csv("prac7_data/ward-profiles-excel-version.csv", 
@@ -204,7 +204,7 @@ Datatypelist <- LondonWardProfiles %>%
                values_to="Variable_class")
 
 Datatypelist
-``````
+```
 
 Now you have read in both your boundary data and your attribute data, you need to merge the two together using a common ID. In this case, we can use the ward codes to achieve the join
 
@@ -227,7 +227,7 @@ qtm(LonWardProfiles,
 
 In addition to our main datasets, it might also be useful to add some contextual data. While our exam results have been recorded at the home address of students, most students would have attended one of the schools in the City. 
 
-Let's add some schools data as well.
+Let's add some schools data as well. In the `st_as_sf` function `x` is longitude, `y` is latitude.
 
 ```{r, message=FALSE, cache=FALSE}
 #might be a good idea to see where the secondary schools are in London too
@@ -433,14 +433,11 @@ The best way to test for this assumption is to plot a scatter plot similar to th
 For example, look at the frequency distributions of our two variables earlier:
 
 ```{r}
-# use Janitor to clean up the names.
 
-LonWardProfiles <- LonWardProfiles %>%
-  clean_names()
 
 #let's check the distribution of these variables first
 
-ggplot(LonWardProfiles, aes(x=average_gcse_capped_point_scores_2014)) + 
+ggplot(LonWardProfiles, aes(x=`Average GCSE capped point scores - 2014`)) + 
   geom_histogram(aes(y = ..density..),
                  binwidth = 5) + 
   geom_density(colour="red", 
@@ -452,7 +449,7 @@ ggplot(LonWardProfiles, aes(x=average_gcse_capped_point_scores_2014)) +
 Here, adding `..density..` means that the histogram is a density plot, this plots the chance that any value in the data is equal to that value.
 
 ```{r, message=FALSE, cache=FALSE}
-ggplot(LonWardProfiles, aes(x=unauthorised_absence_in_all_schools_percent_2013)) +
+ggplot(LonWardProfiles, aes(x=`Unauthorised Absence in All Schools (%) - 2013`)) +
   geom_histogram(aes(y = ..density..),
                  binwidth = 0.1) + 
   geom_density(colour="red",
@@ -464,6 +461,25 @@ We would describe both of these distribution as being relatively ['normally' or 
 
 Contrast this with the median house price variable:
 
+**Note** in the code below I've renamed the `Median House Price (£) - 2014` column manually. The data provider changed this variable to be called `median_house_price<c2>2014` around the 21/10/22 and then recently corrected it back to `Median House Price (£) - 2014` (November 2022). However, when i render this book it still doesn't like it. So to fix this i just manually renamed the column and then used `clean_names()` for the rest of the columns. **Good code is code that works and doesn't always need to be pretty / clean** 
+
+```{r, message=FALSE, cache=FALSE}
+library(ggplot2)
+
+# from 21/10 there is an error on the website with 
+# median_house_price_2014 being called median_house_price<c2>2014
+# this was corrected around 23/11 but can be corrected with rename..
+
+LonWardProfiles <- LonWardProfiles %>%
+  #try removing this line to see if it works...
+  dplyr::rename(median_house_price_2014 =`Median House Price (£) - 2014`)%>%
+  janitor::clean_names()
+
+ggplot(LonWardProfiles, aes(x=median_house_price_2014)) + 
+  geom_histogram()
+```
+
+
 ```{r, message=FALSE, cache=FALSE}
 library(ggplot2)
 
@@ -473,7 +489,7 @@ library(ggplot2)
 #LonWardProfiles <- LonWardProfiles %>%
 #  dplyr::rename(median_house_price_2014 =`median_house_price<c2>2014`)
 
-ggplot(LonWardProfiles, aes(x=median_house_price_2014)) + 
+ggplot(as_tibble(LonWardProfiles), aes(x=median_house_price_2014)) + 
   geom_histogram()
 ```
 
@@ -1434,5 +1450,4 @@ From the results of your GWR exercise, what are you able to conclude about the g
 ## Feedback
 
 Was anything that we explained unclear this week or was something really clear...let us know using the [feedback form](https://forms.gle/w2GUDYc7tSavGy7r6). It's anonymous and we'll use the responses to clear any issues up in the future / adapt the material. 
-
 
