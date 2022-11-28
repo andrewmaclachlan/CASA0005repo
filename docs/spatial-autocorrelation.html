@@ -1647,19 +1647,15 @@ Figure 7.1: Source: <a href="https://rpubs.com/msgc/matrices_influence">Manuel S
 <li>The difference between a value and neighbours * the sum of differences between neighbours and the mean</li>
 <li>Where the the difference between a value and neighbours is divided by the standard deviation (how much values in neighbourhood vary about the mean)</li>
 </ul>
-<p>It returns several columns, of most interest is the Z score. A z-scores is <strong>how many standard deviations a value is away (above or below) from the mean</strong>. This allows us to state if our value is significantly different than expected at this location considering the neighours.</p>
-<p>We are comparing our value of Moran’s I to that of an expected value (computed from a separate equation that uses the spatial weight matrix, and therefore considers the neighbouring values). We are expecting our value of Moran’s I to be in the middle of the distribution of the expected values. These expected values follow a normal distribution and the middle part represents complete spatial randomness. This is <strong>typically</strong> between &lt; -1.65 or &gt; +1.65 standard deviations from the mean</p>
+<p>It returns several columns, of most interest is the Z score. A Z-score is <strong>how many standard deviations a value is away (above or below) from the mean</strong>. This allows us to state if our value is significantly different than expected value at this location considering the neighours.</p>
+<p>We are comparing our value of Moran’s I to that of an expected value (computed from a separate equation that uses the spatial weight matrix, and therefore considers the neighbouring values). We are expecting our value of Moran’s I to be in the middle of the distribution of the expected values. These expected values follow a normal distribution, with the middle part representing complete spatial randomness. This is <strong>typically</strong> between &lt; -1.65 or &gt; +1.65 standard deviations from the mean</p>
 <p>The <strong>null hypothesis</strong> is always there is complete spatial randomness. A null hypothesis means:</p>
 <blockquote>
 <p>no statistical significance exists in a set of given observations</p>
 </blockquote>
-<p>If our values is towards the tails of the distribution then it is unlikely that the values are completely spatially random and we can reject the null hypothesis…as they are not what we expect here.</p>
+<p>If our value is towards the tails of the distribution then it is unlikely that the value is completely spatially random and we can reject the null hypothesis…as it is not what we expect at this location.</p>
 <p>In the example where we use a z-score of &gt;2.58 or &lt;-2.58 we interpret this as…</p>
-<blockquote>
-<blockquote>
-<p>2.58 or &lt;-2.58 standard deviations away from the mean are significant at the 99% level…this means there is a &lt;1% chance that autocorrelation is not present</p>
-</blockquote>
-</blockquote>
+<p>…&gt; 2.58 or &lt;-2.58 standard deviations away from the mean are significant at the 99% level…this means there is a &lt;1% chance that autocorrelation is not present</p>
 <p>The <a href="https://storymaps.arcgis.com/stories/5b26f25bb81a437b89003423505e2f71">Global vs location spatial autocorrelation resource</a> goes through the specific formulas here, but the most important parts are knowing</p>
 <ul>
 <li>What we are comparing values to in Local Moran’s I</li>
@@ -1732,7 +1728,7 @@ Where:</p>
 <p><strong>However</strong>, in the case of Getis Ord <span class="math inline">\(G_{i}^{*}\)</span> this is the local sum (of the neighbourhood) compared to the sum of all features</p>
 <p>In Moran’s I this is just the value of the spatial unit (e.g. polygon of the ward) compared to the neighbouring units.</p>
 <p>Here, to be significant (or a hot spot) we will have a high value surrounded by high values. The local sum of these values will be different to the expected sum (think of this as all the values in the area) then where this difference is large we can consider it to be not by chance…</p>
-<p>The same Z-score criteria then applies as before..</p>
+<p>The same z-score criteria then applies as before..</p>
 <p>This summary from L3 Harris nicely summaries the Getis Ord <span class="math inline">\(G_{i}^{*}\)</span> output…</p>
 <blockquote>
 <p>The result of Getis Ord <span class="math inline">\(G_{i}^{*}\)</span> analysis is an array of Z-scores, one for each pixel [or polygon], which is the number of standard deviations that the pixel [or polygon] and its neighbors are from the global mean. High Z-scores indicate more intense clustering of high pixel values, indicating hot spots. Low Z-scores indicate more intense clustering of low values, indicating cold spots. Individual pixels with high or low values by themselves might be interesting but not necessarily significant.</p>
@@ -1745,8 +1741,8 @@ Where:</p>
 <span id="cb327-6"><a href="spatial-autocorrelation.html#cb327-6" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(Gi_LWard_Local_Density)</span></code></pre></div>
 <pre><code>## [1] -0.8314871 -0.8679202 -0.7655724 -0.8318337 -0.8318337 -0.7937671</code></pre>
 <p>Check the help file (?localG) to see what a localG object looks like</p>
-<p><strong>Note</strong> that beacause of the differences in Moran’s I and Getis Ord <span class="math inline">\(G_{i}^{*}\)</span> there will be differences between polyogons that are classed as significant.</p>
-<p>And map the outputs…</p>
+<p><strong>Note</strong> that because of the differences in Moran’s I and Getis Ord <span class="math inline">\(G_{i}^{*}\)</span> there will be differences between polyogons that are classed as significant.</p>
+<p>Add the Getis Ord <span class="math inline">\(G_{i}^{*}\)</span> data to the simple feature…</p>
 <div class="sourceCode" id="cb329"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb329-1"><a href="spatial-autocorrelation.html#cb329-1" aria-hidden="true" tabindex="-1"></a>points_sf_joined <span class="ot">&lt;-</span> points_sf_joined <span class="sc">%&gt;%</span></span>
 <span id="cb329-2"><a href="spatial-autocorrelation.html#cb329-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">density_G =</span> <span class="fu">as.numeric</span>(Gi_LWard_Local_Density))</span></code></pre></div>
 <p>And map the outputs…</p>

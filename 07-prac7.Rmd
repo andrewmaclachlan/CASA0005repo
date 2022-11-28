@@ -337,19 +337,19 @@ Local Moran's I is:
 * The difference between a value and neighbours * the sum of differences between neighbours and the mean
 * Where the the difference between a value and neighbours is divided by the standard deviation (how much values in neighbourhood vary about the mean)
 
-It returns several columns, of most interest is the Z score. A z-scores is **how many standard deviations a value is away (above or below) from the mean**. This allows us to state if our value is significantly different than expected at this location considering the neighours. 
+It returns several columns, of most interest is the Z score. A Z-score is **how many standard deviations a value is away (above or below) from the mean**. This allows us to state if our value is significantly different than expected value at this location considering the neighours. 
 
-We are comparing our value of Moran's I to that of an expected value (computed from a separate equation that uses the spatial weight matrix, and therefore considers the neighbouring values). We are expecting our value of Moran's I to be in the middle of the distribution of the expected values. These expected values follow a normal distribution and the middle part represents complete spatial randomness. This is **typically** between < -1.65 or > +1.65 standard deviations from the mean  
+We are comparing our value of Moran's I to that of an expected value (computed from a separate equation that uses the spatial weight matrix, and therefore considers the neighbouring values). We are expecting our value of Moran's I to be in the middle of the distribution of the expected values. These expected values follow a normal distribution, with the middle part representing complete spatial randomness. This is **typically** between < -1.65 or > +1.65 standard deviations from the mean  
 
 The **null hypothesis** is always there is complete spatial randomness. A null hypothesis means:
 
 >  no statistical significance exists in a set of given observations
 
-If our values is towards the tails of the distribution then it is unlikely that the values are completely spatially random and we can reject the null hypothesis...as they are not what we expect here.
+If our value is towards the tails of the distribution then it is unlikely that the value is completely spatially random and we can reject the null hypothesis...as it is not what we expect at this location.
 
 In the example where we use a z-score of >2.58 or <-2.58 we interpret this as...
 
-> >2.58 or <-2.58 standard deviations away from the mean are significant at the 99% level...this means there is a <1% chance that autocorrelation is not present
+...> 2.58 or <-2.58 standard deviations away from the mean are significant at the 99% level...this means there is a <1% chance that autocorrelation is not present
 
 The [Global vs location spatial autocorrelation resource](https://storymaps.arcgis.com/stories/5b26f25bb81a437b89003423505e2f71) goes through the specific formulas here, but the most important parts are knowing
 
@@ -440,7 +440,7 @@ In Moran's I this is just the value of the spatial unit (e.g. polygon of the war
 
 Here, to be significant (or a hot spot) we will have a high value surrounded by high values. The local sum of these values will be different to the expected sum (think of this as all the values in the area) then where this difference is large we can consider it to be not by chance...
 
-The same Z-score criteria then applies as before..
+The same z-score criteria then applies as before..
 
 This summary from L3 Harris nicely summaries the Getis Ord \(G_{i}^{*}\) output...
 
@@ -458,9 +458,9 @@ head(Gi_LWard_Local_Density)
 
 Check the help file  (?localG) to see what a localG object looks like 
 
-**Note** that beacause of the differences in Moran's I and Getis Ord \(G_{i}^{*}\) there will be differences between polyogons that are classed as significant. 
+**Note** that because of the differences in Moran's I and Getis Ord \(G_{i}^{*}\) there will be differences between polyogons that are classed as significant. 
 
-And map the outputs...
+Add the Getis Ord \(G_{i}^{*}\) data to the simple feature...
 
 ```{r, cache=FALSE}
 points_sf_joined <- points_sf_joined %>%
