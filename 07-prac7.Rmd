@@ -49,6 +49,8 @@ Some of these practicals are long, take regular breaks and have a listen to some
 
 In this section we are going to explore patterns of spatially referenced continuous observations using various measures of spatial autocorrelation. Spatial autocorrelation is a measure of similarity between nearby data. Check out the various references in the reading list for more information about the methods we will explore today. There are also useful links in the help file of the `spdep` package which we will be using here.
 
+This week my question might be **Are the values (in this case the density of blue plaques) similar (or dissimilar) across the wards of London**
+
 ### Data download
 
 Before we get any further, let's get some ward boundaries read in to R --- download LondonWardData from [the London Data store](https://data.london.gov.uk/dataset/statistical-gis-boundary-files-london) and read it in...
