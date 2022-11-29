@@ -479,20 +479,6 @@ ggplot(LonWardProfiles, aes(x=median_house_price_2014)) +
   geom_histogram()
 ```
 
-
-```{r, message=FALSE, cache=FALSE}
-library(ggplot2)
-
-# from 21/10 there is an error on the website with 
-# median_house_price_2014 being called median_house_price<c2>2014
-# this was corrected around 23/11 but can be corrected with rename..
-#LonWardProfiles <- LonWardProfiles %>%
-#  dplyr::rename(median_house_price_2014 =`median_house_price<c2>2014`)
-
-ggplot(as_tibble(LonWardProfiles), aes(x=median_house_price_2014)) + 
-  geom_histogram()
-```
-
 We would describe this as a [not normal and/or positively 'skewed'](https://en.wikipedia.org/wiki/Skewness) distribution, i.e. there are more observations towards the lower end of the average house prices observed in the city, however there is a long tail to the distribution, i.e. there are a small number of wards where the average house price is very large indeed.
 
 ```{r echo=FALSE, out.width = "300pt", fig.align='center', cache=FALSE, message=FALSE, results=FALSE}
@@ -922,6 +908,7 @@ tidy(slag_dv_model2_queen)
 glance(slag_dv_model2_queen)
 
 t<-summary(slag_dv_model2_queen)
+
 ```
 
 Running the spatially-lagged model with a Queen's case spatial weights matrix reveals that in this example, there is an insignificant and small effect associated with the spatially lagged dependent variable. However, a different conception of neighbours we might get a different outcome
@@ -930,9 +917,16 @@ Here:
 
 * Rho is our spatial lag that measures the variable in the surrounding spatial areas as defined by the spatial weight matrix. We use this as an extra explanatory variable to account for clustering (identified by Moran's I)
 
-* Likelihood ratio (LR) test shows if the addition of the lag is an improvement and if that's significant
+* Likelihood ratio (LR) test shows if the addition of the lag is an improvement and if that's significant. This code would give the same output...
+
+```{r, eval=FALSE}
+library(lmtest)
+lrtest(slag_dv_model2_queen, model2)
+```
 
 * Lagrange Multiplier (LM) is a test for the absence of spatial autocorrelation in the lag model residuals. If significant then you can reject the Null (no spatial autocorrelation) and accept the alternative (is spatial autocorrelcation)
+
+* Wald test (often not used in interpretation of lag models), it tests if the new parameters (the lag) should be includes it in the model...if significant then the new variable improves the model fit and needs to be included. This is similar to the LR test and i've not seen a situation where one is significant and the other not. Probably why it's not used!
 
 ##### Lag impacts
 
@@ -995,7 +989,7 @@ In the sparse example, there are different two examples using slightly different
 
 *  `MC` for Monte Carlo simulation of the traces (the first two simulated traces are replaced by their analytical equivalents)
 
-The purpose of providing this extra step is in case you have a large data set in the exam and wish to do compute the direct and indirect.  
+The purpose of providing this extra step **is in case you have a large data set in the exam and wish to do compute the direct and indirect**.  
 
 **However**, when discussing this with Adam, he believes the coefficients across models can be compared as essentially you are still trying to model the same dependent variable...what do you think?
   
@@ -1020,7 +1014,7 @@ tidy(slag_dv_model2_knn4)
 
 Using the 4 nearest neighbours instead of just considering all adjacent zones in the spatial weights matrix, the size and significance of the spatially lagged term changes quite dramatically. In the 4 nearest neighbour model it is both quite large, positive and statistically significant (<0.05), conversely the effects of unauthorised absence and median house-price are reduced. What this means is that in our study area, the average GCSE score recorded in Wards across the city varies partially with the average GCSE score found in neighbouring Wards. Given the distribution of schools in the capital in relation to where pupils live, this makes sense as schools might draw pupils from a few close neighbouring wards rather than all neighbour bordering a particular Ward. 
 
-Effectively, by ignoring the effects of spatial autocorrelation in the original OLS model, the impacts of unauthorised absence and affluence (as represented by average house price) were slightly overplayed. 
+Effectively, by ignoring the effects of spatial autocorrelation in the original OLS model, the impacts of unauthorised absence and affluence (as represented by average house price) were slightly overplayed or exaggerated (meaning the OLS coefficients were too high). 
 
 We can also now check that the residuals from the spatially lagged model are now no-longer exhibiting spatial autocorrelation:
 
@@ -1336,6 +1330,12 @@ To conclude, we can:
   * a number of neighbors
   * a distance threshold
 
+
+::: {.infobox .tip data-latex="{note}"}
+**BUT** a problem with setting a fixed bandwidth is we assume that all variables have the same relationship across **the same space (using the same number of neighbours or distance)**...(such as rate_of_job_seekers_allowance_jsa_claimants_2015 and percent_with_level_4_qualifications_and_above_2011). We can let these bandwidths vary as some relationships will operate on different spatial scales...this is called **Multiscale GWR** and Lex Comber recently said that all GWR should be Multisacle (oops!). We have already covered a lot here so i won't go into it. If you are interested Lex has a [good tutorial on Multiscale GWR](https://rpubs.com/lexcomber/INIA_Session7)
+:::
+
+
 ```{r message=FALSE, warning=FALSE}
 #run the gwr model
 gwr.model = gwr(average_gcse_capped_point_scores_2014 ~ unauthorised_absence_in_all_schools_percent_2013 + 
@@ -1357,7 +1357,9 @@ gwr.model
 
 The output from the GWR model reveals how the coefficients vary across the 626 Wards in our London Study region. You will see how the global coefficients are exactly the same as the coefficients in the earlier `lm` model. In this particular model (yours will look a little different if you have used different explanatory variables), if we take unauthorised absence from school, we can see that the coefficients range from a minimum value of -47.06 (1 unit change in unauthorised absence resulting in a drop in average GCSE score of -47.06) to +6.8 (1 unit change in unauthorised absence resulting in an increase in average GCSE score of +6.8). For half of the wards in the dataset, as unauthorised absence rises by 1 point, GCSE scores will decrease between -30.80 and -14.34 points (the inter-quartile range between the 1st Qu and the 3rd Qu). 
 
-You will notice that the R-Squared value has improved - this is not uncommon for GWR models, but it doesn't necessarily mean they are definitely better than global models. The small number of cases under the kernel means that GW models have been criticised for lacking statistical robustness.
+You will notice that the R-Squared value (Quasi global R-squared) has improved - this is not uncommon for GWR models, but it doesn't necessarily mean they are definitely better than global models. The small number of cases under the kernel means that GW models have been criticised for lacking statistical robustness.
+
+The best way to compare models is with the **AIC (Akaike Information Criterion) or for smaller sample sizes the sample-size adjusted AICc**, especially when you number of points is [less than 40!](https://towardsdatascience.com/introduction-to-aic-akaike-information-criterion-9c9ba1c96ced) Which it will be in GWR. The models must also be using the same data and be over the same study area! 
 
 Coefficient ranges can also be seen for the other variables and they suggest some interesting spatial patterning. To explore this we can plot the GWR coefficients for different variables. Firstly we can attach the coefficients to our original dataframe - this can be achieved simply as the coefficients for each ward appear in the same order in our spatial points dataframe as they do in the original dataframe.
 
