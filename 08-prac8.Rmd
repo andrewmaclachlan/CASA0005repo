@@ -716,10 +716,11 @@ In the plots here we are looking for:
 
 * Normal Q-Q: all points falling on the line. This checks if the residuals (observed minus predicted) are normally distributed
 
-* Scale vs Location: flat and horizontal line. This is the homoscedasticity (errors/residuals in the model exhibit constant / homogeneous variance)
+* Scale vs Location: flat and horizontal line, with randomly spaced points. This is **the homoscedasticity** (errors/residuals in the model exhibit constant / homogeneous variance). Are the residuals (also called errors) spread equally along all of the data. 
 
-* Residuals vs Leverage - Identifies outliers (or influenttial observations), the three largest outliers are identified with values in the plot.
+* Residuals vs Leverage - Identifies outliers (or influential observations), the three largest outliers are identified with values in the plot.
 
+The University of Viginia Library provides [examples of good and bad models in relation to these plots](https://data.library.virginia.edu/diagnostic-plots/#:~:text=Scale%2DLocation,equally%20(randomly)%20spread%20points.).
 
 There is an easier way to produce this plot using `check_model()` from the `performance` package, that even includes what you are looking for...note that the Posterior predictive check is the comparison between the fitted model and the observed data.
 
@@ -926,7 +927,7 @@ lrtest(slag_dv_model2_queen, model2)
 
 * Lagrange Multiplier (LM) is a test for the absence of spatial autocorrelation in the lag model residuals. If significant then you can reject the Null (no spatial autocorrelation) and accept the alternative (is spatial autocorrelcation)
 
-* Wald test (often not used in interpretation of lag models), it tests if the new parameters (the lag) should be includes it in the model...if significant then the new variable improves the model fit and needs to be included. This is similar to the LR test and i've not seen a situation where one is significant and the other not. Probably why it's not used!
+* Wald test (often not used in interpretation of lag models), it tests if the new parameters (the lag) should be included it in the model...if significant then the new variable improves the model fit and needs to be included. This is similar to the LR test and i've not seen a situation where one is significant and the other not. Probably why it's not used!
 
 ##### Lag impacts
 
@@ -1044,9 +1045,12 @@ The spatial error model can be written:
 
 $$y_i = \beta_0 + \beta_1x_i + \lambda w_i.\xi_i + \epsilon_i$$
 
-where $\lambda$ is a measure of the spatial autocorrelation of the residuals for neighbouring residuals and $\xi_i$ is the spatial component of the error term
+where
 
-If there is no spatial autocorrelation in the residuals, we would expect the $\lambda$ parameter to = 0 and the other parameters in the regression equation would be the same as in the OLS regression. 
+* $\xi_i$ is the spatial component of the error terms...in other words the residuals of the values in surrounding spatial units based on the weight matrix.
+
+* $\lambda$ is a measure of correlation between neighbouring residuals.. "it indicates the extent to which the spatial component of the errors $\xi_i$ are correlated with one another for nearby observations" as per the weight matrix, Ward and Gleditsch (2008). **If there is no correlation between the then this defaults to normal OLS regression**
+
 For more detail on the spatial error model, see Ward and Gleditsch (2008) -  https://methods.sagepub.com/Book/spatial-regression-models/n3.xml 
 
 We can run a spatial error model on the same data below:
@@ -1280,7 +1284,7 @@ final_model_Moran
 
 Now, we probably could stop at running a spatial error model at this point, but it could be that rather than spatial autocorrelation causing problems with our model, it might be that a "global" regression model does not capture the full story. In some parts of our study area, the relationships between the dependent and independent variable may not exhibit the same slope coefficient. While, for example, increases in unauthorised absence usually are negatively correlated with GCSE score (students missing school results in lower exam scores), in some parts of the city, they could be positively correlated (in affluent parts of the city, rich parents may enrol their children for just part of the year and then live elsewhere in the world for another part of the year, leading to inflated unauthorised absence figures. Ski holidays are cheaper during the school term, but the pupils will still have all of the other advantages of living in a well off household that will benefit their exam scores. 
 
-If this occurs, then we have *'non-stationarity'* - this is when the global model does not represent the relationships between variables that might vary locally.
+If this occurs, then we have **'non-stationarity'** - this is when the global model does not represent the relationships between variables that might vary locally.
 
 This part of the practical will only skirt the edges of GWR, for much more detail you should visit the GWR website which is produced and maintained by Prof Chris Brunsdon and Dr Martin Charlton who originally developed the technique - http://gwr.nuim.ie/
 
@@ -1360,6 +1364,13 @@ The output from the GWR model reveals how the coefficients vary across the 626 W
 You will notice that the R-Squared value (Quasi global R-squared) has improved - this is not uncommon for GWR models, but it doesn't necessarily mean they are definitely better than global models. The small number of cases under the kernel means that GW models have been criticised for lacking statistical robustness.
 
 The best way to compare models is with the **AIC (Akaike Information Criterion) or for smaller sample sizes the sample-size adjusted AICc**, especially when you number of points is [less than 40!](https://towardsdatascience.com/introduction-to-aic-akaike-information-criterion-9c9ba1c96ced) Which it will be in GWR. The models must also be using the same data and be over the same study area! 
+
+AIC is calculated using the:
+
+* number of independent variables
+* maximum likelihood estimate of the model (how well the model reproduces the data).
+
+The lower the value the better the better the model fit is, see [scribbr](https://www.scribbr.com/statistics/akaike-information-criterion/)if you want to know more here..although this is enough to get you through most situations. 
 
 Coefficient ranges can also be seen for the other variables and they suggest some interesting spatial patterning. To explore this we can plot the GWR coefficients for different variables. Firstly we can attach the coefficients to our original dataframe - this can be achieved simply as the coefficients for each ward appear in the same order in our spatial points dataframe as they do in the original dataframe.
 
