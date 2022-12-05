@@ -424,6 +424,21 @@ Either with logic and reasoning (e.g. in the exam), with the support of academic
 
 This means giving all your variables a mean of 0 (centering) and standard deviation of 1 (scaling). This is done through subtracting the mean from each value and dividing by the standard deviation (this latter part is often called standardizing). There is [much debate on when to do this](https://stats.stackexchange.com/questions/29781/when-conducting-multiple-regression-when-should-you-center-your-predictor-varia). Neal Goldstein has [a good list of why and when to do this](https://www.goldsteinepi.com/blog/thewhyandwhenofcenteringcontinuouspredictorsinregressionmodeling/index.html) and [this blog provides a nice explanation](https://tungmphung.com/when-to-do-feature-centering-and-scaling/). Typically reasons might include multicollinearity and large differences in data ranges. To interpret the coefficient of this it you can [transform them back](https://stats.stackexchange.com/questions/388772/normalized-regression-coefficients-interpretation). **But** this does not form part of this module.
 
+> What is confounding
+
+A confounding variable is where an extraneous variable (an external to your model variable) is related to both the dependent and independent (those used to predict the dependent) variables.  
+
+An example from [Scribbr](https://www.scribbr.co.uk/research-methods/confounding-variable/) is that if you are modelling sunburn using ice cream consumption then temperature will influence both of these variables. 
+
+There are several ways to solve this explained in Scribbr article, one approach is to include the variables as control variables (this is not of interest in the study but must be accounted for) in the model so you can account for them.
+
+For a confounding variable it must be:
+
+* correlated with other independent variables (see Assumption 3 - No Multicolinearity in the independent variables)
+* causally related to the dependent - known to influence the dependent variable
+
+**However**, in our work, if our independent variables are correlated we might remove the one that has least influence on the model to resolve this situation.
+
 ### Assumptions Underpinning Linear Regression
 
 ### Assumption 1 - There is a linear relationship between the dependent and independent variables
@@ -876,6 +891,8 @@ $$y_i = \beta_0 + \beta_1x_i + \rho w_i.y_i + \epsilon_i$$
 In this equation, $w$ is the spatial weights matrix you generated and $w_i$ is vector of all neighbouring areas (in our case, Wards) for any Ward $y_i$. 
 
 In this model, a positive value for the $\rho w_i.y_i$ parameter would indicate that the average value for GCSE scores is expected to be higher if, on average, Wards neighbouring also have higher GCSE score values. 
+
+* $\rho$ denotes (represents) the spatial lag
 
 For more details on running a spatially lagged regression model and interpreting the outputs, see the chapter on spatially lagged models by Ward and Gleditsch (2008) available online here: https://methods.sagepub.com/book/spatial-regression-models/n2.xml
 
