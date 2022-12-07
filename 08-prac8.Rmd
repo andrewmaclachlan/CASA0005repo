@@ -346,6 +346,8 @@ In the output summary of the model above, there are a number of features you sho
 
 **Coefficient Standard Errors** - these represent the average amount the coefficient varies from the average value of the dependent variable (its standard deviation). So, for a 1% increase in unauthorised absence from school, while the model says we might expect GSCE scores to drop by -41.2 points, this might vary, on average, by about 1.9 points. As a rule of thumb, we are looking for a lower value in the standard error relative to the size of the coefficient. 
 
+**Note that is the coefficient represents a one unit change, here it is %, as the variable is % unauthorized absence in school** So one unit is a 1% change...
+
 **Coefficient t-value** - this is the value of the coefficient divided by the standard error and so can be thought of as a kind of standardised coefficient value. The larger (either positive or negative) the value the greater the relative effect that particular independent variable is having on the dependent variable (this is perhaps more useful when we have several independent variables in the model) .
 
 **Coefficient p-value - Pr(>|t|)** - the p-value is a measure of significance. There is lots of debate about p-values which I won't go into here, but essentially it refers to the probability of getting a coefficient as large as the one observed in a set of random data. p-values can be thought of as percentages, so if we have a p-value of 0.5, then there is a 5% chance that our coefficient could have occurred in some random data, or put another way, a 95% chance that out coefficient could have only occurred in our data. 
@@ -927,15 +929,18 @@ glance(slag_dv_model2_queen)
 
 t<-summary(slag_dv_model2_queen)
 
+sum(t$residuals)
 ```
 
 Running the spatially-lagged model with a Queen's case spatial weights matrix reveals that in this example, there is an insignificant and small effect associated with the spatially lagged dependent variable. However, a different conception of neighbours we might get a different outcome
 
 Here:
 
-* Rho is our spatial lag that measures the variable in the surrounding spatial areas as defined by the spatial weight matrix. We use this as an extra explanatory variable to account for clustering (identified by Moran's I)
+* Rho is our spatial lag (0.0051568) that measures the variable in the surrounding spatial areas as defined by the spatial weight matrix. We use this as an extra explanatory variable to account for clustering (identified by Moran's I). If significant it means that the GCSE scores in a unit vary based on the GCSE scores in the neighboring units. If it is positive it means as the GCSE scores increase in the surrounding units so does our central value
 
-* Likelihood ratio (LR) test shows if the addition of the lag is an improvement and if that's significant. This code would give the same output...
+* Log likelihood shows how well the data fits the model (like the AIC, which we cover later), the higher the value the better the models fits the data.
+
+* Likelihood ratio (LR) test shows if the addition of the lag is an improvement (from linear regression) and if that's significant. This code would give the same output...
 
 ```{r, eval=FALSE}
 library(lmtest)
@@ -945,6 +950,8 @@ lrtest(slag_dv_model2_queen, model2)
 * Lagrange Multiplier (LM) is a test for the absence of spatial autocorrelation in the lag model residuals. If significant then you can reject the Null (no spatial autocorrelation) and accept the alternative (is spatial autocorrelcation)
 
 * Wald test (often not used in interpretation of lag models), it tests if the new parameters (the lag) should be included it in the model...if significant then the new variable improves the model fit and needs to be included. This is similar to the LR test and i've not seen a situation where one is significant and the other not. Probably why it's not used!
+
+In this case we have spatial autocorrelation in the residuals of the model, but the model is not an improvement on OLS --- this can also be confirmed with the AIC score (we cover that later) but the lower it is the better. Here it is 5217, in OLS (model 2) it was 5215. The Log likelihood is the other way around but very close, model 2 (OLS) it was -2604, here it is -2603. 
 
 ##### Lag impacts
 
@@ -1030,7 +1037,17 @@ slag_dv_model2_knn4 <- lagsarlm(average_gcse_capped_point_scores_2014 ~ unauthor
 tidy(slag_dv_model2_knn4)
 ```
 
-Using the 4 nearest neighbours instead of just considering all adjacent zones in the spatial weights matrix, the size and significance of the spatially lagged term changes quite dramatically. In the 4 nearest neighbour model it is both quite large, positive and statistically significant (<0.05), conversely the effects of unauthorised absence and median house-price are reduced. What this means is that in our study area, the average GCSE score recorded in Wards across the city varies partially with the average GCSE score found in neighbouring Wards. Given the distribution of schools in the capital in relation to where pupils live, this makes sense as schools might draw pupils from a few close neighbouring wards rather than all neighbour bordering a particular Ward. 
+Using the 4 nearest neighbours instead of just considering all adjacent zones in the spatial weights matrix, the size and significance of the spatially lagged term changes quite dramatically. In the 4 nearest neighbour model it is both quite large, positive and statistically significant (<0.05), conversely the effects of unauthorised absence have reduced. Remember...this is how we interpret the coefficients...
+
+* Before a 1% increase in unauthorized absence meant GCSE scores dropped by -36.36 points, now they just drop by -28.5 points.
+
+* Here as we have logged the median house price we must follow the rules...
+  * Divide the coefficient by 100 (it was 12.65 it is now 9.29 = 0.1265 and 0.0929)
+  * For every 1% increase in the independent variable the dependent increases by around 0.09 points 
+  
+  Before a 1 unit in median house price absence meant GCSE scores improved by 12.65 points, now they just improve by 9.29 points.
+
+What this means is that in our study area, the average GCSE score recorded in Wards across the city varies partially with the average GCSE score found in neighbouring Wards. Given the distribution of schools in the capital in relation to where pupils live, this makes sense as schools might draw pupils from a few close neighbouring wards rather than all neighbour bordering a particular Ward. 
 
 Effectively, by ignoring the effects of spatial autocorrelation in the original OLS model, the impacts of unauthorised absence and affluence (as represented by average house price) were slightly overplayed or exaggerated (meaning the OLS coefficients were too high). 
 
