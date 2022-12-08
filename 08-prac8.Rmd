@@ -1037,16 +1037,14 @@ slag_dv_model2_knn4 <- lagsarlm(average_gcse_capped_point_scores_2014 ~ unauthor
 tidy(slag_dv_model2_knn4)
 ```
 
-Using the 4 nearest neighbours instead of just considering all adjacent zones in the spatial weights matrix, the size and significance of the spatially lagged term changes quite dramatically. In the 4 nearest neighbour model it is both quite large, positive and statistically significant (<0.05), conversely the effects of unauthorised absence have reduced. Remember...this is how we interpret the coefficients...
+Using the 4 nearest neighbours instead of just considering all adjacent zones in the spatial weights matrix, the size and significance of the spatially lagged term changes quite dramatically. In the 4 nearest neighbour model it is both quite large, positive and statistically significant (<0.05), conversely the effects of unauthorised absence and (log (median house price)) are reduced. **Remember...this is how we interpret the coefficients...**
 
-* Before a 1% increase in unauthorized absence meant GCSE scores dropped by -36.36 points, now they just drop by -28.5 points.
+* Before a 1% increase (or 1 unit, it is % as the variable is %) in unauthorized absence meant GCSE scores dropped by -36.36 points, now they just drop by -28.5 points.
 
-* Here as we have logged the median house price we must follow the rules...
+* Here as we have logged the median house price we must [follow the rules](https://data.library.virginia.edu/interpreting-log-transformations-in-a-linear-model/)...
   * Divide the coefficient by 100 (it was 12.65 it is now 9.29 = 0.1265 and 0.0929)
-  * For every 1% increase in the independent variable the dependent increases by around 0.09 points 
+  * For every 1% increase in the independent variable (median house price) the dependent (GCSE scores) increases by around 0.09 points (previously 0.12)
   
-  Before a 1 unit in median house price absence meant GCSE scores improved by 12.65 points, now they just improve by 9.29 points.
-
 What this means is that in our study area, the average GCSE score recorded in Wards across the city varies partially with the average GCSE score found in neighbouring Wards. Given the distribution of schools in the capital in relation to where pupils live, this makes sense as schools might draw pupils from a few close neighbouring wards rather than all neighbour bordering a particular Ward. 
 
 Effectively, by ignoring the effects of spatial autocorrelation in the original OLS model, the impacts of unauthorised absence and affluence (as represented by average house price) were slightly overplayed or exaggerated (meaning the OLS coefficients were too high). 

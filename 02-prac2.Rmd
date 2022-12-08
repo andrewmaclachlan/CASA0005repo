@@ -506,6 +506,7 @@ LondonData <- read_csv("https://data.london.gov.uk/download/ward-profiles-and-at
                        na = "n/a")
 ```
 
+
 > **Note** the use of read_csv here as opposed to read.csv. They are very similar, but read_csv is just a bit better. Read [this blog post](http://yetanothermathprogrammingconsultant.blogspot.com/2016/12/reading-csv-files-in-r-readcsv-vs.html) for more information. Also, for those python fans out there ---IT’S NOT THE SAME FUNCTION AS READ_CSV IN PYTHON
 
 What is `locale = locale(encoding = "latin1")`?...good question...it is basically the encoding of the data (how it is stored). There are a few different formats such as UTF-8 and latin1. In latin1 each character is 1 byte long, in UTF-8 a character can consist of more than 1 byte. To my knowledge the default in R is encoded as latin1, but `readr` (the package we are using to read in the `.csv` is UTF-8 so we have to specify it.
@@ -1122,7 +1123,7 @@ Earlier we read in the data using:
 flytipping <- read_csv("https://data.london.gov.uk/download/fly-tipping-incidents/536278ff-a391-4f20-bc79-9e705c9b3ec0/fly-tipping-borough.csv")
 ```
 
-But we can also do something like this to force the columns to the appopraite data types (e.g. text, numberic)
+But we can also do something like this to force the columns to the appropriate data types (e.g. text, numeric)
 
 ```{r, cache=FALSE, warning=FALSE, message=FALSE, eval=FALSE}
 flytipping1 <- read_csv("https://data.london.gov.uk/download/fly-tipping-incidents/536278ff-a391-4f20-bc79-9e705c9b3ec0/fly-tipping-borough.csv", 
