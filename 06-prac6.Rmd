@@ -557,9 +557,11 @@ Ripley's K is defined as...
 
  $$K(r) = \lambda^{-1} \sum{i}\sum{j}\frac{I(d_ij<r)}{n}$$
 
-* In English: Ripley’s K value for any circle radius $r$ = the average density of points at that radius $\lambda = (n/ \Pi r^2))$
+* In English: Ripley’s K value for any circle radius $r$ = 
 
-  * Multiplied by the sum of the distances $d_ij$ between all points within that search radius
+  * The average density of points for the **entire study region (of all locations)** $\lambda = (n/ \Pi r^2))$
+
+  * Multiplied by the sum of the distances $d_ij$ between all points within that search radius, see [Dixon page 2](https://www3.nd.edu/~mhaenggi/ee87021/Dixon-K-Function.pdf) and [Amgad et al. 2015](file:///C:/Users/Andy/Downloads/Extending_Ripleys_K-Function_to_Quantify_Aggregat%20(1).pdf)
 
   * Divided by the total number of points, n
 

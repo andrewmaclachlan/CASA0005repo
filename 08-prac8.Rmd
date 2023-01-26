@@ -35,6 +35,8 @@ This week:
 
 * [Chapter 2 "Linear Regression"](https://bradleyboehmke.github.io/HOML/linear-regression.html#ref-faraway-2016-linear) from Hands-On Machine Learning with R by Boehmke & Greenwell (2020).
 
+* [Chapter 7 "Linear Regression"](https://argoshare.is.ed.ac.uk/healthyr_book/chap07-h1.html) from R for Health Data Science by Ewen Harrison and Riinu Pius (2021). **This chapter is excellent**.
+
 * [Chapter 5 and 6 "Basic Regression and "Multiple Regression"](https://moderndive.com/5-regression.html) from Modern Dive by Ismay and Kim (2019).
 
 * [Chapter 9 Spatial regression models](https://maczokni.github.io/crime_mapping_textbook/spatial-regression-models.html) from Crime Mapping in R by Juanjo Medina and Reka Solymosi (2019).
@@ -418,6 +420,10 @@ If we only fit our model once, how can we be confident about that estimate? Boot
 
 Common questions i get asked about regression that are **not** within scope of the module, but there are some resources here should you want to use them in future (e.g. dissertations):
 
+> Must my variables be normally distrubuted
+
+The right answer is **no**. Although different academics have different responses. If the data is not normally distributed the residuals *may* be not normally distributed (hence why i suggest it here), although this could be an issue with the model / independent variables selected and not the data. They residuals may well be normally distributed, but could vary (meaning we have hetroscedasticity) which we discuss later on. So you might only want to transform the data if it is very skewed.  
+
 > How do i select my variables 
 
 Either with logic and reasoning (e.g. in the exam), with the support of academic literature or methods such as [best subset regression, k-fold cross validation](http://www.sthda.com/english/articles/37-model-selection-essentials-in-r/155-best-subsets-regression-essentials-in-r/) or [gradient descent](https://mlu-explain.github.io/linear-regression/). It does not form part of this module. Other regression methods such as [Ridge, LASSO and elastic net regression](https://andrewmaclachlan.github.io/CASA0005repo_20202021/advanced-r-maup-and-more-regression.html#advanced-regression) can reduce the influence of variables that are not useful in the model. But again, this is beyond the scope of this module.     
@@ -440,6 +446,8 @@ For a confounding variable it must be:
 * causally related to the dependent - known to influence the dependent variable
 
 **However**, in our work, if our independent variables are correlated we might remove the one that has least influence on the model to resolve this situation.
+
+For details on regression diagnostics see [testing the assumptions of linear regression](https://people.duke.edu/~rnau/testing.htm#:~:text=The%20dependent%20and%20independent%20variables,need%20to%20be%20normally%20distributed.)
 
 ### Assumptions Underpinning Linear Regression
 
