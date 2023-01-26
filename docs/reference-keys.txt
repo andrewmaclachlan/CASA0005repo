@@ -307,7 +307,3 @@ github
 one-final-trick
 renv
 referencing-and-more
-fig:unnamed-chunk-35
-fig:unnamed-chunk-36
-fig:unnamed-chunk-38
-fig:unnamed-chunk-39

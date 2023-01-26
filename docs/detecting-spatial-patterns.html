@@ -23,7 +23,7 @@
 <meta name="author" content="Andy MacLachlan and Adam Dennett" />
 
 
-<meta name="date" content="2022-12-08" />
+<meta name="date" content="2023-01-26" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -1816,9 +1816,10 @@ Comparing the observed and expected frequencies for our quadrant counts, we can 
 <p>Ripley’s K is defined as…</p>
 <p><span class="math display">\[K(r) = \lambda^{-1} \sum{i}\sum{j}\frac{I(d_ij&lt;r)}{n}\]</span></p>
 <ul>
-<li><p>In English: Ripley’s K value for any circle radius <span class="math inline">\(r\)</span> = the average density of points at that radius <span class="math inline">\(\lambda = (n/ \Pi r^2))\)</span></p>
+<li><p>In English: Ripley’s K value for any circle radius <span class="math inline">\(r\)</span> =</p>
 <ul>
-<li><p>Multiplied by the sum of the distances <span class="math inline">\(d_ij\)</span> between all points within that search radius</p></li>
+<li><p>The average density of points for the <strong>entire study region (of all locations)</strong> <span class="math inline">\(\lambda = (n/ \Pi r^2))\)</span></p></li>
+<li><p>Multiplied by the sum of the distances <span class="math inline">\(d_ij\)</span> between all points within that search radius, see <a href="https://www3.nd.edu/~mhaenggi/ee87021/Dixon-K-Function.pdf">Dixon page 2</a> and <a href="file:///C:/Users/Andy/Downloads/Extending_Ripleys_K-Function_to_Quantify_Aggregat%20(1).pdf">Amgad et al. 2015</a></p></li>
 <li><p>Divided by the total number of points, n</p></li>
 <li><p>I = 1 or 0 depending if <span class="math inline">\(d_ij &lt; r\)</span></p></li>
 </ul></li>
