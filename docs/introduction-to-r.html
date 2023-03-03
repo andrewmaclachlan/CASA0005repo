@@ -23,7 +23,7 @@
 <meta name="author" content="Andy MacLachlan and Adam Dennett" />
 
 
-<meta name="date" content="2023-01-26" />
+<meta name="date" content="2023-03-03" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -1678,8 +1678,7 @@ Figure 2.7: readr::parse_number() example. Source: <a href="https://github.com/a
 ##  8 % All Children aged 0-15 - 2015    numeric       
 ##  9 % All Working-age (16-64) - 2015   numeric       
 ## 10 % All Older people aged 65+ - 2015 numeric       
-## # … with 57 more rows
-## # ℹ Use `print(n = ...)` to see more rows</code></pre>
+## # … with 57 more rows</code></pre>
 <p>We cover <code>pivot_longer()</code> later in this practical, but for now we’ve simply grouped all our variables into one <strong>LONG</strong> column adding another column that contains the class.</p>
 <p>You should see that all columns that should be numbers are read in as numeric. Try reading in LondonData again, but this time without excluding the ‘n/a’ values in the file, e.g.</p>
 <div class="sourceCode" id="cb69"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb69-1"><a href="introduction-to-r.html#cb69-1" aria-hidden="true" tabindex="-1"></a>LondonData <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;https://data.london.gov.uk/download/ward-profiles-and-atlas/772d2d64-e8c6-46cb-86f9-e52b4c7851bc/ward-profiles-excel-version.csv&quot;</span>, </span>
@@ -1871,8 +1870,7 @@ Figure 2.11: dplyr case_when() example. Source: <a href="https://github.com/alli
 ##  9 E09000021 Kingston upon Thames                    82.9           1.01 above …
 ## 10 E09000005 Brent                                   82.4           1.00 above …
 ## # … with 23 more rows, and abbreviated variable names ¹​normalisedlifeepectancy,
-## #   ²​UKcompare
-## # ℹ Use `print(n = ...)` to see more rows</code></pre>
+## #   ²​UKcompare</code></pre>
 <p>Now whilst this is useful, it doesn’t tell is much more about the data itself, what if we wanted to know the range of life expectancies for London Boroughs that are above the national average….</p>
 <div class="sourceCode" id="cb94"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb94-1"><a href="introduction-to-r.html#cb94-1" aria-hidden="true" tabindex="-1"></a>Life_expectancy2_group <span class="ot">&lt;-</span> Life_expectancy2 <span class="sc">%&gt;%</span></span>
 <span id="cb94-2"><a href="introduction-to-r.html#cb94-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">UKdiff =</span> averagelifeexpectancy<span class="fl">-81.16</span>) <span class="sc">%&gt;%</span></span>
@@ -1918,9 +1916,21 @@ Figure 2.12: dyplr::across() example. Source: <a href="https://github.com/alliso
 <span id="cb96-12"><a href="introduction-to-r.html#cb96-12" aria-hidden="true" tabindex="-1"></a>                                            <span class="st">&quot;years&quot;</span>,</span>
 <span id="cb96-13"><a href="introduction-to-r.html#cb96-13" aria-hidden="true" tabindex="-1"></a>                                            <span class="at">sep=</span><span class="st">&quot; &quot;</span>)))<span class="sc">%&gt;%</span></span>
 <span id="cb96-14"><a href="introduction-to-r.html#cb96-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(UKcompare)<span class="sc">%&gt;%</span></span>
-<span id="cb96-15"><a href="introduction-to-r.html#cb96-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">count=</span><span class="fu">n</span>())</span>
-<span id="cb96-16"><a href="introduction-to-r.html#cb96-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb96-17"><a href="introduction-to-r.html#cb96-17" aria-hidden="true" tabindex="-1"></a>Life_expectancy3</span></code></pre></div>
+<span id="cb96-15"><a href="introduction-to-r.html#cb96-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">count=</span><span class="fu">n</span>())</span></code></pre></div>
+<pre><code>## Warning: There was 1 warning in `mutate()`.
+## ℹ In argument: `across(where(is.numeric), round, 3)`.
+## Caused by warning:
+## ! The `...` argument of `across()` is deprecated as of
+##   dplyr 1.1.0.
+## Supply arguments directly to `.fns` through an
+## anonymous function instead.
+## 
+##   # Previously
+##   across(a:b, mean, na.rm = TRUE)
+## 
+##   # Now
+##   across(a:b, \(x) mean(x, na.rm = TRUE))</code></pre>
+<div class="sourceCode" id="cb98"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb98-1"><a href="introduction-to-r.html#cb98-1" aria-hidden="true" tabindex="-1"></a>Life_expectancy3</span></code></pre></div>
 <pre><code>## # A tibble: 7 × 2
 ##   UKcompare                            count
 ##   &lt;chr&gt;                                &lt;int&gt;
@@ -1932,20 +1942,21 @@ Figure 2.12: dyplr::across() example. Source: <a href="https://github.com/alliso
 ## 6 equal or above UK average by 3 years     4
 ## 7 equal or above UK average by 5 years     1</code></pre>
 <p>There is a lot of information here that we could use and make into a plot or map. For example, the Borough count of life expectancy difference could be visualised in a histogram (covered next week). Or, we could map the difference between the average life expectancy of each London Borough compared to the UK average..to do this would can just reuse some of the code from the example above….</p>
-<div class="sourceCode" id="cb98"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb98-1"><a href="introduction-to-r.html#cb98-1" aria-hidden="true" tabindex="-1"></a>Life_expectancy4 <span class="ot">&lt;-</span> Life_expectancy <span class="sc">%&gt;%</span></span>
-<span id="cb98-2"><a href="introduction-to-r.html#cb98-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">UKdiff =</span> averagelifeexpectancy<span class="fl">-81.16</span>)<span class="sc">%&gt;%</span></span>
-<span id="cb98-3"><a href="introduction-to-r.html#cb98-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="fu">across</span>(is.numeric, round, <span class="dv">3</span>))<span class="sc">%&gt;%</span></span>
-<span id="cb98-4"><a href="introduction-to-r.html#cb98-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="fu">across</span>(UKdiff, round, <span class="dv">0</span>))</span></code></pre></div>
-<pre><code>## Warning: Predicate functions must be wrapped in `where()`.
-## 
-##   # Bad
+<div class="sourceCode" id="cb100"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb100-1"><a href="introduction-to-r.html#cb100-1" aria-hidden="true" tabindex="-1"></a>Life_expectancy4 <span class="ot">&lt;-</span> Life_expectancy <span class="sc">%&gt;%</span></span>
+<span id="cb100-2"><a href="introduction-to-r.html#cb100-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">UKdiff =</span> averagelifeexpectancy<span class="fl">-81.16</span>)<span class="sc">%&gt;%</span></span>
+<span id="cb100-3"><a href="introduction-to-r.html#cb100-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="fu">across</span>(is.numeric, round, <span class="dv">3</span>))<span class="sc">%&gt;%</span></span>
+<span id="cb100-4"><a href="introduction-to-r.html#cb100-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="fu">across</span>(UKdiff, round, <span class="dv">0</span>))</span></code></pre></div>
+<pre><code>## Warning: There was 1 warning in `mutate()`.
+## ℹ In argument: `across(is.numeric, round, 3)`.
+## Caused by warning:
+## ! Use of bare predicate functions was deprecated in
+##   tidyselect 1.1.0.
+## ℹ Please use wrap predicates in `where()` instead.
+##   # Was:
 ##   data %&gt;% select(is.numeric)
 ## 
-##   # Good
-##   data %&gt;% select(where(is.numeric))
-## 
-## ℹ Please update your code.
-## This message is displayed once per session.</code></pre>
+##   # Now:
+##   data %&gt;% select(where(is.numeric))</code></pre>
 <p>Before you move on consider what you have learnt about <code>dplyr</code> in relation to this concept map. The teaching team will also explain it…</p>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-130"></span>
 <img src="prac2_images/dplyr.svg" alt="dplyr concept map. Source: [Monica Alonso and Greg Wilson](https://github.com/rstudio/concept-maps)" width="600pt" />
@@ -1958,26 +1969,26 @@ Figure 2.13: dplyr concept map. Source: <a href="https://github.com/rstudio/conc
 <div id="plotting" class="section level3 hasAnchor" number="2.5.6">
 <h3><span class="header-section-number">2.5.6</span> Plotting<a href="introduction-to-r.html#plotting" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>For a simple and quick plot, we can use the <code>plot()</code> function…</p>
-<div class="sourceCode" id="cb100"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb100-1"><a href="introduction-to-r.html#cb100-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(LondonBoroughs<span class="sc">$</span>male_life_expectancy_2009_13,</span>
-<span id="cb100-2"><a href="introduction-to-r.html#cb100-2" aria-hidden="true" tabindex="-1"></a>     LondonBoroughs<span class="sc">$</span>percent_children_in_reception_year_who_are_obese_2011_12_to_2013_14)</span></code></pre></div>
+<div class="sourceCode" id="cb102"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb102-1"><a href="introduction-to-r.html#cb102-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(LondonBoroughs<span class="sc">$</span>male_life_expectancy_2009_13,</span>
+<span id="cb102-2"><a href="introduction-to-r.html#cb102-2" aria-hidden="true" tabindex="-1"></a>     LondonBoroughs<span class="sc">$</span>percent_children_in_reception_year_who_are_obese_2011_12_to_2013_14)</span></code></pre></div>
 <p><img src="CASA0005_files/figure-html/unnamed-chunk-131-1.png" width="672" /></p>
 </div>
 <div id="pimp-my-graph" class="section level3 hasAnchor" number="2.5.7">
 <h3><span class="header-section-number">2.5.7</span> Pimp my graph!<a href="introduction-to-r.html#pimp-my-graph" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Now, of course, because this is R, we can pimp this graph using something a bit more fancy than the base graphics functions. Here we will use <code>plotly</code> an open source interactive graphing library…</p>
-<div class="sourceCode" id="cb101"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb101-1"><a href="introduction-to-r.html#cb101-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;plotly&quot;</span>)</span></code></pre></div>
-<div class="sourceCode" id="cb102"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb102-1"><a href="introduction-to-r.html#cb102-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(plotly)</span>
-<span id="cb102-2"><a href="introduction-to-r.html#cb102-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_ly</span>(LondonBoroughs, </span>
-<span id="cb102-3"><a href="introduction-to-r.html#cb102-3" aria-hidden="true" tabindex="-1"></a>        <span class="co">#data for x axis</span></span>
-<span id="cb102-4"><a href="introduction-to-r.html#cb102-4" aria-hidden="true" tabindex="-1"></a>        <span class="at">x =</span> <span class="sc">~</span>male_life_expectancy_2009_13, </span>
-<span id="cb102-5"><a href="introduction-to-r.html#cb102-5" aria-hidden="true" tabindex="-1"></a>        <span class="co">#data for y axis</span></span>
-<span id="cb102-6"><a href="introduction-to-r.html#cb102-6" aria-hidden="true" tabindex="-1"></a>        <span class="at">y =</span> <span class="sc">~</span>percent_children_in_reception_year_who_are_obese_2011_12_to_2013_14, </span>
-<span id="cb102-7"><a href="introduction-to-r.html#cb102-7" aria-hidden="true" tabindex="-1"></a>        <span class="co">#attribute to display when hovering </span></span>
-<span id="cb102-8"><a href="introduction-to-r.html#cb102-8" aria-hidden="true" tabindex="-1"></a>        <span class="at">text =</span> <span class="sc">~</span>borough, </span>
-<span id="cb102-9"><a href="introduction-to-r.html#cb102-9" aria-hidden="true" tabindex="-1"></a>        <span class="at">type =</span> <span class="st">&quot;scatter&quot;</span>, </span>
-<span id="cb102-10"><a href="introduction-to-r.html#cb102-10" aria-hidden="true" tabindex="-1"></a>        <span class="at">mode =</span> <span class="st">&quot;markers&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb103"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb103-1"><a href="introduction-to-r.html#cb103-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;plotly&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb104"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb104-1"><a href="introduction-to-r.html#cb104-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(plotly)</span>
+<span id="cb104-2"><a href="introduction-to-r.html#cb104-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_ly</span>(LondonBoroughs, </span>
+<span id="cb104-3"><a href="introduction-to-r.html#cb104-3" aria-hidden="true" tabindex="-1"></a>        <span class="co">#data for x axis</span></span>
+<span id="cb104-4"><a href="introduction-to-r.html#cb104-4" aria-hidden="true" tabindex="-1"></a>        <span class="at">x =</span> <span class="sc">~</span>male_life_expectancy_2009_13, </span>
+<span id="cb104-5"><a href="introduction-to-r.html#cb104-5" aria-hidden="true" tabindex="-1"></a>        <span class="co">#data for y axis</span></span>
+<span id="cb104-6"><a href="introduction-to-r.html#cb104-6" aria-hidden="true" tabindex="-1"></a>        <span class="at">y =</span> <span class="sc">~</span>percent_children_in_reception_year_who_are_obese_2011_12_to_2013_14, </span>
+<span id="cb104-7"><a href="introduction-to-r.html#cb104-7" aria-hidden="true" tabindex="-1"></a>        <span class="co">#attribute to display when hovering </span></span>
+<span id="cb104-8"><a href="introduction-to-r.html#cb104-8" aria-hidden="true" tabindex="-1"></a>        <span class="at">text =</span> <span class="sc">~</span>borough, </span>
+<span id="cb104-9"><a href="introduction-to-r.html#cb104-9" aria-hidden="true" tabindex="-1"></a>        <span class="at">type =</span> <span class="st">&quot;scatter&quot;</span>, </span>
+<span id="cb104-10"><a href="introduction-to-r.html#cb104-10" aria-hidden="true" tabindex="-1"></a>        <span class="at">mode =</span> <span class="st">&quot;markers&quot;</span>)</span></code></pre></div>
 <div id="htmlwidget-9eb00c74fa71d127b56a" style="width:672px;height:480px;" class="plotly html-widget"></div>
-<script type="application/json" data-for="htmlwidget-9eb00c74fa71d127b56a">{"x":{"visdat":{"773484a6e7":["function () ","plotlyVisDat"]},"cur_data":"773484a6e7","attrs":{"773484a6e7":{"x":{},"y":{},"text":{},"mode":"markers","alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"type":"scatter"}},"layout":{"margin":{"b":40,"l":60,"t":25,"r":10},"xaxis":{"domain":[0,1],"automargin":true,"title":"male_life_expectancy_2009_13"},"yaxis":{"domain":[0,1],"automargin":true,"title":"percent_children_in_reception_year_who_are_obese_2011_12_to_2013_14","type":"category","categoryorder":"array","categoryarray":["10.2","10.3","10.6","11.0","11.1","11.2","11.5","11.6","12.2","12.5","12.7","12.8","13.2","13.3","13.6","5.7","6.0","7.8","8.1","9.0","9.2","9.5","9.6","9.8"]},"hovermode":"closest","showlegend":false},"source":"A","config":{"modeBarButtonsToAdd":["hoverclosest","hovercompare"],"showSendToCloud":false},"data":[{"x":[84.3,77.7,81.9,80.3,80,81.3,81.1,80,79.9,80.6,78.7,78.2,79.1,80.1,82.4,79.8,80.4,79.7,78.2,82.6,81.3,78.4,78.7,80.3,78.5,80.7,81.9,78.6,80.8,77.5,79.7,79.2,81.7],"y":["11.1","13.6","9.5","11.6","12.2","7.8","9.8","11.1","11.2","12.7","13.2","13.3","10.2","11.1","9.6","10.3","9.6","11.2","10.6","9.2","6.0","11.5","11.0","9.0","12.5","10.6","5.7","12.8","8.1","12.7","10.6","9.2","11.1"],"text":["City of London","Barking and Dagenham","Barnet","Bexley","Brent","Bromley","Camden","Croydon","Ealing","Enfield","Greenwich","Hackney","Hammersmith and Fulham","Haringey","Harrow","Havering","Hillingdon","Hounslow","Islington","Kensington and Chelsea","Kingston upon Thames","Lambeth","Lewisham","Merton","Newham","Redbridge","Richmond upon Thames","Southwark","Sutton","Tower Hamlets","Waltham Forest","Wandsworth","Westminster"],"mode":"markers","type":"scatter","marker":{"color":"rgba(31,119,180,1)","line":{"color":"rgba(31,119,180,1)"}},"error_y":{"color":"rgba(31,119,180,1)"},"error_x":{"color":"rgba(31,119,180,1)"},"line":{"color":"rgba(31,119,180,1)"},"xaxis":"x","yaxis":"y","frame":null}],"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.2,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
+<script type="application/json" data-for="htmlwidget-9eb00c74fa71d127b56a">{"x":{"visdat":{"27c062b92b3c":["function () ","plotlyVisDat"]},"cur_data":"27c062b92b3c","attrs":{"27c062b92b3c":{"x":{},"y":{},"text":{},"mode":"markers","alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"type":"scatter"}},"layout":{"margin":{"b":40,"l":60,"t":25,"r":10},"xaxis":{"domain":[0,1],"automargin":true,"title":"male_life_expectancy_2009_13"},"yaxis":{"domain":[0,1],"automargin":true,"title":"percent_children_in_reception_year_who_are_obese_2011_12_to_2013_14","type":"category","categoryorder":"array","categoryarray":["10.2","10.3","10.6","11.0","11.1","11.2","11.5","11.6","12.2","12.5","12.7","12.8","13.2","13.3","13.6","5.7","6.0","7.8","8.1","9.0","9.2","9.5","9.6","9.8"]},"hovermode":"closest","showlegend":false},"source":"A","config":{"modeBarButtonsToAdd":["hoverclosest","hovercompare"],"showSendToCloud":false},"data":[{"x":[84.3,77.7,81.9,80.3,80,81.3,81.1,80,79.9,80.6,78.7,78.2,79.1,80.1,82.4,79.8,80.4,79.7,78.2,82.6,81.3,78.4,78.7,80.3,78.5,80.7,81.9,78.6,80.8,77.5,79.7,79.2,81.7],"y":["11.1","13.6","9.5","11.6","12.2","7.8","9.8","11.1","11.2","12.7","13.2","13.3","10.2","11.1","9.6","10.3","9.6","11.2","10.6","9.2","6.0","11.5","11.0","9.0","12.5","10.6","5.7","12.8","8.1","12.7","10.6","9.2","11.1"],"text":["City of London","Barking and Dagenham","Barnet","Bexley","Brent","Bromley","Camden","Croydon","Ealing","Enfield","Greenwich","Hackney","Hammersmith and Fulham","Haringey","Harrow","Havering","Hillingdon","Hounslow","Islington","Kensington and Chelsea","Kingston upon Thames","Lambeth","Lewisham","Merton","Newham","Redbridge","Richmond upon Thames","Southwark","Sutton","Tower Hamlets","Waltham Forest","Wandsworth","Westminster"],"mode":"markers","type":"scatter","marker":{"color":"rgba(31,119,180,1)","line":{"color":"rgba(31,119,180,1)"}},"error_y":{"color":"rgba(31,119,180,1)"},"error_x":{"color":"rgba(31,119,180,1)"},"line":{"color":"rgba(31,119,180,1)"},"xaxis":"x","yaxis":"y","frame":null}],"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.2,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
 </div>
 <div id="spatial-data-in-r" class="section level3 hasAnchor" number="2.5.8">
 <h3><span class="header-section-number">2.5.8</span> Spatial Data in R<a href="introduction-to-r.html#spatial-data-in-r" class="anchor-section" aria-label="Anchor link to header"></a></h3>
@@ -1987,31 +1998,31 @@ Figure 2.13: dplyr concept map. Source: <a href="https://github.com/rstudio/conc
 <ol style="list-style-type: decimal">
 <li>The first package we need to install for this part of the practical is <code>maptools</code> –– either find and install it using the RStudio GUI or do the following:</li>
 </ol>
-<div class="sourceCode" id="cb103"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb103-1"><a href="introduction-to-r.html#cb103-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;maptools&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb105"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb105-1"><a href="introduction-to-r.html#cb105-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;maptools&quot;</span>)</span></code></pre></div>
 <p>There are a few other packages we’ll need to get to grips with. Some, like <code>ggplot2</code> (one of the most influential R packages ever) are part of the <code>tidyverse</code> package we came across earlier. Others we will need to install for the first time.</p>
-<div class="sourceCode" id="cb104"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb104-1"><a href="introduction-to-r.html#cb104-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="fu">c</span>(<span class="st">&quot;classInt&quot;</span>, <span class="st">&quot;tmap&quot;</span>))</span>
-<span id="cb104-2"><a href="introduction-to-r.html#cb104-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb104-3"><a href="introduction-to-r.html#cb104-3" aria-hidden="true" tabindex="-1"></a><span class="co"># might also need these ones</span></span>
-<span id="cb104-4"><a href="introduction-to-r.html#cb104-4" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="fu">c</span>(<span class="st">&quot;RColorBrewer&quot;</span>, <span class="st">&quot;sp&quot;</span>, <span class="st">&quot;rgeos&quot;</span>, </span>
-<span id="cb104-5"><a href="introduction-to-r.html#cb104-5" aria-hidden="true" tabindex="-1"></a>                   <span class="st">&quot;tmaptools&quot;</span>, <span class="st">&quot;sf&quot;</span>, <span class="st">&quot;downloader&quot;</span>, <span class="st">&quot;rgdal&quot;</span>, </span>
-<span id="cb104-6"><a href="introduction-to-r.html#cb104-6" aria-hidden="true" tabindex="-1"></a>                   <span class="st">&quot;geojsonio&quot;</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb106"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb106-1"><a href="introduction-to-r.html#cb106-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="fu">c</span>(<span class="st">&quot;classInt&quot;</span>, <span class="st">&quot;tmap&quot;</span>))</span>
+<span id="cb106-2"><a href="introduction-to-r.html#cb106-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb106-3"><a href="introduction-to-r.html#cb106-3" aria-hidden="true" tabindex="-1"></a><span class="co"># might also need these ones</span></span>
+<span id="cb106-4"><a href="introduction-to-r.html#cb106-4" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="fu">c</span>(<span class="st">&quot;RColorBrewer&quot;</span>, <span class="st">&quot;sp&quot;</span>, <span class="st">&quot;rgeos&quot;</span>, </span>
+<span id="cb106-5"><a href="introduction-to-r.html#cb106-5" aria-hidden="true" tabindex="-1"></a>                   <span class="st">&quot;tmaptools&quot;</span>, <span class="st">&quot;sf&quot;</span>, <span class="st">&quot;downloader&quot;</span>, <span class="st">&quot;rgdal&quot;</span>, </span>
+<span id="cb106-6"><a href="introduction-to-r.html#cb106-6" aria-hidden="true" tabindex="-1"></a>                   <span class="st">&quot;geojsonio&quot;</span>))</span></code></pre></div>
 <ol style="list-style-type: decimal">
 <li><p>Now that the packages have been installed you will not have to repeat the above steps again (when you use your account in these cluster rooms). Open a new script and save it to your working directory as <code>wk2_maps.r</code>. As before, type each of the lines of code into this window and then select and use the ctrl return keys to run them. Be sure to save your script often.</p></li>
 <li><p>The first task is to load the packages we have just installed. Note, you might have some issues with the OpenStreetMap package if your installation of java on your computer doesn’t match your installation of R –– e.g. if you have installed the 64bit version of R, you also need the 64bit version of java (same with the 32bit versions) — you may also need to install the package <code>Rcpp</code> separately and try again.</p></li>
 </ol>
 <p>Install Java 64-bit from: <a href="https://java.com/en/download/manual.jsp" class="uri">https://java.com/en/download/manual.jsp</a></p>
-<div class="sourceCode" id="cb105"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb105-1"><a href="introduction-to-r.html#cb105-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Load Packages (ignore any error messages about being built under a </span></span>
-<span id="cb105-2"><a href="introduction-to-r.html#cb105-2" aria-hidden="true" tabindex="-1"></a><span class="co">#different R version):</span></span>
-<span id="cb105-3"><a href="introduction-to-r.html#cb105-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(maptools)</span>
-<span id="cb105-4"><a href="introduction-to-r.html#cb105-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(RColorBrewer)</span>
-<span id="cb105-5"><a href="introduction-to-r.html#cb105-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(classInt)</span>
-<span id="cb105-6"><a href="introduction-to-r.html#cb105-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sp)</span>
-<span id="cb105-7"><a href="introduction-to-r.html#cb105-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rgeos)</span>
-<span id="cb105-8"><a href="introduction-to-r.html#cb105-8" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tmap)</span>
-<span id="cb105-9"><a href="introduction-to-r.html#cb105-9" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tmaptools)</span>
-<span id="cb105-10"><a href="introduction-to-r.html#cb105-10" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sf)</span>
-<span id="cb105-11"><a href="introduction-to-r.html#cb105-11" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rgdal)</span>
-<span id="cb105-12"><a href="introduction-to-r.html#cb105-12" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(geojsonio)</span></code></pre></div>
+<div class="sourceCode" id="cb107"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb107-1"><a href="introduction-to-r.html#cb107-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Load Packages (ignore any error messages about being built under a </span></span>
+<span id="cb107-2"><a href="introduction-to-r.html#cb107-2" aria-hidden="true" tabindex="-1"></a><span class="co">#different R version):</span></span>
+<span id="cb107-3"><a href="introduction-to-r.html#cb107-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(maptools)</span>
+<span id="cb107-4"><a href="introduction-to-r.html#cb107-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(RColorBrewer)</span>
+<span id="cb107-5"><a href="introduction-to-r.html#cb107-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(classInt)</span>
+<span id="cb107-6"><a href="introduction-to-r.html#cb107-6" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sp)</span>
+<span id="cb107-7"><a href="introduction-to-r.html#cb107-7" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rgeos)</span>
+<span id="cb107-8"><a href="introduction-to-r.html#cb107-8" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tmap)</span>
+<span id="cb107-9"><a href="introduction-to-r.html#cb107-9" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tmaptools)</span>
+<span id="cb107-10"><a href="introduction-to-r.html#cb107-10" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(sf)</span>
+<span id="cb107-11"><a href="introduction-to-r.html#cb107-11" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rgdal)</span>
+<span id="cb107-12"><a href="introduction-to-r.html#cb107-12" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(geojsonio)</span></code></pre></div>
 <div id="background-to-spatial-data-in-r" class="section level4 hasAnchor" number="2.5.8.1">
 <h4><span class="header-section-number">2.5.8.1</span> Background to spatial data in R<a href="introduction-to-r.html#background-to-spatial-data-in-r" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>R has a very well developed ecosystem of packages for working with Spatial Data. Early pioneers like Roger Bivand and Edzer Pebesma along with various colleagues were instrumental in writing packages to interface with some powerful open source libraries for working with spatial data, such as GDAL and GEOS. These were accessed via the <code>rgdal</code> and <code>rgeos</code> packages. The <code>maptools</code> package by Roger Bivand, amongst other things, allowed Shapefiles to be read into R. The <code>sp</code> package (along with <code>spdep</code>) by Edzer Pebesma was very important for defining a series of classes and methods for spatial data natively in R which then allowed others to write software to work with these formats. Other packages like <code>raster</code> advanced the analysis of gridded spatial data, while packages like <code>classInt</code> and <code>RColorbrewer</code> facilitated the binning of data and colouring of choropleth maps.</p>
@@ -2041,17 +2052,17 @@ Figure 2.14: ggplot2 introduction graphic. Source: <a href="https://github.com/a
 </ol></li>
 </ul>
 <p>Move either to your project folder and read it in. The <code>.shp</code> is normally quicker to load.</p>
-<div class="sourceCode" id="cb106"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb106-1"><a href="introduction-to-r.html#cb106-1" aria-hidden="true" tabindex="-1"></a><span class="co"># this will take a few minutes</span></span>
-<span id="cb106-2"><a href="introduction-to-r.html#cb106-2" aria-hidden="true" tabindex="-1"></a>EW <span class="ot">&lt;-</span> <span class="fu">st_read</span>(<span class="st">&quot;https://opendata.arcgis.com/datasets/8edafbe3276d4b56aec60991cbddda50_2.geojson&quot;</span>)</span></code></pre></div>
-<div class="sourceCode" id="cb107"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb107-1"><a href="introduction-to-r.html#cb107-1" aria-hidden="true" tabindex="-1"></a><span class="co"># this will take a few minutes</span></span>
-<span id="cb107-2"><a href="introduction-to-r.html#cb107-2" aria-hidden="true" tabindex="-1"></a><span class="co"># geojson in local folder</span></span>
-<span id="cb107-3"><a href="introduction-to-r.html#cb107-3" aria-hidden="true" tabindex="-1"></a><span class="co">#EW &lt;- st_read(here::here(&quot;prac2_data&quot;,</span></span>
-<span id="cb107-4"><a href="introduction-to-r.html#cb107-4" aria-hidden="true" tabindex="-1"></a><span class="co">#                         &quot;Local_Authority_Districts__December_2015__Boundaries.geojson&quot;))</span></span>
-<span id="cb107-5"><a href="introduction-to-r.html#cb107-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb107-6"><a href="introduction-to-r.html#cb107-6" aria-hidden="true" tabindex="-1"></a><span class="co"># shapefile in local folder</span></span>
-<span id="cb107-7"><a href="introduction-to-r.html#cb107-7" aria-hidden="true" tabindex="-1"></a>EW <span class="ot">&lt;-</span> <span class="fu">st_read</span>(here<span class="sc">::</span><span class="fu">here</span>(<span class="st">&quot;prac2_data&quot;</span>,</span>
-<span id="cb107-8"><a href="introduction-to-r.html#cb107-8" aria-hidden="true" tabindex="-1"></a>                        <span class="st">&quot;Local_Authority_Districts_(December_2015)_Boundaries&quot;</span>,</span>
-<span id="cb107-9"><a href="introduction-to-r.html#cb107-9" aria-hidden="true" tabindex="-1"></a>                        <span class="st">&quot;Local_Authority_Districts_(December_2015)_Boundaries.shp&quot;</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb108"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb108-1"><a href="introduction-to-r.html#cb108-1" aria-hidden="true" tabindex="-1"></a><span class="co"># this will take a few minutes</span></span>
+<span id="cb108-2"><a href="introduction-to-r.html#cb108-2" aria-hidden="true" tabindex="-1"></a>EW <span class="ot">&lt;-</span> <span class="fu">st_read</span>(<span class="st">&quot;https://opendata.arcgis.com/datasets/8edafbe3276d4b56aec60991cbddda50_2.geojson&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb109"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb109-1"><a href="introduction-to-r.html#cb109-1" aria-hidden="true" tabindex="-1"></a><span class="co"># this will take a few minutes</span></span>
+<span id="cb109-2"><a href="introduction-to-r.html#cb109-2" aria-hidden="true" tabindex="-1"></a><span class="co"># geojson in local folder</span></span>
+<span id="cb109-3"><a href="introduction-to-r.html#cb109-3" aria-hidden="true" tabindex="-1"></a><span class="co">#EW &lt;- st_read(here::here(&quot;prac2_data&quot;,</span></span>
+<span id="cb109-4"><a href="introduction-to-r.html#cb109-4" aria-hidden="true" tabindex="-1"></a><span class="co">#                         &quot;Local_Authority_Districts__December_2015__Boundaries.geojson&quot;))</span></span>
+<span id="cb109-5"><a href="introduction-to-r.html#cb109-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb109-6"><a href="introduction-to-r.html#cb109-6" aria-hidden="true" tabindex="-1"></a><span class="co"># shapefile in local folder</span></span>
+<span id="cb109-7"><a href="introduction-to-r.html#cb109-7" aria-hidden="true" tabindex="-1"></a>EW <span class="ot">&lt;-</span> <span class="fu">st_read</span>(here<span class="sc">::</span><span class="fu">here</span>(<span class="st">&quot;prac2_data&quot;</span>,</span>
+<span id="cb109-8"><a href="introduction-to-r.html#cb109-8" aria-hidden="true" tabindex="-1"></a>                        <span class="st">&quot;Local_Authority_Districts_(December_2015)_Boundaries&quot;</span>,</span>
+<span id="cb109-9"><a href="introduction-to-r.html#cb109-9" aria-hidden="true" tabindex="-1"></a>                        <span class="st">&quot;Local_Authority_Districts_(December_2015)_Boundaries.shp&quot;</span>))</span></code></pre></div>
 <pre><code>## Reading layer `Local_Authority_Districts_(December_2015)_Boundaries&#39; from data source `C:\Users\Andy\OneDrive - University College London\Teaching\CASA0005\2022_2023\CASA0005repo\prac2_data\Local_Authority_Districts_(December_2015)_Boundaries\Local_Authority_Districts_(December_2015)_Boundaries.shp&#39; 
 ##   using driver `ESRI Shapefile&#39;
 ## Simple feature collection with 380 features and 6 fields
@@ -2060,11 +2071,11 @@ Figure 2.14: ggplot2 introduction graphic. Source: <a href="https://github.com/a
 ## Bounding box:  xmin: 5513 ymin: 5333.602 xmax: 655989 ymax: 1220302
 ## Projected CRS: OSGB 1936 / British National Grid</code></pre>
 <p>Pull out London using the <code>str_detect()</code> function from the <code>stringr</code> package in combination with <code>filter()</code> from <code>dplyr</code> (again!). We will look for the bit of the district code that relates to London (E09) from the ‘lad15cd’ column data frame of our <code>sf</code> object.</p>
-<div class="sourceCode" id="cb109"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb109-1"><a href="introduction-to-r.html#cb109-1" aria-hidden="true" tabindex="-1"></a>LondonMap<span class="ot">&lt;-</span> EW <span class="sc">%&gt;%</span></span>
-<span id="cb109-2"><a href="introduction-to-r.html#cb109-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">str_detect</span>(lad15cd, <span class="st">&quot;^E09&quot;</span>))</span>
-<span id="cb109-3"><a href="introduction-to-r.html#cb109-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb109-4"><a href="introduction-to-r.html#cb109-4" aria-hidden="true" tabindex="-1"></a><span class="co">#plot it using the qtm function</span></span>
-<span id="cb109-5"><a href="introduction-to-r.html#cb109-5" aria-hidden="true" tabindex="-1"></a><span class="fu">qtm</span>(LondonMap)</span></code></pre></div>
+<div class="sourceCode" id="cb111"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb111-1"><a href="introduction-to-r.html#cb111-1" aria-hidden="true" tabindex="-1"></a>LondonMap<span class="ot">&lt;-</span> EW <span class="sc">%&gt;%</span></span>
+<span id="cb111-2"><a href="introduction-to-r.html#cb111-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">str_detect</span>(lad15cd, <span class="st">&quot;^E09&quot;</span>))</span>
+<span id="cb111-3"><a href="introduction-to-r.html#cb111-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb111-4"><a href="introduction-to-r.html#cb111-4" aria-hidden="true" tabindex="-1"></a><span class="co">#plot it using the qtm function</span></span>
+<span id="cb111-5"><a href="introduction-to-r.html#cb111-5" aria-hidden="true" tabindex="-1"></a><span class="fu">qtm</span>(LondonMap)</span></code></pre></div>
 <p><img src="CASA0005_files/figure-html/unnamed-chunk-140-1.png" width="672" /></p>
 </div>
 <div id="attribute-data" class="section level4 hasAnchor" number="2.5.8.3">
@@ -2073,20 +2084,20 @@ Figure 2.14: ggplot2 introduction graphic. Source: <a href="https://github.com/a
 <ol style="list-style-type: decimal">
 <li>Hold your horses, before be can create a map, we need to join some attribute data to some boundaries, let’s do it with <code>merge()</code>, but first clean up all of our names with <code>Janitor</code> again.</li>
 </ol>
-<div class="sourceCode" id="cb110"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb110-1"><a href="introduction-to-r.html#cb110-1" aria-hidden="true" tabindex="-1"></a>LondonData <span class="ot">&lt;-</span> <span class="fu">clean_names</span>(LondonData)</span>
-<span id="cb110-2"><a href="introduction-to-r.html#cb110-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb110-3"><a href="introduction-to-r.html#cb110-3" aria-hidden="true" tabindex="-1"></a><span class="co">#EW is the data we read in straight from the web</span></span>
-<span id="cb110-4"><a href="introduction-to-r.html#cb110-4" aria-hidden="true" tabindex="-1"></a>BoroughDataMap <span class="ot">&lt;-</span> EW <span class="sc">%&gt;%</span></span>
-<span id="cb110-5"><a href="introduction-to-r.html#cb110-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">clean_names</span>()<span class="sc">%&gt;%</span></span>
-<span id="cb110-6"><a href="introduction-to-r.html#cb110-6" aria-hidden="true" tabindex="-1"></a>  <span class="co"># the . here just means use the data already loaded</span></span>
-<span id="cb110-7"><a href="introduction-to-r.html#cb110-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">str_detect</span>(lad15cd, <span class="st">&quot;^E09&quot;</span>))<span class="sc">%&gt;%</span></span>
-<span id="cb110-8"><a href="introduction-to-r.html#cb110-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">merge</span>(.,</span>
-<span id="cb110-9"><a href="introduction-to-r.html#cb110-9" aria-hidden="true" tabindex="-1"></a>        LondonData, </span>
-<span id="cb110-10"><a href="introduction-to-r.html#cb110-10" aria-hidden="true" tabindex="-1"></a>        <span class="at">by.x=</span><span class="st">&quot;lad15cd&quot;</span>, </span>
-<span id="cb110-11"><a href="introduction-to-r.html#cb110-11" aria-hidden="true" tabindex="-1"></a>        <span class="at">by.y=</span><span class="st">&quot;new_code&quot;</span>,</span>
-<span id="cb110-12"><a href="introduction-to-r.html#cb110-12" aria-hidden="true" tabindex="-1"></a>        <span class="at">no.dups =</span> <span class="cn">TRUE</span>)<span class="sc">%&gt;%</span></span>
-<span id="cb110-13"><a href="introduction-to-r.html#cb110-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">distinct</span>(.,lad15cd,</span>
-<span id="cb110-14"><a href="introduction-to-r.html#cb110-14" aria-hidden="true" tabindex="-1"></a>           <span class="at">.keep_all =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb112"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb112-1"><a href="introduction-to-r.html#cb112-1" aria-hidden="true" tabindex="-1"></a>LondonData <span class="ot">&lt;-</span> <span class="fu">clean_names</span>(LondonData)</span>
+<span id="cb112-2"><a href="introduction-to-r.html#cb112-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb112-3"><a href="introduction-to-r.html#cb112-3" aria-hidden="true" tabindex="-1"></a><span class="co">#EW is the data we read in straight from the web</span></span>
+<span id="cb112-4"><a href="introduction-to-r.html#cb112-4" aria-hidden="true" tabindex="-1"></a>BoroughDataMap <span class="ot">&lt;-</span> EW <span class="sc">%&gt;%</span></span>
+<span id="cb112-5"><a href="introduction-to-r.html#cb112-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">clean_names</span>()<span class="sc">%&gt;%</span></span>
+<span id="cb112-6"><a href="introduction-to-r.html#cb112-6" aria-hidden="true" tabindex="-1"></a>  <span class="co"># the . here just means use the data already loaded</span></span>
+<span id="cb112-7"><a href="introduction-to-r.html#cb112-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">str_detect</span>(lad15cd, <span class="st">&quot;^E09&quot;</span>))<span class="sc">%&gt;%</span></span>
+<span id="cb112-8"><a href="introduction-to-r.html#cb112-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">merge</span>(.,</span>
+<span id="cb112-9"><a href="introduction-to-r.html#cb112-9" aria-hidden="true" tabindex="-1"></a>        LondonData, </span>
+<span id="cb112-10"><a href="introduction-to-r.html#cb112-10" aria-hidden="true" tabindex="-1"></a>        <span class="at">by.x=</span><span class="st">&quot;lad15cd&quot;</span>, </span>
+<span id="cb112-11"><a href="introduction-to-r.html#cb112-11" aria-hidden="true" tabindex="-1"></a>        <span class="at">by.y=</span><span class="st">&quot;new_code&quot;</span>,</span>
+<span id="cb112-12"><a href="introduction-to-r.html#cb112-12" aria-hidden="true" tabindex="-1"></a>        <span class="at">no.dups =</span> <span class="cn">TRUE</span>)<span class="sc">%&gt;%</span></span>
+<span id="cb112-13"><a href="introduction-to-r.html#cb112-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">distinct</span>(.,lad15cd,</span>
+<span id="cb112-14"><a href="introduction-to-r.html#cb112-14" aria-hidden="true" tabindex="-1"></a>           <span class="at">.keep_all =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
 <p>We’ve added some more arguments to <code>distinct()</code> that mean we only have unique rows based on the code, but we keep all other variables <code>.keep_all=TRUE</code>. If you change to <code>.keep_all=FALSE</code> (which is the default) then all the other variables (the attributes in the columns) will be removed.</p>
 <p>An alternative to <code>merge()</code> would be to use a <code>left_join()</code> (like in SQL)…but it’s similar to <code>merge()</code>. However, <strong>always use a join type</strong> (e.g. <code>left_join()</code>) where possible as it is easier to control how the join works (e.g. inner, left, right, full). <code>merge()</code> as default is the same as an inner join…</p>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-142"></span>
@@ -2101,12 +2112,12 @@ Figure 2.15: SQL join types. Source: <a href="https://www.dofactory.com/sql/join
 Figure 2.16: dplyr::left_join() example. Source: <a href="https://www.garrickadenbuie.com/project/tidyexplain/">Tidy explain by Garrick Aden‑Buie</a>
 </p>
 </div>
-<div class="sourceCode" id="cb111"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb111-1"><a href="introduction-to-r.html#cb111-1" aria-hidden="true" tabindex="-1"></a>BoroughDataMap2 <span class="ot">&lt;-</span> EW <span class="sc">%&gt;%</span> </span>
-<span id="cb111-2"><a href="introduction-to-r.html#cb111-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">clean_names</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb111-3"><a href="introduction-to-r.html#cb111-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">str_detect</span>(lad15cd, <span class="st">&quot;^E09&quot;</span>))<span class="sc">%&gt;%</span></span>
-<span id="cb111-4"><a href="introduction-to-r.html#cb111-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(., </span>
-<span id="cb111-5"><a href="introduction-to-r.html#cb111-5" aria-hidden="true" tabindex="-1"></a>            LondonData,</span>
-<span id="cb111-6"><a href="introduction-to-r.html#cb111-6" aria-hidden="true" tabindex="-1"></a>            <span class="at">by =</span> <span class="fu">c</span>(<span class="st">&quot;lad15cd&quot;</span> <span class="ot">=</span> <span class="st">&quot;new_code&quot;</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb113"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb113-1"><a href="introduction-to-r.html#cb113-1" aria-hidden="true" tabindex="-1"></a>BoroughDataMap2 <span class="ot">&lt;-</span> EW <span class="sc">%&gt;%</span> </span>
+<span id="cb113-2"><a href="introduction-to-r.html#cb113-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">clean_names</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb113-3"><a href="introduction-to-r.html#cb113-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">str_detect</span>(lad15cd, <span class="st">&quot;^E09&quot;</span>))<span class="sc">%&gt;%</span></span>
+<span id="cb113-4"><a href="introduction-to-r.html#cb113-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(., </span>
+<span id="cb113-5"><a href="introduction-to-r.html#cb113-5" aria-hidden="true" tabindex="-1"></a>            LondonData,</span>
+<span id="cb113-6"><a href="introduction-to-r.html#cb113-6" aria-hidden="true" tabindex="-1"></a>            <span class="at">by =</span> <span class="fu">c</span>(<span class="st">&quot;lad15cd&quot;</span> <span class="ot">=</span> <span class="st">&quot;new_code&quot;</span>))</span></code></pre></div>
 <p>If there are multiple matches then all hits are returned…</p>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-145"></span>
 <img src="prac2_images/left-join-extra.gif" alt="dplyr::left_join() example with multiple matches. Source: [Tidy explain by Garrick Aden‑Buie](https://www.garrickadenbuie.com/project/tidyexplain/)" width="500px" />
@@ -2125,16 +2136,16 @@ Figure 2.17: dplyr::left_join() example with multiple matches. Source: <a href="
 <ol style="list-style-type: decimal">
 <li>We can create a choropleth map very quickly now using <code>qtm()</code> as we’ve done before</li>
 </ol>
-<div class="sourceCode" id="cb112"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb112-1"><a href="introduction-to-r.html#cb112-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tmap)</span>
-<span id="cb112-2"><a href="introduction-to-r.html#cb112-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tmaptools)</span>
-<span id="cb112-3"><a href="introduction-to-r.html#cb112-3" aria-hidden="true" tabindex="-1"></a><span class="fu">tmap_mode</span>(<span class="st">&quot;plot&quot;</span>)</span>
-<span id="cb112-4"><a href="introduction-to-r.html#cb112-4" aria-hidden="true" tabindex="-1"></a><span class="fu">qtm</span>(BoroughDataMap, </span>
-<span id="cb112-5"><a href="introduction-to-r.html#cb112-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">fill =</span> <span class="st">&quot;rate_of_job_seekers_allowance_jsa_claimants_2015&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb114"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb114-1"><a href="introduction-to-r.html#cb114-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tmap)</span>
+<span id="cb114-2"><a href="introduction-to-r.html#cb114-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tmaptools)</span>
+<span id="cb114-3"><a href="introduction-to-r.html#cb114-3" aria-hidden="true" tabindex="-1"></a><span class="fu">tmap_mode</span>(<span class="st">&quot;plot&quot;</span>)</span>
+<span id="cb114-4"><a href="introduction-to-r.html#cb114-4" aria-hidden="true" tabindex="-1"></a><span class="fu">qtm</span>(BoroughDataMap, </span>
+<span id="cb114-5"><a href="introduction-to-r.html#cb114-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">fill =</span> <span class="st">&quot;rate_of_job_seekers_allowance_jsa_claimants_2015&quot;</span>)</span></code></pre></div>
 <p><img src="CASA0005_files/figure-html/unnamed-chunk-146-1.png" width="672" /></p>
 <p>But that’s a bit basic! How about adding a basemap…to get a basemap we need to extract it from OpenStreetMap (OSM) using the <code>read_osm()</code> function from the <code>tmaptools</code> package. We talk about this in later weeks, but it’s a free editable map of the World (the Wikipedia of maps). We are going to need to create a box (termed bounding box) around London using the <code>st_box()</code> function from the <code>sf</code> package to extract the basemap image (which is a raster).</p>
-<div class="sourceCode" id="cb113"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb113-1"><a href="introduction-to-r.html#cb113-1" aria-hidden="true" tabindex="-1"></a>tmaplondon <span class="ot">&lt;-</span> BoroughDataMap <span class="sc">%&gt;%</span></span>
-<span id="cb113-2"><a href="introduction-to-r.html#cb113-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_bbox</span>(.) <span class="sc">%&gt;%</span> </span>
-<span id="cb113-3"><a href="introduction-to-r.html#cb113-3" aria-hidden="true" tabindex="-1"></a>  tmaptools<span class="sc">::</span><span class="fu">read_osm</span>(., <span class="at">type =</span> <span class="st">&quot;osm&quot;</span>, <span class="at">zoom =</span> <span class="cn">NULL</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb115"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb115-1"><a href="introduction-to-r.html#cb115-1" aria-hidden="true" tabindex="-1"></a>tmaplondon <span class="ot">&lt;-</span> BoroughDataMap <span class="sc">%&gt;%</span></span>
+<span id="cb115-2"><a href="introduction-to-r.html#cb115-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_bbox</span>(.) <span class="sc">%&gt;%</span> </span>
+<span id="cb115-3"><a href="introduction-to-r.html#cb115-3" aria-hidden="true" tabindex="-1"></a>  tmaptools<span class="sc">::</span><span class="fu">read_osm</span>(., <span class="at">type =</span> <span class="st">&quot;osm&quot;</span>, <span class="at">zoom =</span> <span class="cn">NULL</span>)</span></code></pre></div>
 <p>Now we have the basemap, set <code>tmap</code> to plot, add the basemap, add the shape (our London layer), tell it which attribute to map (job seekers), the style to make the colour divisions (we explain this more in later weeks), the transparency (alpha), compass, scale and legend.</p>
 <p>But remember what i explained earlier… data first then <code>+</code> aesthetic syntax. We can also double up on this, so below we have data data from our bounding box + it’s raster aesthetic (<code>tm_rgb</code>) THEN ALSO the data from our London Borough layer and it’s aesthetics. As they are the same place they plot over each other!</p>
 <p>There is a bit of extra code below that we haven’t explained:</p>
@@ -2142,47 +2153,47 @@ Figure 2.17: dplyr::left_join() example with multiple matches. Source: <a href="
 <li><code>style</code> — how to divide the data into out colour breaks</li>
 <li><code>palette</code> — the colour scheme to use</li>
 </ul>
-<div class="sourceCode" id="cb114"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb114-1"><a href="introduction-to-r.html#cb114-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tmap_mode</span>(<span class="st">&quot;plot&quot;</span>)</span>
-<span id="cb114-2"><a href="introduction-to-r.html#cb114-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb114-3"><a href="introduction-to-r.html#cb114-3" aria-hidden="true" tabindex="-1"></a><span class="fu">tm_shape</span>(tmaplondon)<span class="sc">+</span></span>
-<span id="cb114-4"><a href="introduction-to-r.html#cb114-4" aria-hidden="true" tabindex="-1"></a><span class="fu">tm_rgb</span>()<span class="sc">+</span></span>
-<span id="cb114-5"><a href="introduction-to-r.html#cb114-5" aria-hidden="true" tabindex="-1"></a><span class="fu">tm_shape</span>(BoroughDataMap) <span class="sc">+</span> </span>
-<span id="cb114-6"><a href="introduction-to-r.html#cb114-6" aria-hidden="true" tabindex="-1"></a><span class="fu">tm_polygons</span>(<span class="st">&quot;rate_of_job_seekers_allowance_jsa_claimants_2015&quot;</span>, </span>
-<span id="cb114-7"><a href="introduction-to-r.html#cb114-7" aria-hidden="true" tabindex="-1"></a>        <span class="at">style=</span><span class="st">&quot;jenks&quot;</span>,</span>
-<span id="cb114-8"><a href="introduction-to-r.html#cb114-8" aria-hidden="true" tabindex="-1"></a>        <span class="at">palette=</span><span class="st">&quot;YlOrBr&quot;</span>,</span>
-<span id="cb114-9"><a href="introduction-to-r.html#cb114-9" aria-hidden="true" tabindex="-1"></a>        <span class="at">midpoint=</span><span class="cn">NA</span>,</span>
-<span id="cb114-10"><a href="introduction-to-r.html#cb114-10" aria-hidden="true" tabindex="-1"></a>        <span class="at">title=</span><span class="st">&quot;Rate per 1,000 people&quot;</span>,</span>
-<span id="cb114-11"><a href="introduction-to-r.html#cb114-11" aria-hidden="true" tabindex="-1"></a>        <span class="at">alpha =</span> <span class="fl">0.5</span>) <span class="sc">+</span> </span>
-<span id="cb114-12"><a href="introduction-to-r.html#cb114-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_compass</span>(<span class="at">position =</span> <span class="fu">c</span>(<span class="st">&quot;left&quot;</span>, <span class="st">&quot;bottom&quot;</span>),<span class="at">type =</span> <span class="st">&quot;arrow&quot;</span>) <span class="sc">+</span> </span>
-<span id="cb114-13"><a href="introduction-to-r.html#cb114-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_scale_bar</span>(<span class="at">position =</span> <span class="fu">c</span>(<span class="st">&quot;left&quot;</span>, <span class="st">&quot;bottom&quot;</span>)) <span class="sc">+</span></span>
-<span id="cb114-14"><a href="introduction-to-r.html#cb114-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_layout</span>(<span class="at">title =</span> <span class="st">&quot;Job seekers&#39; Allowance Claimants&quot;</span>, <span class="at">legend.position =</span> <span class="fu">c</span>(<span class="st">&quot;right&quot;</span>, <span class="st">&quot;bottom&quot;</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb116"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb116-1"><a href="introduction-to-r.html#cb116-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tmap_mode</span>(<span class="st">&quot;plot&quot;</span>)</span>
+<span id="cb116-2"><a href="introduction-to-r.html#cb116-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb116-3"><a href="introduction-to-r.html#cb116-3" aria-hidden="true" tabindex="-1"></a><span class="fu">tm_shape</span>(tmaplondon)<span class="sc">+</span></span>
+<span id="cb116-4"><a href="introduction-to-r.html#cb116-4" aria-hidden="true" tabindex="-1"></a><span class="fu">tm_rgb</span>()<span class="sc">+</span></span>
+<span id="cb116-5"><a href="introduction-to-r.html#cb116-5" aria-hidden="true" tabindex="-1"></a><span class="fu">tm_shape</span>(BoroughDataMap) <span class="sc">+</span> </span>
+<span id="cb116-6"><a href="introduction-to-r.html#cb116-6" aria-hidden="true" tabindex="-1"></a><span class="fu">tm_polygons</span>(<span class="st">&quot;rate_of_job_seekers_allowance_jsa_claimants_2015&quot;</span>, </span>
+<span id="cb116-7"><a href="introduction-to-r.html#cb116-7" aria-hidden="true" tabindex="-1"></a>        <span class="at">style=</span><span class="st">&quot;jenks&quot;</span>,</span>
+<span id="cb116-8"><a href="introduction-to-r.html#cb116-8" aria-hidden="true" tabindex="-1"></a>        <span class="at">palette=</span><span class="st">&quot;YlOrBr&quot;</span>,</span>
+<span id="cb116-9"><a href="introduction-to-r.html#cb116-9" aria-hidden="true" tabindex="-1"></a>        <span class="at">midpoint=</span><span class="cn">NA</span>,</span>
+<span id="cb116-10"><a href="introduction-to-r.html#cb116-10" aria-hidden="true" tabindex="-1"></a>        <span class="at">title=</span><span class="st">&quot;Rate per 1,000 people&quot;</span>,</span>
+<span id="cb116-11"><a href="introduction-to-r.html#cb116-11" aria-hidden="true" tabindex="-1"></a>        <span class="at">alpha =</span> <span class="fl">0.5</span>) <span class="sc">+</span> </span>
+<span id="cb116-12"><a href="introduction-to-r.html#cb116-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_compass</span>(<span class="at">position =</span> <span class="fu">c</span>(<span class="st">&quot;left&quot;</span>, <span class="st">&quot;bottom&quot;</span>),<span class="at">type =</span> <span class="st">&quot;arrow&quot;</span>) <span class="sc">+</span> </span>
+<span id="cb116-13"><a href="introduction-to-r.html#cb116-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_scale_bar</span>(<span class="at">position =</span> <span class="fu">c</span>(<span class="st">&quot;left&quot;</span>, <span class="st">&quot;bottom&quot;</span>)) <span class="sc">+</span></span>
+<span id="cb116-14"><a href="introduction-to-r.html#cb116-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_layout</span>(<span class="at">title =</span> <span class="st">&quot;Job seekers&#39; Allowance Claimants&quot;</span>, <span class="at">legend.position =</span> <span class="fu">c</span>(<span class="st">&quot;right&quot;</span>, <span class="st">&quot;bottom&quot;</span>))</span></code></pre></div>
 <p>For more palette options, run <code>palette_explorer()</code> in the console.</p>
 <p>So that’s our first real map done! Awesome work. But remember our <code>Life_expectancy4</code> data that we wrangled earlier. Can you think of a way to map this? So we need to</p>
 <ol style="list-style-type: decimal">
 <li>Merge our <code>Life_expectancy4map</code> with the spatial data <code>EW</code></li>
 <li>Map our merge with <code>tmap</code></li>
 </ol>
-<div class="sourceCode" id="cb115"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb115-1"><a href="introduction-to-r.html#cb115-1" aria-hidden="true" tabindex="-1"></a>Life_expectancy4map <span class="ot">&lt;-</span> EW <span class="sc">%&gt;%</span></span>
-<span id="cb115-2"><a href="introduction-to-r.html#cb115-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">inner_join</span>(., </span>
-<span id="cb115-3"><a href="introduction-to-r.html#cb115-3" aria-hidden="true" tabindex="-1"></a>            Life_expectancy4,</span>
-<span id="cb115-4"><a href="introduction-to-r.html#cb115-4" aria-hidden="true" tabindex="-1"></a>            <span class="at">by =</span> <span class="fu">c</span>(<span class="st">&quot;lad15cd&quot;</span> <span class="ot">=</span> <span class="st">&quot;new_code&quot;</span>))<span class="sc">%&gt;%</span></span>
-<span id="cb115-5"><a href="introduction-to-r.html#cb115-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">distinct</span>(.,lad15cd, </span>
-<span id="cb115-6"><a href="introduction-to-r.html#cb115-6" aria-hidden="true" tabindex="-1"></a>           <span class="at">.keep_all =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb117"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb117-1"><a href="introduction-to-r.html#cb117-1" aria-hidden="true" tabindex="-1"></a>Life_expectancy4map <span class="ot">&lt;-</span> EW <span class="sc">%&gt;%</span></span>
+<span id="cb117-2"><a href="introduction-to-r.html#cb117-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">inner_join</span>(., </span>
+<span id="cb117-3"><a href="introduction-to-r.html#cb117-3" aria-hidden="true" tabindex="-1"></a>            Life_expectancy4,</span>
+<span id="cb117-4"><a href="introduction-to-r.html#cb117-4" aria-hidden="true" tabindex="-1"></a>            <span class="at">by =</span> <span class="fu">c</span>(<span class="st">&quot;lad15cd&quot;</span> <span class="ot">=</span> <span class="st">&quot;new_code&quot;</span>))<span class="sc">%&gt;%</span></span>
+<span id="cb117-5"><a href="introduction-to-r.html#cb117-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">distinct</span>(.,lad15cd, </span>
+<span id="cb117-6"><a href="introduction-to-r.html#cb117-6" aria-hidden="true" tabindex="-1"></a>           <span class="at">.keep_all =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
 <p>If you change <code>inner_join()</code> to <code>left_join()</code> what do you get?…now let’s make the map!</p>
-<div class="sourceCode" id="cb116"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb116-1"><a href="introduction-to-r.html#cb116-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tmap_mode</span>(<span class="st">&quot;plot&quot;</span>)</span>
-<span id="cb116-2"><a href="introduction-to-r.html#cb116-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb116-3"><a href="introduction-to-r.html#cb116-3" aria-hidden="true" tabindex="-1"></a><span class="fu">tm_shape</span>(tmaplondon)<span class="sc">+</span></span>
-<span id="cb116-4"><a href="introduction-to-r.html#cb116-4" aria-hidden="true" tabindex="-1"></a><span class="fu">tm_rgb</span>()<span class="sc">+</span></span>
-<span id="cb116-5"><a href="introduction-to-r.html#cb116-5" aria-hidden="true" tabindex="-1"></a><span class="fu">tm_shape</span>(Life_expectancy4map) <span class="sc">+</span> </span>
-<span id="cb116-6"><a href="introduction-to-r.html#cb116-6" aria-hidden="true" tabindex="-1"></a><span class="fu">tm_polygons</span>(<span class="st">&quot;UKdiff&quot;</span>, </span>
-<span id="cb116-7"><a href="introduction-to-r.html#cb116-7" aria-hidden="true" tabindex="-1"></a>        <span class="at">style=</span><span class="st">&quot;pretty&quot;</span>,</span>
-<span id="cb116-8"><a href="introduction-to-r.html#cb116-8" aria-hidden="true" tabindex="-1"></a>        <span class="at">palette=</span><span class="st">&quot;Blues&quot;</span>,</span>
-<span id="cb116-9"><a href="introduction-to-r.html#cb116-9" aria-hidden="true" tabindex="-1"></a>        <span class="at">midpoint=</span><span class="cn">NA</span>,</span>
-<span id="cb116-10"><a href="introduction-to-r.html#cb116-10" aria-hidden="true" tabindex="-1"></a>        <span class="at">title=</span><span class="st">&quot;Number of years&quot;</span>,</span>
-<span id="cb116-11"><a href="introduction-to-r.html#cb116-11" aria-hidden="true" tabindex="-1"></a>        <span class="at">alpha =</span> <span class="fl">0.5</span>) <span class="sc">+</span> </span>
-<span id="cb116-12"><a href="introduction-to-r.html#cb116-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_compass</span>(<span class="at">position =</span> <span class="fu">c</span>(<span class="st">&quot;left&quot;</span>, <span class="st">&quot;bottom&quot;</span>),<span class="at">type =</span> <span class="st">&quot;arrow&quot;</span>) <span class="sc">+</span> </span>
-<span id="cb116-13"><a href="introduction-to-r.html#cb116-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_scale_bar</span>(<span class="at">position =</span> <span class="fu">c</span>(<span class="st">&quot;left&quot;</span>, <span class="st">&quot;bottom&quot;</span>)) <span class="sc">+</span></span>
-<span id="cb116-14"><a href="introduction-to-r.html#cb116-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_layout</span>(<span class="at">title =</span> <span class="st">&quot;Difference in life expectancy&quot;</span>, <span class="at">legend.position =</span> <span class="fu">c</span>(<span class="st">&quot;right&quot;</span>, <span class="st">&quot;bottom&quot;</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb118"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb118-1"><a href="introduction-to-r.html#cb118-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tmap_mode</span>(<span class="st">&quot;plot&quot;</span>)</span>
+<span id="cb118-2"><a href="introduction-to-r.html#cb118-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb118-3"><a href="introduction-to-r.html#cb118-3" aria-hidden="true" tabindex="-1"></a><span class="fu">tm_shape</span>(tmaplondon)<span class="sc">+</span></span>
+<span id="cb118-4"><a href="introduction-to-r.html#cb118-4" aria-hidden="true" tabindex="-1"></a><span class="fu">tm_rgb</span>()<span class="sc">+</span></span>
+<span id="cb118-5"><a href="introduction-to-r.html#cb118-5" aria-hidden="true" tabindex="-1"></a><span class="fu">tm_shape</span>(Life_expectancy4map) <span class="sc">+</span> </span>
+<span id="cb118-6"><a href="introduction-to-r.html#cb118-6" aria-hidden="true" tabindex="-1"></a><span class="fu">tm_polygons</span>(<span class="st">&quot;UKdiff&quot;</span>, </span>
+<span id="cb118-7"><a href="introduction-to-r.html#cb118-7" aria-hidden="true" tabindex="-1"></a>        <span class="at">style=</span><span class="st">&quot;pretty&quot;</span>,</span>
+<span id="cb118-8"><a href="introduction-to-r.html#cb118-8" aria-hidden="true" tabindex="-1"></a>        <span class="at">palette=</span><span class="st">&quot;Blues&quot;</span>,</span>
+<span id="cb118-9"><a href="introduction-to-r.html#cb118-9" aria-hidden="true" tabindex="-1"></a>        <span class="at">midpoint=</span><span class="cn">NA</span>,</span>
+<span id="cb118-10"><a href="introduction-to-r.html#cb118-10" aria-hidden="true" tabindex="-1"></a>        <span class="at">title=</span><span class="st">&quot;Number of years&quot;</span>,</span>
+<span id="cb118-11"><a href="introduction-to-r.html#cb118-11" aria-hidden="true" tabindex="-1"></a>        <span class="at">alpha =</span> <span class="fl">0.5</span>) <span class="sc">+</span> </span>
+<span id="cb118-12"><a href="introduction-to-r.html#cb118-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_compass</span>(<span class="at">position =</span> <span class="fu">c</span>(<span class="st">&quot;left&quot;</span>, <span class="st">&quot;bottom&quot;</span>),<span class="at">type =</span> <span class="st">&quot;arrow&quot;</span>) <span class="sc">+</span> </span>
+<span id="cb118-13"><a href="introduction-to-r.html#cb118-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_scale_bar</span>(<span class="at">position =</span> <span class="fu">c</span>(<span class="st">&quot;left&quot;</span>, <span class="st">&quot;bottom&quot;</span>)) <span class="sc">+</span></span>
+<span id="cb118-14"><a href="introduction-to-r.html#cb118-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_layout</span>(<span class="at">title =</span> <span class="st">&quot;Difference in life expectancy&quot;</span>, <span class="at">legend.position =</span> <span class="fu">c</span>(<span class="st">&quot;right&quot;</span>, <span class="st">&quot;bottom&quot;</span>))</span></code></pre></div>
 <p><img src="CASA0005_files/figure-html/unnamed-chunk-150-1.png" width="672" /></p>
 <p>There are a few subtle differences in the code of this second map if you look closely:</p>
 <ul>
@@ -2218,59 +2229,59 @@ Figure 2.19: This figure is taken directly from Grolemund and Wickham (2017) Cha
 </p>
 </div>
 <p>Earlier we read in the data using:</p>
-<div class="sourceCode" id="cb117"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb117-1"><a href="introduction-to-r.html#cb117-1" aria-hidden="true" tabindex="-1"></a>flytipping <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;https://data.london.gov.uk/download/fly-tipping-incidents/536278ff-a391-4f20-bc79-9e705c9b3ec0/fly-tipping-borough.csv&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb119"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb119-1"><a href="introduction-to-r.html#cb119-1" aria-hidden="true" tabindex="-1"></a>flytipping <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;https://data.london.gov.uk/download/fly-tipping-incidents/536278ff-a391-4f20-bc79-9e705c9b3ec0/fly-tipping-borough.csv&quot;</span>)</span></code></pre></div>
 <p>But we can also do something like this to force the columns to the appropriate data types (e.g. text, numeric)</p>
-<div class="sourceCode" id="cb118"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb118-1"><a href="introduction-to-r.html#cb118-1" aria-hidden="true" tabindex="-1"></a>flytipping1 <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;https://data.london.gov.uk/download/fly-tipping-incidents/536278ff-a391-4f20-bc79-9e705c9b3ec0/fly-tipping-borough.csv&quot;</span>, </span>
-<span id="cb118-2"><a href="introduction-to-r.html#cb118-2" aria-hidden="true" tabindex="-1"></a>                       <span class="at">col_types =</span> <span class="fu">cols</span>(</span>
-<span id="cb118-3"><a href="introduction-to-r.html#cb118-3" aria-hidden="true" tabindex="-1"></a>                         <span class="at">code =</span> <span class="fu">col_character</span>(),</span>
-<span id="cb118-4"><a href="introduction-to-r.html#cb118-4" aria-hidden="true" tabindex="-1"></a>                         <span class="at">area =</span> <span class="fu">col_character</span>(),</span>
-<span id="cb118-5"><a href="introduction-to-r.html#cb118-5" aria-hidden="true" tabindex="-1"></a>                         <span class="at">year =</span> <span class="fu">col_character</span>(),</span>
-<span id="cb118-6"><a href="introduction-to-r.html#cb118-6" aria-hidden="true" tabindex="-1"></a>                         <span class="at">total_incidents =</span> <span class="fu">col_number</span>(),</span>
-<span id="cb118-7"><a href="introduction-to-r.html#cb118-7" aria-hidden="true" tabindex="-1"></a>                         <span class="at">total_action_taken =</span> <span class="fu">col_number</span>(),</span>
-<span id="cb118-8"><a href="introduction-to-r.html#cb118-8" aria-hidden="true" tabindex="-1"></a>                         <span class="at">warning_letters =</span> <span class="fu">col_number</span>(),</span>
-<span id="cb118-9"><a href="introduction-to-r.html#cb118-9" aria-hidden="true" tabindex="-1"></a>                         <span class="at">fixed_penalty_notices =</span> <span class="fu">col_number</span>(),</span>
-<span id="cb118-10"><a href="introduction-to-r.html#cb118-10" aria-hidden="true" tabindex="-1"></a>                         <span class="at">statutory_notices =</span> <span class="fu">col_number</span>(),</span>
-<span id="cb118-11"><a href="introduction-to-r.html#cb118-11" aria-hidden="true" tabindex="-1"></a>                         <span class="at">formal_cautions =</span> <span class="fu">col_number</span>(),</span>
-<span id="cb118-12"><a href="introduction-to-r.html#cb118-12" aria-hidden="true" tabindex="-1"></a>                         <span class="at">injunctions =</span> <span class="fu">col_number</span>(),</span>
-<span id="cb118-13"><a href="introduction-to-r.html#cb118-13" aria-hidden="true" tabindex="-1"></a>                         <span class="at">prosecutions =</span> <span class="fu">col_number</span>()</span>
-<span id="cb118-14"><a href="introduction-to-r.html#cb118-14" aria-hidden="true" tabindex="-1"></a>                       ))</span>
-<span id="cb118-15"><a href="introduction-to-r.html#cb118-15" aria-hidden="true" tabindex="-1"></a><span class="co"># view the data</span></span>
-<span id="cb118-16"><a href="introduction-to-r.html#cb118-16" aria-hidden="true" tabindex="-1"></a><span class="fu">view</span>(flytipping1)</span></code></pre></div>
+<div class="sourceCode" id="cb120"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb120-1"><a href="introduction-to-r.html#cb120-1" aria-hidden="true" tabindex="-1"></a>flytipping1 <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;https://data.london.gov.uk/download/fly-tipping-incidents/536278ff-a391-4f20-bc79-9e705c9b3ec0/fly-tipping-borough.csv&quot;</span>, </span>
+<span id="cb120-2"><a href="introduction-to-r.html#cb120-2" aria-hidden="true" tabindex="-1"></a>                       <span class="at">col_types =</span> <span class="fu">cols</span>(</span>
+<span id="cb120-3"><a href="introduction-to-r.html#cb120-3" aria-hidden="true" tabindex="-1"></a>                         <span class="at">code =</span> <span class="fu">col_character</span>(),</span>
+<span id="cb120-4"><a href="introduction-to-r.html#cb120-4" aria-hidden="true" tabindex="-1"></a>                         <span class="at">area =</span> <span class="fu">col_character</span>(),</span>
+<span id="cb120-5"><a href="introduction-to-r.html#cb120-5" aria-hidden="true" tabindex="-1"></a>                         <span class="at">year =</span> <span class="fu">col_character</span>(),</span>
+<span id="cb120-6"><a href="introduction-to-r.html#cb120-6" aria-hidden="true" tabindex="-1"></a>                         <span class="at">total_incidents =</span> <span class="fu">col_number</span>(),</span>
+<span id="cb120-7"><a href="introduction-to-r.html#cb120-7" aria-hidden="true" tabindex="-1"></a>                         <span class="at">total_action_taken =</span> <span class="fu">col_number</span>(),</span>
+<span id="cb120-8"><a href="introduction-to-r.html#cb120-8" aria-hidden="true" tabindex="-1"></a>                         <span class="at">warning_letters =</span> <span class="fu">col_number</span>(),</span>
+<span id="cb120-9"><a href="introduction-to-r.html#cb120-9" aria-hidden="true" tabindex="-1"></a>                         <span class="at">fixed_penalty_notices =</span> <span class="fu">col_number</span>(),</span>
+<span id="cb120-10"><a href="introduction-to-r.html#cb120-10" aria-hidden="true" tabindex="-1"></a>                         <span class="at">statutory_notices =</span> <span class="fu">col_number</span>(),</span>
+<span id="cb120-11"><a href="introduction-to-r.html#cb120-11" aria-hidden="true" tabindex="-1"></a>                         <span class="at">formal_cautions =</span> <span class="fu">col_number</span>(),</span>
+<span id="cb120-12"><a href="introduction-to-r.html#cb120-12" aria-hidden="true" tabindex="-1"></a>                         <span class="at">injunctions =</span> <span class="fu">col_number</span>(),</span>
+<span id="cb120-13"><a href="introduction-to-r.html#cb120-13" aria-hidden="true" tabindex="-1"></a>                         <span class="at">prosecutions =</span> <span class="fu">col_number</span>()</span>
+<span id="cb120-14"><a href="introduction-to-r.html#cb120-14" aria-hidden="true" tabindex="-1"></a>                       ))</span>
+<span id="cb120-15"><a href="introduction-to-r.html#cb120-15" aria-hidden="true" tabindex="-1"></a><span class="co"># view the data</span></span>
+<span id="cb120-16"><a href="introduction-to-r.html#cb120-16" aria-hidden="true" tabindex="-1"></a><span class="fu">view</span>(flytipping1)</span></code></pre></div>
 <p>So we have a tibble with columns of each varaible (e.g. warning letters, total actions taken) where every row is a London borough. We want make sure that each observation has its own row…it doesn’t as in the first row here we have observations for total incidents and total actions taken etc…to do this we will use <code>pivot_longer()</code>. Make sure you have the most recent version of <code>tidyverse</code> if you get an error.</p>
-<div class="sourceCode" id="cb119"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb119-1"><a href="introduction-to-r.html#cb119-1" aria-hidden="true" tabindex="-1"></a><span class="co">#convert the tibble into a tidy tibble</span></span>
-<span id="cb119-2"><a href="introduction-to-r.html#cb119-2" aria-hidden="true" tabindex="-1"></a>flytipping_long <span class="ot">&lt;-</span> flytipping1 <span class="sc">%&gt;%</span> </span>
-<span id="cb119-3"><a href="introduction-to-r.html#cb119-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(</span>
-<span id="cb119-4"><a href="introduction-to-r.html#cb119-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">cols =</span> <span class="dv">4</span><span class="sc">:</span><span class="dv">11</span>,</span>
-<span id="cb119-5"><a href="introduction-to-r.html#cb119-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">names_to =</span> <span class="st">&quot;tipping_type&quot;</span>,</span>
-<span id="cb119-6"><a href="introduction-to-r.html#cb119-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">values_to =</span> <span class="st">&quot;count&quot;</span></span>
-<span id="cb119-7"><a href="introduction-to-r.html#cb119-7" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb119-8"><a href="introduction-to-r.html#cb119-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb119-9"><a href="introduction-to-r.html#cb119-9" aria-hidden="true" tabindex="-1"></a><span class="co"># view the data</span></span>
-<span id="cb119-10"><a href="introduction-to-r.html#cb119-10" aria-hidden="true" tabindex="-1"></a><span class="fu">view</span>(flytipping_long)</span></code></pre></div>
+<div class="sourceCode" id="cb121"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb121-1"><a href="introduction-to-r.html#cb121-1" aria-hidden="true" tabindex="-1"></a><span class="co">#convert the tibble into a tidy tibble</span></span>
+<span id="cb121-2"><a href="introduction-to-r.html#cb121-2" aria-hidden="true" tabindex="-1"></a>flytipping_long <span class="ot">&lt;-</span> flytipping1 <span class="sc">%&gt;%</span> </span>
+<span id="cb121-3"><a href="introduction-to-r.html#cb121-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(</span>
+<span id="cb121-4"><a href="introduction-to-r.html#cb121-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">cols =</span> <span class="dv">4</span><span class="sc">:</span><span class="dv">11</span>,</span>
+<span id="cb121-5"><a href="introduction-to-r.html#cb121-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">names_to =</span> <span class="st">&quot;tipping_type&quot;</span>,</span>
+<span id="cb121-6"><a href="introduction-to-r.html#cb121-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">values_to =</span> <span class="st">&quot;count&quot;</span></span>
+<span id="cb121-7"><a href="introduction-to-r.html#cb121-7" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb121-8"><a href="introduction-to-r.html#cb121-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb121-9"><a href="introduction-to-r.html#cb121-9" aria-hidden="true" tabindex="-1"></a><span class="co"># view the data</span></span>
+<span id="cb121-10"><a href="introduction-to-r.html#cb121-10" aria-hidden="true" tabindex="-1"></a><span class="fu">view</span>(flytipping_long)</span></code></pre></div>
 <p>Do you see the difference..the data has become longer!…this is classed as tidy data as every variable has a column, every observation has a row and every value has a cell.</p>
 <p>You could also use this to do the same thing…</p>
-<div class="sourceCode" id="cb120"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb120-1"><a href="introduction-to-r.html#cb120-1" aria-hidden="true" tabindex="-1"></a><span class="co">#an alternative which just pulls everything out into a single table</span></span>
-<span id="cb120-2"><a href="introduction-to-r.html#cb120-2" aria-hidden="true" tabindex="-1"></a>flytipping2 <span class="ot">&lt;-</span> flytipping1[,<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>]</span></code></pre></div>
+<div class="sourceCode" id="cb122"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb122-1"><a href="introduction-to-r.html#cb122-1" aria-hidden="true" tabindex="-1"></a><span class="co">#an alternative which just pulls everything out into a single table</span></span>
+<span id="cb122-2"><a href="introduction-to-r.html#cb122-2" aria-hidden="true" tabindex="-1"></a>flytipping2 <span class="ot">&lt;-</span> flytipping1[,<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>]</span></code></pre></div>
 <p>But my advice would be to learn how to use the tidy tools!</p>
 <p>Now let’s make it a bit more suitable for mapping with <code>pivot_wider()</code> by making coloumns for each year of each variable….in the original <code>.csv</code> we had a year coloumn that had values of 2011-2012 to 2017-2018, so if we wanted to map a specifc year we’d have to filter out the year then map. Here we can just alter the data from <code>pivot_longer()</code> using the year and tipping type…</p>
 <blockquote>
 <p>Note, just because the data is considered tidy doesn’t mean it is directly appropriate for mapping. It might need to be tidy for analysis.</p>
 </blockquote>
-<div class="sourceCode" id="cb121"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb121-1"><a href="introduction-to-r.html#cb121-1" aria-hidden="true" tabindex="-1"></a><span class="co">#pivot the tidy tibble into one that is suitable for mapping</span></span>
-<span id="cb121-2"><a href="introduction-to-r.html#cb121-2" aria-hidden="true" tabindex="-1"></a>flytipping_wide <span class="ot">&lt;-</span> flytipping_long <span class="sc">%&gt;%</span> </span>
-<span id="cb121-3"><a href="introduction-to-r.html#cb121-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(</span>
-<span id="cb121-4"><a href="introduction-to-r.html#cb121-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">id_cols =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>,</span>
-<span id="cb121-5"><a href="introduction-to-r.html#cb121-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">names_from =</span> <span class="fu">c</span>(year,tipping_type),</span>
-<span id="cb121-6"><a href="introduction-to-r.html#cb121-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">names_sep =</span> <span class="st">&quot;_&quot;</span>,</span>
-<span id="cb121-7"><a href="introduction-to-r.html#cb121-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">values_from =</span> count</span>
-<span id="cb121-8"><a href="introduction-to-r.html#cb121-8" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb121-9"><a href="introduction-to-r.html#cb121-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb121-10"><a href="introduction-to-r.html#cb121-10" aria-hidden="true" tabindex="-1"></a><span class="fu">view</span>(flytipping_wide)</span></code></pre></div>
+<div class="sourceCode" id="cb123"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb123-1"><a href="introduction-to-r.html#cb123-1" aria-hidden="true" tabindex="-1"></a><span class="co">#pivot the tidy tibble into one that is suitable for mapping</span></span>
+<span id="cb123-2"><a href="introduction-to-r.html#cb123-2" aria-hidden="true" tabindex="-1"></a>flytipping_wide <span class="ot">&lt;-</span> flytipping_long <span class="sc">%&gt;%</span> </span>
+<span id="cb123-3"><a href="introduction-to-r.html#cb123-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(</span>
+<span id="cb123-4"><a href="introduction-to-r.html#cb123-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">id_cols =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>,</span>
+<span id="cb123-5"><a href="introduction-to-r.html#cb123-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">names_from =</span> <span class="fu">c</span>(year,tipping_type),</span>
+<span id="cb123-6"><a href="introduction-to-r.html#cb123-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">names_sep =</span> <span class="st">&quot;_&quot;</span>,</span>
+<span id="cb123-7"><a href="introduction-to-r.html#cb123-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">values_from =</span> count</span>
+<span id="cb123-8"><a href="introduction-to-r.html#cb123-8" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb123-9"><a href="introduction-to-r.html#cb123-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb123-10"><a href="introduction-to-r.html#cb123-10" aria-hidden="true" tabindex="-1"></a><span class="fu">view</span>(flytipping_wide)</span></code></pre></div>
 <p>But what if you were just interested in a specific varaible and wanted the coloums to be each year of the data…again using <code>pivot_wider()</code></p>
-<div class="sourceCode" id="cb122"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb122-1"><a href="introduction-to-r.html#cb122-1" aria-hidden="true" tabindex="-1"></a>widefly <span class="ot">&lt;-</span> flytipping2 <span class="sc">%&gt;%</span> </span>
-<span id="cb122-2"><a href="introduction-to-r.html#cb122-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(</span>
-<span id="cb122-3"><a href="introduction-to-r.html#cb122-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">names_from =</span> year, </span>
-<span id="cb122-4"><a href="introduction-to-r.html#cb122-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">values_from =</span> total_incidents)</span></code></pre></div>
+<div class="sourceCode" id="cb124"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb124-1"><a href="introduction-to-r.html#cb124-1" aria-hidden="true" tabindex="-1"></a>widefly <span class="ot">&lt;-</span> flytipping2 <span class="sc">%&gt;%</span> </span>
+<span id="cb124-2"><a href="introduction-to-r.html#cb124-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(</span>
+<span id="cb124-3"><a href="introduction-to-r.html#cb124-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">names_from =</span> year, </span>
+<span id="cb124-4"><a href="introduction-to-r.html#cb124-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">values_from =</span> total_incidents)</span></code></pre></div>
 <p>You could now join this to the London borough <code>.shp</code> and produce a map…</p>
 <p>For another quick worked example have a look at the <a href="https://rladiessydney.org/courses/ryouwithme/02-cleanitup-5/">RLadies Sydney blog post on pivoting</a></p>
 <p>What’s the take home from this? Basically always try to put your data into a certain format before doing further analysis on it as it will be easier for you to determine the right tools to select.</p>

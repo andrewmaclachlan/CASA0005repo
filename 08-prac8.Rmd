@@ -41,6 +41,8 @@ This week:
 
 * [Chapter 9 Spatial regression models](https://maczokni.github.io/crime_mapping_textbook/spatial-regression-models.html) from Crime Mapping in R by Juanjo Medina and Reka Solymosi (2019).
 
+* [Introduction to Research Methods](https://bookdown.org/ejvanholm/Textbook/) by Eric van Holm, 2021. Chapters on regression and spatial regression
+
 * [GWR a road map](https://onlinelibrary.wiley.com/doi/full/10.1111/gean.12316) by Comber et al. 2022.There are related papers that have added to this discussion, such as:
   * [Taylor Oshan](https://onlinelibrary.wiley.com/doi/full/10.1111/gean.12345)
   * [Levi Wolf](https://onlinelibrary.wiley.com/doi/10.1111/gean.12346)
@@ -573,7 +575,16 @@ Depending on if the independent or dependent (GCSE point score) variables have b
 
 #### Should I transform my variables?
 
-The decision is down to you as the modeller - it might be that a transformation doesn't succeed in normalising the distribtuion of your data or that the interpretation after the transformation is problematic, however it is important not to violate the assumptions underpinning the regression model or your conclusions may be on shaky ground. 
+The decision is down to you as the modeller - it might be that a transformation doesn't succeed in normalising the distribution of your data or that the interpretation after the transformation is problematic, however it is important not to violate the assumptions underpinning the regression model or your conclusions may be on shaky ground. 
+
+::: {.infobox .warning data-latex="{note}"}
+**Be careful** The purpose of doing theses transformations is to make your data normally distributed, however you will be changing the relationship of your data - it won't be linear anymore! This could improve your model but is at the expense of interpretation. Aside from log transformation which has the rules in the link above.
+
+Typically if you do a power transformation you can keep the direction of the relationship (positive or negative) and the t-value will give an idea of the importance of the variable in the model - that's about it!
+
+For more information here read [Transforming Variables in Regression](https://bookdown.org/ejvanholm/Textbook/transforming-variables-in-regression.html) by Eric van Holm, 2021
+:::
+
 
 ### Assumption 2 - The residuals in your model should be normally distributed
 
