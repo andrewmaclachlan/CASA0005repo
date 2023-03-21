@@ -35,7 +35,7 @@ This week:
 
 * [Chapter 2 "Linear Regression"](https://bradleyboehmke.github.io/HOML/linear-regression.html#ref-faraway-2016-linear) from Hands-On Machine Learning with R by Boehmke & Greenwell (2020).
 
-* [Chapter 7 "Linear Regression"](https://argoshare.is.ed.ac.uk/healthyr_book/chap07-h1.html) from R for Health Data Science by Ewen Harrison and Riinu Pius (2021). **This chapter is excellent**.
+* [Chapter 7 "Linear Regression"](https://argoshare.is.ed.ac.uk/healthyr_book/chap07-h1.html) from R for Health Data Science by Ewen Harrison and Riinu Pius (2021). **This chapter is excellent, especially section 7.1**.
 
 * [Chapter 5 and 6 "Basic Regression and "Multiple Regression"](https://moderndive.com/5-regression.html) from Modern Dive by Ismay and Kim (2019).
 
@@ -613,7 +613,7 @@ Examining the histogram above, we can be happy that our residuals look to be rel
 
 Now, the regression model we have be experimenting with so far is a simple bivariate (two variable) model. One of the nice things about regression modelling is while we can only easily visualise linear relationships in a two (or maximum 3) dimension scatter plot, mathematically, we can have as many dimensions / variables as we like. 
 
-As such, we could extend model 1 into a multiple regression model by adding some more explanatory variables that we think could affect GSCE scores. Let's try the log or ^-1 transformed house price variable from earlier (the rationalle being that higher house prices indicate more affluence and therefore, potentially, more engagement with education):
+As such, we could extend model 1 into a multiple regression model by adding some more explanatory variables that we think could affect GSCE scores. Let's try the log or ^-1 transformed house price variable from earlier (the rationale being that higher house prices indicate more affluence and therefore, potentially, more engagement with education):
 
 ```{r, message=FALSE, cache=FALSE}
 
@@ -644,6 +644,10 @@ LonWardProfiles <- LonWardProfiles %>%
 Examining the output above, it is clear that including median house price into our model improves the fit from an $r^2$ of around 42% to an $r^2$ of 48%. Median house price is also a statistically significant variable. 
 
 But do our two explanatory variables satisfy the no-multicoliniarity assumption? If not and the variables are highly correlated, then we are effectively double counting the influence of these variables and overstating their explanatory power. 
+
+```{r echo=FALSE, out.width = "450pt", fig.align='center', cache=FALSE, message=FALSE, fig.cap="Word anatomy of multicollinearity. Source: [What the Heck is Multicollinearity?, Andrew Ozbun](https://medium.com/geekculture/what-the-heck-is-multicollinearity-c5582ddbb2f7)"}
+knitr::include_graphics('prac8_images/multicollinearity_explain.png')
+```
 
 To check this, we can compute the product moment correlation coefficient between the variables, using the `corrr()` pacakge, that's part of `tidymodels`. In an ideal world, we would be looking for something less than a 0.8 correlation
 
