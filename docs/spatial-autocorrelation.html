@@ -23,7 +23,7 @@
 <meta name="author" content="Andy MacLachlan and Adam Dennett" />
 
 
-<meta name="date" content="2023-03-21" />
+<meta name="date" content="2023-03-30" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -1287,6 +1287,14 @@ div.csl-indent {
           <div class="page-inner">
 
             <section class="normal" id="section-">
+<link href="../assets/style.css" rel="stylesheet">
+<a href="https://www.ucl.ac.uk/bartlett/casa/study/scholarships/casa-urban-futures-masters-scholarships">
+<div class="hero-image-container"> 
+  <img class= "hero-image" src="../assets/Advert_1.png" alt="CASA Urban Futures Master's Scholarships.">
+</div>
+</a>
+
+
 <div id="spatial-autocorrelation" class="section level1 hasAnchor" number="7">
 <h1><span class="header-section-number">Chapter 7</span> Spatial autocorrelation<a href="spatial-autocorrelation.html#spatial-autocorrelation" class="anchor-section" aria-label="Anchor link to header"></a></h1>
 <div id="learning-outcomes-6" class="section level2 hasAnchor" number="7.1">
@@ -1437,7 +1445,7 @@ div.csl-indent {
 <span id="cb298-3"><a href="spatial-autocorrelation.html#cb298-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_polygons</span>(<span class="at">col =</span> <span class="cn">NA</span>, <span class="at">alpha =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
 <span id="cb298-4"><a href="spatial-autocorrelation.html#cb298-4" aria-hidden="true" tabindex="-1"></a><span class="fu">tm_shape</span>(BluePlaques) <span class="sc">+</span></span>
 <span id="cb298-5"><a href="spatial-autocorrelation.html#cb298-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_dots</span>(<span class="at">col =</span> <span class="st">&quot;blue&quot;</span>)</span></code></pre></div>
-<p><img src="CASA0005_files/figure-html/unnamed-chunk-297-1.png" width="672" /></p>
+<p><img src="CASA0005_files/figure-html/unnamed-chunk-298-1.png" width="672" /></p>
 </div>
 </div>
 <div id="data-cleaning-1" class="section level2 hasAnchor" number="7.5">
@@ -1457,7 +1465,7 @@ div.csl-indent {
 <span id="cb301-4"><a href="spatial-autocorrelation.html#cb301-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_polygons</span>(<span class="at">col =</span> <span class="cn">NA</span>, <span class="at">alpha =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
 <span id="cb301-5"><a href="spatial-autocorrelation.html#cb301-5" aria-hidden="true" tabindex="-1"></a><span class="fu">tm_shape</span>(BluePlaquesSub) <span class="sc">+</span></span>
 <span id="cb301-6"><a href="spatial-autocorrelation.html#cb301-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_dots</span>(<span class="at">col =</span> <span class="st">&quot;blue&quot;</span>)</span></code></pre></div>
-<p><img src="CASA0005_files/figure-html/unnamed-chunk-298-1.png" width="672" /></p>
+<p><img src="CASA0005_files/figure-html/unnamed-chunk-299-1.png" width="672" /></p>
 </div>
 <div id="data-manipulation" class="section level2 hasAnchor" number="7.6">
 <h2><span class="header-section-number">7.6</span> Data manipulation<a href="spatial-autocorrelation.html#data-manipulation" class="anchor-section" aria-label="Anchor link to header"></a></h2>
@@ -1497,7 +1505,7 @@ div.csl-indent {
 <span id="cb305-11"><a href="spatial-autocorrelation.html#cb305-11" aria-hidden="true" tabindex="-1"></a>        <span class="at">midpoint=</span><span class="cn">NA</span>,</span>
 <span id="cb305-12"><a href="spatial-autocorrelation.html#cb305-12" aria-hidden="true" tabindex="-1"></a>        <span class="at">popup.vars=</span><span class="fu">c</span>(<span class="st">&quot;wardname&quot;</span>, <span class="st">&quot;density&quot;</span>),</span>
 <span id="cb305-13"><a href="spatial-autocorrelation.html#cb305-13" aria-hidden="true" tabindex="-1"></a>        <span class="at">title=</span><span class="st">&quot;Blue Plaque Density&quot;</span>)</span></code></pre></div>
-<p><img src="CASA0005_files/figure-html/unnamed-chunk-302-1.png" width="672" /></p>
+<p><img src="CASA0005_files/figure-html/unnamed-chunk-303-1.png" width="672" /></p>
 <p>So, from the map, it looks as though we might have some clustering of blue plaques in the centre of London so let’s check this with Moran’s I and some other statistics.</p>
 </div>
 <div id="weight-matrix" class="section level2 hasAnchor" number="7.7">
@@ -1512,11 +1520,11 @@ div.csl-indent {
 <span id="cb307-5"><a href="spatial-autocorrelation.html#cb307-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_geometry</span>()</span>
 <span id="cb307-6"><a href="spatial-autocorrelation.html#cb307-6" aria-hidden="true" tabindex="-1"></a>  </span>
 <span id="cb307-7"><a href="spatial-autocorrelation.html#cb307-7" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(coordsW,<span class="at">axes=</span><span class="cn">TRUE</span>)</span></code></pre></div>
-<p><img src="CASA0005_files/figure-html/unnamed-chunk-304-1.png" width="672" /></p>
+<p><img src="CASA0005_files/figure-html/unnamed-chunk-305-1.png" width="672" /></p>
 <p>Now we need to generate a spatial weights matrix (remember from the lecture). We’ll start with a simple binary matrix of queen’s case neighbours (otherwise known as Contiguity edges corners). This method means that polygons with a shared edge or a corner will be included in computations for the target polygon…A <strong>spatial weight matrix represents the spatial element of our data</strong>, this means we are trying to conceptualize and model how parts of the data are linked (or not linked) to each other spatially, using rules that we will set.</p>
 <p><strong>A note on spatial weight matrices</strong></p>
 <p>If the features share a boundary they are <strong>contiguous</strong>, this can also be classed as only common boundaries — a <strong>rook</strong> (like chess a rook can move forwards or side wards) or any point in common (e.g. corners / other boundaries) — a <strong>queen</strong> (like chess a queen can move forwards, backwards or on a diagonal).</p>
-<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-305"></span>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-306"></span>
 <img src="prac6_images/weights.png" alt="Source: [Manuel S. Gonzalez Canche](https://rpubs.com/msgc/matrices_influence)" width="450pt" />
 <p class="caption">
 Figure 7.1: Source: <a href="https://rpubs.com/msgc/matrices_influence">Manuel S. Gonzalez Canche</a>
@@ -1547,7 +1555,7 @@ Figure 7.1: Source: <a href="https://rpubs.com/msgc/matrices_influence">Manuel S
 <span id="cb311-2"><a href="spatial-autocorrelation.html#cb311-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(LWard_nb, <span class="fu">st_geometry</span>(coordsW), <span class="at">col=</span><span class="st">&quot;red&quot;</span>)</span>
 <span id="cb311-3"><a href="spatial-autocorrelation.html#cb311-3" aria-hidden="true" tabindex="-1"></a><span class="co">#add a map underneath</span></span>
 <span id="cb311-4"><a href="spatial-autocorrelation.html#cb311-4" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(points_sf_joined<span class="sc">$</span>geometry, <span class="at">add=</span>T)</span></code></pre></div>
-<p><img src="CASA0005_files/figure-html/unnamed-chunk-308-1.png" width="672" /></p>
+<p><img src="CASA0005_files/figure-html/unnamed-chunk-309-1.png" width="672" /></p>
 <div id="matrix-style" class="section level3 hasAnchor" number="7.7.1">
 <h3><span class="header-section-number">7.7.1</span> Matrix style<a href="spatial-autocorrelation.html#matrix-style" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>From the weights list we must now make a spatial weight matrix. This makes a matrix the size of the number of neighbourhoods with values indicating if the elements in the rows are a neighbour or not. The style of weight is especially important here:</p>
@@ -1718,7 +1726,7 @@ Figure 7.1: Source: <a href="https://rpubs.com/msgc/matrices_influence">Manuel S
 <span id="cb328-5"><a href="spatial-autocorrelation.html#cb328-5" aria-hidden="true" tabindex="-1"></a>        <span class="at">palette=</span>MoranColours,</span>
 <span id="cb328-6"><a href="spatial-autocorrelation.html#cb328-6" aria-hidden="true" tabindex="-1"></a>        <span class="at">midpoint=</span><span class="cn">NA</span>,</span>
 <span id="cb328-7"><a href="spatial-autocorrelation.html#cb328-7" aria-hidden="true" tabindex="-1"></a>        <span class="at">title=</span><span class="st">&quot;Local Moran&#39;s I, Blue Plaques in London&quot;</span>)</span></code></pre></div>
-<p><img src="CASA0005_files/figure-html/unnamed-chunk-319-1.png" width="672" /></p>
+<p><img src="CASA0005_files/figure-html/unnamed-chunk-320-1.png" width="672" /></p>
 <p>This map shows some areas in the centre of London that have relatively high scores, indicating areas with lots of blue plaques neighbouring other areas with lots of blue plaques.</p>
 </div>
 </div>
@@ -1768,7 +1776,7 @@ Where:</p>
 <span id="cb332-10"><a href="spatial-autocorrelation.html#cb332-10" aria-hidden="true" tabindex="-1"></a>        <span class="at">palette=</span>GIColours,</span>
 <span id="cb332-11"><a href="spatial-autocorrelation.html#cb332-11" aria-hidden="true" tabindex="-1"></a>        <span class="at">midpoint=</span><span class="cn">NA</span>,</span>
 <span id="cb332-12"><a href="spatial-autocorrelation.html#cb332-12" aria-hidden="true" tabindex="-1"></a>        <span class="at">title=</span><span class="st">&quot;Gi*, Blue Plaques in London&quot;</span>)</span></code></pre></div>
-<p><img src="CASA0005_files/figure-html/unnamed-chunk-322-1.png" width="672" /></p>
+<p><img src="CASA0005_files/figure-html/unnamed-chunk-323-1.png" width="672" /></p>
 </div>
 </div>
 <div id="other-variables" class="section level2 hasAnchor" number="7.9">
@@ -1842,7 +1850,7 @@ Where:</p>
 <span id="cb338-15"><a href="spatial-autocorrelation.html#cb338-15" aria-hidden="true" tabindex="-1"></a>        <span class="at">palette=</span>GIColours,</span>
 <span id="cb338-16"><a href="spatial-autocorrelation.html#cb338-16" aria-hidden="true" tabindex="-1"></a>        <span class="at">midpoint=</span><span class="cn">NA</span>,</span>
 <span id="cb338-17"><a href="spatial-autocorrelation.html#cb338-17" aria-hidden="true" tabindex="-1"></a>        <span class="at">title=</span><span class="st">&quot;Gi*, GCSE Scores&quot;</span>)</span></code></pre></div>
-<p><img src="CASA0005_files/figure-html/unnamed-chunk-326-1.png" width="672" /></p>
+<p><img src="CASA0005_files/figure-html/unnamed-chunk-327-1.png" width="672" /></p>
 <p>So this is the end of the practical. Hopefully you have learned a lot about the different methods we can employ to analyse patterns in spatial data.</p>
 </div>
 <div id="feedback-5" class="section level2 hasAnchor" number="7.10">

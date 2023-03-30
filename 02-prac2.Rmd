@@ -338,6 +338,10 @@ In R version 4.1 there is a new pipe `|>`. It is exactly at the same as `%>%` bu
 
 :::
 
+```{r echo=FALSE, out.width = "450px", fig.align='center', cache=FALSE, fig.cap="How to use pipes to clean up your R code. Source: [  R for Ecology, 2022](https://www.rforecology.com/post/how-to-use-pipes/)"}
+knitr::include_graphics('prac2_images/pipes.png') 
+```
+
 You can also view elements of your data frame in RStudio by simply clicking on it in the top-right Environment window:
 
 ```{r echo=FALSE, out.width = "800px", fig.align='center', cache=FALSE}

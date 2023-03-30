@@ -23,7 +23,7 @@
 <meta name="author" content="Andy MacLachlan and Adam Dennett" />
 
 
-<meta name="date" content="2023-03-21" />
+<meta name="date" content="2023-03-30" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -1287,6 +1287,14 @@ div.csl-indent {
           <div class="page-inner">
 
             <section class="normal" id="section-">
+<link href="../assets/style.css" rel="stylesheet">
+<a href="https://www.ucl.ac.uk/bartlett/casa/study/scholarships/casa-urban-futures-masters-scholarships">
+<div class="hero-image-container"> 
+  <img class= "hero-image" src="../assets/Advert_1.png" alt="CASA Urban Futures Master's Scholarships.">
+</div>
+</a>
+
+
 <div id="introduction-to-r" class="section level1 hasAnchor" number="2">
 <h1><span class="header-section-number">Chapter 2</span> Introduction to R<a href="introduction-to-r.html#introduction-to-r" class="anchor-section" aria-label="Anchor link to header"></a></h1>
 <div id="learning-outcomes-1" class="section level2 hasAnchor" number="2.1">
@@ -1535,6 +1543,12 @@ Figure 2.3: Tibble vs dataframe. Source: <a href="https://www.r-bloggers.com/202
 <p>You might have noticed the syntax (code) <code>%&gt;%</code>, this is called a <strong>pipe</strong> and is an operator is part from the <code>magrittr</code> package. <code>magrittr</code> is an entirely new way of thinking about R syntax that cleraly expresses a sequence of multiple operations. It is useful to think of the pipe operator as simply meaning “then”. Do this <strong>THEN</strong> do this <strong>THEN</strong> do that.</p>
 <p>In R version 4.1 there is a new pipe <code>|&gt;</code>. It is exactly at the same as <code>%&gt;%</code> but means there is no reliance on the <code>magrittr</code> package. The good news is they can <em>mostly</em> be used interchangeably.</p>
 </div>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-81"></span>
+<img src="prac2_images/pipes.png" alt="How to use pipes to clean up your R code. Source: [  R for Ecology, 2022](https://www.rforecology.com/post/how-to-use-pipes/)" width="450px" />
+<p class="caption">
+Figure 2.4: How to use pipes to clean up your R code. Source: <a href="https://www.rforecology.com/post/how-to-use-pipes/">R for Ecology, 2022</a>
+</p>
+</div>
 <p>You can also view elements of your data frame in RStudio by simply clicking on it in the top-right Environment window:</p>
 <p><img src="prac2_images/dataview.png" width="800px" style="display: block; margin: auto;" /></p>
 </div>
@@ -1560,10 +1574,10 @@ Figure 2.3: Tibble vs dataframe. Source: <a href="https://www.r-bloggers.com/202
 <span id="cb52-3"><a href="introduction-to-r.html#cb52-3" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">rename</span>(<span class="at">column1 =</span> Data1, <span class="at">column2=</span>Data2)</span></code></pre></div>
 <p><code>dplyr</code> is a grammar of data manipulation, it has multiple <strong>verbs</strong> that allow you to change your data into a suitable format. These include <code>select()</code>, <code>filter()</code>, <code>summarise()</code>, which can also be applied to groups in datasets using <code>group_by()</code>. <code>dplyr</code> will be used throughout this course.</p>
 <p>In the majority of cases you provide some kind of data to <code>dplyr</code> followed by a <code>%&gt;%</code> then a verb (or other function), then another <code>%&gt;%</code> and more verbs of functions if needed. As in the code above you can also assign the output to an object with <code>&lt;-</code>.</p>
-<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-85"></span>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-86"></span>
 <img src="allisonhorst_images/dplyr_wrangling.png" alt="dplyr introduction graphic. Source: [Allison Horst data science and stats illustrations](https://github.com/allisonhorst/stats-illustrations)" width="450pt" />
 <p class="caption">
-Figure 2.4: dplyr introduction graphic. Source: <a href="https://github.com/allisonhorst/stats-illustrations">Allison Horst data science and stats illustrations</a>
+Figure 2.5: dplyr introduction graphic. Source: <a href="https://github.com/allisonhorst/stats-illustrations">Allison Horst data science and stats illustrations</a>
 </p>
 </div>
 <p>To select or refer to columns directly by name, we can either use <code>dplyr</code> again!</p>
@@ -1622,28 +1636,28 @@ Figure 2.4: dplyr introduction graphic. Source: <a href="https://github.com/alli
 <span id="cb62-2"><a href="introduction-to-r.html#cb62-2" aria-hidden="true" tabindex="-1"></a>                         <span class="at">header =</span> <span class="cn">TRUE</span>, <span class="at">sep =</span> <span class="st">&quot;,&quot;</span>,  </span>
 <span id="cb62-3"><a href="introduction-to-r.html#cb62-3" aria-hidden="true" tabindex="-1"></a>                         <span class="at">encoding =</span> <span class="st">&quot;latin1&quot;</span>)</span></code></pre></div>
 <p>This just removes any need for ever using a <code>/</code> or <code>\\</code> in your file path. As with everything in code, there is no right way, use what suits you.</p>
-<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-96"></span>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-97"></span>
 <img src="allisonhorst_images/here.png" alt="here::here() example. Source: [Allison Horst data science and stats illustrations](https://github.com/allisonhorst/stats-illustrations)" width="450pt" />
 <p class="caption">
-Figure 2.5: here::here() example. Source: <a href="https://github.com/allisonhorst/stats-illustrations">Allison Horst data science and stats illustrations</a>
+Figure 2.6: here::here() example. Source: <a href="https://github.com/allisonhorst/stats-illustrations">Allison Horst data science and stats illustrations</a>
 </p>
 </div>
 </div>
 <div id="new-skool-cleaning" class="section level3 hasAnchor" number="2.5.3">
 <h3><span class="header-section-number">2.5.3</span> New skool cleaning<a href="introduction-to-r.html#new-skool-cleaning" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>To clean our data as we read it in, we are going to use a package called <code>readr</code> which also comes bundled as part of the <code>tidyverse</code> package.</p>
-<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-97"></span>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-98"></span>
 <img src="allisonhorst_images/tidyverse_celestial.png" alt="tidyverse introduction graphic. Source: [Allison Horst data science and stats illustrations](https://github.com/allisonhorst/stats-illustrations)" width="450pt" />
 <p class="caption">
-Figure 2.6: tidyverse introduction graphic. Source: <a href="https://github.com/allisonhorst/stats-illustrations">Allison Horst data science and stats illustrations</a>
+Figure 2.7: tidyverse introduction graphic. Source: <a href="https://github.com/allisonhorst/stats-illustrations">Allison Horst data science and stats illustrations</a>
 </p>
 </div>
 <p>The <a href="https://www.tidyverse.org/"><code>tidyverse</code></a> is simply a collection of pacakges relevant for data science, containing almost everything you need to become a kick-ass data scientist.</p>
 <p>Now let’s use the <code>readr</code> package… that allows loads of data manipulation …for example…</p>
-<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-98"></span>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-99"></span>
 <img src="allisonhorst_images/parse_number.png" alt="readr::parse_number() example. Source: [Allison Horst data science and stats illustrations](https://github.com/allisonhorst/stats-illustrations)" width="450pt" />
 <p class="caption">
-Figure 2.7: readr::parse_number() example. Source: <a href="https://github.com/allisonhorst/stats-illustrations">Allison Horst data science and stats illustrations</a>
+Figure 2.8: readr::parse_number() example. Source: <a href="https://github.com/allisonhorst/stats-illustrations">Allison Horst data science and stats illustrations</a>
 </p>
 </div>
 <p>Here we will use it to just read in a <code>.csv</code> file (directly from the web this time — <code>read.csv</code> can do this too) and clean text characters out from the numeric columns before they cause problems:</p>
@@ -1729,10 +1743,10 @@ Figure 2.7: readr::parse_number() example. Source: <a href="https://github.com/a
 <span id="cb76-2"><a href="introduction-to-r.html#cb76-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">slice</span>(<span class="dv">626</span><span class="sc">:</span><span class="dv">658</span>)</span></code></pre></div>
 <p>However, we can instead try a cool ‘data sciency’ way of pulling out the rows we want with the knowledge that the codes for London Boroughs start with E09 (the wards in the rest of the file start with E05).</p>
 <p><code>dplyr</code> has a cool function called <code>filter()</code>that let’s you subset rows based on conditions…</p>
-<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-109"></span>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-110"></span>
 <img src="allisonhorst_images/dplyr_filter.jpg" alt="dplyr::filter() example. Source: [Allison Horst data science and stats illustrations](https://github.com/allisonhorst/stats-illustrations)" width="500pt" />
 <p class="caption">
-Figure 2.8: dplyr::filter() example. Source: <a href="https://github.com/allisonhorst/stats-illustrations">Allison Horst data science and stats illustrations</a>
+Figure 2.9: dplyr::filter() example. Source: <a href="https://github.com/allisonhorst/stats-illustrations">Allison Horst data science and stats illustrations</a>
 </p>
 </div>
 <p>Here, we could filter based on a variable, for example extracting all the wards where female life expextancy is greather than 90.</p>
@@ -1783,10 +1797,10 @@ Figure 2.8: dplyr::filter() example. Source: <a href="https://github.com/allison
 <span id="cb85-4"><a href="introduction-to-r.html#cb85-4" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">rename</span>(<span class="at">Borough=</span><span class="st">`</span><span class="at">Ward name</span><span class="st">`</span>)<span class="sc">%&gt;%</span></span>
 <span id="cb85-5"><a href="introduction-to-r.html#cb85-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">clean_names</span>()</span></code></pre></div>
 <p>By defualt <code>Janitor</code> removes all capitals and uses an underscore wherever there is a space, this would be the same as using setting the <code>case</code> argument to snake…</p>
-<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-119"></span>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-120"></span>
 <img src="allisonhorst_images/janitor_clean_names.png" alt="janitor::clean_names() example. Source: [Allison Horst data science and stats illustrations](https://github.com/allisonhorst/stats-illustrations)" width="500pt" />
 <p class="caption">
-Figure 2.9: janitor::clean_names() example. Source: <a href="https://github.com/allisonhorst/stats-illustrations">Allison Horst data science and stats illustrations</a>
+Figure 2.10: janitor::clean_names() example. Source: <a href="https://github.com/allisonhorst/stats-illustrations">Allison Horst data science and stats illustrations</a>
 </p>
 </div>
 <p>If you wanted to now change it every word having a capital letter you would run…but don’t do this now.</p>
@@ -1807,10 +1821,10 @@ Figure 2.9: janitor::clean_names() example. Source: <a href="https://github.com/
 </ul>
 <p>Then selecting only the name of the Borough, mean life expectancy and normalised life expectancy, arranging the output based on the normalised life expectancy in descending order…</p>
 <p>To do this we will rely on the <code>mutate()</code> function that let’s us add new variables based on existing ones…</p>
-<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-121"></span>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-122"></span>
 <img src="allisonhorst_images/dplyr_mutate.png" alt="dyplr mutate() example. Source: [Allison Horst data science and stats illustrations](https://github.com/allisonhorst/stats-illustrations)" width="500pt" />
 <p class="caption">
-Figure 2.10: dyplr mutate() example. Source: <a href="https://github.com/allisonhorst/stats-illustrations">Allison Horst data science and stats illustrations</a>
+Figure 2.11: dyplr mutate() example. Source: <a href="https://github.com/allisonhorst/stats-illustrations">Allison Horst data science and stats illustrations</a>
 </p>
 </div>
 <div class="sourceCode" id="cb87"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb87-1"><a href="introduction-to-r.html#cb87-1" aria-hidden="true" tabindex="-1"></a>Life_expectancy <span class="ot">&lt;-</span> LondonBoroughs <span class="sc">%&gt;%</span> </span>
@@ -1855,10 +1869,10 @@ Figure 2.10: dyplr mutate() example. Source: <a href="https://github.com/allison
 <h4><span class="header-section-number">2.5.5.5</span> Levelling up with<code>dplyr</code><a href="introduction-to-r.html#levelling-up-withdplyr" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>So far, we’ve really just covered basic operations with <code>dplyr</code> that you might have previously done in Excel. However, <code>dplyr</code> has much more powerful functions that can make advanced data wrangling a breeze. Whilst we’ve looked at life expectancy in the London boroughs relative to each other, how does the life expectancy of the London Boroughs compare the the UK average of 81.16?</p>
 <p>To answer this question we can use the <code>case_when()</code>, whereby if the value is greater than 81.16 we can assign the Borough a string of “above UK average”, and if below a string of “below UK average”….</p>
-<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-124"></span>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-125"></span>
 <img src="allisonhorst_images/dplyr_case_when.png" alt="dplyr case_when() example. Source: [Allison Horst data science and stats illustrations](https://github.com/allisonhorst/stats-illustrations)" width="500pt" />
 <p class="caption">
-Figure 2.11: dplyr case_when() example. Source: <a href="https://github.com/allisonhorst/stats-illustrations">Allison Horst data science and stats illustrations</a>
+Figure 2.12: dplyr case_when() example. Source: <a href="https://github.com/allisonhorst/stats-illustrations">Allison Horst data science and stats illustrations</a>
 </p>
 </div>
 <div class="sourceCode" id="cb92"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb92-1"><a href="introduction-to-r.html#cb92-1" aria-hidden="true" tabindex="-1"></a>Life_expectancy2 <span class="ot">&lt;-</span> Life_expectancy <span class="sc">%&gt;%</span></span>
@@ -1898,10 +1912,10 @@ Figure 2.11: dplyr case_when() example. Source: <a href="https://github.com/alli
 <li>Again work out difference between the life expectancy of the Boroughs compared to the national average</li>
 <li>Round the whole table based on if the column is numeric (this isn’t required and we’re not adding a new column). Here we are using <code>across</code> that applies some kind of transformation across the columns selected (or that are numeric in this case).</li>
 </ol>
-<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-127"></span>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-128"></span>
 <img src="allisonhorst_images/dplyr_across.png" alt="dyplr::across() example. Source: [Allison Horst data science and stats illustrations](https://github.com/allisonhorst/stats-illustrations)" width="450pt" />
 <p class="caption">
-Figure 2.12: dyplr::across() example. Source: <a href="https://github.com/allisonhorst/stats-illustrations">Allison Horst data science and stats illustrations</a>
+Figure 2.13: dyplr::across() example. Source: <a href="https://github.com/allisonhorst/stats-illustrations">Allison Horst data science and stats illustrations</a>
 </p>
 </div>
 <p>Here we need to:</p>
@@ -1927,12 +1941,13 @@ Figure 2.12: dyplr::across() example. Source: <a href="https://github.com/alliso
 <span id="cb96-14"><a href="introduction-to-r.html#cb96-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(UKcompare)<span class="sc">%&gt;%</span></span>
 <span id="cb96-15"><a href="introduction-to-r.html#cb96-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">count=</span><span class="fu">n</span>())</span></code></pre></div>
 <pre><code>## Warning: There was 1 warning in `mutate()`.
-## ℹ In argument: `across(where(is.numeric), round, 3)`.
+## ℹ In argument: `across(where(is.numeric),
+##   round, 3)`.
 ## Caused by warning:
-## ! The `...` argument of `across()` is deprecated as of dplyr
-##   1.1.0.
-## Supply arguments directly to `.fns` through an anonymous function
-## instead.
+## ! The `...` argument of `across()` is
+##   deprecated as of dplyr 1.1.0.
+## Supply arguments directly to `.fns` through
+## an anonymous function instead.
 ## 
 ##   # Previously
 ##   across(a:b, mean, na.rm = TRUE)
@@ -1956,21 +1971,23 @@ Figure 2.12: dyplr::across() example. Source: <a href="https://github.com/alliso
 <span id="cb100-3"><a href="introduction-to-r.html#cb100-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="fu">across</span>(is.numeric, round, <span class="dv">3</span>))<span class="sc">%&gt;%</span></span>
 <span id="cb100-4"><a href="introduction-to-r.html#cb100-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="fu">across</span>(UKdiff, round, <span class="dv">0</span>))</span></code></pre></div>
 <pre><code>## Warning: There was 1 warning in `mutate()`.
-## ℹ In argument: `across(is.numeric, round, 3)`.
+## ℹ In argument: `across(is.numeric, round,
+##   3)`.
 ## Caused by warning:
-## ! Use of bare predicate functions was deprecated in tidyselect
-##   1.1.0.
-## ℹ Please use wrap predicates in `where()` instead.
+## ! Use of bare predicate functions was
+##   deprecated in tidyselect 1.1.0.
+## ℹ Please use wrap predicates in `where()`
+##   instead.
 ##   # Was:
 ##   data %&gt;% select(is.numeric)
 ## 
 ##   # Now:
 ##   data %&gt;% select(where(is.numeric))</code></pre>
 <p>Before you move on consider what you have learnt about <code>dplyr</code> in relation to this concept map. The teaching team will also explain it…</p>
-<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-130"></span>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-131"></span>
 <img src="prac2_images/dplyr.svg" alt="dplyr concept map. Source: [Monica Alonso and Greg Wilson](https://github.com/rstudio/concept-maps)" width="600pt" />
 <p class="caption">
-Figure 2.13: dplyr concept map. Source: <a href="https://github.com/rstudio/concept-maps">Monica Alonso and Greg Wilson</a>
+Figure 2.14: dplyr concept map. Source: <a href="https://github.com/rstudio/concept-maps">Monica Alonso and Greg Wilson</a>
 </p>
 </div>
 </div>
@@ -1980,7 +1997,7 @@ Figure 2.13: dplyr concept map. Source: <a href="https://github.com/rstudio/conc
 <p>For a simple and quick plot, we can use the <code>plot()</code> function…</p>
 <div class="sourceCode" id="cb102"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb102-1"><a href="introduction-to-r.html#cb102-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(LondonBoroughs<span class="sc">$</span>male_life_expectancy_2009_13,</span>
 <span id="cb102-2"><a href="introduction-to-r.html#cb102-2" aria-hidden="true" tabindex="-1"></a>     LondonBoroughs<span class="sc">$</span>percent_children_in_reception_year_who_are_obese_2011_12_to_2013_14)</span></code></pre></div>
-<p><img src="CASA0005_files/figure-html/unnamed-chunk-131-1.png" width="672" /></p>
+<p><img src="CASA0005_files/figure-html/unnamed-chunk-132-1.png" width="672" /></p>
 </div>
 <div id="pimp-my-graph" class="section level3 hasAnchor" number="2.5.7">
 <h3><span class="header-section-number">2.5.7</span> Pimp my graph!<a href="introduction-to-r.html#pimp-my-graph" class="anchor-section" aria-label="Anchor link to header"></a></h3>
@@ -1997,7 +2014,7 @@ Figure 2.13: dplyr concept map. Source: <a href="https://github.com/rstudio/conc
 <span id="cb104-9"><a href="introduction-to-r.html#cb104-9" aria-hidden="true" tabindex="-1"></a>        <span class="at">type =</span> <span class="st">&quot;scatter&quot;</span>, </span>
 <span id="cb104-10"><a href="introduction-to-r.html#cb104-10" aria-hidden="true" tabindex="-1"></a>        <span class="at">mode =</span> <span class="st">&quot;markers&quot;</span>)</span></code></pre></div>
 <div id="htmlwidget-9eb00c74fa71d127b56a" style="width:672px;height:480px;" class="plotly html-widget"></div>
-<script type="application/json" data-for="htmlwidget-9eb00c74fa71d127b56a">{"x":{"visdat":{"5eacaed610b":["function () ","plotlyVisDat"]},"cur_data":"5eacaed610b","attrs":{"5eacaed610b":{"x":{},"y":{},"text":{},"mode":"markers","alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"type":"scatter"}},"layout":{"margin":{"b":40,"l":60,"t":25,"r":10},"xaxis":{"domain":[0,1],"automargin":true,"title":"male_life_expectancy_2009_13"},"yaxis":{"domain":[0,1],"automargin":true,"title":"percent_children_in_reception_year_who_are_obese_2011_12_to_2013_14","type":"category","categoryorder":"array","categoryarray":["10.2","10.3","10.6","11.0","11.1","11.2","11.5","11.6","12.2","12.5","12.7","12.8","13.2","13.3","13.6","5.7","6.0","7.8","8.1","9.0","9.2","9.5","9.6","9.8"]},"hovermode":"closest","showlegend":false},"source":"A","config":{"modeBarButtonsToAdd":["hoverclosest","hovercompare"],"showSendToCloud":false},"data":[{"x":[84.3,77.7,81.9,80.3,80,81.3,81.1,80,79.9,80.6,78.7,78.2,79.1,80.1,82.4,79.8,80.4,79.7,78.2,82.6,81.3,78.4,78.7,80.3,78.5,80.7,81.9,78.6,80.8,77.5,79.7,79.2,81.7],"y":["11.1","13.6","9.5","11.6","12.2","7.8","9.8","11.1","11.2","12.7","13.2","13.3","10.2","11.1","9.6","10.3","9.6","11.2","10.6","9.2","6.0","11.5","11.0","9.0","12.5","10.6","5.7","12.8","8.1","12.7","10.6","9.2","11.1"],"text":["City of London","Barking and Dagenham","Barnet","Bexley","Brent","Bromley","Camden","Croydon","Ealing","Enfield","Greenwich","Hackney","Hammersmith and Fulham","Haringey","Harrow","Havering","Hillingdon","Hounslow","Islington","Kensington and Chelsea","Kingston upon Thames","Lambeth","Lewisham","Merton","Newham","Redbridge","Richmond upon Thames","Southwark","Sutton","Tower Hamlets","Waltham Forest","Wandsworth","Westminster"],"mode":"markers","type":"scatter","marker":{"color":"rgba(31,119,180,1)","line":{"color":"rgba(31,119,180,1)"}},"error_y":{"color":"rgba(31,119,180,1)"},"error_x":{"color":"rgba(31,119,180,1)"},"line":{"color":"rgba(31,119,180,1)"},"xaxis":"x","yaxis":"y","frame":null}],"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.2,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
+<script type="application/json" data-for="htmlwidget-9eb00c74fa71d127b56a">{"x":{"visdat":{"430c703f64ab":["function () ","plotlyVisDat"]},"cur_data":"430c703f64ab","attrs":{"430c703f64ab":{"x":{},"y":{},"text":{},"mode":"markers","alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"type":"scatter"}},"layout":{"margin":{"b":40,"l":60,"t":25,"r":10},"xaxis":{"domain":[0,1],"automargin":true,"title":"male_life_expectancy_2009_13"},"yaxis":{"domain":[0,1],"automargin":true,"title":"percent_children_in_reception_year_who_are_obese_2011_12_to_2013_14","type":"category","categoryorder":"array","categoryarray":["10.2","10.3","10.6","11.0","11.1","11.2","11.5","11.6","12.2","12.5","12.7","12.8","13.2","13.3","13.6","5.7","6.0","7.8","8.1","9.0","9.2","9.5","9.6","9.8"]},"hovermode":"closest","showlegend":false},"source":"A","config":{"modeBarButtonsToAdd":["hoverclosest","hovercompare"],"showSendToCloud":false},"data":[{"x":[84.3,77.7,81.9,80.3,80,81.3,81.1,80,79.9,80.6,78.7,78.2,79.1,80.1,82.4,79.8,80.4,79.7,78.2,82.6,81.3,78.4,78.7,80.3,78.5,80.7,81.9,78.6,80.8,77.5,79.7,79.2,81.7],"y":["11.1","13.6","9.5","11.6","12.2","7.8","9.8","11.1","11.2","12.7","13.2","13.3","10.2","11.1","9.6","10.3","9.6","11.2","10.6","9.2","6.0","11.5","11.0","9.0","12.5","10.6","5.7","12.8","8.1","12.7","10.6","9.2","11.1"],"text":["City of London","Barking and Dagenham","Barnet","Bexley","Brent","Bromley","Camden","Croydon","Ealing","Enfield","Greenwich","Hackney","Hammersmith and Fulham","Haringey","Harrow","Havering","Hillingdon","Hounslow","Islington","Kensington and Chelsea","Kingston upon Thames","Lambeth","Lewisham","Merton","Newham","Redbridge","Richmond upon Thames","Southwark","Sutton","Tower Hamlets","Waltham Forest","Wandsworth","Westminster"],"mode":"markers","type":"scatter","marker":{"color":"rgba(31,119,180,1)","line":{"color":"rgba(31,119,180,1)"}},"error_y":{"color":"rgba(31,119,180,1)"},"error_x":{"color":"rgba(31,119,180,1)"},"line":{"color":"rgba(31,119,180,1)"},"xaxis":"x","yaxis":"y","frame":null}],"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.2,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
 </div>
 <div id="spatial-data-in-r" class="section level3 hasAnchor" number="2.5.8">
 <h3><span class="header-section-number">2.5.8</span> Spatial Data in R<a href="introduction-to-r.html#spatial-data-in-r" class="anchor-section" aria-label="Anchor link to header"></a></h3>
@@ -2036,10 +2053,10 @@ Figure 2.13: dplyr concept map. Source: <a href="https://github.com/rstudio/conc
 <h4><span class="header-section-number">2.5.8.1</span> Background to spatial data in R<a href="introduction-to-r.html#background-to-spatial-data-in-r" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>R has a very well developed ecosystem of packages for working with Spatial Data. Early pioneers like Roger Bivand and Edzer Pebesma along with various colleagues were instrumental in writing packages to interface with some powerful open source libraries for working with spatial data, such as GDAL and GEOS. These were accessed via the <code>rgdal</code> and <code>rgeos</code> packages. The <code>maptools</code> package by Roger Bivand, amongst other things, allowed Shapefiles to be read into R. The <code>sp</code> package (along with <code>spdep</code>) by Edzer Pebesma was very important for defining a series of classes and methods for spatial data natively in R which then allowed others to write software to work with these formats. Other packages like <code>raster</code> advanced the analysis of gridded spatial data, while packages like <code>classInt</code> and <code>RColorbrewer</code> facilitated the binning of data and colouring of choropleth maps.</p>
 <p>Whilst these packages were extremely important for advancing spatial data analysis in R, they were not always the most straightforward to use — making a map in R could take quite a lot of effort and they were static and visually basic. However, more recently new packages have arrived to change this. Now <code>leaflet</code> enables R to interface with the leaflet javascript library for online, dynamic maps. <code>ggplot2</code> which was developed by Hadley Wickham and colleagues radically changed the way that people thought about and created graphical objects in R, including maps, and introduced a graphical style which has been the envy of other software to the extent that there are now libraries in Python which copy the <code>ggplot2</code> style!</p>
-<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-137"></span>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-138"></span>
 <img src="allisonhorst_images/ggplot2_exploratory.png" alt="ggplot2 introduction graphic. Source: [Allison Horst data science and stats illustrations](https://github.com/allisonhorst/stats-illustrations)" width="450pt" />
 <p class="caption">
-Figure 2.14: ggplot2 introduction graphic. Source: <a href="https://github.com/allisonhorst/stats-illustrations">Allison Horst data science and stats illustrations</a>
+Figure 2.15: ggplot2 introduction graphic. Source: <a href="https://github.com/allisonhorst/stats-illustrations">Allison Horst data science and stats illustrations</a>
 </p>
 </div>
 <p>Building on all of these, the new <code>tmap</code> (Thematic Map) package has changed the game completely and now enables us to read, write and manipulate spatial data and produce visually impressive and interactive maps, very easily. In parallel, the <code>sf</code> (Simple Features) package is helping us re-think the way that spatial data can be stored and manipulated. It’s exciting times for geographic information / spatial data science!</p>
@@ -2085,7 +2102,7 @@ Figure 2.14: ggplot2 introduction graphic. Source: <a href="https://github.com/a
 <span id="cb111-3"><a href="introduction-to-r.html#cb111-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb111-4"><a href="introduction-to-r.html#cb111-4" aria-hidden="true" tabindex="-1"></a><span class="co">#plot it using the qtm function</span></span>
 <span id="cb111-5"><a href="introduction-to-r.html#cb111-5" aria-hidden="true" tabindex="-1"></a><span class="fu">qtm</span>(LondonMap)</span></code></pre></div>
-<p><img src="CASA0005_files/figure-html/unnamed-chunk-140-1.png" width="672" /></p>
+<p><img src="CASA0005_files/figure-html/unnamed-chunk-141-1.png" width="672" /></p>
 </div>
 <div id="attribute-data" class="section level4 hasAnchor" number="2.5.8.3">
 <h4><span class="header-section-number">2.5.8.3</span> Attribute data<a href="introduction-to-r.html#attribute-data" class="anchor-section" aria-label="Anchor link to header"></a></h4>
@@ -2109,16 +2126,16 @@ Figure 2.14: ggplot2 introduction graphic. Source: <a href="https://github.com/a
 <span id="cb112-14"><a href="introduction-to-r.html#cb112-14" aria-hidden="true" tabindex="-1"></a>           <span class="at">.keep_all =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
 <p>We’ve added some more arguments to <code>distinct()</code> that mean we only have unique rows based on the code, but we keep all other variables <code>.keep_all=TRUE</code>. If you change to <code>.keep_all=FALSE</code> (which is the default) then all the other variables (the attributes in the columns) will be removed.</p>
 <p>An alternative to <code>merge()</code> would be to use a <code>left_join()</code> (like in SQL)…but it’s similar to <code>merge()</code>. However, <strong>always use a join type</strong> (e.g. <code>left_join()</code>) where possible as it is easier to control how the join works (e.g. inner, left, right, full). <code>merge()</code> as default is the same as an inner join…</p>
-<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-142"></span>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-143"></span>
 <img src="prac2_images/sql-joins.png" alt="SQL join types. Source: [SQL Join Diagram, dofactory](https://www.dofactory.com/sql/join)" width="500px" />
 <p class="caption">
-Figure 2.15: SQL join types. Source: <a href="https://www.dofactory.com/sql/join">SQL Join Diagram, dofactory</a>
+Figure 2.16: SQL join types. Source: <a href="https://www.dofactory.com/sql/join">SQL Join Diagram, dofactory</a>
 </p>
 </div>
-<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-143"></span>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-144"></span>
 <img src="prac2_images/left-join.gif" alt="dplyr::left_join() example. Source: [Tidy explain by Garrick Aden‑Buie](https://www.garrickadenbuie.com/project/tidyexplain/)" width="500px" />
 <p class="caption">
-Figure 2.16: dplyr::left_join() example. Source: <a href="https://www.garrickadenbuie.com/project/tidyexplain/">Tidy explain by Garrick Aden‑Buie</a>
+Figure 2.17: dplyr::left_join() example. Source: <a href="https://www.garrickadenbuie.com/project/tidyexplain/">Tidy explain by Garrick Aden‑Buie</a>
 </p>
 </div>
 <div class="sourceCode" id="cb113"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb113-1"><a href="introduction-to-r.html#cb113-1" aria-hidden="true" tabindex="-1"></a>BoroughDataMap2 <span class="ot">&lt;-</span> EW <span class="sc">%&gt;%</span> </span>
@@ -2128,10 +2145,10 @@ Figure 2.16: dplyr::left_join() example. Source: <a href="https://www.garrickade
 <span id="cb113-5"><a href="introduction-to-r.html#cb113-5" aria-hidden="true" tabindex="-1"></a>            LondonData,</span>
 <span id="cb113-6"><a href="introduction-to-r.html#cb113-6" aria-hidden="true" tabindex="-1"></a>            <span class="at">by =</span> <span class="fu">c</span>(<span class="st">&quot;lad15cd&quot;</span> <span class="ot">=</span> <span class="st">&quot;new_code&quot;</span>))</span></code></pre></div>
 <p>If there are multiple matches then all hits are returned…</p>
-<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-145"></span>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-146"></span>
 <img src="prac2_images/left-join-extra.gif" alt="dplyr::left_join() example with multiple matches. Source: [Tidy explain by Garrick Aden‑Buie](https://www.garrickadenbuie.com/project/tidyexplain/)" width="500px" />
 <p class="caption">
-Figure 2.17: dplyr::left_join() example with multiple matches. Source: <a href="https://www.garrickadenbuie.com/project/tidyexplain/">Tidy explain by Garrick Aden‑Buie</a>
+Figure 2.18: dplyr::left_join() example with multiple matches. Source: <a href="https://www.garrickadenbuie.com/project/tidyexplain/">Tidy explain by Garrick Aden‑Buie</a>
 </p>
 </div>
 <p>However, i’ve left out <code>filter()</code> and <code>distinct()</code> which you would need to reduce the data to London and remove the duplicate City of London row afterwards…like in the step before with <code>merge</code> and as we did earlier on in the session.</p>
@@ -2150,7 +2167,7 @@ Figure 2.17: dplyr::left_join() example with multiple matches. Source: <a href="
 <span id="cb114-3"><a href="introduction-to-r.html#cb114-3" aria-hidden="true" tabindex="-1"></a><span class="fu">tmap_mode</span>(<span class="st">&quot;plot&quot;</span>)</span>
 <span id="cb114-4"><a href="introduction-to-r.html#cb114-4" aria-hidden="true" tabindex="-1"></a><span class="fu">qtm</span>(BoroughDataMap, </span>
 <span id="cb114-5"><a href="introduction-to-r.html#cb114-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">fill =</span> <span class="st">&quot;rate_of_job_seekers_allowance_jsa_claimants_2015&quot;</span>)</span></code></pre></div>
-<p><img src="CASA0005_files/figure-html/unnamed-chunk-146-1.png" width="672" /></p>
+<p><img src="CASA0005_files/figure-html/unnamed-chunk-147-1.png" width="672" /></p>
 <p>But that’s a bit basic! How about adding a basemap…to get a basemap we need to extract it from OpenStreetMap (OSM) using the <code>read_osm()</code> function from the <code>tmaptools</code> package. We talk about this in later weeks, but it’s a free editable map of the World (the Wikipedia of maps). We are going to need to create a box (termed bounding box) around London using the <code>st_box()</code> function from the <code>sf</code> package to extract the basemap image (which is a raster).</p>
 <div class="sourceCode" id="cb115"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb115-1"><a href="introduction-to-r.html#cb115-1" aria-hidden="true" tabindex="-1"></a>tmaplondon <span class="ot">&lt;-</span> BoroughDataMap <span class="sc">%&gt;%</span></span>
 <span id="cb115-2"><a href="introduction-to-r.html#cb115-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">st_bbox</span>(.) <span class="sc">%&gt;%</span> </span>
@@ -2203,7 +2220,7 @@ Figure 2.17: dplyr::left_join() example with multiple matches. Source: <a href="
 <span id="cb118-12"><a href="introduction-to-r.html#cb118-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_compass</span>(<span class="at">position =</span> <span class="fu">c</span>(<span class="st">&quot;left&quot;</span>, <span class="st">&quot;bottom&quot;</span>),<span class="at">type =</span> <span class="st">&quot;arrow&quot;</span>) <span class="sc">+</span> </span>
 <span id="cb118-13"><a href="introduction-to-r.html#cb118-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_scale_bar</span>(<span class="at">position =</span> <span class="fu">c</span>(<span class="st">&quot;left&quot;</span>, <span class="st">&quot;bottom&quot;</span>)) <span class="sc">+</span></span>
 <span id="cb118-14"><a href="introduction-to-r.html#cb118-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tm_layout</span>(<span class="at">title =</span> <span class="st">&quot;Difference in life expectancy&quot;</span>, <span class="at">legend.position =</span> <span class="fu">c</span>(<span class="st">&quot;right&quot;</span>, <span class="st">&quot;bottom&quot;</span>))</span></code></pre></div>
-<p><img src="CASA0005_files/figure-html/unnamed-chunk-150-1.png" width="672" /></p>
+<p><img src="CASA0005_files/figure-html/unnamed-chunk-151-1.png" width="672" /></p>
 <p>There are a few subtle differences in the code of this second map if you look closely:</p>
 <ul>
 <li><p>Style is now <code>pretty</code> not <code>jenks</code>. Style controls where the breaks are within the data that are then assigned to each colour for mapping. <code>pretty</code> rounds to whole numbers and evenly spaces them over the data.</p></li>
@@ -2224,17 +2241,17 @@ Figure 2.17: dplyr::left_join() example with multiple matches. Source: <a href="
 <li><p>Put each dataset in a tibble</p></li>
 <li><p>Put each variable in a column</p></li>
 </ol>
-<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-151"></span>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-152"></span>
 <img src="prac2_images/tidy-1.png" alt="This figure is taken directly from Grolemund and Wickham (2017) Chapter 12.Following three rules makes a dataset tidy: variables are in columns, observations are in rows, and values are in cells." width="500px" />
 <p class="caption">
-Figure 2.18: This figure is taken directly from Grolemund and Wickham (2017) Chapter 12.Following three rules makes a dataset tidy: variables are in columns, observations are in rows, and values are in cells.
+Figure 2.19: This figure is taken directly from Grolemund and Wickham (2017) Chapter 12.Following three rules makes a dataset tidy: variables are in columns, observations are in rows, and values are in cells.
 </p>
 </div>
 <p>However, i also find this example from <a href="https://www.ksk-anl.com/blog/hadley-wickhams-tidy-data-in-rapidminer-part-1/">KSK analytics</a> very helpful..</p>
-<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-152"></span>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:unnamed-chunk-153"></span>
 <img src="prac2_images/messy-tidy-ex.png" alt="This figure is taken directly from Grolemund and Wickham (2017) Chapter 12.Following three rules makes a dataset tidy: variables are in columns, observations are in rows, and values are in cells." width="500px" />
 <p class="caption">
-Figure 2.19: This figure is taken directly from Grolemund and Wickham (2017) Chapter 12.Following three rules makes a dataset tidy: variables are in columns, observations are in rows, and values are in cells.
+Figure 2.20: This figure is taken directly from Grolemund and Wickham (2017) Chapter 12.Following three rules makes a dataset tidy: variables are in columns, observations are in rows, and values are in cells.
 </p>
 </div>
 <p>Earlier we read in the data using:</p>
