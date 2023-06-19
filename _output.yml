@@ -1,7 +1,7 @@
 bookdown::gitbook:
   includes:
     in_header: [assets/google_analytics.html,assets/google_analytics_GA4.html, assets/javaheader.html, assets/hide_code.html]
-    before_body: assets/hero-image.html
+    #before_body: assets/hero-image.html
   css: assets/style.css
   highlight: tango
   config:
