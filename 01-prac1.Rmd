@@ -72,7 +72,7 @@ Before we go any further let's just quick go over the different types of data yo
 
 Continuous data can be measured on some sort of scale and can have any value on it such as height and weight.
 
-Discrete data have finite values. It can be numeric such as number of shoes or categorial such as positive or negative.
+Discrete data have finite values (meaning you can finish counting something). It is numeric and countable such as number of shoes or the number of computers within the classroom.
 
 Foot length would be continuous data but shoe size would be discrete data.
 
@@ -80,9 +80,9 @@ Foot length would be continuous data but shoe size would be discrete data.
 knitr::include_graphics('allisonhorst_images/continuous_discrete.png')
 ```
 
-Nominal data has labels without any quantitative value such as hair colour or type of animal.
+Nominal (also called categorical) data has labels without any quantitative value such as hair colour or type of animal. Think names or categories - there are no numbers here. 
 
-Ordinal data has an order or scale, for example if you have ever seen the chilli rating system on food labels or filled a happiness survey with a range between 1 and 10 --- that's ordinal. Here the order matters, but not the difference between them.
+Ordinal, similar to categorical but the data has an order or scale, for example if you have ever seen the chilli rating system on food labels or filled a happiness survey with a range between 1 and 10 --- that's ordinal. Here the order matters, but not the difference between them.
 
 Binary data is that that can have only two possible outcomes, yes and no or shark and not shark.
 
