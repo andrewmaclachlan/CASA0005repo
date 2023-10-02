@@ -713,7 +713,7 @@ library(OpenStreetMap)
 
 basemap <- OpenStreetMap::openmap(c(51.5549876,-0.4040502),c(51.6405356,-0.2671315),
                          zoom=NULL,
-                         "stamen-toner")
+                         "osm")
 
   # convert the basemap to British National Grid
 basemap_bng <- openproj(basemap, projection="+init=epsg:27700")

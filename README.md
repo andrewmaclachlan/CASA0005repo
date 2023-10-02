@@ -66,11 +66,17 @@ Course for the academic year 2019 - 2020: https://andrewmaclachlan.github.io/CAS
 
 Provided below are brief descriptions of the main annual updates to the practical material.
 
+### 2023 - 2024:
+
+Very few updates to the content this year so no new repo was made. Main updates were to exam questions (not public) and new illustrations by Allison Horst were added.
+
+RGDAl is retiring this year, i think most of the content should be fine - https://geocompx.org/post/2023/rgdal-retirement/ 
+
 ### 2022 - 2023:
 
 Better alignment with other CASA modules:
  * moved OLS to supplementary material 
- * moved some reprodubicle material to supplementary (e.g. renv)
+ * moved some reproducible material to supplementary (e.g. renv)
 
 ### 2021 - 2022:
 

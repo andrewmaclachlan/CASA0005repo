@@ -598,7 +598,7 @@ However, we can instead try a cool ‘data sciency’ way of pulling out the row
 ```{r echo=FALSE, out.width = "500pt", fig.align='center', cache=FALSE, fig.cap="dplyr::filter() example. Source: [Allison Horst data science and stats illustrations](https://github.com/allisonhorst/stats-illustrations)"}
 knitr::include_graphics('allisonhorst_images/dplyr_filter.jpg')
 ```
-Here, we could filter based on a variable, for example extracting all the wards where female life expextancy is greather than 90. 
+Here, we could filter based on a variable, for example extracting all the wards where female life expectancy is greater than 90. 
 
 ```{r, message=FALSE, warning = FALSE, cache=FALSE}
 Femalelifeexp<- LondonData %>% 
@@ -606,6 +606,11 @@ Femalelifeexp<- LondonData %>%
 ```
 
 However, our `New code` column that holds Borough codes can't be filtered like this as it's in a character format...in cases like this we can use the function `str_detect()` from the `stringr` package in combination with `filter()` from `dplyr`. Both these packages are part of the `tidyverse` again!
+
+```{r echo=FALSE, out.width = "500pt", fig.align='center', cache=FALSE, fig.cap="dplyr::filter() example. Source: [Allison Horst data science and stats illustrations](https://github.com/allisonhorst/stats-illustrations)"}
+knitr::include_graphics('allisonhorst_images/str_detect.png')
+```
+
 
 ```{r, message=FALSE, warning = FALSE, cache=FALSE}
 LondonBoroughs<- LondonData %>% 
