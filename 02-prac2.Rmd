@@ -1110,21 +1110,26 @@ As you progress through the programme you will probably notice that there is pre
 
 1. Each value must have its own cell.
 
+This rules are shown visually in the below image, although this is not an image of tidy data....keep reading...
+
+```{r echo=FALSE, out.width = "500px", fig.align='center', cache=FALSE, fig.cap="This figure is taken directly from Grolemund and Wickham (2017) Chapter 12.Following three rules makes a dataset tidy: variables are in columns, observations are in rows, and values are in cells."}
+knitr::include_graphics('prac2_images/tidy-1.png') 
+```
+
+
 But, as per the book, these three requirements are interrelated as you can't only adhere to two without adhering to all three. So this gives us:
 
 1. Put each dataset in a tibble
 
 1. Put each variable in a column
 
-```{r echo=FALSE, out.width = "500px", fig.align='center', cache=FALSE, fig.cap="This figure is taken directly from Grolemund and Wickham (2017) Chapter 12.Following three rules makes a dataset tidy: variables are in columns, observations are in rows, and values are in cells."}
-knitr::include_graphics('prac2_images/tidy-1.png') 
-```
 
-However, i also find this example from [KSK analytics](https://www.ksk-anl.com/blog/hadley-wickhams-tidy-data-in-rapidminer-part-1/) very helpful..
+This is an example of tidy data ...note that a value must have its own row, so no row can have multiple values...
 
-```{r echo=FALSE, out.width = "500px", fig.align='center', cache=FALSE, fig.cap="This figure is taken directly from Grolemund and Wickham (2017) Chapter 12.Following three rules makes a dataset tidy: variables are in columns, observations are in rows, and values are in cells."}
+```{r echo=FALSE, out.width = "500px", fig.align='center', cache=FALSE, fig.cap="This figure is taken directly from Grolemund and Wickham (2017) Chapter 12.Following three rules makes a dataset tidy: variables are in columns, observations are in rows, and values are in cells. Source: [KSK analytics](https://www.ksk-anl.com/blog/hadley-wickhams-tidy-data-in-rapidminer-part-1/)"}
 knitr::include_graphics('prac2_images/messy-tidy-ex.png') 
 ```
+
 
 Earlier we read in the data using:
 
