@@ -148,6 +148,17 @@ The World Geodetic System 84 (WGS84 - last revised in 1984) is one of the most c
 * GPS devices and point data sets often use the Geographic version (EPSG code 4326), **usually referred to just as WGS84**
 * Google Earth uses the Geographic version as it is a 3D globe (EPSG code 4326)
 
+::: {.infobox .tip data-latex="{note}"}
+
+In GIS if you add a layer that is 3D (e.g. in WGS84) it will map it on the 2D screen! But how? It takes the latitude and longitude values and maps them as planar coordinates. This means it linearly maps 3D points to a 2D plane....some people might refer to this as "unprojected" but i would say that it has a geographic coordinate reference system.
+
+```{r planar, fig.cap="Planar projections. Source: [Wikipedia (2023) ](https://en.wikipedia.org/wiki/Planar_projection)", out.width="49%", fig.show='hold', echo=FALSE, cache=FALSE}
+knitr::include_graphics("prac3_images/150px-Axonometric_projection.svg.png")
+```
+
+:::
+
+
 **Flat**
 
 * Google Maps / Carto / Bing / Open street map use Web Mercator, Google Web Mercator, Spherical Mercator, WGS 84 Web Mercator or **WGS 84/Pseudo-Mercator** which is a projected coordinate reference system (EPSG code 3857). It is a variant of the Mercator map projection. 
@@ -170,7 +181,9 @@ library(sf)
 st_crs(Ausoutline)$proj4string
 ```
 
-“Well that’s clear as mud!” I hear you cry! Yes, not obvious is it!. The proj4-string basically tells the computer where on the earth to locate the coordinates that make up the geometries in your file and what distortions to apply (i.e. if to flatten it out completely etc.) It's composed of a list of parameters seperated by a `+`. Here are projection `proj` uses latitude and longitude (so it's a geographic not projected CRS). The `datum` is WGS84 that uses Earth's centre mass as the coordinate origin (0,0). 
+> “Well that’s clear as mud!” I hear you cry! Yes, not obvious is it!
+
+The proj4-string basically tells the computer where on the earth to locate the coordinates that make up the geometries in your file and what distortions to apply (i.e. if to flatten it out completely etc.) It's composed of a list of parameters separated by a `+`. Here are projection `proj` uses latitude and longitude (so it's a geographic not projected CRS). The `datum` is WGS84 that uses Earth's centre mass as the coordinate origin (0,0). 
 
 The [Coordiante systems in R chapter by Gimond (2019)](https://mgimond.github.io/Spatial/coordinate-systems-in-r.html#understanding-the-proj4-coordinate-syntax) provides much more information on Proj4. However, i'd advise trying to use EPSG codes, which we come onto next.
 

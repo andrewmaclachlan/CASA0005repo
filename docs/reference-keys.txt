@@ -34,6 +34,7 @@ fig:unnamed-chunk-153
 fig:unnamed-chunk-154
 fig:unnamed-chunk-161
 fig:vectorplots
+fig:planar
 fig:unnamed-chunk-182
 fig:unnamed-chunk-259
 fig:unnamed-chunk-261
