@@ -152,7 +152,7 @@ The World Geodetic System 84 (WGS84 - last revised in 1984) is one of the most c
 
 In GIS if you add a layer that is 3D (e.g. in WGS84) it will map it on the 2D screen! But how? It takes the latitude and longitude values and maps them as planar coordinates. This means it linearly maps 3D points to a 2D plane....some people might refer to this as "unprojected" but i would say that it has a geographic coordinate reference system.
 
-```{r planar, fig.cap="Planar projections. Source: [Wikipedia (2023) ](https://en.wikipedia.org/wiki/Planar_projection)", out.width="49%", fig.show='hold', echo=FALSE, cache=FALSE}
+```{r planar, fig.align='center',fig.cap="Planar projections. Source: [Wikipedia (2023) ](https://en.wikipedia.org/wiki/Planar_projection)", out.width="30%", fig.show='hold', echo=FALSE, cache=FALSE}
 knitr::include_graphics("prac3_images/150px-Axonometric_projection.svg.png")
 ```
 
