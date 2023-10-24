@@ -137,9 +137,11 @@ In the first instance we just copy it from the remote (GitHub), that will have g
 
 #### Connect Git to GitHub
 
-Once we have an RStudio project with Git, either making it oursevles or downloading one from GitHub, we need to connect it to GitHub.
+Once we have an RStudio project with Git, either making it ourselves or downloading one from GitHub, we need to connect it to GitHub.
 
-From GitHub you need to generate a personal access token. You can use the function `create_github_token()` from the `usethis` package or also through GitHub > settings > Developer settings > personal access tokens > generate new token.
+From GitHub you need to generate a personal access token. You can use the function `create_github_token()` from the `usethis` package or also through 
+
+* GitHub > settings > Developer settings > personal access tokens > generate new token.
 
 Use a descriptive name and consider saving the token - it won't save on GitHub
 
