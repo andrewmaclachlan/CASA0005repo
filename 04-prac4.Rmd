@@ -481,7 +481,7 @@ CTRL + SHIFT + c
 CTRL+i
 
 **Format ugly code to nice looking code**
-CTRL + ALT + A 
+CTRL + SHIFT + A 
 
 
 **Insert section label which is fold-able and navigable** --- this only works in a `.R` file not a `.Rmd` but is still useful
