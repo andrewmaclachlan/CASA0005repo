@@ -48,7 +48,7 @@ Some of these practicals are long, take regular breaks and have a listen to some
 
 ## Introduction
 
-In this practical you will learn how to begin to analyse patterns in spatial data. Using data you are already familiar with, in the first part of the practical, you will explore some techniques for analysing patterns of point data in R. Then, in the second part of the practial, you will explore spatial autocorrelation using R or ArcGIS...or both if you wish.
+In this practical you will learn how to begin to analyse patterns in spatial data. Using data you are already familiar with, this week, you will explore some techniques for analysing patterns of point data in R. Then, next week, you will explore spatial autocorrelation using R.
 
 In this analysis we will analyse the patterns of Blue Plaques --- you will see these placed on around the UK linking the buildings of the present to people of the past.
 

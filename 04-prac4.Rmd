@@ -161,6 +161,13 @@ knitr::include_graphics('prac4_images/githubrepodownload.png')
 
 1. Now in the windows start menu, go to Git > GUI
 
+::: {.infobox .warning data-latex="{note}"}
+
+**Git Graphic user interfaces (GUIs)**
+
+Git GUI was downloaded with my version of Git on Windows. There are [many Git GUIs to select from](https://git-scm.com/downloads/guis/). However, the point here is that Git is not specific to programming languages (although it is primary used for code!). It can work on any folder on your computer. 
+:::
+
 1. Select ‘Clone Existing Repository’ and paste the link from your GitHub account into the top box and the local directory that you want to create to store your repo in the bottom box (note, you will need to add a name for a new folder, once you have selected an existing directory, don't create a new folder in windows explorer you have to specify it in the file path).
 
 ```{r echo=FALSE, out.width = "600pt", fig.align='center', cache=FALSE}

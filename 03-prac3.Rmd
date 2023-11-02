@@ -18,7 +18,7 @@ Each week we will provide a short task to test your knowledge, these should be u
 
 The task is to manipulate some raster data and produce some descriptive statistics. Climatic models fed into the latest Intergovernmental Panel on Climate Change (IPCC), the models are divided into Shared Socioeconomic Pathways known as SSPs, ranging from [SSP1](https://view.es-doc.org/?renderMethod=name&project=cmip6&type=cim.2.designing.NumericalExperiment&client=esdoc-url-rewrite&name=ssp126) (lots of mitigation and adaption) to [SSP5](https://view.es-doc.org/?renderMethod=name&project=cmip6&type=cim.2.designing.NumericalExperiment&client=esdoc-url-rewrite&name=ssp126) (fossil fuel development). The [Carbon Brief explainer](https://www.carbonbrief.org/explainer-how-shared-socioeconomic-pathways-explore-future-climate-change) has more information on the scenarios. 
 
-For any country in the World produce descriptive statistics that show the difference in maximum annual temperature for key cities between SSP1 and SSP5 for the years 2081-2100, using any model and resolution.
+For any country in the World produce descriptive statistics that show the difference in maximum temperature for key cities between SSP1 and SSP5 for the years 2081-2100, using any model and resolution.
 
 * [WorldClim future projections](https://www.worldclim.org/data/cmip6/cmip6_clim2.5m.html)
 * [Country outlines](https://gadm.org/data.html)

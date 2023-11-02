@@ -23,7 +23,7 @@
 <meta name="author" content="Andy MacLachlan and Adam Dennett" />
 
 
-<meta name="date" content="2023-10-17" />
+<meta name="date" content="2023-11-02" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -54,7 +54,7 @@
 <script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
 <link href="libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
 <link href="libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
-<script src="libs/htmlwidgets-1.5.4/htmlwidgets.js"></script>
+<script src="libs/htmlwidgets-1.6.2/htmlwidgets.js"></script>
 <link href="libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet" />
 <script src="libs/datatables-binding-0.23/datatables.js"></script>
 <link href="libs/dt-core-1.11.3/css/jquery.dataTables.min.css" rel="stylesheet" />
@@ -1399,8 +1399,11 @@ Each week we will provide a short task to test your knowledge, these should be u
 </div>
 <div id="connect-git-to-github" class="section level4 hasAnchor" number="4.5.3.4">
 <h4><span class="header-section-number">4.5.3.4</span> Connect Git to GitHub<a href="git-github-and-rmarkdown.html#connect-git-to-github" class="anchor-section" aria-label="Anchor link to header"></a></h4>
-<p>Once we have an RStudio project with Git, either making it oursevles or downloading one from GitHub, we need to connect it to GitHub.</p>
-<p>From GitHub you need to generate a personal access token. You can use the function <code>create_github_token()</code> from the <code>usethis</code> package or also through GitHub &gt; settings &gt; Developer settings &gt; personal access tokens &gt; generate new token.</p>
+<p>Once we have an RStudio project with Git, either making it ourselves or downloading one from GitHub, we need to connect it to GitHub.</p>
+<p>From GitHub you need to generate a personal access token. You can use the function <code>create_github_token()</code> from the <code>usethis</code> package or also through</p>
+<ul>
+<li>GitHub &gt; settings &gt; Developer settings &gt; personal access tokens &gt; generate new token.</li>
+</ul>
 <p>Use a descriptive name and consider saving the token - it won’t save on GitHub</p>
 <p>The last step is to store this token in Git with the <code>gitcreds</code> package &gt; install and load it &gt; then use the function <code>gitcreds_set()</code> &gt; copy your token in.</p>
 </div>
@@ -1416,8 +1419,14 @@ Each week we will provide a short task to test your knowledge, these should be u
 </ol>
 <p><img src="prac4_images/githubrepodownload.png" width="700pt" style="display: block; margin: auto;" /></p>
 <ol style="list-style-type: decimal">
-<li><p>Now in the windows start menu, go to Git &gt; GUI</p></li>
-<li><p>Select ‘Clone Existing Repository’ and paste the link from your GitHub account into the top box and the local directory that you want to create to store your repo in the bottom box (note, you will need to add a name for a new folder, once you have selected an existing directory, don’t create a new folder in windows explorer you have to specify it in the file path).</p></li>
+<li>Now in the windows start menu, go to Git &gt; GUI</li>
+</ol>
+<div class="infobox warning">
+<p><strong>Git Graphic user interfaces (GUIs)</strong></p>
+<p>Git GUI was downloaded with my version of Git on Windows. There are <a href="https://git-scm.com/downloads/guis/">many Git GUIs to select from</a>. However, the point here is that Git is not specific to programming languages (although it is primary used for code!). It can work on any folder on your computer.</p>
+</div>
+<ol style="list-style-type: decimal">
+<li>Select ‘Clone Existing Repository’ and paste the link from your GitHub account into the top box and the local directory that you want to create to store your repo in the bottom box (note, you will need to add a name for a new folder, once you have selected an existing directory, don’t create a new folder in windows explorer you have to specify it in the file path).</li>
 </ol>
 <p><img src="prac4_images/gitsetup.png" width="600pt" style="display: block; margin: auto;" /></p>
 <ol style="list-style-type: decimal">
@@ -1646,7 +1655,7 @@ CTRL + SHIFT + c</p>
 <p><strong>Align code consistently</strong>
 CTRL+i</p>
 <p><strong>Format ugly code to nice looking code</strong>
-CTRL + ALT + A</p>
+CTRL + SHIFT + A</p>
 <p><strong>Insert section label which is fold-able and navigable</strong> — this only works in a <code>.R</code> file not a <code>.Rmd</code> but is still useful
 CTRL + SHIFT + R</p>
 </div>

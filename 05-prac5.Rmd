@@ -53,7 +53,7 @@ Some of these practicals are long, take regular breaks and have a listen to some
 
 ## Introduction 
 
-In this practical we're going to focus on creating mapped outputs using QGIS, ArcMap and R. For fun we're going to use data from OpenStreetMap (OSM) and Airbnb. 
+In this practical we're going to focus on creating mapped outputs using QGIS and R. For fun we're going to use data from OpenStreetMap (OSM) and Airbnb. 
 
 ### OSM
 
@@ -417,6 +417,7 @@ tm3 <- tm_shape(UK_outlinecrop)+
 
 legend <- tm_shape(Hotels) +
     tm_polygons("Accomodation count",
+                breaks=breaks,
                 palette="PuBu") +
     tm_scale_bar(position=c(0.2,0.04), text.size=0.6)+
     tm_compass(north=0, position=c(0.65,0.6))+
