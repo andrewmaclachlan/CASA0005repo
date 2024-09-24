@@ -1,6 +1,6 @@
 --- 
 title: "CASA0005 Geographic Information Systems and Science"
-author: Andy MacLachlan^[The Bartlett Centre for Advanced Spatial Analysis, https://twitter.com/andymaclachlan] and Adam Dennett^[The Bartlett Centre for Advanced Spatial Analysis, https://twitter.com/adam_dennett]
+author: Andy MacLachlan^[The Bartlett Centre for Advanced Spatial Analysis, https://www.andymac.uk/], Adam Dennett^[The Bartlett Centre for Advanced Spatial Analysis, https://adamdennett.co.uk/] and Claire Dooley^[The Bartlett Centre for Advanced Spatial Analysis, https://profiles.ucl.ac.uk/98496-claire-dooley/about]
 date: "`r Sys.Date()`"
 site: bookdown::bookdown_site
 output: bookdown::gitbook

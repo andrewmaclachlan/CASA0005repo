@@ -61,7 +61,7 @@ Some of these practicals are long, take regular breaks and have a listen to some
 Geographic data, geospatial data or geographic information is data that identifies the location of features on Earth. There are two main types of data which are used in GIS applications to represent the real world. **Vectors** that are composed of points, lines and polygons and **rasters** that are grids of cells with individual values...
 
 ```{r echo=FALSE, out.width = "300pt", fig.align='center', cache=FALSE, fig.cap="Types of spatial data. Source: [Spatial data models](https://planet.uwc.ac.za/nisl/gis/web_page/page_15.htm)"}
-knitr::include_graphics('prac1_images/rasvec.jpg') 
+knitr::include_graphics('prac1_images/rasvsvec.png') 
 ```
 
 In the above example the features in the real world (e.g. lake, forest, marsh and grassland) have been represented by points, lines and polygons (vector) or discrete grid cells (raster) of a certain size (e.g. 1 x 1m) specifying land cover type.
