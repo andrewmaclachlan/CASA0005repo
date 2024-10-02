@@ -76,34 +76,6 @@ The data we use in this practical book is representative of what you will find w
 
 :::
 
-## How to download data and files from GitHub {-}
-
-The majority of data required for the workshops is found online and we detail how to download this within the workshops. On occasion you may need to get some data from my GitHub, the workshops will instruct you to do this where needed.
-
-To do so you have a few options. Option 1 will let you download just a spceific folder whilst option 2 will download everything i have used to make the workshops.
-
-### Option 1 {-}
-
-Use [DownGit](https://minhaskamal.github.io/DownGit/#/home)
-
-1. Go to: https://minhaskamal.github.io/DownGit/#/home
-
-1. Head over to the GitHub repository: https://github.com/andrewmaclachlan/CASA0005repo
-
-1. Select a folder you wish to download --- here i'll use practical data as the example, click into the folder (prac7_data) and copy the url: https://github.com/andrewmaclachlan/CASA0005repo/tree/master/prac7_data
-
-1. Paste it into DownGit and click Download, once downloaded then unzip the folder.
-
-### Option 2 {-}
-
-1. Go to the online repository page here: https://github.com/andrewmaclachlan/CASA0005repo
-
-1. Click Clone or download, the download as ZIP. This will download the everything i have used to make this website including all the data for the practicals
-
-```{r echo=FALSE, out.width = "500pt", fig.align='center', cache=TRUE}
-knitr::include_graphics('index_images/downloadrepo.png') 
-```
-
 
 ## Self guided learning {-}
 
@@ -118,28 +90,6 @@ knitr::write_bib(c(
 ), 'packages.bib')
 ```
 
-## Interactive lectures {-}
-
-During the lectures we will be using an interative polling and Q&A application called vevox. It's very simple to use, you can either:
-
-* Download the app on iOS or Android: http://get.vevox.app 
-* Use the web app: https://vevox.app/
-
-The meeting ID we will use is: 186-395-009
-
-## More help {-}
-
-If you need specific assistance with this course please:
-
-* Check the Moodle assessment tab for queries relating to assignments / deadlines. 
-
-* Speak to a member of the teaching team in the computer lab sessions
-
-* Ask a question at the end of a lecture (time permitting)
-
-* Ask a question on slack under the GIS channel
-
-Due to the size of the class we will **only reply** to messages **on slack** so all students can see the discussion. If you have a personal matter in relation to completing the course then please speak to or email Andy or Adam.
 
 If you are struggling to use R don't worry...here is some advice from a tweet and  [interview](https://www.r-bloggers.com/advice-to-young-and-old-programmers-a-conversation-with-hadley-wickham/) with Hadley Wickham, chief scientist at RStudio...
 
@@ -156,21 +106,5 @@ You can also go through other free resources including:
 
 * [YaRrr! The Pirate's Guide to R](https://bookdown.org/ndphillips/YaRrr/)
 
-At the end of every practical there is a link anonymous Google feeback form, let us know if something is unclear and we will go over it in a future session.
-
-If after pursuing all these avenues you still need help you can book into our office hours. These meetings are **to discuss a geographical concept in relation to the material/assessment or for any personal matters relevant to the completion of the module**.
-
-These meetings are **not** to be used for specific technical issues. Problems of this nature should be addressed in the practical sessions.
-
-[Andy](https://amaclachlan.youcanbook.me/)
-
-[Adam](https://dr-d-casa.youcanbook.me)
-
-If you give us minimal information in this form (e.g. one word) we will cancel the meeting.
-
-## Reading list {-}
-
-We link to books and resources throughout each practical and in the [Module resources] pages, but a full reading list for the course is provided [on the UCL library reading list page for the course](https://rl.talis.com/3/ucl/lists/139FBAF8-DACD-60FB-8BDC-E9C9E09BA885.html?lang=en-GB&login=1), there is also a link to it over on Moodle.
-
-We've tried to mostly recommend open source and free books, any others are available from the library.
+At the end of every practical there is a link anonymous Google feedback form, let us know if something is unclear and we will go over it in a future session.
 

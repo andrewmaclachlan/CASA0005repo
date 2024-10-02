@@ -231,7 +231,7 @@ In your N drive: create a new folder called GIS and within this a sub folder cal
 
 Firstly we need to get a spatial outline of the London boroughs. The geographic boundaries that are used in the UK are a complex, often inter-related, but ever changing mass of areas. For anyone new to the UK (or indeed not a trained quantitative geographer), it can be quite a daunting task to attempt to understand all of the boundaries that are in use. Fortunately the Office for National Statistics (ONS) has an online beginners guide to UK geography. If you need more information on the vast array of different UK geographies, go and explore these resources:
 
--   <https://geoportal.statistics.gov.uk/datasets/9c04ff58854040d09a5a7ce146ab59b4>
+-   <https://geoportal.statistics.gov.uk/datasets/c0db0e8c67d04935bcf1749ca6027fef/about>
 
 Another [easy to read guide on census / administrative geography](https://www.towerhamlets.gov.uk/Documents/Borough_statistics/Research-tools-and-guidance/RB-Census2011-Census-Geography-Guide-2013-05.pdf) was produced by the London Borough of Tower Hamlets - skip to page 2 for a visual summary
 
@@ -293,7 +293,7 @@ Note how I've altered the total_action_taken to the sum of... as the original wa
 
 It's important to think about what data we actually need in the next step and it's good practice to avoid data redundancy where possible.
 
-**Spoiler** The spatial data we have downloaded already contains borough name, so we don't need it twice. However, we do need a field to link the two datasets on. You could use borough name, but when using text fields sometimes input variations can affect joins. For example, if you had the University of Manchester in one dataset and Manchester University in another the join would fail. Consequently it's usually best to join datasets on a code field.
+**Spoiler** The spatial data we have downloaded already contains borough name, so we don't need it twice. However, we do need a field to link the two datasets on. You could use borough name, but when using text fields sometimes input variations can affect joins. For example, if you had the University of Manchester in one dataset and Manchester University in another the join would fail. Consequently it's usually best to join datasets on a column that has a code or number.
 
 Now save the Excel sheet that contains the pivot table as a new `.csv`. Make sure that the first row of data holds the column titles. Remove all empty rows.
 
@@ -374,7 +374,13 @@ Now let's make a quick thematic map...
 1.  Right click on your London boroughs layer \> Properties \> Symbology
 2.  Select categorised and choose a data column and color ramp \> click Classify
 
-You could also select graduated, to do so, simply change the number of classes. 
+We've selected categorised (think categories) as our flytipping data column types are most likely text (otherwise know as string). You can check by opening the attribute table and hovering over the column name...
+
+```{r echo=FALSE, out.width = "400pt", fig.align='center', cache=FALSE}
+knitr::include_graphics('prac1_images/QGIS_column_string.png') 
+```
+
+Alternatively we can covert the column type to numeric and selected graduated (for numeric columns). We will convert between text and numeric columns in future weeks. 
 
 1.  Save your QGIS project
 
@@ -390,7 +396,7 @@ This a very basic map and we've just used raw counts to show how to join and map
 
 **We haven't talked about the Coordiante Reference System (CRS) (or Spatial Reference System (SRS)) of our map document**
 
-A coordinate reference system is a series of parameters that define the coordinate system. Within GIS we use geographic or projected coordinate systems. The former uses a three-dimensional spherical surface to define locations of Earth, whereas the latter is defined on a flat, two-dimensional surface giving it constant lengths, angles and areas. We cover this in much more detail later on in subsequent weeks.
+A coordinate reference system is a series of parameters that define the coordinate system. Within GIS we use geographic or projected coordinate systems. The former uses a three-dimensional spherical surface to define locations of Earth, whereas the latter is defined on a flat, two-dimensional surface giving it constant lengths, angles and areas. We cover this in much more detail in subsequent weeks.
 
 QGIS defaults to the Coordinate Reference System (CRS) WGS 84, or known by its European Petroleum Survey Group (EPSG) code 4326. However, when you add your first layer it will default the CRS of the layer. We'll go into the background of EPSG next time.
 
@@ -461,20 +467,6 @@ Here, `repos` stands for repository where we will download the packages from. On
 ```{r echo=FALSE, out.width = "600pt", fig.align='center', cache=FALSE, fig.cap="Installing vs loading (with library) packages. Source: [Dianne Cook](https://twitter.com/visnut)"}
 knitr::include_graphics('prac1_images/install_library.jfif') 
 ```
-
-If you are **using a Mac** you might also need `rgdal`... this is because a lot of packages are dependent on it and it might not properly install...
-
-```{r, message=FALSE, warning=FALSE, eval=FALSE, cache=FALSE}
-install.packages("rgdal")
-```
-
-Then load `rgdal`...
-
-```{r, message=FALSE, warning=FALSE, eval=FALSE, cache=FALSE}
-library(rgdal)
-```
-
-If you still have issues the check out the [Mac R issues] section
 
 #### Load data
 
@@ -743,39 +735,3 @@ Within this practical we have explored the different types, formats and software
 ## Feedback
 
 Was anything that we explained unclear this week or was something really clear...let us know using the [feedback form](https://forms.gle/w2GUDYc7tSavGy7r6). It's anonymous and we'll use the responses to clear any issues up in the future / adapt the material.
-
-## Mac R issues
-
-If you have a Mac and run into issues using R, try this...
-
-It seems that a lot of the packages are dependent on rgdal, which might not properly install...
-
-**Order of operations**
-
-1.  Install java JDK (to respond to error Unable to find any JVMs matching version "(null)", which occurred when we tried to load `OpenStreetMap` package in RStudio)
-
-2.  Download and install the appropriate `.dmg` from [Java SE Development Kit 11.0.1](https://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html)
-
-3.  Run sudo R CMD javareconf in Terminal as described [in this tutorial](http://conjugateprior.org/2014/12/r-java8-osx/)(though don't follow this tutorial exactly, just up to that terminal command).
-
-4.  (Maybe) restart your computer (not really sure when this is necessary).
-
-**Install GDAL**
-
-GDAL, the Geospatial Data Abstraction Library, appears to be a massively important package / library / whatever that a lot of the spatial tools we use depends on. This is where things might be sticky --- we already installed GDAL for QGIS, but obviously RStudio can't find that install ... dunno how to update the pointers, but we found that installing GDAL (again?) solved it. We HOPE that this didn't ruin or break any other software we've installed, only time will tell :grimacing:
-
-1.  To install GDAL on a mac, first (if you haven't) install [homebrew](https://brew.sh/), the mac package manager
-
-This can be done by executing `/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"` in Terminal, inputting password etc.
-
-1.  Now we're ready to brew install gdal (also in Terminal), which will run through and install a massive list of dependencies etc.
-
-**Set up RStudio**
-
-1.  Restart RStudio (if the following doesn't work on first go...)
-
-2.  Run through all the `install.packages()` commands one by one in RStudio and check to make sure that they install.
-
-3.  Check if `rgdal` package is working.
-
-4.  Check the other packages `OpenStreetMap`, `tmap`, etc.

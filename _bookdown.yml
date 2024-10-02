@@ -12,8 +12,9 @@ rmd_files:
 - 06-prac6.Rmd
 - 07-prac7.Rmd
 - 08-prac8.Rmd
-- 12-assignment_resources.Rmd
-- 13-extra.Rmd
+- 12-multiple_linear_regression.Rmd
+- 13-assignment_resources.Rmd
+- 14-extra.Rmd
 
 output_dir: docs
 language:

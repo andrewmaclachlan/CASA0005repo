@@ -1,0 +1,45 @@
+# (PART\*) Extra {-}
+
+# Multiple Linear Regression {-}
+
+Multiple linear regression is explained nicely with this example from [allison_horst](https://twitter.com/allison_horst).
+
+Let's meet our Multiple Linear Regression teaching assistants:
+
+```{r echo=FALSE, out.width = "450pt", fig.align='center', cache=FALSE, message=FALSE, fig.cap="Multiple linear regression assistants. Source: [Allison Horst data science and stats illustrations](https://github.com/allisonhorst/stats-illustrations)"}
+knitr::include_graphics('allisonhorst_images/dragons.png')
+```
+
+Here my research question might be
+
+**What are the factors that might lead to variation in dragon weight?**
+
+We might have both categorical predictor variables such as if the dragon is spotted then they might weight 0.6 more tons than on average...So if the dragon is not spotted then in the equation bellow 0.6 x (0) --- 0 as it's not spotted, it would be 1 if spotted is 0 so the weight would be 2.4 tonnes.
+
+```{r echo=FALSE, out.width = "450pt", fig.align='center', cache=FALSE, message=FALSE, fig.cap="How to interpret coefficients for categorical variables. Source: [Allison Horst data science and stats illustrations](https://github.com/allisonhorst/stats-illustrations)"}
+knitr::include_graphics('allisonhorst_images/dragon_regression.png')
+```
+
+But we could also have a continuous predictor variable ...here a 1 foot taller dragon would have an additional 0.3 tonnes on average, as the equation would be 2.4 + 0.3(1)...
+
+```{r echo=FALSE, out.width = "450pt", fig.align='center', cache=FALSE, message=FALSE, fig.cap="How to interpret coefficients for continuous variables. Source: [Allison Horst data science and stats illustrations](https://github.com/allisonhorst/stats-illustrations)"}
+knitr::include_graphics('allisonhorst_images/dragons_continuous.png')
+```
+
+We can use these equations to make predicitons about a new dragon...here the dragon is striped, so spotted equals 0, and it's height is 5.1. So that gives us 2.4 + (0.3*5.1) which equals 3.9 tonnes. 
+
+```{r echo=FALSE, out.width = "450pt", fig.align='center', cache=FALSE, message=FALSE, fig.cap="How to make predictions using a regression model. Source: [Allison Horst data science and stats illustrations](https://github.com/allisonhorst/stats-illustrations)"}
+knitr::include_graphics('allisonhorst_images/dragons_continuous.png')
+```
+
+However, we need to check the residuals --- difference between the predicted weight and acutal weight...here it's 0.3 tonnes as the actual weight of the dragon was 4.2 tonnes.
+
+```{r echo=FALSE, out.width = "450pt", fig.align='center', cache=FALSE, message=FALSE, fig.cap="How to understand residuals of a regression model. Source: [Allison Horst data science and stats illustrations](https://github.com/allisonhorst/stats-illustrations)"}
+knitr::include_graphics('allisonhorst_images/dragon_residual.png')
+```
+
+Then for all the dragons we need to make sure these residuals are normally distributed, but you should also check all the other assumptions (1-5) shown within this practical and give brief evidence in reports that they are all valid.
+
+```{r echo=FALSE, out.width = "450pt", fig.align='center', cache=FALSE, message=FALSE, fig.cap="Checking residual normality from a regression model. Source: [Allison Horst data science and stats illustrations](https://github.com/allisonhorst/stats-illustrations)"}
+knitr::include_graphics('allisonhorst_images/dragon_residual_distribution.png')
+```
