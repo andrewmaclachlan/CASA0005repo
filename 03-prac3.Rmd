@@ -291,21 +291,18 @@ Now we can actually see some data...here is a quick example of using the Mollwei
 
 pr1 <- terra::project(jan, "+proj=moll +lon_0=0 +x_0=0 +y_0=0 +ellps=WGS84 +datum=WGS84 +units=m +no_defs")
 
-#or....
-
-newproj<-"ESRI:54009"
-# get the jan raster and give it the new proj4
-pr1 <- jan %>%
-  terra::project(., newproj)
-plot(pr1)
 ```
 Now back to WGS84.....
 
+
 ```{r cache=FALSE, warning=FALSE, message=FALSE}
 pr1 <- pr1 %>%
-  terra::project(., "EPSG:4326")
+  terra::project(., "+proj=moll +lon_0=0 +x_0=0 +y_0=0 +datum=WGS84 +units=m +no_defs +type=crs")
 plot(pr1)
 ```
+
+**Note** this long string is the PROJ4 for WGS1984. In the past we could just specify "EPSG:4326" instead. However now we must find the PROJ4 on the [EPSG website](https://epsg.io/27700)
+
 
 ### Data loading
 

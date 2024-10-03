@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 1 Geographic Information | CASA0005 Geographic Information Systems and Science</title>
   <meta name="description" content="The CASA0005 Geographic Information Systems and Science practical book" />
-  <meta name="generator" content="bookdown 0.30 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.40 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 1 Geographic Information | CASA0005 Geographic Information Systems and Science" />
   <meta property="og:type" content="book" />
@@ -23,7 +23,7 @@
 <meta name="author" content="Andy MacLachlan, Adam Dennett and Claire Dooley" />
 
 
-<meta name="date" content="2024-10-02" />
+<meta name="date" content="2024-10-03" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -52,33 +52,34 @@
 <link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
 <link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
 <script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
-<link href="libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
-<link href="libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
-<script src="libs/htmlwidgets-1.6.2/htmlwidgets.js"></script>
+<link href="libs/font-awesome-6.4.2/css/all.min.css" rel="stylesheet" />
+<link href="libs/font-awesome-6.4.2/css/v4-shims.min.css" rel="stylesheet" />
+<link href="libs/htmltools-fill-0.5.8.1/fill.css" rel="stylesheet" />
+<script src="libs/htmlwidgets-1.6.4/htmlwidgets.js"></script>
 <link href="libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet" />
-<script src="libs/datatables-binding-0.23/datatables.js"></script>
-<link href="libs/dt-core-1.11.3/css/jquery.dataTables.min.css" rel="stylesheet" />
-<link href="libs/dt-core-1.11.3/css/jquery.dataTables.extra.css" rel="stylesheet" />
-<script src="libs/dt-core-1.11.3/js/jquery.dataTables.min.js"></script>
+<script src="libs/datatables-binding-0.33/datatables.js"></script>
+<link href="libs/dt-core-1.13.6/css/jquery.dataTables.min.css" rel="stylesheet" />
+<link href="libs/dt-core-1.13.6/css/jquery.dataTables.extra.css" rel="stylesheet" />
+<script src="libs/dt-core-1.13.6/js/jquery.dataTables.min.js"></script>
 <link href="libs/nouislider-7.0.10/jquery.nouislider.min.css" rel="stylesheet" />
 <script src="libs/nouislider-7.0.10/jquery.nouislider.min.js"></script>
 <link href="libs/selectize-0.12.0/selectize.bootstrap3.css" rel="stylesheet" />
 <script src="libs/selectize-0.12.0/selectize.min.js"></script>
-<link href="libs/crosstalk-1.2.0/css/crosstalk.min.css" rel="stylesheet" />
-<script src="libs/crosstalk-1.2.0/js/crosstalk.min.js"></script>
-<script src="libs/plotly-binding-4.10.0/plotly.js"></script>
+<link href="libs/crosstalk-1.2.1/css/crosstalk.min.css" rel="stylesheet" />
+<script src="libs/crosstalk-1.2.1/js/crosstalk.min.js"></script>
+<script src="libs/plotly-binding-4.10.4/plotly.js"></script>
 <script src="libs/typedarray-0.1/typedarray.min.js"></script>
-<link href="libs/plotly-htmlwidgets-css-2.5.1/plotly-htmlwidgets.css" rel="stylesheet" />
-<script src="libs/plotly-main-2.5.1/plotly-latest.min.js"></script>
+<link href="libs/plotly-htmlwidgets-css-2.11.1/plotly-htmlwidgets.css" rel="stylesheet" />
+<script src="libs/plotly-main-2.11.1/plotly-latest.min.js"></script>
 <link href="libs/leaflet-1.3.1/leaflet.css" rel="stylesheet" />
 <script src="libs/leaflet-1.3.1/leaflet.js"></script>
 <link href="libs/leafletfix-1.0.0/leafletfix.css" rel="stylesheet" />
 <script src="libs/proj4-2.6.2/proj4.min.js"></script>
 <script src="libs/Proj4Leaflet-1.0.1/proj4leaflet.js"></script>
 <link href="libs/rstudio_leaflet-1.3.1/rstudio_leaflet.css" rel="stylesheet" />
-<script src="libs/leaflet-binding-2.1.1/leaflet.js"></script>
-<script src="libs/leaflet-providers-1.9.0/leaflet-providers_1.9.0.js"></script>
-<script src="libs/leaflet-providers-plugin-2.1.1/leaflet-providers-plugin.js"></script>
+<script src="libs/leaflet-binding-2.2.2/leaflet.js"></script>
+<script src="libs/leaflet-providers-2.0.0/leaflet-providers_2.0.0.js"></script>
+<script src="libs/leaflet-providers-plugin-2.2.2/leaflet-providers-plugin.js"></script>
 <script src="libs/clipboard-0.0.1/setClipboardText.js"></script>
 <!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-151934476-1"></script>
@@ -849,7 +850,7 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -901,6 +902,10 @@ code span.vs { color: #4e9a06; } /* VerbatimString */
 code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
 <style type="text/css">
 /* Used with Pandoc 2.11+ new --citeproc when CSL is used */
 div.csl-bib-body { }
@@ -1693,7 +1698,7 @@ Figure 1.11: sf introduction graphic. Source: <a href="https://github.com/alliso
 ## Geometry type: MULTIPOLYGON
 ## Dimension:     XY
 ## Bounding box:  xmin: 503568.2 ymin: 155850.8 xmax: 561957.5 ymax: 200933.9
-## Projected CRS: OSGB 1936 / British National Grid</code></pre>
+## Projected CRS: OSGB36 / British National Grid</code></pre>
 <blockquote>
 <p><strong>Note</strong> If you are working on the UCL RStudio Server and have a shapefile (along with all the other relevant files required) you will just need to use…</p>
 </blockquote>
@@ -1730,7 +1735,7 @@ Figure 1.11: sf introduction graphic. Source: <a href="https://github.com/alliso
 <span id="cb11-2"><a href="geographic-information.html#cb11-2" tabindex="-1"></a><span class="co">#this needs to be your file path again</span></span>
 <span id="cb11-3"><a href="geographic-information.html#cb11-3" tabindex="-1"></a>mycsv <span class="ot">&lt;-</span>  <span class="fu">read_csv</span>(<span class="st">&quot;C:/Users/Andy/OneDrive - University College London/Teaching/CASA0005/2020_2021/CASA0005repo/prac1_data/fly_tipping_borough_edit.csv&quot;</span>)  </span></code></pre></div>
 <pre><code>## Rows: 34 Columns: 9
-## ── Column specification ─────────────────────────────
+## ── Column specification ────────────────────────────────────────────────────────────────────
 ## Delimiter: &quot;,&quot;
 ## chr (1): Row Labels
 ## dbl (8): 2011_12, 2012_13, 2013_14, 2014_15, 2015_16, 2016_17, 2017_18, Gran...
@@ -1744,20 +1749,20 @@ Figure 1.11: sf introduction graphic. Source: <a href="https://github.com/alliso
 <p>To view the data just input:</p>
 <div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="geographic-information.html#cb13-1" tabindex="-1"></a>mycsv </span></code></pre></div>
 <pre><code>## # A tibble: 34 × 9
-##    `Row Labels` 2011_1…¹ 2012_…² 2013_…³ 2014_…⁴ 2015_…⁵ 2016_…⁶ 2017_…⁷ Grand…⁸
-##    &lt;chr&gt;           &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;
-##  1 E09000001         563    1492     433     347     587    1944    2579    7945
-##  2 E09000002        2687    2122    1399    3100    2672    1130    1066   14176
-##  3 E09000003        2356    1828     890     219     615     130     503    6541
-##  4 E09000004         505     627     732     399     262     439     327    3291
-##  5 E09000005        6713    2232    3189    3926    3980    4366    7483   31889
-##  6 E09000006         306     479     653     462     326     228     258    2712
-##  7 E09000007        5541    5962    8281    4837    4719    4656   12671   46667
-##  8 E09000008          31     108     460     712    1707     637    2684    6339
-##  9 E09000009        6727    5679    6543    5521    6067   12688    5471   48696
-## 10 E09000010        7262    3595    3269    4937    5292   10894    5855   41104
-## # … with 24 more rows, and abbreviated variable names ¹​`2011_12`, ²​`2012_13`,
-## #   ³​`2013_14`, ⁴​`2014_15`, ⁵​`2015_16`, ⁶​`2016_17`, ⁷​`2017_18`, ⁸​Grand_Total</code></pre>
+##    `Row Labels` `2011_12` `2012_13` `2013_14` `2014_15` `2015_16` `2016_17`
+##    &lt;chr&gt;            &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;
+##  1 E09000001          563      1492       433       347       587      1944
+##  2 E09000002         2687      2122      1399      3100      2672      1130
+##  3 E09000003         2356      1828       890       219       615       130
+##  4 E09000004          505       627       732       399       262       439
+##  5 E09000005         6713      2232      3189      3926      3980      4366
+##  6 E09000006          306       479       653       462       326       228
+##  7 E09000007         5541      5962      8281      4837      4719      4656
+##  8 E09000008           31       108       460       712      1707       637
+##  9 E09000009         6727      5679      6543      5521      6067     12688
+## 10 E09000010         7262      3595      3269      4937      5292     10894
+## # ℹ 24 more rows
+## # ℹ 2 more variables: `2017_18` &lt;dbl&gt;, Grand_Total &lt;dbl&gt;</code></pre>
 </div>
 <div id="join-data-1" class="section level4 hasAnchor" number="1.6.5.3">
 <h4><span class="header-section-number">1.6.5.3</span> Join data<a href="geographic-information.html#join-data-1" class="anchor-section" aria-label="Anchor link to header"></a></h4>
@@ -1776,7 +1781,7 @@ Figure 1.11: sf introduction graphic. Source: <a href="https://github.com/alliso
 ## Geometry type: MULTIPOLYGON
 ## Dimension:     XY
 ## Bounding box:  xmin: 509702.4 ymin: 155850.8 xmax: 554089.2 ymax: 200933.9
-## Projected CRS: OSGB 1936 / British National Grid
+## Projected CRS: OSGB36 / British National Grid
 ##     GSS_CODE                 NAME  HECTARES NONLD_AREA ONS_INNER SUB_2009
 ## 1  E09000001       City of London   314.942     24.546         T     &lt;NA&gt;
 ## 2  E09000002 Barking and Dagenham  3779.934    169.150         F     &lt;NA&gt;
@@ -1812,35 +1817,34 @@ Figure 1.11: sf introduction graphic. Source: <a href="https://github.com/alliso
 ## 10 MULTIPOLYGON (((531023.5 20...</code></pre>
 <p>Now, let’s make a quick thematic map (or a qtm) using the package <code>tmap</code>. I’ve made mine for flytipping between 2011 and 2012 (column 2011_12). But check what your column name is from the above code <code>head(shape, n=10)</code> it might be slightly different like 2011-2012 or x2011_2012….</p>
 <p><img src="prac1_images/colname.png" width="600pt" style="display: block; margin: auto;" /></p>
-<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="geographic-information.html#cb18-1" tabindex="-1"></a><span class="fu">library</span>(tmap)</span></code></pre></div>
-<pre><code>## Warning: package &#39;tmap&#39; was built under R version 4.2.3</code></pre>
-<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="geographic-information.html#cb20-1" tabindex="-1"></a><span class="fu">tmap_mode</span>(<span class="st">&quot;plot&quot;</span>)</span>
-<span id="cb20-2"><a href="geographic-information.html#cb20-2" tabindex="-1"></a><span class="co"># change the fill to your column name if different</span></span>
-<span id="cb20-3"><a href="geographic-information.html#cb20-3" tabindex="-1"></a>shape <span class="sc">%&gt;%</span></span>
-<span id="cb20-4"><a href="geographic-information.html#cb20-4" tabindex="-1"></a>  <span class="fu">qtm</span>(.,<span class="at">fill =</span> <span class="st">&quot;2011_12&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="geographic-information.html#cb18-1" tabindex="-1"></a><span class="fu">library</span>(tmap)</span>
+<span id="cb18-2"><a href="geographic-information.html#cb18-2" tabindex="-1"></a><span class="fu">tmap_mode</span>(<span class="st">&quot;plot&quot;</span>)</span>
+<span id="cb18-3"><a href="geographic-information.html#cb18-3" tabindex="-1"></a><span class="co"># change the fill to your column name if different</span></span>
+<span id="cb18-4"><a href="geographic-information.html#cb18-4" tabindex="-1"></a>shape <span class="sc">%&gt;%</span></span>
+<span id="cb18-5"><a href="geographic-information.html#cb18-5" tabindex="-1"></a>  <span class="fu">qtm</span>(.,<span class="at">fill =</span> <span class="st">&quot;2011_12&quot;</span>)</span></code></pre></div>
 <p><img src="CASA0005_files/figure-html/unnamed-chunk-46-1.png" width="672" /></p>
 </div>
 </div>
 <div id="export-data-1" class="section level3 hasAnchor" number="1.6.6">
 <h3><span class="header-section-number">1.6.6</span> Export data<a href="geographic-information.html#export-data-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Finally write shape to a new GeoPackage (<code>.gpkg</code>) giving it the layer name of your choice:</p>
-<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="geographic-information.html#cb21-1" tabindex="-1"></a>shape <span class="sc">%&gt;%</span></span>
-<span id="cb21-2"><a href="geographic-information.html#cb21-2" tabindex="-1"></a>  <span class="fu">st_write</span>(.,<span class="st">&quot;C:/Users/Andy/OneDrive - University College London/Teaching/CASA0005/2020_2021/CASA0005repo/prac1_data/Rwk1.gpkg&quot;</span>,</span>
-<span id="cb21-3"><a href="geographic-information.html#cb21-3" tabindex="-1"></a>           <span class="st">&quot;london_boroughs_fly_tipping&quot;</span>,</span>
-<span id="cb21-4"><a href="geographic-information.html#cb21-4" tabindex="-1"></a>           <span class="at">delete_layer=</span><span class="cn">TRUE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="geographic-information.html#cb19-1" tabindex="-1"></a>shape <span class="sc">%&gt;%</span></span>
+<span id="cb19-2"><a href="geographic-information.html#cb19-2" tabindex="-1"></a>  <span class="fu">st_write</span>(.,<span class="st">&quot;C:/Users/Andy/OneDrive - University College London/Teaching/CASA0005/2020_2021/CASA0005repo/prac1_data/Rwk1.gpkg&quot;</span>,</span>
+<span id="cb19-3"><a href="geographic-information.html#cb19-3" tabindex="-1"></a>           <span class="st">&quot;london_boroughs_fly_tipping&quot;</span>,</span>
+<span id="cb19-4"><a href="geographic-information.html#cb19-4" tabindex="-1"></a>           <span class="at">delete_layer=</span><span class="cn">TRUE</span>)</span></code></pre></div>
 <pre><code>## Deleting layer `london_boroughs_fly_tipping&#39; using driver `GPKG&#39;
 ## Writing layer `london_boroughs_fly_tipping&#39; to data source 
 ##   `C:/Users/Andy/OneDrive - University College London/Teaching/CASA0005/2020_2021/CASA0005repo/prac1_data/Rwk1.gpkg&#39; using driver `GPKG&#39;
 ## Writing 33 features with 15 fields and geometry type Multi Polygon.</code></pre>
 <p>So here, we are saying the shape is the object we want to save, then to the GeoPackage file path, with the layer name of <code>london_boroughs_fly_tipping</code>. I’ve set <code>delete_layer</code> to true so I could overwrite mine when I developed this practical. Changing it to false would generate an error message if you ever tried to re-run the code.</p>
 <p>Let’s also add the <code>.csv</code> as we did in QGIS. This is a bit more complicated as we have to use the SQLite database package. Firstly, connect to the <code>.gpkg</code> we just made:</p>
-<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="geographic-information.html#cb23-1" tabindex="-1"></a><span class="fu">library</span>(readr)</span>
-<span id="cb23-2"><a href="geographic-information.html#cb23-2" tabindex="-1"></a><span class="fu">library</span>(RSQLite)</span>
-<span id="cb23-3"><a href="geographic-information.html#cb23-3" tabindex="-1"></a></span>
-<span id="cb23-4"><a href="geographic-information.html#cb23-4" tabindex="-1"></a>con <span class="ot">&lt;-</span> <span class="fu">dbConnect</span>(RSQLite<span class="sc">::</span><span class="fu">SQLite</span>(),<span class="at">dbname=</span><span class="st">&quot;C:/Users/Andy/OneDrive - University College London/Teaching/CASA0005/2020_2021/CASA0005repo/prac1_data/Rwk1.gpkg&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="geographic-information.html#cb21-1" tabindex="-1"></a><span class="fu">library</span>(readr)</span>
+<span id="cb21-2"><a href="geographic-information.html#cb21-2" tabindex="-1"></a><span class="fu">library</span>(RSQLite)</span>
+<span id="cb21-3"><a href="geographic-information.html#cb21-3" tabindex="-1"></a></span>
+<span id="cb21-4"><a href="geographic-information.html#cb21-4" tabindex="-1"></a>con <span class="ot">&lt;-</span> <span class="fu">dbConnect</span>(RSQLite<span class="sc">::</span><span class="fu">SQLite</span>(),<span class="at">dbname=</span><span class="st">&quot;C:/Users/Andy/OneDrive - University College London/Teaching/CASA0005/2020_2021/CASA0005repo/prac1_data/Rwk1.gpkg&quot;</span>)</span></code></pre></div>
 <p>Now examine what is in the <code>.gpkg</code>…you can see that i’ve already got my <code>original_csv</code> stored within the <code>.gpkg</code> as when i developed this practical i made sure it was working!</p>
-<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="geographic-information.html#cb24-1" tabindex="-1"></a>con <span class="sc">%&gt;%</span></span>
-<span id="cb24-2"><a href="geographic-information.html#cb24-2" tabindex="-1"></a>  <span class="fu">dbListTables</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="geographic-information.html#cb22-1" tabindex="-1"></a>con <span class="sc">%&gt;%</span></span>
+<span id="cb22-2"><a href="geographic-information.html#cb22-2" tabindex="-1"></a>  <span class="fu">dbListTables</span>()</span></code></pre></div>
 <pre><code>##  [1] &quot;gpkg_contents&quot;                                
 ##  [2] &quot;gpkg_extensions&quot;                              
 ##  [3] &quot;gpkg_geometry_columns&quot;                        
@@ -1858,61 +1862,59 @@ Figure 1.11: sf introduction graphic. Source: <a href="https://github.com/alliso
 ## [15] &quot;rtree_london_boroughs_fly_tipping_geom_rowid&quot; 
 ## [16] &quot;sqlite_sequence&quot;</code></pre>
 <p>Add your <code>.csv</code> and disconnect from the <code>.gpkg</code>:</p>
-<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="geographic-information.html#cb26-1" tabindex="-1"></a>con <span class="sc">%&gt;%</span></span>
-<span id="cb26-2"><a href="geographic-information.html#cb26-2" tabindex="-1"></a>  <span class="fu">dbWriteTable</span>(.,</span>
-<span id="cb26-3"><a href="geographic-information.html#cb26-3" tabindex="-1"></a>               <span class="st">&quot;original_csv&quot;</span>,</span>
-<span id="cb26-4"><a href="geographic-information.html#cb26-4" tabindex="-1"></a>               mycsv,</span>
-<span id="cb26-5"><a href="geographic-information.html#cb26-5" tabindex="-1"></a>               <span class="at">overwrite=</span><span class="cn">TRUE</span>)</span>
-<span id="cb26-6"><a href="geographic-information.html#cb26-6" tabindex="-1"></a></span>
-<span id="cb26-7"><a href="geographic-information.html#cb26-7" tabindex="-1"></a>con <span class="sc">%&gt;%</span> </span>
-<span id="cb26-8"><a href="geographic-information.html#cb26-8" tabindex="-1"></a>  <span class="fu">dbDisconnect</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="geographic-information.html#cb24-1" tabindex="-1"></a>con <span class="sc">%&gt;%</span></span>
+<span id="cb24-2"><a href="geographic-information.html#cb24-2" tabindex="-1"></a>  <span class="fu">dbWriteTable</span>(.,</span>
+<span id="cb24-3"><a href="geographic-information.html#cb24-3" tabindex="-1"></a>               <span class="st">&quot;original_csv&quot;</span>,</span>
+<span id="cb24-4"><a href="geographic-information.html#cb24-4" tabindex="-1"></a>               mycsv,</span>
+<span id="cb24-5"><a href="geographic-information.html#cb24-5" tabindex="-1"></a>               <span class="at">overwrite=</span><span class="cn">TRUE</span>)</span>
+<span id="cb24-6"><a href="geographic-information.html#cb24-6" tabindex="-1"></a></span>
+<span id="cb24-7"><a href="geographic-information.html#cb24-7" tabindex="-1"></a>con <span class="sc">%&gt;%</span> </span>
+<span id="cb24-8"><a href="geographic-information.html#cb24-8" tabindex="-1"></a>  <span class="fu">dbDisconnect</span>()</span></code></pre></div>
 <p>Here <code>overwrite</code> let’s you well..overwrite the exisiting file…if this wasn’t specified as true you would get an error saying the file already existed if you tried to run this code again.</p>
 <div id="making-a-script" class="section level4 hasAnchor" number="1.6.6.1">
 <h4><span class="header-section-number">1.6.6.1</span> Making a script<a href="geographic-information.html#making-a-script" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>To convert this bit of analysis into a script that we could save and run again in future, I would write the following in the script quadrant:</p>
-<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="geographic-information.html#cb27-1" tabindex="-1"></a><span class="fu">library</span>(sf)</span>
-<span id="cb27-2"><a href="geographic-information.html#cb27-2" tabindex="-1"></a><span class="fu">library</span>(tmap) </span>
-<span id="cb27-3"><a href="geographic-information.html#cb27-3" tabindex="-1"></a><span class="fu">library</span>(tmaptools)</span>
-<span id="cb27-4"><a href="geographic-information.html#cb27-4" tabindex="-1"></a><span class="fu">library</span>(RSQLite)</span>
-<span id="cb27-5"><a href="geographic-information.html#cb27-5" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb27-6"><a href="geographic-information.html#cb27-6" tabindex="-1"></a><span class="co">#read in the shapefile</span></span>
-<span id="cb27-7"><a href="geographic-information.html#cb27-7" tabindex="-1"></a></span>
-<span id="cb27-8"><a href="geographic-information.html#cb27-8" tabindex="-1"></a>shape <span class="ot">&lt;-</span> <span class="fu">st_read</span>(</span>
-<span id="cb27-9"><a href="geographic-information.html#cb27-9" tabindex="-1"></a>  <span class="st">&quot;C:/Users/Andy/OneDrive - University College London/Teaching/CASA0005/2020_2021/CASA0005repo/prac1_data/statistical-gis-boundaries-london/ESRI/London_Borough_Excluding_MHW.shp&quot;</span>)</span>
-<span id="cb27-10"><a href="geographic-information.html#cb27-10" tabindex="-1"></a><span class="co"># read in the csv</span></span>
-<span id="cb27-11"><a href="geographic-information.html#cb27-11" tabindex="-1"></a>mycsv <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;C:/Users/Andy/OneDrive - University College London/Teaching/CASA0005/2020_2021/CASA0005repo/prac1_data/fly_tipping_borough_edit.csv&quot;</span>)  </span>
-<span id="cb27-12"><a href="geographic-information.html#cb27-12" tabindex="-1"></a><span class="co"># merge csv and shapefile</span></span>
-<span id="cb27-13"><a href="geographic-information.html#cb27-13" tabindex="-1"></a>shape <span class="ot">&lt;-</span> shape<span class="sc">%&gt;%</span></span>
-<span id="cb27-14"><a href="geographic-information.html#cb27-14" tabindex="-1"></a>  <span class="fu">merge</span>(.,</span>
-<span id="cb27-15"><a href="geographic-information.html#cb27-15" tabindex="-1"></a>        mycsv,</span>
-<span id="cb27-16"><a href="geographic-information.html#cb27-16" tabindex="-1"></a>        <span class="at">by.x=</span><span class="st">&quot;GSS_CODE&quot;</span>, </span>
-<span id="cb27-17"><a href="geographic-information.html#cb27-17" tabindex="-1"></a>        <span class="at">by.y=</span><span class="st">&quot;Row Labels&quot;</span>)</span>
-<span id="cb27-18"><a href="geographic-information.html#cb27-18" tabindex="-1"></a><span class="co"># set tmap to plot</span></span>
-<span id="cb27-19"><a href="geographic-information.html#cb27-19" tabindex="-1"></a><span class="fu">tmap_mode</span>(<span class="st">&quot;plot&quot;</span>)</span>
-<span id="cb27-20"><a href="geographic-information.html#cb27-20" tabindex="-1"></a><span class="co"># have a look at the map</span></span>
-<span id="cb27-21"><a href="geographic-information.html#cb27-21" tabindex="-1"></a><span class="fu">qtm</span>(shape, <span class="at">fill =</span> <span class="st">&quot;2011_12&quot;</span>)</span>
-<span id="cb27-22"><a href="geographic-information.html#cb27-22" tabindex="-1"></a><span class="co"># write to a .gpkg</span></span>
-<span id="cb27-23"><a href="geographic-information.html#cb27-23" tabindex="-1"></a>shape <span class="sc">%&gt;%</span></span>
-<span id="cb27-24"><a href="geographic-information.html#cb27-24" tabindex="-1"></a>  <span class="fu">st_write</span>(.,<span class="st">&quot;C:/Users/Andy/OneDrive - University College London/Teaching/CASA0005/2020_2021/CASA0005repo/prac1_data/Rwk1.gpkg&quot;</span>,</span>
-<span id="cb27-25"><a href="geographic-information.html#cb27-25" tabindex="-1"></a>           <span class="st">&quot;london_boroughs_fly_tipping&quot;</span>,</span>
-<span id="cb27-26"><a href="geographic-information.html#cb27-26" tabindex="-1"></a>           <span class="at">delete_layer=</span><span class="cn">TRUE</span>)</span>
-<span id="cb27-27"><a href="geographic-information.html#cb27-27" tabindex="-1"></a><span class="co"># connect to the .gpkg</span></span>
-<span id="cb27-28"><a href="geographic-information.html#cb27-28" tabindex="-1"></a>con <span class="ot">&lt;-</span> <span class="fu">dbConnect</span>(<span class="fu">SQLite</span>(),<span class="at">dbname=</span><span class="st">&quot;C:/Users/Andy/OneDrive - University College London/Teaching/CASA0005/2020_2021/CASA0005repo/prac1_data/Rwk1.gpkg&quot;</span>)</span>
-<span id="cb27-29"><a href="geographic-information.html#cb27-29" tabindex="-1"></a><span class="co"># list what is in it</span></span>
-<span id="cb27-30"><a href="geographic-information.html#cb27-30" tabindex="-1"></a>con <span class="sc">%&gt;%</span></span>
-<span id="cb27-31"><a href="geographic-information.html#cb27-31" tabindex="-1"></a>  <span class="fu">dbListTables</span>()</span>
-<span id="cb27-32"><a href="geographic-information.html#cb27-32" tabindex="-1"></a><span class="co"># add the original .csv</span></span>
-<span id="cb27-33"><a href="geographic-information.html#cb27-33" tabindex="-1"></a>con <span class="sc">%&gt;%</span></span>
-<span id="cb27-34"><a href="geographic-information.html#cb27-34" tabindex="-1"></a>  <span class="fu">dbWriteTable</span>(.,</span>
-<span id="cb27-35"><a href="geographic-information.html#cb27-35" tabindex="-1"></a>               <span class="st">&quot;original_csv&quot;</span>,</span>
-<span id="cb27-36"><a href="geographic-information.html#cb27-36" tabindex="-1"></a>               mycsv,</span>
-<span id="cb27-37"><a href="geographic-information.html#cb27-37" tabindex="-1"></a>               <span class="at">overwrite=</span><span class="cn">TRUE</span>)</span>
-<span id="cb27-38"><a href="geographic-information.html#cb27-38" tabindex="-1"></a><span class="co"># disconnect from it</span></span>
-<span id="cb27-39"><a href="geographic-information.html#cb27-39" tabindex="-1"></a>con <span class="sc">%&gt;%</span> </span>
-<span id="cb27-40"><a href="geographic-information.html#cb27-40" tabindex="-1"></a>  <span class="fu">dbDisconnect</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="geographic-information.html#cb25-1" tabindex="-1"></a><span class="fu">library</span>(sf)</span>
+<span id="cb25-2"><a href="geographic-information.html#cb25-2" tabindex="-1"></a><span class="fu">library</span>(tmap) </span>
+<span id="cb25-3"><a href="geographic-information.html#cb25-3" tabindex="-1"></a><span class="fu">library</span>(tmaptools)</span>
+<span id="cb25-4"><a href="geographic-information.html#cb25-4" tabindex="-1"></a><span class="fu">library</span>(RSQLite)</span>
+<span id="cb25-5"><a href="geographic-information.html#cb25-5" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb25-6"><a href="geographic-information.html#cb25-6" tabindex="-1"></a><span class="co">#read in the shapefile</span></span>
+<span id="cb25-7"><a href="geographic-information.html#cb25-7" tabindex="-1"></a></span>
+<span id="cb25-8"><a href="geographic-information.html#cb25-8" tabindex="-1"></a>shape <span class="ot">&lt;-</span> <span class="fu">st_read</span>(</span>
+<span id="cb25-9"><a href="geographic-information.html#cb25-9" tabindex="-1"></a>  <span class="st">&quot;C:/Users/Andy/OneDrive - University College London/Teaching/CASA0005/2020_2021/CASA0005repo/prac1_data/statistical-gis-boundaries-london/ESRI/London_Borough_Excluding_MHW.shp&quot;</span>)</span>
+<span id="cb25-10"><a href="geographic-information.html#cb25-10" tabindex="-1"></a><span class="co"># read in the csv</span></span>
+<span id="cb25-11"><a href="geographic-information.html#cb25-11" tabindex="-1"></a>mycsv <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;C:/Users/Andy/OneDrive - University College London/Teaching/CASA0005/2020_2021/CASA0005repo/prac1_data/fly_tipping_borough_edit.csv&quot;</span>)  </span>
+<span id="cb25-12"><a href="geographic-information.html#cb25-12" tabindex="-1"></a><span class="co"># merge csv and shapefile</span></span>
+<span id="cb25-13"><a href="geographic-information.html#cb25-13" tabindex="-1"></a>shape <span class="ot">&lt;-</span> shape<span class="sc">%&gt;%</span></span>
+<span id="cb25-14"><a href="geographic-information.html#cb25-14" tabindex="-1"></a>  <span class="fu">merge</span>(.,</span>
+<span id="cb25-15"><a href="geographic-information.html#cb25-15" tabindex="-1"></a>        mycsv,</span>
+<span id="cb25-16"><a href="geographic-information.html#cb25-16" tabindex="-1"></a>        <span class="at">by.x=</span><span class="st">&quot;GSS_CODE&quot;</span>, </span>
+<span id="cb25-17"><a href="geographic-information.html#cb25-17" tabindex="-1"></a>        <span class="at">by.y=</span><span class="st">&quot;Row Labels&quot;</span>)</span>
+<span id="cb25-18"><a href="geographic-information.html#cb25-18" tabindex="-1"></a><span class="co"># set tmap to plot</span></span>
+<span id="cb25-19"><a href="geographic-information.html#cb25-19" tabindex="-1"></a><span class="fu">tmap_mode</span>(<span class="st">&quot;plot&quot;</span>)</span>
+<span id="cb25-20"><a href="geographic-information.html#cb25-20" tabindex="-1"></a><span class="co"># have a look at the map</span></span>
+<span id="cb25-21"><a href="geographic-information.html#cb25-21" tabindex="-1"></a><span class="fu">qtm</span>(shape, <span class="at">fill =</span> <span class="st">&quot;2011_12&quot;</span>)</span>
+<span id="cb25-22"><a href="geographic-information.html#cb25-22" tabindex="-1"></a><span class="co"># write to a .gpkg</span></span>
+<span id="cb25-23"><a href="geographic-information.html#cb25-23" tabindex="-1"></a>shape <span class="sc">%&gt;%</span></span>
+<span id="cb25-24"><a href="geographic-information.html#cb25-24" tabindex="-1"></a>  <span class="fu">st_write</span>(.,<span class="st">&quot;C:/Users/Andy/OneDrive - University College London/Teaching/CASA0005/2020_2021/CASA0005repo/prac1_data/Rwk1.gpkg&quot;</span>,</span>
+<span id="cb25-25"><a href="geographic-information.html#cb25-25" tabindex="-1"></a>           <span class="st">&quot;london_boroughs_fly_tipping&quot;</span>,</span>
+<span id="cb25-26"><a href="geographic-information.html#cb25-26" tabindex="-1"></a>           <span class="at">delete_layer=</span><span class="cn">TRUE</span>)</span>
+<span id="cb25-27"><a href="geographic-information.html#cb25-27" tabindex="-1"></a><span class="co"># connect to the .gpkg</span></span>
+<span id="cb25-28"><a href="geographic-information.html#cb25-28" tabindex="-1"></a>con <span class="ot">&lt;-</span> <span class="fu">dbConnect</span>(<span class="fu">SQLite</span>(),<span class="at">dbname=</span><span class="st">&quot;C:/Users/Andy/OneDrive - University College London/Teaching/CASA0005/2020_2021/CASA0005repo/prac1_data/Rwk1.gpkg&quot;</span>)</span>
+<span id="cb25-29"><a href="geographic-information.html#cb25-29" tabindex="-1"></a><span class="co"># list what is in it</span></span>
+<span id="cb25-30"><a href="geographic-information.html#cb25-30" tabindex="-1"></a>con <span class="sc">%&gt;%</span></span>
+<span id="cb25-31"><a href="geographic-information.html#cb25-31" tabindex="-1"></a>  <span class="fu">dbListTables</span>()</span>
+<span id="cb25-32"><a href="geographic-information.html#cb25-32" tabindex="-1"></a><span class="co"># add the original .csv</span></span>
+<span id="cb25-33"><a href="geographic-information.html#cb25-33" tabindex="-1"></a>con <span class="sc">%&gt;%</span></span>
+<span id="cb25-34"><a href="geographic-information.html#cb25-34" tabindex="-1"></a>  <span class="fu">dbWriteTable</span>(.,</span>
+<span id="cb25-35"><a href="geographic-information.html#cb25-35" tabindex="-1"></a>               <span class="st">&quot;original_csv&quot;</span>,</span>
+<span id="cb25-36"><a href="geographic-information.html#cb25-36" tabindex="-1"></a>               mycsv,</span>
+<span id="cb25-37"><a href="geographic-information.html#cb25-37" tabindex="-1"></a>               <span class="at">overwrite=</span><span class="cn">TRUE</span>)</span>
+<span id="cb25-38"><a href="geographic-information.html#cb25-38" tabindex="-1"></a><span class="co"># disconnect from it</span></span>
+<span id="cb25-39"><a href="geographic-information.html#cb25-39" tabindex="-1"></a>con <span class="sc">%&gt;%</span> </span>
+<span id="cb25-40"><a href="geographic-information.html#cb25-40" tabindex="-1"></a>  <span class="fu">dbDisconnect</span>()</span></code></pre></div>
 <p>You can then save your script through File &gt; Save As.</p>
-<p>If you are on a Mac you might also need to load <code>rgdal</code>…just add the following at the top of the script.</p>
-<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="geographic-information.html#cb28-1" tabindex="-1"></a><span class="fu">library</span>(rgdal)</span></code></pre></div>
 </div>
 </div>
 <div id="what-will-i-use-1" class="section level3 hasAnchor" number="1.6.7">

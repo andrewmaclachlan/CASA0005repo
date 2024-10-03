@@ -64,12 +64,8 @@ To answer this question, we will make use of some of the Point Pattern Analysis 
 library(spatstat)
 library(here)
 library(sp)
-library(rgeos)
-library(maptools)
 library(tmap)
 library(sf)
-library(geojson)
-library(geojsonio)
 library(tmaptools)
 ```
 ## Setting up your data
@@ -589,7 +585,6 @@ Quadrat and Ripley's K analysis are useful exploratory techniques for telling us
 or consult the [wikipedia page](https://en.wikipedia.org/wiki/DBSCAN)
 
 ```{r, message=FALSE, warning=FALSE, cache=FALSE}
-library(raster)
 library(fpc)
 ```
 
@@ -708,6 +703,7 @@ HarrowWGSbb <- Harrow %>%
 
 Now convert the basemap to British National Grid
 
+
 ```{r, cache=FALSE, message=FALSE, warning=FALSE}
 library(OpenStreetMap)
 
@@ -716,8 +712,11 @@ basemap <- OpenStreetMap::openmap(c(51.5549876,-0.4040502),c(51.6405356,-0.26713
                          "osm")
 
   # convert the basemap to British National Grid
-basemap_bng <- openproj(basemap, projection="+init=epsg:27700")
+basemap_bng <- openproj(basemap, projection="+proj=tmerc +lat_0=49 +lon_0=-2 +k=0.9996012717 +x_0=400000 +y_0=-100000 +ellps=airy +nadgrids=OSTN15_NTv2_OSGBtoETRS.gsb +units=m +no_defs +type=crs")
 ```
+
+**Note** this long string is the PROJ4 for British National Grid (EPSG 27700). In the past we could just specify "+init=epsg:27700". However now we must find the PROJ4 on the [EPSG website](https://epsg.io/27700)
+
 Now we can plot our fancy map with the clusters on...
 
 ```{r, cache=FALSE}

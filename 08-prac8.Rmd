@@ -92,12 +92,9 @@ First, let's set up R and read in some data to enable us to carry out our analys
 #library a bunch of packages we may (or may not) use - install them first if not installed already. 
 library(tidyverse)
 library(tmap)
-library(geojsonio)
 library(plotly)
-library(rgdal)
 library(broom)
 library(mapview)
-library(crosstalk)
 library(sf)
 library(sp)
 library(spdep)
@@ -1183,11 +1180,8 @@ Let's try it!
 ```{r, message=FALSE, cache=FALSE}
 #first, let's make sure R is reading our InnerOuter variable as a factor
 #see what it is at the moment...
-isitfactor <- LonWardProfiles %>%
-  dplyr::select(inner_outer)%>%
-  summarise_all(class)
 
-isitfactor
+class(LonWardProfiles$inner_outer)
 
 # change to factor
 

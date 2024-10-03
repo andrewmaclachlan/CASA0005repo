@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Chapter 4 Git, GitHub and RMarkdown | CASA0005 Geographic Information Systems and Science</title>
   <meta name="description" content="The CASA0005 Geographic Information Systems and Science practical book" />
-  <meta name="generator" content="bookdown 0.30 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.40 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Chapter 4 Git, GitHub and RMarkdown | CASA0005 Geographic Information Systems and Science" />
   <meta property="og:type" content="book" />
@@ -23,7 +23,7 @@
 <meta name="author" content="Andy MacLachlan, Adam Dennett and Claire Dooley" />
 
 
-<meta name="date" content="2024-10-02" />
+<meta name="date" content="2024-10-03" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -52,33 +52,34 @@
 <link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
 <link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
 <script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
-<link href="libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
-<link href="libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
-<script src="libs/htmlwidgets-1.6.2/htmlwidgets.js"></script>
+<link href="libs/font-awesome-6.4.2/css/all.min.css" rel="stylesheet" />
+<link href="libs/font-awesome-6.4.2/css/v4-shims.min.css" rel="stylesheet" />
+<link href="libs/htmltools-fill-0.5.8.1/fill.css" rel="stylesheet" />
+<script src="libs/htmlwidgets-1.6.4/htmlwidgets.js"></script>
 <link href="libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet" />
-<script src="libs/datatables-binding-0.23/datatables.js"></script>
-<link href="libs/dt-core-1.11.3/css/jquery.dataTables.min.css" rel="stylesheet" />
-<link href="libs/dt-core-1.11.3/css/jquery.dataTables.extra.css" rel="stylesheet" />
-<script src="libs/dt-core-1.11.3/js/jquery.dataTables.min.js"></script>
+<script src="libs/datatables-binding-0.33/datatables.js"></script>
+<link href="libs/dt-core-1.13.6/css/jquery.dataTables.min.css" rel="stylesheet" />
+<link href="libs/dt-core-1.13.6/css/jquery.dataTables.extra.css" rel="stylesheet" />
+<script src="libs/dt-core-1.13.6/js/jquery.dataTables.min.js"></script>
 <link href="libs/nouislider-7.0.10/jquery.nouislider.min.css" rel="stylesheet" />
 <script src="libs/nouislider-7.0.10/jquery.nouislider.min.js"></script>
 <link href="libs/selectize-0.12.0/selectize.bootstrap3.css" rel="stylesheet" />
 <script src="libs/selectize-0.12.0/selectize.min.js"></script>
-<link href="libs/crosstalk-1.2.0/css/crosstalk.min.css" rel="stylesheet" />
-<script src="libs/crosstalk-1.2.0/js/crosstalk.min.js"></script>
-<script src="libs/plotly-binding-4.10.0/plotly.js"></script>
+<link href="libs/crosstalk-1.2.1/css/crosstalk.min.css" rel="stylesheet" />
+<script src="libs/crosstalk-1.2.1/js/crosstalk.min.js"></script>
+<script src="libs/plotly-binding-4.10.4/plotly.js"></script>
 <script src="libs/typedarray-0.1/typedarray.min.js"></script>
-<link href="libs/plotly-htmlwidgets-css-2.5.1/plotly-htmlwidgets.css" rel="stylesheet" />
-<script src="libs/plotly-main-2.5.1/plotly-latest.min.js"></script>
+<link href="libs/plotly-htmlwidgets-css-2.11.1/plotly-htmlwidgets.css" rel="stylesheet" />
+<script src="libs/plotly-main-2.11.1/plotly-latest.min.js"></script>
 <link href="libs/leaflet-1.3.1/leaflet.css" rel="stylesheet" />
 <script src="libs/leaflet-1.3.1/leaflet.js"></script>
 <link href="libs/leafletfix-1.0.0/leafletfix.css" rel="stylesheet" />
 <script src="libs/proj4-2.6.2/proj4.min.js"></script>
 <script src="libs/Proj4Leaflet-1.0.1/proj4leaflet.js"></script>
 <link href="libs/rstudio_leaflet-1.3.1/rstudio_leaflet.css" rel="stylesheet" />
-<script src="libs/leaflet-binding-2.1.1/leaflet.js"></script>
-<script src="libs/leaflet-providers-1.9.0/leaflet-providers_1.9.0.js"></script>
-<script src="libs/leaflet-providers-plugin-2.1.1/leaflet-providers-plugin.js"></script>
+<script src="libs/leaflet-binding-2.2.2/leaflet.js"></script>
+<script src="libs/leaflet-providers-2.0.0/leaflet-providers_2.0.0.js"></script>
+<script src="libs/leaflet-providers-plugin-2.2.2/leaflet-providers-plugin.js"></script>
 <script src="libs/clipboard-0.0.1/setClipboardText.js"></script>
 <!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-151934476-1"></script>
@@ -849,7 +850,7 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -901,6 +902,10 @@ code span.vs { color: #4e9a06; } /* VerbatimString */
 code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
 <style type="text/css">
 /* Used with Pandoc 2.11+ new --citeproc when CSL is used */
 div.csl-bib-body { }
@@ -1380,10 +1385,10 @@ Each week we will provide a short task to test your knowledge, these should be u
 <p>Then, in the console, type the function <code>edit_git_config()</code></p>
 <p>A Git config will load and you need to change your name and email to match GitHub.</p>
 <p>If this is empty use the following template and save the file.</p>
-<div class="sourceCode" id="cb186"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb186-1"><a href="git-github-and-rmarkdown.html#cb186-1" tabindex="-1"></a>[user]</span>
-<span id="cb186-2"><a href="git-github-and-rmarkdown.html#cb186-2" tabindex="-1"></a>    name <span class="ot">=</span> </span>
-<span id="cb186-3"><a href="git-github-and-rmarkdown.html#cb186-3" tabindex="-1"></a>    email <span class="ot">=</span> </span>
-<span id="cb186-4"><a href="git-github-and-rmarkdown.html#cb186-4" tabindex="-1"></a>    username <span class="ot">=</span> </span></code></pre></div>
+<div class="sourceCode" id="cb182"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb182-1"><a href="git-github-and-rmarkdown.html#cb182-1" tabindex="-1"></a>[user]</span>
+<span id="cb182-2"><a href="git-github-and-rmarkdown.html#cb182-2" tabindex="-1"></a>    name <span class="ot">=</span> </span>
+<span id="cb182-3"><a href="git-github-and-rmarkdown.html#cb182-3" tabindex="-1"></a>    email <span class="ot">=</span> </span>
+<span id="cb182-4"><a href="git-github-and-rmarkdown.html#cb182-4" tabindex="-1"></a>    username <span class="ot">=</span> </span></code></pre></div>
 </div>
 <div id="start-your-git" class="section level4 hasAnchor" number="4.5.3.3">
 <h4><span class="header-section-number">4.5.3.3</span> Start your Git<a href="git-github-and-rmarkdown.html#start-your-git" class="anchor-section" aria-label="Anchor link to header"></a></h4>
@@ -1509,8 +1514,8 @@ If you were to update your file on GitHub and your local one in RStudio separate
 <p>As of January 2019 it is possible that Git will use a credential helper provided by the operating system. However, as of summer 2021 the token system has replaced this, so this is very unlikely.</p>
 <p>You can however set your username and email manually using the git prompt.</p>
 <p>Go Tools &gt; Shell and enter:</p>
-<div class="sourceCode" id="cb187"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb187-1"><a href="git-github-and-rmarkdown.html#cb187-1" tabindex="-1"></a>git config <span class="sc">--</span>global user.name <span class="st">&#39;yourGitHubUsername&#39;</span></span>
-<span id="cb187-2"><a href="git-github-and-rmarkdown.html#cb187-2" tabindex="-1"></a>git config <span class="sc">--</span>global user.email <span class="st">&#39;name@provider.com&#39;</span></span></code></pre></div>
+<div class="sourceCode" id="cb183"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb183-1"><a href="git-github-and-rmarkdown.html#cb183-1" tabindex="-1"></a>git config <span class="sc">--</span>global user.name <span class="st">&#39;yourGitHubUsername&#39;</span></span>
+<span id="cb183-2"><a href="git-github-and-rmarkdown.html#cb183-2" tabindex="-1"></a>git config <span class="sc">--</span>global user.email <span class="st">&#39;name@provider.com&#39;</span></span></code></pre></div>
 <p>These only need to be set once.</p>
 </div>
 <div id="greyed-out-push-button" class="section level4 hasAnchor" number="4.5.11.2">
@@ -1518,28 +1523,28 @@ If you were to update your file on GitHub and your local one in RStudio separate
 <p>Is your push button greyed out? Mine was when i tried to set it up within an existing project in the section [If have have an existing project] … Fear not….</p>
 <p>First, let’s check your local repository (Git) is connected to a remote one (GitHub).
 Open the Shell again (Tools &gt; Shell) and enter:</p>
-<div class="sourceCode" id="cb188"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb188-1"><a href="git-github-and-rmarkdown.html#cb188-1" tabindex="-1"></a>git remote <span class="sc">-</span>v</span>
-<span id="cb188-2"><a href="git-github-and-rmarkdown.html#cb188-2" tabindex="-1"></a><span class="do">## output</span></span>
-<span id="cb188-3"><a href="git-github-and-rmarkdown.html#cb188-3" tabindex="-1"></a></span>
-<span id="cb188-4"><a href="git-github-and-rmarkdown.html#cb188-4" tabindex="-1"></a>origin  https<span class="sc">:</span><span class="er">//</span>github.com<span class="sc">/</span>andrewmaclachlan<span class="sc">/</span><span class="fu">example.git</span> (fetch)</span>
-<span id="cb188-5"><a href="git-github-and-rmarkdown.html#cb188-5" tabindex="-1"></a>origin  https<span class="sc">:</span><span class="er">//</span>github.com<span class="sc">/</span>andrewmaclachlan<span class="sc">/</span><span class="fu">example.git</span> (push)</span></code></pre></div>
+<div class="sourceCode" id="cb184"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb184-1"><a href="git-github-and-rmarkdown.html#cb184-1" tabindex="-1"></a>git remote <span class="sc">-</span>v</span>
+<span id="cb184-2"><a href="git-github-and-rmarkdown.html#cb184-2" tabindex="-1"></a><span class="do">## output</span></span>
+<span id="cb184-3"><a href="git-github-and-rmarkdown.html#cb184-3" tabindex="-1"></a></span>
+<span id="cb184-4"><a href="git-github-and-rmarkdown.html#cb184-4" tabindex="-1"></a>origin  https<span class="sc">:</span><span class="er">//</span>github.com<span class="sc">/</span>andrewmaclachlan<span class="sc">/</span><span class="fu">example.git</span> (fetch)</span>
+<span id="cb184-5"><a href="git-github-and-rmarkdown.html#cb184-5" tabindex="-1"></a>origin  https<span class="sc">:</span><span class="er">//</span>github.com<span class="sc">/</span>andrewmaclachlan<span class="sc">/</span><span class="fu">example.git</span> (push)</span></code></pre></div>
 <p>The fetch and push should be your repository on GitHub. If you need to set the remote repo use:</p>
-<div class="sourceCode" id="cb189"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb189-1"><a href="git-github-and-rmarkdown.html#cb189-1" tabindex="-1"></a>git remote add origin https<span class="sc">:</span><span class="er">//</span>github.com<span class="sc">/</span>andrewmaclachlanc<span class="sc">/</span>myrepo.git</span></code></pre></div>
+<div class="sourceCode" id="cb185"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb185-1"><a href="git-github-and-rmarkdown.html#cb185-1" tabindex="-1"></a>git remote add origin https<span class="sc">:</span><span class="er">//</span>github.com<span class="sc">/</span>andrewmaclachlanc<span class="sc">/</span>myrepo.git</span></code></pre></div>
 <p><strong>Replace</strong> my name and myrepo with your account and repo — it’s the same URL that we cloned from GitHub…</p>
 <p>Was it setup correctly ? Yes…</p>
 <p>Then check the current branch in RStudio (and Git) is tracking a branch on the remote repo — mine wasn’t.</p>
-<div class="sourceCode" id="cb190"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb190-1"><a href="git-github-and-rmarkdown.html#cb190-1" tabindex="-1"></a>git branch <span class="sc">-</span>vv</span>
-<span id="cb190-2"><a href="git-github-and-rmarkdown.html#cb190-2" tabindex="-1"></a></span>
-<span id="cb190-3"><a href="git-github-and-rmarkdown.html#cb190-3" tabindex="-1"></a><span class="do">## output</span></span>
-<span id="cb190-4"><a href="git-github-and-rmarkdown.html#cb190-4" tabindex="-1"></a>main <span class="dv">3</span>abe929 [origin<span class="sc">/</span>main] test3</span></code></pre></div>
+<div class="sourceCode" id="cb186"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb186-1"><a href="git-github-and-rmarkdown.html#cb186-1" tabindex="-1"></a>git branch <span class="sc">-</span>vv</span>
+<span id="cb186-2"><a href="git-github-and-rmarkdown.html#cb186-2" tabindex="-1"></a></span>
+<span id="cb186-3"><a href="git-github-and-rmarkdown.html#cb186-3" tabindex="-1"></a><span class="do">## output</span></span>
+<span id="cb186-4"><a href="git-github-and-rmarkdown.html#cb186-4" tabindex="-1"></a>main <span class="dv">3</span>abe929 [origin<span class="sc">/</span>main] test3</span></code></pre></div>
 <p>Origin/main shows that the local main is tracking the origin/main on the remote repo. If you can’t see origin/main then set it using the following code. At the moment RStudio and git still defaults to the starting branch of master so the fist line below will change it to main — which is required to match with the remote (GitHub).</p>
-<div class="sourceCode" id="cb191"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb191-1"><a href="git-github-and-rmarkdown.html#cb191-1" tabindex="-1"></a>git branch <span class="sc">-</span>M main</span>
-<span id="cb191-2"><a href="git-github-and-rmarkdown.html#cb191-2" tabindex="-1"></a>git push <span class="sc">-</span>u origin main</span></code></pre></div>
+<div class="sourceCode" id="cb187"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb187-1"><a href="git-github-and-rmarkdown.html#cb187-1" tabindex="-1"></a>git branch <span class="sc">-</span>M main</span>
+<span id="cb187-2"><a href="git-github-and-rmarkdown.html#cb187-2" tabindex="-1"></a>git push <span class="sc">-</span>u origin main</span></code></pre></div>
 <blockquote>
 <p>Origin is the repository you cloned (from GitHub) and main is the name of the branch. You might see something like…your branch is ahead of origin/main by 1 commit. This means you have commited something you are working on in you local repo (Git) that hasn’t yet been pushed to GitHub (the origin) and main branch…GitHub defaults the first branch to be called main</p>
 </blockquote>
 <p>If you need to change the URL of your GitHub …. so where you push your local Git to the GitHub account (changing this), perhaps you have made a new GitHub repo…</p>
-<div class="sourceCode" id="cb192"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb192-1"><a href="git-github-and-rmarkdown.html#cb192-1" tabindex="-1"></a>git remote set<span class="sc">-</span>url origin [enter your cloned URL from GitHUB here]<span class="st">```</span></span></code></pre></div>
+<div class="sourceCode" id="cb188"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb188-1"><a href="git-github-and-rmarkdown.html#cb188-1" tabindex="-1"></a>git remote set<span class="sc">-</span>url origin [enter your cloned URL from GitHUB here]<span class="st">```</span></span></code></pre></div>
 <p>For more trouble shooting on Git and GitHub have a look at the book <a href="https://happygitwithr.com/rstudio-git-github.html">Happy Git and GitHub for the useR</a></p>
 </div>
 </div>
@@ -1621,12 +1626,12 @@ Open the Shell again (Tools &gt; Shell) and enter:</p>
 <ol style="list-style-type: decimal">
 <li>A box will appear and in this box, you will be able to enter and run your R code. Try pasting in:</li>
 </ol>
-<div class="sourceCode" id="cb193"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb193-1"><a href="git-github-and-rmarkdown.html#cb193-1" tabindex="-1"></a><span class="fu">library</span>(terra)</span>
-<span id="cb193-2"><a href="git-github-and-rmarkdown.html#cb193-2" tabindex="-1"></a><span class="fu">library</span>(here)</span>
-<span id="cb193-3"><a href="git-github-and-rmarkdown.html#cb193-3" tabindex="-1"></a>jan<span class="ot">&lt;-</span>terra<span class="sc">::</span><span class="fu">rast</span>(<span class="fu">here</span>(<span class="st">&quot;prac3_data&quot;</span>, <span class="st">&quot;wc2.1_5m_tavg_01.tif&quot;</span>))</span>
-<span id="cb193-4"><a href="git-github-and-rmarkdown.html#cb193-4" tabindex="-1"></a><span class="co"># have a look at the raster layer jan</span></span>
-<span id="cb193-5"><a href="git-github-and-rmarkdown.html#cb193-5" tabindex="-1"></a><span class="fu">plot</span>(jan)</span></code></pre></div>
-<p><img src="CASA0005_files/figure-html/unnamed-chunk-227-1.png" width="672" /></p>
+<div class="sourceCode" id="cb189"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb189-1"><a href="git-github-and-rmarkdown.html#cb189-1" tabindex="-1"></a><span class="fu">library</span>(terra)</span>
+<span id="cb189-2"><a href="git-github-and-rmarkdown.html#cb189-2" tabindex="-1"></a><span class="fu">library</span>(here)</span>
+<span id="cb189-3"><a href="git-github-and-rmarkdown.html#cb189-3" tabindex="-1"></a>jan<span class="ot">&lt;-</span>terra<span class="sc">::</span><span class="fu">rast</span>(<span class="fu">here</span>(<span class="st">&quot;prac3_data&quot;</span>, <span class="st">&quot;wc2.1_5m_tavg_01.tif&quot;</span>))</span>
+<span id="cb189-4"><a href="git-github-and-rmarkdown.html#cb189-4" tabindex="-1"></a><span class="co"># have a look at the raster layer jan</span></span>
+<span id="cb189-5"><a href="git-github-and-rmarkdown.html#cb189-5" tabindex="-1"></a><span class="fu">plot</span>(jan)</span></code></pre></div>
+<p><img src="CASA0005_files/figure-html/unnamed-chunk-225-1.png" width="672" /></p>
 <p>When including code chunks in your work, there are various options that allow you to do things like include the code, but not run it: display the output but not the code, hide warnings etc. Most of these can be input automatically by clicking the cog icon in the top-right of the chunk, or you can specify them in the code header of the chunk…if you toggle the buttons you’ll see the code change in the chunk ‘header’. There are also two useful icons to the right of the settings cog, the first will run all code above the current chunk (play symbol facing downwards) and the second will run the current code chunk (regular play symbol)</p>
 <p><img src="prac4_images/code_chunk_options.png" width="800pt" style="display: block; margin: auto;" /></p>
 </div>

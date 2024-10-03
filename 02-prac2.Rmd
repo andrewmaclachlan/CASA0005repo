@@ -605,7 +605,7 @@ Femalelifeexp<- LondonData %>%
   filter(`Female life expectancy -2009-13`>90)
 ```
 
-However, our `New code` column that holds Borough codes can't be filtered like this as it's in a character format...in cases like this we can use the function `str_detect()` from the `stringr` package in combination with `filter()` from `dplyr`. Both these packages are part of the `tidyverse` again!
+However, our `New code` column that holds Borough codes can't be filtered like this as it's in a character format (also know as strings, hence `stringr`)...in cases like this we can use the function `str_detect()` from the `stringr` package in combination with `filter()` from `dplyr`. Both these packages are part of the `tidyverse` again!
 
 ```{r echo=FALSE, out.width = "500pt", fig.align='center', cache=FALSE, fig.cap="dplyr::filter() example. Source: [Allison Horst data science and stats illustrations](https://github.com/allisonhorst/stats-illustrations)"}
 knitr::include_graphics('allisonhorst_images/str_detect.png')
@@ -860,49 +860,38 @@ In the remainder of this practical we will produce a map, the focus here is gett
 
 Whilst the instructions are step by step you are encouraged to start deviating from them (trying different colours for example) to get a better understanding of what we are doing.
 
-1. The first package we need to install for this part of the practical is ```maptools``` –-- either find and install it using the RStudio GUI or do the following:
-
-```{r, eval=FALSE, cache=FALSE}
-install.packages("maptools")
-```
-
 There are a few other packages we’ll need to get to grips with. Some, like ```ggplot2``` (one of the most influential R packages ever) are part of the ```tidyverse``` package we came across earlier. Others we will need to install for the first time.
 
 ```{r, eval=FALSE, cache=FALSE}
-install.packages(c("classInt", "tmap"))
+install.packages(c("tmap"))
 
 # might also need these ones
-install.packages(c("RColorBrewer", "sp", "rgeos", 
-                   "tmaptools", "sf", "downloader", "rgdal", 
-                   "geojsonio"))
+install.packages(c("tmaptools", "sf"))
 ```
 
 1. Now that the packages have been installed you will not have to repeat the above steps again (when you use your account in these cluster rooms). Open a new script and save it to your working directory as ```wk2_maps.r```. As before, type each of the lines of code into this window and then select and use the ctrl return keys to run them. Be sure to save your script often.
 
-1. The first task is to load the packages we have just installed. Note, you might have some issues with the OpenStreetMap package if your installation of java on your computer doesn’t match your installation of R --– e.g. if you have installed the 64bit version of R, you also need the 64bit version of java (same with the 32bit versions) --- you may also need to install the package `Rcpp` separately and try again.
+1. The first task is to load the packages we have just installed. Note, you might have some issues with `read_osm()` function from the `tmapstools` package. This is used to add a nice based map later on. To resolve this you likely need to install java which must match your version of R...  e.g. if you have installed the 64bit version of R (on a 64 bit computer), you also need the 64bit version of java (same with the 32bit versions) --- you may also need to install the package `Rcpp` separately and try again.
 
 Install Java 64-bit from: https://java.com/en/download/manual.jsp
 
 ```{r, message=FALSE, warning=FALSE, cache=FALSE}
 #Load Packages (ignore any error messages about being built under a 
 #different R version):
-library(maptools)
-library(RColorBrewer)
-library(classInt)
-library(sp)
-library(rgeos)
 library(tmap)
 library(tmaptools)
 library(sf)
-library(rgdal)
-library(geojsonio)
 ```
 
 #### Background to spatial data in R
 
-R has a very well developed ecosystem of packages for working with Spatial Data. Early pioneers like Roger Bivand and Edzer Pebesma along with various colleagues were instrumental in writing packages to interface with some powerful open source libraries for working with spatial data, such as GDAL and GEOS. These were accessed via the ```rgdal``` and ```rgeos``` packages. The  ```maptools``` package by Roger Bivand, amongst other things, allowed Shapefiles to be read into R. The ```sp``` package (along with  ```spdep```) by Edzer Pebesma was very important for defining a series of classes and methods for spatial data natively in R which then allowed others to write software to work with these formats. Other packages like ```raster``` advanced the analysis of gridded spatial data, while packages like ```classInt``` and ```RColorbrewer``` facilitated the binning of data and colouring of choropleth maps.
+R has a very well developed ecosystem of packages for working with Spatial Data. Early pioneers like Roger Bivand and Edzer Pebesma along with various colleagues were instrumental in writing packages to interface with some powerful open source libraries for working with spatial data, such as GDAL and GEOS. These were accessed via the ```rgdal``` and ```rgeos``` packages. 
 
-Whilst these packages were extremely important for advancing spatial data analysis in R, they were not always the most straightforward to use --- making a map in R could take quite a lot of effort and they were static and visually basic. However, more recently new packages have arrived to change this. Now ```leaflet``` enables R to interface with the leaflet javascript library for online, dynamic maps. ```ggplot2``` which was developed by Hadley Wickham and colleagues radically changed the way that people thought about and created graphical objects in R, including maps, and introduced a graphical style which has been the envy of other software to the extent that there are now libraries in Python which copy the ```ggplot2``` style!
+The  ```maptools``` package by Roger Bivand, amongst other things, allowed Shapefiles to be read into R. The ```sp``` package (along with  ```spdep```) by Edzer Pebesma was very important for defining a series of classes and methods for spatial data natively in R which then allowed others to write software to work with these formats. Other packages like ```raster``` advanced the analysis of gridded spatial data, while packages like ```classInt``` and ```RColorbrewer``` facilitated the binning of data and colouring of choropleth maps.
+
+In 2023  ```rgdal```,  ```rgeos``` and  ```maptools``` [were retired](https://r-spatial.org/r/2022/04/12/evolution.html) as their developer and maintainer Roger Bivand also retired. Their functionality has been incorporated into more modern packages such as ```sf``` and any *dependencies* (where one package is *dependent* on another to work) on the old packages has been removed.
+
+Whilst these packages were extremely important for advancing spatial data analysis in R, they were not always the most straightforward to use --- making a map in R could take quite a lot of effort and they were static and visually basic. More recently new packages have arrived to change this. Now ```leaflet``` enables R to interface with the leaflet javascript library for online, dynamic maps. ```ggplot2``` which was developed by Hadley Wickham and colleagues radically changed the way that people thought about and created graphical objects in R, including maps, and introduced a graphical style which has been the envy of other software to the extent that there are now libraries in Python which copy the ```ggplot2``` style!
 
 ```{r echo=FALSE, out.width = "450pt", fig.align='center', cache=FALSE, fig.cap="ggplot2 introduction graphic. Source: [Allison Horst data science and stats illustrations](https://github.com/allisonhorst/stats-illustrations)"}
 knitr::include_graphics('allisonhorst_images/ggplot2_exploratory.png')

@@ -668,11 +668,6 @@ con %>%
 
 You can then save your script through File \> Save As.
 
-If you are on a Mac you might also need to load `rgdal`...just add the following at the top of the script.
-
-```{r, message=FALSE, warning=FALSE, eval=FALSE, cache=FALSE}
-library(rgdal)
-```
 
 ### What will I use
 
