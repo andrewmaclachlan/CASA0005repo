@@ -436,7 +436,7 @@ Below are bits of code, to start we will work using the **console**. So just cop
 
 R works on packages that are collections of functions and data. Packages are bits of code that extend R beyond the basic statistical functionality it was originally designed for. For spatial data, they enable R to process spatial data formats, carry out analysis tasks and create some of the maps that follow. Most packages are easily recognisable through a hexagon (hex) logo, or sticker. 
 
-```{r echo=FALSE, out.width = "500px", fig.align='center', cache=FALSE, fig.cap="R pacakge hex sticker wall. Source: [Mitchell O'Hara-Wild arranging Hex stickers in R](https://www.mitchelloharawild.com/blog/hexwall/)"}
+```{r echo=FALSE, out.width = "500px", fig.align='center', cache=FALSE, fig.cap="R package hex sticker wall. Source: [Mitchell O'Hara-Wild arranging Hex stickers in R](https://www.mitchelloharawild.com/blog/hexwall/)"}
 knitr::include_graphics('prac1_images/hex_stickers.png') 
 ```
 
