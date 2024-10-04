@@ -43,7 +43,7 @@ This is a 15 credit module, equivalent to 150 hours of study (including the taug
 
 This website is hosted on GitHub and holds all the practical instructions and data. Data used within the practicals is available online, however occasionally websites can undergo maintenance or be inaccessible due to political factors such as government shutdowns.
 
-To get the most out of this book spend a few minutes learning how to control it, in the top right of this webpage you will see this tools bar:
+To get the most out of this book spend a few minutes learning how to control it, in the top left of this webpage you will see this tools bar:
 
 ```{r echo=FALSE, out.width = "600pt", fig.align='center', cache=TRUE, message=FALSE}
 knitr::include_graphics('general_images/Book_controls.png')
@@ -106,5 +106,5 @@ You can also go through other free resources including:
 
 * [YaRrr! The Pirate's Guide to R](https://bookdown.org/ndphillips/YaRrr/)
 
-At the end of every practical there is a link anonymous Google feedback form, let us know if something is unclear and we will go over it in a future session.
+At the end of every practical there is a link to an anonymous Google feedback form, let us know if something is unclear and we will go over it in a future session.
 
