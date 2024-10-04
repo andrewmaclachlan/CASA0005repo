@@ -1181,7 +1181,15 @@ Let's try it!
 #first, let's make sure R is reading our InnerOuter variable as a factor
 #see what it is at the moment...
 
-class(LonWardProfiles$inner_outer)
+Datatypelist <- LonWardProfiles %>%
+  st_drop_geometry%>% 
+#summarise_all only works with .tbl now (not sf) so we   drop geometry to check  
+  summarise_all(class)%>%
+  pivot_longer(everything(), 
+             names_to="All_variables", 
+             values_to="Variable_class")
+
+Datatypelist
 
 # change to factor
 
