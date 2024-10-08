@@ -146,7 +146,7 @@ mycsv <- read_csv("fly_tipping_borough_edit.csv")
 
 You can run this in the Console area now or within a script which we will now go over...
 
-I'd strongly recommend you think about how you will store data within your project. Is it sensible to just dump all your data into the project folder or perahps create a new folder (either in R) or how you would normally do so in Windows / OS X and keep your raw data in that folder...like i have done...Here you can see that i'm in my project folder (red box on the right) and i've made new folders for all my data (each practical here) and images that are shown throuhgout....nice and organised!
+I'd strongly recommend you think about how you will store data within your project. Is it sensible to just dump all your data into the project folder or perhaps create a new folder (either in R) or how you would normally do so in Windows / OS X and keep your raw data in that folder...like i have done...Here you can see that i'm in my project folder (red box on the right) and i've made new folders for all my data (each practical here) and images that are shown throuhgout....nice and organised!
 
 ```{r echo=FALSE, out.width = "500px", fig.align='center', cache=FALSE}
 knitr::include_graphics('prac2_images/file_storage.png') 
