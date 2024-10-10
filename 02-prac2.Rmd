@@ -492,7 +492,7 @@ To clean our data as we read it in, we are going to use a package called ```read
 knitr::include_graphics('allisonhorst_images/tidyverse_celestial.png')
 ```
 
-The [`tidyverse`](https://www.tidyverse.org/) is simply a collection of pacakges relevant for data science, containing almost everything you need to become a kick-ass data scientist.
+The [`tidyverse`](https://www.tidyverse.org/) is simply a collection of packages relevant for data science, containing almost everything you need to become a kick-ass data scientist.
 
 Now let's  use the ```readr``` package... that allows loads of data manipulation ...for example...
 
@@ -588,7 +588,7 @@ We can also do this with `dplyr`... with the `slice()` function, taking a "slice
 
 ```{r cache=FALSE}
 LondonBoroughs<-LondonData%>%
-  slice(626:658)
+  dplyr::slice(626:658)
 ```
 
 However, we can instead try a cool ‘data sciency’ way of pulling out the rows we want with the knowledge that the codes for London Boroughs start with E09 (the wards in the rest of the file start with E05).
@@ -605,7 +605,7 @@ Femalelifeexp<- LondonData %>%
   filter(`Female life expectancy -2009-13`>90)
 ```
 
-However, our `New code` column that holds Borough codes can't be filtered like this as it's in a character format (also know as strings, hence `stringr`)...in cases like this we can use the function `str_detect()` from the `stringr` package in combination with `filter()` from `dplyr`. Both these packages are part of the `tidyverse` again!
+However, our `New code` column that holds Borough codes can't be filtered like this as it's in a character format (also known as strings, hence `stringr`)...in cases like this we can use the function `str_detect()` from the `stringr` package in combination with `filter()` from `dplyr`. Both these packages are part of the `tidyverse` again!
 
 ```{r echo=FALSE, out.width = "500pt", fig.align='center', cache=FALSE, fig.cap="dplyr::filter() example. Source: [Allison Horst data science and stats illustrations](https://github.com/allisonhorst/stats-illustrations)"}
 knitr::include_graphics('allisonhorst_images/str_detect.png')
@@ -613,6 +613,9 @@ knitr::include_graphics('allisonhorst_images/str_detect.png')
 
 
 ```{r, message=FALSE, warning = FALSE, cache=FALSE}
+install.packages("stringr")
+library(stringr)
+
 LondonBoroughs<- LondonData %>% 
   filter(str_detect(`New code`, "^E09"))
 ```
