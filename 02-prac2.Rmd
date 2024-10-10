@@ -454,7 +454,7 @@ This would specify that the first row of the file contains header information; a
 
 ### Here
 
-However, this is also another more straightforward way to read in files that was devloped in 2017 to make it more intuitive to find and load files using the `here` package. You need to install and load it:
+However, this is also another more straightforward way to read in files that was developed in 2017 to make it more intuitive to find and load files using the `here` package. You need to install and load it:
 
 ```{r, cache=FALSE, eval=FALSE}
 install.packages("here")
