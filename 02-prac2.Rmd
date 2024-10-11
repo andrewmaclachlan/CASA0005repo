@@ -611,9 +611,11 @@ However, our `New code` column that holds Borough codes can't be filtered like t
 knitr::include_graphics('allisonhorst_images/str_detect.png')
 ```
 
+```{r, eval=FALSE, cache=FALSE, message=FALSE, warning=FALSE}
+install.packages("stringr")
+```
 
 ```{r, message=FALSE, warning = FALSE, cache=FALSE}
-install.packages("stringr")
 library(stringr)
 
 LondonBoroughs<- LondonData %>% 
