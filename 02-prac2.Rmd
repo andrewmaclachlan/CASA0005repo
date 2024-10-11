@@ -905,38 +905,28 @@ Choropleth maps are thematic maps which colour areas according to some phenomeno
 
 As with all plots in R, there are multiple ways we can do this. The basic ```plot()``` function requires no data preparation but additional effort in colour selection/ adding the map key etc. Quick plot (```qplot()```) and ```ggplot()``` (installed in the ```ggplot2``` package, part of the `tidyverse`) require some additional steps to format the spatial data but select colours and add keys etc automatically. Qplot is basically a shortcut for a quick map / plot, but if you have a lot of data use `ggplot()`. However, here, we are going to make use of the new ```tmap``` package which makes making maps very easy indeed. More on `tmap` when we start mapping..
 
-1. So one mega cool thing about R is you can read spatial data in straight from the internetz! Try this below for downloading a GeoJson file...it might take a few minutes...
-
-1. You can also either 
-
-* (a) [Download the geojson file](https://opendata.arcgis.com/datasets/8edafbe3276d4b56aec60991cbddda50_2.geojson) 
-
-* (b) [Download the shapefile](https://opendata.arcgis.com/datasets/8edafbe3276d4b56aec60991cbddda50_2.zip?outSR=%7B%22latestWkid%22%3A27700%2C%22wkid%22%3A27700%7D)from the [Office for National Statistics Open Geography Portal](http://geoportal.statistics.gov.uk/datasets/8edafbe3276d4b56aec60991cbddda50_2)
+Download either a geojson or shapefile of boundaries from [here](https://geoportal.statistics.gov.uk/datasets/ons::local-authority-districts-december-2011-boundaries-ew-bgc-2/about)
 
 Move either to your project folder and read it in. The `.shp` is normally quicker to load.
 
-```{r, cache=FALSE, eval=FALSE}
-# this will take a few minutes
-EW <- st_read("https://opendata.arcgis.com/datasets/8edafbe3276d4b56aec60991cbddda50_2.geojson")
-```
 
 ```{r, cache=FALSE, eval=TRUE}
 # this will take a few minutes
 # geojson in local folder
 #EW <- st_read(here::here("prac2_data",
-#                         "Local_Authority_Districts__December_2015__Boundaries.geojson"))
+#                         "Local_Authority_Districts_December_2011_GCB_EW.geojson"))
 
 # shapefile in local folder
 EW <- st_read(here::here("prac2_data",
-                        "Local_Authority_Districts_(December_2015)_Boundaries",
-                        "Local_Authority_Districts_(December_2015)_Boundaries.shp"))
+                        "Local_Authority_Districts_December_2011_GCB_EW_2022_-5099670273398629037",
+                        "Local_Authority_Districts_December_2011_GCB_EW.shp"))
 ```
 
-Pull out London using the  `str_detect()` function from the `stringr` package in combination with `filter()` from `dplyr` (again!). We will  look for the bit of the district code that relates to London (E09) from the 'lad15cd' column data frame of our `sf` object. 
+Pull out London using the  `str_detect()` function from the `stringr` package in combination with `filter()` from `dplyr` (again!). We will  look for the bit of the district code that relates to London (E09) from the 'lad11cd' column data frame of our `sf` object. 
 
 ```{r, cache=FALSE}
 LondonMap<- EW %>%
-  filter(str_detect(lad15cd, "^E09"))
+  filter(str_detect(lad11cd, "^E09"))
 
 #plot it using the qtm function
 qtm(LondonMap)
@@ -955,13 +945,13 @@ LondonData <- clean_names(LondonData)
 BoroughDataMap <- EW %>%
   clean_names()%>%
   # the . here just means use the data already loaded
-  filter(str_detect(lad15cd, "^E09"))%>%
+  filter(str_detect(lad11cd, "^E09"))%>%
   merge(.,
         LondonData, 
-        by.x="lad15cd", 
+        by.x="lad11cd", 
         by.y="new_code",
         no.dups = TRUE)%>%
-  distinct(.,lad15cd,
+  distinct(.,lad11cd,
            .keep_all = TRUE)
 ```
 
@@ -980,10 +970,10 @@ knitr::include_graphics('prac2_images/left-join.gif')
 ```{r, cache=FALSE, warning=FALSE, message=FALSE,eval=FALSE}
 BoroughDataMap2 <- EW %>% 
   clean_names() %>%
-  filter(str_detect(lad15cd, "^E09"))%>%
+  filter(str_detect(lad11cd, "^E09"))%>%
   left_join(., 
             LondonData,
-            by = c("lad15cd" = "new_code"))
+            by = c("lad11cd" = "new_code"))
 
 ```
 
@@ -1059,8 +1049,8 @@ So that's our first real map done! Awesome work. But remember our `Life_expectan
 Life_expectancy4map <- EW %>%
     inner_join(., 
             Life_expectancy4,
-            by = c("lad15cd" = "new_code"))%>%
-    distinct(.,lad15cd, 
+            by = c("lad11cd" = "new_code"))%>%
+    distinct(.,lad11cd, 
            .keep_all = TRUE)
 ```
 
