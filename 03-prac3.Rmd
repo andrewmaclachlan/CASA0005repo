@@ -290,6 +290,7 @@ Now we can actually see some data...here is a quick example of using the Mollwei
 # set the proj 4 to a new object
 
 pr1 <- terra::project(jan, "+proj=moll +lon_0=0 +x_0=0 +y_0=0 +ellps=WGS84 +datum=WGS84 +units=m +no_defs")
+plot(pr1)
 
 ```
 Now back to WGS84.....
@@ -297,7 +298,7 @@ Now back to WGS84.....
 
 ```{r cache=FALSE, warning=FALSE, message=FALSE}
 pr1 <- pr1 %>%
-  terra::project(., "+proj=moll +lon_0=0 +x_0=0 +y_0=0 +datum=WGS84 +units=m +no_defs +type=crs")
+  terra::project(., "+proj=longlat +datum=WGS84 +no_defs +type=crs")
 plot(pr1)
 ```
 
