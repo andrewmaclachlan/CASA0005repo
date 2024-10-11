@@ -905,7 +905,7 @@ Choropleth maps are thematic maps which colour areas according to some phenomeno
 
 As with all plots in R, there are multiple ways we can do this. The basic ```plot()``` function requires no data preparation but additional effort in colour selection/ adding the map key etc. Quick plot (```qplot()```) and ```ggplot()``` (installed in the ```ggplot2``` package, part of the `tidyverse`) require some additional steps to format the spatial data but select colours and add keys etc automatically. Qplot is basically a shortcut for a quick map / plot, but if you have a lot of data use `ggplot()`. However, here, we are going to make use of the new ```tmap``` package which makes making maps very easy indeed. More on `tmap` when we start mapping..
 
-Download either a geojson or shapefile of boundaries from [here](https://geoportal.statistics.gov.uk/datasets/ons::local-authority-districts-december-2011-boundaries-ew-bgc-2/about)
+Download either a geojson or shapefile of boundaries from the Office for National Statistics [Open Geography Portal](https://geoportal.statistics.gov.uk/datasets/ons::local-authority-districts-december-2011-boundaries-ew-bgc-2/about)
 
 Move either to your project folder and read it in. The `.shp` is normally quicker to load.
 
