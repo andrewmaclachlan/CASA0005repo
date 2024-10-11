@@ -129,7 +129,7 @@ st_layers(here("prac3_data", "gadm41_AUS.gpkg"))
 ```{r, cache=FALSE}
 library(sf)
 Ausoutline <- st_read(here("prac3_data", "gadm41_AUS.gpkg"), 
-                      layer='gadm41_AUS_0')
+                      layer='ADM_ADM_0')
 ```
 
 You can check that the coordinate reference systems of  ```sf ``` or  ```sp ``` objects using the print function:
@@ -209,7 +209,7 @@ Or, more concisely...but remember this is only useful if there is no CRS when yo
 ```{r, cache=FALSE, warning=FALSE, message=FALSE, eval=TRUE}
 #or more concisely
 Ausoutline <- st_read(here("prac3_data", "gadm41_AUS.gpkg"), 
-                      layer='gadm41_AUS_0') %>% 
+                      layer='ADM_ADM_0') %>% 
   st_set_crs(4326)
 ```
 
