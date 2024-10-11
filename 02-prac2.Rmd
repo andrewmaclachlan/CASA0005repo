@@ -513,7 +513,7 @@ LondonData <- read_csv("https://data.london.gov.uk/download/ward-profiles-and-at
 
 > **Note** the use of read_csv here as opposed to read.csv. They are very similar, but read_csv is just a bit better. Read [this blog post](http://yetanothermathprogrammingconsultant.blogspot.com/2016/12/reading-csv-files-in-r-readcsv-vs.html) for more information. Also, for those python fans out there ---IT’S NOT THE SAME FUNCTION AS READ_CSV IN PYTHON
 
-What is `locale = locale(encoding = "latin1")`?...good question...it is basically the encoding of the data (how it is stored). There are a few different formats such as UTF-8 and latin1. In latin1 each character is 1 byte long, in UTF-8 a character can consist of more than 1 byte. To my knowledge the default in R is encoded as latin1, but `readr` (the package we are using to read in the `.csv` is UTF-8 so we have to specify it.
+What is `locale = locale(encoding = "latin1")`?...good question...it is basically the encoding of the data (how it is stored). There are a few different formats such as UTF-8 and latin1. In latin1 each character is 1 byte long, in UTF-8 a character can consist of more than 1 byte. To my knowledge the default in R is encoded as latin1, but `readr` (the package we are using to read in the `.csv`) is UTF-8 so we have to specify it.
 
 ### Examining your new data
 
@@ -876,7 +876,7 @@ install.packages(c("tmaptools", "sf"))
 
 1. Now that the packages have been installed you will not have to repeat the above steps again (when you use your account in these cluster rooms). Open a new script and save it to your working directory as ```wk2_maps.r```. As before, type each of the lines of code into this window and then select and use the ctrl return keys to run them. Be sure to save your script often.
 
-1. The first task is to load the packages we have just installed. Note, you might have some issues with `read_osm()` function from the `tmapstools` package. This is used to add a nice based map later on. To resolve this you likely need to install java which must match your version of R...  e.g. if you have installed the 64bit version of R (on a 64 bit computer), you also need the 64bit version of java (same with the 32bit versions) --- you may also need to install the package `Rcpp` separately and try again.
+1. The first task is to load the packages we have just installed. Note, you might have some issues with `read_osm()` function from the `tmapstools` package. This is used to add a nice based map later on. To resolve this you likely need to install java which must match your version of R...  e.g. if you have installed the 64bit version of R (on a 64 bit computer), you also need the 64bit version of java (same with the 32bit versions) --- you may also need to install the package `Rcpp` separately and try again. **However** if this doesn't work there is another option with `tm_basemap()` which produces the same result
 
 Install Java 64-bit from: https://java.com/en/download/manual.jsp
 
@@ -910,7 +910,7 @@ Choropleth maps are thematic maps which colour areas according to some phenomeno
 
 As with all plots in R, there are multiple ways we can do this. The basic ```plot()``` function requires no data preparation but additional effort in colour selection/ adding the map key etc. Quick plot (```qplot()```) and ```ggplot()``` (installed in the ```ggplot2``` package, part of the `tidyverse`) require some additional steps to format the spatial data but select colours and add keys etc automatically. Qplot is basically a shortcut for a quick map / plot, but if you have a lot of data use `ggplot()`. However, here, we are going to make use of the new ```tmap``` package which makes making maps very easy indeed. More on `tmap` when we start mapping..
 
-Download either a geojson or shapefile of boundaries from the Office for National Statistics [Open Geography Portal](https://geoportal.statistics.gov.uk/datasets/ons::local-authority-districts-december-2011-boundaries-ew-bgc-2/about)
+Download either a geojson or shapefile of boundaries from the Office for National Statistics [Open Geography Portal](https://geoportal.statistics.gov.uk/datasets/ons::local-authority-districts-december-2015-boundaries-gb-bfc/about)
 
 Move either to your project folder and read it in. The `.shp` is normally quicker to load.
 
@@ -918,20 +918,19 @@ Move either to your project folder and read it in. The `.shp` is normally quicke
 ```{r, cache=FALSE, eval=TRUE}
 # this will take a few minutes
 # geojson in local folder
-#EW <- st_read(here::here("prac2_data",
-#                         "Local_Authority_Districts_December_2011_GCB_EW.geojson"))
+# EW <- st_read(here::here("prac2_data",
+#                          "LAD_Dec_2015_FCB_GB.geojson"))
 
 # shapefile in local folder
 EW <- st_read(here::here("prac2_data",
-                        "Local_Authority_Districts_December_2011_GCB_EW_2022_-5099670273398629037",
-                        "Local_Authority_Districts_December_2011_GCB_EW.shp"))
+                         "LAD_Dec_2015_FCB_GB.shp"))
 ```
 
-Pull out London using the  `str_detect()` function from the `stringr` package in combination with `filter()` from `dplyr` (again!). We will  look for the bit of the district code that relates to London (E09) from the 'lad11cd' column data frame of our `sf` object. 
+Pull out London using the  `str_detect()` function from the `stringr` package in combination with `filter()` from `dplyr` (again!). We will  look for the bit of the district code that relates to London (E09) from the 'lad15cd' column data frame of our `sf` object. 
 
 ```{r, cache=FALSE}
 LondonMap<- EW %>%
-  filter(str_detect(lad11cd, "^E09"))
+  filter(str_detect(lad15cd, "^E09"))
 
 #plot it using the qtm function
 qtm(LondonMap)
@@ -950,13 +949,13 @@ LondonData <- clean_names(LondonData)
 BoroughDataMap <- EW %>%
   clean_names()%>%
   # the . here just means use the data already loaded
-  filter(str_detect(lad11cd, "^E09"))%>%
+  filter(str_detect(lad15cd, "^E09"))%>%
   merge(.,
         LondonData, 
-        by.x="lad11cd", 
+        by.x="lad15cd", 
         by.y="new_code",
         no.dups = TRUE)%>%
-  distinct(.,lad11cd,
+  distinct(.,lad15cd,
            .keep_all = TRUE)
 ```
 
@@ -975,10 +974,10 @@ knitr::include_graphics('prac2_images/left-join.gif')
 ```{r, cache=FALSE, warning=FALSE, message=FALSE,eval=FALSE}
 BoroughDataMap2 <- EW %>% 
   clean_names() %>%
-  filter(str_detect(lad11cd, "^E09"))%>%
+  filter(str_detect(lad15cd, "^E09"))%>%
   left_join(., 
             LondonData,
-            by = c("lad11cd" = "new_code"))
+            by = c("lad15cd" = "new_code"))
 
 ```
 
@@ -1008,7 +1007,9 @@ qtm(BoroughDataMap,
     fill = "rate_of_job_seekers_allowance_jsa_claimants_2015")
 ```
 
-But that's a bit basic! How about adding a basemap...to get a basemap we need to extract it from OpenStreetMap (OSM) using the `read_osm()` function from the `tmaptools` package. We talk about this in later weeks, but it's a free editable map of the World (the Wikipedia of maps). We are going to need to create a box (termed bounding box) around London using the `st_box()` function from the `sf` package to extract the basemap image (which is a raster). 
+But that's a bit basic! How about adding a basemap...there are two different processes to use a basemap and it depends on if you map is static `tmap_mode("plot")` or interactive `tmap_mode("view")`
+
+For a **static map** we need to extract the basemap from OpenStreetMap (OSM) using the `read_osm()` function from the `tmaptools` package. We talk about this in later weeks, but it's a free editable map of the World (the Wikipedia of maps). We are going to need to create a box (termed bounding box) around London using the `st_box()` function from the `sf` package to extract the basemap image (which is a raster). 
 
 ```{r, eval=TRUE, cache=FALSE}
 tmaplondon <- BoroughDataMap %>%
@@ -1045,7 +1046,24 @@ tm_polygons("rate_of_job_seekers_allowance_jsa_claimants_2015",
 
 For more palette options, run `palette_explorer()` in the console.
 
-So that's our first real map done! Awesome work. But remember our `Life_expectancy4` data that we wrangled earlier. Can you think of a way to map this? So we need to 
+So that's our first real map done! Awesome work. To make this interactive we set `tmap_mode("view")` and we can add a basemap by just including   `tm_basemap(server = "OpenStreetMap")` or the server could be `"CartoDB.Positron"`. There is no need to use `read_osm()`
+
+```{r}
+tmap_mode("view")
+tm_shape(BoroughDataMap) + 
+  tm_polygons("rate_of_job_seekers_allowance_jsa_claimants_2015", 
+              style="jenks",
+              palette="YlOrBr",
+              midpoint=NA,
+              title="Rate per 1,000 people",
+              alpha = 0.5) + 
+  tm_basemap(server = "OpenStreetMap") +
+  tm_compass(position = c("left", "bottom"),type = "arrow") + 
+  tm_scale_bar(position = c("left", "bottom")) +
+  tm_layout(title = "Job seekers' Allowance Claimants")
+```
+
+But remember our `Life_expectancy4` data that we wrangled earlier. Can you think of a way to map this? So we need to 
 
 1. Merge our `Life_expectancy4map` with the spatial data `EW`
 1. Map our merge with `tmap`
@@ -1054,8 +1072,8 @@ So that's our first real map done! Awesome work. But remember our `Life_expectan
 Life_expectancy4map <- EW %>%
     inner_join(., 
             Life_expectancy4,
-            by = c("lad11cd" = "new_code"))%>%
-    distinct(.,lad11cd, 
+            by = c("lad15cd" = "new_code"))%>%
+    distinct(.,lad15cd, 
            .keep_all = TRUE)
 ```
 
