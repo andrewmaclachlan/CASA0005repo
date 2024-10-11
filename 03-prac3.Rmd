@@ -114,22 +114,22 @@ If it's local (e.g. city of country analysis) then use a local projected CRS whe
 
 Until now, we’ve not really considered how our maps have been printed to the screen. Later on in the practical we will explore gridded temperature in Australia, as we will need an outline of Australia let's use that as an example here:
 
-1. First, we need to source and load a vector of Australia. Go to: https://gadm.org/download_country_v3.html and download the GeoPackage
+1. First, we need to source and load a vector of Australia. Go to: https://gadm.org/download_country.html and download the GeoPackage
 
 1. Once we've downloaded the `.gpkg` let's see what is inside it with `st_layers()`...
 
 ```{r, message=FALSE, cache=FALSE}
 library(sf)
 library(here)
-st_layers(here("prac3_data", "gadm36_AUS.gpkg"))
+st_layers(here("prac3_data", "gadm41_AUS.gpkg"))
 ```
 
 1. Then read in the GeoPackage layer for the whole of Australia (layer ending in 0)
 
 ```{r, cache=FALSE}
 library(sf)
-Ausoutline <- st_read(here("prac3_data", "gadm36_AUS.gpkg"), 
-                      layer='gadm36_AUS_0')
+Ausoutline <- st_read(here("prac3_data", "gadm41_AUS.gpkg"), 
+                      layer='ADM_ADM_0')
 ```
 
 You can check that the coordinate reference systems of  ```sf ``` or  ```sp ``` objects using the print function:
@@ -208,8 +208,8 @@ Or, more concisely...but remember this is only useful if there is no CRS when yo
 
 ```{r, cache=FALSE, warning=FALSE, message=FALSE, eval=TRUE}
 #or more concisely
-Ausoutline <- st_read(here("prac3_data", "gadm36_AUS.gpkg"), 
-                      layer='gadm36_AUS_0') %>% 
+Ausoutline <- st_read(here("prac3_data", "gadm41_AUS.gpkg"), 
+                      layer='ADM_ADM_0') %>% 
   st_set_crs(4326)
 ```
 
