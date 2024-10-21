@@ -1160,7 +1160,7 @@ flytipping1 <- read_csv("https://data.london.gov.uk/download/fly-tipping-inciden
 view(flytipping1)
 ```
 
-So we have a tibble with columns of each varaible (e.g. warning letters, total actions taken) where every row is a London borough. We want make sure that each observation has its own row...it doesn't as in the first row here we have observations for total incidents and total actions taken etc...to do this we will use `pivot_longer()`. Make sure you have the most recent version of `tidyverse` if you get an error.
+So we have a tibble with columns of each variable (e.g. warning letters, total actions taken) where every row is a London borough. We want make sure that each observation has its own row...it doesn't as in the first row here we have observations for total incidents and total actions taken etc...to do this we will use `pivot_longer()`. Make sure you have the most recent version of `tidyverse` if you get an error.
 
 
 ```{r, cache=FALSE, warning=FALSE, message=FALSE, eval=FALSE}
@@ -1187,7 +1187,7 @@ flytipping2 <- flytipping1[,1:4]
 
 But my advice would be to learn how to use the tidy tools! 
 
-Now let's make it a bit more suitable for mapping with `pivot_wider()` by making coloumns for each year of each variable....in the original `.csv` we had a year coloumn that had values of 2011-2012 to 2017-2018, so if we wanted to map a specifc year we'd have to filter out the year then map. Here we can just alter the data from `pivot_longer()` using the year and tipping type...
+Now let's make it a bit more suitable for mapping with `pivot_wider()` by making columns for each year of each variable....in the original `.csv` we had a year column that had values of 2011-2012 to 2017-2018, so if we wanted to map a specific year we'd have to filter out the year then map. Here we can just alter the data from `pivot_longer()` using the year and tipping type...
 
 > Note, just because the data is considered tidy doesn't mean it is directly appropriate for mapping. It might need to be tidy for analysis.
 
@@ -1204,7 +1204,7 @@ flytipping_wide <- flytipping_long %>%
 view(flytipping_wide)
 ```
 
-But what if you were just interested in a specific varaible and wanted the coloums to be each year of the data...again using `pivot_wider()`
+But what if you were just interested in a specific variable and wanted the columns to be each year of the data...again using `pivot_wider()`
 
 ```{r, cache=FALSE, warning=FALSE, message=FALSE, eval=FALSE}
 widefly <- flytipping2 %>% 
