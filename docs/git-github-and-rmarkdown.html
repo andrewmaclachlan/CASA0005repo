@@ -23,7 +23,7 @@
 <meta name="author" content="Andy MacLachlan, Adam Dennett and Claire Dooley" />
 
 
-<meta name="date" content="2024-10-11" />
+<meta name="date" content="2024-10-21" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -1305,7 +1305,7 @@ Each week we will provide a short task to test your knowledge, these should be u
 <p>The task this week is to:</p>
 <ul>
 <li>Read in <a href="https://hdr.undp.org/data-center/documentation-and-downloads">global gender inequality data</a></li>
-<li>Join the global gender inequality index to <a href="https://hub.arcgis.com/datasets/2b93b06dc0dc4e809d3c8db5cb96ba69_0/explore?location=-2.688200%2C0.000000%2C1.41">spatial data of the World</a>, creating a new column of difference in inequality between 2010 and 2019</li>
+<li>Join the global gender inequality index to <a href="https://hub.arcgis.com/datasets/2b93b06dc0dc4e809d3c8db5cb96ba69_0/explore?location=-2.688200%2C0.000000%2C1.41">spatial data of the World</a>, creating a new column of difference in inequality between 2010 and 2019. <strong>Note</strong> this download has become temperamental but the .geojson should work. Andy will provide the data if not.</li>
 <li>Share it with the World on GitHub</li>
 <li>Add you repository URL to the circulated spreadsheet</li>
 </ul>
@@ -1354,9 +1354,9 @@ Each week we will provide a short task to test your knowledge, these should be u
 <h3><span class="header-section-number">4.5.1</span> The three ways<a href="git-github-and-rmarkdown.html#the-three-ways" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>There are three ways to make your RStudio project work with GitHub</p>
 <ol style="list-style-type: decimal">
-<li>Set up the GitHub repository, clone it to your Git then load it in RStudio — using Git GUI</li>
-<li>Create a new RStudio project and link it to GitHub — new version control</li>
-<li>If you have an existing RProject then you can link them manually — existing project</li>
+<li>Set up the GitHub repository, clone it to your Git then load it in RStudio — using Git GUI. This shows Git is <strong>separate software</strong>, but i do not recommend this way</li>
+<li>Create a new RStudio project and link it to GitHub — new version control. In <em>this scenario</em> you might make a new RProject and know from the start you want to put it on GitHub</li>
+<li>If you have an existing RProject then you can link them manually — existing project. In <em>this scenario</em> you might have already developed your project but then later decide to share it on GitHub.</li>
 </ol>
 <p>I will show you all three, you should be able to do way 1, then way 2 using the same repository. Way 3 will have merge issues, so start with a fresh GitHub repository. It is useful if you have produced some code then want to share it at a later date. Follow what i do in the lecture.</p>
 <p>My advice is to read the Git and GitHub parts of the practical before you start (until the <a href="git-github-and-rmarkdown.html#rmarkdown">RMarkdown</a> section).</p>
@@ -1365,8 +1365,13 @@ Each week we will provide a short task to test your knowledge, these should be u
 <h3><span class="header-section-number">4.5.2</span> Set up your GitHub<a href="git-github-and-rmarkdown.html#set-up-your-github" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <ol style="list-style-type: decimal">
 <li><p>If you are working on your own computer, you will first need to install Git — <a href="https://git-scm.com/" class="uri">https://git-scm.com/</a> — if you are working on the UCL Remote Desktop, you won’t need to do this as it is already installed for you.</p></li>
-<li><p>Go to <a href="http://github.com" class="uri">http://github.com</a>, create an account and create a new repository (call it anything you like - ‘gis_code’ or something similar), making sure it is public and you check the box that says ‘initialise new repository with a README’ — click ‘create repository’ at the bottom</p></li>
+<li><p>Go to <a href="http://github.com" class="uri">http://github.com</a>, create an account and create a new repository (call it anything you like - ‘gis_code’ or something similar):</p></li>
 </ol>
+<ul>
+<li>making sure it is public</li>
+<li>check the box that says ‘initialise new repository with a README’</li>
+<li>click ‘create repository’ at the bottom</li>
+</ul>
 <p><img src="prac4_images/github.png" width="700pt" style="display: block; margin: auto;" /></p>
 <ol style="list-style-type: decimal">
 <li>Your new repository (‘repo’) will be created and this is where you will be able to store your code online. You will notice that a README.md markdown file has also been created. This can be edited to tell people what they are likely to find in this repository.</li>
@@ -1392,7 +1397,7 @@ Each week we will provide a short task to test your knowledge, these should be u
 </div>
 <div id="start-your-git" class="section level4 hasAnchor" number="4.5.3.3">
 <h4><span class="header-section-number">4.5.3.3</span> Start your Git<a href="git-github-and-rmarkdown.html#start-your-git" class="anchor-section" aria-label="Anchor link to header"></a></h4>
-<p>To start Git you <strong>need to be in a RStudio project</strong>. Instructions below show you how to do this in various scenarios. For example, in the first Git way, we clone (copy) a remote repository (of our own) then if we wanted to make changes (to the remote) we would need to follow these instructions to link our Git to GitHub</p>
+<p>To start Git you <strong>need to be in a RStudio project</strong>. You cannot start git without a project! Instructions below show you how to do this in various scenarios. For example, in the first Git way, we clone (copy) a remote repository (of our own) then if we wanted to make changes (to the remote) we would need to follow these instructions to link our Git to GitHub</p>
 <p>In the first instance we just copy it from the remote (GitHub), that will have git ready to go - so don’t do this now….but a very simple way is to again load the <code>usethis</code> package in the console and the function <code>use_git()</code>, then type option 1. You would do this for a project that you have started, which doesn’t have git enabled.</p>
 </div>
 <div id="connect-git-to-github" class="section level4 hasAnchor" number="4.5.3.4">
@@ -1411,7 +1416,7 @@ Each week we will provide a short task to test your knowledge, these should be u
 <ol style="list-style-type: decimal">
 <li>Now you have created your repo online, you need to ‘clone’ it so that there is an identical copy of it in a local folder on your computer.</li>
 </ol>
-<p>There are a couple of ways of doing this, but the easy one is to use the GUI that comes packaged with your git installation.</p>
+<p>There are a couple of ways of doing this, one is to use the GUI that comes packaged with your git installation. However, I never use this as RStudio has similar functionality.</p>
 <ol style="list-style-type: decimal">
 <li>The first thing you need to do is copy the Clone URL for your repo from the github website — click the green button in your repo for ‘Clone or Download’ and copy the link:</li>
 </ol>

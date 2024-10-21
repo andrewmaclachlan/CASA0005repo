@@ -55,6 +55,11 @@ Some of these practicals are long, take regular breaks and have a listen to some
 
 In this practical we're going to focus on creating mapped outputs using QGIS and R. For fun we're going to use data from OpenStreetMap (OSM) and Airbnb. 
 
+::: {.infobox .warning data-latex="{note}"}
+Within this practical we show how to make maps in **both** QGIS and R. Having some knowledge of QGIS is important for your future careers, however as the exam will only be in R feel free to primarily focus on that section. 
+:::
+
+
 ### OSM
 
 OpenStreetMap is collaborative project that has created a free editable map of the World. As users can create their own content it is classed as Volunteered geographic Information (VGI). There is a lot of academic literature on VGI, it's advnatages and disadvantages. For an overview of VGI checkout this [article](https://link.springer.com/article/10.1007/s10708-007-9111-y) by Goodchild (2007).
@@ -111,7 +116,7 @@ In the lecture we discussed how when producing maps there should be some sort of
 
 ## QGIS
 
-Ok, now we're going to reproduce our map in QIGS.
+Ok, now we're going to produce our map in QIGS.
 
 ### Load data
 
