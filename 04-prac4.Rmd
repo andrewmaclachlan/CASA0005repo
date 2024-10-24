@@ -84,7 +84,7 @@ The theory behind Git and Github was explained in the lecture and practical sess
 
 [Allison Horst has a series of graphics](https://allisonhorst.com/git-github) that will help understand the tools...
 
-```{r echo=FALSE, out.width = "550pt", fig.align='center', cache=FALSE, fig.cap="dplyr introduction graphic. Source: [Allison Horst data science and stats illustrations](https://github.com/allisonhorst/stats-illustrations)"}
+```{r echo=FALSE, out.width = "550pt", fig.align='center', cache=FALSE, fig.cap="A basic git workflow represented as two islands, one with local repo and working directory, and another with remote repo. Bunnies move file boxes from the working directory to the staging area, then with Commit move them to the local repo. Bunnies in rowboats move changes from the local repo to the remote repo (labeled PUSH) and from the remote repo to the working directory (labeled PULL). Source: [Allison Horst data science and stats illustrations](https://allisonhorst.com/git-github)"}
 knitr::include_graphics('allisonhorst_images/git_github.png')
 ```
 
