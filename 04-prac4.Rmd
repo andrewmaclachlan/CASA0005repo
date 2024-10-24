@@ -66,7 +66,7 @@ Some of these practicals are long, take regular breaks and have a listen to some
 
 ## Introduction  
 
-In this practical you will learn how to produce work that is open, reproducible, shareable and portable using RStudio, RMarkdown, Git and GitHub. As more and more researchers and organisations publish assocaited code with their manusripts or documents it's very imporant to become adept at using these tools.
+In this practical you will learn how to produce work that is open, reproducible, share able and portable using RStudio, RMarkdown, Git and GitHub. As more and more researchers and organisations publish associated code with their manuscripts or documents it's very important to become adept at using these tools.
 
 The tools you will use are:
 
@@ -76,9 +76,18 @@ The tools you will use are:
 
 * Git is a software version control system which allows you to keep track of the code you produce and the changes that you or others make to it.
 
-* GitHub is an online repository that allows anyone to view the code you have produced (in whatever language you choose to program in) and use/scrutinise/contribute to/comment on it.
+* GitHub is an online repository that allows anyone to view the code you have produced (in whatever language you choose to program in) and use/scrutinize/contribute to/comment on it.
 
 ## Git and GitHub 
+
+The theory behind Git and Github was explained in the lecture and practical session. 
+
+[Allison Horst has a series of graphics](https://allisonhorst.com/git-github) that will help understand the tools...
+
+```{r echo=FALSE, out.width = "550pt", fig.align='center', cache=FALSE, fig.cap="dplyr introduction graphic. Source: [Allison Horst data science and stats illustrations](https://github.com/allisonhorst/stats-illustrations)"}
+knitr::include_graphics('allisonhorst_images/git_github.png')
+```
+
 
 ### The three ways
 
@@ -286,7 +295,7 @@ As of January 2019 it is possible that Git will use a credential helper provided
 
 You can however set your username and email manually using the git prompt.
 
-Go Tools > Shell and enter: 
+Click the "cog" icon under the git tab > New Terminal and enter: 
 
 ```{r, eval=FALSE, cache=FALSE}
 git config --global user.name 'yourGitHubUsername'
@@ -296,10 +305,10 @@ These only need to be set once.
 
 #### Greyed out push button
 
-Is your push button greyed out? Mine was when i tried to set it up within an existing project in the section [If have have an existing project] ... Fear not....
+Is your push button grayed out? Mine was when i tried to set it up within an existing project in the section [If have have an existing project] ... Fear not....
 
 First, let's check your local repository (Git) is connected to a remote one (GitHub). 
-Open the Shell again (Tools > Shell) and enter:
+Open the Terminal again (Git tab > cog > New Terminal) and enter:
 
 ```{r, eval=FALSE, cache=FALSE}
 git remote -v
@@ -387,7 +396,7 @@ knitr::include_graphics('prac4_images/branchcompare.png')
 
 1. Now scroll down and you will see the comparison of between the two branches. Click create pull request.  
 
-1. Select squash and merge > confirm squash and merge. This means that all our commits on the exmaple branch and squashed into one, as we only have one it doesn't matter but could be useful in future. 
+1. Select squash and merge > confirm squash and merge. This means that all our commits on the example branch and squashed into one, as we only have one it doesn't matter but could be useful in future. 
 
 1. Go back to your main branch repository and you should see the changes from the example branch have been merged.
 
@@ -395,7 +404,9 @@ We will show you how to publish RMarkdown documents online in a later practical.
 
 #### Git commands
 
-If you'd rather use shell to control Git then you can. If you have a large project RStudio sometimes has limits on filename length (e.g. this might occur with a book, like this one). To get around this you can use the following commands:
+If you'd rather use Terminal to control Git then you can. You can start a new Terminal in R through clicking the Git tab (top right of RStudio) > cog icon > New Terminal.
+
+If you have a large project RStudio sometimes has limits on file name length (e.g. this might occur with a book, like this one). To get around this you can use the following commands:
 
 * `git add .` to stage all files
 * `git commit -m "commit comment"` to commit all the staged files

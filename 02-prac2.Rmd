@@ -681,8 +681,12 @@ LondonBoroughs_contains<-LondonBoroughs %>%
 
 1. You will notice that the column names are slightly misleading as we are now working with boroughs rather than wards. You probably will also be annoyed (like me!) that the column names are full of `...` (they used to be) or - and spaces, that just make everything hard to read. So, let's rename the wards column to boroughs (using `rename()` like we did earlier), then using the `Janitor` package tidy everything up...
 
-```{r, message=FALSE, cache=FALSE}
+```{r, eval=FALSE}
 install.packages("janitor")
+```
+
+
+```{r, message=FALSE, cache=FALSE}
 library(janitor)
 
 LondonBoroughs <- LondonBoroughs %>%
