@@ -570,12 +570,7 @@ pal2 <- Joined %>%
 
 
 map<- leaflet(Joined) %>%
-  # add basemap options
-  addTiles(group = "OSM (default)") %>%
-  addProviderTiles(providers$Stamen.Toner, group = "Toner") %>%
-  addProviderTiles(providers$Stamen.TonerLite, group = "Toner Lite") %>%
-  addProviderTiles(providers$CartoDB.Positron, group = "CartoDB")%>%
-  
+
   #add our polygons, linking to the tables we just made
   addPolygons(color="white", 
               weight = 2,
@@ -593,6 +588,13 @@ map<- leaflet(Joined) %>%
               dashArray = "3",
               popup = popupairbnb,
               fillOpacity = 0.7,group = "Hotels")%>%
+  
+  #add basemaps
+  addTiles(group = "OSM (default)") %>%
+  addProviderTiles(providers$Stadia.StamenToner, group = "Toner") %>%
+  addProviderTiles(providers$Stadia.StamenTonerLite, group = "Toner Lite") %>%
+  addProviderTiles(providers$CartoDB.Positron, group = "CartoDB")%>%
+  
   # add a legend
   addLegend(pal = pal2, values = ~`Hotel count`, group = c("Airbnb","Hotel"), 
             position ="bottomleft", title = "Accomodation count") %>%
