@@ -247,7 +247,7 @@ knitr::include_graphics('prac5_data/QGIS_hotel.png')
 ```
 
 > **Note** there are a few problems with my map that could be improved:
-(1) If you look closely at the vector layer for London you will see that one of the boroughs is missing from map (b) --- this is most likely because it has no data but could easily be fixed
+(1) If you look closely at the vector layer for London you will see that one of the boroughs is missing from map (b) --- this is most likely because it has no data (0) but could easily be fixed. We will see this later on in R!
 (2) Whilst this time i've displayed all the city names the colour scheme needs work...for ideas on this check out colour brewer.
 
 ### Graphical modeler
@@ -364,6 +364,7 @@ output<- data1%>%
 Hotels <- Joinfun(OSM, Londonborough)
 
 # then for airbnb
+# this is incorrect - change to airbnb2 to look at result
 Airbnb <- Joinfun(Airbnb, Londonborough)
  
 Worldcities2 <- Worldcities %>%
@@ -387,6 +388,20 @@ Airbnb <- Airbnb %>%
   group_by(., GSS_CODE, NAME)%>%
   summarise(`Accomodation count` = unique(hotels_in_borough))
 ```
+
+This is actually incorrect and we will see why after reading week. Essentially there are two boroughs that have 0 airbnbs with our filters - Kingston upon Thames and Sutton. They don't appear on the QGIS map and you can explore them on the interactive map later on...
+
+However, in our data a they have a value of 1...why? 
+
+Well because this spatial join is like a left join. The Boroughs will always exist (there is always a row of Sutton) we have then grouped by and summarised the Borough (Sutton) and as it has a row it will return a value of 1 even through it is actually 0. To explore this you will need to break the code above, change `Airbnb <- Joinfun(Airbnb, Londonborough)` to `Airbnb2 <- Joinfun(Airbnb, Londonborough)` and explore the `Airbnb2` object - Sutton will have a single row but no Airbnb names! 
+
+Let's check this...from the code below Sutton has 1 Airbnb (meeting our criteria) however we know it does not!
+
+```{r}
+Airbnb %>%
+  filter(NAME=="Sutton")
+```
+
 Make the map
 ```{r, warning=FALSE, message=FALSE, out.width = "800pt", cache=FALSE}
 
@@ -433,6 +448,8 @@ t=tmap_arrange(tm1, tm2, tm3, legend, ncol=2)
 
 t
 ```
+
+
 
 We can also arrange our maps using the ```grid``` package...
 
