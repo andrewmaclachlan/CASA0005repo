@@ -68,7 +68,7 @@ If you are interested in exploring the power of VGI and OSM further checkout [mi
 
 ### Airbnb
 
-Airbnb is an online marketplace that connects people looking to rent homes to those seeking accomodation often over short time periods.
+Airbnb is an online marketplace that connects people looking to rent homes to those seeking accommodation often over short time periods.
 
 ## Data
 
@@ -78,7 +78,7 @@ It’s possible to download OSM data straight from the website, although the int
 
 1. Go to the Geofabrik download server [website](http://download.geofabrik.de/)
 
-1. Navigate to: Europe > GreatBritain > England > Greater London
+1. Navigate to: Europe > United Kingdom > England > Greater London
 
 1. Download greater-london-latest-free.shp.zip
 
