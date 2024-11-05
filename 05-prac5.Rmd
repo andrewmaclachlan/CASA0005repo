@@ -126,7 +126,7 @@ Ok, now we're going to produce our map in QIGS.
 
 1. Load our data layers: London boroughs and OSM data (OSM data should be the  ```gis_osm_pois_a_free_1 polygon layer```). 
 
-1. Make sure the processing toolbox is active...go Plugins > Manage and Install Plugins > Installed (left side of the box that opens), Processing should be ticked....then select the cog that is in the toolbar --- within the sqaure box in the image below. 
+1. Make sure the processing toolbox is active...go Plugins > Manage and Install Plugins > Installed (left side of the box that opens), Processing should be ticked....then select the cog that is in the toolbar --- within the square box in the image below. 
 
 ```{r echo=FALSE, out.width = "700", fig.align='center', cache=FALSE}
 knitr::include_graphics('prac5_images/cog.png') 
@@ -140,7 +140,7 @@ If you recall from practical 1, QGIS sets the map document CRS to that of the fi
 
 The OSM data will load and QGIS is pretty clever here as it will project ‘on the fly’ which means it can display the data stored in one projection as if it were in another, but the actual data is not altered. This is both good and bad. Good as it let’s us visualise our data quickly, but bad because if we have data with different projections you will run into problems during processing. My advice is to load the data and pick a projection to do all processing in.
 
-1. Reproject the OSM data. If you scroll right in the dialogue box you'll be able to save it into your ```GeoPackage```. You might need to refresh the browers to see the layer.
+1. Reproject the OSM data. If you scroll right in the dialogue box you'll be able to save it into your ```GeoPackage```. You might need to refresh the browser to see the layer.
 
 ```{r echo=FALSE, out.width = "800", fig.align='center', cache=FALSE}
 knitr::include_graphics('prac5_images/QGIS_reproj.png') 
@@ -148,7 +148,7 @@ knitr::include_graphics('prac5_images/QGIS_reproj.png')
 
 1. While we are working with projections...check the CRS of your map (bottom right)...mine is EPSG 4326 (WGS 1984) and we want it to be in British National Grid (which is ESPG: 27700), click on it, change it and apply.
 
-1. For completness also drag and drop your London boroughs ```.shp``` from the Layers window (bottom left) into your ```GeoPacakge```. Remove the old one from the Layers window. Double click on the new ```London boroughs``` layer in the ```GeoPackage``` and it will open
+1. For completeness also drag and drop your London boroughs ```.shp``` from the Layers window (bottom left) into your ```GeoPackage```. Remove the old one from the Layers window. Double click on the new ```London boroughs``` layer in the ```GeoPackage``` and it will open
 
 1. To get only the hotels out of our OSM data we can use ```extract by attrbitue```...this is my tool dialogue box. You can find extract by attribute by clicking the toolbox cog, then searching for extract by attribute.
 
@@ -156,21 +156,21 @@ knitr::include_graphics('prac5_images/QGIS_reproj.png')
 knitr::include_graphics('prac5_images/extractattribute.png') 
 ```
 
-1. Refresh the browser ---you have to do this everytime. Double click the layer to load it.
+1. Refresh the browser ---you have to do this every time. Double click the layer to load it.
 
-1. Now ```extract by location using``` the file you just created and the London boroughs (so hotels within the London boroughs). Note that i selected that the hotels are within the Lonon boroughs
+1. Now ```extract by location using``` the file you just created and the London boroughs (so hotels within the London boroughs). Note that i selected that the hotels are within the London boroughs
 
 ```{r echo=FALSE, out.width = "800", fig.align='center', cache=FALSE}
 knitr::include_graphics('prac5_images/extractbylocation.png') 
 ```
 
-1. Let's now count our hotels per London borough using ```Join Attributes by Location (Summary)```. Note i selected the ```osm_id``` field to summarise using count in summaries to calcualte....
+1. Let's now count our hotels per London borough using ```Join Attributes by Location (Summary)```. Note i selected the ```osm_id``` field to summarise using count in summaries to calculate....
 
 ```{r echo=FALSE, out.width = "800", fig.align='center', cache=FALSE}
 knitr::include_graphics('prac5_images/joinosmandlondon.png') 
 ```
 
-1. Next up is the Air b n b data, i'll show you how to load it then you need to produce a count of rentals per London borough using the same rules as before (entire place/apartment and available all year). To load the data click Data Source Manager > Delimited Text:
+1. Next up is the Airbnb data, i'll show you how to load it then you need to produce a count of rentals per London borough using the same rules as before (entire place/apartment and available all year). To load the data click Data Source Manager > Delimited Text:
 
 ```{r echo=FALSE, out.width = "800", fig.align='center', cache=FALSE}
 knitr::include_graphics('prac5_images/QGISxy.png') 
@@ -190,7 +190,7 @@ You need to:
 
 ### Map data
 
-1. So now you should have two London borough layers one with a count of all the hotels and the other with a count of all the air b n b properties...To make a thematic map right click on the hotel layer > Symbology (tab) select Graduated and your count coloumn as the coloumn, mode as natural breaks and then classify...
+1. So now you should have two London borough layers one with a count of all the hotels and the other with a count of all the Airbnb properties...To make a thematic map right click on the hotel layer > Symbology (tab) select Graduated and your count column as the column, mode as natural breaks and then classify...
 
 ```{r echo=FALSE, out.width = "800", fig.align='center', cache=FALSE}
 knitr::include_graphics('prac5_images/QGISsymbology.png') 
@@ -198,11 +198,11 @@ knitr::include_graphics('prac5_images/QGISsymbology.png')
 
 1. Now save the style so we can use it on our other layer....Style > Save Style > select in Database and provide a name
 
-1. Go to the symbology of the other layer > select Graduated, select the correct count coloumn, then Style > Load Style, from database and your saved style should be listed. 
+1. Go to the symbology of the other layer > select Graduated, select the correct count column, then Style > Load Style, from database and your saved style should be listed. 
 
 1. To create a new map document in QGIS go: Project > New Print Layout. The layout works by adding a new map which is a snapshop of the main QGIS document....
 
-1. In the main QGIS document only select your airbnb layer, right click and zoom to it. GO back to the Print Layout > Add Item > Add Map..draw a sqaure...the layer should appear...In the window at the bottom right under Item Properties select to Lock layers...so now if you were to unselect that layer it would still remain on in the Print Layout
+1. In the main QGIS document only select your Airbnb layer, right click and zoom to it. Go back to the Print Layout > Add Item > Add Map..draw a square...the layer should appear...In the window at the bottom right under Item Properties select to Lock layers...so now if you were to unselect that layer it would still remain on in the Print Layout
 
 1. Go back to your main QGIS document, now only select the hotels layer...repeat the Add Map steps and lock the layers
 
@@ -214,9 +214,9 @@ knitr::include_graphics('prac5_images/positionsize.png')
 
 1. Add some guides to line everything up go: View > Manage Guides. The guides panel will appear in the bottom right hand corner, click the + to add a guide at a distance you specify. You can then drag your maps to snap to the guides.
 
-1. Add a scale bar: Add Item > Add Scale Bar. To adjust it, right click > Item Properties...alter some of the properties to make it look appropraite.
+1. Add a scale bar: Add Item > Add Scale Bar. To adjust it, right click > Item Properties...alter some of the properties to make it look appropriate.
 
-1. Add a legend: Add Item > Add Legend and draw a sqaure. Same process to adjust it. Untick Auto update then you can use the ```+``` and ```-``` icons to remove items along with the edit icon to change the text...this is what mine looks like...
+1. Add a legend: Add Item > Add Legend and draw a square. Same process to adjust it. Untick Auto update then you can use the ```+``` and ```-``` icons to remove items along with the edit icon to change the text...this is what mine looks like...
 
 ```{r echo=FALSE, out.width = "400", fig.align='center', cache=FALSE}
 knitr::include_graphics('prac5_images/QGIS_legend.png') 
@@ -228,7 +228,7 @@ knitr::include_graphics('prac5_images/QGIS_legend.png')
 
 1. Let's add our extent map, load the UK ```.shp```, reproject it and save it into your  ```.gpkg  ```. Do the same for your city points but be sure to load them into your ```.gpkg  ``` before you run any tool (just drag and drop them). When reprojecting you might see a lot of errors for certain points in the processing box...don't worry ```British National Grid``` only covers the UK --- these errors will be for points outside of the UK which we will remove
 
-1. Now replicate our ArcMap inset map by opening the Layer Properties of the new cities layer > Labels > Single Labels with city name, alter any of the text styles as you wish. Also play around with the symbology..
+1. Now replicate our inset map by opening the Layer Properties of the new cities layer > Labels > Single Labels with city name, alter any of the text styles as you wish. Also play around with the symbology..
 
 1. Add the new map into your map layout and move the items to appropraite locations...
 
@@ -250,13 +250,13 @@ knitr::include_graphics('prac5_data/QGIS_hotel.png')
 (1) If you look closely at the vector layer for London you will see that one of the boroughs is missing from map (b) --- this is most likely because it has no data (0) but could easily be fixed. We will see this later on in R!
 (2) Whilst this time i've displayed all the city names the colour scheme needs work...for ideas on this check out colour brewer.
 
-### Graphical modeler
+### Model Designer (aka Graphic Modeler)
 
-As in ArcMap we can automate the methodological process in QGIS using the graphical modeler..again i'll provide a short example here
+As in ArcMap we can automate the methodological process in QGIS using the Model Designer..again i'll provide a short example here
 
-1. Go: Processing > Graphical Modeler
+1. Go: Processing > Model Designer
 
-Graphical modeler is a bit different to model builder in ArcMap, here you drag inputs and algorthims from the inputs box (bottom left) into the model, you don't need to specify the inputs here. When you click the run buttom (play on the top toolbar) you'll be asked to provide the layers for the inputs. The options will be limited to those you currently have open in your map...check out the model i made to automate reprojecting cities and the UK outline, then extracting the cities within the UK outline...
+Model Designer is a bit different to model builder in ArcMap, here you drag inputs and algorthims from the inputs box (bottom left) into the model, you don't need to specify the inputs here. When you click the run buttom (play on the top toolbar) you'll be asked to provide the layers for the inputs. The options will be limited to those you currently have open in your map...check out the model i made to automate reprojecting cities and the UK outline, then extracting the cities within the UK outline...
 
 ```{r echo=FALSE, out.width = "600", fig.align='center', cache=FALSE}
 knitr::include_graphics('prac5_images/QGIS_model.png') 
