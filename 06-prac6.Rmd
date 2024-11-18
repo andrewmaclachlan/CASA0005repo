@@ -495,7 +495,9 @@ QCountTable <- Qcount %>%
 #Compare the frequency distributions of the observed and expected point patterns
 plot(c(1,5),c(0,14), type="n",
 xlab="Number of Blue Plaques (Red=Observed,Blue=Expected)", 
-     ylab="Frequency of Occurances")
+     ylab="Frequency of Occurances",
+     xaxt="n")
+axis(side=1, at=1:5, labels=0:4)
 points(QCountTable$Freqquadratcount, 
        col="Red", 
        type="o", 
