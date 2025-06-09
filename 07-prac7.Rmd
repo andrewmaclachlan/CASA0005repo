@@ -333,7 +333,13 @@ C_LWard_Global_Density
 
 #### Comparison 
 
-We should now have an idea about what the main differences between Moran's I and Geary's C are, and how to inptert the outputs. But how do these look in an equation. I really dislike using equations as a descritpiton is much easier to understand. However, it's important to see how similar these two autocorrelcation measures are.
+We should now have an idea about what the main differences between Moran's I and Geary's C are, and how to inptert the outputs. But how do these look in an equation. I really **dislike using equations** as a descritpiton is much easier to understand. However, it's important to see how similar these two autocorrelcation measures are.
+
+::: {.infobox .warning data-latex="{note}"}
+
+[Download the worked Moran's I and Geary's C excel document](https://github.com/andrewmaclachlan/CASA0005repo/blob/master/MoranI%20and%20Gearcy%20C%20example.xlsx) and consider it in relation to these formulas. 
+
+:::
 
 * Open the worked Moran's I and Geary's C excel document and consider it in relation to these formulas. 
 
@@ -343,7 +349,8 @@ We should now have an idea about what the main differences between Moran's I and
 | $$I = \frac{n}{W} \cdot \frac{\sum_{i} \sum_{j} w_{ij} (z_i - \bar{z})(z_j - \bar{z})}{\sum_{i} (z_i - \bar{z})^2}$$ | $$C = \frac{(n - 1)}{2W} \cdot \frac{\sum_{i} \sum_{j} w_{ij} (z_i - z_j)^2}{\sum_{i} (z_i - \bar{z})^2}$$ |
 | **Where:**<br> \( n \) = number of spatial units<br> \( W = \sum w_{ij} \) = sum of all spatial weights (1 if row standarised) <br> \( z_i \), \( z_j \) = value at location *i* and *j*<br> \( \bar{z} \) = mean of all values (global mean) <br> \( w_{ij} \) = spatial weight between *i* and *j* | **Where:**<br> \( n \) = number of spatial units<br> \( W = \sum w_{ij} \) = sum of all spatial weights (1 if row standarised)<br> \( z_i \), \( z_j \) = values at locations *i* and *j*<br> \( \bar{z} \) = mean of all values (global mean) <br> \( w_{ij} \) = spatial weight between *i* and *j* |
 
-* You will notice that the key difference is with the numerator
+
+* You will notice that the **key difference is with the numerator**
 
 | Measure       | What it compares                 | Mathematical focus                              |
 | ------------- | -------------------------------- | ----------------------------------------------- |
@@ -361,7 +368,7 @@ For Moran's I
 
 For Geary's C
 
-* This changes to the difference between the central value and the neighbour, sqaured $(z_i - z_j)^2$
+* This changes to the difference between the central value and the neighbour, squared $(z_i - z_j)^2$
 
 * A **large difference means more dissimiarlity between the values**
 
