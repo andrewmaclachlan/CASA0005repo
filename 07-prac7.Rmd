@@ -71,7 +71,8 @@ LondonWardsMerged <- st_read(here::here("prac6_data",
                                         "ESRI",
                                         "London_Ward_CityMerged.shp"))%>%
   st_transform(.,27700)
-WardData <- read_csv("https://data.london.gov.uk/download/ward-profiles-and-atlas/772d2d64-e8c6-46cb-86f9-e52b4c7851bc/ward-profiles-excel-version.csv",
+
+WardData <- read_csv("https://data.london.gov.uk/download/f33fb38c-cb37-48e3-8298-84c0d3cc5a6c/772d2d64-e8c6-46cb-86f9-e52b4c7851bc/ward-profiles-excel-version.csv",
                     locale = locale(encoding = "latin1"),
                      na = c("NA", "n/a")) %>% 
   clean_names()
@@ -281,7 +282,15 @@ Lward.lw <- LWard_nb %>%
 
 ### Moran's I
 
-Moran's I test tells us whether we have clustered values (close to 1) or dispersed values (close to -1), we will calculate for the densities rather than raw values (think about why this is?). 
+Moran's I test tells us whether we have clustered values (close to 1) or dispersed values (close to -1). We will calculate for densities rather than raw values (think about why this is?).
+
+Here:
+
+* Clustered refers to how similar values are to the neighbours. This could be *any value* - high or low. 
+* Dispersed means how dissimilar values are to neighbours 
+* Random values would produce a result of 0.
+
+Our neighbours are set by the weight matrix. 
 
 ```{r, cache=FALSE}
 I_LWard_Global_Density <- points_sf_joined %>%
@@ -292,9 +301,25 @@ I_LWard_Global_Density <- points_sf_joined %>%
 I_LWard_Global_Density
 ```
 
+::: {.infobox .warning data-latex="{note}"}
+
+**zero.policy=TRUE**
+
+By defult all of our autocorrelation tests assume that we have spatailly continuous observations where **all polygons have neighbours**. However, depending on the weight matrix this might not be the case! An additional argument allows the function to permit spatial units with no neighbours
+
+`moran.test(., Lward.lw, zero.policy = TRUE)`
+
+:::
+
+
 ### Geary's C
 
-Geary's C as well..? This tells us whether similar values or dissimilar values are clustering
+Geary's C as well..? This tells us whether **similar values or dissimilar values are clustering**. Here:
+
+* C < 1 indicates that neighbours with similar values are clustered (compared to random chance)
+* C >1  indicates that neighbours with dissimilar values are clustered (compared to random chance). 
+* C = 0 indicates not autocorrelation
+
 
 ```{r, cache=FALSE}
 C_LWard_Global_Density <- 
@@ -306,9 +331,48 @@ C_LWard_Global_Density <-
 C_LWard_Global_Density
 ```
 
+#### Comparison 
+
+We should now have an idea about what the main differences between Moran's I and Geary's C are, and how to inptert the outputs. But how do these look in an equation. I really dislike using equations as a descritpiton is much easier to understand. However, it's important to see how similar these two autocorrelcation measures are.
+
+* Open the worked Moran's I and Geary's C excel document and consider it in relation to these formulas. 
+
+
+| **Moran’s I** | **Geary’s C** |
+|---------------|---------------|
+| $$I = \frac{n}{W} \cdot \frac{\sum_{i} \sum_{j} w_{ij} (z_i - \bar{z})(z_j - \bar{z})}{\sum_{i} (z_i - \bar{z})^2}$$ | $$C = \frac{(n - 1)}{2W} \cdot \frac{\sum_{i} \sum_{j} w_{ij} (z_i - z_j)^2}{\sum_{i} (z_i - \bar{z})^2}$$ |
+| **Where:**<br> \( n \) = number of spatial units<br> \( W = \sum w_{ij} \) = sum of all spatial weights (1 if row standarised) <br> \( z_i \), \( z_j \) = value at location *i* and *j*<br> \( \bar{z} \) = mean of all values (global mean) <br> \( w_{ij} \) = spatial weight between *i* and *j* | **Where:**<br> \( n \) = number of spatial units<br> \( W = \sum w_{ij} \) = sum of all spatial weights (1 if row standarised)<br> \( z_i \), \( z_j \) = values at locations *i* and *j*<br> \( \bar{z} \) = mean of all values (global mean) <br> \( w_{ij} \) = spatial weight between *i* and *j* |
+
+* You will notice that the key difference is with the numerator
+
+| Measure       | What it compares                 | Mathematical focus                              |
+| ------------- | -------------------------------- | ----------------------------------------------- |
+| **Moran’s I** | Value of unit vs **global mean** | Cross-product: $(z_i - \bar{z})(z_j - \bar{z})$ |
+| **Geary’s C** | Value of unit vs **neighbour**    | Squared difference: $(z_i - z_j)^2$             |
+
+
+#### Key message 
+
+For Moran's I 
+
+* we are looking at the product of deviaitions from the global mean (subtracting our central value $(z_i - \bar{z})$ and niehgbour $(z_j - \bar{z})$ from the global mean individually, then multiplying them).
+
+* If both **deviations are positive then this suggests clustering**
+
+For Geary's C
+
+* This changes to the difference between the central value and the neighbour, sqaured $(z_i - z_j)^2$
+
+* A **large difference means more dissimiarlity between the values**
+
 ### Getis Ord
 
-Getis Ord General G...? This tells us whether high or low values are clustering. If G > Expected = High values clustering; if G < expected = low values clustering
+Getis Ord General G...? This tells goes further and says if **high or low values are clustering**. Here:
+
+* If G > expected = High values clustering, which could be termed a "hot spot"
+* If G < expected = low values clustering, which could termed a "cold spot"
+* If G = expected, then it is spatially random
+
 
 ```{r, cache=FALSE}
 G_LWard_Global_Density <- 
@@ -320,28 +384,74 @@ G_LWard_Global_Density <-
 G_LWard_Global_Density
 ```
 
-So the global statistics are indicating that we have spatial autocorrelation of Blue Plaques in London:
+**Note** conceptaully Gertis Ord General G is again very similar to Moran's I and Geary's C but the focus is now on the *weighted product of values* - this means multiplying neighbours and weighting them with our weight matrix (in the numerator). **If a high value is near a high value it returns a larger product**. 
+
+$$
+G = \frac{\sum_{i=1}^{n} \sum_{j=1}^{n} w_{ij} x_i x_j}{\sum_{i=1}^{n} \sum_{j=1}^{n} x_i x_j}
+$$
+
+**Where:**
+
+- \( x_i \) = value at location \( i \)  
+- \( x_j \) = value at location \( j \)  
+- \( w_{ij} \) = spatial weight between locations \( i \) and \( j \)  
+- \( n \) = total number of spatial units
+
+**Expected value under spatial randomness:**
+
+$$
+E(G) = \frac{\sum_{i=1}^{n} \sum_{j=1}^{n} w_{ij}}{n(n - 1)}
+$$
+
 
 ### Summary
 
-The Moran's I statistic = 0.67 (remember 1 = clustered, 0 = no pattern, -1 = dispersed) which shows that we have some distinctive clustering
+The Moran's I statistic = 0.67 (remember 1 = clustered, 0 = no pattern, -1 = dispersed) which shows that we have some distinctive clustering. But this could be clustering of any value.
 
-The Geary's C statistic = 0.41 (remember Geary's C falls between 0 and 2; 1 means no spatial autocorrelation, <1 - positive spatial autocorrelation or similar values clustering, >1 - negative spatial autocorreation or dissimilar values clustering) which shows that similar values are clustering
+* Interpretation: We have some clustering of  values (low or high) *across the entire study area*. 
+
+The Geary's C statistic = 0.41 (remember Geary's C falls between 0 and 2; 1 means no spatial autocorrelation, <1 - positive spatial autocorrelation or similar values clustering, >1 - negative spatial autocorreation or dissimilar values clustering), which shows that similar values are clustering
+
+* Interpretation: We have some clustering of similar values *indicating neighbours are similar*. 
 
 The General G statistic = G > expected, so high values are tending to cluster. 
 
+* Interpretation: We have clustering *of high values*.
+
+
 ### Local Moran's I 
 
-We can now also calculate local versions of the Moran's I statistic (for each Ward) and a Getis Ord \(G_{i}^{*}\) statistic to see *where* we have hot-spots...
+We can now also calculate local versions of the Moran's I statistic (e.g. for each Ward) and a Getis Ord \(G_{i}^{*}\) statistic to spatially see and map *where* we have clusters...
+
+This iteraties over each individual polygon (or point), using just the neighbours for the spatial unit from our weight matrix.
 
 Local Moran's I is:
 
-* The difference between a value and neighbours * the sum of differences between neighbours and the mean
-* Where the the difference between a value and neighbours is divided by the standard deviation (how much values in neighbourhood vary about the mean)
+* The difference between a value and the global mean $(z_i - \bar{z})$ * the difference between a neighbour and the global mean $w_{ij}(z_j - \bar{z})$, weighted by the weight matrix
+
+* This is standarised by the global variance $(m_2)$ to make sure values are comparable. 
+
+
+\[
+I_i = \frac{(z_i - \bar{z})}{m_2} \sum_{j} w_{ij}(z_j - \bar{z})
+\]
+
+**Where:**
+
+- \( I_i \): Local Moran’s I statistic for unit *i*  
+- \( z_i \): Value at location *i*  
+- \( z_j \): Value at neighboring location *j*  
+- \( \bar{z} \): Mean of all (global) values  
+- \( w_{ij} \): Spatial weight between locations *i* and *j*  
+- \( m_2 = \frac{1}{n} \sum_{k=1}^{n} (z_k - \bar{z})^2 \): Global variance
+  - \(z_k\): is each individual value in the dataset
+
 
 It returns several columns, of most interest is the Z score. A Z-score is **how many standard deviations a value is away (above or below) from the mean**. This allows us to state if our value is significantly different than expected value at this location considering the neighours. 
 
-We are comparing our value of Moran's I to that of an expected value (computed from a separate equation that uses the spatial weight matrix, and therefore considers the neighbouring values). We are expecting our value of Moran's I to be in the middle of the distribution of the expected values. These expected values follow a normal distribution, with the middle part representing complete spatial randomness. This is **typically** between < -1.65 or > +1.65 standard deviations from the mean  
+We are comparing our value of Moran's I to that of an expected value (computed from a separate equation that uses the spatial weight matrix, and therefore considers the neighbouring values). 
+
+We are expecting our value of Moran's I to be in the middle of the distribution of the expected values. These expected values follow a normal distribution, with the middle part representing complete spatial randomness. This is **typically** between < -1.65 or > +1.65 standard deviations from the mean  
 
 The **null hypothesis** is always there is complete spatial randomness. A null hypothesis means:
 
@@ -351,7 +461,15 @@ If our value is towards the tails of the distribution then it is unlikely that t
 
 In the example where we use a z-score of >2.58 or <-2.58 we interpret this as...
 
-...> 2.58 or <-2.58 standard deviations away from the mean are significant at the 99% level...this means there is a <1% chance that autocorrelation is not present
+> ...> 2.58 or <-2.58 standard deviations away from the mean are significant at the 99% level...this means there is a <1% chance that autocorrelation is not present, indicating **positive autocorrelation** (this could be **high surrounded by high or low surrounded by low**). 
+
+::: {.infobox .warning data-latex="{note}"}
+
+Positive autocorrelation means a value at a location is similar to the neighbours. The values could be high or low.
+
+:::
+
+A low or negative Z score is indicative of spatial outlier (e.g. high next to low values)
 
 The [Global vs location spatial autocorrelation resource](https://storymaps.arcgis.com/stories/5b26f25bb81a437b89003423505e2f71) goes through the specific formulas here, but the most important parts are knowing
 
@@ -436,7 +554,12 @@ Where:
 
 **Note**, consult the [Global vs location spatial autocorrelation resource](https://storymaps.arcgis.com/stories/5b26f25bb81a437b89003423505e2f71) for how this is computed in Local Moran's I if you are interested, although interpretation is the most important part here.
 
-**However**, in the case of Getis Ord \(G_{i}^{*}\) this is the local sum (of the neighbourhood) compared to the sum of all features
+**However**, in the case of Getis Ord \(G_{i}^{*}\) this is the local sum (of the neighbourhood. This means for each point $i$ sum all of the surrounding values based on the weight matrix) $\sum_{j} w_{ij} x_j$ compared to the sum of all features in the entire dataset $\sum_{j} x_j
+$
+
+\[
+G_i^* = \frac{\sum_{j=1}^n w_{ij} x_j}{\sum_{j=1}^n x_j}
+\]
 
 In Moran's I this is just the value of the spatial unit (e.g. polygon of the ward) compared to the neighbouring units.
 
@@ -446,7 +569,7 @@ The same z-score criteria then applies as before..
 
 This summary from L3 Harris nicely summaries the Getis Ord \(G_{i}^{*}\) output...
 
-> The result of Getis Ord \(G_{i}^{*}\) analysis is an array of Z-scores, one for each pixel [or polygon], which is the number of standard deviations that the pixel [or polygon] and its neighbors are from the global mean. High Z-scores indicate more intense clustering of high pixel values, indicating hot spots. Low Z-scores indicate more intense clustering of low values, indicating cold spots. Individual pixels with high or low values by themselves might be interesting but not necessarily significant.
+> The result of Getis Ord \(G_{i}^{*}\) analysis is an array of Z-scores, one for each pixel [or polygon], which is the number of standard deviations that the pixel [or polygon] and its neighbours are from the global mean. High Z-scores indicate more intense clustering of high pixel values, indicating hot spots. Low Z-scores indicate more intense clustering of low values, indicating cold spots. Individual pixels with high or low values by themselves might be interesting but not necessarily significant.
 
 ```{r, cache=FALSE}
 Gi_LWard_Local_Density <- points_sf_joined %>%
@@ -486,6 +609,15 @@ tm_shape(points_sf_joined) +
         title="Gi*, Blue Plaques in London")
 
 ```
+
+### Summary
+
+| Statistic             | What is compared                               | Purpose                                                                                           |
+| --------------------- | ---------------------------------------------- | ------------------------------------------------------------------------------------------------- |
+| **Local Moran’s I**   | Deviation of a point from neibhouring values    | Identify clusters or spatial outliers (similar/dissimilar)                                        |
+| **Moran’s I Z-score** | Observed Moran’s I vs expected under randomness | Measure statistical significance of spatial autocorrelation at each location; high values surrounded by high values or low values surrounded by low values
+| **Getis-Ord \(G_i^*\)** | Local weighted sum vs global sum of all values | Identify hotspots (high values clustering) or coldspots (low values clustering)    
+
 
 ## Other variables
 
@@ -557,8 +689,6 @@ tm_shape(points_sf_joined) +
         title="Gi*, GCSE Scores")
 
 ```
-
-So this is the end of the practical. Hopefully you have learned a lot about the different methods we can employ to analyse patterns in spatial data. 
 
 ## Feedback
 

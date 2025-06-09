@@ -150,7 +150,7 @@ Now we are going to read in some data from the [London Data Store](https://data.
 
 ```{r echo=TRUE, message=FALSE, paged.print=TRUE}
 #read in some attribute data
-LondonWardProfiles <- read_csv("https://data.london.gov.uk/download/ward-profiles-and-atlas/772d2d64-e8c6-46cb-86f9-e52b4c7851bc/ward-profiles-excel-version.csv", 
+LondonWardProfiles <- read_csv("https://data.london.gov.uk/download/f33fb38c-cb37-48e3-8298-84c0d3cc5a6c/772d2d64-e8c6-46cb-86f9-e52b4c7851bc/ward-profiles-excel-version.csv", 
                                col_names = TRUE, 
                                locale = locale(encoding = 'Latin1'))
 ```
@@ -232,7 +232,7 @@ Let's add some schools data as well. In the `st_as_sf` function `x` is longitude
 
 ```{r, message=FALSE, cache=FALSE}
 #might be a good idea to see where the secondary schools are in London too
-london_schools <- read_csv("https://data.london.gov.uk/download/london-schools-atlas/57046151-39a0-45d9-8dc0-27ea7fd02de8/all_schools_xy_2016.csv")
+london_schools <- read_csv("https://data.london.gov.uk/download/146392df-b051-42ad-b8ec-454e440f0f8b/57046151-39a0-45d9-8dc0-27ea7fd02de8/all_schools_xy_2016.csv")
 
 #from the coordinate values stored in the x and y columns, which look like they are latitude and longitude values, create a new points dataset
 lon_schools_sf <- st_as_sf(london_schools, 

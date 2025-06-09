@@ -53,10 +53,14 @@ Some of these practicals are long, take regular breaks and have a listen to some
 
 ## Introduction 
 
-In this practical we're going to focus on creating mapped outputs using QGIS and R. For fun we're going to use data from OpenStreetMap (OSM) and Airbnb. 
+In this practical we're going to focus on creating mapped outputs in R. For fun we're going to use data from OpenStreetMap (OSM) and Airbnb. 
 
 ::: {.infobox .warning data-latex="{note}"}
-Within this practical we show how to make maps in **both** QGIS and R. Having some knowledge of QGIS is important for your future careers, however as the exam will only be in R feel free to primarily focus on that section. 
+
+Within this practical we show how to make maps in **both** QGIS and R. 
+
+
+Having some knowledge of QGIS is important for your future careers, however as the exam will only be in R feel free to primarily focus on that section. 
 :::
 
 

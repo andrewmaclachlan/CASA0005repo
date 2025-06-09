@@ -245,11 +245,14 @@ matrix-style
 autocorrelation
 morans-i
 gearys-c
+comparison
+key-message
 getis-ord
 summary-1
 local-morans-i
 mapping
 local-getis-ord-g_i
+summary-2
 other-variables
 feedback-5
 explaining-spatial-patterns
