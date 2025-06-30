@@ -1,0 +1,31 @@
+# Functions {-}
+
+::: {.infobox .tip data-latex="{note}"}
+This is for interest only and not part of the module.
+:::
+
+In the mapping practical we applied the code above to two separate sf objects above. To make this more efficient we could develop our own function (like the ones we use all the time) and simply provide the relevant data. An example has been put here, but this is for interest only and not a requirement for the module. 
+
+This is an example of creating a function for the spatial join and summarise. 
+```{r, eval=FALSE}
+
+# make a function for the join
+# you have to do is replace data1 and data2
+# with the data you want to use
+
+Joinfun <- function(data1, data2){
+
+output<- data1%>%
+  st_join(data2,.) %>%
+  add_count(GSS_CODE, name="hotels_in_borough") 
+
+  return(output)
+}
+
+# use the function for hotels
+Hotels <- Joinfun(OSM, Londonborough)
+
+# then for airbnb
+Airbnb <- Joinfun(Airbnb, Londonborough)
+ 
+```

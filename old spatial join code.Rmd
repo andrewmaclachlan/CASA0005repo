@@ -1,0 +1,138 @@
+# old spatial join code
+
+### Spatial joining
+
+Recall from last week we also touched on spatial joining....well using the same example what if i changed the left dataset (in the left join) to the OSM data. We see that there are 715 rows compared to 712 from last week. This is because the hotels outside London are being included as all data on the left is retained....
+
+```{r, warning=FALSE, message=FALSE}
+Londonborough <- st_read(here::here("Prac1_data",
+                                    "statistical-gis-boundaries-london", 
+                                    "ESRI", 
+                                    "London_Borough_Excluding_MHW.shp"))%>%
+  st_transform(., 27700)
+
+OSM <- st_read(here::here("prac5_data",
+                          "greater-london-latest-free.shp", 
+                          "gis_osm_pois_a_free_1.shp")) %>%
+  st_transform(., 27700) %>%
+  #select hotels only
+  filter(fclass == 'hotel')
+
+
+join_example <-  st_join(OSM, Londonborough)
+
+nrow(join_example)
+```
+
+In the example from last week I:
+
+* Loaded in OSM and airbnb data
+* Counted it within each London Borough
+* Joined the two sf datasets to make one sf object that had the number of hotels and airbnb per borough...specifically this was for the advanced interactive map i made.
+
+Let's get to the point where i joined the two datasets...I've removed some of the other mapping code...
+
+```{r, message=FALSE, warning=FALSE}
+OSM <- st_read(here::here("prac5_data",
+                          "greater-london-latest-free.shp", 
+                          "gis_osm_pois_a_free_1.shp")) %>%
+  st_transform(., 27700) %>%
+  #select hotels only
+  filter(fclass == 'hotel')
+
+
+#London Borough data is already in 277000
+Londonborough <- st_read(here::here("Prac1_data",
+                                    "statistical-gis-boundaries-london", 
+                                    "ESRI", 
+                                    "London_Borough_Excluding_MHW.shp"))%>%
+  st_transform(., 27700)
+
+# read in the .csv
+# and make it into spatial data
+
+Airbnb <- read_csv("prac5_data/listings.csv") %>%
+  st_as_sf(., coords = c("longitude", "latitude"), 
+                   crs = 4326) %>%
+    st_transform(., 27700)%>%
+    #select entire places that are available all year
+    filter(room_type == 'Entire home/apt' & availability_365 =='365')
+
+
+# make a function for the join
+# functions are covered in practical 7
+# but see if you can work out what is going on
+# hint all you have to do is replace data1 and data2
+# with the data you want to use
+
+Joinfun <- function(data1, data2){
+
+output<- data1%>%
+  st_join(Londonborough,.) %>%
+  add_count(GSS_CODE, name="hotels_in_borough") 
+
+  return(output)
+}
+
+# use the function for hotels
+Hotels <- Joinfun(OSM, Londonborough)
+
+# then for airbnb
+Airbnb <- Joinfun(Airbnb, Londonborough)
+ 
+Hotels <- Hotels %>%
+  #at the moment each hotel is a row for the borough
+  #we just one one row that has number of airbnbs
+  group_by(., GSS_CODE, NAME)%>%
+  summarise(`Accomodation count` = unique(hotels_in_borough))
+
+Airbnb <- Airbnb %>%
+  group_by(., GSS_CODE, NAME)%>%
+  summarise(`Accomodation count` = unique(hotels_in_borough))
+
+```
+At this point I have
+
+* `Airbnb` sf object = airbnbs per borough
+* `Hotels` sf object = hotels per borough
+
+Now how do i join them? Well i could try and use a `left_join()` but it won't work with spatial data...the error message says to use `st_join()`
+
+```{r, message=FALSE, eval=FALSE}
+ left_join<- left_join(Hotels, Airbnb,
+            by = c("GSS_CODE" = "GSS_CODE"))
+```
+Ok, so `st_join()`
+
+```{r, message=FALSE}
+
+all_accomodation <- st_join(Hotels, Airbnb)
+
+head(all_accomodation)
+```
+
+Now this produces something that looks wrong, as the first 6 rows are all for the City of London, but recall:
+
+* `st_join` is a left join, here the left table is hotels
+* `st_join` uses `st_intersects()` by default. This means for the hotel data, where the airbnb intersects each hotel borough a new row is added. Conceptually, this is the same as a left join  if there are multiple matches (but the matches here are defined by `st_intersects` not a column ID)...
+* To further explain this open the `all_accomodation` and look at the `.y` columns, any borough that **intersects** another is added as a row ...
+
+```{r echo=FALSE, out.width = "500px", fig.align='center', cache=FALSE, fig.cap="dplyr::left_join() example with multiple matches. Source: [Tidy explain by Garrick Aden‑Buie](https://www.garrickadenbuie.com/project/tidyexplain/)"}
+knitr::include_graphics('prac2_images/left-join-extra.gif') 
+```
+
+* To further explain this open the `all_accomodation` and look at the `.y` columns, any borough that **intersects** another is added as a row ...
+```{r echo=FALSE, out.width = "600px", fig.align='center', cache=FALSE, fig.cap="st_join example using st_intersects by default"}
+knitr::include_graphics('prac6_images/st_join_example.png') 
+```
+
+
+To rectify this we can change the argument to `st_equals()` that returns the data based on the same geometries (or polygons)....
+
+```{r, message=FALSE}
+
+all_accomodation <- st_join(Hotels, Airbnb, join = st_equals)
+
+head(all_accomodation)
+```
+

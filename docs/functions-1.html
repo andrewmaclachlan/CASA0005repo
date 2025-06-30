@@ -1,0 +1,1431 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Functions | CASA0005 Geographic Information Systems and Science</title>
+  <meta name="description" content="The CASA0005 Geographic Information Systems and Science practical book" />
+  <meta name="generator" content="bookdown 0.42 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Functions | CASA0005 Geographic Information Systems and Science" />
+  <meta property="og:type" content="book" />
+  <meta property="og:image" content="https://andrewmaclachlan.github.io/CASA0005repo//general_images/casa_logo.png" />
+  <meta property="og:description" content="The CASA0005 Geographic Information Systems and Science practical book" />
+  <meta name="github-repo" content="andrewmaclachlan/CASA0005repo" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Functions | CASA0005 Geographic Information Systems and Science" />
+  
+  <meta name="twitter:description" content="The CASA0005 Geographic Information Systems and Science practical book" />
+  <meta name="twitter:image" content="https://andrewmaclachlan.github.io/CASA0005repo//general_images/casa_logo.png" />
+
+<meta name="author" content="Andy MacLachlan, Adam Dennett and Claire Dooley" />
+
+
+<meta name="date" content="2025-06-27" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  <link rel="apple-touch-icon-precomposed" sizes="120x120" href="assets/apple-touch-icon.png" />
+  <link rel="shortcut icon" href="assets/favicon.ico" type="image/x-icon" />
+<link rel="prev" href="tmap-version-3.html"/>
+<link rel="next" href="interactive-maps.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+<link href="libs/font-awesome-6.5.2/css/all.min.css" rel="stylesheet" />
+<link href="libs/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet" />
+<link href="libs/htmltools-fill-0.5.8.1/fill.css" rel="stylesheet" />
+<script src="libs/htmlwidgets-1.6.4/htmlwidgets.js"></script>
+<link href="libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet" />
+<script src="libs/datatables-binding-0.33/datatables.js"></script>
+<link href="libs/dt-core-1.13.6/css/jquery.dataTables.min.css" rel="stylesheet" />
+<link href="libs/dt-core-1.13.6/css/jquery.dataTables.extra.css" rel="stylesheet" />
+<script src="libs/dt-core-1.13.6/js/jquery.dataTables.min.js"></script>
+<link href="libs/nouislider-7.0.10/jquery.nouislider.min.css" rel="stylesheet" />
+<script src="libs/nouislider-7.0.10/jquery.nouislider.min.js"></script>
+<link href="libs/selectize-0.12.0/selectize.bootstrap3.css" rel="stylesheet" />
+<script src="libs/selectize-0.12.0/selectize.min.js"></script>
+<link href="libs/crosstalk-1.2.1/css/crosstalk.min.css" rel="stylesheet" />
+<script src="libs/crosstalk-1.2.1/js/crosstalk.min.js"></script>
+<script src="libs/plotly-binding-4.10.4/plotly.js"></script>
+<script src="libs/typedarray-0.1/typedarray.min.js"></script>
+<link href="libs/plotly-htmlwidgets-css-2.11.1/plotly-htmlwidgets.css" rel="stylesheet" />
+<script src="libs/plotly-main-2.11.1/plotly-latest.min.js"></script>
+<link href="libs/leaflet-1.3.1/leaflet.css" rel="stylesheet" />
+<script src="libs/leaflet-1.3.1/leaflet.js"></script>
+<link href="libs/leafletfix-1.0.0/leafletfix.css" rel="stylesheet" />
+<script src="libs/proj4-2.6.2/proj4.min.js"></script>
+<script src="libs/Proj4Leaflet-1.0.1/proj4leaflet.js"></script>
+<link href="libs/rstudio_leaflet-1.3.1/rstudio_leaflet.css" rel="stylesheet" />
+<script src="libs/leaflet-binding-2.2.2/leaflet.js"></script>
+<script src="libs/leaflet-providers-2.0.0/leaflet-providers_2.0.0.js"></script>
+<script src="libs/leaflet-providers-plugin-2.2.2/leaflet-providers-plugin.js"></script>
+<script src="libs/logodeps-1.0.0/logo.js"></script>
+<script src="libs/clipboard-0.0.1/setClipboardText.js"></script>
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-151934476-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-151934476-1');
+</script>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7M7GJR768X"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-7M7GJR768X');
+</script>
+<script src="assets/book.js"></script>
+
+<script>
+/* ========================================================================
+ * Bootstrap: transition.js v3.3.7
+ * http://getbootstrap.com/javascript/#transitions
+ * ========================================================================
+ * Copyright 2011-2016 Twitter, Inc.
+ * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
+ * ======================================================================== */
+
+
++function ($) {
+  'use strict';
+
+  // CSS TRANSITION SUPPORT (Shoutout: http://www.modernizr.com/)
+  // ============================================================
+
+  function transitionEnd() {
+    var el = document.createElement('bootstrap')
+
+    var transEndEventNames = {
+      WebkitTransition : 'webkitTransitionEnd',
+      MozTransition    : 'transitionend',
+      OTransition      : 'oTransitionEnd otransitionend',
+      transition       : 'transitionend'
+    }
+
+    for (var name in transEndEventNames) {
+      if (el.style[name] !== undefined) {
+        return { end: transEndEventNames[name] }
+      }
+    }
+
+    return false // explicit for ie8 (  ._.)
+  }
+
+  // http://blog.alexmaccaw.com/css-transitions
+  $.fn.emulateTransitionEnd = function (duration) {
+    var called = false
+    var $el = this
+    $(this).one('bsTransitionEnd', function () { called = true })
+    var callback = function () { if (!called) $($el).trigger($.support.transition.end) }
+    setTimeout(callback, duration)
+    return this
+  }
+
+  $(function () {
+    $.support.transition = transitionEnd()
+
+    if (!$.support.transition) return
+
+    $.event.special.bsTransitionEnd = {
+      bindType: $.support.transition.end,
+      delegateType: $.support.transition.end,
+      handle: function (e) {
+        if ($(e.target).is(this)) return e.handleObj.handler.apply(this, arguments)
+      }
+    }
+  })
+
+}(jQuery);
+</script>
+<script>
+/* ========================================================================
+ * Bootstrap: collapse.js v3.3.7
+ * http://getbootstrap.com/javascript/#collapse
+ * ========================================================================
+ * Copyright 2011-2016 Twitter, Inc.
+ * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
+ * ======================================================================== */
+
+/* jshint latedef: false */
+
++function ($) {
+  'use strict';
+
+  // COLLAPSE PUBLIC CLASS DEFINITION
+  // ================================
+
+  var Collapse = function (element, options) {
+    this.$element      = $(element)
+    this.options       = $.extend({}, Collapse.DEFAULTS, options)
+    this.$trigger      = $('[data-toggle="collapse"][href="#' + element.id + '"],' +
+                           '[data-toggle="collapse"][data-target="#' + element.id + '"]')
+    this.transitioning = null
+
+    if (this.options.parent) {
+      this.$parent = this.getParent()
+    } else {
+      this.addAriaAndCollapsedClass(this.$element, this.$trigger)
+    }
+
+    if (this.options.toggle) this.toggle()
+  }
+
+  Collapse.VERSION  = '3.3.7'
+
+  Collapse.TRANSITION_DURATION = 350
+
+  Collapse.DEFAULTS = {
+    toggle: true
+  }
+
+  Collapse.prototype.dimension = function () {
+    var hasWidth = this.$element.hasClass('width')
+    return hasWidth ? 'width' : 'height'
+  }
+
+  Collapse.prototype.show = function () {
+    if (this.transitioning || this.$element.hasClass('in')) return
+
+    var activesData
+    var actives = this.$parent && this.$parent.children('.panel').children('.in, .collapsing')
+
+    if (actives && actives.length) {
+      activesData = actives.data('bs.collapse')
+      if (activesData && activesData.transitioning) return
+    }
+
+    var startEvent = $.Event('show.bs.collapse')
+    this.$element.trigger(startEvent)
+    if (startEvent.isDefaultPrevented()) return
+
+    if (actives && actives.length) {
+      Plugin.call(actives, 'hide')
+      activesData || actives.data('bs.collapse', null)
+    }
+
+    var dimension = this.dimension()
+
+    this.$element
+      .removeClass('collapse')
+      .addClass('collapsing')[dimension](0)
+      .attr('aria-expanded', true)
+
+    this.$trigger
+      .removeClass('collapsed')
+      .attr('aria-expanded', true)
+
+    this.transitioning = 1
+
+    var complete = function () {
+      this.$element
+        .removeClass('collapsing')
+        .addClass('collapse in')[dimension]('')
+      this.transitioning = 0
+      this.$element
+        .trigger('shown.bs.collapse')
+    }
+
+    if (!$.support.transition) return complete.call(this)
+
+    var scrollSize = $.camelCase(['scroll', dimension].join('-'))
+
+    this.$element
+      .one('bsTransitionEnd', $.proxy(complete, this))
+      .emulateTransitionEnd(Collapse.TRANSITION_DURATION)[dimension](this.$element[0][scrollSize])
+  }
+
+  Collapse.prototype.hide = function () {
+    if (this.transitioning || !this.$element.hasClass('in')) return
+
+    var startEvent = $.Event('hide.bs.collapse')
+    this.$element.trigger(startEvent)
+    if (startEvent.isDefaultPrevented()) return
+
+    var dimension = this.dimension()
+
+    this.$element[dimension](this.$element[dimension]())[0].offsetHeight
+
+    this.$element
+      .addClass('collapsing')
+      .removeClass('collapse in')
+      .attr('aria-expanded', false)
+
+    this.$trigger
+      .addClass('collapsed')
+      .attr('aria-expanded', false)
+
+    this.transitioning = 1
+
+    var complete = function () {
+      this.transitioning = 0
+      this.$element
+        .removeClass('collapsing')
+        .addClass('collapse')
+        .trigger('hidden.bs.collapse')
+    }
+
+    if (!$.support.transition) return complete.call(this)
+
+    this.$element
+      [dimension](0)
+      .one('bsTransitionEnd', $.proxy(complete, this))
+      .emulateTransitionEnd(Collapse.TRANSITION_DURATION)
+  }
+
+  Collapse.prototype.toggle = function () {
+    this[this.$element.hasClass('in') ? 'hide' : 'show']()
+  }
+
+  Collapse.prototype.getParent = function () {
+    return $(this.options.parent)
+      .find('[data-toggle="collapse"][data-parent="' + this.options.parent + '"]')
+      .each($.proxy(function (i, element) {
+        var $element = $(element)
+        this.addAriaAndCollapsedClass(getTargetFromTrigger($element), $element)
+      }, this))
+      .end()
+  }
+
+  Collapse.prototype.addAriaAndCollapsedClass = function ($element, $trigger) {
+    var isOpen = $element.hasClass('in')
+
+    $element.attr('aria-expanded', isOpen)
+    $trigger
+      .toggleClass('collapsed', !isOpen)
+      .attr('aria-expanded', isOpen)
+  }
+
+  function getTargetFromTrigger($trigger) {
+    var href
+    var target = $trigger.attr('data-target')
+      || (href = $trigger.attr('href')) && href.replace(/.*(?=#[^\s]+$)/, '') // strip for ie7
+
+    return $(target)
+  }
+
+
+  // COLLAPSE PLUGIN DEFINITION
+  // ==========================
+
+  function Plugin(option) {
+    return this.each(function () {
+      var $this   = $(this)
+      var data    = $this.data('bs.collapse')
+      var options = $.extend({}, Collapse.DEFAULTS, $this.data(), typeof option == 'object' && option)
+
+      if (!data && options.toggle && /show|hide/.test(option)) options.toggle = false
+      if (!data) $this.data('bs.collapse', (data = new Collapse(this, options)))
+      if (typeof option == 'string') data[option]()
+    })
+  }
+
+  var old = $.fn.collapse
+
+  $.fn.collapse             = Plugin
+  $.fn.collapse.Constructor = Collapse
+
+
+  // COLLAPSE NO CONFLICT
+  // ====================
+
+  $.fn.collapse.noConflict = function () {
+    $.fn.collapse = old
+    return this
+  }
+
+
+  // COLLAPSE DATA-API
+  // =================
+
+  $(document).on('click.bs.collapse.data-api', '[data-toggle="collapse"]', function (e) {
+    var $this   = $(this)
+
+    if (!$this.attr('data-target')) e.preventDefault()
+
+    var $target = getTargetFromTrigger($this)
+    var data    = $target.data('bs.collapse')
+    var option  = data ? 'toggle' : $this.data()
+
+    Plugin.call($target, option)
+  })
+
+}(jQuery);
+</script>
+<script>
+window.initializeCodeFolding = function(show) {
+
+  // handlers for show-all and hide all
+  $("#rmd-show-all-code").click(function() {
+    // close the dropdown menu when an option is clicked
+    $("#allCodeButton").dropdown("toggle");
+    $('div.r-code-collapse').each(function() {
+      $(this).collapse('show');
+    });
+  });
+  $("#rmd-hide-all-code").click(function() {
+    // close the dropdown menu when an option is clicked
+    $("#allCodeButton").dropdown("toggle");
+    $('div.r-code-collapse').each(function() {
+      $(this).collapse('hide');
+    });
+  });
+
+  // index for unique code element ids
+  var currentIndex = 1;
+
+  // select all R code blocks
+  var rCodeBlocks = $('pre.sourceCode, pre.r, pre.python, pre.bash, pre.sql, pre.cpp, pre.stan');
+  rCodeBlocks.each(function() {
+
+    // if code block has been labeled with class `fold-show`, show the code on init!
+    var classList = $(this).attr('class').split(/\s+/);
+    for (var i = 0; i < classList.length; i++) {
+    if (classList[i] === 'fold-show') {
+        show = true;
+      }
+    }
+
+    // create a collapsable div to wrap the code in
+    var div = $('<div class="collapse r-code-collapse"></div>');
+    if (show)
+      div.addClass('in');
+    var id = 'rcode-643E0F36' + currentIndex++;
+    div.attr('id', id);
+    $(this).before(div);
+    $(this).detach().appendTo(div);
+
+    // add a show code button right above
+    var showCodeText = $('<span>' + (show ? 'Hide' : 'Code') + '</span>');
+    var showCodeButton = $('<button type="button" class="btn btn-default btn-xs code-folding-btn pull-right"></button>');
+    showCodeButton.append(showCodeText);
+    showCodeButton
+        .attr('data-toggle', 'collapse')
+        .attr('data-target', '#' + id)
+        .attr('aria-expanded', show)
+        .attr('aria-controls', id);
+
+    var buttonRow = $('<div class="row"></div>');
+    var buttonCol = $('<div class="col-md-12"></div>');
+
+    buttonCol.append(showCodeButton);
+    buttonRow.append(buttonCol);
+
+    div.before(buttonRow);
+
+    // hack: return show to false, otherwise all next codeBlocks will be shown!
+    show = false;
+
+    // update state of button on show/hide
+    div.on('hidden.bs.collapse', function () {
+      showCodeText.text('Code');
+    });
+    div.on('show.bs.collapse', function () {
+      showCodeText.text('Hide');
+    });
+  });
+
+}
+</script>
+<script>
+/* ========================================================================
+ * Bootstrap: dropdown.js v3.3.7
+ * http://getbootstrap.com/javascript/#dropdowns
+ * ========================================================================
+ * Copyright 2011-2016 Twitter, Inc.
+ * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
+ * ======================================================================== */
+
+
++function ($) {
+  'use strict';
+
+  // DROPDOWN CLASS DEFINITION
+  // =========================
+
+  var backdrop = '.dropdown-backdrop'
+  var toggle   = '[data-toggle="dropdown"]'
+  var Dropdown = function (element) {
+    $(element).on('click.bs.dropdown', this.toggle)
+  }
+
+  Dropdown.VERSION = '3.3.7'
+
+  function getParent($this) {
+    var selector = $this.attr('data-target')
+
+    if (!selector) {
+      selector = $this.attr('href')
+      selector = selector && /#[A-Za-z]/.test(selector) && selector.replace(/.*(?=#[^\s]*$)/, '') // strip for ie7
+    }
+
+    var $parent = selector && $(selector)
+
+    return $parent && $parent.length ? $parent : $this.parent()
+  }
+
+  function clearMenus(e) {
+    if (e && e.which === 3) return
+    $(backdrop).remove()
+    $(toggle).each(function () {
+      var $this         = $(this)
+      var $parent       = getParent($this)
+      var relatedTarget = { relatedTarget: this }
+
+      if (!$parent.hasClass('open')) return
+
+      if (e && e.type == 'click' && /input|textarea/i.test(e.target.tagName) && $.contains($parent[0], e.target)) return
+
+      $parent.trigger(e = $.Event('hide.bs.dropdown', relatedTarget))
+
+      if (e.isDefaultPrevented()) return
+
+      $this.attr('aria-expanded', 'false')
+      $parent.removeClass('open').trigger($.Event('hidden.bs.dropdown', relatedTarget))
+    })
+  }
+
+  Dropdown.prototype.toggle = function (e) {
+    var $this = $(this)
+
+    if ($this.is('.disabled, :disabled')) return
+
+    var $parent  = getParent($this)
+    var isActive = $parent.hasClass('open')
+
+    clearMenus()
+
+    if (!isActive) {
+      if ('ontouchstart' in document.documentElement && !$parent.closest('.navbar-nav').length) {
+        // if mobile we use a backdrop because click events don't delegate
+        $(document.createElement('div'))
+          .addClass('dropdown-backdrop')
+          .insertAfter($(this))
+          .on('click', clearMenus)
+      }
+
+      var relatedTarget = { relatedTarget: this }
+      $parent.trigger(e = $.Event('show.bs.dropdown', relatedTarget))
+
+      if (e.isDefaultPrevented()) return
+
+      $this
+        .trigger('focus')
+        .attr('aria-expanded', 'true')
+
+      $parent
+        .toggleClass('open')
+        .trigger($.Event('shown.bs.dropdown', relatedTarget))
+    }
+
+    return false
+  }
+
+  Dropdown.prototype.keydown = function (e) {
+    if (!/(38|40|27|32)/.test(e.which) || /input|textarea/i.test(e.target.tagName)) return
+
+    var $this = $(this)
+
+    e.preventDefault()
+    e.stopPropagation()
+
+    if ($this.is('.disabled, :disabled')) return
+
+    var $parent  = getParent($this)
+    var isActive = $parent.hasClass('open')
+
+    if (!isActive && e.which != 27 || isActive && e.which == 27) {
+      if (e.which == 27) $parent.find(toggle).trigger('focus')
+      return $this.trigger('click')
+    }
+
+    var desc = ' li:not(.disabled):visible a'
+    var $items = $parent.find('.dropdown-menu' + desc)
+
+    if (!$items.length) return
+
+    var index = $items.index(e.target)
+
+    if (e.which == 38 && index > 0)                 index--         // up
+    if (e.which == 40 && index < $items.length - 1) index++         // down
+    if (!~index)                                    index = 0
+
+    $items.eq(index).trigger('focus')
+  }
+
+
+  // DROPDOWN PLUGIN DEFINITION
+  // ==========================
+
+  function Plugin(option) {
+    return this.each(function () {
+      var $this = $(this)
+      var data  = $this.data('bs.dropdown')
+
+      if (!data) $this.data('bs.dropdown', (data = new Dropdown(this)))
+      if (typeof option == 'string') data[option].call($this)
+    })
+  }
+
+  var old = $.fn.dropdown
+
+  $.fn.dropdown             = Plugin
+  $.fn.dropdown.Constructor = Dropdown
+
+
+  // DROPDOWN NO CONFLICT
+  // ====================
+
+  $.fn.dropdown.noConflict = function () {
+    $.fn.dropdown = old
+    return this
+  }
+
+
+  // APPLY TO STANDARD DROPDOWN ELEMENTS
+  // ===================================
+
+  $(document)
+    .on('click.bs.dropdown.data-api', clearMenus)
+    .on('click.bs.dropdown.data-api', '.dropdown form', function (e) { e.stopPropagation() })
+    .on('click.bs.dropdown.data-api', toggle, Dropdown.prototype.toggle)
+    .on('keydown.bs.dropdown.data-api', toggle, Dropdown.prototype.keydown)
+    .on('keydown.bs.dropdown.data-api', '.dropdown-menu', Dropdown.prototype.keydown)
+
+}(jQuery);
+</script>
+<style type="text/css">
+.code-folding-btn {
+  margin-bottom: 4px;
+}
+
+.row { display: flex; }
+.collapse { display: none; }
+.in { display:block }
+.pull-right > .dropdown-menu {
+    right: 0;
+    left: auto;
+}
+
+.dropdown-menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    z-index: 1000;
+    display: none;
+    float: left;
+    min-width: 160px;
+    padding: 5px 0;
+    margin: 2px 0 0;
+    font-size: 14px;
+    text-align: left;
+    list-style: none;
+    background-color: #fff;
+    -webkit-background-clip: padding-box;
+    background-clip: padding-box;
+    border: 1px solid #ccc;
+    border: 1px solid rgba(0,0,0,.15);
+    border-radius: 4px;
+    -webkit-box-shadow: 0 6px 12px rgba(0,0,0,.175);
+    box-shadow: 0 6px 12px rgba(0,0,0,.175);
+}
+
+.open > .dropdown-menu {
+    display: block;
+    color: #ffffff;
+    background-color: #ffffff;
+    background-image: none;
+    border-color: #92897e;
+}
+
+.dropdown-menu > li > a {
+  display: block;
+  padding: 3px 20px;
+  clear: both;
+  font-weight: 400;
+  line-height: 1.42857143;
+  color: #000000;
+  white-space: nowrap;
+}
+
+.dropdown-menu > li > a:hover,
+.dropdown-menu > li > a:focus {
+  color: #ffffff;
+  text-decoration: none;
+  background-color: #e95420;
+}
+
+.dropdown-menu > .active > a,
+.dropdown-menu > .active > a:hover,
+.dropdown-menu > .active > a:focus {
+  color: #ffffff;
+  text-decoration: none;
+  background-color: #e95420;
+  outline: 0;
+}
+.dropdown-menu > .disabled > a,
+.dropdown-menu > .disabled > a:hover,
+.dropdown-menu > .disabled > a:focus {
+  color: #aea79f;
+}
+
+.dropdown-menu > .disabled > a:hover,
+.dropdown-menu > .disabled > a:focus {
+  text-decoration: none;
+  cursor: not-allowed;
+  background-color: transparent;
+  background-image: none;
+  filter: progid:DXImageTransform.Microsoft.gradient(enabled = false);
+}
+
+.btn {
+  display: inline-block;
+  margin-bottom: 1;
+  font-weight: normal;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: middle;
+  -ms-touch-action: manipulation;
+      touch-action: manipulation;
+  cursor: pointer;
+  background-image: none;
+  border: 1px solid transparent;
+  padding: 4px 8px;
+  font-size: 14px;
+  line-height: 1.42857143;
+  border-radius: 4px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.btn:focus,
+.btn:active:focus,
+.btn.active:focus,
+.btn.focus,
+.btn:active.focus,
+.btn.active.focus {
+  outline: 5px auto -webkit-focus-ring-color;
+  outline-offset: -2px;
+}
+.btn:hover,
+.btn:focus,
+.btn.focus {
+  color: #ffffff;
+  text-decoration: none;
+}
+.btn:active,
+.btn.active {
+  background-image: none;
+  outline: 0;
+  box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+}
+.btn.disabled,
+.btn[disabled],
+fieldset[disabled] .btn {
+  cursor: not-allowed;
+  filter: alpha(opacity=65);
+  opacity: 0.65;
+  box-shadow: none;
+}
+a.btn.disabled,
+fieldset[disabled] a.btn {
+  pointer-events: none;
+}
+.btn-default {
+  color: #ffffff;
+  background-color: #aea79f; #important
+  border-color: #aea79f;
+}
+
+.btn-default:focus,
+.btn-default.focus {
+  color: #ffffff;
+  background-color: #978e83;
+  border-color: #6f675e;
+}
+
+.btn-default:hover {
+  color: #ffffff;
+  background-color: #978e83;
+  border-color: #92897e;
+}
+.btn-default:active,
+.btn-default.active,
+.btn-group > .btn:not(:first-child):not(:last-child):not(.dropdown-toggle) {
+  border-radius: 0;
+}
+.btn-group > .btn:first-child {
+  margin-left: 0;
+}
+.btn-group > .btn:first-child:not(:last-child):not(.dropdown-toggle) {
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+.btn-group > .btn:last-child:not(:first-child),
+.btn-group > .dropdown-toggle:not(:first-child) {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+}
+.btn-group > .btn-group {
+  float: left;
+}
+.btn-group > .btn-group:not(:first-child):not(:last-child) > .btn {
+  border-radius: 0;
+}
+.btn-group > .btn-group:first-child:not(:last-child) > .btn:last-child,
+.btn-group > .btn-group:first-child:not(:last-child) > .dropdown-toggle {
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+.btn-group > .btn-group:last-child:not(:first-child) > .btn:first-child {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+}
+.btn-group .dropdown-toggle:active,
+.btn-group.open .dropdown-toggle {
+  outline: 0;
+}
+.btn-group > .btn + .dropdown-toggle {
+  padding-right: 8px;
+  padding-left: 8px;
+}
+.btn-group > .btn-lg + .dropdown-toggle {
+  padding-right: 12px;
+  padding-left: 12px;
+}
+.btn-group.open .dropdown-toggle {
+  box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+}
+.btn-group.open .dropdown-toggle.btn-link {
+  box-shadow: none;
+}
+
+</style>
+<script>
+var str = '<div class="btn-group pull-right" style="position: fixed; right: 50px; top: 10px; z-index: 200"><button type="button" class="btn btn-default btn-xs dropdown-toggle" id="allCodeButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" data-_extension-text-contrast=""><span>Code</span> <span class="caret"></span></button><ul class="dropdown-menu" style="min-width: 50px;"><li><a id="rmd-show-all-code" href="#">Show All Code</a></li><li><a id="rmd-hide-all-code" href="#">Hide All Code</a></li></ul></div>';
+document.write(str);
+</script>
+<script>
+$(document).ready(function () {
+  window.initializeCodeFolding("show" === "hide");
+});
+</script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  background-color: #f8f8f8; }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ef2929; } /* Alert */
+code span.an { color: #8f5902; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #204a87; } /* Attribute */
+code span.bn { color: #0000cf; } /* BaseN */
+code span.cf { color: #204a87; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4e9a06; } /* Char */
+code span.cn { color: #8f5902; } /* Constant */
+code span.co { color: #8f5902; font-style: italic; } /* Comment */
+code span.cv { color: #8f5902; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #8f5902; font-weight: bold; font-style: italic; } /* Documentation */
+code span.dt { color: #204a87; } /* DataType */
+code span.dv { color: #0000cf; } /* DecVal */
+code span.er { color: #a40000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #0000cf; } /* Float */
+code span.fu { color: #204a87; font-weight: bold; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #8f5902; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #204a87; font-weight: bold; } /* Keyword */
+code span.op { color: #ce5c00; font-weight: bold; } /* Operator */
+code span.ot { color: #8f5902; } /* Other */
+code span.pp { color: #8f5902; font-style: italic; } /* Preprocessor */
+code span.sc { color: #ce5c00; font-weight: bold; } /* SpecialChar */
+code span.ss { color: #4e9a06; } /* SpecialString */
+code span.st { color: #4e9a06; } /* String */
+code span.va { color: #000000; } /* Variable */
+code span.vs { color: #4e9a06; } /* VerbatimString */
+code span.wa { color: #8f5902; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+<link rel="stylesheet" href="assets/style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="toc-logo"><a href="https://www.ucl.ac.uk/module-catalogue/modules/geographic-information-systems-and-science-CASA0005"><img src="general_images/casa_logo.jpg"></a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Welcome</a>
+<ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#acknowledgement"><i class="fa fa-check"></i>Acknowledgement</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#citation"><i class="fa fa-check"></i>Citation</a></li>
+</ul></li>
+<li class="part"><span><b>Course information</b></span></li>
+<li class="chapter" data-level="" data-path="hello-gis.html"><a href="hello-gis.html"><i class="fa fa-check"></i>Hello GIS</a>
+<ul>
+<li class="chapter" data-level="" data-path="hello-gis.html"><a href="hello-gis.html#intended-course-learning-outcomes"><i class="fa fa-check"></i>Intended course learning outcomes</a></li>
+<li class="chapter" data-level="" data-path="hello-gis.html"><a href="hello-gis.html#how-to-use-this-book"><i class="fa fa-check"></i>How to use this book</a></li>
+<li class="chapter" data-level="" data-path="hello-gis.html"><a href="hello-gis.html#getting-started"><i class="fa fa-check"></i>Getting started</a></li>
+<li class="chapter" data-level="" data-path="hello-gis.html"><a href="hello-gis.html#self-guided-learning"><i class="fa fa-check"></i>Self guided learning</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="software-installation.html"><a href="software-installation.html"><i class="fa fa-check"></i>Software installation</a>
+<ul>
+<li class="chapter" data-level="" data-path="software-installation.html"><a href="software-installation.html#qgis"><i class="fa fa-check"></i>QGIS</a></li>
+<li class="chapter" data-level="" data-path="software-installation.html"><a href="software-installation.html#r"><i class="fa fa-check"></i>R</a>
+<ul>
+<li class="chapter" data-level="" data-path="software-installation.html"><a href="software-installation.html#r-java"><i class="fa fa-check"></i>R Java</a></li>
+<li class="chapter" data-level="" data-path="software-installation.html"><a href="software-installation.html#basics"><i class="fa fa-check"></i>Basics</a></li>
+<li class="chapter" data-level="" data-path="software-installation.html"><a href="software-installation.html#packages"><i class="fa fa-check"></i>Packages</a></li>
+<li class="chapter" data-level="" data-path="software-installation.html"><a href="software-installation.html#macs"><i class="fa fa-check"></i>Macs</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="software-installation.html"><a href="software-installation.html#arcgis"><i class="fa fa-check"></i>ArcGIS</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="external-usage.html"><a href="external-usage.html"><i class="fa fa-check"></i>External usage</a>
+<ul>
+<li class="chapter" data-level="" data-path="external-usage.html"><a href="external-usage.html#how-to-adopt-this-course"><i class="fa fa-check"></i>How to adopt this course</a></li>
+<li class="chapter" data-level="" data-path="external-usage.html"><a href="external-usage.html#how-to-contribute"><i class="fa fa-check"></i>How to contribute</a></li>
+<li class="chapter" data-level="" data-path="external-usage.html"><a href="external-usage.html#supporting-the-module"><i class="fa fa-check"></i>Supporting the module</a></li>
+<li class="chapter" data-level="" data-path="external-usage.html"><a href="external-usage.html#license"><i class="fa fa-check"></i>License</a></li>
+<li class="chapter" data-level="" data-path="external-usage.html"><a href="external-usage.html#updates"><i class="fa fa-check"></i>Updates</a></li>
+<li class="chapter" data-level="" data-path="external-usage.html"><a href="external-usage.html#packages-1"><i class="fa fa-check"></i>Packages</a></li>
+</ul></li>
+<li class="part"><span><b>I GIS tools</b></span></li>
+<li class="chapter" data-level="1" data-path="geographic-information.html"><a href="geographic-information.html"><i class="fa fa-check"></i><b>1</b> Geographic Information</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="geographic-information.html"><a href="geographic-information.html#learning-outcomes"><i class="fa fa-check"></i><b>1.1</b> Learning outcomes</a></li>
+<li class="chapter" data-level="1.2" data-path="geographic-information.html"><a href="geographic-information.html#homework"><i class="fa fa-check"></i><b>1.2</b> Homework</a></li>
+<li class="chapter" data-level="1.3" data-path="geographic-information.html"><a href="geographic-information.html#recommended-listening"><i class="fa fa-check"></i><b>1.3</b> Recommended listening 🎧</a></li>
+<li class="chapter" data-level="1.4" data-path="geographic-information.html"><a href="geographic-information.html#the-basics-of-geographic-information"><i class="fa fa-check"></i><b>1.4</b> The Basics of Geographic Information</a>
+<ul>
+<li class="chapter" data-level="1.4.1" data-path="geographic-information.html"><a href="geographic-information.html#data-types-in-statistics"><i class="fa fa-check"></i><b>1.4.1</b> Data types in statistics</a></li>
+<li class="chapter" data-level="1.4.2" data-path="geographic-information.html"><a href="geographic-information.html#important-gis-data-formats"><i class="fa fa-check"></i><b>1.4.2</b> Important GIS data formats</a></li>
+</ul></li>
+<li class="chapter" data-level="1.5" data-path="geographic-information.html"><a href="geographic-information.html#general-data-flow"><i class="fa fa-check"></i><b>1.5</b> General data flow</a></li>
+<li class="chapter" data-level="1.6" data-path="geographic-information.html"><a href="geographic-information.html#data"><i class="fa fa-check"></i><b>1.6</b> Data</a>
+<ul>
+<li class="chapter" data-level="1.6.1" data-path="geographic-information.html"><a href="geographic-information.html#file-paths"><i class="fa fa-check"></i><b>1.6.1</b> File paths</a></li>
+<li class="chapter" data-level="1.6.2" data-path="geographic-information.html"><a href="geographic-information.html#data-download"><i class="fa fa-check"></i><b>1.6.2</b> Data download</a></li>
+<li class="chapter" data-level="1.6.3" data-path="geographic-information.html"><a href="geographic-information.html#data-pre-processing"><i class="fa fa-check"></i><b>1.6.3</b> Data pre-processing</a></li>
+<li class="chapter" data-level="1.6.4" data-path="geographic-information.html"><a href="geographic-information.html#qgis-1"><i class="fa fa-check"></i><b>1.6.4</b> QGIS</a></li>
+<li class="chapter" data-level="1.6.5" data-path="geographic-information.html"><a href="geographic-information.html#r-1"><i class="fa fa-check"></i><b>1.6.5</b> R</a></li>
+<li class="chapter" data-level="1.6.6" data-path="geographic-information.html"><a href="geographic-information.html#export-data-1"><i class="fa fa-check"></i><b>1.6.6</b> Export data</a></li>
+<li class="chapter" data-level="1.6.7" data-path="geographic-information.html"><a href="geographic-information.html#what-will-i-use-1"><i class="fa fa-check"></i><b>1.6.7</b> What will I use</a></li>
+</ul></li>
+<li class="chapter" data-level="1.7" data-path="geographic-information.html"><a href="geographic-information.html#data-sources-and-task"><i class="fa fa-check"></i><b>1.7</b> Data sources and task</a>
+<ul>
+<li class="chapter" data-level="1.7.1" data-path="geographic-information.html"><a href="geographic-information.html#uk-data-service"><i class="fa fa-check"></i><b>1.7.1</b> UK Data Service</a></li>
+<li class="chapter" data-level="1.7.2" data-path="geographic-information.html"><a href="geographic-information.html#ons"><i class="fa fa-check"></i><b>1.7.2</b> ONS</a></li>
+<li class="chapter" data-level="1.7.3" data-path="geographic-information.html"><a href="geographic-information.html#nomis"><i class="fa fa-check"></i><b>1.7.3</b> nomis</a></li>
+<li class="chapter" data-level="1.7.4" data-path="geographic-information.html"><a href="geographic-information.html#os"><i class="fa fa-check"></i><b>1.7.4</b> OS</a></li>
+<li class="chapter" data-level="1.7.5" data-path="geographic-information.html"><a href="geographic-information.html#edina-digimap"><i class="fa fa-check"></i><b>1.7.5</b> Edina Digimap</a></li>
+<li class="chapter" data-level="1.7.6" data-path="geographic-information.html"><a href="geographic-information.html#osm"><i class="fa fa-check"></i><b>1.7.6</b> OSM</a></li>
+<li class="chapter" data-level="1.7.7" data-path="geographic-information.html"><a href="geographic-information.html#defra"><i class="fa fa-check"></i><b>1.7.7</b> DEFRA</a></li>
+<li class="chapter" data-level="1.7.8" data-path="geographic-information.html"><a href="geographic-information.html#data-lists"><i class="fa fa-check"></i><b>1.7.8</b> Data lists</a></li>
+</ul></li>
+<li class="chapter" data-level="1.8" data-path="geographic-information.html"><a href="geographic-information.html#summary"><i class="fa fa-check"></i><b>1.8</b> Summary</a></li>
+<li class="chapter" data-level="1.9" data-path="geographic-information.html"><a href="geographic-information.html#feedback"><i class="fa fa-check"></i><b>1.9</b> Feedback</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="introduction-to-r.html"><a href="introduction-to-r.html"><i class="fa fa-check"></i><b>2</b> Introduction to R</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="introduction-to-r.html"><a href="introduction-to-r.html#learning-outcomes-1"><i class="fa fa-check"></i><b>2.1</b> Learning outcomes</a></li>
+<li class="chapter" data-level="2.2" data-path="introduction-to-r.html"><a href="introduction-to-r.html#homework-1"><i class="fa fa-check"></i><b>2.2</b> Homework</a></li>
+<li class="chapter" data-level="2.3" data-path="introduction-to-r.html"><a href="introduction-to-r.html#recommended-listening-1"><i class="fa fa-check"></i><b>2.3</b> Recommended listening 🎧</a></li>
+<li class="chapter" data-level="2.4" data-path="introduction-to-r.html"><a href="introduction-to-r.html#introduction-1"><i class="fa fa-check"></i><b>2.4</b> Introduction</a>
+<ul>
+<li class="chapter" data-level="2.4.1" data-path="introduction-to-r.html"><a href="introduction-to-r.html#online-forums-are-your-friend"><i class="fa fa-check"></i><b>2.4.1</b> Online forums are your friend!!</a></li>
+<li class="chapter" data-level="2.4.2" data-path="introduction-to-r.html"><a href="introduction-to-r.html#health-warning"><i class="fa fa-check"></i><b>2.4.2</b> Health warning</a></li>
+<li class="chapter" data-level="2.4.3" data-path="introduction-to-r.html"><a href="introduction-to-r.html#r-and-rstudio"><i class="fa fa-check"></i><b>2.4.3</b> R and RStudio</a></li>
+<li class="chapter" data-level="2.4.4" data-path="introduction-to-r.html"><a href="introduction-to-r.html#getting-started-1"><i class="fa fa-check"></i><b>2.4.4</b> Getting started</a></li>
+<li class="chapter" data-level="2.4.5" data-path="introduction-to-r.html"><a href="introduction-to-r.html#basics-1"><i class="fa fa-check"></i><b>2.4.5</b> Basics</a></li>
+<li class="chapter" data-level="2.4.6" data-path="introduction-to-r.html"><a href="introduction-to-r.html#scripts-and-some-basic-commands"><i class="fa fa-check"></i><b>2.4.6</b> Scripts and some basic commands</a></li>
+<li class="chapter" data-level="2.4.7" data-path="introduction-to-r.html"><a href="introduction-to-r.html#functions"><i class="fa fa-check"></i><b>2.4.7</b> Functions</a></li>
+<li class="chapter" data-level="2.4.8" data-path="introduction-to-r.html"><a href="introduction-to-r.html#basic-plotting"><i class="fa fa-check"></i><b>2.4.8</b> Basic plotting</a></li>
+<li class="chapter" data-level="2.4.9" data-path="introduction-to-r.html"><a href="introduction-to-r.html#help"><i class="fa fa-check"></i><b>2.4.9</b> Help</a></li>
+<li class="chapter" data-level="2.4.10" data-path="introduction-to-r.html"><a href="introduction-to-r.html#data-structures"><i class="fa fa-check"></i><b>2.4.10</b> Data structures</a></li>
+<li class="chapter" data-level="2.4.11" data-path="introduction-to-r.html"><a href="introduction-to-r.html#elements-of-a-data-frame"><i class="fa fa-check"></i><b>2.4.11</b> Elements of a data frame</a></li>
+</ul></li>
+<li class="chapter" data-level="2.5" data-path="introduction-to-r.html"><a href="introduction-to-r.html#reading-data-into-r"><i class="fa fa-check"></i><b>2.5</b> Reading data into R</a>
+<ul>
+<li class="chapter" data-level="2.5.1" data-path="introduction-to-r.html"><a href="introduction-to-r.html#old-skool-cleaning"><i class="fa fa-check"></i><b>2.5.1</b> Old skool cleaning</a></li>
+<li class="chapter" data-level="2.5.2" data-path="introduction-to-r.html"><a href="introduction-to-r.html#here"><i class="fa fa-check"></i><b>2.5.2</b> Here</a></li>
+<li class="chapter" data-level="2.5.3" data-path="introduction-to-r.html"><a href="introduction-to-r.html#new-skool-cleaning"><i class="fa fa-check"></i><b>2.5.3</b> New skool cleaning</a></li>
+<li class="chapter" data-level="2.5.4" data-path="introduction-to-r.html"><a href="introduction-to-r.html#examining-your-new-data"><i class="fa fa-check"></i><b>2.5.4</b> Examining your new data</a></li>
+<li class="chapter" data-level="2.5.5" data-path="introduction-to-r.html"><a href="introduction-to-r.html#data-manipulation-in-r"><i class="fa fa-check"></i><b>2.5.5</b> Data manipulation in R</a></li>
+<li class="chapter" data-level="2.5.6" data-path="introduction-to-r.html"><a href="introduction-to-r.html#plotting"><i class="fa fa-check"></i><b>2.5.6</b> Plotting</a></li>
+<li class="chapter" data-level="2.5.7" data-path="introduction-to-r.html"><a href="introduction-to-r.html#pimp-my-graph"><i class="fa fa-check"></i><b>2.5.7</b> Pimp my graph!</a></li>
+<li class="chapter" data-level="2.5.8" data-path="introduction-to-r.html"><a href="introduction-to-r.html#spatial-data-in-r"><i class="fa fa-check"></i><b>2.5.8</b> Spatial Data in R</a></li>
+<li class="chapter" data-level="2.5.9" data-path="introduction-to-r.html"><a href="introduction-to-r.html#simple-mapping"><i class="fa fa-check"></i><b>2.5.9</b> Simple mapping</a></li>
+</ul></li>
+<li class="chapter" data-level="2.6" data-path="introduction-to-r.html"><a href="introduction-to-r.html#tidying-data"><i class="fa fa-check"></i><b>2.6</b> Tidying data</a></li>
+<li class="chapter" data-level="2.7" data-path="introduction-to-r.html"><a href="introduction-to-r.html#feedback-1"><i class="fa fa-check"></i><b>2.7</b> Feedback</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="spatial-descriptive-statistics.html"><a href="spatial-descriptive-statistics.html"><i class="fa fa-check"></i><b>3</b> Spatial descriptive statistics</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="spatial-descriptive-statistics.html"><a href="spatial-descriptive-statistics.html#learning-outcomes-2"><i class="fa fa-check"></i><b>3.1</b> Learning outcomes</a></li>
+<li class="chapter" data-level="3.2" data-path="spatial-descriptive-statistics.html"><a href="spatial-descriptive-statistics.html#homework-2"><i class="fa fa-check"></i><b>3.2</b> Homework</a></li>
+<li class="chapter" data-level="3.3" data-path="spatial-descriptive-statistics.html"><a href="spatial-descriptive-statistics.html#recommended-listening-2"><i class="fa fa-check"></i><b>3.3</b> Recommended listening 🎧</a></li>
+<li class="chapter" data-level="3.4" data-path="spatial-descriptive-statistics.html"><a href="spatial-descriptive-statistics.html#introduction-2"><i class="fa fa-check"></i><b>3.4</b> Introduction</a></li>
+<li class="chapter" data-level="3.5" data-path="spatial-descriptive-statistics.html"><a href="spatial-descriptive-statistics.html#part-1-projections"><i class="fa fa-check"></i><b>3.5</b> Part 1 projections</a>
+<ul>
+<li class="chapter" data-level="3.5.1" data-path="spatial-descriptive-statistics.html"><a href="spatial-descriptive-statistics.html#changing-projections"><i class="fa fa-check"></i><b>3.5.1</b> Changing projections</a></li>
+<li class="chapter" data-level="3.5.2" data-path="spatial-descriptive-statistics.html"><a href="spatial-descriptive-statistics.html#worldclim-data"><i class="fa fa-check"></i><b>3.5.2</b> WorldClim data</a></li>
+<li class="chapter" data-level="3.5.3" data-path="spatial-descriptive-statistics.html"><a href="spatial-descriptive-statistics.html#data-loading"><i class="fa fa-check"></i><b>3.5.3</b> Data loading</a></li>
+<li class="chapter" data-level="3.5.4" data-path="spatial-descriptive-statistics.html"><a href="spatial-descriptive-statistics.html#raster-location"><i class="fa fa-check"></i><b>3.5.4</b> Raster location</a></li>
+</ul></li>
+<li class="chapter" data-level="3.6" data-path="spatial-descriptive-statistics.html"><a href="spatial-descriptive-statistics.html#part-2-descriptive-statistics"><i class="fa fa-check"></i><b>3.6</b> Part 2 descriptive statistics</a>
+<ul>
+<li class="chapter" data-level="3.6.1" data-path="spatial-descriptive-statistics.html"><a href="spatial-descriptive-statistics.html#data-preparation"><i class="fa fa-check"></i><b>3.6.1</b> Data preparation</a></li>
+<li class="chapter" data-level="3.6.2" data-path="spatial-descriptive-statistics.html"><a href="spatial-descriptive-statistics.html#histogram"><i class="fa fa-check"></i><b>3.6.2</b> Histogram</a></li>
+<li class="chapter" data-level="3.6.3" data-path="spatial-descriptive-statistics.html"><a href="spatial-descriptive-statistics.html#using-more-data"><i class="fa fa-check"></i><b>3.6.3</b> Using more data</a></li>
+<li class="chapter" data-level="3.6.4" data-path="spatial-descriptive-statistics.html"><a href="spatial-descriptive-statistics.html#histogram-with-ggplot"><i class="fa fa-check"></i><b>3.6.4</b> Histogram with ggplot</a></li>
+</ul></li>
+<li class="chapter" data-level="3.7" data-path="spatial-descriptive-statistics.html"><a href="spatial-descriptive-statistics.html#feedback-2"><i class="fa fa-check"></i><b>3.7</b> Feedback</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="git-github-and-rmarkdown.html"><a href="git-github-and-rmarkdown.html"><i class="fa fa-check"></i><b>4</b> Git, GitHub and RMarkdown</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="git-github-and-rmarkdown.html"><a href="git-github-and-rmarkdown.html#learning-outcomes-3"><i class="fa fa-check"></i><b>4.1</b> Learning outcomes</a></li>
+<li class="chapter" data-level="4.2" data-path="git-github-and-rmarkdown.html"><a href="git-github-and-rmarkdown.html#homework-3"><i class="fa fa-check"></i><b>4.2</b> Homework</a></li>
+<li class="chapter" data-level="4.3" data-path="git-github-and-rmarkdown.html"><a href="git-github-and-rmarkdown.html#recommended-listening-3"><i class="fa fa-check"></i><b>4.3</b> Recommended listening 🎧</a></li>
+<li class="chapter" data-level="4.4" data-path="git-github-and-rmarkdown.html"><a href="git-github-and-rmarkdown.html#introduction-3"><i class="fa fa-check"></i><b>4.4</b> Introduction</a></li>
+<li class="chapter" data-level="4.5" data-path="git-github-and-rmarkdown.html"><a href="git-github-and-rmarkdown.html#git-and-github"><i class="fa fa-check"></i><b>4.5</b> Git and GitHub</a>
+<ul>
+<li class="chapter" data-level="4.5.1" data-path="git-github-and-rmarkdown.html"><a href="git-github-and-rmarkdown.html#the-three-ways"><i class="fa fa-check"></i><b>4.5.1</b> The three ways</a></li>
+<li class="chapter" data-level="4.5.2" data-path="git-github-and-rmarkdown.html"><a href="git-github-and-rmarkdown.html#set-up-your-github"><i class="fa fa-check"></i><b>4.5.2</b> Set up your GitHub</a></li>
+<li class="chapter" data-level="4.5.3" data-path="git-github-and-rmarkdown.html"><a href="git-github-and-rmarkdown.html#using-rstudio-with-git"><i class="fa fa-check"></i><b>4.5.3</b> Using RStudio with Git</a></li>
+<li class="chapter" data-level="4.5.4" data-path="git-github-and-rmarkdown.html"><a href="git-github-and-rmarkdown.html#using-the-git-gui---way-1"><i class="fa fa-check"></i><b>4.5.4</b> Using the Git GUI - way 1</a></li>
+<li class="chapter" data-level="4.5.5" data-path="git-github-and-rmarkdown.html"><a href="git-github-and-rmarkdown.html#create-a-new-version-control-in-rstudio---way-2"><i class="fa fa-check"></i><b>4.5.5</b> Create a new version control in RStudio - way 2</a></li>
+<li class="chapter" data-level="4.5.6" data-path="git-github-and-rmarkdown.html"><a href="git-github-and-rmarkdown.html#if-have-an-existing-project---way-3"><i class="fa fa-check"></i><b>4.5.6</b> If have an existing project - way 3</a></li>
+<li class="chapter" data-level="4.5.7" data-path="git-github-and-rmarkdown.html"><a href="git-github-and-rmarkdown.html#commiting-to-git"><i class="fa fa-check"></i><b>4.5.7</b> Commiting to Git</a></li>
+<li class="chapter" data-level="4.5.8" data-path="git-github-and-rmarkdown.html"><a href="git-github-and-rmarkdown.html#push-to-github"><i class="fa fa-check"></i><b>4.5.8</b> Push to Github</a></li>
+<li class="chapter" data-level="4.5.9" data-path="git-github-and-rmarkdown.html"><a href="git-github-and-rmarkdown.html#pull-from-github"><i class="fa fa-check"></i><b>4.5.9</b> Pull from GitHub</a></li>
+<li class="chapter" data-level="4.5.10" data-path="git-github-and-rmarkdown.html"><a href="git-github-and-rmarkdown.html#using-git-outside-rstudio"><i class="fa fa-check"></i><b>4.5.10</b> Using Git outside RStudio</a></li>
+<li class="chapter" data-level="4.5.11" data-path="git-github-and-rmarkdown.html"><a href="git-github-and-rmarkdown.html#troubleshooting"><i class="fa fa-check"></i><b>4.5.11</b> Troubleshooting</a></li>
+<li class="chapter" data-level="4.5.12" data-path="git-github-and-rmarkdown.html"><a href="git-github-and-rmarkdown.html#fork-a-repository"><i class="fa fa-check"></i><b>4.5.12</b> Fork a repository</a></li>
+<li class="chapter" data-level="4.5.13" data-path="git-github-and-rmarkdown.html"><a href="git-github-and-rmarkdown.html#branches"><i class="fa fa-check"></i><b>4.5.13</b> Branches</a></li>
+<li class="chapter" data-level="4.5.14" data-path="git-github-and-rmarkdown.html"><a href="git-github-and-rmarkdown.html#health-warning-1"><i class="fa fa-check"></i><b>4.5.14</b> Health warning</a></li>
+</ul></li>
+<li class="chapter" data-level="4.6" data-path="git-github-and-rmarkdown.html"><a href="git-github-and-rmarkdown.html#rmarkdown"><i class="fa fa-check"></i><b>4.6</b> RMarkdown</a>
+<ul>
+<li class="chapter" data-level="4.6.1" data-path="git-github-and-rmarkdown.html"><a href="git-github-and-rmarkdown.html#html"><i class="fa fa-check"></i><b>4.6.1</b> HTML</a></li>
+<li class="chapter" data-level="4.6.2" data-path="git-github-and-rmarkdown.html"><a href="git-github-and-rmarkdown.html#knit-options"><i class="fa fa-check"></i><b>4.6.2</b> Knit options</a></li>
+<li class="chapter" data-level="4.6.3" data-path="git-github-and-rmarkdown.html"><a href="git-github-and-rmarkdown.html#shortcuts"><i class="fa fa-check"></i><b>4.6.3</b> Shortcuts</a></li>
+</ul></li>
+<li class="chapter" data-level="4.7" data-path="git-github-and-rmarkdown.html"><a href="git-github-and-rmarkdown.html#further-reading"><i class="fa fa-check"></i><b>4.7</b> Further reading</a></li>
+<li class="chapter" data-level="4.8" data-path="git-github-and-rmarkdown.html"><a href="git-github-and-rmarkdown.html#feedback-3"><i class="fa fa-check"></i><b>4.8</b> Feedback</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="map-making.html"><a href="map-making.html"><i class="fa fa-check"></i><b>5</b> Map making</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="map-making.html"><a href="map-making.html#learning-outcomes-4"><i class="fa fa-check"></i><b>5.1</b> Learning outcomes</a></li>
+<li class="chapter" data-level="5.2" data-path="map-making.html"><a href="map-making.html#homework-4"><i class="fa fa-check"></i><b>5.2</b> Homework</a></li>
+<li class="chapter" data-level="5.3" data-path="map-making.html"><a href="map-making.html#recommended-listening-4"><i class="fa fa-check"></i><b>5.3</b> Recommended listening 🎧</a></li>
+<li class="chapter" data-level="5.4" data-path="map-making.html"><a href="map-making.html#introduction-4"><i class="fa fa-check"></i><b>5.4</b> Introduction</a>
+<ul>
+<li class="chapter" data-level="5.4.1" data-path="map-making.html"><a href="map-making.html#osm-1"><i class="fa fa-check"></i><b>5.4.1</b> OSM</a></li>
+<li class="chapter" data-level="5.4.2" data-path="map-making.html"><a href="map-making.html#airbnb"><i class="fa fa-check"></i><b>5.4.2</b> Airbnb</a></li>
+</ul></li>
+<li class="chapter" data-level="5.5" data-path="map-making.html"><a href="map-making.html#data-1"><i class="fa fa-check"></i><b>5.5</b> Data</a>
+<ul>
+<li class="chapter" data-level="5.5.1" data-path="map-making.html"><a href="map-making.html#osm-2"><i class="fa fa-check"></i><b>5.5.1</b> OSM</a></li>
+<li class="chapter" data-level="5.5.2" data-path="map-making.html"><a href="map-making.html#london-boroughs"><i class="fa fa-check"></i><b>5.5.2</b> London boroughs</a></li>
+<li class="chapter" data-level="5.5.3" data-path="map-making.html"><a href="map-making.html#world-cities"><i class="fa fa-check"></i><b>5.5.3</b> World cities</a></li>
+<li class="chapter" data-level="5.5.4" data-path="map-making.html"><a href="map-making.html#uk-outline"><i class="fa fa-check"></i><b>5.5.4</b> Uk outline</a></li>
+<li class="chapter" data-level="5.5.5" data-path="map-making.html"><a href="map-making.html#airbnb-1"><i class="fa fa-check"></i><b>5.5.5</b> Airbnb</a></li>
+</ul></li>
+<li class="chapter" data-level="5.6" data-path="map-making.html"><a href="map-making.html#plan"><i class="fa fa-check"></i><b>5.6</b> Plan</a></li>
+<li class="chapter" data-level="5.7" data-path="map-making.html"><a href="map-making.html#crs-and-filter"><i class="fa fa-check"></i><b>5.7</b> CRS and filter</a></li>
+<li class="chapter" data-level="5.8" data-path="map-making.html"><a href="map-making.html#join-and-sum"><i class="fa fa-check"></i><b>5.8</b> Join and sum</a>
+<ul>
+<li class="chapter" data-level="5.8.1" data-path="map-making.html"><a href="map-making.html#key-advice"><i class="fa fa-check"></i><b>5.8.1</b> Key advice</a></li>
+</ul></li>
+<li class="chapter" data-level="5.9" data-path="map-making.html"><a href="map-making.html#mapping"><i class="fa fa-check"></i><b>5.9</b> Mapping</a>
+<ul>
+<li class="chapter" data-level="5.9.1" data-path="map-making.html"><a href="map-making.html#tmap-syntax"><i class="fa fa-check"></i><b>5.9.1</b> tmap syntax</a></li>
+<li class="chapter" data-level="5.9.2" data-path="map-making.html"><a href="map-making.html#complete-map"><i class="fa fa-check"></i><b>5.9.2</b> Complete map</a></li>
+</ul></li>
+<li class="chapter" data-level="5.10" data-path="map-making.html"><a href="map-making.html#bad-maps"><i class="fa fa-check"></i><b>5.10</b> Bad maps</a></li>
+<li class="chapter" data-level="5.11" data-path="map-making.html"><a href="map-making.html#feedback-4"><i class="fa fa-check"></i><b>5.11</b> Feedback</a></li>
+</ul></li>
+<li class="part"><span><b>II GIS analysis</b></span></li>
+<li class="chapter" data-level="6" data-path="detecting-spatial-patterns.html"><a href="detecting-spatial-patterns.html"><i class="fa fa-check"></i><b>6</b> Detecting spatial patterns</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="detecting-spatial-patterns.html"><a href="detecting-spatial-patterns.html#learning-outcomes-5"><i class="fa fa-check"></i><b>6.1</b> Learning outcomes</a></li>
+<li class="chapter" data-level="6.2" data-path="detecting-spatial-patterns.html"><a href="detecting-spatial-patterns.html#homework-5"><i class="fa fa-check"></i><b>6.2</b> Homework</a></li>
+<li class="chapter" data-level="6.3" data-path="detecting-spatial-patterns.html"><a href="detecting-spatial-patterns.html#recommended-listening-5"><i class="fa fa-check"></i><b>6.3</b> Recommended listening 🎧</a></li>
+<li class="chapter" data-level="6.4" data-path="detecting-spatial-patterns.html"><a href="detecting-spatial-patterns.html#introduction-5"><i class="fa fa-check"></i><b>6.4</b> Introduction</a></li>
+<li class="chapter" data-level="6.5" data-path="detecting-spatial-patterns.html"><a href="detecting-spatial-patterns.html#setting-up-your-data"><i class="fa fa-check"></i><b>6.5</b> Setting up your data</a>
+<ul>
+<li class="chapter" data-level="6.5.1" data-path="detecting-spatial-patterns.html"><a href="detecting-spatial-patterns.html#data-cleaning"><i class="fa fa-check"></i><b>6.5.1</b> Data cleaning</a></li>
+<li class="chapter" data-level="6.5.2" data-path="detecting-spatial-patterns.html"><a href="detecting-spatial-patterns.html#spatial-subsetting"><i class="fa fa-check"></i><b>6.5.2</b> Spatial subsetting</a></li>
+<li class="chapter" data-level="6.5.3" data-path="detecting-spatial-patterns.html"><a href="detecting-spatial-patterns.html#spatial-clipping"><i class="fa fa-check"></i><b>6.5.3</b> Spatial clipping</a></li>
+<li class="chapter" data-level="6.5.4" data-path="detecting-spatial-patterns.html"><a href="detecting-spatial-patterns.html#key-advice-1"><i class="fa fa-check"></i><b>6.5.4</b> Key advice</a></li>
+<li class="chapter" data-level="6.5.5" data-path="detecting-spatial-patterns.html"><a href="detecting-spatial-patterns.html#study-area-1"><i class="fa fa-check"></i><b>6.5.5</b> Study area</a></li>
+</ul></li>
+<li class="chapter" data-level="6.6" data-path="detecting-spatial-patterns.html"><a href="detecting-spatial-patterns.html#point-pattern-analysis"><i class="fa fa-check"></i><b>6.6</b> Point pattern analysis</a>
+<ul>
+<li class="chapter" data-level="6.6.1" data-path="detecting-spatial-patterns.html"><a href="detecting-spatial-patterns.html#kernel-density-estimation"><i class="fa fa-check"></i><b>6.6.1</b> Kernel Density Estimation</a></li>
+<li class="chapter" data-level="6.6.2" data-path="detecting-spatial-patterns.html"><a href="detecting-spatial-patterns.html#quadrat-analysis"><i class="fa fa-check"></i><b>6.6.2</b> Quadrat Analysis</a></li>
+<li class="chapter" data-level="6.6.3" data-path="detecting-spatial-patterns.html"><a href="detecting-spatial-patterns.html#try-experimenting"><i class="fa fa-check"></i><b>6.6.3</b> Try experimenting…</a></li>
+<li class="chapter" data-level="6.6.4" data-path="detecting-spatial-patterns.html"><a href="detecting-spatial-patterns.html#ripleys-k"><i class="fa fa-check"></i><b>6.6.4</b> Ripley’s K</a></li>
+<li class="chapter" data-level="6.6.5" data-path="detecting-spatial-patterns.html"><a href="detecting-spatial-patterns.html#alternatives-to-ripleys-k"><i class="fa fa-check"></i><b>6.6.5</b> Alternatives to Ripley’s K</a></li>
+</ul></li>
+<li class="chapter" data-level="6.7" data-path="detecting-spatial-patterns.html"><a href="detecting-spatial-patterns.html#density-based-spatial-clustering-of-applications-with-noise-dbscan"><i class="fa fa-check"></i><b>6.7</b> Density-based spatial clustering of applications with noise: DBSCAN</a></li>
+<li class="chapter" data-level="6.8" data-path="detecting-spatial-patterns.html"><a href="detecting-spatial-patterns.html#point-pattern-analysis-summary"><i class="fa fa-check"></i><b>6.8</b> Point pattern analysis summary</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="spatial-autocorrelation.html"><a href="spatial-autocorrelation.html"><i class="fa fa-check"></i><b>7</b> Spatial autocorrelation</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="spatial-autocorrelation.html"><a href="spatial-autocorrelation.html#learning-outcomes-6"><i class="fa fa-check"></i><b>7.1</b> Learning outcomes</a></li>
+<li class="chapter" data-level="7.2" data-path="spatial-autocorrelation.html"><a href="spatial-autocorrelation.html#homework-6"><i class="fa fa-check"></i><b>7.2</b> Homework</a></li>
+<li class="chapter" data-level="7.3" data-path="spatial-autocorrelation.html"><a href="spatial-autocorrelation.html#recommended-listening-6"><i class="fa fa-check"></i><b>7.3</b> Recommended listening 🎧</a></li>
+<li class="chapter" data-level="7.4" data-path="spatial-autocorrelation.html"><a href="spatial-autocorrelation.html#introduction-6"><i class="fa fa-check"></i><b>7.4</b> Introduction</a>
+<ul>
+<li class="chapter" data-level="7.4.1" data-path="spatial-autocorrelation.html"><a href="spatial-autocorrelation.html#analysing-spatial-autocorrelation-with-morans-i-lisa-and-friends"><i class="fa fa-check"></i><b>7.4.1</b> Analysing Spatial Autocorrelation with Moran’s I, LISA and friends</a></li>
+<li class="chapter" data-level="7.4.2" data-path="spatial-autocorrelation.html"><a href="spatial-autocorrelation.html#data-download-1"><i class="fa fa-check"></i><b>7.4.2</b> Data download</a></li>
+</ul></li>
+<li class="chapter" data-level="7.5" data-path="spatial-autocorrelation.html"><a href="spatial-autocorrelation.html#data-cleaning-1"><i class="fa fa-check"></i><b>7.5</b> Data cleaning</a></li>
+<li class="chapter" data-level="7.6" data-path="spatial-autocorrelation.html"><a href="spatial-autocorrelation.html#data-manipulation"><i class="fa fa-check"></i><b>7.6</b> Data manipulation</a></li>
+<li class="chapter" data-level="7.7" data-path="spatial-autocorrelation.html"><a href="spatial-autocorrelation.html#weight-matrix"><i class="fa fa-check"></i><b>7.7</b> Weight matrix</a>
+<ul>
+<li class="chapter" data-level="7.7.1" data-path="spatial-autocorrelation.html"><a href="spatial-autocorrelation.html#matrix-style"><i class="fa fa-check"></i><b>7.7.1</b> Matrix style</a></li>
+</ul></li>
+<li class="chapter" data-level="7.8" data-path="spatial-autocorrelation.html"><a href="spatial-autocorrelation.html#autocorrelation"><i class="fa fa-check"></i><b>7.8</b> Autocorrelation</a>
+<ul>
+<li class="chapter" data-level="7.8.1" data-path="spatial-autocorrelation.html"><a href="spatial-autocorrelation.html#morans-i"><i class="fa fa-check"></i><b>7.8.1</b> Moran’s I</a></li>
+<li class="chapter" data-level="7.8.2" data-path="spatial-autocorrelation.html"><a href="spatial-autocorrelation.html#gearys-c"><i class="fa fa-check"></i><b>7.8.2</b> Geary’s C</a></li>
+<li class="chapter" data-level="7.8.3" data-path="spatial-autocorrelation.html"><a href="spatial-autocorrelation.html#getis-ord"><i class="fa fa-check"></i><b>7.8.3</b> Getis Ord</a></li>
+<li class="chapter" data-level="7.8.4" data-path="spatial-autocorrelation.html"><a href="spatial-autocorrelation.html#summary-1"><i class="fa fa-check"></i><b>7.8.4</b> Summary</a></li>
+<li class="chapter" data-level="7.8.5" data-path="spatial-autocorrelation.html"><a href="spatial-autocorrelation.html#local-morans-i"><i class="fa fa-check"></i><b>7.8.5</b> Local Moran’s I</a></li>
+<li class="chapter" data-level="7.8.6" data-path="spatial-autocorrelation.html"><a href="spatial-autocorrelation.html#local-getis-ord-g_i"><i class="fa fa-check"></i><b>7.8.6</b> Local Getis Ord <span class="math inline">\(G_{i}^{*}\)</span></a></li>
+<li class="chapter" data-level="7.8.7" data-path="spatial-autocorrelation.html"><a href="spatial-autocorrelation.html#summary-2"><i class="fa fa-check"></i><b>7.8.7</b> Summary</a></li>
+</ul></li>
+<li class="chapter" data-level="7.9" data-path="spatial-autocorrelation.html"><a href="spatial-autocorrelation.html#other-variables"><i class="fa fa-check"></i><b>7.9</b> Other variables</a></li>
+<li class="chapter" data-level="7.10" data-path="spatial-autocorrelation.html"><a href="spatial-autocorrelation.html#feedback-5"><i class="fa fa-check"></i><b>7.10</b> Feedback</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="explaining-spatial-patterns.html"><a href="explaining-spatial-patterns.html"><i class="fa fa-check"></i><b>8</b> Explaining spatial patterns</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="explaining-spatial-patterns.html"><a href="explaining-spatial-patterns.html#learning-objectives"><i class="fa fa-check"></i><b>8.1</b> Learning objectives</a></li>
+<li class="chapter" data-level="8.2" data-path="explaining-spatial-patterns.html"><a href="explaining-spatial-patterns.html#homework-7"><i class="fa fa-check"></i><b>8.2</b> Homework</a></li>
+<li class="chapter" data-level="8.3" data-path="explaining-spatial-patterns.html"><a href="explaining-spatial-patterns.html#recommended-listening-7"><i class="fa fa-check"></i><b>8.3</b> Recommended listening 🎧</a></li>
+<li class="chapter" data-level="8.4" data-path="explaining-spatial-patterns.html"><a href="explaining-spatial-patterns.html#introduction-7"><i class="fa fa-check"></i><b>8.4</b> Introduction</a>
+<ul>
+<li class="chapter" data-level="8.4.1" data-path="explaining-spatial-patterns.html"><a href="explaining-spatial-patterns.html#setting-up-your-data-1"><i class="fa fa-check"></i><b>8.4.1</b> Setting up your Data</a></li>
+</ul></li>
+<li class="chapter" data-level="8.5" data-path="explaining-spatial-patterns.html"><a href="explaining-spatial-patterns.html#analysing-gcse-exam-performance---testing-a-research-hypothesis"><i class="fa fa-check"></i><b>8.5</b> Analysing GCSE exam performance - testing a research hypothesis</a>
+<ul>
+<li class="chapter" data-level="8.5.1" data-path="explaining-spatial-patterns.html"><a href="explaining-spatial-patterns.html#research-question-and-hypothesis"><i class="fa fa-check"></i><b>8.5.1</b> Research Question and Hypothesis</a></li>
+<li class="chapter" data-level="8.5.2" data-path="explaining-spatial-patterns.html"><a href="explaining-spatial-patterns.html#regression-basics"><i class="fa fa-check"></i><b>8.5.2</b> Regression Basics</a></li>
+<li class="chapter" data-level="8.5.3" data-path="explaining-spatial-patterns.html"><a href="explaining-spatial-patterns.html#running-a-regression-model-in-r"><i class="fa fa-check"></i><b>8.5.3</b> Running a Regression Model in R</a></li>
+<li class="chapter" data-level="8.5.4" data-path="explaining-spatial-patterns.html"><a href="explaining-spatial-patterns.html#tidymodels"><i class="fa fa-check"></i><b>8.5.4</b> tidymodels</a></li>
+<li class="chapter" data-level="8.5.5" data-path="explaining-spatial-patterns.html"><a href="explaining-spatial-patterns.html#bootstrap-resampling"><i class="fa fa-check"></i><b>8.5.5</b> Bootstrap resampling</a></li>
+<li class="chapter" data-level="8.5.6" data-path="explaining-spatial-patterns.html"><a href="explaining-spatial-patterns.html#variables"><i class="fa fa-check"></i><b>8.5.6</b> Variables</a></li>
+<li class="chapter" data-level="8.5.7" data-path="explaining-spatial-patterns.html"><a href="explaining-spatial-patterns.html#assumptions-underpinning-linear-regression"><i class="fa fa-check"></i><b>8.5.7</b> Assumptions Underpinning Linear Regression</a></li>
+<li class="chapter" data-level="8.5.8" data-path="explaining-spatial-patterns.html"><a href="explaining-spatial-patterns.html#assumption-1---there-is-a-linear-relationship-between-the-dependent-and-independent-variables"><i class="fa fa-check"></i><b>8.5.8</b> Assumption 1 - There is a linear relationship between the dependent and independent variables</a></li>
+<li class="chapter" data-level="8.5.9" data-path="explaining-spatial-patterns.html"><a href="explaining-spatial-patterns.html#assumption-2---the-residuals-in-your-model-should-be-normally-distributed"><i class="fa fa-check"></i><b>8.5.9</b> Assumption 2 - The residuals in your model should be normally distributed</a></li>
+<li class="chapter" data-level="8.5.10" data-path="explaining-spatial-patterns.html"><a href="explaining-spatial-patterns.html#assumption-3---no-multicolinearity-in-the-independent-variables"><i class="fa fa-check"></i><b>8.5.10</b> Assumption 3 - No Multicolinearity in the independent variables</a></li>
+<li class="chapter" data-level="8.5.11" data-path="explaining-spatial-patterns.html"><a href="explaining-spatial-patterns.html#assumption-4---homoscedasticity"><i class="fa fa-check"></i><b>8.5.11</b> Assumption 4 - Homoscedasticity</a></li>
+<li class="chapter" data-level="8.5.12" data-path="explaining-spatial-patterns.html"><a href="explaining-spatial-patterns.html#assumption-5---independence-of-errors"><i class="fa fa-check"></i><b>8.5.12</b> Assumption 5 - Independence of Errors</a></li>
+</ul></li>
+<li class="chapter" data-level="8.6" data-path="explaining-spatial-patterns.html"><a href="explaining-spatial-patterns.html#spatial-regression-models"><i class="fa fa-check"></i><b>8.6</b> Spatial Regression Models</a>
+<ul>
+<li class="chapter" data-level="8.6.1" data-path="explaining-spatial-patterns.html"><a href="explaining-spatial-patterns.html#dealing-with-spatially-autocorrelated-residuals---spatial-lag-and-spatial-error-models"><i class="fa fa-check"></i><b>8.6.1</b> Dealing with Spatially Autocorrelated Residuals - Spatial Lag and Spatial Error models</a></li>
+<li class="chapter" data-level="8.6.2" data-path="explaining-spatial-patterns.html"><a href="explaining-spatial-patterns.html#key-advice-2"><i class="fa fa-check"></i><b>8.6.2</b> Key advice</a></li>
+<li class="chapter" data-level="8.6.3" data-path="explaining-spatial-patterns.html"><a href="explaining-spatial-patterns.html#which-model-to-use"><i class="fa fa-check"></i><b>8.6.3</b> Which model to use</a></li>
+<li class="chapter" data-level="8.6.4" data-path="explaining-spatial-patterns.html"><a href="explaining-spatial-patterns.html#more-data"><i class="fa fa-check"></i><b>8.6.4</b> More data</a></li>
+<li class="chapter" data-level="8.6.5" data-path="explaining-spatial-patterns.html"><a href="explaining-spatial-patterns.html#extending-your-regression-model---dummy-variables"><i class="fa fa-check"></i><b>8.6.5</b> Extending your regression model - Dummy Variables</a></li>
+<li class="chapter" data-level="8.6.6" data-path="explaining-spatial-patterns.html"><a href="explaining-spatial-patterns.html#task-investigating-further---adding-more-explanatory-variables-into-a-multiple-regression-model"><i class="fa fa-check"></i><b>8.6.6</b> TASK: Investigating Further - Adding More Explanatory Variables into a multiple regression model</a></li>
+</ul></li>
+<li class="chapter" data-level="8.7" data-path="explaining-spatial-patterns.html"><a href="explaining-spatial-patterns.html#task-3---spatial-non-stationarity-and-geographically-weighted-regression-models-gwr"><i class="fa fa-check"></i><b>8.7</b> Task 3 - Spatial Non-stationarity and Geographically Weighted Regression Models (GWR)</a></li>
+<li class="chapter" data-level="8.8" data-path="explaining-spatial-patterns.html"><a href="explaining-spatial-patterns.html#feedback-6"><i class="fa fa-check"></i><b>8.8</b> Feedback</a></li>
+</ul></li>
+<li class="part"><span><b>Extra</b></span></li>
+<li class="chapter" data-level="" data-path="multiple-linear-regression.html"><a href="multiple-linear-regression.html"><i class="fa fa-check"></i>Multiple Linear Regression</a></li>
+<li class="chapter" data-level="" data-path="module-resources.html"><a href="module-resources.html"><i class="fa fa-check"></i>Module resources</a>
+<ul>
+<li class="chapter" data-level="8.9" data-path="module-resources.html"><a href="module-resources.html#markscheme"><i class="fa fa-check"></i><b>8.9</b> Markscheme</a></li>
+<li class="chapter" data-level="8.10" data-path="module-resources.html"><a href="module-resources.html#old-practicals"><i class="fa fa-check"></i><b>8.10</b> Old practicals</a></li>
+<li class="chapter" data-level="8.11" data-path="module-resources.html"><a href="module-resources.html#events-meet-other-spatial-data-professionals"><i class="fa fa-check"></i><b>8.11</b> Events / meet other spatial data professionals</a></li>
+<li class="chapter" data-level="8.12" data-path="module-resources.html"><a href="module-resources.html#cool-stuff-to-explore"><i class="fa fa-check"></i><b>8.12</b> Cool stuff to explore</a></li>
+<li class="chapter" data-level="8.13" data-path="module-resources.html"><a href="module-resources.html#booksreading-resources"><i class="fa fa-check"></i><b>8.13</b> Books/reading resources</a></li>
+<li class="chapter" data-level="8.14" data-path="module-resources.html"><a href="module-resources.html#new-developments"><i class="fa fa-check"></i><b>8.14</b> New developments</a>
+<ul>
+<li class="chapter" data-level="8.14.1" data-path="module-resources.html"><a href="module-resources.html#twitter"><i class="fa fa-check"></i><b>8.14.1</b> Twitter</a></li>
+</ul></li>
+<li class="chapter" data-level="8.15" data-path="module-resources.html"><a href="module-resources.html#data-2"><i class="fa fa-check"></i><b>8.15</b> Data</a></li>
+<li class="chapter" data-level="8.16" data-path="module-resources.html"><a href="module-resources.html#data-lists-1"><i class="fa fa-check"></i><b>8.16</b> Data lists</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="extra-reproducibility.html"><a href="extra-reproducibility.html"><i class="fa fa-check"></i>Extra reproducibility</a>
+<ul>
+<li class="chapter" data-level="8.17" data-path="extra-reproducibility.html"><a href="extra-reproducibility.html#git-and-github-1"><i class="fa fa-check"></i><b>8.17</b> Git and GitHub</a>
+<ul>
+<li class="chapter" data-level="8.17.1" data-path="extra-reproducibility.html"><a href="extra-reproducibility.html#back-in-time"><i class="fa fa-check"></i><b>8.17.1</b> Back in time</a></li>
+</ul></li>
+<li class="chapter" data-level="8.18" data-path="extra-reproducibility.html"><a href="extra-reproducibility.html#renv"><i class="fa fa-check"></i><b>8.18</b> renv</a></li>
+<li class="chapter" data-level="8.19" data-path="extra-reproducibility.html"><a href="extra-reproducibility.html#referencing-and-more"><i class="fa fa-check"></i><b>8.19</b> Referencing and more</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="qgis-maps.html"><a href="qgis-maps.html"><i class="fa fa-check"></i>QGIS Maps</a>
+<ul>
+<li class="chapter" data-level="8.20" data-path="qgis-maps.html"><a href="qgis-maps.html#load-data-2"><i class="fa fa-check"></i><b>8.20</b> Load data</a></li>
+<li class="chapter" data-level="8.21" data-path="qgis-maps.html"><a href="qgis-maps.html#manipulate-data"><i class="fa fa-check"></i><b>8.21</b> Manipulate data</a></li>
+<li class="chapter" data-level="8.22" data-path="qgis-maps.html"><a href="qgis-maps.html#map-data"><i class="fa fa-check"></i><b>8.22</b> Map data</a></li>
+<li class="chapter" data-level="8.23" data-path="qgis-maps.html"><a href="qgis-maps.html#export-map"><i class="fa fa-check"></i><b>8.23</b> Export map</a></li>
+<li class="chapter" data-level="8.24" data-path="qgis-maps.html"><a href="qgis-maps.html#graphical-modeler"><i class="fa fa-check"></i><b>8.24</b> Graphical modeler</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="tmap-version-3.html"><a href="tmap-version-3.html"><i class="fa fa-check"></i>Tmap version 3</a>
+<ul>
+<li class="chapter" data-level="8.25" data-path="tmap-version-3.html"><a href="tmap-version-3.html#learning-outcomes-7"><i class="fa fa-check"></i><b>8.25</b> Learning outcomes</a></li>
+<li class="chapter" data-level="8.26" data-path="tmap-version-3.html"><a href="tmap-version-3.html#homework-8"><i class="fa fa-check"></i><b>8.26</b> Homework</a></li>
+<li class="chapter" data-level="8.27" data-path="tmap-version-3.html"><a href="tmap-version-3.html#recommended-listening-8"><i class="fa fa-check"></i><b>8.27</b> Recommended listening 🎧</a></li>
+<li class="chapter" data-level="8.28" data-path="tmap-version-3.html"><a href="tmap-version-3.html#introduction-8"><i class="fa fa-check"></i><b>8.28</b> Introduction</a>
+<ul>
+<li class="chapter" data-level="8.28.1" data-path="tmap-version-3.html"><a href="tmap-version-3.html#osm-3"><i class="fa fa-check"></i><b>8.28.1</b> OSM</a></li>
+<li class="chapter" data-level="8.28.2" data-path="tmap-version-3.html"><a href="tmap-version-3.html#airbnb-2"><i class="fa fa-check"></i><b>8.28.2</b> Airbnb</a></li>
+</ul></li>
+<li class="chapter" data-level="8.29" data-path="tmap-version-3.html"><a href="tmap-version-3.html#data-3"><i class="fa fa-check"></i><b>8.29</b> Data</a>
+<ul>
+<li class="chapter" data-level="8.29.1" data-path="tmap-version-3.html"><a href="tmap-version-3.html#osm-4"><i class="fa fa-check"></i><b>8.29.1</b> OSM</a></li>
+<li class="chapter" data-level="8.29.2" data-path="tmap-version-3.html"><a href="tmap-version-3.html#london-boroughs-1"><i class="fa fa-check"></i><b>8.29.2</b> London boroughs</a></li>
+<li class="chapter" data-level="8.29.3" data-path="tmap-version-3.html"><a href="tmap-version-3.html#world-cities-1"><i class="fa fa-check"></i><b>8.29.3</b> World cities</a></li>
+<li class="chapter" data-level="8.29.4" data-path="tmap-version-3.html"><a href="tmap-version-3.html#uk-outline-1"><i class="fa fa-check"></i><b>8.29.4</b> Uk outline</a></li>
+<li class="chapter" data-level="8.29.5" data-path="tmap-version-3.html"><a href="tmap-version-3.html#airbnb-3"><i class="fa fa-check"></i><b>8.29.5</b> Airbnb</a></li>
+</ul></li>
+<li class="chapter" data-level="8.30" data-path="tmap-version-3.html"><a href="tmap-version-3.html#spatial-joining"><i class="fa fa-check"></i><b>8.30</b> Spatial joining</a>
+<ul>
+<li class="chapter" data-level="8.30.1" data-path="tmap-version-3.html"><a href="tmap-version-3.html#static-map"><i class="fa fa-check"></i><b>8.30.1</b> Static map</a></li>
+<li class="chapter" data-level="8.30.2" data-path="tmap-version-3.html"><a href="tmap-version-3.html#inset-map"><i class="fa fa-check"></i><b>8.30.2</b> Inset map</a></li>
+<li class="chapter" data-level="8.30.3" data-path="tmap-version-3.html"><a href="tmap-version-3.html#export"><i class="fa fa-check"></i><b>8.30.3</b> Export</a></li>
+<li class="chapter" data-level="8.30.4" data-path="tmap-version-3.html"><a href="tmap-version-3.html#basic-interactive-map"><i class="fa fa-check"></i><b>8.30.4</b> Basic interactive map</a></li>
+<li class="chapter" data-level="8.30.5" data-path="tmap-version-3.html"><a href="tmap-version-3.html#advanced-interactive-map"><i class="fa fa-check"></i><b>8.30.5</b> Advanced interactive map</a></li>
+</ul></li>
+<li class="chapter" data-level="8.31" data-path="tmap-version-3.html"><a href="tmap-version-3.html#bad-maps-1"><i class="fa fa-check"></i><b>8.31</b> Bad maps</a></li>
+<li class="chapter" data-level="8.32" data-path="tmap-version-3.html"><a href="tmap-version-3.html#feedback-7"><i class="fa fa-check"></i><b>8.32</b> Feedback</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="functions-1.html"><a href="functions-1.html"><i class="fa fa-check"></i>Functions</a></li>
+<li class="chapter" data-level="" data-path="interactive-maps.html"><a href="interactive-maps.html"><i class="fa fa-check"></i>Interactive maps</a>
+<ul>
+<li class="chapter" data-level="8.33" data-path="interactive-maps.html"><a href="interactive-maps.html#advanced-interactive-map-1"><i class="fa fa-check"></i><b>8.33</b> Advanced interactive map</a></li>
+</ul></li>
+<li class="divider"></li>
+<li><center>
+  <a rel="license" href="./external-usage.html#license">
+    License: CC-BY-SA<br>
+    <i class = "fab fa-creative-commons fa-2x"></i>
+    <i class = "fab fa-creative-commons-by fa-2x"></i>
+    <i class = "fab fa-creative-commons-sa fa-2x"></i>
+  </a>
+</li></center>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">CASA0005 Geographic Information Systems and Science</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="functions-1" class="section level1 unnumbered hasAnchor">
+<h1>Functions<a href="functions-1.html#functions-1" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div class="infobox tip">
+<p>This is for interest only and not part of the module.</p>
+</div>
+<p>In the mapping practical we applied the code above to two separate sf objects above. To make this more efficient we could develop our own function (like the ones we use all the time) and simply provide the relevant data. An example has been put here, but this is for interest only and not a requirement for the module.</p>
+<p>This is an example of creating a function for the spatial join and summarise.</p>
+<div class="sourceCode" id="cb513"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb513-1"><a href="functions-1.html#cb513-1" tabindex="-1"></a><span class="co"># make a function for the join</span></span>
+<span id="cb513-2"><a href="functions-1.html#cb513-2" tabindex="-1"></a><span class="co"># you have to do is replace data1 and data2</span></span>
+<span id="cb513-3"><a href="functions-1.html#cb513-3" tabindex="-1"></a><span class="co"># with the data you want to use</span></span>
+<span id="cb513-4"><a href="functions-1.html#cb513-4" tabindex="-1"></a></span>
+<span id="cb513-5"><a href="functions-1.html#cb513-5" tabindex="-1"></a>Joinfun <span class="ot">&lt;-</span> <span class="cf">function</span>(data1, data2){</span>
+<span id="cb513-6"><a href="functions-1.html#cb513-6" tabindex="-1"></a></span>
+<span id="cb513-7"><a href="functions-1.html#cb513-7" tabindex="-1"></a>output<span class="ot">&lt;-</span> data1<span class="sc">%&gt;%</span></span>
+<span id="cb513-8"><a href="functions-1.html#cb513-8" tabindex="-1"></a>  <span class="fu">st_join</span>(data2,.) <span class="sc">%&gt;%</span></span>
+<span id="cb513-9"><a href="functions-1.html#cb513-9" tabindex="-1"></a>  <span class="fu">add_count</span>(GSS_CODE, <span class="at">name=</span><span class="st">&quot;hotels_in_borough&quot;</span>) </span>
+<span id="cb513-10"><a href="functions-1.html#cb513-10" tabindex="-1"></a></span>
+<span id="cb513-11"><a href="functions-1.html#cb513-11" tabindex="-1"></a>  <span class="fu">return</span>(output)</span>
+<span id="cb513-12"><a href="functions-1.html#cb513-12" tabindex="-1"></a>}</span>
+<span id="cb513-13"><a href="functions-1.html#cb513-13" tabindex="-1"></a></span>
+<span id="cb513-14"><a href="functions-1.html#cb513-14" tabindex="-1"></a><span class="co"># use the function for hotels</span></span>
+<span id="cb513-15"><a href="functions-1.html#cb513-15" tabindex="-1"></a>Hotels <span class="ot">&lt;-</span> <span class="fu">Joinfun</span>(OSM, Londonborough)</span>
+<span id="cb513-16"><a href="functions-1.html#cb513-16" tabindex="-1"></a></span>
+<span id="cb513-17"><a href="functions-1.html#cb513-17" tabindex="-1"></a><span class="co"># then for airbnb</span></span>
+<span id="cb513-18"><a href="functions-1.html#cb513-18" tabindex="-1"></a>Airbnb <span class="ot">&lt;-</span> <span class="fu">Joinfun</span>(Airbnb, Londonborough)</span></code></pre></div>
+
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="tmap-version-3.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="interactive-maps.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+  "sharing": {
+    "github": true,
+    "facebook": false,
+    "twitter": false,
+    "linkedin": false,
+    "weibo": false,
+    "instapaper": false,
+    "vk": false,
+    "whatsapp": false,
+    "all": false
+  },
+  "fontsettings": {
+    "theme": "white",
+    "family": "sans",
+    "size": 2
+  },
+  "edit": {
+    "link": "https://github.com/andrewmaclachlan/CASA0005repo/edit/master/17-functions.Rmd",
+    "text": "Edit"
+  },
+  "history": {
+    "link": null,
+    "text": null
+  },
+  "view": {
+    "link": null,
+    "text": null
+  },
+  "download": ["https://github.com/andrewmaclachlan/CASA0005repo/raw/master/17-functions.Rmd"],
+  "search": {
+    "engine": "fuse",
+    "options": {
+      "includeScore": true
+    }
+  },
+  "toc": {
+    "collapse": "section",
+    "scroll_highlight": true
+  }
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

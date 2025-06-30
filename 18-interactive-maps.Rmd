@@ -1,0 +1,169 @@
+# Interactive maps {-}
+
+::: {.infobox .tip data-latex="{note}"}
+This uses the same data from the mapping practical - airbnbs and hotels (OSM) in London.
+:::
+
+```{r message=FALSE, echo=FALSE}
+library(sf)
+library(tidyverse)
+
+# OSM data
+
+OSM <- st_read("prac5_data/greater-london-latest-free.shp/gis_osm_pois_free_1.shp")%>%
+  st_transform(., 27700) %>%
+  #select hotels only
+  filter(fclass == 'hotel')
+
+# Airbnb data
+Airbnb <- read_csv("prac5_data/listings.csv") %>%
+  # longitude is considered x value here, latitude is y
+  st_as_sf(., coords = c("longitude", "latitude"), 
+                   crs = 4326) %>%
+    st_transform(., 27700)%>%
+    #select entire places that are available all year
+    filter(room_type == 'Entire home/apt' & availability_365 =='365')
+
+
+#London Borough data is already in 277000
+Londonborough <- st_read("Prac1_data/statistical-gis-boundaries-london/ESRI/London_Borough_Excluding_MHW.shp")%>%
+  st_transform(., 27700)
+
+Accomodation_contained <- Londonborough%>%
+  mutate(hotels_n = lengths(st_contains(., OSM)))%>%
+  mutate(airbnbs_n = lengths(st_contains(., Airbnbs)))
+
+library(classInt)
+
+# Get Jenks breaks for 5 classes
+breaks <- Accomodation_contained%>%
+  st_drop_geometry()%>%
+  #need a numeric vector not a dataframe or tibble
+  pull(airbnbs_n) %>%             
+  classIntervals(., n = 5, style = "jenks")
+```
+
+
+To make our map interactive we change `tmap_mode()` from plot to view..
+
+```{r message=FALSE, warning=FALSE, cache=FALSE}
+tmap_mode("view")
+
+tm_shape(Accomodation_contained) + 
+  tm_polygons("hotels_n") 
+```
+
+## Advanced interactive map
+
+But let's take it a bit further so we can select our layers on an interactive map..
+
+
+Set up some pop up box information..so if we click borough we can a small table.
+
+```{r}
+#library for the pop out tables
+library(leafpop)
+
+#remove the geometry for our pop up boxes to avoid
+popupairbnb <- Accomodation_contained %>%
+  st_drop_geometry()%>%
+  dplyr::select(airbnbs_n, NAME)%>%
+  popupTable()
+
+popuphotel <- Accomodation_contained %>%
+  st_drop_geometry()%>%
+  dplyr::select(hotels_n, NAME)%>%
+  popupTable()
+
+```
+
+Let's set a few more things up:
+
+* We are going to use Leaflet which requires the CRS to be in WGS84
+* We need to define our colours based on the breaks we previously set
+
+```{r }
+# WGS84
+Accomodation_containedWGS84 <-Accomodation_contained%>%
+  st_transform(., 4326)
+
+# leaflet library for interactive map
+library(leaflet)
+
+# set the colour palettes or breaks
+
+pal1 <- colorBin("YlOrRd", 
+                 domain = Accomodation_contained$airbnbs_n, 
+                 bins = breaks$brks)
+pal2 <- colorBin("Blues", 
+                 domain = Accomodation_contained$hotels_n,
+                 bins = breaks$brks)
+```
+
+Similar to our static maps we must:
+
+* First define the shape object 
+* The load the map layer (e.g. polygons)
+
+Here, we also set a group which links the polygon both the legend and button selection options.
+
+```{r prac5leaf, message=FALSE, warning=FALSE, cache=FALSE, eval=TRUE}
+
+# Build the map
+map <- leaflet(Accomodation_containedWGS84) %>%
+  
+  # Airbnb layer
+  addPolygons(color = "white", 
+              weight = 2,
+              opacity = 1,
+              dashArray = "3",
+              fillOpacity = 0.7,
+              fillColor = ~pal1(airbnbs_n),
+              popup = popupairbnb,
+              group = "Airbnb") %>%
+
+  # Hotel layer
+  addPolygons(fillColor = ~pal2(hotels_n),
+              weight = 2,
+              opacity = 1,
+              color = "white",
+              dashArray = "3",
+              fillOpacity = 0.7,
+              popup = popuphotel,
+              group = "Hotels") %>%
+
+  
+  # Add layer control
+  addLayersControl(
+    # names to give the button selection options
+    baseGroups = c("OSM", "Toner", "Toner Lite", "CartoDB"),
+    overlayGroups = c("Airbnb", "Hotels"),
+    options = layersControlOptions(collapsed = FALSE)
+  ) %>%
+
+  # Airbnb legend (tied to Airbnb group)
+  addLegend("bottomleft", 
+            pal = pal1, 
+            values = ~airbnbs_n,
+            title = "Airbnb count",
+            group = "Airbnb") %>%
+
+  # Hotel legend (tied to Hotels group)
+  addLegend("bottomleft", 
+            pal = pal2, 
+            values = ~hotels_n,
+            title = "Hotel count",
+            group = "Hotels")%>%
+  
+  #add basemaps
+  addTiles(group = "OSM (default)") %>%
+  addProviderTiles(providers$Stadia.StamenToner, group = "Toner") %>%
+  addProviderTiles(providers$Stadia.StamenTonerLite, group = "Toner Lite")%>%
+  addProviderTiles(providers$CartoDB.Positron, group = "CartoDB")
+
+map
+```
+
+If you want to explore Leaflet more have a look at [the leaflet for R Guide](https://rstudio.github.io/leaflet/)
+
+To see other basemap options (there are loads!) have a look here at [leaflet extras](http://leaflet-extras.github.io/leaflet-providers/preview/)

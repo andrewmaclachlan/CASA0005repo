@@ -23,7 +23,7 @@
 <meta name="author" content="Andy MacLachlan, Adam Dennett and Claire Dooley" />
 
 
-<meta name="date" content="2025-06-09" />
+<meta name="date" content="2025-06-27" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -31,7 +31,7 @@
   <link rel="apple-touch-icon-precomposed" sizes="120x120" href="assets/apple-touch-icon.png" />
   <link rel="shortcut icon" href="assets/favicon.ico" type="image/x-icon" />
 <link rel="prev" href="module-resources.html"/>
-
+<link rel="next" href="qgis-maps.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -80,6 +80,7 @@
 <script src="libs/leaflet-binding-2.2.2/leaflet.js"></script>
 <script src="libs/leaflet-providers-2.0.0/leaflet-providers_2.0.0.js"></script>
 <script src="libs/leaflet-providers-plugin-2.2.2/leaflet-providers-plugin.js"></script>
+<script src="libs/logodeps-1.0.0/logo.js"></script>
 <script src="libs/clipboard-0.0.1/setClipboardText.js"></script>
 <!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-151934476-1"></script>
@@ -1122,16 +1123,19 @@ div.csl-indent {
 <li class="chapter" data-level="5.5.4" data-path="map-making.html"><a href="map-making.html#uk-outline"><i class="fa fa-check"></i><b>5.5.4</b> Uk outline</a></li>
 <li class="chapter" data-level="5.5.5" data-path="map-making.html"><a href="map-making.html#airbnb-1"><i class="fa fa-check"></i><b>5.5.5</b> Airbnb</a></li>
 </ul></li>
-<li class="chapter" data-level="5.6" data-path="map-making.html"><a href="map-making.html#spatial-joining"><i class="fa fa-check"></i><b>5.6</b> Spatial joining</a>
+<li class="chapter" data-level="5.6" data-path="map-making.html"><a href="map-making.html#plan"><i class="fa fa-check"></i><b>5.6</b> Plan</a></li>
+<li class="chapter" data-level="5.7" data-path="map-making.html"><a href="map-making.html#crs-and-filter"><i class="fa fa-check"></i><b>5.7</b> CRS and filter</a></li>
+<li class="chapter" data-level="5.8" data-path="map-making.html"><a href="map-making.html#join-and-sum"><i class="fa fa-check"></i><b>5.8</b> Join and sum</a>
 <ul>
-<li class="chapter" data-level="5.6.1" data-path="map-making.html"><a href="map-making.html#static-map"><i class="fa fa-check"></i><b>5.6.1</b> Static map</a></li>
-<li class="chapter" data-level="5.6.2" data-path="map-making.html"><a href="map-making.html#inset-map"><i class="fa fa-check"></i><b>5.6.2</b> Inset map</a></li>
-<li class="chapter" data-level="5.6.3" data-path="map-making.html"><a href="map-making.html#export"><i class="fa fa-check"></i><b>5.6.3</b> Export</a></li>
-<li class="chapter" data-level="5.6.4" data-path="map-making.html"><a href="map-making.html#basic-interactive-map"><i class="fa fa-check"></i><b>5.6.4</b> Basic interactive map</a></li>
-<li class="chapter" data-level="5.6.5" data-path="map-making.html"><a href="map-making.html#advanced-interactive-map"><i class="fa fa-check"></i><b>5.6.5</b> Advanced interactive map</a></li>
+<li class="chapter" data-level="5.8.1" data-path="map-making.html"><a href="map-making.html#key-advice"><i class="fa fa-check"></i><b>5.8.1</b> Key advice</a></li>
 </ul></li>
-<li class="chapter" data-level="5.7" data-path="map-making.html"><a href="map-making.html#bad-maps"><i class="fa fa-check"></i><b>5.7</b> Bad maps</a></li>
-<li class="chapter" data-level="5.8" data-path="map-making.html"><a href="map-making.html#feedback-4"><i class="fa fa-check"></i><b>5.8</b> Feedback</a></li>
+<li class="chapter" data-level="5.9" data-path="map-making.html"><a href="map-making.html#mapping"><i class="fa fa-check"></i><b>5.9</b> Mapping</a>
+<ul>
+<li class="chapter" data-level="5.9.1" data-path="map-making.html"><a href="map-making.html#tmap-syntax"><i class="fa fa-check"></i><b>5.9.1</b> tmap syntax</a></li>
+<li class="chapter" data-level="5.9.2" data-path="map-making.html"><a href="map-making.html#complete-map"><i class="fa fa-check"></i><b>5.9.2</b> Complete map</a></li>
+</ul></li>
+<li class="chapter" data-level="5.10" data-path="map-making.html"><a href="map-making.html#bad-maps"><i class="fa fa-check"></i><b>5.10</b> Bad maps</a></li>
+<li class="chapter" data-level="5.11" data-path="map-making.html"><a href="map-making.html#feedback-4"><i class="fa fa-check"></i><b>5.11</b> Feedback</a></li>
 </ul></li>
 <li class="part"><span><b>II GIS analysis</b></span></li>
 <li class="chapter" data-level="6" data-path="detecting-spatial-patterns.html"><a href="detecting-spatial-patterns.html"><i class="fa fa-check"></i><b>6</b> Detecting spatial patterns</a>
@@ -1145,9 +1149,8 @@ div.csl-indent {
 <li class="chapter" data-level="6.5.1" data-path="detecting-spatial-patterns.html"><a href="detecting-spatial-patterns.html#data-cleaning"><i class="fa fa-check"></i><b>6.5.1</b> Data cleaning</a></li>
 <li class="chapter" data-level="6.5.2" data-path="detecting-spatial-patterns.html"><a href="detecting-spatial-patterns.html#spatial-subsetting"><i class="fa fa-check"></i><b>6.5.2</b> Spatial subsetting</a></li>
 <li class="chapter" data-level="6.5.3" data-path="detecting-spatial-patterns.html"><a href="detecting-spatial-patterns.html#spatial-clipping"><i class="fa fa-check"></i><b>6.5.3</b> Spatial clipping</a></li>
-<li class="chapter" data-level="6.5.4" data-path="detecting-spatial-patterns.html"><a href="detecting-spatial-patterns.html#spatial-joining-1"><i class="fa fa-check"></i><b>6.5.4</b> Spatial joining</a></li>
-<li class="chapter" data-level="6.5.5" data-path="detecting-spatial-patterns.html"><a href="detecting-spatial-patterns.html#key-advice"><i class="fa fa-check"></i><b>6.5.5</b> Key advice</a></li>
-<li class="chapter" data-level="6.5.6" data-path="detecting-spatial-patterns.html"><a href="detecting-spatial-patterns.html#study-area"><i class="fa fa-check"></i><b>6.5.6</b> Study area</a></li>
+<li class="chapter" data-level="6.5.4" data-path="detecting-spatial-patterns.html"><a href="detecting-spatial-patterns.html#key-advice-1"><i class="fa fa-check"></i><b>6.5.4</b> Key advice</a></li>
+<li class="chapter" data-level="6.5.5" data-path="detecting-spatial-patterns.html"><a href="detecting-spatial-patterns.html#study-area-1"><i class="fa fa-check"></i><b>6.5.5</b> Study area</a></li>
 </ul></li>
 <li class="chapter" data-level="6.6" data-path="detecting-spatial-patterns.html"><a href="detecting-spatial-patterns.html#point-pattern-analysis"><i class="fa fa-check"></i><b>6.6</b> Point pattern analysis</a>
 <ul>
@@ -1216,7 +1219,7 @@ div.csl-indent {
 <li class="chapter" data-level="8.6" data-path="explaining-spatial-patterns.html"><a href="explaining-spatial-patterns.html#spatial-regression-models"><i class="fa fa-check"></i><b>8.6</b> Spatial Regression Models</a>
 <ul>
 <li class="chapter" data-level="8.6.1" data-path="explaining-spatial-patterns.html"><a href="explaining-spatial-patterns.html#dealing-with-spatially-autocorrelated-residuals---spatial-lag-and-spatial-error-models"><i class="fa fa-check"></i><b>8.6.1</b> Dealing with Spatially Autocorrelated Residuals - Spatial Lag and Spatial Error models</a></li>
-<li class="chapter" data-level="8.6.2" data-path="explaining-spatial-patterns.html"><a href="explaining-spatial-patterns.html#key-advice-1"><i class="fa fa-check"></i><b>8.6.2</b> Key advice</a></li>
+<li class="chapter" data-level="8.6.2" data-path="explaining-spatial-patterns.html"><a href="explaining-spatial-patterns.html#key-advice-2"><i class="fa fa-check"></i><b>8.6.2</b> Key advice</a></li>
 <li class="chapter" data-level="8.6.3" data-path="explaining-spatial-patterns.html"><a href="explaining-spatial-patterns.html#which-model-to-use"><i class="fa fa-check"></i><b>8.6.3</b> Which model to use</a></li>
 <li class="chapter" data-level="8.6.4" data-path="explaining-spatial-patterns.html"><a href="explaining-spatial-patterns.html#more-data"><i class="fa fa-check"></i><b>8.6.4</b> More data</a></li>
 <li class="chapter" data-level="8.6.5" data-path="explaining-spatial-patterns.html"><a href="explaining-spatial-patterns.html#extending-your-regression-model---dummy-variables"><i class="fa fa-check"></i><b>8.6.5</b> Extending your regression model - Dummy Variables</a></li>
@@ -1249,6 +1252,48 @@ div.csl-indent {
 </ul></li>
 <li class="chapter" data-level="8.18" data-path="extra-reproducibility.html"><a href="extra-reproducibility.html#renv"><i class="fa fa-check"></i><b>8.18</b> renv</a></li>
 <li class="chapter" data-level="8.19" data-path="extra-reproducibility.html"><a href="extra-reproducibility.html#referencing-and-more"><i class="fa fa-check"></i><b>8.19</b> Referencing and more</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="qgis-maps.html"><a href="qgis-maps.html"><i class="fa fa-check"></i>QGIS Maps</a>
+<ul>
+<li class="chapter" data-level="8.20" data-path="qgis-maps.html"><a href="qgis-maps.html#load-data-2"><i class="fa fa-check"></i><b>8.20</b> Load data</a></li>
+<li class="chapter" data-level="8.21" data-path="qgis-maps.html"><a href="qgis-maps.html#manipulate-data"><i class="fa fa-check"></i><b>8.21</b> Manipulate data</a></li>
+<li class="chapter" data-level="8.22" data-path="qgis-maps.html"><a href="qgis-maps.html#map-data"><i class="fa fa-check"></i><b>8.22</b> Map data</a></li>
+<li class="chapter" data-level="8.23" data-path="qgis-maps.html"><a href="qgis-maps.html#export-map"><i class="fa fa-check"></i><b>8.23</b> Export map</a></li>
+<li class="chapter" data-level="8.24" data-path="qgis-maps.html"><a href="qgis-maps.html#graphical-modeler"><i class="fa fa-check"></i><b>8.24</b> Graphical modeler</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="tmap-version-3.html"><a href="tmap-version-3.html"><i class="fa fa-check"></i>Tmap version 3</a>
+<ul>
+<li class="chapter" data-level="8.25" data-path="tmap-version-3.html"><a href="tmap-version-3.html#learning-outcomes-7"><i class="fa fa-check"></i><b>8.25</b> Learning outcomes</a></li>
+<li class="chapter" data-level="8.26" data-path="tmap-version-3.html"><a href="tmap-version-3.html#homework-8"><i class="fa fa-check"></i><b>8.26</b> Homework</a></li>
+<li class="chapter" data-level="8.27" data-path="tmap-version-3.html"><a href="tmap-version-3.html#recommended-listening-8"><i class="fa fa-check"></i><b>8.27</b> Recommended listening 🎧</a></li>
+<li class="chapter" data-level="8.28" data-path="tmap-version-3.html"><a href="tmap-version-3.html#introduction-8"><i class="fa fa-check"></i><b>8.28</b> Introduction</a>
+<ul>
+<li class="chapter" data-level="8.28.1" data-path="tmap-version-3.html"><a href="tmap-version-3.html#osm-3"><i class="fa fa-check"></i><b>8.28.1</b> OSM</a></li>
+<li class="chapter" data-level="8.28.2" data-path="tmap-version-3.html"><a href="tmap-version-3.html#airbnb-2"><i class="fa fa-check"></i><b>8.28.2</b> Airbnb</a></li>
+</ul></li>
+<li class="chapter" data-level="8.29" data-path="tmap-version-3.html"><a href="tmap-version-3.html#data-3"><i class="fa fa-check"></i><b>8.29</b> Data</a>
+<ul>
+<li class="chapter" data-level="8.29.1" data-path="tmap-version-3.html"><a href="tmap-version-3.html#osm-4"><i class="fa fa-check"></i><b>8.29.1</b> OSM</a></li>
+<li class="chapter" data-level="8.29.2" data-path="tmap-version-3.html"><a href="tmap-version-3.html#london-boroughs-1"><i class="fa fa-check"></i><b>8.29.2</b> London boroughs</a></li>
+<li class="chapter" data-level="8.29.3" data-path="tmap-version-3.html"><a href="tmap-version-3.html#world-cities-1"><i class="fa fa-check"></i><b>8.29.3</b> World cities</a></li>
+<li class="chapter" data-level="8.29.4" data-path="tmap-version-3.html"><a href="tmap-version-3.html#uk-outline-1"><i class="fa fa-check"></i><b>8.29.4</b> Uk outline</a></li>
+<li class="chapter" data-level="8.29.5" data-path="tmap-version-3.html"><a href="tmap-version-3.html#airbnb-3"><i class="fa fa-check"></i><b>8.29.5</b> Airbnb</a></li>
+</ul></li>
+<li class="chapter" data-level="8.30" data-path="tmap-version-3.html"><a href="tmap-version-3.html#spatial-joining"><i class="fa fa-check"></i><b>8.30</b> Spatial joining</a>
+<ul>
+<li class="chapter" data-level="8.30.1" data-path="tmap-version-3.html"><a href="tmap-version-3.html#static-map"><i class="fa fa-check"></i><b>8.30.1</b> Static map</a></li>
+<li class="chapter" data-level="8.30.2" data-path="tmap-version-3.html"><a href="tmap-version-3.html#inset-map"><i class="fa fa-check"></i><b>8.30.2</b> Inset map</a></li>
+<li class="chapter" data-level="8.30.3" data-path="tmap-version-3.html"><a href="tmap-version-3.html#export"><i class="fa fa-check"></i><b>8.30.3</b> Export</a></li>
+<li class="chapter" data-level="8.30.4" data-path="tmap-version-3.html"><a href="tmap-version-3.html#basic-interactive-map"><i class="fa fa-check"></i><b>8.30.4</b> Basic interactive map</a></li>
+<li class="chapter" data-level="8.30.5" data-path="tmap-version-3.html"><a href="tmap-version-3.html#advanced-interactive-map"><i class="fa fa-check"></i><b>8.30.5</b> Advanced interactive map</a></li>
+</ul></li>
+<li class="chapter" data-level="8.31" data-path="tmap-version-3.html"><a href="tmap-version-3.html#bad-maps-1"><i class="fa fa-check"></i><b>8.31</b> Bad maps</a></li>
+<li class="chapter" data-level="8.32" data-path="tmap-version-3.html"><a href="tmap-version-3.html#feedback-7"><i class="fa fa-check"></i><b>8.32</b> Feedback</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="functions-1.html"><a href="functions-1.html"><i class="fa fa-check"></i>Functions</a></li>
+<li class="chapter" data-level="" data-path="interactive-maps.html"><a href="interactive-maps.html"><i class="fa fa-check"></i>Interactive maps</a>
+<ul>
+<li class="chapter" data-level="8.33" data-path="interactive-maps.html"><a href="interactive-maps.html#advanced-interactive-map-1"><i class="fa fa-check"></i><b>8.33</b> Advanced interactive map</a></li>
 </ul></li>
 <li class="divider"></li>
 <li><center>
@@ -1371,52 +1416,15 @@ Of course some projects use the same package version — such as <code>tidyverse
 <li><a href="https://andrewmaclachlan.github.io/CASA0005repo_20202021/git-github-and-rmarkdown.html#binder">Creating a Binder for your R project</a></li>
 </ul>
 
-<div id="refs" class="references csl-bib-body hanging-indent" entry-spacing="0">
-<div class="csl-entry">
-Cosh, Georgie. 2020. <span>“<span class="nocase">GLA Housing and Land Short-term and holiday letting in London</span>.”</span>
-</div>
-<div class="csl-entry">
-Donoho, David. 2017. <span>“<span class="nocase">50 Years of Data Science</span>.”</span> <em>Journal of Computational and Graphical Statistics</em> 26 (4): 745–66. <a href="https://doi.org/10.1080/10618600.2017.1384734">https://doi.org/10.1080/10618600.2017.1384734</a>.
-</div>
-<div class="csl-entry">
-Glassdoor. 2020. <span>“<span class="nocase">50 Best Jobs in America for 2019</span>.”</span> <a href="https://www.glassdoor.co.uk/List/Best-Jobs-in-America-LST_KQ0,20.htm">https://www.glassdoor.co.uk/List/Best-Jobs-in-America-LST_KQ0,20.htm</a>.
-</div>
-<div class="csl-entry">
-Grolemund, Garrett., and Hadley. Wickham. 2017. <em><span class="nocase">R for Data Science</span></em>. O’Reilly.
-</div>
-<div class="csl-entry">
-Guha, Subhanil, Himanshu Govil, Anindita Dey, and Neetu Gill. 2018. <span>“<span class="nocase">Analytical study of land surface temperature with NDVI and NDBI using Landsat 8 OLI and TIRS data in Florence and Naples city, Italy</span>.”</span> <em>European Journal of Remote Sensing</em> 51 (1): 667–78. <a href="https://doi.org/10.1080/22797254.2018.1474494">https://doi.org/10.1080/22797254.2018.1474494</a>.
-</div>
-<div class="csl-entry">
-Li, Songnian, Suzana Dragicevic, Francesc Antón Castro, Monika Sester, Stephan Winter, Arzu Coltekin, Christopher Pettit, et al. 2016. <span>“<span class="nocase">Geospatial big data handling theory and methods: A review and research challenges</span>.”</span> <em>ISPRS Journal of Photogrammetry and Remote Sensing</em> 115: 119–33. <a href="https://doi.org/10.1016/j.isprsjprs.2015.10.012">https://doi.org/10.1016/j.isprsjprs.2015.10.012</a>.
-</div>
-<div class="csl-entry">
-Lovelace, Robin., Jakub. Nowosad, and Jannes. Muenchow. 2019. <em><span class="nocase">Geocomputation with R</span></em>. CRC Press. <a href="https://doi.org/10.1201/9780203730058">https://doi.org/10.1201/9780203730058</a>.
-</div>
-<div class="csl-entry">
-Pattabiraman, Kumaresh. 2019. <span>“<span class="nocase">LinkedIn’s Most Promising Jobs of 2019</span>.”</span> <a href="https://blog.linkedin.com/2019/january/10/linkedins-most-promising-jobs-of-2019">https://blog.linkedin.com/2019/january/10/linkedins-most-promising-jobs-of-2019</a>.
-</div>
-<div class="csl-entry">
-The Universities and Colleges Admissions Service. 2020. <span>“<span class="nocase">UCAS Postgraduate courses</span>.”</span> <a href="https://digital.ucas.com/coursedisplay/results/providers?studyYear=2019{\&amp;}destination=Postgraduate{\&amp;}postcodeDistanceSystem=imperial{\&amp;}pageNumber=1{\&amp;}sort=MostRelevant{\&amp;}searchTerm=data science">https://digital.ucas.com/coursedisplay/results/providers?studyYear=2019{\&amp;}destination=Postgraduate{\&amp;}postcodeDistanceSystem=imperial{\&amp;}pageNumber=1{\&amp;}sort=MostRelevant{\&amp;}searchTerm=data science</a>.
 </div>
 </div>
-</div>
-</div>
-
-
-
-
-
-
-
-
             </section>
 
           </div>
         </div>
       </div>
-<a href="module-resources.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-
+<a href="module-resources.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="qgis-maps.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -1430,45 +1438,45 @@ The Universities and Colleges Admissions Service. 2020. <span>“<span class="no
 <script>
 gitbook.require(["gitbook"], function(gitbook) {
 gitbook.start({
-"sharing": {
-"github": true,
-"facebook": false,
-"twitter": false,
-"linkedin": false,
-"weibo": false,
-"instapaper": false,
-"vk": false,
-"whatsapp": false,
-"all": false
-},
-"fontsettings": {
-"theme": "white",
-"family": "sans",
-"size": 2
-},
-"edit": {
-"link": "https://github.com/andrewmaclachlan/CASA0005repo/edit/master/14-extra.Rmd",
-"text": "Edit"
-},
-"history": {
-"link": null,
-"text": null
-},
-"view": {
-"link": null,
-"text": null
-},
-"download": ["https://github.com/andrewmaclachlan/CASA0005repo/raw/master/14-extra.Rmd"],
-"search": {
-"engine": "fuse",
-"options": {
-"includeScore": true
-}
-},
-"toc": {
-"collapse": "section",
-"scroll_highlight": true
-}
+  "sharing": {
+    "github": true,
+    "facebook": false,
+    "twitter": false,
+    "linkedin": false,
+    "weibo": false,
+    "instapaper": false,
+    "vk": false,
+    "whatsapp": false,
+    "all": false
+  },
+  "fontsettings": {
+    "theme": "white",
+    "family": "sans",
+    "size": 2
+  },
+  "edit": {
+    "link": "https://github.com/andrewmaclachlan/CASA0005repo/edit/master/14-extra.Rmd",
+    "text": "Edit"
+  },
+  "history": {
+    "link": null,
+    "text": null
+  },
+  "view": {
+    "link": null,
+    "text": null
+  },
+  "download": ["https://github.com/andrewmaclachlan/CASA0005repo/raw/master/14-extra.Rmd"],
+  "search": {
+    "engine": "fuse",
+    "options": {
+      "includeScore": true
+    }
+  },
+  "toc": {
+    "collapse": "section",
+    "scroll_highlight": true
+  }
 });
 });
 </script>

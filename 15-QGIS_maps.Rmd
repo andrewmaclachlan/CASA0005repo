@@ -1,5 +1,9 @@
 # QGIS Maps {-}
 
+::: {.infobox .tip data-latex="{note}"}
+This uses the same data from the mapping practical - airbnbs and hotels (OSM) in London.
+:::
+
 Ok, now we're going to produce our map in QIGS.
 
 ## Load data

@@ -15,6 +15,11 @@ rmd_files:
 - 12-multiple_linear_regression.Rmd
 - 13-assignment_resources.Rmd
 - 14-extra.Rmd
+- 15-QGIS_maps.Rmd
+- 16-tmapv3.Rmd
+- 17-functions.Rmd
+- 18-interactive-maps.Rmd
+
 
 output_dir: docs
 language:
