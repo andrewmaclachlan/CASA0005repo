@@ -1,0 +1,56 @@
+```{r, cache=FALSE}
+library(ggspatial)
+
+dbplot <- ggplot(data=BluePlaquesSubPoints, 
+                 aes(coords.x1,coords.x2, colour=dbcluster, fill=dbcluster)) 
+#add the points in
+dbplot <- dbplot + geom_point()
+#now the convex hulls
+dbplot <- dbplot + geom_polygon(data = chulls, 
+                                aes(coords.x1,coords.x2, group=dbcluster), 
+                                alpha = 0.5) 
+#now plot, setting the coordinates to scale correctly and as a black and white plot 
+#(just for the hell of it)...
+dbplot + theme_bw() + coord_equal()
+```
+
+Now we are getting there, but wouldn't it be better to add a basemap?!
+
+```{r Harrow bbox, fig.height=2, fig.width=2, message=TRUE, warning=TRUE, cache=FALSE, paged.print=TRUE}
+###add a basemap
+##First get the bbox in lat long for Harrow
+HarrowWGSbb <- Harrow %>%
+  st_transform(., 4326)%>%
+  st_bbox()
+```
+
+Now convert the basemap to British National Grid
+
+```{r, cache=FALSE, message=FALSE, warning=FALSE}
+library(OpenStreetMap)
+
+basemap <- OpenStreetMap::openmap(c(51.5549876,-0.4040502),c(51.6405356,-0.2671315),
+                         zoom=NULL,
+                         "osm")
+
+  # convert the basemap to British National Grid
+basemap_bng <- openproj(basemap, CRS("+init=epsg:27700"))
+```
+
+**Note** this short string is the PROJ4 for British National Grid [EPSG 27700](https://epsg.io/27700)
+
+Now we can plot our fancy map with the clusters on...
+
+```{r, cache=FALSE}
+#autoplot(basemap_bng) sometimes works
+autoplot.OpenStreetMap(basemap_bng)+ 
+  geom_point(data=BluePlaquesSubPoints, 
+             aes(coords.x1,coords.x2, 
+                 colour=dbcluster, 
+                 fill=dbcluster)) + 
+  geom_polygon(data = chulls, 
+               aes(coords.x1,coords.x2, 
+                   group=dbcluster,
+                   fill=dbcluster), 
+               alpha = 0.5)  
+```

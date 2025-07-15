@@ -216,11 +216,11 @@ LonWardProfiles <- Londonwards%>%
             LondonWardProfiles, 
             by = c("GSS_CODE" = "New code"))
 
+
 #let's map our dependent variable to see if the join has worked:
 tmap_mode("plot")
 qtm(LonWardProfiles, 
     fill = "Average GCSE capped point scores - 2014", 
-    borders = NULL,  
     fill.palette = "Blues")
 ```
 
@@ -243,7 +243,7 @@ lond_sec_schools_sf <- lon_schools_sf %>%
   filter(PHASE=="Secondary")
 
 tmap_mode("plot")
-qtm(lond_sec_schools_sf)
+qtm(lond_sec_schools_sf, size=0.2)
 ```
 
 ## Analysing GCSE exam performance - testing a research hypothesis
@@ -763,10 +763,15 @@ The first test we should carry out is to map the residuals to see if there are a
 tmap_mode("view")
 #qtm(LonWardProfiles, fill = "model1_resids")
 
+
 tm_shape(LonWardProfiles) +
   tm_polygons("model2resids",
-              palette = "RdYlBu") +
-tm_shape(lond_sec_schools_sf) + tm_dots(col = "TYPE")
+               fill.scale = tm_scale_intervals(
+                values="brewer.rd_yl_bu",
+                n=5,
+                style="jenks")) +
+  tm_shape(lond_sec_schools_sf) + 
+  tm_dots(col = "TYPE")
 
 ```
 
@@ -1227,7 +1232,7 @@ LonWardProfiles <- LonWardProfiles %>%
 
 model3 <- lm(average_gcse_capped_point_scores_2014 ~ unauthorised_absence_in_all_schools_percent_2013 + 
                log(median_house_price_2014) + 
-               inner_outer, 
+               inner_outer,
              data = LonWardProfiles)
 
 tidy(model3)
@@ -1321,8 +1326,9 @@ GWRbandwidth <- gwr.sel(average_gcse_capped_point_scores_2014 ~ unauthorised_abs
                     inner_outer + 
                     rate_of_job_seekers_allowance_jsa_claimants_2015 +
                     percent_with_level_4_qualifications_and_above_2011, 
-                  data = LonWardProfiles2, 
-                        coords=cbind(LonWardProfiles2$X, LonWardProfiles2$Y),
+                    data = LonWardProfiles2, 
+                    coords=cbind(LonWardProfiles2$X, 
+                                 LonWardProfiles2$Y),
                   adapt=T)
 GWRbandwidth
 ```
@@ -1409,33 +1415,43 @@ LonWardProfiles2 <- LonWardProfiles %>%
 
 
 ```{r, message=FALSE, cache=FALSE}
+
+tmap_mode("view")
+
 tm_shape(LonWardProfiles2) +
-  tm_polygons(col = "coefUnauthAbs", 
-              palette = "RdBu", 
-              alpha = 0.5)
+  tm_polygons("coefUnauthAbs",
+               fill.scale = tm_scale_intervals(
+                values="brewer.rd_bu"),
+              fill_alpha =0.5)
 ```
 
-Now how would you plot the House price coeffeicent, Job seekers allowance and level 4 qualification coefficient?
+Now how would you plot the House price coefficient, Job seekers allowance and level 4 qualification coefficient?
 
 ```{r, message=FALSE, cache=FALSE, include=FALSE}
 tm_shape(LonWardProfiles2) +
-  tm_polygons(col = "coefHousePrice", 
-              palette = "RdBu")
+  tm_polygons("coefHousePrice", 
+              fill.scale = tm_scale_intervals(
+                values="brewer.rd_bu"))
 ```
 
 ```{r, message=FALSE, cache=FALSE, include=FALSE}
 tm_shape(LonWardProfiles2) +
-  tm_polygons(col = "coefJSA", 
-              palette = "PuOr")
+  tm_polygons("coefJSA", 
+              fill.scale = tm_scale_intervals(
+                values="brewer.pu_or"))
+
 ```
 
 ```{r, message=FALSE, cache=FALSE, include=FALSE}
 tm_shape(LonWardProfiles2) +
-  tm_polygons(col = "coefLev4Qual", 
-              palette = "PRGn")
+  tm_polygons("coefLev4Qual", 
+              fill.scale = tm_scale_intervals(
+                values="brewer.prgn"))
+
 ```
 
 Taking the first plot, which is for the unauthorised absence coefficients, we can see that for the majority of boroughs in London, there is the negative relationship we would expect - i.e. as unauthorised absence goes up, exam scores go down. For three boroughs (Westminster, Kensington & Chelsea and Hammersmith and Fulham, as well as an area near Bexleyheath in South East London - some of the richest in London), however, the relationship is positive - as unauthorised school absence increases, so does average GCSE score. This is a very interesting pattern and counterintuitive pattern, but may partly be explained the multiple homes owned by many living in these boroughs (students living in different parts of the country and indeed the world for significant periods of the year), foreign holidays and the over representation of private schooling of those living in these areas. If this is not the case and unauthorised absence from school is reflecting the unauthorised absence of poorer students attending local, inner city schools, then high GCSE grades may also reflect the achievements of those who are sent away to expensive fee-paying schools elsewhere in the country and who return to their parental homes later in the year. Either way, these factors could explain these results. 
+
 Of course, these results may not be statistically significant across the whole of London. Roughly speaking, if a coefficient estimate is more than 2 standard errors away from zero, then it is "statistically significant".
 
 Remember from earlier the standard error is "the average amount the coefficient varies from the average value of the dependent variable (its standard deviation). So, for a 1% increase in unauthorised absence from school, while the model says we might expect GSCE scores to drop by -41.2 points, this might vary, on average, by about 1.9 points. As a rule of thumb, we are looking for a lower value in the standard error relative to the size of the coefficient."
@@ -1445,7 +1461,7 @@ To calculate standard errors, for each variable you can use a formula similar to
 ```{r, message=FALSE, cache=FALSE}
 
 #run the significance test
-sigTest = abs(gwr.model$SDF$"log(median_house_price_2014)")-2 * gwr.model$SDF$"log(median_house_price_2014)_se"
+sigTest = abs(gwr.model$SDF$"log(median_house_price_2014)")- 2* gwr.model$SDF$"log(median_house_price_2014)_se"
 
 
 #store significance results
@@ -1457,7 +1473,7 @@ If this is greater than zero (i.e. the estimate is more than two standard errors
 
 This is a combination of two ideas:
 
-* 95% of data in a normal distribution is within two standard deviations of the mean
+* 95% of data in a normal distribution is within two standard deviations of the mean... `2* gwr.model$SDF$"log(median_house_price_2014)_se`
 * Statistical significance in a regression is normally measured at the 95% level. If the p-value is less than 5% — 0.05 — then there's a 95% probability that a coefficient as large as you are observing didn't occur by chance
 
 Combining these two means if...
@@ -1470,9 +1486,12 @@ You can be confident that in your sample, nearly all of the time, that is a real
 You should now calculate these for each variable in your GWR model and See if you can plot them on a map, for example: 
 
 ```{r, message=FALSE, cache=FALSE}
+
 tm_shape(LonWardProfiles2) +
-  tm_polygons(col = "GWRUnauthSig", 
-              palette = "RdYlBu")
+  tm_polygons("GWRUnauthSig", 
+              fill.scale = tm_scale_intervals(
+                values="brewer.rd_yl_bu"))
+
 ```
 
 From the results of your GWR exercise, what are you able to conclude about the geographical variation in your explanatory variables when predicting your dependent variable? 

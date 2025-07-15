@@ -110,10 +110,11 @@ summary(BluePlaques)
 
 #plot the blue plaques in the city
 tmap_mode("plot")
+
 tm_shape(BoroughMap) +
-  tm_polygons(col = NA, alpha = 0.5) +
+  tm_polygons(fill_alpha = 0.5)+
 tm_shape(BluePlaques) +
-  tm_dots(col = "blue")
+  tm_dots(fill = "blue", size=0.1)
 ```
 
 ### Data cleaning
@@ -133,12 +134,16 @@ Now just select the points inside London - thanks to Robin Lovelace for posting 
 
 ```{r, cache=FALSE, warning=FALSE, message=FALSE}
 BluePlaquesSub <- BluePlaques[BoroughMap,]
-#check to see that they've been removed
+
+#plot the blue plaques in the city
 tmap_mode("plot")
+
+#check to see that they've been removed
 tm_shape(BoroughMap) +
-  tm_polygons(col = NA, alpha = 0.5) +
+  tm_polygons(fill_alpha = 0.5)+
 tm_shape(BluePlaquesSub) +
-  tm_dots(col = "blue")
+  tm_dots(fill = "blue", size=0.1)
+
 ```
 
 When we spatial subset data like this there are different topological relations we can specify. The default is intersects, but we could also use `BluePlaquesSub <- BluePlaques[BoroughMap, , op = st_within]`, with the operator or op set to `st_within`, to identify points completely within the borough outline. Any topological operator from the mapping week can be used here!
@@ -200,7 +205,7 @@ Harrow <- BoroughMap %>%
 
 #Check to see that the correct borough has been pulled out
 tm_shape(Harrow) +
-  tm_polygons(col = NA, alpha = 0.5)
+  tm_polygons(col = NA, fill_alpha = 0.5)
 ```
 
 Next we need to clip our Blue Plaques so that we have a subset of just those that fall within the borough or interest
@@ -208,12 +213,15 @@ Next we need to clip our Blue Plaques so that we have a subset of just those tha
 ```{r, cache=FALSE}
 #clip the data to our single borough
 BluePlaquesSub <- BluePlaques[Harrow,]
+
+
+
 #check that it's worked
-tmap_mode("plot")
 tm_shape(Harrow) +
-  tm_polygons(col = NA, alpha = 0.5) +
+  tm_polygons(fill_alpha = 0.5)+
 tm_shape(BluePlaquesSub) +
-  tm_dots(col = "blue")
+  tm_dots(fill = "blue", size=0.1)
+
 ```
 
 We now have all of our data set up so that we can start the analysis using `spatstat`. The first thing we need to do is create an observation window for `spatstat` to carry out its analysis within --- we'll set this to the extent of the Harrow boundary
@@ -418,7 +426,7 @@ Ripley's K is defined as...
 
   * The average density of points for the **entire study region (of all locations)** $\lambda = (n/ \Pi r^2))$
 
-  * Multiplied by the sum of the distances $d_ij$ between all points within that search radius, see [Dixon page 2](https://www3.nd.edu/~mhaenggi/ee87021/Dixon-K-Function.pdf) and [Amgad et al. 2015](file:///C:/Users/Andy/Downloads/Extending_Ripleys_K-Function_to_Quantify_Aggregat%20(1).pdf)
+  * Multiplied by the sum of the distances $d_ij$ between all points within that search radius, see [Dixon page 2](https://www3.nd.edu/~mhaenggi/ee87021/Dixon-K-Function.pdf) and [Amgad et al. 2015](https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0144404)
 
   * Divided by the total number of points, n
 
@@ -442,7 +450,7 @@ There are a number of alternative measures of spatial clustering which can be co
 
 ## Density-based spatial clustering of applications with noise: DBSCAN
 
-Quadrat and Ripley's K analysis are useful exploratory techniques for telling us if we have spatial clusters present in our point data, but they are not able to tell us WHERE in our area of interest the clusters are occurring. To discover this we need to use alternative techniques. One popular technique for discovering clusters in space (be this physical space or variable space) is DBSCAN. For the complete overview of the DBSCAN algorithm, read the original paper by [Ester et al. (1996)](http://www.aaai.org/Papers/KDD/1996/KDD96-037.pdf) 
+Quadrat and Ripley's K analysis are useful exploratory techniques for telling us if we have spatial clusters present in our point data, but they are not able to tell us **WHERE** in our area of interest the clusters are occurring. To discover this we need to use alternative techniques. One popular technique for discovering clusters in space (be this physical space or variable space) is DBSCAN. For the complete overview of the DBSCAN algorithm, read the original paper by [Ester et al. (1996)](http://www.aaai.org/Papers/KDD/1996/KDD96-037.pdf) 
 or consult the [wikipedia page](https://en.wikipedia.org/wiki/DBSCAN)
 
 ```{r, message=FALSE, warning=FALSE, cache=FALSE}
@@ -475,7 +483,7 @@ db <- BluePlaquesSubPoints %>%
 plot(db, BluePlaquesSubPoints, main = "DBSCAN Output", frame = F)
 plot(BoroughMap$geometry, add=T)
 ```
-You could also use ```kNNdistplot()``` from the ```dbscan``` pacakge to find a suitable eps value based on the 'knee' in the plot... 
+You could also use ```kNNdistplot()``` from the ```dbscan``` package to find a suitable eps value based on the 'knee' in the plot... 
 
 ```{r eval=FALSE}
 # used to find suitable eps value based on the knee in plot
@@ -515,85 +523,63 @@ BluePlaquesSubPoints<- BluePlaquesSubPoints %>%
   mutate(dbcluster=db$cluster)
 ```
 
-Next we are going to create some convex hull polygons to wrap around the points in our clusters.
+Next we are going to create some convex hull polygons to wrap around the points in our clusters. We will
 
-```{r, cache=FALSE}
-chulls <- BluePlaquesSubPoints %>%
+* convert this dataframe to an sf object
+* make convex hulls around the clusters 
+* plot
+
+```{r}
+# convert the data frame to sf
+BluePlaquesSubPoints_sf <- st_as_sf(BluePlaquesSubPoints, 
+                                    coords = c("coords.x1", "coords.x2"), 
+                                    crs = 27700)
+
+# make the convex hulls around the cluster points
+chull_polygons <- BluePlaquesSubPoints_sf %>%
+  # remove any points not in a cluster
+  filter(dbcluster>0)%>%
   group_by(dbcluster) %>%
-  dplyr::mutate(hull = 1:n(),
-  hull = factor(hull, chull(coords.x1, coords.x2)))%>%
-  arrange(hull)
-
-#chulls2 <- ddply(BluePlaquesSubPoints, .(dbcluster), 
-              #  function(df) df[chull(df$coords.x1, df$coords.x2), ])
-
+  summarise(geometry = st_combine(geometry)) %>%  # combine points
+  mutate(geometry = st_convex_hull(geometry)) %>% # convex hull
+  st_as_sf()
 ```
 
-As 0 isn't actually a cluster (it's all points that aren't in a cluster) drop it from the dataframe
 
-```{r, cache=FALSE}
-chulls <- chulls %>%
-  filter(dbcluster >=1)
+Now create a ```ggplot2``` object from our data.
+
+::: {.infobox .tip data-latex="{note}"}
+In past iterations we used to get a base map we would:
+* set a bounding box
+* Extract the coordinates of the bounding box
+* Pull an OSM base map from the OpenStreetMap package.
+
+However, now we can do this all from within the `annotation_map_tile()` function from the ggspatial package
+:::
+
+Here:
+
+* `fill` is for the interior colour (e.g. polygons)
+* `color` is for borders and points
+
+```{r}
+library(ggspatial)
+
+# Create the map
+ggplot() +
+  annotation_map_tile(zoom = 13) +
+  geom_sf(data = BluePlaquesSubPoints_sf, aes(color=dbcluster), size = 3)+
+  geom_sf(data = chull_polygons, aes(fill = dbcluster), 
+          alpha = 0.8, 
+          # remove polygon borders
+          color = NA, 
+          show.legend = FALSE) +
+  # plot with the CRS
+  coord_sf() +
+  theme_bw()
+  
 ```
 
-Now create a ```ggplot2``` object from our data
-
-```{r, cache=FALSE}
-dbplot <- ggplot(data=BluePlaquesSubPoints, 
-                 aes(coords.x1,coords.x2, colour=dbcluster, fill=dbcluster)) 
-#add the points in
-dbplot <- dbplot + geom_point()
-#now the convex hulls
-dbplot <- dbplot + geom_polygon(data = chulls, 
-                                aes(coords.x1,coords.x2, group=dbcluster), 
-                                alpha = 0.5) 
-#now plot, setting the coordinates to scale correctly and as a black and white plot 
-#(just for the hell of it)...
-dbplot + theme_bw() + coord_equal()
-```
-
-Now we are getting there, but wouldn't it be better to add a basemap?!
-
-```{r Harrow bbox, fig.height=2, fig.width=2, message=TRUE, warning=TRUE, cache=FALSE, paged.print=TRUE}
-###add a basemap
-##First get the bbox in lat long for Harrow
-HarrowWGSbb <- Harrow %>%
-  st_transform(., 4326)%>%
-  st_bbox()
-```
-
-Now convert the basemap to British National Grid
-
-
-```{r, cache=FALSE, message=FALSE, warning=FALSE}
-library(OpenStreetMap)
-
-basemap <- OpenStreetMap::openmap(c(51.5549876,-0.4040502),c(51.6405356,-0.2671315),
-                         zoom=NULL,
-                         "osm")
-
-  # convert the basemap to British National Grid
-basemap_bng <- openproj(basemap, CRS("+init=epsg:27700"))
-```
-
-**Note** this short string is the PROJ4 for British National Grid [EPSG 27700](https://epsg.io/27700)
-
-Now we can plot our fancy map with the clusters on...
-
-```{r, cache=FALSE}
-#autoplot(basemap_bng) sometimes works
-autoplot.OpenStreetMap(basemap_bng)+ 
-  geom_point(data=BluePlaquesSubPoints, 
-             aes(coords.x1,coords.x2, 
-                 colour=dbcluster, 
-                 fill=dbcluster)) + 
-  geom_polygon(data = chulls, 
-               aes(coords.x1,coords.x2, 
-                   group=dbcluster,
-                   fill=dbcluster), 
-               alpha = 0.5)  
-
-```
 
 ## Point pattern analysis summary
 

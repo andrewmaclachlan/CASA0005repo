@@ -1,7 +1,7 @@
 # Interactive maps {-}
 
 ::: {.infobox .tip data-latex="{note}"}
-This uses the same data from the mapping practical - airbnbs and hotels (OSM) in London.
+This uses the same data from the mapping practical - airbnbs and hotels (OSM) in London. Run all of that code before starting this!
 :::
 
 ```{r message=FALSE, echo=FALSE}
@@ -43,7 +43,6 @@ breaks <- Accomodation_contained%>%
   classIntervals(., n = 5, style = "jenks")
 ```
 
-
 To make our map interactive we change `tmap_mode()` from plot to view..
 
 ```{r message=FALSE, warning=FALSE, cache=FALSE}
@@ -55,115 +54,55 @@ tm_shape(Accomodation_contained) +
 
 ## Advanced interactive map
 
-But let's take it a bit further so we can select our layers on an interactive map..
+But let's take it a bit further so we can select our layers on an interactive map..Let's set a few more things up:
 
-
-Set up some pop up box information..so if we click borough we can a small table.
+* Our CRS needs to be in WGS84
 
 ```{r}
-#library for the pop out tables
-library(leafpop)
-
-#remove the geometry for our pop up boxes to avoid
-popupairbnb <- Accomodation_contained %>%
-  st_drop_geometry()%>%
-  dplyr::select(airbnbs_n, NAME)%>%
-  popupTable()
-
-popuphotel <- Accomodation_contained %>%
-  st_drop_geometry()%>%
-  dplyr::select(hotels_n, NAME)%>%
-  popupTable()
-
-```
-
-Let's set a few more things up:
-
-* We are going to use Leaflet which requires the CRS to be in WGS84
-* We need to define our colours based on the breaks we previously set
-
-```{r }
-# WGS84
-Accomodation_containedWGS84 <-Accomodation_contained%>%
+Accomodation_containedWGS84<- Accomodation_contained %>%
   st_transform(., 4326)
 
-# leaflet library for interactive map
-library(leaflet)
-
-# set the colour palettes or breaks
-
-pal1 <- colorBin("YlOrRd", 
-                 domain = Accomodation_contained$airbnbs_n, 
-                 bins = breaks$brks)
-pal2 <- colorBin("Blues", 
-                 domain = Accomodation_contained$hotels_n,
-                 bins = breaks$brks)
 ```
 
 Similar to our static maps we must:
 
 * First define the shape object 
-* The load the map layer (e.g. polygons)
+* Then load the map layer (e.g. polygons)
 
 Here, we also set a group which links the polygon both the legend and button selection options.
 
 ```{r prac5leaf, message=FALSE, warning=FALSE, cache=FALSE, eval=TRUE}
 
+tmap_mode("view")
+
 # Build the map
-map <- leaflet(Accomodation_containedWGS84) %>%
-  
+
   # Airbnb layer
-  addPolygons(color = "white", 
-              weight = 2,
-              opacity = 1,
-              dashArray = "3",
-              fillOpacity = 0.7,
-              fillColor = ~pal1(airbnbs_n),
-              popup = popupairbnb,
-              group = "Airbnb") %>%
-
-  # Hotel layer
-  addPolygons(fillColor = ~pal2(hotels_n),
-              weight = 2,
-              opacity = 1,
-              color = "white",
-              dashArray = "3",
-              fillOpacity = 0.7,
-              popup = popuphotel,
-              group = "Hotels") %>%
-
-  
-  # Add layer control
-  addLayersControl(
-    # names to give the button selection options
-    baseGroups = c("OSM", "Toner", "Toner Lite", "CartoDB"),
-    overlayGroups = c("Airbnb", "Hotels"),
-    options = layersControlOptions(collapsed = FALSE)
-  ) %>%
-
-  # Airbnb legend (tied to Airbnb group)
-  addLegend("bottomleft", 
-            pal = pal1, 
-            values = ~airbnbs_n,
-            title = "Airbnb count",
-            group = "Airbnb") %>%
-
-  # Hotel legend (tied to Hotels group)
-  addLegend("bottomleft", 
-            pal = pal2, 
-            values = ~hotels_n,
-            title = "Hotel count",
-            group = "Hotels")%>%
-  
-  #add basemaps
-  addTiles(group = "OSM (default)") %>%
-  addProviderTiles(providers$Stadia.StamenToner, group = "Toner") %>%
-  addProviderTiles(providers$Stadia.StamenTonerLite, group = "Toner Lite")%>%
-  addProviderTiles(providers$CartoDB.Positron, group = "CartoDB")
+map <-  tm_shape(Accomodation_containedWGS84) +
+        tm_polygons(fill="airbnbs_n",
+                    fill.scale = list(tm_scale_intervals(values = "brewer.blues", breaks=breaks$brks)),
+                    fill_alpha=0.5,
+                    col="white",
+                    lwd=2,
+                    lty="dashed",
+                    # select columns for popup
+                    popup.vars=c("airbnbs_n", "NAME"),
+                    group="Airbnb") + 
+        
+  # hotel layer  
+        tm_polygons(fill="hotels_n",
+                    fill.scale = list(tm_scale_intervals(values = "brewer.blues", breaks=breaks$brks)),
+                    fill_alpha=0.5,
+                    col="white",
+                    lwd=2,
+                    lty="dashed",
+                    popup.vars=c("hotels_n", "NAME"),
+                    group="Hotels")+
+    # basemap
+          tm_basemap(server = c("OpenStreetMap", "Thunderforest.Landscape"))
+        
 
 map
 ```
-
-If you want to explore Leaflet more have a look at [the leaflet for R Guide](https://rstudio.github.io/leaflet/)
 
 To see other basemap options (there are loads!) have a look here at [leaflet extras](http://leaflet-extras.github.io/leaflet-providers/preview/)

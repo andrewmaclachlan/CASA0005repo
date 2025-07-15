@@ -23,7 +23,7 @@
 <meta name="author" content="Andy MacLachlan, Adam Dennett and Claire Dooley" />
 
 
-<meta name="date" content="2025-06-27" />
+<meta name="date" content="2025-07-15" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -1435,308 +1435,308 @@ div.csl-indent {
 <div id="spatial-joining" class="section level2 hasAnchor" number="8.30">
 <h2><span class="header-section-number">8.30</span> Spatial joining<a href="tmap-version-3.html#spatial-joining" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>I will note that i have made use of a new function called <code>st_join()</code>. This is similar to the the joins we explored with attribute data (e.g. joining based on a unique attribute column) but here we just want to join datasets together and keep all their attribute data, this is useful in the code below where i want to join assign the London Borough to each hotel in London. The output will be a massive dataset where each hotel will be a new row and will retain the attributes of the hotel data but also append the attribute of the borough….<code>st_join()</code> defaults to a left join, so in this case the borough data is the left dataset and all the right data has been appended to it. If the left data (borough) had no matches (so no hotels) they would still appear in the final dataset. The default argument for this is <code>st_intersects</code> but we will explore this more next week.</p>
-<div class="sourceCode" id="cb501"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb501-1"><a href="tmap-version-3.html#cb501-1" tabindex="-1"></a><span class="fu">library</span>(sf)</span>
-<span id="cb501-2"><a href="tmap-version-3.html#cb501-2" tabindex="-1"></a></span>
-<span id="cb501-3"><a href="tmap-version-3.html#cb501-3" tabindex="-1"></a>Londonborough <span class="ot">&lt;-</span> <span class="fu">st_read</span>(here<span class="sc">::</span><span class="fu">here</span>(<span class="st">&quot;Prac1_data&quot;</span>,</span>
-<span id="cb501-4"><a href="tmap-version-3.html#cb501-4" tabindex="-1"></a>                                    <span class="st">&quot;statistical-gis-boundaries-london&quot;</span>, </span>
-<span id="cb501-5"><a href="tmap-version-3.html#cb501-5" tabindex="-1"></a>                                    <span class="st">&quot;ESRI&quot;</span>, </span>
-<span id="cb501-6"><a href="tmap-version-3.html#cb501-6" tabindex="-1"></a>                                    <span class="st">&quot;London_Borough_Excluding_MHW.shp&quot;</span>))<span class="sc">%&gt;%</span></span>
-<span id="cb501-7"><a href="tmap-version-3.html#cb501-7" tabindex="-1"></a>  <span class="fu">st_transform</span>(., <span class="dv">27700</span>)</span>
-<span id="cb501-8"><a href="tmap-version-3.html#cb501-8" tabindex="-1"></a></span>
-<span id="cb501-9"><a href="tmap-version-3.html#cb501-9" tabindex="-1"></a>OSM <span class="ot">&lt;-</span> <span class="fu">st_read</span>(here<span class="sc">::</span><span class="fu">here</span>(<span class="st">&quot;prac5_data&quot;</span>,</span>
-<span id="cb501-10"><a href="tmap-version-3.html#cb501-10" tabindex="-1"></a>                          <span class="st">&quot;greater-london-latest-free.shp&quot;</span>, </span>
-<span id="cb501-11"><a href="tmap-version-3.html#cb501-11" tabindex="-1"></a>                          <span class="st">&quot;gis_osm_pois_a_free_1.shp&quot;</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb501-12"><a href="tmap-version-3.html#cb501-12" tabindex="-1"></a>  <span class="fu">st_transform</span>(., <span class="dv">27700</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb501-13"><a href="tmap-version-3.html#cb501-13" tabindex="-1"></a>  <span class="co">#select hotels only</span></span>
-<span id="cb501-14"><a href="tmap-version-3.html#cb501-14" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">filter</span>(fclass <span class="sc">==</span> <span class="st">&#39;hotel&#39;</span>)</span>
-<span id="cb501-15"><a href="tmap-version-3.html#cb501-15" tabindex="-1"></a></span>
-<span id="cb501-16"><a href="tmap-version-3.html#cb501-16" tabindex="-1"></a></span>
-<span id="cb501-17"><a href="tmap-version-3.html#cb501-17" tabindex="-1"></a>join_example <span class="ot">&lt;-</span>  <span class="fu">st_join</span>(Londonborough, OSM)</span>
-<span id="cb501-18"><a href="tmap-version-3.html#cb501-18" tabindex="-1"></a></span>
-<span id="cb501-19"><a href="tmap-version-3.html#cb501-19" tabindex="-1"></a><span class="fu">head</span>(join_example)</span></code></pre></div>
+<div class="sourceCode" id="cb484"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb484-1"><a href="tmap-version-3.html#cb484-1" tabindex="-1"></a><span class="fu">library</span>(sf)</span>
+<span id="cb484-2"><a href="tmap-version-3.html#cb484-2" tabindex="-1"></a></span>
+<span id="cb484-3"><a href="tmap-version-3.html#cb484-3" tabindex="-1"></a>Londonborough <span class="ot">&lt;-</span> <span class="fu">st_read</span>(here<span class="sc">::</span><span class="fu">here</span>(<span class="st">&quot;Prac1_data&quot;</span>,</span>
+<span id="cb484-4"><a href="tmap-version-3.html#cb484-4" tabindex="-1"></a>                                    <span class="st">&quot;statistical-gis-boundaries-london&quot;</span>, </span>
+<span id="cb484-5"><a href="tmap-version-3.html#cb484-5" tabindex="-1"></a>                                    <span class="st">&quot;ESRI&quot;</span>, </span>
+<span id="cb484-6"><a href="tmap-version-3.html#cb484-6" tabindex="-1"></a>                                    <span class="st">&quot;London_Borough_Excluding_MHW.shp&quot;</span>))<span class="sc">%&gt;%</span></span>
+<span id="cb484-7"><a href="tmap-version-3.html#cb484-7" tabindex="-1"></a>  <span class="fu">st_transform</span>(., <span class="dv">27700</span>)</span>
+<span id="cb484-8"><a href="tmap-version-3.html#cb484-8" tabindex="-1"></a></span>
+<span id="cb484-9"><a href="tmap-version-3.html#cb484-9" tabindex="-1"></a>OSM <span class="ot">&lt;-</span> <span class="fu">st_read</span>(here<span class="sc">::</span><span class="fu">here</span>(<span class="st">&quot;prac5_data&quot;</span>,</span>
+<span id="cb484-10"><a href="tmap-version-3.html#cb484-10" tabindex="-1"></a>                          <span class="st">&quot;greater-london-latest-free.shp&quot;</span>, </span>
+<span id="cb484-11"><a href="tmap-version-3.html#cb484-11" tabindex="-1"></a>                          <span class="st">&quot;gis_osm_pois_a_free_1.shp&quot;</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb484-12"><a href="tmap-version-3.html#cb484-12" tabindex="-1"></a>  <span class="fu">st_transform</span>(., <span class="dv">27700</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb484-13"><a href="tmap-version-3.html#cb484-13" tabindex="-1"></a>  <span class="co">#select hotels only</span></span>
+<span id="cb484-14"><a href="tmap-version-3.html#cb484-14" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">filter</span>(fclass <span class="sc">==</span> <span class="st">&#39;hotel&#39;</span>)</span>
+<span id="cb484-15"><a href="tmap-version-3.html#cb484-15" tabindex="-1"></a></span>
+<span id="cb484-16"><a href="tmap-version-3.html#cb484-16" tabindex="-1"></a></span>
+<span id="cb484-17"><a href="tmap-version-3.html#cb484-17" tabindex="-1"></a>join_example <span class="ot">&lt;-</span>  <span class="fu">st_join</span>(Londonborough, OSM)</span>
+<span id="cb484-18"><a href="tmap-version-3.html#cb484-18" tabindex="-1"></a></span>
+<span id="cb484-19"><a href="tmap-version-3.html#cb484-19" tabindex="-1"></a><span class="fu">head</span>(join_example)</span></code></pre></div>
 <div id="static-map" class="section level3 hasAnchor" number="8.30.1">
 <h3><span class="header-section-number">8.30.1</span> Static map<a href="tmap-version-3.html#static-map" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<div class="sourceCode" id="cb502"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb502-1"><a href="tmap-version-3.html#cb502-1" tabindex="-1"></a><span class="do">##Load all our data</span></span>
-<span id="cb502-2"><a href="tmap-version-3.html#cb502-2" tabindex="-1"></a><span class="fu">library</span>(sf)</span>
-<span id="cb502-3"><a href="tmap-version-3.html#cb502-3" tabindex="-1"></a><span class="fu">library</span>(tmap)</span>
-<span id="cb502-4"><a href="tmap-version-3.html#cb502-4" tabindex="-1"></a><span class="fu">library</span>(tmaptools)</span>
-<span id="cb502-5"><a href="tmap-version-3.html#cb502-5" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb502-6"><a href="tmap-version-3.html#cb502-6" tabindex="-1"></a><span class="fu">library</span>(here)</span>
-<span id="cb502-7"><a href="tmap-version-3.html#cb502-7" tabindex="-1"></a></span>
-<span id="cb502-8"><a href="tmap-version-3.html#cb502-8" tabindex="-1"></a><span class="co"># read in all the spatial data and </span></span>
-<span id="cb502-9"><a href="tmap-version-3.html#cb502-9" tabindex="-1"></a><span class="co"># reproject it </span></span>
-<span id="cb502-10"><a href="tmap-version-3.html#cb502-10" tabindex="-1"></a></span>
-<span id="cb502-11"><a href="tmap-version-3.html#cb502-11" tabindex="-1"></a>OSM <span class="ot">&lt;-</span> <span class="fu">st_read</span>(here<span class="sc">::</span><span class="fu">here</span>(<span class="st">&quot;prac5_data&quot;</span>,</span>
-<span id="cb502-12"><a href="tmap-version-3.html#cb502-12" tabindex="-1"></a>                          <span class="st">&quot;greater-london-latest-free.shp&quot;</span>, </span>
-<span id="cb502-13"><a href="tmap-version-3.html#cb502-13" tabindex="-1"></a>                          <span class="st">&quot;gis_osm_pois_a_free_1.shp&quot;</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb502-14"><a href="tmap-version-3.html#cb502-14" tabindex="-1"></a>  <span class="fu">st_transform</span>(., <span class="dv">27700</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb502-15"><a href="tmap-version-3.html#cb502-15" tabindex="-1"></a>  <span class="co">#select hotels only</span></span>
-<span id="cb502-16"><a href="tmap-version-3.html#cb502-16" tabindex="-1"></a>  <span class="fu">filter</span>(fclass <span class="sc">==</span> <span class="st">&#39;hotel&#39;</span>)</span>
-<span id="cb502-17"><a href="tmap-version-3.html#cb502-17" tabindex="-1"></a></span>
-<span id="cb502-18"><a href="tmap-version-3.html#cb502-18" tabindex="-1"></a>Worldcities <span class="ot">&lt;-</span> <span class="fu">st_read</span>(here<span class="sc">::</span><span class="fu">here</span>(<span class="st">&quot;prac5_data&quot;</span>, </span>
-<span id="cb502-19"><a href="tmap-version-3.html#cb502-19" tabindex="-1"></a>                                  <span class="st">&quot;World_Cities&quot;</span>, </span>
-<span id="cb502-20"><a href="tmap-version-3.html#cb502-20" tabindex="-1"></a>                                  <span class="st">&quot;World_Cities.shp&quot;</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb502-21"><a href="tmap-version-3.html#cb502-21" tabindex="-1"></a>  <span class="fu">st_transform</span>(., <span class="dv">27700</span>)</span>
-<span id="cb502-22"><a href="tmap-version-3.html#cb502-22" tabindex="-1"></a></span>
-<span id="cb502-23"><a href="tmap-version-3.html#cb502-23" tabindex="-1"></a>UK_outline <span class="ot">&lt;-</span> <span class="fu">st_read</span>(here<span class="sc">::</span><span class="fu">here</span>(<span class="st">&quot;prac5_data&quot;</span>, </span>
-<span id="cb502-24"><a href="tmap-version-3.html#cb502-24" tabindex="-1"></a>                                 <span class="st">&quot;gadm36_GBR_shp&quot;</span>, </span>
-<span id="cb502-25"><a href="tmap-version-3.html#cb502-25" tabindex="-1"></a>                                 <span class="st">&quot;gadm36_GBR_0.shp&quot;</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb502-26"><a href="tmap-version-3.html#cb502-26" tabindex="-1"></a>  <span class="fu">st_transform</span>(., <span class="dv">27700</span>)</span>
-<span id="cb502-27"><a href="tmap-version-3.html#cb502-27" tabindex="-1"></a></span>
-<span id="cb502-28"><a href="tmap-version-3.html#cb502-28" tabindex="-1"></a><span class="co">#London Borough data is already in 277000</span></span>
-<span id="cb502-29"><a href="tmap-version-3.html#cb502-29" tabindex="-1"></a>Londonborough <span class="ot">&lt;-</span> <span class="fu">st_read</span>(here<span class="sc">::</span><span class="fu">here</span>(<span class="st">&quot;Prac1_data&quot;</span>,</span>
-<span id="cb502-30"><a href="tmap-version-3.html#cb502-30" tabindex="-1"></a>                                    <span class="st">&quot;statistical-gis-boundaries-london&quot;</span>, </span>
-<span id="cb502-31"><a href="tmap-version-3.html#cb502-31" tabindex="-1"></a>                                    <span class="st">&quot;ESRI&quot;</span>, </span>
-<span id="cb502-32"><a href="tmap-version-3.html#cb502-32" tabindex="-1"></a>                                    <span class="st">&quot;London_Borough_Excluding_MHW.shp&quot;</span>))<span class="sc">%&gt;%</span></span>
-<span id="cb502-33"><a href="tmap-version-3.html#cb502-33" tabindex="-1"></a>  <span class="fu">st_transform</span>(., <span class="dv">27700</span>)</span>
-<span id="cb502-34"><a href="tmap-version-3.html#cb502-34" tabindex="-1"></a></span>
-<span id="cb502-35"><a href="tmap-version-3.html#cb502-35" tabindex="-1"></a><span class="co"># read in the .csv</span></span>
-<span id="cb502-36"><a href="tmap-version-3.html#cb502-36" tabindex="-1"></a><span class="co"># and make it into spatial data</span></span>
-<span id="cb502-37"><a href="tmap-version-3.html#cb502-37" tabindex="-1"></a></span>
-<span id="cb502-38"><a href="tmap-version-3.html#cb502-38" tabindex="-1"></a>Airbnb <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;prac5_data/listings.csv&quot;</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb502-39"><a href="tmap-version-3.html#cb502-39" tabindex="-1"></a>  <span class="co"># longitude is considered x value here, latitude is y</span></span>
-<span id="cb502-40"><a href="tmap-version-3.html#cb502-40" tabindex="-1"></a>  <span class="fu">st_as_sf</span>(., <span class="at">coords =</span> <span class="fu">c</span>(<span class="st">&quot;longitude&quot;</span>, <span class="st">&quot;latitude&quot;</span>), </span>
-<span id="cb502-41"><a href="tmap-version-3.html#cb502-41" tabindex="-1"></a>                   <span class="at">crs =</span> <span class="dv">4326</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb502-42"><a href="tmap-version-3.html#cb502-42" tabindex="-1"></a>    <span class="fu">st_transform</span>(., <span class="dv">27700</span>)<span class="sc">%&gt;%</span></span>
-<span id="cb502-43"><a href="tmap-version-3.html#cb502-43" tabindex="-1"></a>    <span class="co">#select entire places that are available all year</span></span>
-<span id="cb502-44"><a href="tmap-version-3.html#cb502-44" tabindex="-1"></a>    <span class="fu">filter</span>(room_type <span class="sc">==</span> <span class="st">&#39;Entire home/apt&#39;</span> <span class="sc">&amp;</span> availability_365 <span class="sc">==</span><span class="st">&#39;365&#39;</span>)</span>
-<span id="cb502-45"><a href="tmap-version-3.html#cb502-45" tabindex="-1"></a></span>
-<span id="cb502-46"><a href="tmap-version-3.html#cb502-46" tabindex="-1"></a></span>
-<span id="cb502-47"><a href="tmap-version-3.html#cb502-47" tabindex="-1"></a><span class="co"># make a function for the join</span></span>
-<span id="cb502-48"><a href="tmap-version-3.html#cb502-48" tabindex="-1"></a><span class="co"># functions are covered in practical 7</span></span>
-<span id="cb502-49"><a href="tmap-version-3.html#cb502-49" tabindex="-1"></a><span class="co"># but see if you can work out what is going on</span></span>
-<span id="cb502-50"><a href="tmap-version-3.html#cb502-50" tabindex="-1"></a><span class="co"># hint all you have to do is replace data1 and data2</span></span>
-<span id="cb502-51"><a href="tmap-version-3.html#cb502-51" tabindex="-1"></a><span class="co"># with the data you want to use</span></span>
-<span id="cb502-52"><a href="tmap-version-3.html#cb502-52" tabindex="-1"></a></span>
-<span id="cb502-53"><a href="tmap-version-3.html#cb502-53" tabindex="-1"></a>Joinfun <span class="ot">&lt;-</span> <span class="cf">function</span>(data1, data2){</span>
-<span id="cb502-54"><a href="tmap-version-3.html#cb502-54" tabindex="-1"></a></span>
-<span id="cb502-55"><a href="tmap-version-3.html#cb502-55" tabindex="-1"></a>output<span class="ot">&lt;-</span> data1<span class="sc">%&gt;%</span></span>
-<span id="cb502-56"><a href="tmap-version-3.html#cb502-56" tabindex="-1"></a>  <span class="fu">st_join</span>(data2,.) <span class="sc">%&gt;%</span></span>
-<span id="cb502-57"><a href="tmap-version-3.html#cb502-57" tabindex="-1"></a>  <span class="fu">add_count</span>(GSS_CODE, <span class="at">name=</span><span class="st">&quot;hotels_in_borough&quot;</span>) </span>
-<span id="cb502-58"><a href="tmap-version-3.html#cb502-58" tabindex="-1"></a></span>
-<span id="cb502-59"><a href="tmap-version-3.html#cb502-59" tabindex="-1"></a>  <span class="fu">return</span>(output)</span>
-<span id="cb502-60"><a href="tmap-version-3.html#cb502-60" tabindex="-1"></a>}</span>
-<span id="cb502-61"><a href="tmap-version-3.html#cb502-61" tabindex="-1"></a></span>
-<span id="cb502-62"><a href="tmap-version-3.html#cb502-62" tabindex="-1"></a><span class="co"># use the function for hotels</span></span>
-<span id="cb502-63"><a href="tmap-version-3.html#cb502-63" tabindex="-1"></a>Hotels <span class="ot">&lt;-</span> <span class="fu">Joinfun</span>(OSM, Londonborough)</span>
-<span id="cb502-64"><a href="tmap-version-3.html#cb502-64" tabindex="-1"></a></span>
-<span id="cb502-65"><a href="tmap-version-3.html#cb502-65" tabindex="-1"></a><span class="co"># then for airbnb</span></span>
-<span id="cb502-66"><a href="tmap-version-3.html#cb502-66" tabindex="-1"></a><span class="co"># this is incorrect - change to airbnb2 to look at result</span></span>
-<span id="cb502-67"><a href="tmap-version-3.html#cb502-67" tabindex="-1"></a>Airbnb <span class="ot">&lt;-</span> <span class="fu">Joinfun</span>(Airbnb, Londonborough)</span>
-<span id="cb502-68"><a href="tmap-version-3.html#cb502-68" tabindex="-1"></a> </span>
-<span id="cb502-69"><a href="tmap-version-3.html#cb502-69" tabindex="-1"></a>Worldcities2 <span class="ot">&lt;-</span> Worldcities <span class="sc">%&gt;%</span></span>
-<span id="cb502-70"><a href="tmap-version-3.html#cb502-70" tabindex="-1"></a>  <span class="fu">filter</span>(CNTRY_NAME<span class="sc">==</span><span class="st">&#39;United Kingdom&#39;</span><span class="sc">&amp;</span></span>
-<span id="cb502-71"><a href="tmap-version-3.html#cb502-71" tabindex="-1"></a>           Worldcities<span class="sc">$</span>CITY_NAME<span class="sc">==</span><span class="st">&#39;Birmingham&#39;</span><span class="sc">|</span></span>
-<span id="cb502-72"><a href="tmap-version-3.html#cb502-72" tabindex="-1"></a>           Worldcities<span class="sc">$</span>CITY_NAME<span class="sc">==</span><span class="st">&#39;London&#39;</span><span class="sc">|</span></span>
-<span id="cb502-73"><a href="tmap-version-3.html#cb502-73" tabindex="-1"></a>           Worldcities<span class="sc">$</span>CITY_NAME<span class="sc">==</span><span class="st">&#39;Edinburgh&#39;</span>)</span>
-<span id="cb502-74"><a href="tmap-version-3.html#cb502-74" tabindex="-1"></a></span>
-<span id="cb502-75"><a href="tmap-version-3.html#cb502-75" tabindex="-1"></a>newbb <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="at">xmin=</span><span class="sc">-</span><span class="dv">296000</span>, <span class="at">ymin=</span><span class="dv">5408</span>, <span class="at">xmax=</span><span class="dv">655696</span>, <span class="at">ymax=</span><span class="dv">1000000</span>)</span>
-<span id="cb502-76"><a href="tmap-version-3.html#cb502-76" tabindex="-1"></a>  </span>
-<span id="cb502-77"><a href="tmap-version-3.html#cb502-77" tabindex="-1"></a>UK_outlinecrop <span class="ot">&lt;-</span> UK_outline<span class="sc">$</span>geometry <span class="sc">%&gt;%</span></span>
-<span id="cb502-78"><a href="tmap-version-3.html#cb502-78" tabindex="-1"></a>  <span class="fu">st_crop</span>(., newbb)</span>
-<span id="cb502-79"><a href="tmap-version-3.html#cb502-79" tabindex="-1"></a></span>
-<span id="cb502-80"><a href="tmap-version-3.html#cb502-80" tabindex="-1"></a>Hotels <span class="ot">&lt;-</span> Hotels <span class="sc">%&gt;%</span></span>
-<span id="cb502-81"><a href="tmap-version-3.html#cb502-81" tabindex="-1"></a>  <span class="co">#at the moment each hotel is a row for the borough</span></span>
-<span id="cb502-82"><a href="tmap-version-3.html#cb502-82" tabindex="-1"></a>  <span class="co">#we just one one row that has number of airbnbs</span></span>
-<span id="cb502-83"><a href="tmap-version-3.html#cb502-83" tabindex="-1"></a>  <span class="fu">group_by</span>(., GSS_CODE, NAME)<span class="sc">%&gt;%</span></span>
-<span id="cb502-84"><a href="tmap-version-3.html#cb502-84" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="st">`</span><span class="at">Accomodation count</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">unique</span>(hotels_in_borough))</span>
-<span id="cb502-85"><a href="tmap-version-3.html#cb502-85" tabindex="-1"></a></span>
-<span id="cb502-86"><a href="tmap-version-3.html#cb502-86" tabindex="-1"></a>Airbnb <span class="ot">&lt;-</span> Airbnb <span class="sc">%&gt;%</span></span>
-<span id="cb502-87"><a href="tmap-version-3.html#cb502-87" tabindex="-1"></a>  <span class="fu">group_by</span>(., GSS_CODE, NAME)<span class="sc">%&gt;%</span></span>
-<span id="cb502-88"><a href="tmap-version-3.html#cb502-88" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="st">`</span><span class="at">Accomodation count</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">unique</span>(hotels_in_borough))</span></code></pre></div>
+<div class="sourceCode" id="cb485"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb485-1"><a href="tmap-version-3.html#cb485-1" tabindex="-1"></a><span class="do">##Load all our data</span></span>
+<span id="cb485-2"><a href="tmap-version-3.html#cb485-2" tabindex="-1"></a><span class="fu">library</span>(sf)</span>
+<span id="cb485-3"><a href="tmap-version-3.html#cb485-3" tabindex="-1"></a><span class="fu">library</span>(tmap)</span>
+<span id="cb485-4"><a href="tmap-version-3.html#cb485-4" tabindex="-1"></a><span class="fu">library</span>(tmaptools)</span>
+<span id="cb485-5"><a href="tmap-version-3.html#cb485-5" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb485-6"><a href="tmap-version-3.html#cb485-6" tabindex="-1"></a><span class="fu">library</span>(here)</span>
+<span id="cb485-7"><a href="tmap-version-3.html#cb485-7" tabindex="-1"></a></span>
+<span id="cb485-8"><a href="tmap-version-3.html#cb485-8" tabindex="-1"></a><span class="co"># read in all the spatial data and </span></span>
+<span id="cb485-9"><a href="tmap-version-3.html#cb485-9" tabindex="-1"></a><span class="co"># reproject it </span></span>
+<span id="cb485-10"><a href="tmap-version-3.html#cb485-10" tabindex="-1"></a></span>
+<span id="cb485-11"><a href="tmap-version-3.html#cb485-11" tabindex="-1"></a>OSM <span class="ot">&lt;-</span> <span class="fu">st_read</span>(here<span class="sc">::</span><span class="fu">here</span>(<span class="st">&quot;prac5_data&quot;</span>,</span>
+<span id="cb485-12"><a href="tmap-version-3.html#cb485-12" tabindex="-1"></a>                          <span class="st">&quot;greater-london-latest-free.shp&quot;</span>, </span>
+<span id="cb485-13"><a href="tmap-version-3.html#cb485-13" tabindex="-1"></a>                          <span class="st">&quot;gis_osm_pois_a_free_1.shp&quot;</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb485-14"><a href="tmap-version-3.html#cb485-14" tabindex="-1"></a>  <span class="fu">st_transform</span>(., <span class="dv">27700</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb485-15"><a href="tmap-version-3.html#cb485-15" tabindex="-1"></a>  <span class="co">#select hotels only</span></span>
+<span id="cb485-16"><a href="tmap-version-3.html#cb485-16" tabindex="-1"></a>  <span class="fu">filter</span>(fclass <span class="sc">==</span> <span class="st">&#39;hotel&#39;</span>)</span>
+<span id="cb485-17"><a href="tmap-version-3.html#cb485-17" tabindex="-1"></a></span>
+<span id="cb485-18"><a href="tmap-version-3.html#cb485-18" tabindex="-1"></a>Worldcities <span class="ot">&lt;-</span> <span class="fu">st_read</span>(here<span class="sc">::</span><span class="fu">here</span>(<span class="st">&quot;prac5_data&quot;</span>, </span>
+<span id="cb485-19"><a href="tmap-version-3.html#cb485-19" tabindex="-1"></a>                                  <span class="st">&quot;World_Cities&quot;</span>, </span>
+<span id="cb485-20"><a href="tmap-version-3.html#cb485-20" tabindex="-1"></a>                                  <span class="st">&quot;World_Cities.shp&quot;</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb485-21"><a href="tmap-version-3.html#cb485-21" tabindex="-1"></a>  <span class="fu">st_transform</span>(., <span class="dv">27700</span>)</span>
+<span id="cb485-22"><a href="tmap-version-3.html#cb485-22" tabindex="-1"></a></span>
+<span id="cb485-23"><a href="tmap-version-3.html#cb485-23" tabindex="-1"></a>UK_outline <span class="ot">&lt;-</span> <span class="fu">st_read</span>(here<span class="sc">::</span><span class="fu">here</span>(<span class="st">&quot;prac5_data&quot;</span>, </span>
+<span id="cb485-24"><a href="tmap-version-3.html#cb485-24" tabindex="-1"></a>                                 <span class="st">&quot;gadm36_GBR_shp&quot;</span>, </span>
+<span id="cb485-25"><a href="tmap-version-3.html#cb485-25" tabindex="-1"></a>                                 <span class="st">&quot;gadm36_GBR_0.shp&quot;</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb485-26"><a href="tmap-version-3.html#cb485-26" tabindex="-1"></a>  <span class="fu">st_transform</span>(., <span class="dv">27700</span>)</span>
+<span id="cb485-27"><a href="tmap-version-3.html#cb485-27" tabindex="-1"></a></span>
+<span id="cb485-28"><a href="tmap-version-3.html#cb485-28" tabindex="-1"></a><span class="co">#London Borough data is already in 277000</span></span>
+<span id="cb485-29"><a href="tmap-version-3.html#cb485-29" tabindex="-1"></a>Londonborough <span class="ot">&lt;-</span> <span class="fu">st_read</span>(here<span class="sc">::</span><span class="fu">here</span>(<span class="st">&quot;Prac1_data&quot;</span>,</span>
+<span id="cb485-30"><a href="tmap-version-3.html#cb485-30" tabindex="-1"></a>                                    <span class="st">&quot;statistical-gis-boundaries-london&quot;</span>, </span>
+<span id="cb485-31"><a href="tmap-version-3.html#cb485-31" tabindex="-1"></a>                                    <span class="st">&quot;ESRI&quot;</span>, </span>
+<span id="cb485-32"><a href="tmap-version-3.html#cb485-32" tabindex="-1"></a>                                    <span class="st">&quot;London_Borough_Excluding_MHW.shp&quot;</span>))<span class="sc">%&gt;%</span></span>
+<span id="cb485-33"><a href="tmap-version-3.html#cb485-33" tabindex="-1"></a>  <span class="fu">st_transform</span>(., <span class="dv">27700</span>)</span>
+<span id="cb485-34"><a href="tmap-version-3.html#cb485-34" tabindex="-1"></a></span>
+<span id="cb485-35"><a href="tmap-version-3.html#cb485-35" tabindex="-1"></a><span class="co"># read in the .csv</span></span>
+<span id="cb485-36"><a href="tmap-version-3.html#cb485-36" tabindex="-1"></a><span class="co"># and make it into spatial data</span></span>
+<span id="cb485-37"><a href="tmap-version-3.html#cb485-37" tabindex="-1"></a></span>
+<span id="cb485-38"><a href="tmap-version-3.html#cb485-38" tabindex="-1"></a>Airbnb <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;prac5_data/listings.csv&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb485-39"><a href="tmap-version-3.html#cb485-39" tabindex="-1"></a>  <span class="co"># longitude is considered x value here, latitude is y</span></span>
+<span id="cb485-40"><a href="tmap-version-3.html#cb485-40" tabindex="-1"></a>  <span class="fu">st_as_sf</span>(., <span class="at">coords =</span> <span class="fu">c</span>(<span class="st">&quot;longitude&quot;</span>, <span class="st">&quot;latitude&quot;</span>), </span>
+<span id="cb485-41"><a href="tmap-version-3.html#cb485-41" tabindex="-1"></a>                   <span class="at">crs =</span> <span class="dv">4326</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb485-42"><a href="tmap-version-3.html#cb485-42" tabindex="-1"></a>    <span class="fu">st_transform</span>(., <span class="dv">27700</span>)<span class="sc">%&gt;%</span></span>
+<span id="cb485-43"><a href="tmap-version-3.html#cb485-43" tabindex="-1"></a>    <span class="co">#select entire places that are available all year</span></span>
+<span id="cb485-44"><a href="tmap-version-3.html#cb485-44" tabindex="-1"></a>    <span class="fu">filter</span>(room_type <span class="sc">==</span> <span class="st">&#39;Entire home/apt&#39;</span> <span class="sc">&amp;</span> availability_365 <span class="sc">==</span><span class="st">&#39;365&#39;</span>)</span>
+<span id="cb485-45"><a href="tmap-version-3.html#cb485-45" tabindex="-1"></a></span>
+<span id="cb485-46"><a href="tmap-version-3.html#cb485-46" tabindex="-1"></a></span>
+<span id="cb485-47"><a href="tmap-version-3.html#cb485-47" tabindex="-1"></a><span class="co"># make a function for the join</span></span>
+<span id="cb485-48"><a href="tmap-version-3.html#cb485-48" tabindex="-1"></a><span class="co"># functions are covered in practical 7</span></span>
+<span id="cb485-49"><a href="tmap-version-3.html#cb485-49" tabindex="-1"></a><span class="co"># but see if you can work out what is going on</span></span>
+<span id="cb485-50"><a href="tmap-version-3.html#cb485-50" tabindex="-1"></a><span class="co"># hint all you have to do is replace data1 and data2</span></span>
+<span id="cb485-51"><a href="tmap-version-3.html#cb485-51" tabindex="-1"></a><span class="co"># with the data you want to use</span></span>
+<span id="cb485-52"><a href="tmap-version-3.html#cb485-52" tabindex="-1"></a></span>
+<span id="cb485-53"><a href="tmap-version-3.html#cb485-53" tabindex="-1"></a>Joinfun <span class="ot">&lt;-</span> <span class="cf">function</span>(data1, data2){</span>
+<span id="cb485-54"><a href="tmap-version-3.html#cb485-54" tabindex="-1"></a></span>
+<span id="cb485-55"><a href="tmap-version-3.html#cb485-55" tabindex="-1"></a>output<span class="ot">&lt;-</span> data1<span class="sc">%&gt;%</span></span>
+<span id="cb485-56"><a href="tmap-version-3.html#cb485-56" tabindex="-1"></a>  <span class="fu">st_join</span>(data2,.) <span class="sc">%&gt;%</span></span>
+<span id="cb485-57"><a href="tmap-version-3.html#cb485-57" tabindex="-1"></a>  <span class="fu">add_count</span>(GSS_CODE, <span class="at">name=</span><span class="st">&quot;hotels_in_borough&quot;</span>) </span>
+<span id="cb485-58"><a href="tmap-version-3.html#cb485-58" tabindex="-1"></a></span>
+<span id="cb485-59"><a href="tmap-version-3.html#cb485-59" tabindex="-1"></a>  <span class="fu">return</span>(output)</span>
+<span id="cb485-60"><a href="tmap-version-3.html#cb485-60" tabindex="-1"></a>}</span>
+<span id="cb485-61"><a href="tmap-version-3.html#cb485-61" tabindex="-1"></a></span>
+<span id="cb485-62"><a href="tmap-version-3.html#cb485-62" tabindex="-1"></a><span class="co"># use the function for hotels</span></span>
+<span id="cb485-63"><a href="tmap-version-3.html#cb485-63" tabindex="-1"></a>Hotels <span class="ot">&lt;-</span> <span class="fu">Joinfun</span>(OSM, Londonborough)</span>
+<span id="cb485-64"><a href="tmap-version-3.html#cb485-64" tabindex="-1"></a></span>
+<span id="cb485-65"><a href="tmap-version-3.html#cb485-65" tabindex="-1"></a><span class="co"># then for airbnb</span></span>
+<span id="cb485-66"><a href="tmap-version-3.html#cb485-66" tabindex="-1"></a><span class="co"># this is incorrect - change to airbnb2 to look at result</span></span>
+<span id="cb485-67"><a href="tmap-version-3.html#cb485-67" tabindex="-1"></a>Airbnb <span class="ot">&lt;-</span> <span class="fu">Joinfun</span>(Airbnb, Londonborough)</span>
+<span id="cb485-68"><a href="tmap-version-3.html#cb485-68" tabindex="-1"></a> </span>
+<span id="cb485-69"><a href="tmap-version-3.html#cb485-69" tabindex="-1"></a>Worldcities2 <span class="ot">&lt;-</span> Worldcities <span class="sc">%&gt;%</span></span>
+<span id="cb485-70"><a href="tmap-version-3.html#cb485-70" tabindex="-1"></a>  <span class="fu">filter</span>(CNTRY_NAME<span class="sc">==</span><span class="st">&#39;United Kingdom&#39;</span><span class="sc">&amp;</span></span>
+<span id="cb485-71"><a href="tmap-version-3.html#cb485-71" tabindex="-1"></a>           Worldcities<span class="sc">$</span>CITY_NAME<span class="sc">==</span><span class="st">&#39;Birmingham&#39;</span><span class="sc">|</span></span>
+<span id="cb485-72"><a href="tmap-version-3.html#cb485-72" tabindex="-1"></a>           Worldcities<span class="sc">$</span>CITY_NAME<span class="sc">==</span><span class="st">&#39;London&#39;</span><span class="sc">|</span></span>
+<span id="cb485-73"><a href="tmap-version-3.html#cb485-73" tabindex="-1"></a>           Worldcities<span class="sc">$</span>CITY_NAME<span class="sc">==</span><span class="st">&#39;Edinburgh&#39;</span>)</span>
+<span id="cb485-74"><a href="tmap-version-3.html#cb485-74" tabindex="-1"></a></span>
+<span id="cb485-75"><a href="tmap-version-3.html#cb485-75" tabindex="-1"></a>newbb <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="at">xmin=</span><span class="sc">-</span><span class="dv">296000</span>, <span class="at">ymin=</span><span class="dv">5408</span>, <span class="at">xmax=</span><span class="dv">655696</span>, <span class="at">ymax=</span><span class="dv">1000000</span>)</span>
+<span id="cb485-76"><a href="tmap-version-3.html#cb485-76" tabindex="-1"></a>  </span>
+<span id="cb485-77"><a href="tmap-version-3.html#cb485-77" tabindex="-1"></a>UK_outlinecrop <span class="ot">&lt;-</span> UK_outline<span class="sc">$</span>geometry <span class="sc">%&gt;%</span></span>
+<span id="cb485-78"><a href="tmap-version-3.html#cb485-78" tabindex="-1"></a>  <span class="fu">st_crop</span>(., newbb)</span>
+<span id="cb485-79"><a href="tmap-version-3.html#cb485-79" tabindex="-1"></a></span>
+<span id="cb485-80"><a href="tmap-version-3.html#cb485-80" tabindex="-1"></a>Hotels <span class="ot">&lt;-</span> Hotels <span class="sc">%&gt;%</span></span>
+<span id="cb485-81"><a href="tmap-version-3.html#cb485-81" tabindex="-1"></a>  <span class="co">#at the moment each hotel is a row for the borough</span></span>
+<span id="cb485-82"><a href="tmap-version-3.html#cb485-82" tabindex="-1"></a>  <span class="co">#we just one one row that has number of airbnbs</span></span>
+<span id="cb485-83"><a href="tmap-version-3.html#cb485-83" tabindex="-1"></a>  <span class="fu">group_by</span>(., GSS_CODE, NAME)<span class="sc">%&gt;%</span></span>
+<span id="cb485-84"><a href="tmap-version-3.html#cb485-84" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="st">`</span><span class="at">Accomodation count</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">unique</span>(hotels_in_borough))</span>
+<span id="cb485-85"><a href="tmap-version-3.html#cb485-85" tabindex="-1"></a></span>
+<span id="cb485-86"><a href="tmap-version-3.html#cb485-86" tabindex="-1"></a>Airbnb <span class="ot">&lt;-</span> Airbnb <span class="sc">%&gt;%</span></span>
+<span id="cb485-87"><a href="tmap-version-3.html#cb485-87" tabindex="-1"></a>  <span class="fu">group_by</span>(., GSS_CODE, NAME)<span class="sc">%&gt;%</span></span>
+<span id="cb485-88"><a href="tmap-version-3.html#cb485-88" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="st">`</span><span class="at">Accomodation count</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">unique</span>(hotels_in_borough))</span></code></pre></div>
 <p>This is actually incorrect and we will see why after reading week. Essentially there are two boroughs that have 0 airbnbs with our filters - Kingston upon Thames and Sutton. They don’t appear on the QGIS map and you can explore them on the interactive map later on…</p>
 <p>However, in our data a they have a value of 1…why?</p>
 <p>Well because this spatial join is like a left join. The Boroughs will always exist (there is always a row of Sutton) we have then grouped by and summarised the Borough (Sutton) and as it has a row it will return a value of 1 even through it is actually 0. To explore this you will need to break the code above, change <code>Airbnb &lt;- Joinfun(Airbnb, Londonborough)</code> to <code>Airbnb2 &lt;- Joinfun(Airbnb, Londonborough)</code> and explore the <code>Airbnb2</code> object - Sutton will have a single row but no Airbnb names!</p>
 <p>Let’s check this…from the code below Sutton has 1 Airbnb (meeting our criteria) however we know it does not!</p>
-<div class="sourceCode" id="cb503"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb503-1"><a href="tmap-version-3.html#cb503-1" tabindex="-1"></a>Airbnb <span class="sc">%&gt;%</span></span>
-<span id="cb503-2"><a href="tmap-version-3.html#cb503-2" tabindex="-1"></a>  <span class="fu">filter</span>(NAME<span class="sc">==</span><span class="st">&quot;Sutton&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb486"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb486-1"><a href="tmap-version-3.html#cb486-1" tabindex="-1"></a>Airbnb <span class="sc">%&gt;%</span></span>
+<span id="cb486-2"><a href="tmap-version-3.html#cb486-2" tabindex="-1"></a>  <span class="fu">filter</span>(NAME<span class="sc">==</span><span class="st">&quot;Sutton&quot;</span>)</span></code></pre></div>
 <p>Make the map</p>
-<div class="sourceCode" id="cb504"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb504-1"><a href="tmap-version-3.html#cb504-1" tabindex="-1"></a><span class="fu">tmap_mode</span>(<span class="st">&quot;plot&quot;</span>)</span>
-<span id="cb504-2"><a href="tmap-version-3.html#cb504-2" tabindex="-1"></a></span>
-<span id="cb504-3"><a href="tmap-version-3.html#cb504-3" tabindex="-1"></a><span class="co"># set the breaks</span></span>
-<span id="cb504-4"><a href="tmap-version-3.html#cb504-4" tabindex="-1"></a><span class="co"># for our mapped data</span></span>
-<span id="cb504-5"><a href="tmap-version-3.html#cb504-5" tabindex="-1"></a>breaks <span class="ot">=</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">5</span>, <span class="dv">12</span>, <span class="dv">26</span>, <span class="dv">57</span>, <span class="dv">286</span>) </span>
-<span id="cb504-6"><a href="tmap-version-3.html#cb504-6" tabindex="-1"></a></span>
-<span id="cb504-7"><a href="tmap-version-3.html#cb504-7" tabindex="-1"></a><span class="co"># plot each map</span></span>
-<span id="cb504-8"><a href="tmap-version-3.html#cb504-8" tabindex="-1"></a>tm1 <span class="ot">&lt;-</span> <span class="fu">tm_shape</span>(Hotels) <span class="sc">+</span> </span>
-<span id="cb504-9"><a href="tmap-version-3.html#cb504-9" tabindex="-1"></a>  <span class="fu">tm_polygons</span>(<span class="st">&quot;Accomodation count&quot;</span>, </span>
-<span id="cb504-10"><a href="tmap-version-3.html#cb504-10" tabindex="-1"></a>              <span class="at">breaks=</span>breaks,</span>
-<span id="cb504-11"><a href="tmap-version-3.html#cb504-11" tabindex="-1"></a>              <span class="at">palette=</span><span class="st">&quot;PuBu&quot;</span>)<span class="sc">+</span></span>
-<span id="cb504-12"><a href="tmap-version-3.html#cb504-12" tabindex="-1"></a>  <span class="fu">tm_legend</span>(<span class="at">show=</span><span class="cn">FALSE</span>)<span class="sc">+</span></span>
-<span id="cb504-13"><a href="tmap-version-3.html#cb504-13" tabindex="-1"></a>  <span class="fu">tm_layout</span>(<span class="at">frame=</span><span class="cn">FALSE</span>)<span class="sc">+</span></span>
-<span id="cb504-14"><a href="tmap-version-3.html#cb504-14" tabindex="-1"></a>  <span class="fu">tm_credits</span>(<span class="st">&quot;(a)&quot;</span>, <span class="at">position=</span><span class="fu">c</span>(<span class="dv">0</span>,<span class="fl">0.85</span>), <span class="at">size=</span><span class="fl">1.5</span>)</span>
-<span id="cb504-15"><a href="tmap-version-3.html#cb504-15" tabindex="-1"></a></span>
-<span id="cb504-16"><a href="tmap-version-3.html#cb504-16" tabindex="-1"></a>tm2 <span class="ot">&lt;-</span> <span class="fu">tm_shape</span>(Airbnb) <span class="sc">+</span> </span>
-<span id="cb504-17"><a href="tmap-version-3.html#cb504-17" tabindex="-1"></a>  <span class="fu">tm_polygons</span>(<span class="st">&quot;Accomodation count&quot;</span>,</span>
-<span id="cb504-18"><a href="tmap-version-3.html#cb504-18" tabindex="-1"></a>              <span class="at">breaks=</span>breaks, </span>
-<span id="cb504-19"><a href="tmap-version-3.html#cb504-19" tabindex="-1"></a>              <span class="at">palette=</span><span class="st">&quot;PuBu&quot;</span>) <span class="sc">+</span> </span>
-<span id="cb504-20"><a href="tmap-version-3.html#cb504-20" tabindex="-1"></a>  <span class="fu">tm_legend</span>(<span class="at">show=</span><span class="cn">FALSE</span>)<span class="sc">+</span></span>
-<span id="cb504-21"><a href="tmap-version-3.html#cb504-21" tabindex="-1"></a>  <span class="fu">tm_layout</span>(<span class="at">frame=</span><span class="cn">FALSE</span>)<span class="sc">+</span></span>
-<span id="cb504-22"><a href="tmap-version-3.html#cb504-22" tabindex="-1"></a>  <span class="fu">tm_credits</span>(<span class="st">&quot;(b)&quot;</span>, <span class="at">position=</span><span class="fu">c</span>(<span class="dv">0</span>,<span class="fl">0.85</span>), <span class="at">size=</span><span class="fl">1.5</span>)</span>
-<span id="cb504-23"><a href="tmap-version-3.html#cb504-23" tabindex="-1"></a></span>
-<span id="cb504-24"><a href="tmap-version-3.html#cb504-24" tabindex="-1"></a>tm3 <span class="ot">&lt;-</span> <span class="fu">tm_shape</span>(UK_outlinecrop)<span class="sc">+</span> </span>
-<span id="cb504-25"><a href="tmap-version-3.html#cb504-25" tabindex="-1"></a>  <span class="fu">tm_polygons</span>(<span class="at">col=</span><span class="st">&quot;darkslategray1&quot;</span>)<span class="sc">+</span></span>
-<span id="cb504-26"><a href="tmap-version-3.html#cb504-26" tabindex="-1"></a>  <span class="fu">tm_layout</span>(<span class="at">frame=</span><span class="cn">FALSE</span>)<span class="sc">+</span></span>
-<span id="cb504-27"><a href="tmap-version-3.html#cb504-27" tabindex="-1"></a>  <span class="fu">tm_shape</span>(Worldcities2) <span class="sc">+</span></span>
-<span id="cb504-28"><a href="tmap-version-3.html#cb504-28" tabindex="-1"></a>  <span class="fu">tm_symbols</span>(<span class="at">col =</span> <span class="st">&quot;red&quot;</span>, <span class="at">scale =</span> .<span class="dv">5</span>)<span class="sc">+</span></span>
-<span id="cb504-29"><a href="tmap-version-3.html#cb504-29" tabindex="-1"></a>  <span class="fu">tm_text</span>(<span class="st">&quot;CITY_NAME&quot;</span>, <span class="at">xmod=</span><span class="sc">-</span><span class="dv">1</span>, <span class="at">ymod=</span><span class="sc">-</span><span class="fl">0.5</span>)</span>
-<span id="cb504-30"><a href="tmap-version-3.html#cb504-30" tabindex="-1"></a></span>
-<span id="cb504-31"><a href="tmap-version-3.html#cb504-31" tabindex="-1"></a>legend <span class="ot">&lt;-</span> <span class="fu">tm_shape</span>(Hotels) <span class="sc">+</span></span>
-<span id="cb504-32"><a href="tmap-version-3.html#cb504-32" tabindex="-1"></a>    <span class="fu">tm_polygons</span>(<span class="st">&quot;Accomodation count&quot;</span>,</span>
-<span id="cb504-33"><a href="tmap-version-3.html#cb504-33" tabindex="-1"></a>                <span class="at">breaks=</span>breaks,</span>
-<span id="cb504-34"><a href="tmap-version-3.html#cb504-34" tabindex="-1"></a>                <span class="at">palette=</span><span class="st">&quot;PuBu&quot;</span>) <span class="sc">+</span></span>
-<span id="cb504-35"><a href="tmap-version-3.html#cb504-35" tabindex="-1"></a>    <span class="fu">tm_scale_bar</span>(<span class="at">position=</span><span class="fu">c</span>(<span class="fl">0.2</span>,<span class="fl">0.04</span>), <span class="at">text.size=</span><span class="fl">0.6</span>)<span class="sc">+</span></span>
-<span id="cb504-36"><a href="tmap-version-3.html#cb504-36" tabindex="-1"></a>    <span class="fu">tm_compass</span>(<span class="at">north=</span><span class="dv">0</span>, <span class="at">position=</span><span class="fu">c</span>(<span class="fl">0.65</span>,<span class="fl">0.6</span>))<span class="sc">+</span></span>
-<span id="cb504-37"><a href="tmap-version-3.html#cb504-37" tabindex="-1"></a>    <span class="fu">tm_layout</span>(<span class="at">legend.only =</span> <span class="cn">TRUE</span>, <span class="at">legend.position=</span><span class="fu">c</span>(<span class="fl">0.2</span>,<span class="fl">0.25</span>),<span class="at">asp=</span><span class="fl">0.1</span>)<span class="sc">+</span></span>
-<span id="cb504-38"><a href="tmap-version-3.html#cb504-38" tabindex="-1"></a>    <span class="fu">tm_credits</span>(<span class="st">&quot;(c) OpenStreetMap contrbutors and Air b n b&quot;</span>, <span class="at">position=</span><span class="fu">c</span>(<span class="fl">0.0</span>,<span class="fl">0.0</span>))</span>
-<span id="cb504-39"><a href="tmap-version-3.html#cb504-39" tabindex="-1"></a>  </span>
-<span id="cb504-40"><a href="tmap-version-3.html#cb504-40" tabindex="-1"></a>t<span class="ot">=</span><span class="fu">tmap_arrange</span>(tm1, tm2, tm3, legend, <span class="at">ncol=</span><span class="dv">2</span>)</span>
-<span id="cb504-41"><a href="tmap-version-3.html#cb504-41" tabindex="-1"></a></span>
-<span id="cb504-42"><a href="tmap-version-3.html#cb504-42" tabindex="-1"></a>t</span></code></pre></div>
+<div class="sourceCode" id="cb487"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb487-1"><a href="tmap-version-3.html#cb487-1" tabindex="-1"></a><span class="fu">tmap_mode</span>(<span class="st">&quot;plot&quot;</span>)</span>
+<span id="cb487-2"><a href="tmap-version-3.html#cb487-2" tabindex="-1"></a></span>
+<span id="cb487-3"><a href="tmap-version-3.html#cb487-3" tabindex="-1"></a><span class="co"># set the breaks</span></span>
+<span id="cb487-4"><a href="tmap-version-3.html#cb487-4" tabindex="-1"></a><span class="co"># for our mapped data</span></span>
+<span id="cb487-5"><a href="tmap-version-3.html#cb487-5" tabindex="-1"></a>breaks <span class="ot">=</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">5</span>, <span class="dv">12</span>, <span class="dv">26</span>, <span class="dv">57</span>, <span class="dv">286</span>) </span>
+<span id="cb487-6"><a href="tmap-version-3.html#cb487-6" tabindex="-1"></a></span>
+<span id="cb487-7"><a href="tmap-version-3.html#cb487-7" tabindex="-1"></a><span class="co"># plot each map</span></span>
+<span id="cb487-8"><a href="tmap-version-3.html#cb487-8" tabindex="-1"></a>tm1 <span class="ot">&lt;-</span> <span class="fu">tm_shape</span>(Hotels) <span class="sc">+</span> </span>
+<span id="cb487-9"><a href="tmap-version-3.html#cb487-9" tabindex="-1"></a>  <span class="fu">tm_polygons</span>(<span class="st">&quot;Accomodation count&quot;</span>, </span>
+<span id="cb487-10"><a href="tmap-version-3.html#cb487-10" tabindex="-1"></a>              <span class="at">breaks=</span>breaks,</span>
+<span id="cb487-11"><a href="tmap-version-3.html#cb487-11" tabindex="-1"></a>              <span class="at">palette=</span><span class="st">&quot;PuBu&quot;</span>)<span class="sc">+</span></span>
+<span id="cb487-12"><a href="tmap-version-3.html#cb487-12" tabindex="-1"></a>  <span class="fu">tm_legend</span>(<span class="at">show=</span><span class="cn">FALSE</span>)<span class="sc">+</span></span>
+<span id="cb487-13"><a href="tmap-version-3.html#cb487-13" tabindex="-1"></a>  <span class="fu">tm_layout</span>(<span class="at">frame=</span><span class="cn">FALSE</span>)<span class="sc">+</span></span>
+<span id="cb487-14"><a href="tmap-version-3.html#cb487-14" tabindex="-1"></a>  <span class="fu">tm_credits</span>(<span class="st">&quot;(a)&quot;</span>, <span class="at">position=</span><span class="fu">c</span>(<span class="dv">0</span>,<span class="fl">0.85</span>), <span class="at">size=</span><span class="fl">1.5</span>)</span>
+<span id="cb487-15"><a href="tmap-version-3.html#cb487-15" tabindex="-1"></a></span>
+<span id="cb487-16"><a href="tmap-version-3.html#cb487-16" tabindex="-1"></a>tm2 <span class="ot">&lt;-</span> <span class="fu">tm_shape</span>(Airbnb) <span class="sc">+</span> </span>
+<span id="cb487-17"><a href="tmap-version-3.html#cb487-17" tabindex="-1"></a>  <span class="fu">tm_polygons</span>(<span class="st">&quot;Accomodation count&quot;</span>,</span>
+<span id="cb487-18"><a href="tmap-version-3.html#cb487-18" tabindex="-1"></a>              <span class="at">breaks=</span>breaks, </span>
+<span id="cb487-19"><a href="tmap-version-3.html#cb487-19" tabindex="-1"></a>              <span class="at">palette=</span><span class="st">&quot;PuBu&quot;</span>) <span class="sc">+</span> </span>
+<span id="cb487-20"><a href="tmap-version-3.html#cb487-20" tabindex="-1"></a>  <span class="fu">tm_legend</span>(<span class="at">show=</span><span class="cn">FALSE</span>)<span class="sc">+</span></span>
+<span id="cb487-21"><a href="tmap-version-3.html#cb487-21" tabindex="-1"></a>  <span class="fu">tm_layout</span>(<span class="at">frame=</span><span class="cn">FALSE</span>)<span class="sc">+</span></span>
+<span id="cb487-22"><a href="tmap-version-3.html#cb487-22" tabindex="-1"></a>  <span class="fu">tm_credits</span>(<span class="st">&quot;(b)&quot;</span>, <span class="at">position=</span><span class="fu">c</span>(<span class="dv">0</span>,<span class="fl">0.85</span>), <span class="at">size=</span><span class="fl">1.5</span>)</span>
+<span id="cb487-23"><a href="tmap-version-3.html#cb487-23" tabindex="-1"></a></span>
+<span id="cb487-24"><a href="tmap-version-3.html#cb487-24" tabindex="-1"></a>tm3 <span class="ot">&lt;-</span> <span class="fu">tm_shape</span>(UK_outlinecrop)<span class="sc">+</span> </span>
+<span id="cb487-25"><a href="tmap-version-3.html#cb487-25" tabindex="-1"></a>  <span class="fu">tm_polygons</span>(<span class="at">col=</span><span class="st">&quot;darkslategray1&quot;</span>)<span class="sc">+</span></span>
+<span id="cb487-26"><a href="tmap-version-3.html#cb487-26" tabindex="-1"></a>  <span class="fu">tm_layout</span>(<span class="at">frame=</span><span class="cn">FALSE</span>)<span class="sc">+</span></span>
+<span id="cb487-27"><a href="tmap-version-3.html#cb487-27" tabindex="-1"></a>  <span class="fu">tm_shape</span>(Worldcities2) <span class="sc">+</span></span>
+<span id="cb487-28"><a href="tmap-version-3.html#cb487-28" tabindex="-1"></a>  <span class="fu">tm_symbols</span>(<span class="at">col =</span> <span class="st">&quot;red&quot;</span>, <span class="at">scale =</span> .<span class="dv">5</span>)<span class="sc">+</span></span>
+<span id="cb487-29"><a href="tmap-version-3.html#cb487-29" tabindex="-1"></a>  <span class="fu">tm_text</span>(<span class="st">&quot;CITY_NAME&quot;</span>, <span class="at">xmod=</span><span class="sc">-</span><span class="dv">1</span>, <span class="at">ymod=</span><span class="sc">-</span><span class="fl">0.5</span>)</span>
+<span id="cb487-30"><a href="tmap-version-3.html#cb487-30" tabindex="-1"></a></span>
+<span id="cb487-31"><a href="tmap-version-3.html#cb487-31" tabindex="-1"></a>legend <span class="ot">&lt;-</span> <span class="fu">tm_shape</span>(Hotels) <span class="sc">+</span></span>
+<span id="cb487-32"><a href="tmap-version-3.html#cb487-32" tabindex="-1"></a>    <span class="fu">tm_polygons</span>(<span class="st">&quot;Accomodation count&quot;</span>,</span>
+<span id="cb487-33"><a href="tmap-version-3.html#cb487-33" tabindex="-1"></a>                <span class="at">breaks=</span>breaks,</span>
+<span id="cb487-34"><a href="tmap-version-3.html#cb487-34" tabindex="-1"></a>                <span class="at">palette=</span><span class="st">&quot;PuBu&quot;</span>) <span class="sc">+</span></span>
+<span id="cb487-35"><a href="tmap-version-3.html#cb487-35" tabindex="-1"></a>    <span class="fu">tm_scale_bar</span>(<span class="at">position=</span><span class="fu">c</span>(<span class="fl">0.2</span>,<span class="fl">0.04</span>), <span class="at">text.size=</span><span class="fl">0.6</span>)<span class="sc">+</span></span>
+<span id="cb487-36"><a href="tmap-version-3.html#cb487-36" tabindex="-1"></a>    <span class="fu">tm_compass</span>(<span class="at">north=</span><span class="dv">0</span>, <span class="at">position=</span><span class="fu">c</span>(<span class="fl">0.65</span>,<span class="fl">0.6</span>))<span class="sc">+</span></span>
+<span id="cb487-37"><a href="tmap-version-3.html#cb487-37" tabindex="-1"></a>    <span class="fu">tm_layout</span>(<span class="at">legend.only =</span> <span class="cn">TRUE</span>, <span class="at">legend.position=</span><span class="fu">c</span>(<span class="fl">0.2</span>,<span class="fl">0.25</span>),<span class="at">asp=</span><span class="fl">0.1</span>)<span class="sc">+</span></span>
+<span id="cb487-38"><a href="tmap-version-3.html#cb487-38" tabindex="-1"></a>    <span class="fu">tm_credits</span>(<span class="st">&quot;(c) OpenStreetMap contrbutors and Air b n b&quot;</span>, <span class="at">position=</span><span class="fu">c</span>(<span class="fl">0.0</span>,<span class="fl">0.0</span>))</span>
+<span id="cb487-39"><a href="tmap-version-3.html#cb487-39" tabindex="-1"></a>  </span>
+<span id="cb487-40"><a href="tmap-version-3.html#cb487-40" tabindex="-1"></a>t<span class="ot">=</span><span class="fu">tmap_arrange</span>(tm1, tm2, tm3, legend, <span class="at">ncol=</span><span class="dv">2</span>)</span>
+<span id="cb487-41"><a href="tmap-version-3.html#cb487-41" tabindex="-1"></a></span>
+<span id="cb487-42"><a href="tmap-version-3.html#cb487-42" tabindex="-1"></a>t</span></code></pre></div>
 <p>We can also arrange our maps using the <code>grid</code> package…</p>
-<div class="sourceCode" id="cb505"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb505-1"><a href="tmap-version-3.html#cb505-1" tabindex="-1"></a><span class="fu">library</span>(grid)</span>
-<span id="cb505-2"><a href="tmap-version-3.html#cb505-2" tabindex="-1"></a><span class="co"># erases the current device or moves to a new page </span></span>
-<span id="cb505-3"><a href="tmap-version-3.html#cb505-3" tabindex="-1"></a><span class="co"># probably not needed but makes sure you are plotting on a new page.</span></span>
-<span id="cb505-4"><a href="tmap-version-3.html#cb505-4" tabindex="-1"></a><span class="fu">grid.newpage</span>()</span>
-<span id="cb505-5"><a href="tmap-version-3.html#cb505-5" tabindex="-1"></a></span>
-<span id="cb505-6"><a href="tmap-version-3.html#cb505-6" tabindex="-1"></a><span class="fu">pushViewport</span>(<span class="fu">viewport</span>(<span class="at">layout=</span><span class="fu">grid.layout</span>(<span class="dv">2</span>,<span class="dv">2</span>)))</span>
-<span id="cb505-7"><a href="tmap-version-3.html#cb505-7" tabindex="-1"></a><span class="fu">print</span>(tm1, <span class="at">vp=</span><span class="fu">viewport</span>(<span class="at">layout.pos.col=</span><span class="dv">1</span>, <span class="at">layout.pos.row=</span><span class="dv">1</span>, <span class="at">height=</span><span class="dv">5</span>))</span>
-<span id="cb505-8"><a href="tmap-version-3.html#cb505-8" tabindex="-1"></a><span class="fu">print</span>(tm2, <span class="at">vp=</span><span class="fu">viewport</span>(<span class="at">layout.pos.col=</span><span class="dv">2</span>, <span class="at">layout.pos.row=</span><span class="dv">1</span>, <span class="at">height=</span><span class="dv">5</span>))</span>
-<span id="cb505-9"><a href="tmap-version-3.html#cb505-9" tabindex="-1"></a><span class="fu">print</span>(tm3, <span class="at">vp=</span><span class="fu">viewport</span>(<span class="at">layout.pos.col=</span><span class="dv">1</span>, <span class="at">layout.pos.row=</span><span class="dv">2</span>, <span class="at">height=</span><span class="dv">5</span>))</span>
-<span id="cb505-10"><a href="tmap-version-3.html#cb505-10" tabindex="-1"></a><span class="fu">print</span>(legend, <span class="at">vp=</span><span class="fu">viewport</span>(<span class="at">layout.pos.col=</span><span class="dv">2</span>, <span class="at">layout.pos.row=</span><span class="dv">2</span>, <span class="at">height=</span><span class="dv">5</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb488"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb488-1"><a href="tmap-version-3.html#cb488-1" tabindex="-1"></a><span class="fu">library</span>(grid)</span>
+<span id="cb488-2"><a href="tmap-version-3.html#cb488-2" tabindex="-1"></a><span class="co"># erases the current device or moves to a new page </span></span>
+<span id="cb488-3"><a href="tmap-version-3.html#cb488-3" tabindex="-1"></a><span class="co"># probably not needed but makes sure you are plotting on a new page.</span></span>
+<span id="cb488-4"><a href="tmap-version-3.html#cb488-4" tabindex="-1"></a><span class="fu">grid.newpage</span>()</span>
+<span id="cb488-5"><a href="tmap-version-3.html#cb488-5" tabindex="-1"></a></span>
+<span id="cb488-6"><a href="tmap-version-3.html#cb488-6" tabindex="-1"></a><span class="fu">pushViewport</span>(<span class="fu">viewport</span>(<span class="at">layout=</span><span class="fu">grid.layout</span>(<span class="dv">2</span>,<span class="dv">2</span>)))</span>
+<span id="cb488-7"><a href="tmap-version-3.html#cb488-7" tabindex="-1"></a><span class="fu">print</span>(tm1, <span class="at">vp=</span><span class="fu">viewport</span>(<span class="at">layout.pos.col=</span><span class="dv">1</span>, <span class="at">layout.pos.row=</span><span class="dv">1</span>, <span class="at">height=</span><span class="dv">5</span>))</span>
+<span id="cb488-8"><a href="tmap-version-3.html#cb488-8" tabindex="-1"></a><span class="fu">print</span>(tm2, <span class="at">vp=</span><span class="fu">viewport</span>(<span class="at">layout.pos.col=</span><span class="dv">2</span>, <span class="at">layout.pos.row=</span><span class="dv">1</span>, <span class="at">height=</span><span class="dv">5</span>))</span>
+<span id="cb488-9"><a href="tmap-version-3.html#cb488-9" tabindex="-1"></a><span class="fu">print</span>(tm3, <span class="at">vp=</span><span class="fu">viewport</span>(<span class="at">layout.pos.col=</span><span class="dv">1</span>, <span class="at">layout.pos.row=</span><span class="dv">2</span>, <span class="at">height=</span><span class="dv">5</span>))</span>
+<span id="cb488-10"><a href="tmap-version-3.html#cb488-10" tabindex="-1"></a><span class="fu">print</span>(legend, <span class="at">vp=</span><span class="fu">viewport</span>(<span class="at">layout.pos.col=</span><span class="dv">2</span>, <span class="at">layout.pos.row=</span><span class="dv">2</span>, <span class="at">height=</span><span class="dv">5</span>))</span></code></pre></div>
 </div>
 <div id="inset-map" class="section level3 hasAnchor" number="8.30.2">
 <h3><span class="header-section-number">8.30.2</span> Inset map<a href="tmap-version-3.html#inset-map" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<div class="sourceCode" id="cb506"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb506-1"><a href="tmap-version-3.html#cb506-1" tabindex="-1"></a>Londonbb <span class="ot">&lt;-</span> <span class="fu">st_bbox</span>(Airbnb,</span>
-<span id="cb506-2"><a href="tmap-version-3.html#cb506-2" tabindex="-1"></a>                    <span class="at">crs =</span> <span class="fu">st_crs</span>(Airbnb))<span class="sc">%&gt;%</span></span>
-<span id="cb506-3"><a href="tmap-version-3.html#cb506-3" tabindex="-1"></a>  <span class="co">#we need this to convert it into a class of sf</span></span>
-<span id="cb506-4"><a href="tmap-version-3.html#cb506-4" tabindex="-1"></a>  <span class="co"># otherwise it our bb won&#39;t have a class it will just be x and y coordinates for the box</span></span>
-<span id="cb506-5"><a href="tmap-version-3.html#cb506-5" tabindex="-1"></a>  <span class="co"># this makes it into a polygon</span></span>
-<span id="cb506-6"><a href="tmap-version-3.html#cb506-6" tabindex="-1"></a>  <span class="fu">st_as_sfc</span>()</span></code></pre></div>
-<div class="sourceCode" id="cb507"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb507-1"><a href="tmap-version-3.html#cb507-1" tabindex="-1"></a>main <span class="ot">&lt;-</span> <span class="fu">tm_shape</span>(Airbnb, <span class="at">bbbox =</span> Londonbb) <span class="sc">+</span> </span>
-<span id="cb507-2"><a href="tmap-version-3.html#cb507-2" tabindex="-1"></a>  <span class="fu">tm_polygons</span>(<span class="st">&quot;Accomodation count&quot;</span>,</span>
-<span id="cb507-3"><a href="tmap-version-3.html#cb507-3" tabindex="-1"></a>              <span class="at">breaks=</span>breaks, </span>
-<span id="cb507-4"><a href="tmap-version-3.html#cb507-4" tabindex="-1"></a>              <span class="at">palette=</span><span class="st">&quot;PuBu&quot;</span>)<span class="sc">+</span></span>
-<span id="cb507-5"><a href="tmap-version-3.html#cb507-5" tabindex="-1"></a>  <span class="fu">tm_scale_bar</span>(<span class="at">position =</span> <span class="fu">c</span>(<span class="st">&quot;left&quot;</span>, <span class="st">&quot;bottom&quot;</span>), <span class="at">text.size =</span> .<span class="dv">75</span>)<span class="sc">+</span></span>
-<span id="cb507-6"><a href="tmap-version-3.html#cb507-6" tabindex="-1"></a>  <span class="fu">tm_layout</span>(<span class="at">legend.position =</span> <span class="fu">c</span>(<span class="st">&quot;right&quot;</span>,<span class="st">&quot;top&quot;</span>), </span>
-<span id="cb507-7"><a href="tmap-version-3.html#cb507-7" tabindex="-1"></a>            <span class="at">legend.text.size=</span>.<span class="dv">75</span>, </span>
-<span id="cb507-8"><a href="tmap-version-3.html#cb507-8" tabindex="-1"></a>            <span class="at">legend.title.size =</span> <span class="fl">1.1</span>,</span>
-<span id="cb507-9"><a href="tmap-version-3.html#cb507-9" tabindex="-1"></a>            <span class="at">frame=</span><span class="cn">FALSE</span>)<span class="sc">+</span></span>
-<span id="cb507-10"><a href="tmap-version-3.html#cb507-10" tabindex="-1"></a>  <span class="fu">tm_credits</span>(<span class="st">&quot;(c) OpenStreetMap contrbutors and Air b n b&quot;</span>, <span class="at">position=</span><span class="fu">c</span>(<span class="fl">0.0</span>,<span class="fl">0.0</span>))<span class="sc">+</span></span>
-<span id="cb507-11"><a href="tmap-version-3.html#cb507-11" tabindex="-1"></a>  <span class="co">#tm_text(text = &quot;NAME&quot;, size = .5, along.lines =T, remove.overlap=T,  auto.placement=F)+</span></span>
-<span id="cb507-12"><a href="tmap-version-3.html#cb507-12" tabindex="-1"></a>  <span class="fu">tm_compass</span>(<span class="at">type =</span> <span class="st">&quot;8star&quot;</span>, <span class="at">position =</span> <span class="fu">c</span>(<span class="fl">0.06</span>, <span class="fl">0.1</span>)) <span class="sc">+</span></span>
-<span id="cb507-13"><a href="tmap-version-3.html#cb507-13" tabindex="-1"></a></span>
-<span id="cb507-14"><a href="tmap-version-3.html#cb507-14" tabindex="-1"></a>  <span class="co">#bottom left top right</span></span>
-<span id="cb507-15"><a href="tmap-version-3.html#cb507-15" tabindex="-1"></a>  <span class="fu">tm_layout</span>(<span class="at">inner.margin=</span><span class="fu">c</span>(<span class="fl">0.02</span>,<span class="fl">0.02</span>,<span class="fl">0.02</span>,<span class="fl">0.2</span>))</span></code></pre></div>
-<div class="sourceCode" id="cb508"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb508-1"><a href="tmap-version-3.html#cb508-1" tabindex="-1"></a>inset <span class="ot">=</span> <span class="fu">tm_shape</span>(UK_outlinecrop) <span class="sc">+</span> <span class="fu">tm_polygons</span>() <span class="sc">+</span></span>
-<span id="cb508-2"><a href="tmap-version-3.html#cb508-2" tabindex="-1"></a>  <span class="fu">tm_shape</span>(Londonbb)<span class="sc">+</span> </span>
-<span id="cb508-3"><a href="tmap-version-3.html#cb508-3" tabindex="-1"></a>  <span class="fu">tm_borders</span>(<span class="at">col =</span> <span class="st">&quot;grey40&quot;</span>, <span class="at">lwd =</span> <span class="dv">3</span>)<span class="sc">+</span></span>
-<span id="cb508-4"><a href="tmap-version-3.html#cb508-4" tabindex="-1"></a>    <span class="fu">tm_layout</span>(<span class="at">frame=</span><span class="cn">FALSE</span>,</span>
-<span id="cb508-5"><a href="tmap-version-3.html#cb508-5" tabindex="-1"></a>            <span class="at">bg.color =</span> <span class="st">&quot;transparent&quot;</span>)<span class="sc">+</span></span>
-<span id="cb508-6"><a href="tmap-version-3.html#cb508-6" tabindex="-1"></a>  <span class="fu">tm_shape</span>(Worldcities2) <span class="sc">+</span></span>
-<span id="cb508-7"><a href="tmap-version-3.html#cb508-7" tabindex="-1"></a>  <span class="fu">tm_symbols</span>(<span class="at">col =</span> <span class="st">&quot;red&quot;</span>, <span class="at">scale =</span> .<span class="dv">5</span>)<span class="sc">+</span></span>
-<span id="cb508-8"><a href="tmap-version-3.html#cb508-8" tabindex="-1"></a>  <span class="fu">tm_text</span>(<span class="st">&quot;CITY_NAME&quot;</span>, <span class="at">xmod=</span><span class="sc">-</span><span class="fl">1.5</span>, <span class="at">ymod=</span><span class="sc">-</span><span class="fl">0.5</span>)</span></code></pre></div>
-<div class="sourceCode" id="cb509"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb509-1"><a href="tmap-version-3.html#cb509-1" tabindex="-1"></a><span class="fu">library</span>(grid)</span>
-<span id="cb509-2"><a href="tmap-version-3.html#cb509-2" tabindex="-1"></a>main</span>
-<span id="cb509-3"><a href="tmap-version-3.html#cb509-3" tabindex="-1"></a><span class="fu">print</span>(inset, <span class="at">vp =</span> <span class="fu">viewport</span>(<span class="fl">0.86</span>, <span class="fl">0.29</span>, <span class="at">width =</span> <span class="fl">0.5</span>, <span class="at">height =</span> <span class="fl">0.55</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb489"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb489-1"><a href="tmap-version-3.html#cb489-1" tabindex="-1"></a>Londonbb <span class="ot">&lt;-</span> <span class="fu">st_bbox</span>(Airbnb,</span>
+<span id="cb489-2"><a href="tmap-version-3.html#cb489-2" tabindex="-1"></a>                    <span class="at">crs =</span> <span class="fu">st_crs</span>(Airbnb))<span class="sc">%&gt;%</span></span>
+<span id="cb489-3"><a href="tmap-version-3.html#cb489-3" tabindex="-1"></a>  <span class="co">#we need this to convert it into a class of sf</span></span>
+<span id="cb489-4"><a href="tmap-version-3.html#cb489-4" tabindex="-1"></a>  <span class="co"># otherwise it our bb won&#39;t have a class it will just be x and y coordinates for the box</span></span>
+<span id="cb489-5"><a href="tmap-version-3.html#cb489-5" tabindex="-1"></a>  <span class="co"># this makes it into a polygon</span></span>
+<span id="cb489-6"><a href="tmap-version-3.html#cb489-6" tabindex="-1"></a>  <span class="fu">st_as_sfc</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb490"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb490-1"><a href="tmap-version-3.html#cb490-1" tabindex="-1"></a>main <span class="ot">&lt;-</span> <span class="fu">tm_shape</span>(Airbnb, <span class="at">bbbox =</span> Londonbb) <span class="sc">+</span> </span>
+<span id="cb490-2"><a href="tmap-version-3.html#cb490-2" tabindex="-1"></a>  <span class="fu">tm_polygons</span>(<span class="st">&quot;Accomodation count&quot;</span>,</span>
+<span id="cb490-3"><a href="tmap-version-3.html#cb490-3" tabindex="-1"></a>              <span class="at">breaks=</span>breaks, </span>
+<span id="cb490-4"><a href="tmap-version-3.html#cb490-4" tabindex="-1"></a>              <span class="at">palette=</span><span class="st">&quot;PuBu&quot;</span>)<span class="sc">+</span></span>
+<span id="cb490-5"><a href="tmap-version-3.html#cb490-5" tabindex="-1"></a>  <span class="fu">tm_scale_bar</span>(<span class="at">position =</span> <span class="fu">c</span>(<span class="st">&quot;left&quot;</span>, <span class="st">&quot;bottom&quot;</span>), <span class="at">text.size =</span> .<span class="dv">75</span>)<span class="sc">+</span></span>
+<span id="cb490-6"><a href="tmap-version-3.html#cb490-6" tabindex="-1"></a>  <span class="fu">tm_layout</span>(<span class="at">legend.position =</span> <span class="fu">c</span>(<span class="st">&quot;right&quot;</span>,<span class="st">&quot;top&quot;</span>), </span>
+<span id="cb490-7"><a href="tmap-version-3.html#cb490-7" tabindex="-1"></a>            <span class="at">legend.text.size=</span>.<span class="dv">75</span>, </span>
+<span id="cb490-8"><a href="tmap-version-3.html#cb490-8" tabindex="-1"></a>            <span class="at">legend.title.size =</span> <span class="fl">1.1</span>,</span>
+<span id="cb490-9"><a href="tmap-version-3.html#cb490-9" tabindex="-1"></a>            <span class="at">frame=</span><span class="cn">FALSE</span>)<span class="sc">+</span></span>
+<span id="cb490-10"><a href="tmap-version-3.html#cb490-10" tabindex="-1"></a>  <span class="fu">tm_credits</span>(<span class="st">&quot;(c) OpenStreetMap contrbutors and Air b n b&quot;</span>, <span class="at">position=</span><span class="fu">c</span>(<span class="fl">0.0</span>,<span class="fl">0.0</span>))<span class="sc">+</span></span>
+<span id="cb490-11"><a href="tmap-version-3.html#cb490-11" tabindex="-1"></a>  <span class="co">#tm_text(text = &quot;NAME&quot;, size = .5, along.lines =T, remove.overlap=T,  auto.placement=F)+</span></span>
+<span id="cb490-12"><a href="tmap-version-3.html#cb490-12" tabindex="-1"></a>  <span class="fu">tm_compass</span>(<span class="at">type =</span> <span class="st">&quot;8star&quot;</span>, <span class="at">position =</span> <span class="fu">c</span>(<span class="fl">0.06</span>, <span class="fl">0.1</span>)) <span class="sc">+</span></span>
+<span id="cb490-13"><a href="tmap-version-3.html#cb490-13" tabindex="-1"></a></span>
+<span id="cb490-14"><a href="tmap-version-3.html#cb490-14" tabindex="-1"></a>  <span class="co">#bottom left top right</span></span>
+<span id="cb490-15"><a href="tmap-version-3.html#cb490-15" tabindex="-1"></a>  <span class="fu">tm_layout</span>(<span class="at">inner.margin=</span><span class="fu">c</span>(<span class="fl">0.02</span>,<span class="fl">0.02</span>,<span class="fl">0.02</span>,<span class="fl">0.2</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb491"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb491-1"><a href="tmap-version-3.html#cb491-1" tabindex="-1"></a>inset <span class="ot">=</span> <span class="fu">tm_shape</span>(UK_outlinecrop) <span class="sc">+</span> <span class="fu">tm_polygons</span>() <span class="sc">+</span></span>
+<span id="cb491-2"><a href="tmap-version-3.html#cb491-2" tabindex="-1"></a>  <span class="fu">tm_shape</span>(Londonbb)<span class="sc">+</span> </span>
+<span id="cb491-3"><a href="tmap-version-3.html#cb491-3" tabindex="-1"></a>  <span class="fu">tm_borders</span>(<span class="at">col =</span> <span class="st">&quot;grey40&quot;</span>, <span class="at">lwd =</span> <span class="dv">3</span>)<span class="sc">+</span></span>
+<span id="cb491-4"><a href="tmap-version-3.html#cb491-4" tabindex="-1"></a>    <span class="fu">tm_layout</span>(<span class="at">frame=</span><span class="cn">FALSE</span>,</span>
+<span id="cb491-5"><a href="tmap-version-3.html#cb491-5" tabindex="-1"></a>            <span class="at">bg.color =</span> <span class="st">&quot;transparent&quot;</span>)<span class="sc">+</span></span>
+<span id="cb491-6"><a href="tmap-version-3.html#cb491-6" tabindex="-1"></a>  <span class="fu">tm_shape</span>(Worldcities2) <span class="sc">+</span></span>
+<span id="cb491-7"><a href="tmap-version-3.html#cb491-7" tabindex="-1"></a>  <span class="fu">tm_symbols</span>(<span class="at">col =</span> <span class="st">&quot;red&quot;</span>, <span class="at">scale =</span> .<span class="dv">5</span>)<span class="sc">+</span></span>
+<span id="cb491-8"><a href="tmap-version-3.html#cb491-8" tabindex="-1"></a>  <span class="fu">tm_text</span>(<span class="st">&quot;CITY_NAME&quot;</span>, <span class="at">xmod=</span><span class="sc">-</span><span class="fl">1.5</span>, <span class="at">ymod=</span><span class="sc">-</span><span class="fl">0.5</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb492"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb492-1"><a href="tmap-version-3.html#cb492-1" tabindex="-1"></a><span class="fu">library</span>(grid)</span>
+<span id="cb492-2"><a href="tmap-version-3.html#cb492-2" tabindex="-1"></a>main</span>
+<span id="cb492-3"><a href="tmap-version-3.html#cb492-3" tabindex="-1"></a><span class="fu">print</span>(inset, <span class="at">vp =</span> <span class="fu">viewport</span>(<span class="fl">0.86</span>, <span class="fl">0.29</span>, <span class="at">width =</span> <span class="fl">0.5</span>, <span class="at">height =</span> <span class="fl">0.55</span>))</span></code></pre></div>
 </div>
 <div id="export" class="section level3 hasAnchor" number="8.30.3">
 <h3><span class="header-section-number">8.30.3</span> Export<a href="tmap-version-3.html#export" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>So how do we output our map then…</p>
-<div class="sourceCode" id="cb510"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb510-1"><a href="tmap-version-3.html#cb510-1" tabindex="-1"></a><span class="fu">tmap_save</span>(t, <span class="st">&#39;hotelsandairbnbR.png&#39;</span>)</span>
-<span id="cb510-2"><a href="tmap-version-3.html#cb510-2" tabindex="-1"></a></span>
-<span id="cb510-3"><a href="tmap-version-3.html#cb510-3" tabindex="-1"></a><span class="fu">library</span>(grid)</span>
-<span id="cb510-4"><a href="tmap-version-3.html#cb510-4" tabindex="-1"></a><span class="fu">tmap_save</span>(main,<span class="at">insets_tm =</span> inset,<span class="at">insets_vp=</span><span class="fu">viewport</span>(<span class="at">x=</span><span class="fl">0.86</span>, <span class="at">y=</span><span class="fl">0.29</span>, <span class="at">width=</span>.<span class="dv">5</span>, <span class="at">height=</span>.<span class="dv">55</span>), <span class="at">filename=</span><span class="st">&quot;test.pdf&quot;</span>, <span class="at">dpi=</span><span class="dv">600</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb493"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb493-1"><a href="tmap-version-3.html#cb493-1" tabindex="-1"></a><span class="fu">tmap_save</span>(t, <span class="st">&#39;hotelsandairbnbR.png&#39;</span>)</span>
+<span id="cb493-2"><a href="tmap-version-3.html#cb493-2" tabindex="-1"></a></span>
+<span id="cb493-3"><a href="tmap-version-3.html#cb493-3" tabindex="-1"></a><span class="fu">library</span>(grid)</span>
+<span id="cb493-4"><a href="tmap-version-3.html#cb493-4" tabindex="-1"></a><span class="fu">tmap_save</span>(main,<span class="at">insets_tm =</span> inset,<span class="at">insets_vp=</span><span class="fu">viewport</span>(<span class="at">x=</span><span class="fl">0.86</span>, <span class="at">y=</span><span class="fl">0.29</span>, <span class="at">width=</span>.<span class="dv">5</span>, <span class="at">height=</span>.<span class="dv">55</span>), <span class="at">filename=</span><span class="st">&quot;test.pdf&quot;</span>, <span class="at">dpi=</span><span class="dv">600</span>)</span></code></pre></div>
 </div>
 <div id="basic-interactive-map" class="section level3 hasAnchor" number="8.30.4">
 <h3><span class="header-section-number">8.30.4</span> Basic interactive map<a href="tmap-version-3.html#basic-interactive-map" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>But could we not also make an interactive map like we did in practical 2?</p>
-<div class="sourceCode" id="cb511"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb511-1"><a href="tmap-version-3.html#cb511-1" tabindex="-1"></a><span class="fu">tmap_mode</span>(<span class="st">&quot;view&quot;</span>)</span>
-<span id="cb511-2"><a href="tmap-version-3.html#cb511-2" tabindex="-1"></a></span>
-<span id="cb511-3"><a href="tmap-version-3.html#cb511-3" tabindex="-1"></a><span class="fu">tm_shape</span>(Airbnb) <span class="sc">+</span> </span>
-<span id="cb511-4"><a href="tmap-version-3.html#cb511-4" tabindex="-1"></a>  <span class="fu">tm_polygons</span>(<span class="st">&quot;Accomodation count&quot;</span>, <span class="at">breaks=</span>breaks) </span></code></pre></div>
+<div class="sourceCode" id="cb494"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb494-1"><a href="tmap-version-3.html#cb494-1" tabindex="-1"></a><span class="fu">tmap_mode</span>(<span class="st">&quot;view&quot;</span>)</span>
+<span id="cb494-2"><a href="tmap-version-3.html#cb494-2" tabindex="-1"></a></span>
+<span id="cb494-3"><a href="tmap-version-3.html#cb494-3" tabindex="-1"></a><span class="fu">tm_shape</span>(Airbnb) <span class="sc">+</span> </span>
+<span id="cb494-4"><a href="tmap-version-3.html#cb494-4" tabindex="-1"></a>  <span class="fu">tm_polygons</span>(<span class="st">&quot;Accomodation count&quot;</span>, <span class="at">breaks=</span>breaks) </span></code></pre></div>
 </div>
 <div id="advanced-interactive-map" class="section level3 hasAnchor" number="8.30.5">
 <h3><span class="header-section-number">8.30.5</span> Advanced interactive map<a href="tmap-version-3.html#advanced-interactive-map" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>But let’s take it a bit further so we can select our layers on an interactive map..</p>
-<div class="sourceCode" id="cb512"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb512-1"><a href="tmap-version-3.html#cb512-1" tabindex="-1"></a><span class="co"># library for pop up boxes</span></span>
-<span id="cb512-2"><a href="tmap-version-3.html#cb512-2" tabindex="-1"></a><span class="fu">library</span>(leafpop)</span>
-<span id="cb512-3"><a href="tmap-version-3.html#cb512-3" tabindex="-1"></a><span class="fu">library</span>(leaflet)</span>
-<span id="cb512-4"><a href="tmap-version-3.html#cb512-4" tabindex="-1"></a></span>
-<span id="cb512-5"><a href="tmap-version-3.html#cb512-5" tabindex="-1"></a><span class="co">#join data</span></span>
-<span id="cb512-6"><a href="tmap-version-3.html#cb512-6" tabindex="-1"></a>Joined <span class="ot">&lt;-</span> Airbnb<span class="sc">%&gt;%</span></span>
-<span id="cb512-7"><a href="tmap-version-3.html#cb512-7" tabindex="-1"></a>  <span class="fu">st_join</span>(., Hotels, <span class="at">join =</span> st_equals)<span class="sc">%&gt;%</span></span>
-<span id="cb512-8"><a href="tmap-version-3.html#cb512-8" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(GSS_CODE.x, NAME.x, <span class="st">`</span><span class="at">Accomodation count.x</span><span class="st">`</span>, <span class="st">`</span><span class="at">Accomodation count.y</span><span class="st">`</span>)<span class="sc">%&gt;%</span></span>
-<span id="cb512-9"><a href="tmap-version-3.html#cb512-9" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">rename</span>(<span class="st">`</span><span class="at">GSS code</span><span class="st">`</span> <span class="ot">=</span><span class="st">`</span><span class="at">GSS_CODE.x</span><span class="st">`</span>,</span>
-<span id="cb512-10"><a href="tmap-version-3.html#cb512-10" tabindex="-1"></a>                <span class="st">`</span><span class="at">Borough</span><span class="st">`</span> <span class="ot">=</span> <span class="st">`</span><span class="at">NAME.x</span><span class="st">`</span>,</span>
-<span id="cb512-11"><a href="tmap-version-3.html#cb512-11" tabindex="-1"></a>                <span class="st">`</span><span class="at">Airbnb count</span><span class="st">`</span> <span class="ot">=</span> <span class="st">`</span><span class="at">Accomodation count.x</span><span class="st">`</span>,</span>
-<span id="cb512-12"><a href="tmap-version-3.html#cb512-12" tabindex="-1"></a>                <span class="st">`</span><span class="at">Hotel count</span><span class="st">`</span><span class="ot">=</span> <span class="st">`</span><span class="at">Accomodation count.y</span><span class="st">`</span>)<span class="sc">%&gt;%</span></span>
-<span id="cb512-13"><a href="tmap-version-3.html#cb512-13" tabindex="-1"></a>  <span class="fu">st_transform</span>(., <span class="dv">4326</span>)</span>
-<span id="cb512-14"><a href="tmap-version-3.html#cb512-14" tabindex="-1"></a>  </span>
-<span id="cb512-15"><a href="tmap-version-3.html#cb512-15" tabindex="-1"></a>  </span>
-<span id="cb512-16"><a href="tmap-version-3.html#cb512-16" tabindex="-1"></a><span class="co">#remove the geometry for our pop up boxes to avoid</span></span>
-<span id="cb512-17"><a href="tmap-version-3.html#cb512-17" tabindex="-1"></a>popupairbnb <span class="ot">&lt;-</span>Joined <span class="sc">%&gt;%</span></span>
-<span id="cb512-18"><a href="tmap-version-3.html#cb512-18" tabindex="-1"></a>  <span class="fu">st_drop_geometry</span>()<span class="sc">%&gt;%</span></span>
-<span id="cb512-19"><a href="tmap-version-3.html#cb512-19" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(<span class="st">`</span><span class="at">Airbnb count</span><span class="st">`</span>, Borough)<span class="sc">%&gt;%</span></span>
-<span id="cb512-20"><a href="tmap-version-3.html#cb512-20" tabindex="-1"></a>  <span class="fu">popupTable</span>()</span>
-<span id="cb512-21"><a href="tmap-version-3.html#cb512-21" tabindex="-1"></a></span>
-<span id="cb512-22"><a href="tmap-version-3.html#cb512-22" tabindex="-1"></a>popuphotel <span class="ot">&lt;-</span>Joined <span class="sc">%&gt;%</span></span>
-<span id="cb512-23"><a href="tmap-version-3.html#cb512-23" tabindex="-1"></a>  <span class="fu">st_drop_geometry</span>()<span class="sc">%&gt;%</span></span>
-<span id="cb512-24"><a href="tmap-version-3.html#cb512-24" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(<span class="st">`</span><span class="at">Hotel count</span><span class="st">`</span>, Borough)<span class="sc">%&gt;%</span></span>
-<span id="cb512-25"><a href="tmap-version-3.html#cb512-25" tabindex="-1"></a>  <span class="fu">popupTable</span>()</span>
-<span id="cb512-26"><a href="tmap-version-3.html#cb512-26" tabindex="-1"></a></span>
-<span id="cb512-27"><a href="tmap-version-3.html#cb512-27" tabindex="-1"></a><span class="fu">tmap_mode</span>(<span class="st">&quot;view&quot;</span>)</span>
-<span id="cb512-28"><a href="tmap-version-3.html#cb512-28" tabindex="-1"></a></span>
-<span id="cb512-29"><a href="tmap-version-3.html#cb512-29" tabindex="-1"></a><span class="co"># set the colour palettes using our previously defined breaks</span></span>
-<span id="cb512-30"><a href="tmap-version-3.html#cb512-30" tabindex="-1"></a></span>
-<span id="cb512-31"><a href="tmap-version-3.html#cb512-31" tabindex="-1"></a></span>
-<span id="cb512-32"><a href="tmap-version-3.html#cb512-32" tabindex="-1"></a>pal1 <span class="ot">&lt;-</span> Joined <span class="sc">%&gt;%</span></span>
-<span id="cb512-33"><a href="tmap-version-3.html#cb512-33" tabindex="-1"></a>  <span class="fu">colorBin</span>(<span class="at">palette =</span> <span class="st">&quot;YlOrRd&quot;</span>, <span class="at">domain=</span>.<span class="sc">$</span><span class="st">`</span><span class="at">Airbnb count</span><span class="st">`</span>, <span class="at">bins=</span>breaks)</span>
-<span id="cb512-34"><a href="tmap-version-3.html#cb512-34" tabindex="-1"></a></span>
-<span id="cb512-35"><a href="tmap-version-3.html#cb512-35" tabindex="-1"></a>pal1 <span class="ot">&lt;-</span><span class="fu">colorBin</span>(<span class="at">palette =</span> <span class="st">&quot;YlOrRd&quot;</span>, <span class="at">domain=</span>Joined<span class="sc">$</span><span class="st">`</span><span class="at">Airbnb count</span><span class="st">`</span>, <span class="at">bins=</span>breaks)</span>
-<span id="cb512-36"><a href="tmap-version-3.html#cb512-36" tabindex="-1"></a></span>
-<span id="cb512-37"><a href="tmap-version-3.html#cb512-37" tabindex="-1"></a>pal2 <span class="ot">&lt;-</span> Joined <span class="sc">%&gt;%</span></span>
-<span id="cb512-38"><a href="tmap-version-3.html#cb512-38" tabindex="-1"></a>  <span class="fu">colorBin</span>(<span class="at">palette =</span> <span class="st">&quot;YlOrRd&quot;</span>, <span class="at">domain=</span>.<span class="sc">$</span><span class="st">`</span><span class="at">Hotel count</span><span class="st">`</span>, <span class="at">bins=</span>breaks)</span>
-<span id="cb512-39"><a href="tmap-version-3.html#cb512-39" tabindex="-1"></a></span>
-<span id="cb512-40"><a href="tmap-version-3.html#cb512-40" tabindex="-1"></a></span>
-<span id="cb512-41"><a href="tmap-version-3.html#cb512-41" tabindex="-1"></a>map<span class="ot">&lt;-</span> <span class="fu">leaflet</span>(Joined) <span class="sc">%&gt;%</span></span>
-<span id="cb512-42"><a href="tmap-version-3.html#cb512-42" tabindex="-1"></a></span>
-<span id="cb512-43"><a href="tmap-version-3.html#cb512-43" tabindex="-1"></a>  <span class="co">#add our polygons, linking to the tables we just made</span></span>
-<span id="cb512-44"><a href="tmap-version-3.html#cb512-44" tabindex="-1"></a>  <span class="fu">addPolygons</span>(<span class="at">color=</span><span class="st">&quot;white&quot;</span>, </span>
-<span id="cb512-45"><a href="tmap-version-3.html#cb512-45" tabindex="-1"></a>              <span class="at">weight =</span> <span class="dv">2</span>,</span>
-<span id="cb512-46"><a href="tmap-version-3.html#cb512-46" tabindex="-1"></a>              <span class="at">opacity =</span> <span class="dv">1</span>,</span>
-<span id="cb512-47"><a href="tmap-version-3.html#cb512-47" tabindex="-1"></a>              <span class="at">dashArray =</span> <span class="st">&quot;3&quot;</span>,</span>
-<span id="cb512-48"><a href="tmap-version-3.html#cb512-48" tabindex="-1"></a>              <span class="at">popup =</span> popupairbnb,</span>
-<span id="cb512-49"><a href="tmap-version-3.html#cb512-49" tabindex="-1"></a>              <span class="at">fillOpacity =</span> <span class="fl">0.7</span>,</span>
-<span id="cb512-50"><a href="tmap-version-3.html#cb512-50" tabindex="-1"></a>              <span class="at">fillColor =</span> <span class="sc">~</span><span class="fu">pal2</span>(<span class="st">`</span><span class="at">Airbnb count</span><span class="st">`</span>),</span>
-<span id="cb512-51"><a href="tmap-version-3.html#cb512-51" tabindex="-1"></a>              <span class="at">group =</span> <span class="st">&quot;Airbnb&quot;</span>)<span class="sc">%&gt;%</span></span>
-<span id="cb512-52"><a href="tmap-version-3.html#cb512-52" tabindex="-1"></a>  </span>
-<span id="cb512-53"><a href="tmap-version-3.html#cb512-53" tabindex="-1"></a>  <span class="fu">addPolygons</span>(<span class="at">fillColor =</span> <span class="sc">~</span><span class="fu">pal2</span>(<span class="st">`</span><span class="at">Hotel count</span><span class="st">`</span>), </span>
-<span id="cb512-54"><a href="tmap-version-3.html#cb512-54" tabindex="-1"></a>              <span class="at">weight =</span> <span class="dv">2</span>,</span>
-<span id="cb512-55"><a href="tmap-version-3.html#cb512-55" tabindex="-1"></a>              <span class="at">opacity =</span> <span class="dv">1</span>,</span>
-<span id="cb512-56"><a href="tmap-version-3.html#cb512-56" tabindex="-1"></a>              <span class="at">color =</span> <span class="st">&quot;white&quot;</span>,</span>
-<span id="cb512-57"><a href="tmap-version-3.html#cb512-57" tabindex="-1"></a>              <span class="at">dashArray =</span> <span class="st">&quot;3&quot;</span>,</span>
-<span id="cb512-58"><a href="tmap-version-3.html#cb512-58" tabindex="-1"></a>              <span class="at">popup =</span> popupairbnb,</span>
-<span id="cb512-59"><a href="tmap-version-3.html#cb512-59" tabindex="-1"></a>              <span class="at">fillOpacity =</span> <span class="fl">0.7</span>,<span class="at">group =</span> <span class="st">&quot;Hotels&quot;</span>)<span class="sc">%&gt;%</span></span>
-<span id="cb512-60"><a href="tmap-version-3.html#cb512-60" tabindex="-1"></a>  </span>
-<span id="cb512-61"><a href="tmap-version-3.html#cb512-61" tabindex="-1"></a>  <span class="co">#add basemaps</span></span>
-<span id="cb512-62"><a href="tmap-version-3.html#cb512-62" tabindex="-1"></a>  <span class="fu">addTiles</span>(<span class="at">group =</span> <span class="st">&quot;OSM (default)&quot;</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb512-63"><a href="tmap-version-3.html#cb512-63" tabindex="-1"></a>  <span class="fu">addProviderTiles</span>(providers<span class="sc">$</span>Stadia.StamenToner, <span class="at">group =</span> <span class="st">&quot;Toner&quot;</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb512-64"><a href="tmap-version-3.html#cb512-64" tabindex="-1"></a>  <span class="fu">addProviderTiles</span>(providers<span class="sc">$</span>Stadia.StamenTonerLite, <span class="at">group =</span> <span class="st">&quot;Toner Lite&quot;</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb512-65"><a href="tmap-version-3.html#cb512-65" tabindex="-1"></a>  <span class="fu">addProviderTiles</span>(providers<span class="sc">$</span>CartoDB.Positron, <span class="at">group =</span> <span class="st">&quot;CartoDB&quot;</span>)<span class="sc">%&gt;%</span></span>
-<span id="cb512-66"><a href="tmap-version-3.html#cb512-66" tabindex="-1"></a>  </span>
-<span id="cb512-67"><a href="tmap-version-3.html#cb512-67" tabindex="-1"></a>  <span class="co"># add a legend</span></span>
-<span id="cb512-68"><a href="tmap-version-3.html#cb512-68" tabindex="-1"></a>  <span class="fu">addLegend</span>(<span class="at">pal =</span> pal2, <span class="at">values =</span> <span class="sc">~</span><span class="st">`</span><span class="at">Hotel count</span><span class="st">`</span>, <span class="at">group =</span> <span class="fu">c</span>(<span class="st">&quot;Airbnb&quot;</span>,<span class="st">&quot;Hotel&quot;</span>), </span>
-<span id="cb512-69"><a href="tmap-version-3.html#cb512-69" tabindex="-1"></a>            <span class="at">position =</span><span class="st">&quot;bottomleft&quot;</span>, <span class="at">title =</span> <span class="st">&quot;Accomodation count&quot;</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb512-70"><a href="tmap-version-3.html#cb512-70" tabindex="-1"></a>  <span class="co"># specify layers control</span></span>
-<span id="cb512-71"><a href="tmap-version-3.html#cb512-71" tabindex="-1"></a>  <span class="fu">addLayersControl</span>(</span>
-<span id="cb512-72"><a href="tmap-version-3.html#cb512-72" tabindex="-1"></a>    <span class="at">baseGroups =</span> <span class="fu">c</span>(<span class="st">&quot;OSM (default)&quot;</span>, <span class="st">&quot;Toner&quot;</span>, <span class="st">&quot;Toner Lite&quot;</span>, <span class="st">&quot;CartoDB&quot;</span>),</span>
-<span id="cb512-73"><a href="tmap-version-3.html#cb512-73" tabindex="-1"></a>    <span class="at">overlayGroups =</span> <span class="fu">c</span>(<span class="st">&quot;Airbnb&quot;</span>, <span class="st">&quot;Hotels&quot;</span>),</span>
-<span id="cb512-74"><a href="tmap-version-3.html#cb512-74" tabindex="-1"></a>    <span class="at">options =</span> <span class="fu">layersControlOptions</span>(<span class="at">collapsed =</span> <span class="cn">FALSE</span>)</span>
-<span id="cb512-75"><a href="tmap-version-3.html#cb512-75" tabindex="-1"></a>  )</span>
-<span id="cb512-76"><a href="tmap-version-3.html#cb512-76" tabindex="-1"></a></span>
-<span id="cb512-77"><a href="tmap-version-3.html#cb512-77" tabindex="-1"></a><span class="co"># plot the map</span></span>
-<span id="cb512-78"><a href="tmap-version-3.html#cb512-78" tabindex="-1"></a>map</span></code></pre></div>
+<div class="sourceCode" id="cb495"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb495-1"><a href="tmap-version-3.html#cb495-1" tabindex="-1"></a><span class="co"># library for pop up boxes</span></span>
+<span id="cb495-2"><a href="tmap-version-3.html#cb495-2" tabindex="-1"></a><span class="fu">library</span>(leafpop)</span>
+<span id="cb495-3"><a href="tmap-version-3.html#cb495-3" tabindex="-1"></a><span class="fu">library</span>(leaflet)</span>
+<span id="cb495-4"><a href="tmap-version-3.html#cb495-4" tabindex="-1"></a></span>
+<span id="cb495-5"><a href="tmap-version-3.html#cb495-5" tabindex="-1"></a><span class="co">#join data</span></span>
+<span id="cb495-6"><a href="tmap-version-3.html#cb495-6" tabindex="-1"></a>Joined <span class="ot">&lt;-</span> Airbnb<span class="sc">%&gt;%</span></span>
+<span id="cb495-7"><a href="tmap-version-3.html#cb495-7" tabindex="-1"></a>  <span class="fu">st_join</span>(., Hotels, <span class="at">join =</span> st_equals)<span class="sc">%&gt;%</span></span>
+<span id="cb495-8"><a href="tmap-version-3.html#cb495-8" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(GSS_CODE.x, NAME.x, <span class="st">`</span><span class="at">Accomodation count.x</span><span class="st">`</span>, <span class="st">`</span><span class="at">Accomodation count.y</span><span class="st">`</span>)<span class="sc">%&gt;%</span></span>
+<span id="cb495-9"><a href="tmap-version-3.html#cb495-9" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">rename</span>(<span class="st">`</span><span class="at">GSS code</span><span class="st">`</span> <span class="ot">=</span><span class="st">`</span><span class="at">GSS_CODE.x</span><span class="st">`</span>,</span>
+<span id="cb495-10"><a href="tmap-version-3.html#cb495-10" tabindex="-1"></a>                <span class="st">`</span><span class="at">Borough</span><span class="st">`</span> <span class="ot">=</span> <span class="st">`</span><span class="at">NAME.x</span><span class="st">`</span>,</span>
+<span id="cb495-11"><a href="tmap-version-3.html#cb495-11" tabindex="-1"></a>                <span class="st">`</span><span class="at">Airbnb count</span><span class="st">`</span> <span class="ot">=</span> <span class="st">`</span><span class="at">Accomodation count.x</span><span class="st">`</span>,</span>
+<span id="cb495-12"><a href="tmap-version-3.html#cb495-12" tabindex="-1"></a>                <span class="st">`</span><span class="at">Hotel count</span><span class="st">`</span><span class="ot">=</span> <span class="st">`</span><span class="at">Accomodation count.y</span><span class="st">`</span>)<span class="sc">%&gt;%</span></span>
+<span id="cb495-13"><a href="tmap-version-3.html#cb495-13" tabindex="-1"></a>  <span class="fu">st_transform</span>(., <span class="dv">4326</span>)</span>
+<span id="cb495-14"><a href="tmap-version-3.html#cb495-14" tabindex="-1"></a>  </span>
+<span id="cb495-15"><a href="tmap-version-3.html#cb495-15" tabindex="-1"></a>  </span>
+<span id="cb495-16"><a href="tmap-version-3.html#cb495-16" tabindex="-1"></a><span class="co">#remove the geometry for our pop up boxes to avoid</span></span>
+<span id="cb495-17"><a href="tmap-version-3.html#cb495-17" tabindex="-1"></a>popupairbnb <span class="ot">&lt;-</span>Joined <span class="sc">%&gt;%</span></span>
+<span id="cb495-18"><a href="tmap-version-3.html#cb495-18" tabindex="-1"></a>  <span class="fu">st_drop_geometry</span>()<span class="sc">%&gt;%</span></span>
+<span id="cb495-19"><a href="tmap-version-3.html#cb495-19" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(<span class="st">`</span><span class="at">Airbnb count</span><span class="st">`</span>, Borough)<span class="sc">%&gt;%</span></span>
+<span id="cb495-20"><a href="tmap-version-3.html#cb495-20" tabindex="-1"></a>  <span class="fu">popupTable</span>()</span>
+<span id="cb495-21"><a href="tmap-version-3.html#cb495-21" tabindex="-1"></a></span>
+<span id="cb495-22"><a href="tmap-version-3.html#cb495-22" tabindex="-1"></a>popuphotel <span class="ot">&lt;-</span>Joined <span class="sc">%&gt;%</span></span>
+<span id="cb495-23"><a href="tmap-version-3.html#cb495-23" tabindex="-1"></a>  <span class="fu">st_drop_geometry</span>()<span class="sc">%&gt;%</span></span>
+<span id="cb495-24"><a href="tmap-version-3.html#cb495-24" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(<span class="st">`</span><span class="at">Hotel count</span><span class="st">`</span>, Borough)<span class="sc">%&gt;%</span></span>
+<span id="cb495-25"><a href="tmap-version-3.html#cb495-25" tabindex="-1"></a>  <span class="fu">popupTable</span>()</span>
+<span id="cb495-26"><a href="tmap-version-3.html#cb495-26" tabindex="-1"></a></span>
+<span id="cb495-27"><a href="tmap-version-3.html#cb495-27" tabindex="-1"></a><span class="fu">tmap_mode</span>(<span class="st">&quot;view&quot;</span>)</span>
+<span id="cb495-28"><a href="tmap-version-3.html#cb495-28" tabindex="-1"></a></span>
+<span id="cb495-29"><a href="tmap-version-3.html#cb495-29" tabindex="-1"></a><span class="co"># set the colour palettes using our previously defined breaks</span></span>
+<span id="cb495-30"><a href="tmap-version-3.html#cb495-30" tabindex="-1"></a></span>
+<span id="cb495-31"><a href="tmap-version-3.html#cb495-31" tabindex="-1"></a></span>
+<span id="cb495-32"><a href="tmap-version-3.html#cb495-32" tabindex="-1"></a>pal1 <span class="ot">&lt;-</span> Joined <span class="sc">%&gt;%</span></span>
+<span id="cb495-33"><a href="tmap-version-3.html#cb495-33" tabindex="-1"></a>  <span class="fu">colorBin</span>(<span class="at">palette =</span> <span class="st">&quot;YlOrRd&quot;</span>, <span class="at">domain=</span>.<span class="sc">$</span><span class="st">`</span><span class="at">Airbnb count</span><span class="st">`</span>, <span class="at">bins=</span>breaks)</span>
+<span id="cb495-34"><a href="tmap-version-3.html#cb495-34" tabindex="-1"></a></span>
+<span id="cb495-35"><a href="tmap-version-3.html#cb495-35" tabindex="-1"></a>pal1 <span class="ot">&lt;-</span><span class="fu">colorBin</span>(<span class="at">palette =</span> <span class="st">&quot;YlOrRd&quot;</span>, <span class="at">domain=</span>Joined<span class="sc">$</span><span class="st">`</span><span class="at">Airbnb count</span><span class="st">`</span>, <span class="at">bins=</span>breaks)</span>
+<span id="cb495-36"><a href="tmap-version-3.html#cb495-36" tabindex="-1"></a></span>
+<span id="cb495-37"><a href="tmap-version-3.html#cb495-37" tabindex="-1"></a>pal2 <span class="ot">&lt;-</span> Joined <span class="sc">%&gt;%</span></span>
+<span id="cb495-38"><a href="tmap-version-3.html#cb495-38" tabindex="-1"></a>  <span class="fu">colorBin</span>(<span class="at">palette =</span> <span class="st">&quot;YlOrRd&quot;</span>, <span class="at">domain=</span>.<span class="sc">$</span><span class="st">`</span><span class="at">Hotel count</span><span class="st">`</span>, <span class="at">bins=</span>breaks)</span>
+<span id="cb495-39"><a href="tmap-version-3.html#cb495-39" tabindex="-1"></a></span>
+<span id="cb495-40"><a href="tmap-version-3.html#cb495-40" tabindex="-1"></a></span>
+<span id="cb495-41"><a href="tmap-version-3.html#cb495-41" tabindex="-1"></a>map<span class="ot">&lt;-</span> <span class="fu">leaflet</span>(Joined) <span class="sc">%&gt;%</span></span>
+<span id="cb495-42"><a href="tmap-version-3.html#cb495-42" tabindex="-1"></a></span>
+<span id="cb495-43"><a href="tmap-version-3.html#cb495-43" tabindex="-1"></a>  <span class="co">#add our polygons, linking to the tables we just made</span></span>
+<span id="cb495-44"><a href="tmap-version-3.html#cb495-44" tabindex="-1"></a>  <span class="fu">addPolygons</span>(<span class="at">color=</span><span class="st">&quot;white&quot;</span>, </span>
+<span id="cb495-45"><a href="tmap-version-3.html#cb495-45" tabindex="-1"></a>              <span class="at">weight =</span> <span class="dv">2</span>,</span>
+<span id="cb495-46"><a href="tmap-version-3.html#cb495-46" tabindex="-1"></a>              <span class="at">opacity =</span> <span class="dv">1</span>,</span>
+<span id="cb495-47"><a href="tmap-version-3.html#cb495-47" tabindex="-1"></a>              <span class="at">dashArray =</span> <span class="st">&quot;3&quot;</span>,</span>
+<span id="cb495-48"><a href="tmap-version-3.html#cb495-48" tabindex="-1"></a>              <span class="at">popup =</span> popupairbnb,</span>
+<span id="cb495-49"><a href="tmap-version-3.html#cb495-49" tabindex="-1"></a>              <span class="at">fillOpacity =</span> <span class="fl">0.7</span>,</span>
+<span id="cb495-50"><a href="tmap-version-3.html#cb495-50" tabindex="-1"></a>              <span class="at">fillColor =</span> <span class="sc">~</span><span class="fu">pal2</span>(<span class="st">`</span><span class="at">Airbnb count</span><span class="st">`</span>),</span>
+<span id="cb495-51"><a href="tmap-version-3.html#cb495-51" tabindex="-1"></a>              <span class="at">group =</span> <span class="st">&quot;Airbnb&quot;</span>)<span class="sc">%&gt;%</span></span>
+<span id="cb495-52"><a href="tmap-version-3.html#cb495-52" tabindex="-1"></a>  </span>
+<span id="cb495-53"><a href="tmap-version-3.html#cb495-53" tabindex="-1"></a>  <span class="fu">addPolygons</span>(<span class="at">fillColor =</span> <span class="sc">~</span><span class="fu">pal2</span>(<span class="st">`</span><span class="at">Hotel count</span><span class="st">`</span>), </span>
+<span id="cb495-54"><a href="tmap-version-3.html#cb495-54" tabindex="-1"></a>              <span class="at">weight =</span> <span class="dv">2</span>,</span>
+<span id="cb495-55"><a href="tmap-version-3.html#cb495-55" tabindex="-1"></a>              <span class="at">opacity =</span> <span class="dv">1</span>,</span>
+<span id="cb495-56"><a href="tmap-version-3.html#cb495-56" tabindex="-1"></a>              <span class="at">color =</span> <span class="st">&quot;white&quot;</span>,</span>
+<span id="cb495-57"><a href="tmap-version-3.html#cb495-57" tabindex="-1"></a>              <span class="at">dashArray =</span> <span class="st">&quot;3&quot;</span>,</span>
+<span id="cb495-58"><a href="tmap-version-3.html#cb495-58" tabindex="-1"></a>              <span class="at">popup =</span> popupairbnb,</span>
+<span id="cb495-59"><a href="tmap-version-3.html#cb495-59" tabindex="-1"></a>              <span class="at">fillOpacity =</span> <span class="fl">0.7</span>,<span class="at">group =</span> <span class="st">&quot;Hotels&quot;</span>)<span class="sc">%&gt;%</span></span>
+<span id="cb495-60"><a href="tmap-version-3.html#cb495-60" tabindex="-1"></a>  </span>
+<span id="cb495-61"><a href="tmap-version-3.html#cb495-61" tabindex="-1"></a>  <span class="co">#add basemaps</span></span>
+<span id="cb495-62"><a href="tmap-version-3.html#cb495-62" tabindex="-1"></a>  <span class="fu">addTiles</span>(<span class="at">group =</span> <span class="st">&quot;OSM (default)&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb495-63"><a href="tmap-version-3.html#cb495-63" tabindex="-1"></a>  <span class="fu">addProviderTiles</span>(providers<span class="sc">$</span>Stadia.StamenToner, <span class="at">group =</span> <span class="st">&quot;Toner&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb495-64"><a href="tmap-version-3.html#cb495-64" tabindex="-1"></a>  <span class="fu">addProviderTiles</span>(providers<span class="sc">$</span>Stadia.StamenTonerLite, <span class="at">group =</span> <span class="st">&quot;Toner Lite&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb495-65"><a href="tmap-version-3.html#cb495-65" tabindex="-1"></a>  <span class="fu">addProviderTiles</span>(providers<span class="sc">$</span>CartoDB.Positron, <span class="at">group =</span> <span class="st">&quot;CartoDB&quot;</span>)<span class="sc">%&gt;%</span></span>
+<span id="cb495-66"><a href="tmap-version-3.html#cb495-66" tabindex="-1"></a>  </span>
+<span id="cb495-67"><a href="tmap-version-3.html#cb495-67" tabindex="-1"></a>  <span class="co"># add a legend</span></span>
+<span id="cb495-68"><a href="tmap-version-3.html#cb495-68" tabindex="-1"></a>  <span class="fu">addLegend</span>(<span class="at">pal =</span> pal2, <span class="at">values =</span> <span class="sc">~</span><span class="st">`</span><span class="at">Hotel count</span><span class="st">`</span>, <span class="at">group =</span> <span class="fu">c</span>(<span class="st">&quot;Airbnb&quot;</span>,<span class="st">&quot;Hotel&quot;</span>), </span>
+<span id="cb495-69"><a href="tmap-version-3.html#cb495-69" tabindex="-1"></a>            <span class="at">position =</span><span class="st">&quot;bottomleft&quot;</span>, <span class="at">title =</span> <span class="st">&quot;Accomodation count&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb495-70"><a href="tmap-version-3.html#cb495-70" tabindex="-1"></a>  <span class="co"># specify layers control</span></span>
+<span id="cb495-71"><a href="tmap-version-3.html#cb495-71" tabindex="-1"></a>  <span class="fu">addLayersControl</span>(</span>
+<span id="cb495-72"><a href="tmap-version-3.html#cb495-72" tabindex="-1"></a>    <span class="at">baseGroups =</span> <span class="fu">c</span>(<span class="st">&quot;OSM (default)&quot;</span>, <span class="st">&quot;Toner&quot;</span>, <span class="st">&quot;Toner Lite&quot;</span>, <span class="st">&quot;CartoDB&quot;</span>),</span>
+<span id="cb495-73"><a href="tmap-version-3.html#cb495-73" tabindex="-1"></a>    <span class="at">overlayGroups =</span> <span class="fu">c</span>(<span class="st">&quot;Airbnb&quot;</span>, <span class="st">&quot;Hotels&quot;</span>),</span>
+<span id="cb495-74"><a href="tmap-version-3.html#cb495-74" tabindex="-1"></a>    <span class="at">options =</span> <span class="fu">layersControlOptions</span>(<span class="at">collapsed =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb495-75"><a href="tmap-version-3.html#cb495-75" tabindex="-1"></a>  )</span>
+<span id="cb495-76"><a href="tmap-version-3.html#cb495-76" tabindex="-1"></a></span>
+<span id="cb495-77"><a href="tmap-version-3.html#cb495-77" tabindex="-1"></a><span class="co"># plot the map</span></span>
+<span id="cb495-78"><a href="tmap-version-3.html#cb495-78" tabindex="-1"></a>map</span></code></pre></div>
 <div class="infobox warning">
 <p>The legend on this map doesn’t update when you select a different layer. I could have enabled this by chaning the <code>group</code> argument to just Airbnb or Hotel, then calling a second <code>addLegend()</code> function for the other group. However, when displaying maps such as these, it’s often useful to have a consistent scale in the legend so they are <strong>directly</strong> comparable.</p>
 </div>

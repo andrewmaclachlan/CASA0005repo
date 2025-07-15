@@ -105,9 +105,9 @@ BluePlaques <- st_read(here::here("prac6_data",
 
 tmap_mode("plot")
 tm_shape(LondonWardsMerged) +
-  tm_polygons(col = NA, alpha = 0.5) +
+  tm_polygons(fill_alpha = 0.5) +
 tm_shape(BluePlaques) +
-  tm_dots(col = "blue")
+  tm_dots(fill = "blue", size=0.1)
 ```
 
 ## Data cleaning 
@@ -118,19 +118,20 @@ Ah yes, we might need to lose the blue plaques that fall outside of London
 summary(BluePlaques)
 BluePlaquesSub <- BluePlaques[LondonWardsMerged,]
 
+tmap_mode("plot")
 tm_shape(LondonWardsMerged) +
-  tm_polygons(col = NA, alpha = 0.5) +
+  tm_polygons(fill_alpha = 0.5) +
 tm_shape(BluePlaquesSub) +
-  tm_dots(col = "blue")
+  tm_dots(fill = "blue", size=0.1)
 ```
 
 ## Data manipulation 
 
 The measures of spatial autocorrelation that we will be using require continuous observations (counts of blue plaques, average GCSE scores, average incomes etc.) to be spatially referenced (i.e. attached to a spatial unit like a ward or a borough). The file you have already has the various obervations associated with the London Ward data file already attached to it, but let's continue with our blue plaques example for now. 
 
-To create a continuous observation from the blue plaques data we need to count all of the blue plaques that fall within each Ward in the City. Luckily, we can do this using the ```st_intersects()``` function from the `sf` package.
+To create a continuous observation from the blue plaques data we need to count all of the blue plaques that fall within each Ward in the City. Luckily, we can do this using the `st_intersects()` function from the `sf` package.
 
-```st_intersects()``` will return a list of which points (plaques) are in each polygon (wards). So each row will be a polygon and the ID are the point IDs that intersect the polygon.
+`st_intersects()` will return a list of which points (plaques) are in each polygon (wards). So each row will be a polygon and the ID are the point IDs that intersect the polygon.
 
 In this case we don't want to use `st_join()` (which by default uses `st_intersects()`) as `st_join()` is like a left join and will retain all the data in on the left. So if a ward is empty, there will still be a row for that ward. So, we use `st_intersects()` on its own. We could also use other topological relationship functions such as `st_within()` instead...
 
@@ -176,12 +177,20 @@ points_sf_joined<- points_sf_joined %>%
           plaquecount= first(n))
 
 tm_shape(points_sf_joined) +
-    tm_polygons("density",
-        style="jenks",
-        palette="PuOr",
-        midpoint=NA,
-        popup.vars=c("wardname", "density"),
-        title="Blue Plaque Density")
+    tm_polygons(
+      fill = "density",
+      fill.scale = tm_scale_intervals(
+        values = "brewer.blues",
+        style="jenks"),
+      # set the legend
+      fill.legend = tm_legend(title="Blue Plaque Density",
+                              title.size=0.85,
+                              size=0.8,
+                              # plot outside of the main map
+                              #explained below
+                              position=tm_pos_out("right", 
+                                                  "center",
+                                                  pos.v = "center")))
 ```
 
 So, from the map, it looks as though we might have some clustering of blue plaques in the centre of London so let's check this with Moran's I and some other statistics. 
@@ -523,23 +532,37 @@ We'll set the breaks manually based on the rule that data points >2.58 or <-2.58
 breaks1<-c(-1000,-2.58,-1.96,-1.65,1.65,1.96,2.58,1000)
 ```
 
-Now create a new diverging colour brewer palette and reverse the order using `rev()` (reverse) so higher values correspond to red
+Now create a new **diverging colour** brewer palette and reverse the order using `rev()` (reverse) so higher values correspond to red
 
 ```{r, cache=FALSE}
 library(RColorBrewer)
-MoranColours<- rev(brewer.pal(8, "RdGy"))
+MoranColours<- rev(brewer.pal(7, "RdGy"))
 ```
 
-Plot on an interactive map
+Plot the output
+
+https://andrewmaclachlan.github.io/CASA0005repo/spatial-autocorrelation.html
+
+HERE---reverse colour scale??
 
 ```{r, cache=FALSE}
+
 tm_shape(points_sf_joined) +
-    tm_polygons("plaque_count_Iz",
-        style="fixed",
-        breaks=breaks1,
-        palette=MoranColours,
-        midpoint=NA,
-        title="Local Moran's I, Blue Plaques in London")
+    tm_polygons(
+      fill = "plaque_count_Iz",
+      fill.scale = tm_scale_intervals(values = "brewer.br_bg",
+                                      midpoint = "NA",
+                                      style = "fixed",
+                                      breaks=breaks1),
+       fill.legend = tm_legend(title="Local Moran's I, Blue Plaques in London",
+                              title.size=0.85,
+                              size=0.8,
+                              # plot outside of the main map
+                              #explained below
+                              position=tm_pos_out("right", 
+                                                  "center",
+                                                  pos.v = "center")))
+                                      
 ```
 
 This map shows some areas in the centre of London that have relatively high scores, indicating areas with lots of blue plaques neighbouring other areas with lots of blue plaques.
@@ -602,19 +625,22 @@ points_sf_joined <- points_sf_joined %>%
 And map the outputs...
 
 ```{r, cache=FALSE}
-library(RColorBrewer)
 
-GIColours<- rev(brewer.pal(8, "RdBu"))
-
-#now plot on an interactive map
 tm_shape(points_sf_joined) +
-    tm_polygons("density_G",
-        style="fixed",
-        breaks=breaks1,
-        palette=GIColours,
-        midpoint=NA,
-        title="Gi*, Blue Plaques in London")
-
+    tm_polygons(
+      fill = "density_G",
+      fill.scale = tm_scale_intervals(values = "brewer.br_bg",
+                                      midpoint = "NA",
+                                      style = "fixed",
+                                      breaks=breaks1),
+       fill.legend = tm_legend(title="Gi*, Blue Plaques in London",
+                              title.size=0.85,
+                              size=0.8,
+                              # plot outside of the main map
+                              #explained below
+                              position=tm_pos_out("right", 
+                                                  "center",
+                                                  pos.v = "center")))
 ```
 
 ### Summary
@@ -663,14 +689,22 @@ points_sf_joined <- points_sf_joined %>%
   arrange(gss_code)%>%
   mutate(GCSE_LocIz = as.numeric(I_LWard_Local_GCSE$Z.Ii))
 
-
 tm_shape(points_sf_joined) +
-    tm_polygons("GCSE_LocIz",
-        style="fixed",
-        breaks=breaks1,
-        palette=MoranColours,
-        midpoint=NA,
-        title="Local Moran's I, GCSE Scores")
+    tm_polygons(
+      fill = "GCSE_LocIz",
+      fill.scale = tm_scale_intervals(values = "brewer.br_bg",
+                                      midpoint = "NA",
+                                      style = "fixed",
+                                      breaks=breaks1),
+       fill.legend = tm_legend(title="Local Moran's I, GCSE Scores",
+                              title.size=0.85,
+                              size=0.8,
+                              # plot outside of the main map
+                              #explained below
+                              position=tm_pos_out("right", 
+                                                  "center",
+                                                  pos.v = "center")))
+
 ```
 
 Now the Gi* statistic to look at clusters of high and low scores and explain what the output map is showing and what other questions this can lead us to ask next week.....
@@ -687,13 +721,22 @@ points_sf_joined <- points_sf_joined %>%
   dplyr::arrange(gss_code)%>%
   dplyr::mutate(GCSE_LocGiz = as.numeric(G_LWard_Local_GCSE))
 
+
 tm_shape(points_sf_joined) +
-    tm_polygons("GCSE_LocGiz",
-        style="fixed",
-        breaks=breaks1,
-        palette=GIColours,
-        midpoint=NA,
-        title="Gi*, GCSE Scores")
+    tm_polygons(
+      fill = "GCSE_LocGiz",
+      fill.scale = tm_scale_intervals(values = "brewer.br_bg",
+                                      midpoint = "NA",
+                                      style = "fixed",
+                                      breaks=breaks1),
+       fill.legend = tm_legend(title="Gi*, GCSE Scores",
+                              title.size=0.85,
+                              size=0.8,
+                              # plot outside of the main map
+                              #explained below
+                              position=tm_pos_out("right", 
+                                                  "center",
+                                                  pos.v = "center")))
 
 ```
 

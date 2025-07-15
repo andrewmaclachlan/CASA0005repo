@@ -23,7 +23,7 @@
 <meta name="author" content="Andy MacLachlan, Adam Dennett and Claire Dooley" />
 
 
-<meta name="date" content="2025-06-27" />
+<meta name="date" content="2025-07-15" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -1445,10 +1445,11 @@ div.csl-indent {
 ##  Max.   :49190.0</code></pre>
 <div class="sourceCode" id="cb263"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb263-1"><a href="detecting-spatial-patterns.html#cb263-1" tabindex="-1"></a><span class="co">#plot the blue plaques in the city</span></span>
 <span id="cb263-2"><a href="detecting-spatial-patterns.html#cb263-2" tabindex="-1"></a><span class="fu">tmap_mode</span>(<span class="st">&quot;plot&quot;</span>)</span>
-<span id="cb263-3"><a href="detecting-spatial-patterns.html#cb263-3" tabindex="-1"></a><span class="fu">tm_shape</span>(BoroughMap) <span class="sc">+</span></span>
-<span id="cb263-4"><a href="detecting-spatial-patterns.html#cb263-4" tabindex="-1"></a>  <span class="fu">tm_polygons</span>(<span class="at">col =</span> <span class="cn">NA</span>, <span class="at">alpha =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
-<span id="cb263-5"><a href="detecting-spatial-patterns.html#cb263-5" tabindex="-1"></a><span class="fu">tm_shape</span>(BluePlaques) <span class="sc">+</span></span>
-<span id="cb263-6"><a href="detecting-spatial-patterns.html#cb263-6" tabindex="-1"></a>  <span class="fu">tm_dots</span>(<span class="at">col =</span> <span class="st">&quot;blue&quot;</span>)</span></code></pre></div>
+<span id="cb263-3"><a href="detecting-spatial-patterns.html#cb263-3" tabindex="-1"></a></span>
+<span id="cb263-4"><a href="detecting-spatial-patterns.html#cb263-4" tabindex="-1"></a><span class="fu">tm_shape</span>(BoroughMap) <span class="sc">+</span></span>
+<span id="cb263-5"><a href="detecting-spatial-patterns.html#cb263-5" tabindex="-1"></a>  <span class="fu">tm_polygons</span>(<span class="at">fill_alpha =</span> <span class="fl">0.5</span>)<span class="sc">+</span></span>
+<span id="cb263-6"><a href="detecting-spatial-patterns.html#cb263-6" tabindex="-1"></a><span class="fu">tm_shape</span>(BluePlaques) <span class="sc">+</span></span>
+<span id="cb263-7"><a href="detecting-spatial-patterns.html#cb263-7" tabindex="-1"></a>  <span class="fu">tm_dots</span>(<span class="at">fill =</span> <span class="st">&quot;blue&quot;</span>, <span class="at">size=</span><span class="fl">0.1</span>)</span></code></pre></div>
 <p><img src="CASA0005_files/figure-html/unnamed-chunk-263-1.png" width="672" /></p>
 <div id="data-cleaning" class="section level3 hasAnchor" number="6.5.1">
 <h3><span class="header-section-number">6.5.1</span> Data cleaning<a href="detecting-spatial-patterns.html#data-cleaning" class="anchor-section" aria-label="Anchor link to header"></a></h3>
@@ -1463,12 +1464,15 @@ div.csl-indent {
 <h3><span class="header-section-number">6.5.2</span> Spatial subsetting<a href="detecting-spatial-patterns.html#spatial-subsetting" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Now just select the points inside London - thanks to Robin Lovelace for posting how to do this one, very useful! Here, the second operator is blank <code>, ,</code> - this controls which attributes are kept, although I’d rather keep all of them and manipulate with the <code>tidyverse</code>.</p>
 <div class="sourceCode" id="cb265"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb265-1"><a href="detecting-spatial-patterns.html#cb265-1" tabindex="-1"></a>BluePlaquesSub <span class="ot">&lt;-</span> BluePlaques[BoroughMap,]</span>
-<span id="cb265-2"><a href="detecting-spatial-patterns.html#cb265-2" tabindex="-1"></a><span class="co">#check to see that they&#39;ve been removed</span></span>
-<span id="cb265-3"><a href="detecting-spatial-patterns.html#cb265-3" tabindex="-1"></a><span class="fu">tmap_mode</span>(<span class="st">&quot;plot&quot;</span>)</span>
-<span id="cb265-4"><a href="detecting-spatial-patterns.html#cb265-4" tabindex="-1"></a><span class="fu">tm_shape</span>(BoroughMap) <span class="sc">+</span></span>
-<span id="cb265-5"><a href="detecting-spatial-patterns.html#cb265-5" tabindex="-1"></a>  <span class="fu">tm_polygons</span>(<span class="at">col =</span> <span class="cn">NA</span>, <span class="at">alpha =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
-<span id="cb265-6"><a href="detecting-spatial-patterns.html#cb265-6" tabindex="-1"></a><span class="fu">tm_shape</span>(BluePlaquesSub) <span class="sc">+</span></span>
-<span id="cb265-7"><a href="detecting-spatial-patterns.html#cb265-7" tabindex="-1"></a>  <span class="fu">tm_dots</span>(<span class="at">col =</span> <span class="st">&quot;blue&quot;</span>)</span></code></pre></div>
+<span id="cb265-2"><a href="detecting-spatial-patterns.html#cb265-2" tabindex="-1"></a></span>
+<span id="cb265-3"><a href="detecting-spatial-patterns.html#cb265-3" tabindex="-1"></a><span class="co">#plot the blue plaques in the city</span></span>
+<span id="cb265-4"><a href="detecting-spatial-patterns.html#cb265-4" tabindex="-1"></a><span class="fu">tmap_mode</span>(<span class="st">&quot;plot&quot;</span>)</span>
+<span id="cb265-5"><a href="detecting-spatial-patterns.html#cb265-5" tabindex="-1"></a></span>
+<span id="cb265-6"><a href="detecting-spatial-patterns.html#cb265-6" tabindex="-1"></a><span class="co">#check to see that they&#39;ve been removed</span></span>
+<span id="cb265-7"><a href="detecting-spatial-patterns.html#cb265-7" tabindex="-1"></a><span class="fu">tm_shape</span>(BoroughMap) <span class="sc">+</span></span>
+<span id="cb265-8"><a href="detecting-spatial-patterns.html#cb265-8" tabindex="-1"></a>  <span class="fu">tm_polygons</span>(<span class="at">fill_alpha =</span> <span class="fl">0.5</span>)<span class="sc">+</span></span>
+<span id="cb265-9"><a href="detecting-spatial-patterns.html#cb265-9" tabindex="-1"></a><span class="fu">tm_shape</span>(BluePlaquesSub) <span class="sc">+</span></span>
+<span id="cb265-10"><a href="detecting-spatial-patterns.html#cb265-10" tabindex="-1"></a>  <span class="fu">tm_dots</span>(<span class="at">fill =</span> <span class="st">&quot;blue&quot;</span>, <span class="at">size=</span><span class="fl">0.1</span>)</span></code></pre></div>
 <p><img src="CASA0005_files/figure-html/unnamed-chunk-265-1.png" width="672" /></p>
 <p>When we spatial subset data like this there are different topological relations we can specify. The default is intersects, but we could also use <code>BluePlaquesSub &lt;- BluePlaques[BoroughMap, , op = st_within]</code>, with the operator or op set to <code>st_within</code>, to identify points completely within the borough outline. Any topological operator from the mapping week can be used here!</p>
 <p>We can also just use the function which will have the indices of where they intersect.</p>
@@ -1524,47 +1528,44 @@ Figure 6.1: Topological relations between vector geometries. Source: <a href="ht
 <span id="cb267-6"><a href="detecting-spatial-patterns.html#cb267-6" tabindex="-1"></a></span>
 <span id="cb267-7"><a href="detecting-spatial-patterns.html#cb267-7" tabindex="-1"></a><span class="co">#Check to see that the correct borough has been pulled out</span></span>
 <span id="cb267-8"><a href="detecting-spatial-patterns.html#cb267-8" tabindex="-1"></a><span class="fu">tm_shape</span>(Harrow) <span class="sc">+</span></span>
-<span id="cb267-9"><a href="detecting-spatial-patterns.html#cb267-9" tabindex="-1"></a>  <span class="fu">tm_polygons</span>(<span class="at">col =</span> <span class="cn">NA</span>, <span class="at">alpha =</span> <span class="fl">0.5</span>)</span></code></pre></div>
+<span id="cb267-9"><a href="detecting-spatial-patterns.html#cb267-9" tabindex="-1"></a>  <span class="fu">tm_polygons</span>(<span class="at">col =</span> <span class="cn">NA</span>, <span class="at">fill_alpha =</span> <span class="fl">0.5</span>)</span></code></pre></div>
 <p><img src="CASA0005_files/figure-html/unnamed-chunk-268-1.png" width="672" /></p>
 <p>Next we need to clip our Blue Plaques so that we have a subset of just those that fall within the borough or interest</p>
 <div class="sourceCode" id="cb268"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb268-1"><a href="detecting-spatial-patterns.html#cb268-1" tabindex="-1"></a><span class="co">#clip the data to our single borough</span></span>
 <span id="cb268-2"><a href="detecting-spatial-patterns.html#cb268-2" tabindex="-1"></a>BluePlaquesSub <span class="ot">&lt;-</span> BluePlaques[Harrow,]</span>
-<span id="cb268-3"><a href="detecting-spatial-patterns.html#cb268-3" tabindex="-1"></a><span class="co">#check that it&#39;s worked</span></span>
-<span id="cb268-4"><a href="detecting-spatial-patterns.html#cb268-4" tabindex="-1"></a><span class="fu">tmap_mode</span>(<span class="st">&quot;plot&quot;</span>)</span></code></pre></div>
-<pre><code>## ℹ tmap mode set to &quot;plot&quot;.</code></pre>
-<div class="sourceCode" id="cb270"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb270-1"><a href="detecting-spatial-patterns.html#cb270-1" tabindex="-1"></a><span class="fu">tm_shape</span>(Harrow) <span class="sc">+</span></span>
-<span id="cb270-2"><a href="detecting-spatial-patterns.html#cb270-2" tabindex="-1"></a>  <span class="fu">tm_polygons</span>(<span class="at">col =</span> <span class="cn">NA</span>, <span class="at">alpha =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
-<span id="cb270-3"><a href="detecting-spatial-patterns.html#cb270-3" tabindex="-1"></a><span class="fu">tm_shape</span>(BluePlaquesSub) <span class="sc">+</span></span>
-<span id="cb270-4"><a href="detecting-spatial-patterns.html#cb270-4" tabindex="-1"></a>  <span class="fu">tm_dots</span>(<span class="at">col =</span> <span class="st">&quot;blue&quot;</span>)</span></code></pre></div>
-<pre><code>## 
-## ── tmap v3 code detected ─────────────────────
-## [v3-&gt;v4] `tm_polygons()`: use `fill_alpha`
-## instead of `alpha`.</code></pre>
+<span id="cb268-3"><a href="detecting-spatial-patterns.html#cb268-3" tabindex="-1"></a></span>
+<span id="cb268-4"><a href="detecting-spatial-patterns.html#cb268-4" tabindex="-1"></a></span>
+<span id="cb268-5"><a href="detecting-spatial-patterns.html#cb268-5" tabindex="-1"></a></span>
+<span id="cb268-6"><a href="detecting-spatial-patterns.html#cb268-6" tabindex="-1"></a><span class="co">#check that it&#39;s worked</span></span>
+<span id="cb268-7"><a href="detecting-spatial-patterns.html#cb268-7" tabindex="-1"></a><span class="fu">tm_shape</span>(Harrow) <span class="sc">+</span></span>
+<span id="cb268-8"><a href="detecting-spatial-patterns.html#cb268-8" tabindex="-1"></a>  <span class="fu">tm_polygons</span>(<span class="at">fill_alpha =</span> <span class="fl">0.5</span>)<span class="sc">+</span></span>
+<span id="cb268-9"><a href="detecting-spatial-patterns.html#cb268-9" tabindex="-1"></a><span class="fu">tm_shape</span>(BluePlaquesSub) <span class="sc">+</span></span>
+<span id="cb268-10"><a href="detecting-spatial-patterns.html#cb268-10" tabindex="-1"></a>  <span class="fu">tm_dots</span>(<span class="at">fill =</span> <span class="st">&quot;blue&quot;</span>, <span class="at">size=</span><span class="fl">0.1</span>)</span></code></pre></div>
 <p><img src="CASA0005_files/figure-html/unnamed-chunk-269-1.png" width="672" /></p>
 <p>We now have all of our data set up so that we can start the analysis using <code>spatstat</code>. The first thing we need to do is create an observation window for <code>spatstat</code> to carry out its analysis within — we’ll set this to the extent of the Harrow boundary</p>
-<div class="sourceCode" id="cb272"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb272-1"><a href="detecting-spatial-patterns.html#cb272-1" tabindex="-1"></a><span class="co">#now set a window as the borough boundary</span></span>
-<span id="cb272-2"><a href="detecting-spatial-patterns.html#cb272-2" tabindex="-1"></a>window <span class="ot">&lt;-</span> <span class="fu">as.owin</span>(Harrow)</span>
-<span id="cb272-3"><a href="detecting-spatial-patterns.html#cb272-3" tabindex="-1"></a><span class="fu">plot</span>(window)</span></code></pre></div>
+<div class="sourceCode" id="cb269"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb269-1"><a href="detecting-spatial-patterns.html#cb269-1" tabindex="-1"></a><span class="co">#now set a window as the borough boundary</span></span>
+<span id="cb269-2"><a href="detecting-spatial-patterns.html#cb269-2" tabindex="-1"></a>window <span class="ot">&lt;-</span> <span class="fu">as.owin</span>(Harrow)</span>
+<span id="cb269-3"><a href="detecting-spatial-patterns.html#cb269-3" tabindex="-1"></a><span class="fu">plot</span>(window)</span></code></pre></div>
 <p><img src="CASA0005_files/figure-html/unnamed-chunk-270-1.png" width="672" /></p>
 <p><a href="https://spatstat.org/"><code>spatstat</code></a> has its own set of spatial objects that it works with (one of the delights of R is that different packages are written by different people and many have developed their own data types) — it does not work directly with the SpatialPolygonsDataFrames, SpatialPointsDataFrames or <code>sf</code> objects that we are used to. For point pattern analysis, we need to create a point pattern (ppp) object.</p>
-<div class="sourceCode" id="cb273"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb273-1"><a href="detecting-spatial-patterns.html#cb273-1" tabindex="-1"></a><span class="co">#create a sp object</span></span>
-<span id="cb273-2"><a href="detecting-spatial-patterns.html#cb273-2" tabindex="-1"></a>BluePlaquesSub<span class="ot">&lt;-</span> BluePlaquesSub <span class="sc">%&gt;%</span></span>
-<span id="cb273-3"><a href="detecting-spatial-patterns.html#cb273-3" tabindex="-1"></a>  <span class="fu">as</span>(., <span class="st">&#39;Spatial&#39;</span>)</span>
-<span id="cb273-4"><a href="detecting-spatial-patterns.html#cb273-4" tabindex="-1"></a><span class="co">#create a ppp object</span></span>
-<span id="cb273-5"><a href="detecting-spatial-patterns.html#cb273-5" tabindex="-1"></a>BluePlaquesSub.ppp <span class="ot">&lt;-</span> <span class="fu">ppp</span>(<span class="at">x=</span>BluePlaquesSub<span class="sc">@</span>coords[,<span class="dv">1</span>],</span>
-<span id="cb273-6"><a href="detecting-spatial-patterns.html#cb273-6" tabindex="-1"></a>                          <span class="at">y=</span>BluePlaquesSub<span class="sc">@</span>coords[,<span class="dv">2</span>],</span>
-<span id="cb273-7"><a href="detecting-spatial-patterns.html#cb273-7" tabindex="-1"></a>                          <span class="at">window=</span>window)</span></code></pre></div>
+<div class="sourceCode" id="cb270"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb270-1"><a href="detecting-spatial-patterns.html#cb270-1" tabindex="-1"></a><span class="co">#create a sp object</span></span>
+<span id="cb270-2"><a href="detecting-spatial-patterns.html#cb270-2" tabindex="-1"></a>BluePlaquesSub<span class="ot">&lt;-</span> BluePlaquesSub <span class="sc">%&gt;%</span></span>
+<span id="cb270-3"><a href="detecting-spatial-patterns.html#cb270-3" tabindex="-1"></a>  <span class="fu">as</span>(., <span class="st">&#39;Spatial&#39;</span>)</span>
+<span id="cb270-4"><a href="detecting-spatial-patterns.html#cb270-4" tabindex="-1"></a><span class="co">#create a ppp object</span></span>
+<span id="cb270-5"><a href="detecting-spatial-patterns.html#cb270-5" tabindex="-1"></a>BluePlaquesSub.ppp <span class="ot">&lt;-</span> <span class="fu">ppp</span>(<span class="at">x=</span>BluePlaquesSub<span class="sc">@</span>coords[,<span class="dv">1</span>],</span>
+<span id="cb270-6"><a href="detecting-spatial-patterns.html#cb270-6" tabindex="-1"></a>                          <span class="at">y=</span>BluePlaquesSub<span class="sc">@</span>coords[,<span class="dv">2</span>],</span>
+<span id="cb270-7"><a href="detecting-spatial-patterns.html#cb270-7" tabindex="-1"></a>                          <span class="at">window=</span>window)</span></code></pre></div>
 <p>Try to understand what the different elements in command above is doing. If you are unsure, you can run elements of the code, for example:</p>
-<div class="sourceCode" id="cb274"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb274-1"><a href="detecting-spatial-patterns.html#cb274-1" tabindex="-1"></a>BluePlaquesSub<span class="sc">@</span>coords[,<span class="dv">1</span>]</span></code></pre></div>
+<div class="sourceCode" id="cb271"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb271-1"><a href="detecting-spatial-patterns.html#cb271-1" tabindex="-1"></a>BluePlaquesSub<span class="sc">@</span>coords[,<span class="dv">1</span>]</span></code></pre></div>
 <pre><code>##  [1] 516451.0 518560.0 514177.1 515166.2 513053.6 515093.1 515210.7 516746.3
 ##  [9] 513371.5 514971.1 517339.4 512215.1 515300.0 514966.0 512639.2 515561.8
 ## [17] 515561.8 511539.4 516725.5 512335.7 515370.2 518598.3 511792.6 515694.1
 ## [25] 513008.4 514805.8 513392.3 518187.5 513750.4 512466.7 515491.4 514789.8
 ## [33] 514022.4 519099.9 514183.4 512343.1 512508.2 512346.3 512269.5 515333.7</code></pre>
 <p>Have a look at the new ppp object</p>
-<div class="sourceCode" id="cb276"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb276-1"><a href="detecting-spatial-patterns.html#cb276-1" tabindex="-1"></a>BluePlaquesSub.ppp <span class="sc">%&gt;%</span></span>
-<span id="cb276-2"><a href="detecting-spatial-patterns.html#cb276-2" tabindex="-1"></a>  <span class="fu">plot</span>(.,<span class="at">pch=</span><span class="dv">16</span>,<span class="at">cex=</span><span class="fl">0.5</span>, </span>
-<span id="cb276-3"><a href="detecting-spatial-patterns.html#cb276-3" tabindex="-1"></a>       <span class="at">main=</span><span class="st">&quot;Blue Plaques Harrow&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb273"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb273-1"><a href="detecting-spatial-patterns.html#cb273-1" tabindex="-1"></a>BluePlaquesSub.ppp <span class="sc">%&gt;%</span></span>
+<span id="cb273-2"><a href="detecting-spatial-patterns.html#cb273-2" tabindex="-1"></a>  <span class="fu">plot</span>(.,<span class="at">pch=</span><span class="dv">16</span>,<span class="at">cex=</span><span class="fl">0.5</span>, </span>
+<span id="cb273-3"><a href="detecting-spatial-patterns.html#cb273-3" tabindex="-1"></a>       <span class="at">main=</span><span class="st">&quot;Blue Plaques Harrow&quot;</span>)</span></code></pre></div>
 <p><img src="CASA0005_files/figure-html/unnamed-chunk-273-1.png" width="672" /></p>
 </div>
 </div>
@@ -1573,43 +1574,43 @@ Figure 6.1: Topological relations between vector geometries. Source: <a href="ht
 <div id="kernel-density-estimation" class="section level3 hasAnchor" number="6.6.1">
 <h3><span class="header-section-number">6.6.1</span> Kernel Density Estimation<a href="detecting-spatial-patterns.html#kernel-density-estimation" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>One way to summarise your point data is to plot the density of your points under a window called a ‘Kernel’. The size and shape of the Kernel affects the density pattern produced, but it is very easy to produce a Kernel Density Estimation (KDE) map from a ppp object using the <code>density()</code> function.</p>
-<div class="sourceCode" id="cb277"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb277-1"><a href="detecting-spatial-patterns.html#cb277-1" tabindex="-1"></a>BluePlaquesSub.ppp <span class="sc">%&gt;%</span></span>
-<span id="cb277-2"><a href="detecting-spatial-patterns.html#cb277-2" tabindex="-1"></a>  <span class="fu">density</span>(., <span class="at">sigma=</span><span class="dv">500</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb277-3"><a href="detecting-spatial-patterns.html#cb277-3" tabindex="-1"></a>  <span class="fu">plot</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb274"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb274-1"><a href="detecting-spatial-patterns.html#cb274-1" tabindex="-1"></a>BluePlaquesSub.ppp <span class="sc">%&gt;%</span></span>
+<span id="cb274-2"><a href="detecting-spatial-patterns.html#cb274-2" tabindex="-1"></a>  <span class="fu">density</span>(., <span class="at">sigma=</span><span class="dv">500</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb274-3"><a href="detecting-spatial-patterns.html#cb274-3" tabindex="-1"></a>  <span class="fu">plot</span>()</span></code></pre></div>
 <p><img src="CASA0005_files/figure-html/unnamed-chunk-274-1.png" width="672" /></p>
 <p>The sigma value sets the diameter of the Kernel (in the units your map is in — in this case, as we are in British National Grid the units are in metres). Try experimenting with different values of sigma to see how that affects the density estimate.</p>
-<div class="sourceCode" id="cb278"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb278-1"><a href="detecting-spatial-patterns.html#cb278-1" tabindex="-1"></a>BluePlaquesSub.ppp <span class="sc">%&gt;%</span></span>
-<span id="cb278-2"><a href="detecting-spatial-patterns.html#cb278-2" tabindex="-1"></a>  <span class="fu">density</span>(., <span class="at">sigma=</span><span class="dv">1000</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb278-3"><a href="detecting-spatial-patterns.html#cb278-3" tabindex="-1"></a>  <span class="fu">plot</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb275"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb275-1"><a href="detecting-spatial-patterns.html#cb275-1" tabindex="-1"></a>BluePlaquesSub.ppp <span class="sc">%&gt;%</span></span>
+<span id="cb275-2"><a href="detecting-spatial-patterns.html#cb275-2" tabindex="-1"></a>  <span class="fu">density</span>(., <span class="at">sigma=</span><span class="dv">1000</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb275-3"><a href="detecting-spatial-patterns.html#cb275-3" tabindex="-1"></a>  <span class="fu">plot</span>()</span></code></pre></div>
 <p><img src="CASA0005_files/figure-html/unnamed-chunk-275-1.png" width="672" /></p>
 </div>
 <div id="quadrat-analysis" class="section level3 hasAnchor" number="6.6.2">
 <h3><span class="header-section-number">6.6.2</span> Quadrat Analysis<a href="detecting-spatial-patterns.html#quadrat-analysis" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>So as you saw in the lecture, we are interesting in knowing whether the distribution of points in our study area differs from ‘complete spatial randomness’ — CSR. That’s different from a CRS! Be careful!</p>
 <p>The most basic test of CSR is a quadrat analysis. We can carry out a simple quadrat analysis on our data using the <code>quadrat count</code> function in <code>spatstat</code>. <em>Note, I wouldn’t recommend doing a quadrat analysis in any real piece of analysis you conduct, but it is useful for starting to understand the Poisson distribution…</em></p>
-<div class="sourceCode" id="cb279"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb279-1"><a href="detecting-spatial-patterns.html#cb279-1" tabindex="-1"></a><span class="co">#First plot the points</span></span>
-<span id="cb279-2"><a href="detecting-spatial-patterns.html#cb279-2" tabindex="-1"></a><span class="fu">plot</span>(BluePlaquesSub.ppp,</span>
-<span id="cb279-3"><a href="detecting-spatial-patterns.html#cb279-3" tabindex="-1"></a>     <span class="at">pch=</span><span class="dv">16</span>,</span>
-<span id="cb279-4"><a href="detecting-spatial-patterns.html#cb279-4" tabindex="-1"></a>     <span class="at">cex=</span><span class="fl">0.5</span>, </span>
-<span id="cb279-5"><a href="detecting-spatial-patterns.html#cb279-5" tabindex="-1"></a>     <span class="at">main=</span><span class="st">&quot;Blue Plaques in Harrow&quot;</span>)</span>
-<span id="cb279-6"><a href="detecting-spatial-patterns.html#cb279-6" tabindex="-1"></a></span>
-<span id="cb279-7"><a href="detecting-spatial-patterns.html#cb279-7" tabindex="-1"></a><span class="co">#now count the points in that fall in a 6 x 6</span></span>
-<span id="cb279-8"><a href="detecting-spatial-patterns.html#cb279-8" tabindex="-1"></a><span class="co">#grid overlaid across the windowBluePlaquesSub.ppp2&lt;-BluePlaquesSub.ppp %&gt;%</span></span>
-<span id="cb279-9"><a href="detecting-spatial-patterns.html#cb279-9" tabindex="-1"></a>BluePlaquesSub.ppp <span class="sc">%&gt;%</span></span>
-<span id="cb279-10"><a href="detecting-spatial-patterns.html#cb279-10" tabindex="-1"></a>  <span class="fu">quadratcount</span>(.,<span class="at">nx =</span> <span class="dv">6</span>, <span class="at">ny =</span> <span class="dv">6</span>)<span class="sc">%&gt;%</span></span>
-<span id="cb279-11"><a href="detecting-spatial-patterns.html#cb279-11" tabindex="-1"></a>    <span class="fu">plot</span>(., <span class="at">add=</span>T, <span class="at">col=</span><span class="st">&quot;red&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb276"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb276-1"><a href="detecting-spatial-patterns.html#cb276-1" tabindex="-1"></a><span class="co">#First plot the points</span></span>
+<span id="cb276-2"><a href="detecting-spatial-patterns.html#cb276-2" tabindex="-1"></a><span class="fu">plot</span>(BluePlaquesSub.ppp,</span>
+<span id="cb276-3"><a href="detecting-spatial-patterns.html#cb276-3" tabindex="-1"></a>     <span class="at">pch=</span><span class="dv">16</span>,</span>
+<span id="cb276-4"><a href="detecting-spatial-patterns.html#cb276-4" tabindex="-1"></a>     <span class="at">cex=</span><span class="fl">0.5</span>, </span>
+<span id="cb276-5"><a href="detecting-spatial-patterns.html#cb276-5" tabindex="-1"></a>     <span class="at">main=</span><span class="st">&quot;Blue Plaques in Harrow&quot;</span>)</span>
+<span id="cb276-6"><a href="detecting-spatial-patterns.html#cb276-6" tabindex="-1"></a></span>
+<span id="cb276-7"><a href="detecting-spatial-patterns.html#cb276-7" tabindex="-1"></a><span class="co">#now count the points in that fall in a 6 x 6</span></span>
+<span id="cb276-8"><a href="detecting-spatial-patterns.html#cb276-8" tabindex="-1"></a><span class="co">#grid overlaid across the windowBluePlaquesSub.ppp2&lt;-BluePlaquesSub.ppp %&gt;%</span></span>
+<span id="cb276-9"><a href="detecting-spatial-patterns.html#cb276-9" tabindex="-1"></a>BluePlaquesSub.ppp <span class="sc">%&gt;%</span></span>
+<span id="cb276-10"><a href="detecting-spatial-patterns.html#cb276-10" tabindex="-1"></a>  <span class="fu">quadratcount</span>(.,<span class="at">nx =</span> <span class="dv">6</span>, <span class="at">ny =</span> <span class="dv">6</span>)<span class="sc">%&gt;%</span></span>
+<span id="cb276-11"><a href="detecting-spatial-patterns.html#cb276-11" tabindex="-1"></a>    <span class="fu">plot</span>(., <span class="at">add=</span>T, <span class="at">col=</span><span class="st">&quot;red&quot;</span>)</span></code></pre></div>
 <p><img src="CASA0005_files/figure-html/unnamed-chunk-276-1.png" width="672" /></p>
 <p>In our case here, want to know whether or not there is any kind of spatial patterning associated with the Blue Plaques in areas of London. If you recall from the lecture, this means comparing our observed distribution of points with a statistically likely (Complete Spatial Random) distibution, based on the Poisson distribution.</p>
 <p>Using the same <code>quadratcount()</code> function again (for the same sized grid) we can save the results into a table:</p>
-<div class="sourceCode" id="cb280"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb280-1"><a href="detecting-spatial-patterns.html#cb280-1" tabindex="-1"></a><span class="co">#run the quadrat count</span></span>
-<span id="cb280-2"><a href="detecting-spatial-patterns.html#cb280-2" tabindex="-1"></a>Qcount <span class="ot">&lt;-</span> BluePlaquesSub.ppp <span class="sc">%&gt;%</span></span>
-<span id="cb280-3"><a href="detecting-spatial-patterns.html#cb280-3" tabindex="-1"></a>  <span class="fu">quadratcount</span>(.,<span class="at">nx =</span> <span class="dv">6</span>, <span class="at">ny =</span> <span class="dv">6</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb280-4"><a href="detecting-spatial-patterns.html#cb280-4" tabindex="-1"></a>  <span class="fu">as.data.frame</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb280-5"><a href="detecting-spatial-patterns.html#cb280-5" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">count</span>(<span class="at">Var1=</span>Freq)<span class="sc">%&gt;%</span></span>
-<span id="cb280-6"><a href="detecting-spatial-patterns.html#cb280-6" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">rename</span>(<span class="at">Freqquadratcount=</span>n)</span></code></pre></div>
+<div class="sourceCode" id="cb277"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb277-1"><a href="detecting-spatial-patterns.html#cb277-1" tabindex="-1"></a><span class="co">#run the quadrat count</span></span>
+<span id="cb277-2"><a href="detecting-spatial-patterns.html#cb277-2" tabindex="-1"></a>Qcount <span class="ot">&lt;-</span> BluePlaquesSub.ppp <span class="sc">%&gt;%</span></span>
+<span id="cb277-3"><a href="detecting-spatial-patterns.html#cb277-3" tabindex="-1"></a>  <span class="fu">quadratcount</span>(.,<span class="at">nx =</span> <span class="dv">6</span>, <span class="at">ny =</span> <span class="dv">6</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb277-4"><a href="detecting-spatial-patterns.html#cb277-4" tabindex="-1"></a>  <span class="fu">as.data.frame</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb277-5"><a href="detecting-spatial-patterns.html#cb277-5" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">count</span>(<span class="at">Var1=</span>Freq)<span class="sc">%&gt;%</span></span>
+<span id="cb277-6"><a href="detecting-spatial-patterns.html#cb277-6" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">rename</span>(<span class="at">Freqquadratcount=</span>n)</span></code></pre></div>
 <p>Check the data type in the first column — if it is factor, we will need to convert it to numeric</p>
-<div class="sourceCode" id="cb281"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb281-1"><a href="detecting-spatial-patterns.html#cb281-1" tabindex="-1"></a>Qcount <span class="sc">%&gt;%</span> </span>
-<span id="cb281-2"><a href="detecting-spatial-patterns.html#cb281-2" tabindex="-1"></a>  <span class="fu">summarise_all</span>(class)</span></code></pre></div>
+<div class="sourceCode" id="cb278"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb278-1"><a href="detecting-spatial-patterns.html#cb278-1" tabindex="-1"></a>Qcount <span class="sc">%&gt;%</span> </span>
+<span id="cb278-2"><a href="detecting-spatial-patterns.html#cb278-2" tabindex="-1"></a>  <span class="fu">summarise_all</span>(class)</span></code></pre></div>
 <pre><code>##      Var1 Freqquadratcount
 ## 1 integer          integer</code></pre>
 <p>OK, so we now have a frequency table — next we need to calculate our expected values. The formula for calculating expected probabilities based on the Poisson distribution is:</p>
@@ -1620,46 +1621,46 @@ where:</p>
 <li><p><code>λ</code> is the mean number of occurrences</p></li>
 <li><p><code>e</code> is a constant- 2.718</p></li>
 </ul>
-<div class="sourceCode" id="cb283"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb283-1"><a href="detecting-spatial-patterns.html#cb283-1" tabindex="-1"></a>sums <span class="ot">&lt;-</span> Qcount <span class="sc">%&gt;%</span></span>
-<span id="cb283-2"><a href="detecting-spatial-patterns.html#cb283-2" tabindex="-1"></a>  <span class="co">#calculate the total blue plaques (Var * Freq)</span></span>
-<span id="cb283-3"><a href="detecting-spatial-patterns.html#cb283-3" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">total =</span> Var1 <span class="sc">*</span> Freqquadratcount) <span class="sc">%&gt;%</span></span>
-<span id="cb283-4"><a href="detecting-spatial-patterns.html#cb283-4" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">summarise</span>(<span class="fu">across</span>(<span class="fu">everything</span>(), sum))<span class="sc">%&gt;%</span></span>
-<span id="cb283-5"><a href="detecting-spatial-patterns.html#cb283-5" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(<span class="sc">-</span>Var1) </span>
-<span id="cb283-6"><a href="detecting-spatial-patterns.html#cb283-6" tabindex="-1"></a></span>
-<span id="cb283-7"><a href="detecting-spatial-patterns.html#cb283-7" tabindex="-1"></a>lambda<span class="ot">&lt;-</span> Qcount<span class="sc">%&gt;%</span></span>
-<span id="cb283-8"><a href="detecting-spatial-patterns.html#cb283-8" tabindex="-1"></a>  <span class="co">#calculate lambda</span></span>
-<span id="cb283-9"><a href="detecting-spatial-patterns.html#cb283-9" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">total =</span> Var1 <span class="sc">*</span> Freqquadratcount)<span class="sc">%&gt;%</span></span>
-<span id="cb283-10"><a href="detecting-spatial-patterns.html#cb283-10" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">summarise</span>(<span class="fu">across</span>(<span class="fu">everything</span>(), sum)) <span class="sc">%&gt;%</span></span>
-<span id="cb283-11"><a href="detecting-spatial-patterns.html#cb283-11" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">lambda=</span>total<span class="sc">/</span>Freqquadratcount) <span class="sc">%&gt;%</span></span>
-<span id="cb283-12"><a href="detecting-spatial-patterns.html#cb283-12" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(lambda)<span class="sc">%&gt;%</span></span>
-<span id="cb283-13"><a href="detecting-spatial-patterns.html#cb283-13" tabindex="-1"></a>  <span class="fu">pull</span>(lambda)</span></code></pre></div>
+<div class="sourceCode" id="cb280"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb280-1"><a href="detecting-spatial-patterns.html#cb280-1" tabindex="-1"></a>sums <span class="ot">&lt;-</span> Qcount <span class="sc">%&gt;%</span></span>
+<span id="cb280-2"><a href="detecting-spatial-patterns.html#cb280-2" tabindex="-1"></a>  <span class="co">#calculate the total blue plaques (Var * Freq)</span></span>
+<span id="cb280-3"><a href="detecting-spatial-patterns.html#cb280-3" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">total =</span> Var1 <span class="sc">*</span> Freqquadratcount) <span class="sc">%&gt;%</span></span>
+<span id="cb280-4"><a href="detecting-spatial-patterns.html#cb280-4" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">summarise</span>(<span class="fu">across</span>(<span class="fu">everything</span>(), sum))<span class="sc">%&gt;%</span></span>
+<span id="cb280-5"><a href="detecting-spatial-patterns.html#cb280-5" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(<span class="sc">-</span>Var1) </span>
+<span id="cb280-6"><a href="detecting-spatial-patterns.html#cb280-6" tabindex="-1"></a></span>
+<span id="cb280-7"><a href="detecting-spatial-patterns.html#cb280-7" tabindex="-1"></a>lambda<span class="ot">&lt;-</span> Qcount<span class="sc">%&gt;%</span></span>
+<span id="cb280-8"><a href="detecting-spatial-patterns.html#cb280-8" tabindex="-1"></a>  <span class="co">#calculate lambda</span></span>
+<span id="cb280-9"><a href="detecting-spatial-patterns.html#cb280-9" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">total =</span> Var1 <span class="sc">*</span> Freqquadratcount)<span class="sc">%&gt;%</span></span>
+<span id="cb280-10"><a href="detecting-spatial-patterns.html#cb280-10" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">summarise</span>(<span class="fu">across</span>(<span class="fu">everything</span>(), sum)) <span class="sc">%&gt;%</span></span>
+<span id="cb280-11"><a href="detecting-spatial-patterns.html#cb280-11" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">lambda=</span>total<span class="sc">/</span>Freqquadratcount) <span class="sc">%&gt;%</span></span>
+<span id="cb280-12"><a href="detecting-spatial-patterns.html#cb280-12" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(lambda)<span class="sc">%&gt;%</span></span>
+<span id="cb280-13"><a href="detecting-spatial-patterns.html#cb280-13" tabindex="-1"></a>  <span class="fu">pull</span>(lambda)</span></code></pre></div>
 <p>Calculate expected using the Poisson formula from above <span class="math inline">\(k\)</span> is the number of blue plaques counted in a square and is found in the first column of our table…</p>
-<div class="sourceCode" id="cb284"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb284-1"><a href="detecting-spatial-patterns.html#cb284-1" tabindex="-1"></a>QCountTable <span class="ot">&lt;-</span> Qcount <span class="sc">%&gt;%</span></span>
-<span id="cb284-2"><a href="detecting-spatial-patterns.html#cb284-2" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Pr=</span>((lambda<span class="sc">^</span>Var1)<span class="sc">*</span><span class="fu">exp</span>(<span class="sc">-</span>lambda))<span class="sc">/</span><span class="fu">factorial</span>(Var1))<span class="sc">%&gt;%</span></span>
-<span id="cb284-3"><a href="detecting-spatial-patterns.html#cb284-3" tabindex="-1"></a>  <span class="co">#now calculate the expected counts based on our total number of plaques</span></span>
-<span id="cb284-4"><a href="detecting-spatial-patterns.html#cb284-4" tabindex="-1"></a>  <span class="co">#and save them to the table</span></span>
-<span id="cb284-5"><a href="detecting-spatial-patterns.html#cb284-5" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Expected=</span> (<span class="fu">round</span>(Pr <span class="sc">*</span> sums<span class="sc">$</span>Freqquadratcount, <span class="dv">0</span>)))</span>
-<span id="cb284-6"><a href="detecting-spatial-patterns.html#cb284-6" tabindex="-1"></a></span>
-<span id="cb284-7"><a href="detecting-spatial-patterns.html#cb284-7" tabindex="-1"></a><span class="co">#Compare the frequency distributions of the observed and expected point patterns</span></span>
-<span id="cb284-8"><a href="detecting-spatial-patterns.html#cb284-8" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">5</span>),<span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">14</span>), <span class="at">type=</span><span class="st">&quot;n&quot;</span>,</span>
-<span id="cb284-9"><a href="detecting-spatial-patterns.html#cb284-9" tabindex="-1"></a><span class="at">xlab=</span><span class="st">&quot;Number of Blue Plaques (Red=Observed,Blue=Expected)&quot;</span>, </span>
-<span id="cb284-10"><a href="detecting-spatial-patterns.html#cb284-10" tabindex="-1"></a>     <span class="at">ylab=</span><span class="st">&quot;Frequency of Occurances&quot;</span>)</span>
-<span id="cb284-11"><a href="detecting-spatial-patterns.html#cb284-11" tabindex="-1"></a><span class="fu">points</span>(QCountTable<span class="sc">$</span>Freqquadratcount, </span>
-<span id="cb284-12"><a href="detecting-spatial-patterns.html#cb284-12" tabindex="-1"></a>       <span class="at">col=</span><span class="st">&quot;Red&quot;</span>, </span>
-<span id="cb284-13"><a href="detecting-spatial-patterns.html#cb284-13" tabindex="-1"></a>       <span class="at">type=</span><span class="st">&quot;o&quot;</span>, </span>
-<span id="cb284-14"><a href="detecting-spatial-patterns.html#cb284-14" tabindex="-1"></a>       <span class="at">lwd=</span><span class="dv">3</span>)</span>
-<span id="cb284-15"><a href="detecting-spatial-patterns.html#cb284-15" tabindex="-1"></a><span class="fu">points</span>(QCountTable<span class="sc">$</span>Expected, <span class="at">col=</span><span class="st">&quot;Blue&quot;</span>, </span>
-<span id="cb284-16"><a href="detecting-spatial-patterns.html#cb284-16" tabindex="-1"></a>       <span class="at">type=</span><span class="st">&quot;o&quot;</span>, </span>
-<span id="cb284-17"><a href="detecting-spatial-patterns.html#cb284-17" tabindex="-1"></a>       <span class="at">lwd=</span><span class="dv">3</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb281"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb281-1"><a href="detecting-spatial-patterns.html#cb281-1" tabindex="-1"></a>QCountTable <span class="ot">&lt;-</span> Qcount <span class="sc">%&gt;%</span></span>
+<span id="cb281-2"><a href="detecting-spatial-patterns.html#cb281-2" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Pr=</span>((lambda<span class="sc">^</span>Var1)<span class="sc">*</span><span class="fu">exp</span>(<span class="sc">-</span>lambda))<span class="sc">/</span><span class="fu">factorial</span>(Var1))<span class="sc">%&gt;%</span></span>
+<span id="cb281-3"><a href="detecting-spatial-patterns.html#cb281-3" tabindex="-1"></a>  <span class="co">#now calculate the expected counts based on our total number of plaques</span></span>
+<span id="cb281-4"><a href="detecting-spatial-patterns.html#cb281-4" tabindex="-1"></a>  <span class="co">#and save them to the table</span></span>
+<span id="cb281-5"><a href="detecting-spatial-patterns.html#cb281-5" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Expected=</span> (<span class="fu">round</span>(Pr <span class="sc">*</span> sums<span class="sc">$</span>Freqquadratcount, <span class="dv">0</span>)))</span>
+<span id="cb281-6"><a href="detecting-spatial-patterns.html#cb281-6" tabindex="-1"></a></span>
+<span id="cb281-7"><a href="detecting-spatial-patterns.html#cb281-7" tabindex="-1"></a><span class="co">#Compare the frequency distributions of the observed and expected point patterns</span></span>
+<span id="cb281-8"><a href="detecting-spatial-patterns.html#cb281-8" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">5</span>),<span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">14</span>), <span class="at">type=</span><span class="st">&quot;n&quot;</span>,</span>
+<span id="cb281-9"><a href="detecting-spatial-patterns.html#cb281-9" tabindex="-1"></a><span class="at">xlab=</span><span class="st">&quot;Number of Blue Plaques (Red=Observed,Blue=Expected)&quot;</span>, </span>
+<span id="cb281-10"><a href="detecting-spatial-patterns.html#cb281-10" tabindex="-1"></a>     <span class="at">ylab=</span><span class="st">&quot;Frequency of Occurances&quot;</span>)</span>
+<span id="cb281-11"><a href="detecting-spatial-patterns.html#cb281-11" tabindex="-1"></a><span class="fu">points</span>(QCountTable<span class="sc">$</span>Freqquadratcount, </span>
+<span id="cb281-12"><a href="detecting-spatial-patterns.html#cb281-12" tabindex="-1"></a>       <span class="at">col=</span><span class="st">&quot;Red&quot;</span>, </span>
+<span id="cb281-13"><a href="detecting-spatial-patterns.html#cb281-13" tabindex="-1"></a>       <span class="at">type=</span><span class="st">&quot;o&quot;</span>, </span>
+<span id="cb281-14"><a href="detecting-spatial-patterns.html#cb281-14" tabindex="-1"></a>       <span class="at">lwd=</span><span class="dv">3</span>)</span>
+<span id="cb281-15"><a href="detecting-spatial-patterns.html#cb281-15" tabindex="-1"></a><span class="fu">points</span>(QCountTable<span class="sc">$</span>Expected, <span class="at">col=</span><span class="st">&quot;Blue&quot;</span>, </span>
+<span id="cb281-16"><a href="detecting-spatial-patterns.html#cb281-16" tabindex="-1"></a>       <span class="at">type=</span><span class="st">&quot;o&quot;</span>, </span>
+<span id="cb281-17"><a href="detecting-spatial-patterns.html#cb281-17" tabindex="-1"></a>       <span class="at">lwd=</span><span class="dv">3</span>)</span></code></pre></div>
 <p><img src="CASA0005_files/figure-html/unnamed-chunk-280-1.png" width="672" />
 Comparing the observed and expected frequencies for our quadrant counts, we can observe that they both have higher frequency counts at the lower end — something reminiscent of a Poisson distribution. This could indicate that for this particular set of quadrants, our pattern is close to Complete Spatial Randomness (i.e. no clustering or dispersal of points). But how do we confirm this?</p>
 <p>To check for sure, we can use the <code>quadrat.test()</code> function, built into <code>spatstat</code>. This uses a Chi Squared test to compare the observed and expected frequencies for each quadrant (rather than for quadrant bins, as we have just computed above).</p>
 <p>A Chi-Squared test determines if there is an association between two categorical variables. The higher the Chi-Squared value, the greater the difference.</p>
 <p>If the p-value of our Chi-Squared test is &lt; 0.05, then we can reject a null hypothesis that says “there is no pattern - i.e. complete spatial randomness - in our data” (think of a null-hypothesis as the opposite of a hypothesis that says our data exhibit a pattern). What we need to look for is a value for p &gt; 0.05. If our p-value is &gt; 0.05 then this indicates that we have CSR and there is no pattern in our points. If it is &lt; 0.05, this indicates that we do have clustering in our points.</p>
-<div class="sourceCode" id="cb285"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb285-1"><a href="detecting-spatial-patterns.html#cb285-1" tabindex="-1"></a>teststats <span class="ot">&lt;-</span> <span class="fu">quadrat.test</span>(BluePlaquesSub.ppp, <span class="at">nx =</span> <span class="dv">6</span>, <span class="at">ny =</span> <span class="dv">6</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb282"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb282-1"><a href="detecting-spatial-patterns.html#cb282-1" tabindex="-1"></a>teststats <span class="ot">&lt;-</span> <span class="fu">quadrat.test</span>(BluePlaquesSub.ppp, <span class="at">nx =</span> <span class="dv">6</span>, <span class="at">ny =</span> <span class="dv">6</span>)</span></code></pre></div>
 <pre><code>## Warning: Some expected counts are small; chi^2 approximation may be inaccurate</code></pre>
-<div class="sourceCode" id="cb287"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb287-1"><a href="detecting-spatial-patterns.html#cb287-1" tabindex="-1"></a><span class="fu">plot</span>(BluePlaquesSub.ppp,<span class="at">pch=</span><span class="dv">16</span>,<span class="at">cex=</span><span class="fl">0.5</span>, <span class="at">main=</span><span class="st">&quot;Blue Plaques in Harrow&quot;</span>)</span>
-<span id="cb287-2"><a href="detecting-spatial-patterns.html#cb287-2" tabindex="-1"></a><span class="fu">plot</span>(teststats, <span class="at">add=</span>T, <span class="at">col =</span> <span class="st">&quot;red&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb284"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb284-1"><a href="detecting-spatial-patterns.html#cb284-1" tabindex="-1"></a><span class="fu">plot</span>(BluePlaquesSub.ppp,<span class="at">pch=</span><span class="dv">16</span>,<span class="at">cex=</span><span class="fl">0.5</span>, <span class="at">main=</span><span class="st">&quot;Blue Plaques in Harrow&quot;</span>)</span>
+<span id="cb284-2"><a href="detecting-spatial-patterns.html#cb284-2" tabindex="-1"></a><span class="fu">plot</span>(teststats, <span class="at">add=</span>T, <span class="at">col =</span> <span class="st">&quot;red&quot;</span>)</span></code></pre></div>
 <p><img src="CASA0005_files/figure-html/unnamed-chunk-281-1.png" width="672" /></p>
 <p>Here our p-value = 0.2594, implying complete spatial randomness. But there are limitations of using qudrants like this…that we will explore next.</p>
 <p>Note the warning message — some of the observed counts are very small (0) and this may affect the accuracy of the quadrant test. Recall that the Poisson distribution only describes observed occurrances that are counted in integers — where our occurrences = 0 (i.e. not observed), this can be an issue. We also know that there are various other problems that might affect our quadrat analysis, such as the <a href="https://www.youtube.com/watch?v=cZdlxDx4Nvs">modifiable areal unit problem</a>.</p>
@@ -1676,19 +1677,19 @@ Comparing the observed and expected frequencies for our quadrant counts, we can 
 <h3><span class="header-section-number">6.6.4</span> Ripley’s K<a href="detecting-spatial-patterns.html#ripleys-k" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>One way of getting around the limitations of quadrat analysis is to compare the observed distribution of points with the Poisson random model for a whole range of different distance radii. This is what Ripley’s K function computes.</p>
 <p>We can conduct a Ripley’s K test on our data very simply with the <code>spatstat</code> package using the <code>kest()</code> function.</p>
-<div class="sourceCode" id="cb288"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb288-1"><a href="detecting-spatial-patterns.html#cb288-1" tabindex="-1"></a>K <span class="ot">&lt;-</span> BluePlaquesSub.ppp <span class="sc">%&gt;%</span></span>
-<span id="cb288-2"><a href="detecting-spatial-patterns.html#cb288-2" tabindex="-1"></a>  <span class="fu">Kest</span>(., <span class="at">correction=</span><span class="st">&quot;border&quot;</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb288-3"><a href="detecting-spatial-patterns.html#cb288-3" tabindex="-1"></a>  <span class="fu">plot</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb285"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb285-1"><a href="detecting-spatial-patterns.html#cb285-1" tabindex="-1"></a>K <span class="ot">&lt;-</span> BluePlaquesSub.ppp <span class="sc">%&gt;%</span></span>
+<span id="cb285-2"><a href="detecting-spatial-patterns.html#cb285-2" tabindex="-1"></a>  <span class="fu">Kest</span>(., <span class="at">correction=</span><span class="st">&quot;border&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb285-3"><a href="detecting-spatial-patterns.html#cb285-3" tabindex="-1"></a>  <span class="fu">plot</span>()</span></code></pre></div>
 <p><img src="CASA0005_files/figure-html/unnamed-chunk-282-1.png" width="672" /></p>
-<div class="sourceCode" id="cb289"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb289-1"><a href="detecting-spatial-patterns.html#cb289-1" tabindex="-1"></a><span class="co"># we can also extract the plot into a dataframe</span></span>
-<span id="cb289-2"><a href="detecting-spatial-patterns.html#cb289-2" tabindex="-1"></a>Kval <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(<span class="fu">Kest</span>(BluePlaquesSub.ppp, <span class="at">correction =</span> <span class="st">&quot;Ripley&quot;</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb286"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb286-1"><a href="detecting-spatial-patterns.html#cb286-1" tabindex="-1"></a><span class="co"># we can also extract the plot into a dataframe</span></span>
+<span id="cb286-2"><a href="detecting-spatial-patterns.html#cb286-2" tabindex="-1"></a>Kval <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(<span class="fu">Kest</span>(BluePlaquesSub.ppp, <span class="at">correction =</span> <span class="st">&quot;Ripley&quot;</span>))</span></code></pre></div>
 <p>Ripley’s K is defined as…</p>
 <p><span class="math display">\[K(r) = \lambda^{-1} \sum{i}\sum{j}\frac{I(d_ij&lt;r)}{n}\]</span></p>
 <ul>
 <li><p>In English: Ripley’s K value for any circle radius <span class="math inline">\(r\)</span> =</p>
 <ul>
 <li><p>The average density of points for the <strong>entire study region (of all locations)</strong> <span class="math inline">\(\lambda = (n/ \Pi r^2))\)</span></p></li>
-<li><p>Multiplied by the sum of the distances <span class="math inline">\(d_ij\)</span> between all points within that search radius, see <a href="https://www3.nd.edu/~mhaenggi/ee87021/Dixon-K-Function.pdf">Dixon page 2</a> and <a href="file:///C:/Users/Andy/Downloads/Extending_Ripleys_K-Function_to_Quantify_Aggregat%20(1).pdf">Amgad et al. 2015</a></p></li>
+<li><p>Multiplied by the sum of the distances <span class="math inline">\(d_ij\)</span> between all points within that search radius, see <a href="https://www3.nd.edu/~mhaenggi/ee87021/Dixon-K-Function.pdf">Dixon page 2</a> and <a href="https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0144404">Amgad et al. 2015</a></p></li>
 <li><p>Divided by the total number of points, n</p></li>
 <li><p>I = 1 or 0 depending if <span class="math inline">\(d_ij &lt; r\)</span></p></li>
 </ul></li>
@@ -1709,12 +1710,12 @@ Comparing the observed and expected frequencies for our quadrant counts, we can 
 </div>
 <div id="density-based-spatial-clustering-of-applications-with-noise-dbscan" class="section level2 hasAnchor" number="6.7">
 <h2><span class="header-section-number">6.7</span> Density-based spatial clustering of applications with noise: DBSCAN<a href="detecting-spatial-patterns.html#density-based-spatial-clustering-of-applications-with-noise-dbscan" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>Quadrat and Ripley’s K analysis are useful exploratory techniques for telling us if we have spatial clusters present in our point data, but they are not able to tell us WHERE in our area of interest the clusters are occurring. To discover this we need to use alternative techniques. One popular technique for discovering clusters in space (be this physical space or variable space) is DBSCAN. For the complete overview of the DBSCAN algorithm, read the original paper by <a href="http://www.aaai.org/Papers/KDD/1996/KDD96-037.pdf">Ester et al. (1996)</a>
+<p>Quadrat and Ripley’s K analysis are useful exploratory techniques for telling us if we have spatial clusters present in our point data, but they are not able to tell us <strong>WHERE</strong> in our area of interest the clusters are occurring. To discover this we need to use alternative techniques. One popular technique for discovering clusters in space (be this physical space or variable space) is DBSCAN. For the complete overview of the DBSCAN algorithm, read the original paper by <a href="http://www.aaai.org/Papers/KDD/1996/KDD96-037.pdf">Ester et al. (1996)</a>
 or consult the <a href="https://en.wikipedia.org/wiki/DBSCAN">wikipedia page</a></p>
-<div class="sourceCode" id="cb290"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb290-1"><a href="detecting-spatial-patterns.html#cb290-1" tabindex="-1"></a><span class="fu">library</span>(fpc)</span></code></pre></div>
+<div class="sourceCode" id="cb287"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb287-1"><a href="detecting-spatial-patterns.html#cb287-1" tabindex="-1"></a><span class="fu">library</span>(fpc)</span></code></pre></div>
 <p>We will now carry out a DBSCAN analysis of blue plaques in my borough to see if there are any clusters present.</p>
-<div class="sourceCode" id="cb291"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb291-1"><a href="detecting-spatial-patterns.html#cb291-1" tabindex="-1"></a><span class="co">#first check the coordinate reference system of the Harrow spatial polygon:</span></span>
-<span id="cb291-2"><a href="detecting-spatial-patterns.html#cb291-2" tabindex="-1"></a><span class="fu">st_geometry</span>(BoroughMap)</span></code></pre></div>
+<div class="sourceCode" id="cb288"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb288-1"><a href="detecting-spatial-patterns.html#cb288-1" tabindex="-1"></a><span class="co">#first check the coordinate reference system of the Harrow spatial polygon:</span></span>
+<span id="cb288-2"><a href="detecting-spatial-patterns.html#cb288-2" tabindex="-1"></a><span class="fu">st_geometry</span>(BoroughMap)</span></code></pre></div>
 <pre><code>## Geometry set for 33 features 
 ## Geometry type: MULTIPOLYGON
 ## Dimension:     XY
@@ -1725,98 +1726,92 @@ or consult the <a href="https://en.wikipedia.org/wiki/DBSCAN">wikipedia page</a>
 1. <em>Epsilon</em> - this is the radius within which the algorithm with search for clusters
 2. <em>MinPts</em> - this is the minimum number of points that should be considered a cluster</p>
 <p>Based on the results of the Ripley’s K analysis earlier, we can see that we are getting clustering up to a radius of around 1200m, with the largest bulge in the graph at around 700m. Therefore, 700m is probably a good place to start and we will begin by searching for clusters of at least 4 points…</p>
-<div class="sourceCode" id="cb293"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb293-1"><a href="detecting-spatial-patterns.html#cb293-1" tabindex="-1"></a><span class="co">#first extract the points from the spatial points data frame</span></span>
-<span id="cb293-2"><a href="detecting-spatial-patterns.html#cb293-2" tabindex="-1"></a>BluePlaquesSubPoints <span class="ot">&lt;-</span> BluePlaquesSub <span class="sc">%&gt;%</span></span>
-<span id="cb293-3"><a href="detecting-spatial-patterns.html#cb293-3" tabindex="-1"></a>  <span class="fu">coordinates</span>(.)<span class="sc">%&gt;%</span></span>
-<span id="cb293-4"><a href="detecting-spatial-patterns.html#cb293-4" tabindex="-1"></a>  <span class="fu">as.data.frame</span>()</span>
-<span id="cb293-5"><a href="detecting-spatial-patterns.html#cb293-5" tabindex="-1"></a></span>
-<span id="cb293-6"><a href="detecting-spatial-patterns.html#cb293-6" tabindex="-1"></a><span class="co">#now run the dbscan analysis</span></span>
-<span id="cb293-7"><a href="detecting-spatial-patterns.html#cb293-7" tabindex="-1"></a>db <span class="ot">&lt;-</span> BluePlaquesSubPoints <span class="sc">%&gt;%</span></span>
-<span id="cb293-8"><a href="detecting-spatial-patterns.html#cb293-8" tabindex="-1"></a>  fpc<span class="sc">::</span><span class="fu">dbscan</span>(.,<span class="at">eps =</span> <span class="dv">700</span>, <span class="at">MinPts =</span> <span class="dv">4</span>)</span>
-<span id="cb293-9"><a href="detecting-spatial-patterns.html#cb293-9" tabindex="-1"></a></span>
-<span id="cb293-10"><a href="detecting-spatial-patterns.html#cb293-10" tabindex="-1"></a><span class="co">#now plot the results</span></span>
-<span id="cb293-11"><a href="detecting-spatial-patterns.html#cb293-11" tabindex="-1"></a><span class="fu">plot</span>(db, BluePlaquesSubPoints, <span class="at">main =</span> <span class="st">&quot;DBSCAN Output&quot;</span>, <span class="at">frame =</span> F)</span>
-<span id="cb293-12"><a href="detecting-spatial-patterns.html#cb293-12" tabindex="-1"></a><span class="fu">plot</span>(BoroughMap<span class="sc">$</span>geometry, <span class="at">add=</span>T)</span></code></pre></div>
+<div class="sourceCode" id="cb290"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb290-1"><a href="detecting-spatial-patterns.html#cb290-1" tabindex="-1"></a><span class="co">#first extract the points from the spatial points data frame</span></span>
+<span id="cb290-2"><a href="detecting-spatial-patterns.html#cb290-2" tabindex="-1"></a>BluePlaquesSubPoints <span class="ot">&lt;-</span> BluePlaquesSub <span class="sc">%&gt;%</span></span>
+<span id="cb290-3"><a href="detecting-spatial-patterns.html#cb290-3" tabindex="-1"></a>  <span class="fu">coordinates</span>(.)<span class="sc">%&gt;%</span></span>
+<span id="cb290-4"><a href="detecting-spatial-patterns.html#cb290-4" tabindex="-1"></a>  <span class="fu">as.data.frame</span>()</span>
+<span id="cb290-5"><a href="detecting-spatial-patterns.html#cb290-5" tabindex="-1"></a></span>
+<span id="cb290-6"><a href="detecting-spatial-patterns.html#cb290-6" tabindex="-1"></a><span class="co">#now run the dbscan analysis</span></span>
+<span id="cb290-7"><a href="detecting-spatial-patterns.html#cb290-7" tabindex="-1"></a>db <span class="ot">&lt;-</span> BluePlaquesSubPoints <span class="sc">%&gt;%</span></span>
+<span id="cb290-8"><a href="detecting-spatial-patterns.html#cb290-8" tabindex="-1"></a>  fpc<span class="sc">::</span><span class="fu">dbscan</span>(.,<span class="at">eps =</span> <span class="dv">700</span>, <span class="at">MinPts =</span> <span class="dv">4</span>)</span>
+<span id="cb290-9"><a href="detecting-spatial-patterns.html#cb290-9" tabindex="-1"></a></span>
+<span id="cb290-10"><a href="detecting-spatial-patterns.html#cb290-10" tabindex="-1"></a><span class="co">#now plot the results</span></span>
+<span id="cb290-11"><a href="detecting-spatial-patterns.html#cb290-11" tabindex="-1"></a><span class="fu">plot</span>(db, BluePlaquesSubPoints, <span class="at">main =</span> <span class="st">&quot;DBSCAN Output&quot;</span>, <span class="at">frame =</span> F)</span>
+<span id="cb290-12"><a href="detecting-spatial-patterns.html#cb290-12" tabindex="-1"></a><span class="fu">plot</span>(BoroughMap<span class="sc">$</span>geometry, <span class="at">add=</span>T)</span></code></pre></div>
 <p><img src="CASA0005_files/figure-html/unnamed-chunk-285-1.png" width="672" />
-You could also use <code>kNNdistplot()</code> from the <code>dbscan</code> pacakge to find a suitable eps value based on the ‘knee’ in the plot…</p>
-<div class="sourceCode" id="cb294"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb294-1"><a href="detecting-spatial-patterns.html#cb294-1" tabindex="-1"></a><span class="co"># used to find suitable eps value based on the knee in plot</span></span>
-<span id="cb294-2"><a href="detecting-spatial-patterns.html#cb294-2" tabindex="-1"></a><span class="co"># k is no of nearest neighbours used, use min points</span></span>
-<span id="cb294-3"><a href="detecting-spatial-patterns.html#cb294-3" tabindex="-1"></a><span class="fu">library</span>(dbscan)</span>
-<span id="cb294-4"><a href="detecting-spatial-patterns.html#cb294-4" tabindex="-1"></a></span>
-<span id="cb294-5"><a href="detecting-spatial-patterns.html#cb294-5" tabindex="-1"></a>BluePlaquesSubPoints<span class="sc">%&gt;%</span></span>
-<span id="cb294-6"><a href="detecting-spatial-patterns.html#cb294-6" tabindex="-1"></a>  dbscan<span class="sc">::</span><span class="fu">kNNdistplot</span>(.,<span class="at">k=</span><span class="dv">4</span>)</span></code></pre></div>
+You could also use <code>kNNdistplot()</code> from the <code>dbscan</code> package to find a suitable eps value based on the ‘knee’ in the plot…</p>
+<div class="sourceCode" id="cb291"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb291-1"><a href="detecting-spatial-patterns.html#cb291-1" tabindex="-1"></a><span class="co"># used to find suitable eps value based on the knee in plot</span></span>
+<span id="cb291-2"><a href="detecting-spatial-patterns.html#cb291-2" tabindex="-1"></a><span class="co"># k is no of nearest neighbours used, use min points</span></span>
+<span id="cb291-3"><a href="detecting-spatial-patterns.html#cb291-3" tabindex="-1"></a><span class="fu">library</span>(dbscan)</span>
+<span id="cb291-4"><a href="detecting-spatial-patterns.html#cb291-4" tabindex="-1"></a></span>
+<span id="cb291-5"><a href="detecting-spatial-patterns.html#cb291-5" tabindex="-1"></a>BluePlaquesSubPoints<span class="sc">%&gt;%</span></span>
+<span id="cb291-6"><a href="detecting-spatial-patterns.html#cb291-6" tabindex="-1"></a>  dbscan<span class="sc">::</span><span class="fu">kNNdistplot</span>(.,<span class="at">k=</span><span class="dv">4</span>)</span></code></pre></div>
 <p>This plot shows for each point the average distance to the k neighbours, which are then plotted in ascending order. The knee is where this value (of distance to neighbours) increases. See <a href="https://www.datanovia.com/en/lessons/dbscan-density-based-clustering-essentials/">this article from Data Novia</a> for more information on this</p>
 <p>So the DBSCAN analysis shows that for these values of eps and MinPts there are three clusters in the area I am analysing. Try varying eps and MinPts to see what difference it makes to the output.</p>
 <p>Now of course the plot above is a little basic and doesn’t look very aesthetically pleasing. As this is R and R is brilliant, we can always produce a much nicer plot by extracting the useful information from the DBSCAN output and use <code>ggplot2</code> to produce a much cooler map…</p>
-<div class="sourceCode" id="cb295"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb295-1"><a href="detecting-spatial-patterns.html#cb295-1" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span></code></pre></div>
+<div class="sourceCode" id="cb292"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb292-1"><a href="detecting-spatial-patterns.html#cb292-1" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span></code></pre></div>
 <p>Our new db object contains lots of info including the cluster each set of point coordinates belongs to, whether the point is a seed point or a border point etc. We can get a summary by just calling the object</p>
-<div class="sourceCode" id="cb296"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb296-1"><a href="detecting-spatial-patterns.html#cb296-1" tabindex="-1"></a>db</span></code></pre></div>
+<div class="sourceCode" id="cb293"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb293-1"><a href="detecting-spatial-patterns.html#cb293-1" tabindex="-1"></a>db</span></code></pre></div>
 <pre><code>## dbscan Pts=40 MinPts=4 eps=700
 ##         0 1 2 3 4
 ## border 16 1 0 3 4
 ## seed    0 6 8 1 1
 ## total  16 7 8 4 5</code></pre>
 <p>If you open up the object in the environment window in RStudio, you will also see the various slots in the object, including cluster</p>
-<div class="sourceCode" id="cb298"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb298-1"><a href="detecting-spatial-patterns.html#cb298-1" tabindex="-1"></a>db<span class="sc">$</span>cluster</span></code></pre></div>
+<div class="sourceCode" id="cb295"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb295-1"><a href="detecting-spatial-patterns.html#cb295-1" tabindex="-1"></a>db<span class="sc">$</span>cluster</span></code></pre></div>
 <pre><code>##  [1] 0 3 0 1 4 0 1 0 4 1 0 2 1 1 2 0 0 0 0 2 1 3 0 0 0 0 4 3 4 2 0 0 4 3 0 2 2 2
 ## [39] 2 1</code></pre>
 <p>We can now add this cluster membership info back into our dataframe</p>
-<div class="sourceCode" id="cb300"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb300-1"><a href="detecting-spatial-patterns.html#cb300-1" tabindex="-1"></a>BluePlaquesSubPoints<span class="ot">&lt;-</span> BluePlaquesSubPoints <span class="sc">%&gt;%</span></span>
-<span id="cb300-2"><a href="detecting-spatial-patterns.html#cb300-2" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">dbcluster=</span>db<span class="sc">$</span>cluster)</span></code></pre></div>
-<p>Next we are going to create some convex hull polygons to wrap around the points in our clusters.</p>
-<div class="sourceCode" id="cb301"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb301-1"><a href="detecting-spatial-patterns.html#cb301-1" tabindex="-1"></a>chulls <span class="ot">&lt;-</span> BluePlaquesSubPoints <span class="sc">%&gt;%</span></span>
-<span id="cb301-2"><a href="detecting-spatial-patterns.html#cb301-2" tabindex="-1"></a>  <span class="fu">group_by</span>(dbcluster) <span class="sc">%&gt;%</span></span>
-<span id="cb301-3"><a href="detecting-spatial-patterns.html#cb301-3" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">mutate</span>(<span class="at">hull =</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">n</span>(),</span>
-<span id="cb301-4"><a href="detecting-spatial-patterns.html#cb301-4" tabindex="-1"></a>  <span class="at">hull =</span> <span class="fu">factor</span>(hull, <span class="fu">chull</span>(coords.x1, coords.x2)))<span class="sc">%&gt;%</span></span>
-<span id="cb301-5"><a href="detecting-spatial-patterns.html#cb301-5" tabindex="-1"></a>  <span class="fu">arrange</span>(hull)</span>
-<span id="cb301-6"><a href="detecting-spatial-patterns.html#cb301-6" tabindex="-1"></a></span>
-<span id="cb301-7"><a href="detecting-spatial-patterns.html#cb301-7" tabindex="-1"></a><span class="co">#chulls2 &lt;- ddply(BluePlaquesSubPoints, .(dbcluster), </span></span>
-<span id="cb301-8"><a href="detecting-spatial-patterns.html#cb301-8" tabindex="-1"></a>              <span class="co">#  function(df) df[chull(df$coords.x1, df$coords.x2), ])</span></span></code></pre></div>
-<p>As 0 isn’t actually a cluster (it’s all points that aren’t in a cluster) drop it from the dataframe</p>
-<div class="sourceCode" id="cb302"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb302-1"><a href="detecting-spatial-patterns.html#cb302-1" tabindex="-1"></a>chulls <span class="ot">&lt;-</span> chulls <span class="sc">%&gt;%</span></span>
-<span id="cb302-2"><a href="detecting-spatial-patterns.html#cb302-2" tabindex="-1"></a>  <span class="fu">filter</span>(dbcluster <span class="sc">&gt;=</span><span class="dv">1</span>)</span></code></pre></div>
-<p>Now create a <code>ggplot2</code> object from our data</p>
-<div class="sourceCode" id="cb303"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb303-1"><a href="detecting-spatial-patterns.html#cb303-1" tabindex="-1"></a>dbplot <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="at">data=</span>BluePlaquesSubPoints, </span>
-<span id="cb303-2"><a href="detecting-spatial-patterns.html#cb303-2" tabindex="-1"></a>                 <span class="fu">aes</span>(coords.x1,coords.x2, <span class="at">colour=</span>dbcluster, <span class="at">fill=</span>dbcluster)) </span>
-<span id="cb303-3"><a href="detecting-spatial-patterns.html#cb303-3" tabindex="-1"></a><span class="co">#add the points in</span></span>
-<span id="cb303-4"><a href="detecting-spatial-patterns.html#cb303-4" tabindex="-1"></a>dbplot <span class="ot">&lt;-</span> dbplot <span class="sc">+</span> <span class="fu">geom_point</span>()</span>
-<span id="cb303-5"><a href="detecting-spatial-patterns.html#cb303-5" tabindex="-1"></a><span class="co">#now the convex hulls</span></span>
-<span id="cb303-6"><a href="detecting-spatial-patterns.html#cb303-6" tabindex="-1"></a>dbplot <span class="ot">&lt;-</span> dbplot <span class="sc">+</span> <span class="fu">geom_polygon</span>(<span class="at">data =</span> chulls, </span>
-<span id="cb303-7"><a href="detecting-spatial-patterns.html#cb303-7" tabindex="-1"></a>                                <span class="fu">aes</span>(coords.x1,coords.x2, <span class="at">group=</span>dbcluster), </span>
-<span id="cb303-8"><a href="detecting-spatial-patterns.html#cb303-8" tabindex="-1"></a>                                <span class="at">alpha =</span> <span class="fl">0.5</span>) </span>
-<span id="cb303-9"><a href="detecting-spatial-patterns.html#cb303-9" tabindex="-1"></a><span class="co">#now plot, setting the coordinates to scale correctly and as a black and white plot </span></span>
-<span id="cb303-10"><a href="detecting-spatial-patterns.html#cb303-10" tabindex="-1"></a><span class="co">#(just for the hell of it)...</span></span>
-<span id="cb303-11"><a href="detecting-spatial-patterns.html#cb303-11" tabindex="-1"></a>dbplot <span class="sc">+</span> <span class="fu">theme_bw</span>() <span class="sc">+</span> <span class="fu">coord_equal</span>()</span></code></pre></div>
-<p><img src="CASA0005_files/figure-html/unnamed-chunk-293-1.png" width="672" /></p>
-<p>Now we are getting there, but wouldn’t it be better to add a basemap?!</p>
-<div class="sourceCode" id="cb304"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb304-1"><a href="detecting-spatial-patterns.html#cb304-1" tabindex="-1"></a><span class="do">###add a basemap</span></span>
-<span id="cb304-2"><a href="detecting-spatial-patterns.html#cb304-2" tabindex="-1"></a><span class="do">##First get the bbox in lat long for Harrow</span></span>
-<span id="cb304-3"><a href="detecting-spatial-patterns.html#cb304-3" tabindex="-1"></a>HarrowWGSbb <span class="ot">&lt;-</span> Harrow <span class="sc">%&gt;%</span></span>
-<span id="cb304-4"><a href="detecting-spatial-patterns.html#cb304-4" tabindex="-1"></a>  <span class="fu">st_transform</span>(., <span class="dv">4326</span>)<span class="sc">%&gt;%</span></span>
-<span id="cb304-5"><a href="detecting-spatial-patterns.html#cb304-5" tabindex="-1"></a>  <span class="fu">st_bbox</span>()</span></code></pre></div>
-<p>Now convert the basemap to British National Grid</p>
-<div class="sourceCode" id="cb305"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb305-1"><a href="detecting-spatial-patterns.html#cb305-1" tabindex="-1"></a><span class="fu">library</span>(OpenStreetMap)</span>
-<span id="cb305-2"><a href="detecting-spatial-patterns.html#cb305-2" tabindex="-1"></a></span>
-<span id="cb305-3"><a href="detecting-spatial-patterns.html#cb305-3" tabindex="-1"></a>basemap <span class="ot">&lt;-</span> OpenStreetMap<span class="sc">::</span><span class="fu">openmap</span>(<span class="fu">c</span>(<span class="fl">51.5549876</span>,<span class="sc">-</span><span class="fl">0.4040502</span>),<span class="fu">c</span>(<span class="fl">51.6405356</span>,<span class="sc">-</span><span class="fl">0.2671315</span>),</span>
-<span id="cb305-4"><a href="detecting-spatial-patterns.html#cb305-4" tabindex="-1"></a>                         <span class="at">zoom=</span><span class="cn">NULL</span>,</span>
-<span id="cb305-5"><a href="detecting-spatial-patterns.html#cb305-5" tabindex="-1"></a>                         <span class="st">&quot;osm&quot;</span>)</span>
-<span id="cb305-6"><a href="detecting-spatial-patterns.html#cb305-6" tabindex="-1"></a></span>
-<span id="cb305-7"><a href="detecting-spatial-patterns.html#cb305-7" tabindex="-1"></a>  <span class="co"># convert the basemap to British National Grid</span></span>
-<span id="cb305-8"><a href="detecting-spatial-patterns.html#cb305-8" tabindex="-1"></a>basemap_bng <span class="ot">&lt;-</span> <span class="fu">openproj</span>(basemap, <span class="fu">CRS</span>(<span class="st">&quot;+init=epsg:27700&quot;</span>))</span></code></pre></div>
-<p><strong>Note</strong> this short string is the PROJ4 for British National Grid <a href="https://epsg.io/27700">EPSG 27700</a></p>
-<p>Now we can plot our fancy map with the clusters on…</p>
-<div class="sourceCode" id="cb306"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb306-1"><a href="detecting-spatial-patterns.html#cb306-1" tabindex="-1"></a><span class="co">#autoplot(basemap_bng) sometimes works</span></span>
-<span id="cb306-2"><a href="detecting-spatial-patterns.html#cb306-2" tabindex="-1"></a><span class="fu">autoplot.OpenStreetMap</span>(basemap_bng)<span class="sc">+</span> </span>
-<span id="cb306-3"><a href="detecting-spatial-patterns.html#cb306-3" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">data=</span>BluePlaquesSubPoints, </span>
-<span id="cb306-4"><a href="detecting-spatial-patterns.html#cb306-4" tabindex="-1"></a>             <span class="fu">aes</span>(coords.x1,coords.x2, </span>
-<span id="cb306-5"><a href="detecting-spatial-patterns.html#cb306-5" tabindex="-1"></a>                 <span class="at">colour=</span>dbcluster, </span>
-<span id="cb306-6"><a href="detecting-spatial-patterns.html#cb306-6" tabindex="-1"></a>                 <span class="at">fill=</span>dbcluster)) <span class="sc">+</span> </span>
-<span id="cb306-7"><a href="detecting-spatial-patterns.html#cb306-7" tabindex="-1"></a>  <span class="fu">geom_polygon</span>(<span class="at">data =</span> chulls, </span>
-<span id="cb306-8"><a href="detecting-spatial-patterns.html#cb306-8" tabindex="-1"></a>               <span class="fu">aes</span>(coords.x1,coords.x2, </span>
-<span id="cb306-9"><a href="detecting-spatial-patterns.html#cb306-9" tabindex="-1"></a>                   <span class="at">group=</span>dbcluster,</span>
-<span id="cb306-10"><a href="detecting-spatial-patterns.html#cb306-10" tabindex="-1"></a>                   <span class="at">fill=</span>dbcluster), </span>
-<span id="cb306-11"><a href="detecting-spatial-patterns.html#cb306-11" tabindex="-1"></a>               <span class="at">alpha =</span> <span class="fl">0.5</span>)  </span></code></pre></div>
-<p><img src="CASA0005_files/figure-html/unnamed-chunk-295-1.png" width="672" /></p>
+<div class="sourceCode" id="cb297"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb297-1"><a href="detecting-spatial-patterns.html#cb297-1" tabindex="-1"></a>BluePlaquesSubPoints<span class="ot">&lt;-</span> BluePlaquesSubPoints <span class="sc">%&gt;%</span></span>
+<span id="cb297-2"><a href="detecting-spatial-patterns.html#cb297-2" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">dbcluster=</span>db<span class="sc">$</span>cluster)</span></code></pre></div>
+<p>Next we are going to create some convex hull polygons to wrap around the points in our clusters. We will</p>
+<ul>
+<li>convert this dataframe to an sf object</li>
+<li>make convex hulls around the clusters</li>
+<li>plot</li>
+</ul>
+<div class="sourceCode" id="cb298"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb298-1"><a href="detecting-spatial-patterns.html#cb298-1" tabindex="-1"></a><span class="co"># convert the data frame to sf</span></span>
+<span id="cb298-2"><a href="detecting-spatial-patterns.html#cb298-2" tabindex="-1"></a>BluePlaquesSubPoints_sf <span class="ot">&lt;-</span> <span class="fu">st_as_sf</span>(BluePlaquesSubPoints, </span>
+<span id="cb298-3"><a href="detecting-spatial-patterns.html#cb298-3" tabindex="-1"></a>                                    <span class="at">coords =</span> <span class="fu">c</span>(<span class="st">&quot;coords.x1&quot;</span>, <span class="st">&quot;coords.x2&quot;</span>), </span>
+<span id="cb298-4"><a href="detecting-spatial-patterns.html#cb298-4" tabindex="-1"></a>                                    <span class="at">crs =</span> <span class="dv">27700</span>)</span>
+<span id="cb298-5"><a href="detecting-spatial-patterns.html#cb298-5" tabindex="-1"></a></span>
+<span id="cb298-6"><a href="detecting-spatial-patterns.html#cb298-6" tabindex="-1"></a><span class="co"># make the convex hulls around the cluster points</span></span>
+<span id="cb298-7"><a href="detecting-spatial-patterns.html#cb298-7" tabindex="-1"></a>chull_polygons <span class="ot">&lt;-</span> BluePlaquesSubPoints_sf <span class="sc">%&gt;%</span></span>
+<span id="cb298-8"><a href="detecting-spatial-patterns.html#cb298-8" tabindex="-1"></a>  <span class="co"># remove any points not in a cluster</span></span>
+<span id="cb298-9"><a href="detecting-spatial-patterns.html#cb298-9" tabindex="-1"></a>  <span class="fu">filter</span>(dbcluster<span class="sc">&gt;</span><span class="dv">0</span>)<span class="sc">%&gt;%</span></span>
+<span id="cb298-10"><a href="detecting-spatial-patterns.html#cb298-10" tabindex="-1"></a>  <span class="fu">group_by</span>(dbcluster) <span class="sc">%&gt;%</span></span>
+<span id="cb298-11"><a href="detecting-spatial-patterns.html#cb298-11" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">geometry =</span> <span class="fu">st_combine</span>(geometry)) <span class="sc">%&gt;%</span>  <span class="co"># combine points</span></span>
+<span id="cb298-12"><a href="detecting-spatial-patterns.html#cb298-12" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">geometry =</span> <span class="fu">st_convex_hull</span>(geometry)) <span class="sc">%&gt;%</span> <span class="co"># convex hull</span></span>
+<span id="cb298-13"><a href="detecting-spatial-patterns.html#cb298-13" tabindex="-1"></a>  <span class="fu">st_as_sf</span>()</span></code></pre></div>
+<p>Now create a <code>ggplot2</code> object from our data.</p>
+<div class="infobox tip">
+<p>In past iterations we used to get a base map we would:
+* set a bounding box
+* Extract the coordinates of the bounding box
+* Pull an OSM base map from the OpenStreetMap package.</p>
+<p>However, now we can do this all from within the <code>annotation_map_tile()</code> function from the ggspatial package</p>
+</div>
+<p>Here:</p>
+<ul>
+<li><code>fill</code> is for the interior colour (e.g. polygons)</li>
+<li><code>color</code> is for borders and points</li>
+</ul>
+<div class="sourceCode" id="cb299"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb299-1"><a href="detecting-spatial-patterns.html#cb299-1" tabindex="-1"></a><span class="fu">library</span>(ggspatial)</span></code></pre></div>
+<pre><code>## Warning: package &#39;ggspatial&#39; was built under R version 4.4.3</code></pre>
+<div class="sourceCode" id="cb301"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb301-1"><a href="detecting-spatial-patterns.html#cb301-1" tabindex="-1"></a><span class="co"># Create the map</span></span>
+<span id="cb301-2"><a href="detecting-spatial-patterns.html#cb301-2" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb301-3"><a href="detecting-spatial-patterns.html#cb301-3" tabindex="-1"></a>  <span class="fu">annotation_map_tile</span>(<span class="at">zoom =</span> <span class="dv">13</span>) <span class="sc">+</span></span>
+<span id="cb301-4"><a href="detecting-spatial-patterns.html#cb301-4" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> BluePlaquesSubPoints_sf, <span class="fu">aes</span>(<span class="at">color=</span>dbcluster), <span class="at">size =</span> <span class="dv">3</span>)<span class="sc">+</span></span>
+<span id="cb301-5"><a href="detecting-spatial-patterns.html#cb301-5" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> chull_polygons, <span class="fu">aes</span>(<span class="at">fill =</span> dbcluster), </span>
+<span id="cb301-6"><a href="detecting-spatial-patterns.html#cb301-6" tabindex="-1"></a>          <span class="at">alpha =</span> <span class="fl">0.8</span>, </span>
+<span id="cb301-7"><a href="detecting-spatial-patterns.html#cb301-7" tabindex="-1"></a>          <span class="co"># remove polygon borders</span></span>
+<span id="cb301-8"><a href="detecting-spatial-patterns.html#cb301-8" tabindex="-1"></a>          <span class="at">color =</span> <span class="cn">NA</span>, </span>
+<span id="cb301-9"><a href="detecting-spatial-patterns.html#cb301-9" tabindex="-1"></a>          <span class="at">show.legend =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
+<span id="cb301-10"><a href="detecting-spatial-patterns.html#cb301-10" tabindex="-1"></a>  <span class="co"># plot with the CRS</span></span>
+<span id="cb301-11"><a href="detecting-spatial-patterns.html#cb301-11" tabindex="-1"></a>  <span class="fu">coord_sf</span>() <span class="sc">+</span></span>
+<span id="cb301-12"><a href="detecting-spatial-patterns.html#cb301-12" tabindex="-1"></a>  <span class="fu">theme_bw</span>()</span></code></pre></div>
+<pre><code>## Zoom: 13</code></pre>
+<p><img src="CASA0005_files/figure-html/unnamed-chunk-292-1.png" width="672" /></p>
 </div>
 <div id="point-pattern-analysis-summary" class="section level2 hasAnchor" number="6.8">
 <h2><span class="header-section-number">6.8</span> Point pattern analysis summary<a href="detecting-spatial-patterns.html#point-pattern-analysis-summary" class="anchor-section" aria-label="Anchor link to header"></a></h2>

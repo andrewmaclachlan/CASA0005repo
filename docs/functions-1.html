@@ -23,7 +23,7 @@
 <meta name="author" content="Andy MacLachlan, Adam Dennett and Claire Dooley" />
 
 
-<meta name="date" content="2025-06-27" />
+<meta name="date" content="2025-07-15" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -1329,24 +1329,24 @@ div.csl-indent {
 </div>
 <p>In the mapping practical we applied the code above to two separate sf objects above. To make this more efficient we could develop our own function (like the ones we use all the time) and simply provide the relevant data. An example has been put here, but this is for interest only and not a requirement for the module.</p>
 <p>This is an example of creating a function for the spatial join and summarise.</p>
-<div class="sourceCode" id="cb513"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb513-1"><a href="functions-1.html#cb513-1" tabindex="-1"></a><span class="co"># make a function for the join</span></span>
-<span id="cb513-2"><a href="functions-1.html#cb513-2" tabindex="-1"></a><span class="co"># you have to do is replace data1 and data2</span></span>
-<span id="cb513-3"><a href="functions-1.html#cb513-3" tabindex="-1"></a><span class="co"># with the data you want to use</span></span>
-<span id="cb513-4"><a href="functions-1.html#cb513-4" tabindex="-1"></a></span>
-<span id="cb513-5"><a href="functions-1.html#cb513-5" tabindex="-1"></a>Joinfun <span class="ot">&lt;-</span> <span class="cf">function</span>(data1, data2){</span>
-<span id="cb513-6"><a href="functions-1.html#cb513-6" tabindex="-1"></a></span>
-<span id="cb513-7"><a href="functions-1.html#cb513-7" tabindex="-1"></a>output<span class="ot">&lt;-</span> data1<span class="sc">%&gt;%</span></span>
-<span id="cb513-8"><a href="functions-1.html#cb513-8" tabindex="-1"></a>  <span class="fu">st_join</span>(data2,.) <span class="sc">%&gt;%</span></span>
-<span id="cb513-9"><a href="functions-1.html#cb513-9" tabindex="-1"></a>  <span class="fu">add_count</span>(GSS_CODE, <span class="at">name=</span><span class="st">&quot;hotels_in_borough&quot;</span>) </span>
-<span id="cb513-10"><a href="functions-1.html#cb513-10" tabindex="-1"></a></span>
-<span id="cb513-11"><a href="functions-1.html#cb513-11" tabindex="-1"></a>  <span class="fu">return</span>(output)</span>
-<span id="cb513-12"><a href="functions-1.html#cb513-12" tabindex="-1"></a>}</span>
-<span id="cb513-13"><a href="functions-1.html#cb513-13" tabindex="-1"></a></span>
-<span id="cb513-14"><a href="functions-1.html#cb513-14" tabindex="-1"></a><span class="co"># use the function for hotels</span></span>
-<span id="cb513-15"><a href="functions-1.html#cb513-15" tabindex="-1"></a>Hotels <span class="ot">&lt;-</span> <span class="fu">Joinfun</span>(OSM, Londonborough)</span>
-<span id="cb513-16"><a href="functions-1.html#cb513-16" tabindex="-1"></a></span>
-<span id="cb513-17"><a href="functions-1.html#cb513-17" tabindex="-1"></a><span class="co"># then for airbnb</span></span>
-<span id="cb513-18"><a href="functions-1.html#cb513-18" tabindex="-1"></a>Airbnb <span class="ot">&lt;-</span> <span class="fu">Joinfun</span>(Airbnb, Londonborough)</span></code></pre></div>
+<div class="sourceCode" id="cb496"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb496-1"><a href="functions-1.html#cb496-1" tabindex="-1"></a><span class="co"># make a function for the join</span></span>
+<span id="cb496-2"><a href="functions-1.html#cb496-2" tabindex="-1"></a><span class="co"># you have to do is replace data1 and data2</span></span>
+<span id="cb496-3"><a href="functions-1.html#cb496-3" tabindex="-1"></a><span class="co"># with the data you want to use</span></span>
+<span id="cb496-4"><a href="functions-1.html#cb496-4" tabindex="-1"></a></span>
+<span id="cb496-5"><a href="functions-1.html#cb496-5" tabindex="-1"></a>Joinfun <span class="ot">&lt;-</span> <span class="cf">function</span>(data1, data2){</span>
+<span id="cb496-6"><a href="functions-1.html#cb496-6" tabindex="-1"></a></span>
+<span id="cb496-7"><a href="functions-1.html#cb496-7" tabindex="-1"></a>output<span class="ot">&lt;-</span> data1<span class="sc">%&gt;%</span></span>
+<span id="cb496-8"><a href="functions-1.html#cb496-8" tabindex="-1"></a>  <span class="fu">st_join</span>(data2,.) <span class="sc">%&gt;%</span></span>
+<span id="cb496-9"><a href="functions-1.html#cb496-9" tabindex="-1"></a>  <span class="fu">add_count</span>(GSS_CODE, <span class="at">name=</span><span class="st">&quot;hotels_in_borough&quot;</span>) </span>
+<span id="cb496-10"><a href="functions-1.html#cb496-10" tabindex="-1"></a></span>
+<span id="cb496-11"><a href="functions-1.html#cb496-11" tabindex="-1"></a>  <span class="fu">return</span>(output)</span>
+<span id="cb496-12"><a href="functions-1.html#cb496-12" tabindex="-1"></a>}</span>
+<span id="cb496-13"><a href="functions-1.html#cb496-13" tabindex="-1"></a></span>
+<span id="cb496-14"><a href="functions-1.html#cb496-14" tabindex="-1"></a><span class="co"># use the function for hotels</span></span>
+<span id="cb496-15"><a href="functions-1.html#cb496-15" tabindex="-1"></a>Hotels <span class="ot">&lt;-</span> <span class="fu">Joinfun</span>(OSM, Londonborough)</span>
+<span id="cb496-16"><a href="functions-1.html#cb496-16" tabindex="-1"></a></span>
+<span id="cb496-17"><a href="functions-1.html#cb496-17" tabindex="-1"></a><span class="co"># then for airbnb</span></span>
+<span id="cb496-18"><a href="functions-1.html#cb496-18" tabindex="-1"></a>Airbnb <span class="ot">&lt;-</span> <span class="fu">Joinfun</span>(Airbnb, Londonborough)</span></code></pre></div>
 
 </div>
             </section>

@@ -997,13 +997,17 @@ However, i've left out `filter()` and `distinct()` which you would need to reduc
 
 ### Simple mapping
 
-`tmap` follows the idea of the grammar of graphics, similar to `dplyr` being the grammar of data manipulation. Essentially with the grammar of graphics the main data being mapped defines the location somewhere on Earth (loaded with `tm_shape`). Map aesthetics are then defined with a `+`, these usually include `tm_fill()` (fill of the polygons based on a variable) + `tm_borders()` (border of polygons). However, `tm_polygon` basically combines `tm_fill()` and `tm_borders()`...
+::: {.infobox .warning data-latex="{note}"}
+Week 5 is dedicated to mapping where we will explore this is much more detail. This is just a breif introduction to mapping.
+:::
 
-So to conclude, data first then `+` aesthetic syntax.
+`tmap` follows the idea of the grammar of graphics, similar to `dplyr` being the grammar of data manipulation. With the grammar of graphics the main data being mapped defines the location somewhere on Earth (loaded with `tm_shape`). Map layers are then added (e.g. `tm_polygons`, `tm_symbols()` for points, lines, `tm_raster`). These layers can then be styled or "filled" with a column of data (and more!) (e.g.  `tm_polygons(fill = "rate_of_job_seekers_allowance_jsa_claimants_2015"`)
+
+So to conclude, data first then `+` layer with arguments controlling the display.
 
 We're going to create a simple map with our spatial data, mapping and cartographic practice are covered in much more detail later in the course, but for now...
 
-1.  We can create a choropleth map very quickly now using `qtm()` as we've done before
+1.  We can create a choropleth map very quickly now using `qtm()`
 
 ```{r, cache=FALSE, message=FALSE}
 library(tmap)
@@ -1019,54 +1023,69 @@ For a **static map** we need to extract the basemap from OpenStreetMap (OSM) usi
 
 ```{r, eval=TRUE, cache=FALSE}
 tmaplondon <- BoroughDataMap %>%
+  # st_bbox gives the bounding x and y coordinates 
   st_bbox(.) %>% 
   tmaptools::read_osm(., type = "osm", zoom = NULL)
 ```
 
-Now we have the basemap, set `tmap` to plot, add the basemap, add the shape (our London layer), tell it which attribute to map (job seekers), the style to make the colour divisions (we explain this more in later weeks), the transparency (alpha), compass, scale and legend.
 
-But remember what i explained earlier... data first then `+` aesthetic syntax. We can also double up on this, so below we have data data from our bounding box + it's raster aesthetic (`tm_rgb`) THEN ALSO the data from our London Borough layer and it's aesthetics. As they are the same place they plot over each other!
+Now we have the basemap, set `tmap` to plot, add the basemap, add the shape (our London layer), tell it which attribute to map (job seekers), the style to make the colour divisions, the transparency (alpha), compass, scale and legend.
+
+But remember what i explained earlier... data first then `+` layer with aesthetics controlled through the arguments. 
 
 There is a bit of extra code below that we haven't explained:
 
 -   `style` --- how to divide the data into out colour breaks
--   `palette` --- the colour scheme to use
+-   `values` --- the colour scheme to use
 
 ```{r, eval=FALSE, cache=FALSE}
 tmap_mode("plot")
 
 tm_shape(tmaplondon)+
-tm_rgb()+
-tm_shape(BoroughDataMap) + 
-tm_polygons("rate_of_job_seekers_allowance_jsa_claimants_2015", 
-        style="jenks",
-        palette="YlOrBr",
-        midpoint=NA,
-        title="Rate per 1,000 people",
-        alpha = 0.5) + 
-  tm_compass(position = c("left", "bottom"),type = "arrow") + 
-  tm_scale_bar(position = c("left", "bottom")) +
-  tm_layout(title = "Job seekers' Allowance Claimants", legend.position = c("right", "bottom"))
-
+  # add basemap as Red Green Blue raster
+  tm_rgb()+
+  # add sf data
+  tm_shape(BoroughDataMap) + 
+  # add polygon layer
+  tm_polygons(fill="rate_of_job_seekers_allowance_jsa_claimants_2015",
+              fill.scale= tm_scale_intervals(values="brewer.bu_pu",
+                                              style="jenks"),
+                                              fill_alpha=0.5,
+              fill.legend = tm_legend(title = "rate of claimants 2015", 
+                                      size = 0.8))+
+  tm_compass(type = "arrow", position = c("left", "bottom")) + 
+  tm_scalebar(position = c("left", "bottom"))+
+  tm_title("Job seekers' Allowance Claimants", 
+            size = 2,
+            position = c("center", "top"))
 ```
 
-For more palette options, run `palette_explorer()` in the console.
+So that's our first real map done! Awesome work. To make this interactive we set `tmap_mode("view")` and we can add a basemap by just including `tm_basemap(server = "OpenStreetMap")` or the server could be `"CartoDB.Positron"`. There is no need to use `read_osm()`. 
 
-So that's our first real map done! Awesome work. To make this interactive we set `tmap_mode("view")` and we can add a basemap by just including `tm_basemap(server = "OpenStreetMap")` or the server could be `"CartoDB.Positron"`. There is no need to use `read_osm()`
+See the [leaflet extras page](https://leaflet-extras.github.io/leaflet-providers/preview/) for additional options
+
 
 ```{r}
+BoroughDataMap84 <- BoroughDataMap %>%
+  st_transform(.,4326)
+
 tmap_mode("view")
-tm_shape(BoroughDataMap) + 
-  tm_polygons("rate_of_job_seekers_allowance_jsa_claimants_2015", 
-              style="jenks",
-              palette="YlOrBr",
-              midpoint=NA,
-              title="Rate per 1,000 people",
-              alpha = 0.5) + 
+
+  tm_shape(BoroughDataMap84) + 
+  # add polygon layer
+  tm_polygons(fill="rate_of_job_seekers_allowance_jsa_claimants_2015",
+              fill.scale= tm_scale_intervals(values="brewer.bu_pu",
+                                              style="jenks"),
+                                              fill_alpha=0.5,
+              fill.legend = tm_legend(title = "Job seekers' Allowance Claimants", 
+                                      size = 0.8))+
   tm_basemap(server = "OpenStreetMap") +
-  tm_compass(position = c("left", "bottom"),type = "arrow") + 
-  tm_scale_bar(position = c("left", "bottom")) +
-  tm_layout(title = "Job seekers' Allowance Claimants")
+  tm_compass(type = "arrow", position = c("left", "bottom")) + 
+  tm_scalebar(position = c("left", "bottom"))+
+  tm_title("Job seekers' Allowance Claimants", 
+            size = 2,
+            position = c("center", "top"))
+
 ```
 
 But remember our `Life_expectancy4` data that we wrangled earlier. Can you think of a way to map this? So we need to
@@ -1086,27 +1105,29 @@ Life_expectancy4map <- EW %>%
 If you change `inner_join()` to `left_join()` what do you get?...now let's make the map!
 
 ```{r, message=FALSE}
+
 tmap_mode("plot")
 
 tm_shape(tmaplondon)+
-tm_rgb()+
-tm_shape(Life_expectancy4map) + 
-tm_polygons("UKdiff", 
-        style="pretty",
-        palette="Blues",
-        midpoint=NA,
-        title="Number of years",
-        alpha = 0.5) + 
-  tm_compass(position = c("left", "bottom"),type = "arrow") + 
-  tm_scale_bar(position = c("left", "bottom")) +
-  tm_layout(title = "Difference in life expectancy", legend.position = c("right", "bottom"))
+  # add basemap as Red Green Blue raster
+  tm_rgb()+
+  # add sf data
+  tm_shape(Life_expectancy4map) + 
+  # add polygon layer
+  tm_polygons(fill="UKdiff",
+              fill.scale= tm_scale_intervals(values="brewer.bu_pu",
+                                              style="jenks"),
+                                              fill_alpha=0.5,
+              fill.legend = tm_legend(title = "Number of years", 
+                                      size = 0.8))+
+  tm_compass(type = "arrow", position = c("left", "bottom")) + 
+  tm_scalebar(position = c("left", "bottom"))+
+  tm_title("Difference in life expectancy", 
+            size = 2,
+            position = c("center", "top"))
+
 ```
 
-There are a few subtle differences in the code of this second map if you look closely:
-
--   Style is now `pretty` not `jenks`. Style controls where the breaks are within the data that are then assigned to each colour for mapping. `pretty` rounds to whole numbers and evenly spaces them over the data.
-
--   Palette in now `Blues` not `YlOrBr`. Palette controls the colour of the map, you can see more options through `tmaptools::palette_explorer()`
 
 ## Tidying data
 
