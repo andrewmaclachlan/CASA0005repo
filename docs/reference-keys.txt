@@ -225,6 +225,7 @@ ripleys-k
 alternatives-to-ripleys-k
 density-based-spatial-clustering-of-applications-with-noise-dbscan
 point-pattern-analysis-summary
+feedback-5
 spatial-autocorrelation
 learning-outcomes-6
 homework-6
@@ -248,7 +249,7 @@ mapping-1
 local-getis-ord-g_i
 summary-2
 other-variables
-feedback-5
+feedback-6
 explaining-spatial-patterns
 learning-objectives
 homework-7
@@ -291,7 +292,7 @@ extending-your-regression-model---dummy-variables
 task-investigating-further---adding-more-explanatory-variables-into-a-multiple-regression-model
 a-few-things-to-watch-out-for
 task-3---spatial-non-stationarity-and-geographically-weighted-regression-models-gwr
-feedback-6
+feedback-7
 markscheme
 old-practicals
 events-meet-other-spatial-data-professionals
@@ -332,5 +333,5 @@ export
 basic-interactive-map
 advanced-interactive-map
 bad-maps-1
-feedback-7
+feedback-8
 advanced-interactive-map-1

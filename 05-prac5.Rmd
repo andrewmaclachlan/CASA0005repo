@@ -305,6 +305,7 @@ knitr::include_graphics('prac6_images/relations-1.png')
 ```
 
 Common ones to focus on include:
+
   * `st_intersects(A, B)` - Do A (boroughs) touch or overlap with B (OSM).
     * Returns a list of boroughs (33 rows) and in each borough a list of hotels
   * `st_contains(A, B)` - Does A (boroughs) contain B (OSM)

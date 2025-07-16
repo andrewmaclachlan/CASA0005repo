@@ -7,7 +7,7 @@
 By the end of this practical you should be able to:
 
 1. Describe and evaluate methods for analysing spatial patterns 
-1. Execute data cleaning and manipulation appropairte for analysis 
+1. Execute data cleaning and manipulation appropriate for analysis 
 1. Determine the locations of spatial clusters using point pattern analysis methods
 
 ## Homework 
@@ -174,9 +174,9 @@ Over the last two weeks we've seen:
 
 Question....do i want to:
 
-* Select points or polygons in a polygon = Selecting data by location = **spatial sub-setting** (or select by location). This is just presence or absence within (or whatever function we use) an sf object.
+* Select points or polygons in a polygon (Selecting data by location) = **spatial sub-setting**. This is just presence or absence within (or whatever function we use) an sf object.
 
-  * This could also be a topological function (e.g. week 5 -   `Hotels_example <-st_contains(Londonborough, OSM)`). However this can give us a **geometric (geometry)** intersection (compared to just presense or absence).
+  * This could also be a topological function (e.g. week 5 -   `Hotels_example <-st_contains(Londonborough, OSM)`). However, this can give us a **geometric (geometry)** intersection (e.g. a sf output of intersecting points), compared to just a binary presence or absence.
 
 * Determine where datasets overlap (or touch, or don't overlap) and extract those parts = **spatial clipping**
 
@@ -523,7 +523,7 @@ BluePlaquesSubPoints<- BluePlaquesSubPoints %>%
   mutate(dbcluster=db$cluster)
 ```
 
-Next we are going to create some convex hull polygons to wrap around the points in our clusters. We will
+Next we are going to create some convex hull polygons to wrap around the points in our clusters. This means we will create a smallest polygon that encloses the set of points of each cluster. We will
 
 * convert this dataframe to an sf object
 * make convex hulls around the clusters 
@@ -550,9 +550,10 @@ Now create a ```ggplot2``` object from our data.
 
 ::: {.infobox .tip data-latex="{note}"}
 In past iterations we used to get a base map we would:
-* set a bounding box
-* Extract the coordinates of the bounding box
-* Pull an OSM base map from the OpenStreetMap package.
+
+  * set a bounding box
+  * Extract the coordinates of the bounding box
+  * Pull an OSM base map from the OpenStreetMap package.
 
 However, now we can do this all from within the `annotation_map_tile()` function from the ggspatial package
 :::
@@ -574,8 +575,7 @@ ggplot() +
           # remove polygon borders
           color = NA, 
           show.legend = FALSE) +
-  # plot with the CRS
-  coord_sf() +
+
   theme_bw()
   
 ```
@@ -586,3 +586,7 @@ ggplot() +
 This is end of the point pattern analysis section of the practical. You have  been introduced to the basics of Point Pattern Analysis examining the distribution of Blue Plaques in a London Borough. At this point, you may wish to try running similar analyses on different boroughs (or indeed the whole city) and playing with some of the outputs --- although you will find that Ripley's K will fall over very quickly if you try to run the analysis on that many points) 
 
 This how you might make use of these techniques in another context or with different point data...
+
+## Feedback
+
+Was anything that we explained unclear this week or was something really clear...let us know using the [feedback form](https://forms.gle/w2GUDYc7tSavGy7r6). It's anonymous and we'll use the responses to clear any issues up in the future / adapt the material. 

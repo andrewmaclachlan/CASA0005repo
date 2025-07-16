@@ -23,7 +23,7 @@
 <meta name="author" content="Andy MacLachlan, Adam Dennett and Claire Dooley" />
 
 
-<meta name="date" content="2025-07-15" />
+<meta name="date" content="2025-07-16" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -1162,6 +1162,7 @@ div.csl-indent {
 </ul></li>
 <li class="chapter" data-level="6.7" data-path="detecting-spatial-patterns.html"><a href="detecting-spatial-patterns.html#density-based-spatial-clustering-of-applications-with-noise-dbscan"><i class="fa fa-check"></i><b>6.7</b> Density-based spatial clustering of applications with noise: DBSCAN</a></li>
 <li class="chapter" data-level="6.8" data-path="detecting-spatial-patterns.html"><a href="detecting-spatial-patterns.html#point-pattern-analysis-summary"><i class="fa fa-check"></i><b>6.8</b> Point pattern analysis summary</a></li>
+<li class="chapter" data-level="6.9" data-path="detecting-spatial-patterns.html"><a href="detecting-spatial-patterns.html#feedback-5"><i class="fa fa-check"></i><b>6.9</b> Feedback</a></li>
 </ul></li>
 <li class="chapter" data-level="7" data-path="spatial-autocorrelation.html"><a href="spatial-autocorrelation.html"><i class="fa fa-check"></i><b>7</b> Spatial autocorrelation</a>
 <ul>
@@ -1190,7 +1191,7 @@ div.csl-indent {
 <li class="chapter" data-level="7.8.7" data-path="spatial-autocorrelation.html"><a href="spatial-autocorrelation.html#summary-2"><i class="fa fa-check"></i><b>7.8.7</b> Summary</a></li>
 </ul></li>
 <li class="chapter" data-level="7.9" data-path="spatial-autocorrelation.html"><a href="spatial-autocorrelation.html#other-variables"><i class="fa fa-check"></i><b>7.9</b> Other variables</a></li>
-<li class="chapter" data-level="7.10" data-path="spatial-autocorrelation.html"><a href="spatial-autocorrelation.html#feedback-5"><i class="fa fa-check"></i><b>7.10</b> Feedback</a></li>
+<li class="chapter" data-level="7.10" data-path="spatial-autocorrelation.html"><a href="spatial-autocorrelation.html#feedback-6"><i class="fa fa-check"></i><b>7.10</b> Feedback</a></li>
 </ul></li>
 <li class="chapter" data-level="8" data-path="explaining-spatial-patterns.html"><a href="explaining-spatial-patterns.html"><i class="fa fa-check"></i><b>8</b> Explaining spatial patterns</a>
 <ul>
@@ -1226,7 +1227,7 @@ div.csl-indent {
 <li class="chapter" data-level="8.6.6" data-path="explaining-spatial-patterns.html"><a href="explaining-spatial-patterns.html#task-investigating-further---adding-more-explanatory-variables-into-a-multiple-regression-model"><i class="fa fa-check"></i><b>8.6.6</b> TASK: Investigating Further - Adding More Explanatory Variables into a multiple regression model</a></li>
 </ul></li>
 <li class="chapter" data-level="8.7" data-path="explaining-spatial-patterns.html"><a href="explaining-spatial-patterns.html#task-3---spatial-non-stationarity-and-geographically-weighted-regression-models-gwr"><i class="fa fa-check"></i><b>8.7</b> Task 3 - Spatial Non-stationarity and Geographically Weighted Regression Models (GWR)</a></li>
-<li class="chapter" data-level="8.8" data-path="explaining-spatial-patterns.html"><a href="explaining-spatial-patterns.html#feedback-6"><i class="fa fa-check"></i><b>8.8</b> Feedback</a></li>
+<li class="chapter" data-level="8.8" data-path="explaining-spatial-patterns.html"><a href="explaining-spatial-patterns.html#feedback-7"><i class="fa fa-check"></i><b>8.8</b> Feedback</a></li>
 </ul></li>
 <li class="part"><span><b>Extra</b></span></li>
 <li class="chapter" data-level="" data-path="multiple-linear-regression.html"><a href="multiple-linear-regression.html"><i class="fa fa-check"></i>Multiple Linear Regression</a></li>
@@ -1288,7 +1289,7 @@ div.csl-indent {
 <li class="chapter" data-level="8.30.5" data-path="tmap-version-3.html"><a href="tmap-version-3.html#advanced-interactive-map"><i class="fa fa-check"></i><b>8.30.5</b> Advanced interactive map</a></li>
 </ul></li>
 <li class="chapter" data-level="8.31" data-path="tmap-version-3.html"><a href="tmap-version-3.html#bad-maps-1"><i class="fa fa-check"></i><b>8.31</b> Bad maps</a></li>
-<li class="chapter" data-level="8.32" data-path="tmap-version-3.html"><a href="tmap-version-3.html#feedback-7"><i class="fa fa-check"></i><b>8.32</b> Feedback</a></li>
+<li class="chapter" data-level="8.32" data-path="tmap-version-3.html"><a href="tmap-version-3.html#feedback-8"><i class="fa fa-check"></i><b>8.32</b> Feedback</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="functions-1.html"><a href="functions-1.html"><i class="fa fa-check"></i>Functions</a></li>
 <li class="chapter" data-level="" data-path="interactive-maps.html"><a href="interactive-maps.html"><i class="fa fa-check"></i>Interactive maps</a>
@@ -1329,7 +1330,7 @@ div.csl-indent {
 <p>By the end of this practical you should be able to:</p>
 <ol style="list-style-type: decimal">
 <li>Describe and evaluate methods for analysing spatial patterns</li>
-<li>Execute data cleaning and manipulation appropairte for analysis</li>
+<li>Execute data cleaning and manipulation appropriate for analysis</li>
 <li>Determine the locations of spatial clusters using point pattern analysis methods</li>
 </ol>
 </div>
@@ -1501,9 +1502,9 @@ Figure 6.1: Topological relations between vector geometries. Source: <a href="ht
 </ul>
 <p>Question….do i want to:</p>
 <ul>
-<li><p>Select points or polygons in a polygon = Selecting data by location = <strong>spatial sub-setting</strong> (or select by location). This is just presence or absence within (or whatever function we use) an sf object.</p>
+<li><p>Select points or polygons in a polygon (Selecting data by location) = <strong>spatial sub-setting</strong>. This is just presence or absence within (or whatever function we use) an sf object.</p>
 <ul>
-<li>This could also be a topological function (e.g. week 5 - <code>Hotels_example &lt;-st_contains(Londonborough, OSM)</code>). However this can give us a <strong>geometric (geometry)</strong> intersection (compared to just presense or absence).</li>
+<li>This could also be a topological function (e.g. week 5 - <code>Hotels_example &lt;-st_contains(Londonborough, OSM)</code>). However, this can give us a <strong>geometric (geometry)</strong> intersection (e.g. a sf output of intersecting points), compared to just a binary presence or absence.</li>
 </ul></li>
 <li><p>Determine where datasets overlap (or touch, or don’t overlap) and extract those parts = <strong>spatial clipping</strong></p></li>
 <li><p>Join two spatial datasets together = <strong>spatial joining</strong>, which can use spatial subsetting functions as the default is <code>st_intersects()</code>. This function joins spatial data.</p></li>
@@ -1764,7 +1765,7 @@ You could also use <code>kNNdistplot()</code> from the <code>dbscan</code> packa
 <p>We can now add this cluster membership info back into our dataframe</p>
 <div class="sourceCode" id="cb297"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb297-1"><a href="detecting-spatial-patterns.html#cb297-1" tabindex="-1"></a>BluePlaquesSubPoints<span class="ot">&lt;-</span> BluePlaquesSubPoints <span class="sc">%&gt;%</span></span>
 <span id="cb297-2"><a href="detecting-spatial-patterns.html#cb297-2" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">dbcluster=</span>db<span class="sc">$</span>cluster)</span></code></pre></div>
-<p>Next we are going to create some convex hull polygons to wrap around the points in our clusters. We will</p>
+<p>Next we are going to create some convex hull polygons to wrap around the points in our clusters. This means we will create a smallest polygon that encloses the set of points of each cluster. We will</p>
 <ul>
 <li>convert this dataframe to an sf object</li>
 <li>make convex hulls around the clusters</li>
@@ -1785,10 +1786,12 @@ You could also use <code>kNNdistplot()</code> from the <code>dbscan</code> packa
 <span id="cb298-13"><a href="detecting-spatial-patterns.html#cb298-13" tabindex="-1"></a>  <span class="fu">st_as_sf</span>()</span></code></pre></div>
 <p>Now create a <code>ggplot2</code> object from our data.</p>
 <div class="infobox tip">
-<p>In past iterations we used to get a base map we would:
-* set a bounding box
-* Extract the coordinates of the bounding box
-* Pull an OSM base map from the OpenStreetMap package.</p>
+<p>In past iterations we used to get a base map we would:</p>
+<ul>
+<li>set a bounding box</li>
+<li>Extract the coordinates of the bounding box</li>
+<li>Pull an OSM base map from the OpenStreetMap package.</li>
+</ul>
 <p>However, now we can do this all from within the <code>annotation_map_tile()</code> function from the ggspatial package</p>
 </div>
 <p>Here:</p>
@@ -1807,9 +1810,8 @@ You could also use <code>kNNdistplot()</code> from the <code>dbscan</code> packa
 <span id="cb301-7"><a href="detecting-spatial-patterns.html#cb301-7" tabindex="-1"></a>          <span class="co"># remove polygon borders</span></span>
 <span id="cb301-8"><a href="detecting-spatial-patterns.html#cb301-8" tabindex="-1"></a>          <span class="at">color =</span> <span class="cn">NA</span>, </span>
 <span id="cb301-9"><a href="detecting-spatial-patterns.html#cb301-9" tabindex="-1"></a>          <span class="at">show.legend =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
-<span id="cb301-10"><a href="detecting-spatial-patterns.html#cb301-10" tabindex="-1"></a>  <span class="co"># plot with the CRS</span></span>
-<span id="cb301-11"><a href="detecting-spatial-patterns.html#cb301-11" tabindex="-1"></a>  <span class="fu">coord_sf</span>() <span class="sc">+</span></span>
-<span id="cb301-12"><a href="detecting-spatial-patterns.html#cb301-12" tabindex="-1"></a>  <span class="fu">theme_bw</span>()</span></code></pre></div>
+<span id="cb301-10"><a href="detecting-spatial-patterns.html#cb301-10" tabindex="-1"></a></span>
+<span id="cb301-11"><a href="detecting-spatial-patterns.html#cb301-11" tabindex="-1"></a>  <span class="fu">theme_bw</span>()</span></code></pre></div>
 <pre><code>## Zoom: 13</code></pre>
 <p><img src="CASA0005_files/figure-html/unnamed-chunk-292-1.png" width="672" /></p>
 </div>
@@ -1817,6 +1819,10 @@ You could also use <code>kNNdistplot()</code> from the <code>dbscan</code> packa
 <h2><span class="header-section-number">6.8</span> Point pattern analysis summary<a href="detecting-spatial-patterns.html#point-pattern-analysis-summary" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>This is end of the point pattern analysis section of the practical. You have been introduced to the basics of Point Pattern Analysis examining the distribution of Blue Plaques in a London Borough. At this point, you may wish to try running similar analyses on different boroughs (or indeed the whole city) and playing with some of the outputs — although you will find that Ripley’s K will fall over very quickly if you try to run the analysis on that many points)</p>
 <p>This how you might make use of these techniques in another context or with different point data…</p>
+</div>
+<div id="feedback-5" class="section level2 hasAnchor" number="6.9">
+<h2><span class="header-section-number">6.9</span> Feedback<a href="detecting-spatial-patterns.html#feedback-5" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Was anything that we explained unclear this week or was something really clear…let us know using the <a href="https://forms.gle/w2GUDYc7tSavGy7r6">feedback form</a>. It’s anonymous and we’ll use the responses to clear any issues up in the future / adapt the material.</p>
 
 </div>
 </div>

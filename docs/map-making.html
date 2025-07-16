@@ -23,7 +23,7 @@
 <meta name="author" content="Andy MacLachlan, Adam Dennett and Claire Dooley" />
 
 
-<meta name="date" content="2025-07-15" />
+<meta name="date" content="2025-07-16" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -1162,6 +1162,7 @@ div.csl-indent {
 </ul></li>
 <li class="chapter" data-level="6.7" data-path="detecting-spatial-patterns.html"><a href="detecting-spatial-patterns.html#density-based-spatial-clustering-of-applications-with-noise-dbscan"><i class="fa fa-check"></i><b>6.7</b> Density-based spatial clustering of applications with noise: DBSCAN</a></li>
 <li class="chapter" data-level="6.8" data-path="detecting-spatial-patterns.html"><a href="detecting-spatial-patterns.html#point-pattern-analysis-summary"><i class="fa fa-check"></i><b>6.8</b> Point pattern analysis summary</a></li>
+<li class="chapter" data-level="6.9" data-path="detecting-spatial-patterns.html"><a href="detecting-spatial-patterns.html#feedback-5"><i class="fa fa-check"></i><b>6.9</b> Feedback</a></li>
 </ul></li>
 <li class="chapter" data-level="7" data-path="spatial-autocorrelation.html"><a href="spatial-autocorrelation.html"><i class="fa fa-check"></i><b>7</b> Spatial autocorrelation</a>
 <ul>
@@ -1190,7 +1191,7 @@ div.csl-indent {
 <li class="chapter" data-level="7.8.7" data-path="spatial-autocorrelation.html"><a href="spatial-autocorrelation.html#summary-2"><i class="fa fa-check"></i><b>7.8.7</b> Summary</a></li>
 </ul></li>
 <li class="chapter" data-level="7.9" data-path="spatial-autocorrelation.html"><a href="spatial-autocorrelation.html#other-variables"><i class="fa fa-check"></i><b>7.9</b> Other variables</a></li>
-<li class="chapter" data-level="7.10" data-path="spatial-autocorrelation.html"><a href="spatial-autocorrelation.html#feedback-5"><i class="fa fa-check"></i><b>7.10</b> Feedback</a></li>
+<li class="chapter" data-level="7.10" data-path="spatial-autocorrelation.html"><a href="spatial-autocorrelation.html#feedback-6"><i class="fa fa-check"></i><b>7.10</b> Feedback</a></li>
 </ul></li>
 <li class="chapter" data-level="8" data-path="explaining-spatial-patterns.html"><a href="explaining-spatial-patterns.html"><i class="fa fa-check"></i><b>8</b> Explaining spatial patterns</a>
 <ul>
@@ -1226,7 +1227,7 @@ div.csl-indent {
 <li class="chapter" data-level="8.6.6" data-path="explaining-spatial-patterns.html"><a href="explaining-spatial-patterns.html#task-investigating-further---adding-more-explanatory-variables-into-a-multiple-regression-model"><i class="fa fa-check"></i><b>8.6.6</b> TASK: Investigating Further - Adding More Explanatory Variables into a multiple regression model</a></li>
 </ul></li>
 <li class="chapter" data-level="8.7" data-path="explaining-spatial-patterns.html"><a href="explaining-spatial-patterns.html#task-3---spatial-non-stationarity-and-geographically-weighted-regression-models-gwr"><i class="fa fa-check"></i><b>8.7</b> Task 3 - Spatial Non-stationarity and Geographically Weighted Regression Models (GWR)</a></li>
-<li class="chapter" data-level="8.8" data-path="explaining-spatial-patterns.html"><a href="explaining-spatial-patterns.html#feedback-6"><i class="fa fa-check"></i><b>8.8</b> Feedback</a></li>
+<li class="chapter" data-level="8.8" data-path="explaining-spatial-patterns.html"><a href="explaining-spatial-patterns.html#feedback-7"><i class="fa fa-check"></i><b>8.8</b> Feedback</a></li>
 </ul></li>
 <li class="part"><span><b>Extra</b></span></li>
 <li class="chapter" data-level="" data-path="multiple-linear-regression.html"><a href="multiple-linear-regression.html"><i class="fa fa-check"></i>Multiple Linear Regression</a></li>
@@ -1288,7 +1289,7 @@ div.csl-indent {
 <li class="chapter" data-level="8.30.5" data-path="tmap-version-3.html"><a href="tmap-version-3.html#advanced-interactive-map"><i class="fa fa-check"></i><b>8.30.5</b> Advanced interactive map</a></li>
 </ul></li>
 <li class="chapter" data-level="8.31" data-path="tmap-version-3.html"><a href="tmap-version-3.html#bad-maps-1"><i class="fa fa-check"></i><b>8.31</b> Bad maps</a></li>
-<li class="chapter" data-level="8.32" data-path="tmap-version-3.html"><a href="tmap-version-3.html#feedback-7"><i class="fa fa-check"></i><b>8.32</b> Feedback</a></li>
+<li class="chapter" data-level="8.32" data-path="tmap-version-3.html"><a href="tmap-version-3.html#feedback-8"><i class="fa fa-check"></i><b>8.32</b> Feedback</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="functions-1.html"><a href="functions-1.html"><i class="fa fa-check"></i>Functions</a></li>
 <li class="chapter" data-level="" data-path="interactive-maps.html"><a href="interactive-maps.html"><i class="fa fa-check"></i>Interactive maps</a>
@@ -1672,13 +1673,21 @@ Figure 5.2: dplyr::left_join() example with multiple matches. Source: <a href="h
 Figure 5.3: Topological relations between vector geometries. Source: <a href="https://geocompr.robinlovelace.net/spatial-operations.html">Lovelace et al. 2022</a>
 </p>
 </div>
-<p>Common ones to focus on include:
-* <code>st_intersects(A, B)</code> - Do A (boroughs) touch or overlap with B (OSM).
-* Returns a list of boroughs (33 rows) and in each borough a list of hotels
-* <code>st_contains(A, B)</code> - Does A (boroughs) contain B (OSM)
-* Returns a list of boroughs (33 rows) and in each borough a list of hotels
-* <code>st_within(A, B)</code> - Is A (boroughs) inside B (OSM). This is asking are boroughs inside hotels
-* Returns a list of boroughs that are inside hotels, this produces a result of 0. If we flip it we get a result but it will be the length of the hotels (e.g. <code>st_within(OSM, Londonborough)</code>). Note, <code>st_within(A, B)  ==  st_contains(B, A)</code></p>
+<p>Common ones to focus on include:</p>
+<ul>
+<li><code>st_intersects(A, B)</code> - Do A (boroughs) touch or overlap with B (OSM).
+<ul>
+<li>Returns a list of boroughs (33 rows) and in each borough a list of hotels</li>
+</ul></li>
+<li><code>st_contains(A, B)</code> - Does A (boroughs) contain B (OSM)
+<ul>
+<li>Returns a list of boroughs (33 rows) and in each borough a list of hotels</li>
+</ul></li>
+<li><code>st_within(A, B)</code> - Is A (boroughs) inside B (OSM). This is asking are boroughs inside hotels
+<ul>
+<li>Returns a list of boroughs that are inside hotels, this produces a result of 0. If we flip it we get a result but it will be the length of the hotels (e.g. <code>st_within(OSM, Londonborough)</code>). Note, <code>st_within(A, B)  ==  st_contains(B, A)</code></li>
+</ul></li>
+</ul>
 <div class="sourceCode" id="cb218"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb218-1"><a href="map-making.html#cb218-1" tabindex="-1"></a>Hotels_example <span class="ot">&lt;-</span><span class="fu">st_contains</span>(Londonborough, OSM)</span>
 <span id="cb218-2"><a href="map-making.html#cb218-2" tabindex="-1"></a></span>
 <span id="cb218-3"><a href="map-making.html#cb218-3" tabindex="-1"></a>Hotels_example</span></code></pre></div>
