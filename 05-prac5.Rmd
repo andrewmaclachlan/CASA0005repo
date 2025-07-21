@@ -135,7 +135,7 @@ I am going to make a few maps but the first one will resemble an academic figure
 My drawing skills are very average, but something like this...
 
 ```{r fig.cap="Map plan", out.width="49%", fig.show='hold', echo=FALSE, cache=FALSE}
-knitr::include_graphics("prac5_images/map_plan.png")
+knitr::include_graphics("prac5_images/map_plan conv 1.png")
 ```
 
 So...where do we begin

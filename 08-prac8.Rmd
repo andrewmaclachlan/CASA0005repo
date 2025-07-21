@@ -1212,9 +1212,11 @@ tidy(model3)
 
 So how can we interpret this?
 
-Well, the dummy variable is statistically significant and the coefficient tells us the difference between the two groups (Inner and Outer London) we are comparing. In this case, it is telling us that living in a Ward in **outer** London will improve your average GCSE score by 10.93 points, on average, compared to if you lived in Inner London. The R-squared has increased slightly, but not by much. 
+Well, the dummy variable is statistically significant and the coefficient tells us the difference between the two groups (Inner and Outer London) we are comparing. In this case, it is telling us that living in a Ward in **outer** London is associated with [will improve] your average GCSE score by 10.93 points, on average, compared to if you lived in Inner London. The R-squared has increased slightly, but not by much. 
 
 You will notice that despite there being two values in our dummy variable (Inner and Outer), we only get one coefficient. This is because with dummy variables, one value is always considered to be the control (comparison/reference) group. In this case we are comparing Outer London to Inner London. If our dummy variable had more than 2 levels we would have more coefficients, but always one as the reference.
+
+With categorical variables **we cannot** state a 1 unit change in the independent variable means a drop or rise in the dependent. This is only for continuous variables.  
 
 The order in which the dummy comparisons are made is determined by what is known as a 'contrast matrix'. This determines the treatment group (1) and the control (reference) group (0). We can view the contrast matrix using the `contrasts()` function:  
 
