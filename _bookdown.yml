@@ -19,6 +19,8 @@ rmd_files:
 - 16-tmapv3.Rmd
 - 17-functions.Rmd
 - 18-interactive-maps.Rmd
+- 20-past-questions.Rmd
+- 21-fieldtrip.Rmd
 
 
 output_dir: docs

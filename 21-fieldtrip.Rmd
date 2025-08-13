@@ -1,0 +1,25 @@
+# Field trip
+
+While in London explore some geo-spatial sites of historical importance...
+
+```{r, echo=FALSE, warning=FALSE, message=FALSE}
+
+library(leaflet)
+library(readxl)
+
+data <- read_excel("assets/places.xlsx")
+
+
+places <- leaflet(height=400, width=500) %>% 
+  addProviderTiles(providers$CartoDB.PositronNoLabels) %>% 
+  setView(lng = -0.03, lat = 51.5, zoom = 10) %>% 
+  addCircleMarkers(data = data,
+                   lng = ~Long,
+                   lat = ~Lat,
+                   color = 'midnightblue',
+                   popup = ~paste0("<b>", Place, "</b><br>",
+                                   "<a href='", URL, "' target='_blank'>", URL, "</a>"))
+places
+
+
+```

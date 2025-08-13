@@ -134,40 +134,40 @@ I am going to make a few maps but the first one will resemble an academic figure
 
 My drawing skills are very average, but something like this...
 
-```{r fig.cap="Map plan", out.width="49%", fig.show='hold', echo=FALSE, cache=FALSE}
+```{r fig.cap="Map plan", out.width="100%", fig.show='hold', fig.pos = "C", echo=FALSE, cache=FALSE}
 knitr::include_graphics("prac5_images/map_plan conv 1.png")
 ```
 
 So...where do we begin
 
-* Conceptually think of each section (A), (B) as a **separate** object. For example, my sub-figure (A) will be a London borough 'sf' object that has a column of Hotels. (B) will be the same but for Airbnbs. 
+* Conceptually think of each section  as a **separate** object. For example, Hotels will be a London borough 'sf' object that has a column of Hotels.
 
 * We need to wrangle our data to get to that point, this will include:
  
-  1. Downloading data:
+  **1. Downloading data:**
   
-  **For sub figures (A) and (B)**
+    For the hotels and airbnb figures
   
     * London borough MSOAs (shp)
     * Airbnbs (csv)
     * Hotels (shp)
   
-  **For the location map**  
+    For the study area map  
   
     * Outline of the UK (shp)
     * UK cities (shp)
 
-  2. Setting the CRS and filtering:
+  **2. Setting the CRS and filtering:**
   
     * Our CRS for the Boroughs needs to be British national grid (BNG)
     * Filter hotels from the OSM data
     * Filter equivalent airbnbs (e.g. room_type == 'Entire home/apt' & availability_365 =='365')
     
-  3. Joining and summing data
+  **3. Joining and summing data**
     * Join the Airbnbs to the MSOAs and sum (i.e. how many are in each MSOA)
     * Join the Hotels to the MSOAs and sum
     
-  4. Making some maps.  
+  **4. Making some maps**
     
 
 ## CRS and filter 

@@ -23,7 +23,7 @@
 <meta name="author" content="Andy MacLachlan, Adam Dennett and Claire Dooley" />
 
 
-<meta name="date" content="2025-07-21" />
+<meta name="date" content="2025-08-13" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -965,10 +965,8 @@ div.csl-indent {
 <li class="chapter" data-level="" data-path="software-installation.html"><a href="software-installation.html#qgis"><i class="fa fa-check"></i>QGIS</a></li>
 <li class="chapter" data-level="" data-path="software-installation.html"><a href="software-installation.html#r"><i class="fa fa-check"></i>R</a>
 <ul>
-<li class="chapter" data-level="" data-path="software-installation.html"><a href="software-installation.html#r-java"><i class="fa fa-check"></i>R Java</a></li>
 <li class="chapter" data-level="" data-path="software-installation.html"><a href="software-installation.html#basics"><i class="fa fa-check"></i>Basics</a></li>
 <li class="chapter" data-level="" data-path="software-installation.html"><a href="software-installation.html#packages"><i class="fa fa-check"></i>Packages</a></li>
-<li class="chapter" data-level="" data-path="software-installation.html"><a href="software-installation.html#macs"><i class="fa fa-check"></i>Macs</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="software-installation.html"><a href="software-installation.html#arcgis"><i class="fa fa-check"></i>ArcGIS</a></li>
 </ul></li>
@@ -1296,6 +1294,8 @@ div.csl-indent {
 <ul>
 <li class="chapter" data-level="8.33" data-path="interactive-maps.html"><a href="interactive-maps.html#advanced-interactive-map-1"><i class="fa fa-check"></i><b>8.33</b> Advanced interactive map</a></li>
 </ul></li>
+<li class="chapter" data-level="9" data-path="past-questions.html"><a href="past-questions.html"><i class="fa fa-check"></i><b>9</b> Past questions</a></li>
+<li class="chapter" data-level="10" data-path="field-trip.html"><a href="field-trip.html"><i class="fa fa-check"></i><b>10</b> Field trip</a></li>
 <li class="divider"></li>
 <li><center>
   <a rel="license" href="./external-usage.html#license">
@@ -1325,7 +1325,7 @@ div.csl-indent {
             <section class="normal" id="section-">
 <div id="software-installation" class="section level1 unnumbered hasAnchor">
 <h1>Software installation<a href="software-installation.html#software-installation" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<p>This course primarily uses the R data science programming language. We briefly touch upon QGIS to give you a basic foundation in the range of spatial software available, please follow the instructions below before the first practical session to install the software on your local computer if you are planning to use it throughout the course.</p>
+<p>This course primarily uses the R data science programming language. We briefly touch upon QGIS to give you a basic foundation in the range of spatial software available, please follow the instructions below before the first practical session to install the software on your local computer.</p>
 <div id="qgis" class="section level2 unnumbered hasAnchor">
 <h2>QGIS<a href="software-installation.html#qgis" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>QGIS is an open-source graphic user interface GIS with many community developed add on packages that (or plugins) that provide additional functionality to the software.</p>
@@ -1342,10 +1342,6 @@ Figure 0.1: Continuous and discrete data. Source: <a href="https://gis.stackexch
 <div id="r" class="section level2 unnumbered hasAnchor">
 <h2>R<a href="software-installation.html#r" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>R is both a programming language and software environment, originally designed for statistical computing and graphics. R’s great strength is that it is open-source, can be used on any computer operating system and free for anyone to use and contribute to. Because of this, it is rapidly becoming the statistical language of choice for many academics and has a huge user community with people constantly contributing new packages to carry out all manner of statistical, graphical and importantly for us, geographical tasks.</p>
-<div id="r-java" class="section level3 unnumbered hasAnchor">
-<h3>R Java<a href="software-installation.html#r-java" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>Some R packages require you to download Java - it’s just an extra bit of software you can get from the <a href="https://www.java.com/en/download/manual.jsp">Java website</a>. Select the offline version.</p>
-</div>
 <div id="basics" class="section level3 unnumbered hasAnchor">
 <h3>Basics<a href="software-installation.html#basics" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>The advised method for using R is to download it to your personal machine, so you can use it in future without any issues.</p>
@@ -1376,14 +1372,6 @@ Figure 0.2: R vs RStudio. Source: <a href="https://moderndive.com/1-getting-star
 <li><p>There is an error with the package. If all else fails i remove the package and the re-install it. Again, in the package tab there is a small cross next to each package, clicking it let’s you remove it.</p></li>
 </ul>
 <p>If the problem persists then assuming the error is <code>package xxx is not available</code> consult the <a href="https://stackoverflow.com/questions/25721884/how-should-i-deal-with-package-xxx-is-not-available-for-r-version-x-y-z-wa">relevant stack overflow question</a></p>
-</div>
-<div id="macs" class="section level3 unnumbered hasAnchor">
-<h3>Macs<a href="software-installation.html#macs" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>We (Andy and Adam) use windows machines and whilst R runs across all operating systems, Mac users often need to install some extra software and packages, but this will be apparent during the module. As the Mac operating system updates new issues do appear which we will address in the module, Twitter or slack.</p>
-<p><strong>However</strong> don’t do this until you get the error and if you get stuck then contact us via Twitter or Slack.</p>
-<p>You will likely need the package <code>rgdal</code> as the package <code>sf</code>, which we use extensively, is dependent on it. <code>rgdal</code> needs the <code>gdal</code> library to be installed on the computer (not as an R package), and it usually isn’t installed on Macs.</p>
-<p>To install it, follow <a href="https://stackoverflow.com/questions/34333624/trouble-installing-rgdal">the stack overflow guide</a></p>
-<p>Mac users may need to install Java (which might involve removing the existing version) this is covered in the [Mac R issues] section.</p>
 </div>
 </div>
 <div id="arcgis" class="section level2 unnumbered hasAnchor">

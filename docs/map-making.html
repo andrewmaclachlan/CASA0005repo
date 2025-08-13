@@ -23,7 +23,7 @@
 <meta name="author" content="Andy MacLachlan, Adam Dennett and Claire Dooley" />
 
 
-<meta name="date" content="2025-07-21" />
+<meta name="date" content="2025-08-13" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -965,10 +965,8 @@ div.csl-indent {
 <li class="chapter" data-level="" data-path="software-installation.html"><a href="software-installation.html#qgis"><i class="fa fa-check"></i>QGIS</a></li>
 <li class="chapter" data-level="" data-path="software-installation.html"><a href="software-installation.html#r"><i class="fa fa-check"></i>R</a>
 <ul>
-<li class="chapter" data-level="" data-path="software-installation.html"><a href="software-installation.html#r-java"><i class="fa fa-check"></i>R Java</a></li>
 <li class="chapter" data-level="" data-path="software-installation.html"><a href="software-installation.html#basics"><i class="fa fa-check"></i>Basics</a></li>
 <li class="chapter" data-level="" data-path="software-installation.html"><a href="software-installation.html#packages"><i class="fa fa-check"></i>Packages</a></li>
-<li class="chapter" data-level="" data-path="software-installation.html"><a href="software-installation.html#macs"><i class="fa fa-check"></i>Macs</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="software-installation.html"><a href="software-installation.html#arcgis"><i class="fa fa-check"></i>ArcGIS</a></li>
 </ul></li>
@@ -1296,6 +1294,8 @@ div.csl-indent {
 <ul>
 <li class="chapter" data-level="8.33" data-path="interactive-maps.html"><a href="interactive-maps.html#advanced-interactive-map-1"><i class="fa fa-check"></i><b>8.33</b> Advanced interactive map</a></li>
 </ul></li>
+<li class="chapter" data-level="9" data-path="past-questions.html"><a href="past-questions.html"><i class="fa fa-check"></i><b>9</b> Past questions</a></li>
+<li class="chapter" data-level="10" data-path="field-trip.html"><a href="field-trip.html"><i class="fa fa-check"></i><b>10</b> Field trip</a></li>
 <li class="divider"></li>
 <li><center>
   <a rel="license" href="./external-usage.html#license">
@@ -1443,47 +1443,39 @@ div.csl-indent {
 <p>I am going to make a few maps but the first one will resemble an academic figure where there will be sub-figures (e.g. A, B), a study area location map and a legend.</p>
 <p>My drawing skills are very average, but something like this…</p>
 <div class="figure"><span style="display:block;" id="fig:unnamed-chunk-230"></span>
-<img src="prac5_images/map_plan%20conv%201.png" alt="Map plan" width="49%" />
+<img src="prac5_images/map_plan%20conv%201.png" alt="Map plan" width="100%" />
 <p class="caption">
 Figure 5.1: Map plan
 </p>
 </div>
 <p>So…where do we begin</p>
 <ul>
-<li><p>Conceptually think of each section (A), (B) as a <strong>separate</strong> object. For example, my sub-figure (A) will be a London borough ‘sf’ object that has a column of Hotels. (B) will be the same but for Airbnbs.</p></li>
+<li><p>Conceptually think of each section as a <strong>separate</strong> object. For example, Hotels will be a London borough ‘sf’ object that has a column of Hotels.</p></li>
 <li><p>We need to wrangle our data to get to that point, this will include:</p>
-<ol style="list-style-type: decimal">
-<li>Downloading data:</li>
-</ol>
-<p><strong>For sub figures (A) and (B)</strong></p>
+<p><strong>1. Downloading data:</strong></p>
+<p>For the hotels and airbnb figures</p>
 <ul>
 <li>London borough MSOAs (shp)</li>
 <li>Airbnbs (csv)</li>
 <li>Hotels (shp)</li>
 </ul>
-<p><strong>For the location map</strong></p>
+<p>For the study area map</p>
 <ul>
 <li>Outline of the UK (shp)</li>
 <li>UK cities (shp)</li>
 </ul>
-<ol start="2" style="list-style-type: decimal">
-<li>Setting the CRS and filtering:</li>
-</ol>
+<p><strong>2. Setting the CRS and filtering:</strong></p>
 <ul>
 <li>Our CRS for the Boroughs needs to be British national grid (BNG)</li>
 <li>Filter hotels from the OSM data</li>
 <li>Filter equivalent airbnbs (e.g. room_type == ‘Entire home/apt’ &amp; availability_365 ==‘365’)</li>
 </ul>
-<ol start="3" style="list-style-type: decimal">
-<li>Joining and summing data</li>
-</ol>
+<p><strong>3. Joining and summing data</strong></p>
 <ul>
 <li>Join the Airbnbs to the MSOAs and sum (i.e. how many are in each MSOA)</li>
 <li>Join the Hotels to the MSOAs and sum</li>
 </ul>
-<ol start="4" style="list-style-type: decimal">
-<li>Making some maps.</li>
-</ol></li>
+<p><strong>4. Making some maps</strong></p></li>
 </ul>
 </div>
 <div id="crs-and-filter" class="section level2 hasAnchor" number="5.7">

@@ -41,10 +41,6 @@ If raising an issue please provide sufficient detail that it can be reproduced w
 
 **For clarification on concepts** please either [open an issue on the project's GitHub issue page](https://github.com/andrewmaclachlan/CASA0005repo/issues) or submit the anonymous feedback form at the end of each practical. 
 
-Alternatively, reach out to us on Twitter:
-
-* [Andy MacLachlan](https://twitter.com/andymaclachlan)
-* [Adam Dennett](https://twitter.com/adam_dennett)
 
 ## Supporting the module {-}
 
@@ -54,10 +50,6 @@ If you found the content useful, please support us by:
 * [Citing the book](https://jose.theoj.org/papers/a05734775775d1ef968e582ce9a7cb17)
 * [linking to the book home page](https://andrewmaclachlan.github.io/CASA0005repo/)
 * [Starring](https://docs.github.com/en/get-started/exploring-projects-on-github/saving-repositories-with-stars) the [GitHub repository](https://github.com/andrewmaclachlan/CASA0005repo)
-* Tweeting us: 
-- [Andy MacLachlan](https://twitter.com/andymaclachlan)
-- [Adam Dennett](https://twitter.com/adam_dennett)
-- [CASA](https://twitter.com/CASAUCL)
 
 ## License {-}
 

@@ -1,6 +1,6 @@
 # Software installation {-}
 
-This course primarily uses the R data science programming language. We briefly touch upon QGIS to give you a basic foundation in the range of spatial software available, please follow the instructions below before the first practical session to install the software on your local computer if you are planning to use it throughout the course. 
+This course primarily uses the R data science programming language. We briefly touch upon QGIS to give you a basic foundation in the range of spatial software available, please follow the instructions below before the first practical session to install the software on your local computer.
 
 ## QGIS {-}
 
@@ -21,9 +21,6 @@ knitr::include_graphics('general_images/QGIS_install2.png')
 
 R is both a programming language and software environment, originally designed for statistical computing and graphics. R’s great strength is that it is open-source, can be used on any computer operating system and free for anyone to use and contribute to. Because of this, it is rapidly becoming the statistical language of choice for many academics and has a huge user community with people constantly contributing new packages to carry out all manner of statistical, graphical and importantly for us, geographical tasks.
 
-### R Java {-}
-
-Some R packages require you to download Java - it's just an extra bit of software you can get from the [Java website](https://www.java.com/en/download/manual.jsp). Select the offline version.
 
 ### Basics {-}
 
@@ -61,18 +58,6 @@ The most common package errors and issues are:
 * There is an error with the package. If all else fails i remove the package and the re-install it. Again, in the package tab there is a small cross next to each package, clicking it let's you remove it. 
 
 If the problem persists then assuming the error is `package xxx is not available` consult the [relevant stack overflow question](https://stackoverflow.com/questions/25721884/how-should-i-deal-with-package-xxx-is-not-available-for-r-version-x-y-z-wa) 
-
-### Macs {-}
-
-We (Andy and Adam) use windows machines and whilst R runs across all operating systems, Mac users often need to install some extra software and packages, but this will be apparent during the module. As the Mac operating system updates new issues do appear which we will address in the module, Twitter or slack.  
-
-**However** don't do this until you get the error and if you get stuck then contact us via Twitter or Slack.  
-
-You will likely need the package `rgdal` as the package `sf`, which we use extensively, is dependent on it. `rgdal` needs the `gdal` library to be installed on the computer (not as an R package), and it usually isn't installed on Macs.
-
-To install it, follow [the stack overflow guide](https://stackoverflow.com/questions/34333624/trouble-installing-rgdal)
-
-Mac users may need to install Java (which might involve removing the existing version) this is covered in the [Mac R issues] section. 
 
 ## ArcGIS {-}
 
