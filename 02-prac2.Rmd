@@ -1025,7 +1025,8 @@ For a **static map** we need to extract the basemap from OpenStreetMap (OSM) usi
 tmaplondon <- BoroughDataMap %>%
   # st_bbox gives the bounding x and y coordinates 
   st_bbox(.) %>% 
-  tmaptools::read_osm(., type = "osm", zoom = NULL)
+  #note type="osm" gives error atm - issue raised on github: https://github.com/r-tmap/tmaptools/issues/41
+  tmaptools::read_osm(., type = "esri", zoom = NULL)
 ```
 
 

@@ -23,7 +23,7 @@
 <meta name="author" content="Andy MacLachlan, Adam Dennett and Claire Dooley" />
 
 
-<meta name="date" content="2025-08-13" />
+<meta name="date" content="2025-10-06" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -840,8 +840,9 @@ $(document).ready(function () {
 
 
 <style type="text/css">
+html { -webkit-text-size-adjust: 100%; }
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -851,7 +852,7 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -1528,7 +1529,7 @@ Figure 1.8: dplyr introduction graphic. Source: <a href="https://github.com/alli
 <p>At the end of this document I’ll also run through some common sources of data that will stand you in good stead (be advantageous) for the rest of the course.</p>
 <div id="file-paths" class="section level3 hasAnchor" number="1.6.1">
 <h3><span class="header-section-number">1.6.1</span> File paths<a href="geographic-information.html#file-paths" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>In your N drive: create a new folder called GIS and within this a sub folder called wk1. It is up to you how you organise your files. Make sure you change the file paths where appropriate to your own.</p>
+<p>On your computer create a new folder called GIS and within this a sub folder called wk1. It is up to you how you organise your files. Make sure you change the file paths where appropriate to your own.</p>
 </div>
 <div id="data-download" class="section level3 hasAnchor" number="1.6.2">
 <h3><span class="header-section-number">1.6.2</span> Data download<a href="geographic-information.html#data-download" class="anchor-section" aria-label="Anchor link to header"></a></h3>
@@ -1773,7 +1774,7 @@ Figure 1.11: sf introduction graphic. Source: <a href="https://github.com/alliso
 <span id="cb11-2"><a href="geographic-information.html#cb11-2" tabindex="-1"></a><span class="co">#this needs to be your file path again</span></span>
 <span id="cb11-3"><a href="geographic-information.html#cb11-3" tabindex="-1"></a>mycsv <span class="ot">&lt;-</span>  <span class="fu">read_csv</span>(<span class="st">&quot;C:/Users/Andy/OneDrive - University College London/Teaching/CASA0005/2020_2021/CASA0005repo/prac1_data/fly_tipping_borough_edit.csv&quot;</span>)  </span></code></pre></div>
 <pre><code>## Rows: 34 Columns: 9
-## ── Column specification ─────────────────────
+## ── Column specification ──────────────────────────────────────────────────────────
 ## Delimiter: &quot;,&quot;
 ## chr (1): Row Labels
 ## dbl (8): 2011_12, 2012_13, 2013_14, 2014_15, 2015_16, 2016_17, 2017_18, Gran...
@@ -1806,7 +1807,7 @@ Figure 1.11: sf introduction graphic. Source: <a href="https://github.com/alliso
 <h4><span class="header-section-number">1.6.5.3</span> Join data<a href="geographic-information.html#join-data-1" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>In R we’ve given our London boroughs shapefile the name <code>shape</code> and our flytipping <code>.csv</code> the name <code>mycsv</code>. If you look in the Environment quadrant you should see them both listed.</p>
 <p>Join the <code>.csv</code> to the shapefile. Here, replace Row Labels with whatever your GSS_CODE is called in the <code>.csv</code>:</p>
-<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="geographic-information.html#cb15-1" tabindex="-1"></a>shape <span class="ot">&lt;-</span> shape<span class="sc">%&gt;%</span></span>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="geographic-information.html#cb15-1" tabindex="-1"></a>shape2 <span class="ot">&lt;-</span> shape<span class="sc">%&gt;%</span></span>
 <span id="cb15-2"><a href="geographic-information.html#cb15-2" tabindex="-1"></a>  <span class="fu">merge</span>(.,</span>
 <span id="cb15-3"><a href="geographic-information.html#cb15-3" tabindex="-1"></a>        mycsv,</span>
 <span id="cb15-4"><a href="geographic-information.html#cb15-4" tabindex="-1"></a>        <span class="at">by.x=</span><span class="st">&quot;GSS_CODE&quot;</span>, </span>
@@ -1815,50 +1816,39 @@ Figure 1.11: sf introduction graphic. Source: <a href="https://github.com/alliso
 <p>Check the merge was successful, this is just going to show the top 10 rows:</p>
 <div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="geographic-information.html#cb16-1" tabindex="-1"></a>shape<span class="sc">%&gt;%</span></span>
 <span id="cb16-2"><a href="geographic-information.html#cb16-2" tabindex="-1"></a>  <span class="fu">head</span>(., <span class="at">n=</span><span class="dv">10</span>)</span></code></pre></div>
-<pre><code>## Simple feature collection with 10 features and 15 fields
+<pre><code>## Simple feature collection with 10 features and 7 fields
 ## Geometry type: MULTIPOLYGON
 ## Dimension:     XY
-## Bounding box:  xmin: 509702.4 ymin: 155850.8 xmax: 554089.2 ymax: 200933.9
+## Bounding box:  xmin: 503568.2 ymin: 155850.8 xmax: 561957.5 ymax: 198355.2
 ## Projected CRS: OSGB36 / British National Grid
-##     GSS_CODE                 NAME  HECTARES NONLD_AREA ONS_INNER SUB_2009
-## 1  E09000001       City of London   314.942     24.546         T     &lt;NA&gt;
-## 2  E09000002 Barking and Dagenham  3779.934    169.150         F     &lt;NA&gt;
-## 3  E09000003               Barnet  8674.837      0.000         F     &lt;NA&gt;
-## 4  E09000004               Bexley  6428.649    370.619         F     &lt;NA&gt;
-## 5  E09000005                Brent  4323.270      0.000         F     &lt;NA&gt;
-## 6  E09000006              Bromley 15013.487      0.000         F     &lt;NA&gt;
-## 7  E09000007               Camden  2178.932      0.000         T     &lt;NA&gt;
-## 8  E09000008              Croydon  8649.441      0.000         F     &lt;NA&gt;
-## 9  E09000009               Ealing  5554.428      0.000         F     &lt;NA&gt;
-## 10 E09000010              Enfield  8220.025      0.000         F     &lt;NA&gt;
-##    SUB_2006 2011_12 2012_13 2013_14 2014_15 2015_16 2016_17 2017_18 Grand_Total
-## 1      &lt;NA&gt;     563    1492     433     347     587    1944    2579        7945
-## 2      &lt;NA&gt;    2687    2122    1399    3100    2672    1130    1066       14176
-## 3      &lt;NA&gt;    2356    1828     890     219     615     130     503        6541
-## 4      &lt;NA&gt;     505     627     732     399     262     439     327        3291
-## 5      &lt;NA&gt;    6713    2232    3189    3926    3980    4366    7483       31889
-## 6      &lt;NA&gt;     306     479     653     462     326     228     258        2712
-## 7      &lt;NA&gt;    5541    5962    8281    4837    4719    4656   12671       46667
-## 8      &lt;NA&gt;      31     108     460     712    1707     637    2684        6339
-## 9      &lt;NA&gt;    6727    5679    6543    5521    6067   12688    5471       48696
-## 10     &lt;NA&gt;    7262    3595    3269    4937    5292   10894    5855       41104
-##                          geometry
-## 1  MULTIPOLYGON (((531145.1 18...
-## 2  MULTIPOLYGON (((543905.4 18...
-## 3  MULTIPOLYGON (((524579.9 19...
-## 4  MULTIPOLYGON (((547226.2 18...
-## 5  MULTIPOLYGON (((525201 1825...
-## 6  MULTIPOLYGON (((540373.6 15...
-## 7  MULTIPOLYGON (((528840.2 18...
-## 8  MULTIPOLYGON (((535009.2 15...
-## 9  MULTIPOLYGON (((510253.5 18...
-## 10 MULTIPOLYGON (((531023.5 20...</code></pre>
+##                    NAME  GSS_CODE  HECTARES NONLD_AREA ONS_INNER SUB_2009
+## 1  Kingston upon Thames E09000021  3726.117      0.000         F     &lt;NA&gt;
+## 2               Croydon E09000008  8649.441      0.000         F     &lt;NA&gt;
+## 3               Bromley E09000006 15013.487      0.000         F     &lt;NA&gt;
+## 4              Hounslow E09000018  5658.541     60.755         F     &lt;NA&gt;
+## 5                Ealing E09000009  5554.428      0.000         F     &lt;NA&gt;
+## 6              Havering E09000016 11445.735    210.763         F     &lt;NA&gt;
+## 7            Hillingdon E09000017 11570.063      0.000         F     &lt;NA&gt;
+## 8                Harrow E09000015  5046.330      0.000         F     &lt;NA&gt;
+## 9                 Brent E09000005  4323.270      0.000         F     &lt;NA&gt;
+## 10               Barnet E09000003  8674.837      0.000         F     &lt;NA&gt;
+##    SUB_2006                       geometry
+## 1      &lt;NA&gt; MULTIPOLYGON (((516401.6 16...
+## 2      &lt;NA&gt; MULTIPOLYGON (((535009.2 15...
+## 3      &lt;NA&gt; MULTIPOLYGON (((540373.6 15...
+## 4      &lt;NA&gt; MULTIPOLYGON (((521975.8 17...
+## 5      &lt;NA&gt; MULTIPOLYGON (((510253.5 18...
+## 6      &lt;NA&gt; MULTIPOLYGON (((549893.9 18...
+## 7      &lt;NA&gt; MULTIPOLYGON (((510599.8 19...
+## 8      &lt;NA&gt; MULTIPOLYGON (((510599.8 19...
+## 9      &lt;NA&gt; MULTIPOLYGON (((525201 1825...
+## 10     &lt;NA&gt; MULTIPOLYGON (((524579.9 19...</code></pre>
 <p>Now, let’s make a quick thematic map (or a qtm) using the package <code>tmap</code>. I’ve made mine for flytipping between 2011 and 2012 (column 2011_12). But check what your column name is from the above code <code>head(shape, n=10)</code> it might be slightly different like 2011-2012 or x2011_2012….</p>
 <p><img src="prac1_images/colname.png" width="600pt" style="display: block; margin: auto;" /></p>
 <div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="geographic-information.html#cb18-1" tabindex="-1"></a><span class="fu">library</span>(tmap)</span>
 <span id="cb18-2"><a href="geographic-information.html#cb18-2" tabindex="-1"></a><span class="fu">tmap_mode</span>(<span class="st">&quot;plot&quot;</span>)</span>
 <span id="cb18-3"><a href="geographic-information.html#cb18-3" tabindex="-1"></a><span class="co"># change the fill to your column name if different</span></span>
-<span id="cb18-4"><a href="geographic-information.html#cb18-4" tabindex="-1"></a>shape <span class="sc">%&gt;%</span></span>
+<span id="cb18-4"><a href="geographic-information.html#cb18-4" tabindex="-1"></a>shape2 <span class="sc">%&gt;%</span></span>
 <span id="cb18-5"><a href="geographic-information.html#cb18-5" tabindex="-1"></a>  <span class="fu">qtm</span>(.,<span class="at">fill =</span> <span class="st">&quot;2011_12&quot;</span>)</span></code></pre></div>
 <p><img src="CASA0005_files/figure-html/unnamed-chunk-46-1.png" width="672" /></p>
 </div>
@@ -1873,7 +1863,7 @@ Figure 1.11: sf introduction graphic. Source: <a href="https://github.com/alliso
 <pre><code>## Deleting layer `london_boroughs_fly_tipping&#39; using driver `GPKG&#39;
 ## Writing layer `london_boroughs_fly_tipping&#39; to data source 
 ##   `C:/Users/Andy/OneDrive - University College London/Teaching/CASA0005/2020_2021/CASA0005repo/prac1_data/Rwk1.gpkg&#39; using driver `GPKG&#39;
-## Writing 33 features with 15 fields and geometry type Multi Polygon.</code></pre>
+## Writing 33 features with 7 fields and geometry type Multi Polygon.</code></pre>
 <p>So here, we are saying the shape is the object we want to save, then to the GeoPackage file path, with the layer name of <code>london_boroughs_fly_tipping</code>. I’ve set <code>delete_layer</code> to true so I could overwrite mine when I developed this practical. Changing it to false would generate an error message if you ever tried to re-run the code.</p>
 <p>Let’s also add the <code>.csv</code> as we did in QGIS. This is a bit more complicated as we have to use the SQLite database package. Firstly, connect to the <code>.gpkg</code> we just made:</p>
 <div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="geographic-information.html#cb21-1" tabindex="-1"></a><span class="fu">library</span>(readr)</span>

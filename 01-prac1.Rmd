@@ -225,7 +225,7 @@ At the end of this document I'll also run through some common sources of data th
 
 ### File paths
 
-In your N drive: create a new folder called GIS and within this a sub folder called wk1. It is up to you how you organise your files. Make sure you change the file paths where appropriate to your own.
+On your computer create a new folder called GIS and within this a sub folder called wk1. It is up to you how you organise your files. Make sure you change the file paths where appropriate to your own.
 
 ### Data download
 
@@ -544,7 +544,7 @@ In R we've given our London boroughs shapefile the name `shape` and our flytippi
 Join the `.csv` to the shapefile. Here, replace Row Labels with whatever your GSS_CODE is called in the `.csv`:
 
 ```{r, cache=FALSE}
-shape <- shape%>%
+shape2 <- shape%>%
   merge(.,
         mycsv,
         by.x="GSS_CODE", 
@@ -571,7 +571,7 @@ knitr::include_graphics('prac1_images/colname.png')
 library(tmap)
 tmap_mode("plot")
 # change the fill to your column name if different
-shape %>%
+shape2 %>%
   qtm(.,fill = "2011_12")
 ```
 
