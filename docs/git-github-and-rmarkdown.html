@@ -23,7 +23,7 @@
 <meta name="author" content="Andy MacLachlan, Adam Dennett and Claire Dooley" />
 
 
-<meta name="date" content="2025-10-06" />
+<meta name="date" content="2025-10-20" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -1446,6 +1446,14 @@ Figure 4.1: A basic git workflow represented as two islands, one with local repo
 <h4><span class="header-section-number">4.5.3.3</span> Start your Git<a href="git-github-and-rmarkdown.html#start-your-git" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>To start Git you <strong>need to be in a RStudio project</strong>. You cannot start git without a project! Instructions below show you how to do this in various scenarios. For example, in the first Git way, we clone (copy) a remote repository (of our own) then if we wanted to make changes (to the remote) we would need to follow these instructions to link our Git to GitHub</p>
 <p>In the first instance we just copy it from the remote (GitHub), that will have git ready to go - so don’t do this now….but a very simple way is to again load the <code>usethis</code> package in the console and the function <code>use_git()</code>, then type option 1. You would do this for a project that you have started, which doesn’t have git enabled.</p>
+<div class="infobox tip">
+<p>Remember that
+* Github has a maximum file size of 50mb
+* git does not</p>
+<p>This means if you have a file of 50mb or larger you must set the .gitignore to ignore the file or large data folder as soon as you add the data into the project, as shown in the session.</p>
+<p>For example, the following means ignore everything (*) in the data folder.</p>
+<p>data/*</p>
+</div>
 </div>
 <div id="connect-git-to-github" class="section level4 hasAnchor" number="4.5.3.4">
 <h4><span class="header-section-number">4.5.3.4</span> Connect Git to GitHub<a href="git-github-and-rmarkdown.html#connect-git-to-github" class="anchor-section" aria-label="Anchor link to header"></a></h4>

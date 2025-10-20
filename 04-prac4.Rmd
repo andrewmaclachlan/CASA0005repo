@@ -148,6 +148,18 @@ To start Git you **need to be in a RStudio project**. You cannot start git witho
 
 In the first instance we just copy it from the remote (GitHub), that will have git ready to go - so don't do this now....but a very simple way is to again load the `usethis` package in the console and the function `use_git()`, then type option 1. You would do this for a project that you have started, which doesn't have git enabled. 
 
+::: {.infobox .tip data-latex="{note}"}
+Remember that 
+* Github has a maximum file size of 50mb
+* git does not
+
+This means if you have a file of 50mb or larger you must set the .gitignore to ignore the file or large data folder as soon as you add the data into the project, as shown in the session.
+
+For example, the following means ignore everything (*) in the data folder.
+
+data/*
+:::
+
 #### Connect Git to GitHub
 
 Once we have an RStudio project with Git, either making it ourselves or downloading one from GitHub, we need to connect it to GitHub.
