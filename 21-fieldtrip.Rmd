@@ -1,4 +1,4 @@
-# Field trip
+# Field trip {-}
 
 While in London explore some geo-spatial sites of historical importance...
 
