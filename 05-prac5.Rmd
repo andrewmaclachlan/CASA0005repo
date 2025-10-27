@@ -498,7 +498,7 @@ Let's set up the facets..
 tm1 <- tm_shape(Accomodation_contained) +
     tm_polygons(
       fill = c("hotels_n", "airbnbs_n"),
-      fill.scale = list(tm_scale_intervals(values = "brewer.blues", breaks=breaks$brks)),
+      fill.scale = tm_scale_intervals(values = "brewer.blues", breaks=breaks$brks),
       # set the legend
       fill.legend = tm_legend(title="Accomodation count",
                               title.size=0.85,
@@ -519,8 +519,8 @@ tm1
 Here, we've set the position of the legend to be outside the main plot `tm_pos_out()` the arguments that follow set where to place the legend:
 
 * right = in the area to the right side of the plot (each map is a 3x3 grid or possible area)
-* center = in the center of the right "column"
-* bottom = at the bottom of the right "column"
+* center = in the center [adjusted to the center] of the right "column"
+* `pos.v = "center"` = in the middle of the column (not top of bottom)
 
 The vertical (`pos.v`) and horizontal (`pos.h`) positions can also be set numerically where in relation to the top left hand corner of the object you are placing. 
 
@@ -554,23 +554,23 @@ Then we can save the map (`tm_save()`). When making position adjustments always 
 
 tm2 <- tm1+
   tm_layout(panel.labels=c("Hotels", "Airbnb"),
-            panel.show = TRUE,
-           # panel.label.bg.color = "transparent",
-            panel.frame = FALSE)+
+            panel.show = TRUE
+            #panel.label.bg.color = "transparent",
+            )+
   
   tm_compass(type= "arrow",
             size=1.8, 
             position = tm_pos_out("right", 
                                   "center",
                                   pos.h= -0.05,
-                                  pos.v =0.7))+
+                                  pos.v =0.72))+
   tm_scalebar(text.size = 0.7,
               width=10,
               breaks=c(0,10,20),
               position = tm_pos_out("right",
                                     "center", 
                                     pos.h=0.075,
-                                    pos.v = 0.66))+
+                                    pos.v = 0.68))+
   # we could use tm_credits to place sub-titles like (A) or (B)
   # on the map.
   tm_credits("(c) OpenStreetMap contrbutors and Air b n b",
@@ -625,6 +625,8 @@ tm3 <- tm_shape(UK_outlinecrop)+
         #add the city labels, x and y move the label around the point
     tm_text("CITY_NAME", xmod=-1, ymod=-0.5)
 
+
+tm3
 ```
 
 We can also add a visual grey bounding box to our study area map. This is optional...
@@ -687,8 +689,14 @@ Next we use that object (`accom_long`) to make the plot
 ```{r}
 
 violin <- accom_long %>%
-  ggplot(aes(x = accom_type, y = count, fill = accom_type)) +
-  geom_violin(trim = FALSE, color = "grey30", alpha = 0.8) +
+  ggplot(aes(x = accom_type, 
+             # number
+             y = count, 
+             # hotels or airbnb 
+             fill = accom_type)) +
+  geom_violin(trim = FALSE, 
+              color = "grey30", 
+              alpha = 0.8) +
   scale_fill_brewer(palette = "Pastel1") +
   labs(
     title = "",
@@ -697,7 +705,8 @@ violin <- accom_long %>%
     fill = "black"
   ) +
   # change the labels from the column names to..
-scale_x_discrete(labels = c("hotels_n" = "Hotels", "airbnbs_n" = "Airbnbs"))+
+scale_x_discrete(labels = c("hotels_n" = "Hotels", 
+                            "airbnbs_n" = "Airbnbs"))+
   theme_minimal(base_size = 13)+
   theme(
     # no legend

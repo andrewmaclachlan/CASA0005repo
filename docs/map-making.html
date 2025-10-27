@@ -23,7 +23,7 @@
 <meta name="author" content="Andy MacLachlan, Adam Dennett and Claire Dooley" />
 
 
-<meta name="date" content="2025-10-20" />
+<meta name="date" content="2025-10-27" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -1842,7 +1842,7 @@ Figure 5.3: Topological relations between vector geometries. Source: <a href="ht
 <div class="sourceCode" id="cb239"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb239-1"><a href="map-making.html#cb239-1" tabindex="-1"></a>tm1 <span class="ot">&lt;-</span> <span class="fu">tm_shape</span>(Accomodation_contained) <span class="sc">+</span></span>
 <span id="cb239-2"><a href="map-making.html#cb239-2" tabindex="-1"></a>    <span class="fu">tm_polygons</span>(</span>
 <span id="cb239-3"><a href="map-making.html#cb239-3" tabindex="-1"></a>      <span class="at">fill =</span> <span class="fu">c</span>(<span class="st">&quot;hotels_n&quot;</span>, <span class="st">&quot;airbnbs_n&quot;</span>),</span>
-<span id="cb239-4"><a href="map-making.html#cb239-4" tabindex="-1"></a>      <span class="at">fill.scale =</span> <span class="fu">list</span>(<span class="fu">tm_scale_intervals</span>(<span class="at">values =</span> <span class="st">&quot;brewer.blues&quot;</span>, <span class="at">breaks=</span>breaks<span class="sc">$</span>brks)),</span>
+<span id="cb239-4"><a href="map-making.html#cb239-4" tabindex="-1"></a>      <span class="at">fill.scale =</span> <span class="fu">tm_scale_intervals</span>(<span class="at">values =</span> <span class="st">&quot;brewer.blues&quot;</span>, <span class="at">breaks=</span>breaks<span class="sc">$</span>brks),</span>
 <span id="cb239-5"><a href="map-making.html#cb239-5" tabindex="-1"></a>      <span class="co"># set the legend</span></span>
 <span id="cb239-6"><a href="map-making.html#cb239-6" tabindex="-1"></a>      <span class="at">fill.legend =</span> <span class="fu">tm_legend</span>(<span class="at">title=</span><span class="st">&quot;Accomodation count&quot;</span>,</span>
 <span id="cb239-7"><a href="map-making.html#cb239-7" tabindex="-1"></a>                              <span class="at">title.size=</span><span class="fl">0.85</span>,</span>
@@ -1862,8 +1862,8 @@ Figure 5.3: Topological relations between vector geometries. Source: <a href="ht
 <p>Here, we’ve set the position of the legend to be outside the main plot <code>tm_pos_out()</code> the arguments that follow set where to place the legend:</p>
 <ul>
 <li>right = in the area to the right side of the plot (each map is a 3x3 grid or possible area)</li>
-<li>center = in the center of the right “column”</li>
-<li>bottom = at the bottom of the right “column”</li>
+<li>center = in the center [adjusted to the center] of the right “column”</li>
+<li><code>pos.v = "center"</code> = in the middle of the column (not top of bottom)</li>
 </ul>
 <p>The vertical (<code>pos.v</code>) and horizontal (<code>pos.h</code>) positions can also be set numerically where in relation to the top left hand corner of the object you are placing.</p>
 <p>0 = left (<code>pos.h</code>) or bottom (<code>pos.v</code>)
@@ -1889,23 +1889,23 @@ Figure 5.3: Topological relations between vector geometries. Source: <a href="ht
 <span id="cb240-2"><a href="map-making.html#cb240-2" tabindex="-1"></a></span>
 <span id="cb240-3"><a href="map-making.html#cb240-3" tabindex="-1"></a>tm2 <span class="ot">&lt;-</span> tm1<span class="sc">+</span></span>
 <span id="cb240-4"><a href="map-making.html#cb240-4" tabindex="-1"></a>  <span class="fu">tm_layout</span>(<span class="at">panel.labels=</span><span class="fu">c</span>(<span class="st">&quot;Hotels&quot;</span>, <span class="st">&quot;Airbnb&quot;</span>),</span>
-<span id="cb240-5"><a href="map-making.html#cb240-5" tabindex="-1"></a>            <span class="at">panel.show =</span> <span class="cn">TRUE</span>,</span>
-<span id="cb240-6"><a href="map-making.html#cb240-6" tabindex="-1"></a>           <span class="co"># panel.label.bg.color = &quot;transparent&quot;,</span></span>
-<span id="cb240-7"><a href="map-making.html#cb240-7" tabindex="-1"></a>            <span class="at">panel.frame =</span> <span class="cn">FALSE</span>)<span class="sc">+</span></span>
+<span id="cb240-5"><a href="map-making.html#cb240-5" tabindex="-1"></a>            <span class="at">panel.show =</span> <span class="cn">TRUE</span></span>
+<span id="cb240-6"><a href="map-making.html#cb240-6" tabindex="-1"></a>            <span class="co">#panel.label.bg.color = &quot;transparent&quot;,</span></span>
+<span id="cb240-7"><a href="map-making.html#cb240-7" tabindex="-1"></a>            )<span class="sc">+</span></span>
 <span id="cb240-8"><a href="map-making.html#cb240-8" tabindex="-1"></a>  </span>
 <span id="cb240-9"><a href="map-making.html#cb240-9" tabindex="-1"></a>  <span class="fu">tm_compass</span>(<span class="at">type=</span> <span class="st">&quot;arrow&quot;</span>,</span>
 <span id="cb240-10"><a href="map-making.html#cb240-10" tabindex="-1"></a>            <span class="at">size=</span><span class="fl">1.8</span>, </span>
 <span id="cb240-11"><a href="map-making.html#cb240-11" tabindex="-1"></a>            <span class="at">position =</span> <span class="fu">tm_pos_out</span>(<span class="st">&quot;right&quot;</span>, </span>
 <span id="cb240-12"><a href="map-making.html#cb240-12" tabindex="-1"></a>                                  <span class="st">&quot;center&quot;</span>,</span>
 <span id="cb240-13"><a href="map-making.html#cb240-13" tabindex="-1"></a>                                  <span class="at">pos.h=</span> <span class="sc">-</span><span class="fl">0.05</span>,</span>
-<span id="cb240-14"><a href="map-making.html#cb240-14" tabindex="-1"></a>                                  <span class="at">pos.v =</span><span class="fl">0.7</span>))<span class="sc">+</span></span>
+<span id="cb240-14"><a href="map-making.html#cb240-14" tabindex="-1"></a>                                  <span class="at">pos.v =</span><span class="fl">0.72</span>))<span class="sc">+</span></span>
 <span id="cb240-15"><a href="map-making.html#cb240-15" tabindex="-1"></a>  <span class="fu">tm_scalebar</span>(<span class="at">text.size =</span> <span class="fl">0.7</span>,</span>
 <span id="cb240-16"><a href="map-making.html#cb240-16" tabindex="-1"></a>              <span class="at">width=</span><span class="dv">10</span>,</span>
 <span id="cb240-17"><a href="map-making.html#cb240-17" tabindex="-1"></a>              <span class="at">breaks=</span><span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">10</span>,<span class="dv">20</span>),</span>
 <span id="cb240-18"><a href="map-making.html#cb240-18" tabindex="-1"></a>              <span class="at">position =</span> <span class="fu">tm_pos_out</span>(<span class="st">&quot;right&quot;</span>,</span>
 <span id="cb240-19"><a href="map-making.html#cb240-19" tabindex="-1"></a>                                    <span class="st">&quot;center&quot;</span>, </span>
 <span id="cb240-20"><a href="map-making.html#cb240-20" tabindex="-1"></a>                                    <span class="at">pos.h=</span><span class="fl">0.075</span>,</span>
-<span id="cb240-21"><a href="map-making.html#cb240-21" tabindex="-1"></a>                                    <span class="at">pos.v =</span> <span class="fl">0.66</span>))<span class="sc">+</span></span>
+<span id="cb240-21"><a href="map-making.html#cb240-21" tabindex="-1"></a>                                    <span class="at">pos.v =</span> <span class="fl">0.68</span>))<span class="sc">+</span></span>
 <span id="cb240-22"><a href="map-making.html#cb240-22" tabindex="-1"></a>  <span class="co"># we could use tm_credits to place sub-titles like (A) or (B)</span></span>
 <span id="cb240-23"><a href="map-making.html#cb240-23" tabindex="-1"></a>  <span class="co"># on the map.</span></span>
 <span id="cb240-24"><a href="map-making.html#cb240-24" tabindex="-1"></a>  <span class="fu">tm_credits</span>(<span class="st">&quot;(c) OpenStreetMap contrbutors and Air b n b&quot;</span>,</span>
@@ -1946,7 +1946,11 @@ Figure 5.3: Topological relations between vector geometries. Source: <a href="ht
 <span id="cb244-9"><a href="map-making.html#cb244-9" tabindex="-1"></a>               <span class="at">col=</span><span class="st">&quot;black&quot;</span>,</span>
 <span id="cb244-10"><a href="map-making.html#cb244-10" tabindex="-1"></a>               <span class="at">size=</span><span class="fl">0.8</span>)<span class="sc">+</span></span>
 <span id="cb244-11"><a href="map-making.html#cb244-11" tabindex="-1"></a>        <span class="co">#add the city labels, x and y move the label around the point</span></span>
-<span id="cb244-12"><a href="map-making.html#cb244-12" tabindex="-1"></a>    <span class="fu">tm_text</span>(<span class="st">&quot;CITY_NAME&quot;</span>, <span class="at">xmod=</span><span class="sc">-</span><span class="dv">1</span>, <span class="at">ymod=</span><span class="sc">-</span><span class="fl">0.5</span>)</span></code></pre></div>
+<span id="cb244-12"><a href="map-making.html#cb244-12" tabindex="-1"></a>    <span class="fu">tm_text</span>(<span class="st">&quot;CITY_NAME&quot;</span>, <span class="at">xmod=</span><span class="sc">-</span><span class="dv">1</span>, <span class="at">ymod=</span><span class="sc">-</span><span class="fl">0.5</span>)</span>
+<span id="cb244-13"><a href="map-making.html#cb244-13" tabindex="-1"></a></span>
+<span id="cb244-14"><a href="map-making.html#cb244-14" tabindex="-1"></a></span>
+<span id="cb244-15"><a href="map-making.html#cb244-15" tabindex="-1"></a>tm3</span></code></pre></div>
+<p><img src="CASA0005_files/figure-html/unnamed-chunk-254-1.png" width="800pt" /></p>
 <p>We can also add a visual grey bounding box to our study area map. This is optional…</p>
 <div class="sourceCode" id="cb245"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb245-1"><a href="map-making.html#cb245-1" tabindex="-1"></a><span class="co"># st_bbox gives the bounding x and y coordinates </span></span>
 <span id="cb245-2"><a href="map-making.html#cb245-2" tabindex="-1"></a>Londonbb <span class="ot">&lt;-</span> <span class="fu">st_bbox</span>(Accomodation_contained,</span>
@@ -1989,27 +1993,34 @@ Figure 5.3: Topological relations between vector geometries. Source: <a href="ht
 <span id="cb247-10"><a href="map-making.html#cb247-10" tabindex="-1"></a>  )</span></code></pre></div>
 <p>Next we use that object (<code>accom_long</code>) to make the plot</p>
 <div class="sourceCode" id="cb248"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb248-1"><a href="map-making.html#cb248-1" tabindex="-1"></a>violin <span class="ot">&lt;-</span> accom_long <span class="sc">%&gt;%</span></span>
-<span id="cb248-2"><a href="map-making.html#cb248-2" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> accom_type, <span class="at">y =</span> count, <span class="at">fill =</span> accom_type)) <span class="sc">+</span></span>
-<span id="cb248-3"><a href="map-making.html#cb248-3" tabindex="-1"></a>  <span class="fu">geom_violin</span>(<span class="at">trim =</span> <span class="cn">FALSE</span>, <span class="at">color =</span> <span class="st">&quot;grey30&quot;</span>, <span class="at">alpha =</span> <span class="fl">0.8</span>) <span class="sc">+</span></span>
-<span id="cb248-4"><a href="map-making.html#cb248-4" tabindex="-1"></a>  <span class="fu">scale_fill_brewer</span>(<span class="at">palette =</span> <span class="st">&quot;Pastel1&quot;</span>) <span class="sc">+</span></span>
-<span id="cb248-5"><a href="map-making.html#cb248-5" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
-<span id="cb248-6"><a href="map-making.html#cb248-6" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">&quot;&quot;</span>,</span>
-<span id="cb248-7"><a href="map-making.html#cb248-7" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">&quot;&quot;</span>,</span>
-<span id="cb248-8"><a href="map-making.html#cb248-8" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">&quot;&quot;</span>,</span>
-<span id="cb248-9"><a href="map-making.html#cb248-9" tabindex="-1"></a>    <span class="at">fill =</span> <span class="st">&quot;black&quot;</span></span>
-<span id="cb248-10"><a href="map-making.html#cb248-10" tabindex="-1"></a>  ) <span class="sc">+</span></span>
-<span id="cb248-11"><a href="map-making.html#cb248-11" tabindex="-1"></a>  <span class="co"># change the labels from the column names to..</span></span>
-<span id="cb248-12"><a href="map-making.html#cb248-12" tabindex="-1"></a><span class="fu">scale_x_discrete</span>(<span class="at">labels =</span> <span class="fu">c</span>(<span class="st">&quot;hotels_n&quot;</span> <span class="ot">=</span> <span class="st">&quot;Hotels&quot;</span>, <span class="st">&quot;airbnbs_n&quot;</span> <span class="ot">=</span> <span class="st">&quot;Airbnbs&quot;</span>))<span class="sc">+</span></span>
-<span id="cb248-13"><a href="map-making.html#cb248-13" tabindex="-1"></a>  <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">13</span>)<span class="sc">+</span></span>
-<span id="cb248-14"><a href="map-making.html#cb248-14" tabindex="-1"></a>  <span class="fu">theme</span>(</span>
-<span id="cb248-15"><a href="map-making.html#cb248-15" tabindex="-1"></a>    <span class="co"># no legend</span></span>
-<span id="cb248-16"><a href="map-making.html#cb248-16" tabindex="-1"></a>    <span class="at">legend.position =</span> <span class="st">&quot;none&quot;</span>,</span>
-<span id="cb248-17"><a href="map-making.html#cb248-17" tabindex="-1"></a>    <span class="co"># all text to black</span></span>
-<span id="cb248-18"><a href="map-making.html#cb248-18" tabindex="-1"></a>    <span class="at">text =</span> <span class="fu">element_text</span>(<span class="at">color =</span> <span class="st">&quot;black&quot;</span>),         <span class="co"># set all text to black</span></span>
-<span id="cb248-19"><a href="map-making.html#cb248-19" tabindex="-1"></a>    <span class="at">axis.text =</span> <span class="fu">element_text</span>(<span class="at">color =</span> <span class="st">&quot;black&quot;</span>),    <span class="co"># axis tick labels</span></span>
-<span id="cb248-20"><a href="map-making.html#cb248-20" tabindex="-1"></a>    <span class="at">axis.title =</span> <span class="fu">element_text</span>(<span class="at">color =</span> <span class="st">&quot;black&quot;</span>),   <span class="co"># axis titles (if used)</span></span>
-<span id="cb248-21"><a href="map-making.html#cb248-21" tabindex="-1"></a>    <span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">color =</span> <span class="st">&quot;black&quot;</span>)    <span class="co"># title (if used)</span></span>
-<span id="cb248-22"><a href="map-making.html#cb248-22" tabindex="-1"></a>  )</span></code></pre></div>
+<span id="cb248-2"><a href="map-making.html#cb248-2" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> accom_type, </span>
+<span id="cb248-3"><a href="map-making.html#cb248-3" tabindex="-1"></a>             <span class="co"># number</span></span>
+<span id="cb248-4"><a href="map-making.html#cb248-4" tabindex="-1"></a>             <span class="at">y =</span> count, </span>
+<span id="cb248-5"><a href="map-making.html#cb248-5" tabindex="-1"></a>             <span class="co"># hotels or airbnb </span></span>
+<span id="cb248-6"><a href="map-making.html#cb248-6" tabindex="-1"></a>             <span class="at">fill =</span> accom_type)) <span class="sc">+</span></span>
+<span id="cb248-7"><a href="map-making.html#cb248-7" tabindex="-1"></a>  <span class="fu">geom_violin</span>(<span class="at">trim =</span> <span class="cn">FALSE</span>, </span>
+<span id="cb248-8"><a href="map-making.html#cb248-8" tabindex="-1"></a>              <span class="at">color =</span> <span class="st">&quot;grey30&quot;</span>, </span>
+<span id="cb248-9"><a href="map-making.html#cb248-9" tabindex="-1"></a>              <span class="at">alpha =</span> <span class="fl">0.8</span>) <span class="sc">+</span></span>
+<span id="cb248-10"><a href="map-making.html#cb248-10" tabindex="-1"></a>  <span class="fu">scale_fill_brewer</span>(<span class="at">palette =</span> <span class="st">&quot;Pastel1&quot;</span>) <span class="sc">+</span></span>
+<span id="cb248-11"><a href="map-making.html#cb248-11" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb248-12"><a href="map-making.html#cb248-12" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">&quot;&quot;</span>,</span>
+<span id="cb248-13"><a href="map-making.html#cb248-13" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">&quot;&quot;</span>,</span>
+<span id="cb248-14"><a href="map-making.html#cb248-14" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">&quot;&quot;</span>,</span>
+<span id="cb248-15"><a href="map-making.html#cb248-15" tabindex="-1"></a>    <span class="at">fill =</span> <span class="st">&quot;black&quot;</span></span>
+<span id="cb248-16"><a href="map-making.html#cb248-16" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb248-17"><a href="map-making.html#cb248-17" tabindex="-1"></a>  <span class="co"># change the labels from the column names to..</span></span>
+<span id="cb248-18"><a href="map-making.html#cb248-18" tabindex="-1"></a><span class="fu">scale_x_discrete</span>(<span class="at">labels =</span> <span class="fu">c</span>(<span class="st">&quot;hotels_n&quot;</span> <span class="ot">=</span> <span class="st">&quot;Hotels&quot;</span>, </span>
+<span id="cb248-19"><a href="map-making.html#cb248-19" tabindex="-1"></a>                            <span class="st">&quot;airbnbs_n&quot;</span> <span class="ot">=</span> <span class="st">&quot;Airbnbs&quot;</span>))<span class="sc">+</span></span>
+<span id="cb248-20"><a href="map-making.html#cb248-20" tabindex="-1"></a>  <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">13</span>)<span class="sc">+</span></span>
+<span id="cb248-21"><a href="map-making.html#cb248-21" tabindex="-1"></a>  <span class="fu">theme</span>(</span>
+<span id="cb248-22"><a href="map-making.html#cb248-22" tabindex="-1"></a>    <span class="co"># no legend</span></span>
+<span id="cb248-23"><a href="map-making.html#cb248-23" tabindex="-1"></a>    <span class="at">legend.position =</span> <span class="st">&quot;none&quot;</span>,</span>
+<span id="cb248-24"><a href="map-making.html#cb248-24" tabindex="-1"></a>    <span class="co"># all text to black</span></span>
+<span id="cb248-25"><a href="map-making.html#cb248-25" tabindex="-1"></a>    <span class="at">text =</span> <span class="fu">element_text</span>(<span class="at">color =</span> <span class="st">&quot;black&quot;</span>),         <span class="co"># set all text to black</span></span>
+<span id="cb248-26"><a href="map-making.html#cb248-26" tabindex="-1"></a>    <span class="at">axis.text =</span> <span class="fu">element_text</span>(<span class="at">color =</span> <span class="st">&quot;black&quot;</span>),    <span class="co"># axis tick labels</span></span>
+<span id="cb248-27"><a href="map-making.html#cb248-27" tabindex="-1"></a>    <span class="at">axis.title =</span> <span class="fu">element_text</span>(<span class="at">color =</span> <span class="st">&quot;black&quot;</span>),   <span class="co"># axis titles (if used)</span></span>
+<span id="cb248-28"><a href="map-making.html#cb248-28" tabindex="-1"></a>    <span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">color =</span> <span class="st">&quot;black&quot;</span>)    <span class="co"># title (if used)</span></span>
+<span id="cb248-29"><a href="map-making.html#cb248-29" tabindex="-1"></a>  )</span></code></pre></div>
 <p>Here is the grid package, we:</p>
 <ul>
 <li>plot our map (<code>tm2</code>)</li>
