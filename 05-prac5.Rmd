@@ -596,7 +596,7 @@ If we do a quick thematic map (`qtm()`) of our study outline we see that Scottis
 qtm(UK_outline)
 ```
 
-Go to www.bboxfiner.com
+Go to [www.bboxfinder.com](www.bboxfinder.com)
 
 * On the left hand side you can select your CRS (here, British national grid, 27700). This will **load a new tab at the bottom** (like tabs in a spreadsheet)
 * Click on the 27700 tab, draw a box and copy the coordinates

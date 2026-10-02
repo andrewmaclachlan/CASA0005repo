@@ -15,18 +15,25 @@ my_id <- 205533049
 
 # Now, query for some basic data, assigning the data to a 'data frame' object 
 # called 'web_data'
-df1 <- google_analytics(my_id, 
-                          date_range = c("2018-01-01", Sys.Date()),
-                          metrics = c("users"),
-                          dimensions = c("dayOfWeek","date","hour", "country"),
-                          anti_sample = TRUE)
+df1 <- ga_data(
+  propertyId = "357782055",
+  date_range = c("2018-01-01", format(Sys.Date(), "%Y-%m-%d")),
+  metrics = c("totalUsers"),
+  dimensions = c(
+    "dayOfWeekName",
+    "date",
+    "hour",
+    "country"
+  ),
+    limit = -1
+)
 users_total <- df1 %>%
-  summarise(user_count=sum(users))
+  summarise(user_count=sum(totalUsers))
 
 
 map <- df1 %>%
   group_by(country)%>%
-  summarise(user_count=sum(users))%>%
+  summarise(user_count=sum(totalUsers))%>%
   mutate(iso2c = countrycode(country, origin = 'country.name', destination = 'iso2c'))
 
 world <- st_transform(world, crs = "+proj=moll")

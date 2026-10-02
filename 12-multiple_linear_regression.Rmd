@@ -1,5 +1,3 @@
-# (PART\*) Extra {-}
-
 # Multiple Linear Regression {-}
 
 Multiple linear regression is explained nicely with this example from [allison_horst](https://twitter.com/allison_horst).

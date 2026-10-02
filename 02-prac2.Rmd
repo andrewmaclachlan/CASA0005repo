@@ -96,60 +96,6 @@ Robin Lovelace in Leeds is also frequently at the bleeding edge of developments 
 
 These websites are also very very good: <https://pakillo.github.io/R-GIS-tutorial/> and <http://www.maths.lancs.ac.uk/~rowlings/Teaching/UseR2012/cheatsheet.html>
 
-### R and RStudio
-
-When you download and install R, you get the R Graphical User Interface (GUI) as standard (below). This is fine and some purists prefer using the clean, unfussy command-line original, but it has some limitations such as no graphical way to view data tables or keep track of what is in your working directory (there are a number of others too).
-
-```{r echo=FALSE, out.width = "500px", fig.align='center', cache=FALSE}
-knitr::include_graphics('prac2_images/R.png') 
-```
-
-Fortunately there are a number of software environments that have been developed for R to make it a little more user-friendly; the best of these by a long way is RStudio. RStudio can be downloaded for free from <https://www.rstudio.com/>. We covered the RStudio layout last week.
-
-### Getting started
-
-If you are some kind of masochist, you are welcome to use the bundled R GUI for all of your work. If pain is not your thing, then for this practical (and future practicals) I will assume that you are using RStudio.
-
-1.  From the start menu on your computer, find and run RStudio
-
-Once RStudio has opened, the first thing we will do is create a new project – projects enable you to organise your work effectively and store all of the files you create and work with for a particular task.
-
-1.  To create a new project (and this will vary a little depending on the version of RStudio you are using) select File \> New Project
-
-2.  Select Start a project in a brand new working directory and create a new project in a directory of a new ‘wk2’ directory on your N: drive:
-
-```{r echo=FALSE, out.width = "500px", fig.align='center', cache=FALSE}
-knitr::include_graphics('prac2_images/r_newproject.png') 
-```
-
-My file directory (the second box here) will be different to yours as this is my teaching resources folder. Keep yours simple `N:/GIS/wk2`.
-
-Setting up a project is extremely useful as it lets you easily access your data and files...for example....the flytipping `.csv` we used last week is stored at the file path
-
-```{r eval=FALSE, cache=FALSE}
-mycsv <- read_csv("C:/Users/Andy/OneDrive - University College London/Teaching/CASA0005/2020_2021/CASA0005repo/Prac1_data/fly_tipping_borough_edit.csv"")  
-```
-
-However as i've set my R project up in the CASA0005repo folder with different data folders for each week i can just use:
-
-```{r eval=FALSE, cache=FALSE}
-mycsv <- read_csv("Prac1_data/fly_tipping_borough_edit.csv")  
-```
-
-If i had the `.csv` file in the same folder as my project i could just use
-
-```{r eval=FALSE, cache=FALSE}
-mycsv <- read_csv("fly_tipping_borough_edit.csv")  
-```
-
-You can run this in the Console area now or within a script which we will now go over...
-
-I'd strongly recommend you think about how you will store data within your project. Is it sensible to just dump all your data into the project folder or perhaps create a new folder (either in R) or how you would normally do so in Windows / OS X and keep your raw data in that folder...like i have done...Here you can see that i'm in my project folder (red box on the right) and i've made new folders for all my data (each practical here) and images that are shown throuhgout....nice and organised!
-
-```{r echo=FALSE, out.width = "500px", fig.align='center', cache=FALSE}
-knitr::include_graphics('prac2_images/file_storage.png') 
-```
-
 ### Basics
 
 1.  R has a very steep learning curve, but hopefully it won’t take long to get your head around the basics. For example, at its most simple R can be used as a calculator. In the console window (bottom left), just type the following and press enter:

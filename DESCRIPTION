@@ -53,7 +53,6 @@ Imports:
     leafpop,
     lubridate,
     magrittr,
-    maptools,
     mapview,
     methods,
     OpenStreetMap,

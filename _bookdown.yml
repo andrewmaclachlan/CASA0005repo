@@ -1,9 +1,10 @@
 book_filename: "CASA0005"
 rmd_files:
 - index.Rmd
-- 00-course_info.Rmd
+#- 00-course_info.Rmd
 - 00-software.Rmd
 - 00-usage.Rmd
+- 00-basics.Rmd
 - 01-prac1.Rmd
 - 02-prac2.Rmd
 - 03-prac3.Rmd
@@ -12,6 +13,7 @@ rmd_files:
 - 06-prac6.Rmd
 - 07-prac7.Rmd
 - 08-prac8.Rmd
+- 11-qgis-join.Rmd
 - 12-multiple_linear_regression.Rmd
 - 13-assignment_resources.Rmd
 - 14-extra.Rmd
