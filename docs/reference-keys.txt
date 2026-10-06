@@ -10,7 +10,7 @@ fig:unnamed-chunk-15
 fig:unnamed-chunk-16
 fig:unnamed-chunk-26
 fig:unnamed-chunk-29
-fig:unnamed-chunk-34
+fig:unnamed-chunk-35
 fig:unnamed-chunk-62
 fig:unnamed-chunk-63
 fig:unnamed-chunk-65
@@ -76,7 +76,6 @@ learning-outcomes
 homework
 recommended-listening
 data
-file-paths
 data-download
 data-pre-processing
 r-1

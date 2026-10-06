@@ -23,7 +23,7 @@
 <meta name="author" content="Andy MacLachlan, Adam Dennett and Claire Dooley" />
 
 
-<meta name="date" content="2026-10-02" />
+<meta name="date" content="2026-10-06" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -1008,9 +1008,8 @@ div.csl-indent {
 <li class="chapter" data-level="1.3" data-path="geographic-information.html"><a href="geographic-information.html#recommended-listening"><i class="fa fa-check"></i><b>1.3</b> Recommended listening 🎧</a></li>
 <li class="chapter" data-level="1.4" data-path="geographic-information.html"><a href="geographic-information.html#data"><i class="fa fa-check"></i><b>1.4</b> Data</a>
 <ul>
-<li class="chapter" data-level="1.4.1" data-path="geographic-information.html"><a href="geographic-information.html#file-paths"><i class="fa fa-check"></i><b>1.4.1</b> File paths</a></li>
-<li class="chapter" data-level="1.4.2" data-path="geographic-information.html"><a href="geographic-information.html#data-download"><i class="fa fa-check"></i><b>1.4.2</b> Data download</a></li>
-<li class="chapter" data-level="1.4.3" data-path="geographic-information.html"><a href="geographic-information.html#data-pre-processing"><i class="fa fa-check"></i><b>1.4.3</b> Data pre-processing</a></li>
+<li class="chapter" data-level="1.4.1" data-path="geographic-information.html"><a href="geographic-information.html#data-download"><i class="fa fa-check"></i><b>1.4.1</b> Data download</a></li>
+<li class="chapter" data-level="1.4.2" data-path="geographic-information.html"><a href="geographic-information.html#data-pre-processing"><i class="fa fa-check"></i><b>1.4.2</b> Data pre-processing</a></li>
 </ul></li>
 <li class="chapter" data-level="1.5" data-path="geographic-information.html"><a href="geographic-information.html#r-1"><i class="fa fa-check"></i><b>1.5</b> R</a>
 <ul>
@@ -1345,24 +1344,24 @@ div.csl-indent {
 </div>
 <p>In the mapping practical we applied the code above to two separate sf objects above. To make this more efficient we could develop our own function (like the ones we use all the time) and simply provide the relevant data. An example has been put here, but this is for interest only and not a requirement for the module.</p>
 <p>This is an example of creating a function for the spatial join and summarise.</p>
-<div class="sourceCode" id="cb512"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb512-1"><a href="functions-1.html#cb512-1" tabindex="-1"></a><span class="co"># make a function for the join</span></span>
-<span id="cb512-2"><a href="functions-1.html#cb512-2" tabindex="-1"></a><span class="co"># you have to do is replace data1 and data2</span></span>
-<span id="cb512-3"><a href="functions-1.html#cb512-3" tabindex="-1"></a><span class="co"># with the data you want to use</span></span>
-<span id="cb512-4"><a href="functions-1.html#cb512-4" tabindex="-1"></a></span>
-<span id="cb512-5"><a href="functions-1.html#cb512-5" tabindex="-1"></a>Joinfun <span class="ot">&lt;-</span> <span class="cf">function</span>(data1, data2){</span>
-<span id="cb512-6"><a href="functions-1.html#cb512-6" tabindex="-1"></a></span>
-<span id="cb512-7"><a href="functions-1.html#cb512-7" tabindex="-1"></a>output<span class="ot">&lt;-</span> data1<span class="sc">%&gt;%</span></span>
-<span id="cb512-8"><a href="functions-1.html#cb512-8" tabindex="-1"></a>  <span class="fu">st_join</span>(data2,.) <span class="sc">%&gt;%</span></span>
-<span id="cb512-9"><a href="functions-1.html#cb512-9" tabindex="-1"></a>  <span class="fu">add_count</span>(GSS_CODE, <span class="at">name=</span><span class="st">&quot;hotels_in_borough&quot;</span>) </span>
-<span id="cb512-10"><a href="functions-1.html#cb512-10" tabindex="-1"></a></span>
-<span id="cb512-11"><a href="functions-1.html#cb512-11" tabindex="-1"></a>  <span class="fu">return</span>(output)</span>
-<span id="cb512-12"><a href="functions-1.html#cb512-12" tabindex="-1"></a>}</span>
-<span id="cb512-13"><a href="functions-1.html#cb512-13" tabindex="-1"></a></span>
-<span id="cb512-14"><a href="functions-1.html#cb512-14" tabindex="-1"></a><span class="co"># use the function for hotels</span></span>
-<span id="cb512-15"><a href="functions-1.html#cb512-15" tabindex="-1"></a>Hotels <span class="ot">&lt;-</span> <span class="fu">Joinfun</span>(OSM, Londonborough)</span>
-<span id="cb512-16"><a href="functions-1.html#cb512-16" tabindex="-1"></a></span>
-<span id="cb512-17"><a href="functions-1.html#cb512-17" tabindex="-1"></a><span class="co"># then for airbnb</span></span>
-<span id="cb512-18"><a href="functions-1.html#cb512-18" tabindex="-1"></a>Airbnb <span class="ot">&lt;-</span> <span class="fu">Joinfun</span>(Airbnb, Londonborough)</span></code></pre></div>
+<div class="sourceCode" id="cb508"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb508-1"><a href="functions-1.html#cb508-1" tabindex="-1"></a><span class="co"># make a function for the join</span></span>
+<span id="cb508-2"><a href="functions-1.html#cb508-2" tabindex="-1"></a><span class="co"># you have to do is replace data1 and data2</span></span>
+<span id="cb508-3"><a href="functions-1.html#cb508-3" tabindex="-1"></a><span class="co"># with the data you want to use</span></span>
+<span id="cb508-4"><a href="functions-1.html#cb508-4" tabindex="-1"></a></span>
+<span id="cb508-5"><a href="functions-1.html#cb508-5" tabindex="-1"></a>Joinfun <span class="ot">&lt;-</span> <span class="cf">function</span>(data1, data2){</span>
+<span id="cb508-6"><a href="functions-1.html#cb508-6" tabindex="-1"></a></span>
+<span id="cb508-7"><a href="functions-1.html#cb508-7" tabindex="-1"></a>output<span class="ot">&lt;-</span> data1<span class="sc">%&gt;%</span></span>
+<span id="cb508-8"><a href="functions-1.html#cb508-8" tabindex="-1"></a>  <span class="fu">st_join</span>(data2,.) <span class="sc">%&gt;%</span></span>
+<span id="cb508-9"><a href="functions-1.html#cb508-9" tabindex="-1"></a>  <span class="fu">add_count</span>(GSS_CODE, <span class="at">name=</span><span class="st">&quot;hotels_in_borough&quot;</span>) </span>
+<span id="cb508-10"><a href="functions-1.html#cb508-10" tabindex="-1"></a></span>
+<span id="cb508-11"><a href="functions-1.html#cb508-11" tabindex="-1"></a>  <span class="fu">return</span>(output)</span>
+<span id="cb508-12"><a href="functions-1.html#cb508-12" tabindex="-1"></a>}</span>
+<span id="cb508-13"><a href="functions-1.html#cb508-13" tabindex="-1"></a></span>
+<span id="cb508-14"><a href="functions-1.html#cb508-14" tabindex="-1"></a><span class="co"># use the function for hotels</span></span>
+<span id="cb508-15"><a href="functions-1.html#cb508-15" tabindex="-1"></a>Hotels <span class="ot">&lt;-</span> <span class="fu">Joinfun</span>(OSM, Londonborough)</span>
+<span id="cb508-16"><a href="functions-1.html#cb508-16" tabindex="-1"></a></span>
+<span id="cb508-17"><a href="functions-1.html#cb508-17" tabindex="-1"></a><span class="co"># then for airbnb</span></span>
+<span id="cb508-18"><a href="functions-1.html#cb508-18" tabindex="-1"></a>Airbnb <span class="ot">&lt;-</span> <span class="fu">Joinfun</span>(Airbnb, Londonborough)</span></code></pre></div>
 
 </div>
             </section>

@@ -62,11 +62,7 @@ The volume of geographic information which is freely available for use in the UK
 
 We are going to get spatial data of the London boroughs and join flytipping (the illegal deposit of waste, commonly on road verges) data that is provided as a `.csv` file. `.csv` stands for comma-separated values (CSV) --- it uses a comma to separate each value.
 
-At the end of this document I'll also run through some common sources of data that will stand you in good stead (be advantageous) for the rest of the course.
-
-### File paths
-
-On your computer create a new folder called GIS and within this a sub folder called wk1. It is up to you how you organise your files. Make sure you change the file paths where appropriate to your own.
+In the Basics of GIS section (in the side bar) we run over some common sources.
 
 ### Data download
 
@@ -114,7 +110,7 @@ knitr::include_graphics('prac1_images/csv_pivot.png')
 In previous years there have errors in this `.csv`, for example there used to be year value of 2017-2018 that was incorrect. Whilst these have been resolved, it's always important to check your data. 
 :::
 
-As we are going to use this dataset in QGIS and R I've done it in Excel using a pivot table. In future we'll use R to automate tasks like this.
+To aid understansing in week 1 i've done this in Excel using a pivot table. In future we'll use R to automate tasks like this.
 
 1.  Go to Insert \> PivotTable
 
@@ -134,7 +130,7 @@ Note how I've altered the total_action_taken to the sum of... as the original wa
 
 It's important to think about what data we actually need in the next step and it's good practice to avoid data redundancy where possible.
 
-**Spoiler** The spatial data we have downloaded already contains borough name, so we don't need it twice. However, we do need a field to link the two datasets on. You could use borough name, but when using text fields sometimes input variations can affect joins. For example, if you had the University of Manchester in one dataset and Manchester University in another the join would fail. Consequently it's usually best to join datasets on a column that has a code or number.
+**Spoiler** The spatial data we have downloaded already contains borough name, so we don't need it twice. However, we do need a field to link the two datasets on. You could use borough name, but when using ***text fields*** sometimes input variations can affect joins. For example, if you had the University of Manchester in one dataset and Manchester University in another the join would fail. Consequently it's usually best to join datasets on a column that has a code or number.
 
 Now save the Excel sheet that contains the pivot table as a new `.csv`. Make sure that the first row of data holds the column titles. Remove all empty rows.
 
@@ -150,24 +146,21 @@ Now it's time to load, inspect and do some basic manipulation of this data. As m
 
 ::: {.infobox .warning data-latex="{note}"}
 **Warning** This week is just about getting started, we want to load spatial data, join some non spatial to it and make a map. There will be some aspects we don't cover in detail, please just accept that for this week. Next week we have a deep dive into R.
-
 :::
 
 ### Introduction
 
 R is both a programming language and software environment, originally designed for statistical computing and graphics. R's great strength is that it is open-source, can be used on any computer operating system and free for anyone to use and contribute to. Because of this, it is rapidly becoming the statistical language of choice for many academics and has a huge user community with people constantly contributing new packages to carry out all manner of statistical, graphical and importantly for us, geographical tasks.
 
-The purpose of this practical is just to demonstrate data loading and manipulation in different software. The next practical will provide much more detail on R, so don't worry about that.
-
 ### R and RStudio
 
-When you download and install R, you get the R Graphical User Interface (GUI) as standard (below). This is fine and some purists prefer using the clean, unfussy command-line original, but it has some limitations such as no graphical way to view data tables or keep track of what is in your working directory (there are a number of others too).
+When you download and install and open *just* R, you get the R Graphical User Interface (GUI) as standard (below). This is fine and some purists prefer using the clean, unfussy command-line original, but it has some limitations such as no graphical way to view data tables or keep track of what is in your working directory (there are a number of others too).
 
 ```{r echo=FALSE, out.width = "500px", fig.align='center', cache=FALSE}
 knitr::include_graphics('prac2_images/R.png') 
 ```
 
-Fortunately there are a number of software environments that have been developed for R to make it a little more user-friendly; the best of these by a long way is RStudio. RStudio can be downloaded for free from <https://www.rstudio.com/>. We covered the RStudio layout last week.
+Fortunately there are a number of software environments that have been developed for R to make it a little more user-friendly; the best of these by a long way is RStudio. RStudio can be downloaded for free from <https://www.rstudio.com/>. 
 
 ### Getting started
 
@@ -185,10 +178,15 @@ Once RStudio has opened, the first thing we will do is create a new project – 
 
 1.  To create a new project (and this will vary a little depending on the version of RStudio you are using) select File \> New Project
 
-1.  Select Start a project in a brand new working directory and create a new project in a directory called "GIS" or "CASA0005". As we will see, you can use one project for the whole module. Each practical can be a new script, with data stored in related folders (e.g. week1data)
+1.  Select Start a project in a brand new working directory and create a new project in a directory called "GIS" or "CASA0005". This will make a the following:
+
+* In my existing folder of CASA0005 a new folder called GIS-practicals
+* The GIS-practicals folder is the "project directory", this is denoted by the GIS-practicals.Rproj file. This is now the "root" or "base" for your scripts and data.
+
+You can use one project for the whole module. Each practical can be a new script, with data stored in related folders (e.g. week1data)
 
 ```{r echo=FALSE, out.width = "500px", fig.align='center', cache=FALSE}
-knitr::include_graphics('prac2_images/r_newproject.png') 
+knitr::include_graphics('prac1_images/r_newproject.png') 
 ```
 
 Once we've made an RProject:
@@ -209,13 +207,15 @@ In the file window (bottom right) you will see:
 knitr::include_graphics('prac1_images/project_bottom_left.png') 
 ```
 
+Above the file path name you will see a cog icon > show folder in new window. You can then directly copy and paste your pivot table csv into your project.
+
 ### Files in R
 
 We need to understand the different types of files we can use in R and where we can input code:
 
 * The console - you can write code here, but it is *one use only* and the code itself won't be saved, you'll have to type it again
 * A script - a traditional file of code, but the entire script must be run each time
-* An RMarkdown or Quarto file - allows us to write text and have code in chunks, each chunk can be run individually or all together. Perfect! You can output to any format - HTML, PDF and word.
+* An RMarkdown (Rmd) or Quarto markdown (Qmd) file - allows us to write text and have code in chunks, each chunk can be run individually or all together. Perfect! You can output to any format - HTML, PDF and word. This site is made with Rmds
 
 All of these files will appear in the "script" window.
 
@@ -233,7 +233,7 @@ knitr::include_graphics('prac1_images/hex_stickers.png')
 
 Basically, without packages, R would be very limited. With packages, you can do virtually anything! One of the issues you will come across is that packages are being continually developed and updated and unless you keep your version of R updated and your packages updated, there may be some functions and options not available to you. 
 
-For this practical we will need the ones listed in the code chunk below. Whilst we've installed them (with the code below), we haven't yet loaded them. It's best practice to do all this at the start of your code, however, for demonstration purposes I'll load each one as we need it. You can  put this into a code chunk and press play (right hand side of the code chunk) - the packages should install. You only need to install a package once. After they are installed you never need to run this again.
+For this practical we will need the ones listed in the code chunk below. Whilst we've installed them (with the code below), we haven't yet loaded them. It's best practice to do all this at the start of your code, however, for demonstration purposes I'll load each one as we need it. Because we only need to install packages once, run this code in the console.
 
 ```{r, message=FALSE, warning=FALSE, eval=FALSE, cache=FALSE}
 install.packages(c("sf", "tmap", "tmaptools", "RSQLite", "tidyverse"), 
@@ -261,7 +261,9 @@ knitr::include_graphics('prac1_images/install_library.jfif')
 
 ### Why use a project and markdown
 
-Setting up a project and using Rmarkdown (or Quarto) is extremely useful as it lets you easily access (and share) your data and files...for example....today we will be using a flytipping `.csv`. It is stored at the full file path that we can load directly. The tidyverse package is actually a collection of packages, to read a `.csv` we need the readr package (part of tidyverse) and the `read_csv` function.
+Setting up a project and using Rmarkdown (or Quarto) is extremely useful as it lets you easily access (and share) your data and files...for example....
+
+Today we will be using a flytipping `.csv`. It is stored at the full file path that we can load directly. The tidyverse package is actually a collection of packages, to read a `.csv` we need the readr package (part of tidyverse) and the `read_csv` function.
 
 ```{r eval=FALSE, cache=FALSE, warning=FALSE}
 library(tidyverse)
@@ -275,15 +277,25 @@ library(tidyverse)
 mycsv <- read_csv("Prac1_data/fly_tipping_borough_edit.csv")  
 ```
 
-If i had the `.csv` file in the same folder as my project file i could just use
+If i had the `.csv` file in the same folder as my project file (.RProj) i could just use
 
 ```{r eval=FALSE, cache=FALSE, warning=FALSE}
 mycsv <- read_csv("fly_tipping_borough_edit.csv")  
 ```
 
-You can run put this into a code chunk and press play, the data will load. If you look in the envrionment tab (top right) you will see it as an "object". Click it and it will display like an excel sheet in R.
+You can run put this into a code chunk and press play, the data will load. 
 
-When you load `tidyverse` you might get a list of conflicts, this basically means that several packages have functions named the same thing. For example there is a function named `filter()` in the packages `dplyr` and `stats`. If you wanted to use the `dplyr` version you would use `dplyr::filter()` or for the `stats` version it would be `stats::filter()`...
+To add a code chunk it's the C with a + (green circle)
+To run the chunk it's the play button (blue circle)
+To add a heading or sub heading it's #, then ##, then ### (red circle)
+
+```{r echo=FALSE, out.width = "500px", fig.align='center', cache=FALSE}
+knitr::include_graphics('prac1_images/code_chunk.png') 
+```
+
+If you look in the environment tab (top right) you will see it as an "object". Click it and it will display like an excel sheet in R.
+
+When you load `tidyverse` you might get a list of conflicts, this means that several packages have functions named the same thing. For example there is a function named `filter()` in the packages `dplyr` and `stats`. If you wanted to use the `dplyr` version you would use `dplyr::filter()` or for the `stats` version it would be `stats::filter()`...
 
 ::: {.infobox .warning data-latex="{note}"}
 **Note** Your `.csv` might have a extra header present (a row before Row Labels). You can either: (a) stop and go and delete this in the `.csv` now and reload it or (b) change the code to... `mycsv <- read_csv("prac1_data/fly_tipping_borough_edit.csv", skip = 1)`
@@ -309,7 +321,7 @@ library(sf)
 # my data is within a prac1_data folder.
 shape <- st_read("prac1_data/statistical-gis-boundaries-london/ESRI/London_Borough_Excluding_MHW.shp")
 ```
-> **Note** if my data was in the same folder as my project file (.RProj) i would just need.
+> **Note** if my data was in the same folder as my project file (.RProj) i would just need. A shapefile will only load if all files required for the shapefile are in the same folder.
 
 ```{r, message=FALSE, warning=FALSE, cache=FALSE, eval=FALSE}
 shape <- st_read("London_Borough_Excluding_MHW.shp")
@@ -336,21 +348,9 @@ shape %>%
   plot()
 ```
 
-When you load `tidyverse` you might get a list of conflicts, this basically means that several packages have functions named the same thing. For example there is a function named `filter()` in the packages `dplyr` and `stats`. If you wanted to use the `dplyr` version you would use `dplyr::filter()` or for the `stats` version it would be `stats::filter()`...
-
-::: {.infobox .warning data-latex="{note}"}
-**Note** Your `.csv` might have a extra header present (a row before Row Labels). You can either: (a) stop and go and delete this in the `.csv` now and reload it or (b) change the code to... `mycsv <- read_csv("prac1_data/fly_tipping_borough_edit.csv",      skip = 1)`
-:::
-
-To view the `.csv`either click on it in the envrionment tab (top right) or run the following, try this in the console:
-
-```{r cache=FALSE, warnings=FALSE, messages=FALSE}
-mycsv 
-```
-
 ### Join data
 
-In R we've given our London boroughs shapefile the name `shape` and our flytipping `.csv` the name `mycsv`. If you look in the Environment quadrant you should see them both listed.
+In R we've given our London boroughs shapefile the **object** name `shape` and our flytipping `.csv` the name `mycsv`. If you look in the Environment quadrant you should see them both listed.
 
 Join the `.csv` to the shapefile. Here, replace Row Labels with whatever your GSS_CODE is called in the `.csv`:
 
@@ -402,7 +402,7 @@ So here, we are saying the shape is the object we want to save, then we are savi
 
 Let's also add the originally `.csv` so someone could repliacte this analysis (they'd also need the original shapefile). This is a bit more complicated as we have to use the SQLite database package. Firstly, connect to the `.gpkg` we just made:
 
-```{r cahce=TRUE}
+```{r cahce=TRUE, warning=FALSE}
 library(readr)
 library(RSQLite)
 
@@ -430,7 +430,6 @@ con %>%
 ```
 
 Here `overwrite` let's you well..overwrite the exisiting file...if this wasn't specified as true you would get an error saying the file already existed if you tried to run this code again.
-
 
 Within this practical we have explored the different types, formats and software used to store, analyse and manipulate spatial data. In reflecting upon this practical you should consider the (dis)advantages of each, where and when they might be appropriate and the overall practicality. Next week we will delve further into R and RStudio.
 
