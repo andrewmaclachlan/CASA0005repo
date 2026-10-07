@@ -411,6 +411,8 @@ con <- dbConnect(RSQLite::SQLite(),dbname="prac1_data/flytipping.gpkg")
 
 Now examine what is in the `.gpkg`...you can see that i've already got my `original_csv` stored within the `.gpkg` as when i developed this practical i made sure it was working!
 
+The `rtree` files are spatial indexes to make querying faster.
+
 ```{r cache=FALSE}
 con %>%
   dbListTables()

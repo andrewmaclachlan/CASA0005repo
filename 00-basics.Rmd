@@ -7,7 +7,7 @@ knitr::include_graphics('prac1_images/rasvsvec.png')
 
 In the above example the features in the real world (e.g. lake, forest, marsh and grassland) have been represented by points, lines and polygons (vector) or discrete grid cells (raster) of a certain size (e.g. 1 x 1m) specifying land cover type.
 
-##Data types in statistics
+## Data types in statistics {-}
 
 Before we go any further let's just quick go over the different types of data you might encounter
 
@@ -31,11 +31,11 @@ Binary data is that that can have only two possible outcomes, yes and no or shar
 knitr::include_graphics('allisonhorst_images/nominal_ordinal_binary.png')
 ```
 
-## Important GIS data formats
+## Important GIS data formats {-}
 
 There are a number of commonly used geographic data formats that store vector and raster data that you will come across during this course and it's important to understand what they are, how they represent data and how you can use them.
 
-### Shapefiles
+### Shapefiles {-}
 
 Perhaps the most commonly used GIS data format is the shapefile. Shapefiles were developed by [ESRI](http://www.esri.com/), one of the first and now certainly the largest commercial GIS company in the world. Despite being developed by a commercial company, they are mostly an open format and can be used (read and written) by a host of GIS Software applications.
 
@@ -46,11 +46,11 @@ A shapefile is actually a collection of files ---- at least three of which are n
 3.  `.dbf` - the file that stores all of the attribute information associated with the coordinates -- this might be the name of the shape or some other information associated with the feature
 4.  `.prj` - the file which contains all of the coordinate system information (the location of the shape on Earth's surface). Data can be displayed without a projection, but the `.prj` file allows software to display the data correctly where data with different projections might be being used
 
-### GeoJSON
+### GeoJSON {-}
 
-GeoJSON [Geospatial Data Interchange format for JavaScript Object Notation](http://geojson.org/) is becoming an increasingly popular spatial data format, particularly for web-based mapping as it is based on JavaScript Object Notation. Unlike a shapefile in a GeoJSON, the attributes, boundaries and projection information are all contained in the same file.
+GeoJSON [Geospatial Data Interchange format for JavaScript Object {-} Notation](http://geojson.org/) is becoming an increasingly popular spatial data format, particularly for web-based mapping as it is based on JavaScript Object Notation. Unlike a shapefile in a GeoJSON, the attributes, boundaries and projection information are all contained in the same file.
 
-### Shapefile and GeoJSON
+### Shapefile and GeoJSON {-}
 
 We're now going to explore a shapefile (`.shp` ) and GeoJSON (`.geojson`) in action.
 
@@ -64,11 +64,11 @@ knitr::include_graphics('prac1_images/JSONwebsite.png')
 2.  Using the 'Save' option at the top of the map, save two copies of your new data -- one in `.geojson` format and one in `.shp` format
 3.  Open your two newly saved files in a text editor such as notepad or notepad++. For the shapefile you might have to unzip the folder then open each file individually. What do you notice about the similarities or differences between the two ways that the data are encoded?
 
-### Raster data
+### Raster data {-}
 
 Most raster data is now provided in GeoTIFF (`.tiff`) format, which stands for Geostarionary Earth Orbit Tagged Image File. The GeoTIFF data format was created by NASA and is a standard public domain format. All necesary information to establish the location of the data on Earth's surface is embedded into the image. This includes: map projection, coordinate system, ellipsoid and datum type.
 
-### Other data formats
+### Other data formats {-}
 
 Aforementioned data types and formats are likely to be the ones you predominately encounter. However there are several more used within spatial analysis. These include:
 
@@ -84,7 +84,7 @@ Aforementioned data types and formats are likely to be the ones you predominatel
 
 There are normally valid reasons for storing data in one of these other formats. For example, BSQ are raster data with a separate text header file (`.hdr`) providing geographic spatial reference information. Earth observation data often monitors the electromagnetic spectrum in bands. Humans see in the visible range of the spectrum and our vision is composed of red, green and blue wavelengths. If we wanted to analyse just the red wavelength the BSQ format would let us *read in* only that data. In comparison a GeoTIFF might come with all the data 'packaged' in one file and when doing analysis over thousands of images would significantly slow things down. That said you can now often find GeoTIFFs separated in a similar format to BSQ and it's fairly straightforward to convert between raster formats.
 
-### Geodatabase
+### Geodatabase {-}
 
 A geodatabase is a collection of geographic data held within a database. Geodatabases were developed by ESRI to overcome some of the limitations of shapefiles. They come in two main types: Personal (up to 1 TB) and File (limited to 250 - 500 MB), with Personal Geodatabases storing everything in a Microsoft Access database (`.mdb`) file and File Geodatabases offering more flexibility, storing everything as a series of folders in a file system. In the example below we can see that the FCC_Geodatabase (left hand pane) holds multiple points, lines, polygons, tables and raster layers in the contents tab.
 
@@ -92,7 +92,7 @@ A geodatabase is a collection of geographic data held within a database. Geodata
 knitr::include_graphics('prac1_images/geodatabase.png') 
 ```
 
-### GeoPackage
+### GeoPackage {-}
 
 ```{r echo=FALSE, out.width = "100pt", fig.align='center', cache=FALSE, fig.cap="GeoPacakge logo"}
 knitr::include_graphics('prac1_images/geopkg.png')
@@ -100,7 +100,7 @@ knitr::include_graphics('prac1_images/geopkg.png')
 
 A GeoPackage is an open, standards-based, platform-independent, portable, self-describing, compact format for transferring geospatial data. It stores spatial data layers (vector and raster) as a single file, and is based upon an SQLite database, a widely used relational database management system, permitting code based, reproducible and transparent workflows. As it stores data in a single file it is very easy to share, copy or move.
 
-### SpatiaLite
+### SpatiaLite {-}
 
 ```{r echo=FALSE, out.width = "100pt", fig.align='center', cache=FALSE, fig.cap="SpatialLite logo"}
 knitr::include_graphics('prac1_images/spatialite.png')
@@ -108,7 +108,7 @@ knitr::include_graphics('prac1_images/spatialite.png')
 
 SpatialLite is an open-source library that extends SQLite core. Support is fairly limited and most software that supports SpatiaLite also supports GeoPackage, as they both build upon SQLite. It doesn't have any clear advantage over GeoPackage, however it is unable to support raster data.
 
-### PostGIS
+### PostGIS {-}
 
 ```{r echo=FALSE, out.width = "100pt", fig.align='center', cache=FALSE, fig.cap="PostGIS logo"}
 knitr::include_graphics('prac1_images/postGIS.jpg') 
@@ -116,11 +116,11 @@ knitr::include_graphics('prac1_images/postGIS.jpg')
 
 PostGIS is an opensource database extender for PostrgeSQL. Essentially PostgreSQL is a database and PostGIS is an add on which permits spatial functions. The advantages of using PostGIS over a GeoPackage are that it allows users to access the data at the same time, can handle large data more efficiently and reduces processing time. In [this example](https://medium.com/@GispoLearning/learn-spatial-sql-and-master-geopackage-with-qgis-3-16b1e17f0291) calculating the number of bars per neighbourhood in Leon, Mexico the processing time reduced from 1.443 seconds (SQLite) to 0.08 seconds in PostGIS. However, data stored in PostGIS is much harder to share, move or copy.
 
-### What will I use
+### What will I use {-}
 
 The variety of data formats can see a bit overwhelming. I still have to check how to load some of these data formats that I don't use frequently. But don't worry, most of the time you'll be using shapefiles, GeoPackages or raster data.
 
-## General data flow
+## General data flow {-}
 
 As Grolemund and Wickham state in [R for Data Science](https://r4ds.had.co.nz/)...
 
@@ -154,31 +154,31 @@ Fianlly you have to **communicate** your study and outputs, it doesn't matter ho
 In a few weeks come back and revisit this data flow section to see how what you have learnt fits the framework presented.
 :::
 
-## Data sources and task
+## Data sources {-}
 
 Below I've listed a few good data sources for you to explore in future.
 
-### UK Data Service
+### UK Data Service {-}
 
 The UK Data Service geography service (<https://census.edina.ac.uk/>) has a library of hundreds of current and former boundary datasets for which attribute data are produced in the UK.
 
-### ONS
+### ONS {-}
 
 The Office for National Statistics (ONS) are the national statistical agency for England and Wales and have recently started to provide access to boundary data for the statistics they produce for various geographic areas.
 
 Many of the boundaries on the [ONS Geoportal](http://geoportal.statistics.gov.uk/) are also available from the Edina Census Geography website in a more flexible fashion, however the ONS website provides very quick access to bulk-downloads --- something which can be very useful when reading data directly from the web using computer software. From the ONS website you can also extract the URL at which the data is stored to use directly within your future code...
 
-### nomis
+### nomis {-}
 
 Nomis is provided by the ONS giving free access to UK labour market statistics. You can also [bulk download census data](https://www.nomisweb.co.uk/census/2011/bulk/r2_2) from the site too!
 
-### OS
+### OS {-}
 
 The Ordnance Survey (OS) are the national mapping agency for the UK. A few years ago, they opened up a number of their data products for public use including greenspace, OS Open Map and OS Terrain.
 
 For the full range see: [https://www.ordnancesurvey.co.uk/business-and-government/products/finder.html?Licensed%20for=OpenData%20(Free)&withdrawn=on](https://www.ordnancesurvey.co.uk/business-and-government/products/finder.html?Licensed%20for=OpenData%20(Free)&withdrawn=on){.uri}
 
-### Edina Digimap
+### Edina Digimap {-}
 
 Before the Ordnance Survey opened up much of its data for public use, academics and students in the UK could access OS data using the Edina Digimap Service ---- this service is still available today and provides access to a number of products in addition to those available from OS Open Data.
 
@@ -188,20 +188,19 @@ Perhaps the most exciting of the additional OS data products available from Digi
 knitr::include_graphics('prac1_images/mastermap.png') 
 ```
 
-### OSM
+### OSM {-}
 
 Open Street Map (OSM) is a fantastic resource ---- as the name suggests, all data contained in Open Street Map are open and free for anyone to use. Much like Wikipedia, anyone can contribute content to OSM and this brings with it its own benefits (frequent updates, very large user-base) and problems (data quality and patch coverage). OSM is a very good example of Volunteered Geographic Information (VGI).
 
 It's possible to download OSM data straight from the website, although the interface can be a little unreliable (it works better for small areas). There are, however, a number of websites that allow OSM data to be downloaded more easily and are directly linked to from the 'Export' option in OSM. Geofabrik (<https://www.geofabrik.de/data/download.html>) allows you to download frequently updated Shapefiles for various global subdivisions.
 
-### DEFRA
+### DEFRA {-}
 
 The Department for Environment and Rural Affairs (DEFRA) have recently created the Data Services Platform to openly distribute environmental data. See: <https://environment.data.gov.uk/>
 
-### Data lists
+### Data lists {-}
 
 Another good place to start searching for data are data lists. They simply provide a comprehensive overview of all available data conveniently categorised by discipline and country.
 
 I normally use this one: <https://freegisdata.rtwilson.com/>
 
-## Summary
