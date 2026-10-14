@@ -119,16 +119,16 @@ Until now, we’ve not really considered how our maps have been printed to the s
 1. Once we've downloaded the `.gpkg` let's see what is inside it with `st_layers()`...
 
 ```{r, message=FALSE, cache=FALSE}
-library(sf)
+library(sf) 
 library(here)
-st_layers(here("prac3_data", "gadm41_AUS.gpkg"))
+st_layers("prac3_data/gadm41_AUS.gpkg")
 ```
 
 1. Then read in the GeoPackage layer for the whole of Australia (layer ending in 0)
 
 ```{r, cache=FALSE}
 library(sf)
-Ausoutline <- st_read(here("prac3_data", "gadm41_AUS.gpkg"), 
+Ausoutline <- st_read("prac3_data/gadm41_AUS.gpkg", 
                       layer='ADM_ADM_0')
 ```
 
@@ -208,7 +208,7 @@ Or, more concisely...but remember this is only useful if there is no CRS when yo
 
 ```{r, cache=FALSE, warning=FALSE, message=FALSE, eval=TRUE}
 #or more concisely
-Ausoutline <- st_read(here("prac3_data", "gadm41_AUS.gpkg"), 
+Ausoutline <- st_read("prac3_data/gadm41_AUS.gpkg", 
                       layer='ADM_ADM_0') %>% 
   st_set_crs(4326)
 ```
@@ -271,7 +271,7 @@ We are going to use WorldClim data --- this is a dataset of free global climate 
 ```{r ,message=FALSE}
 library(raster)
 library(terra)
-jan<-terra::rast(here("prac3_data", "wc2.1_5m_tavg_01.tif"))
+jan<-terra::rast("prac3_data/wc2.1_5m_tavg_01.tif")
 # have a look at the raster layer jan
 jan
 ```
@@ -346,13 +346,24 @@ worldclimtemp
 
 In the stack you'll notice that under dimensions there are 12 layers (nlyr). The stack has loaded the 12 months of average temperature data for us in order. 
 
+::: {.infobox .tip data-latex="{note}"}
+In 2023 tidyterra was launched, this integrates the tidyverse with the terra package, for example, allowing functions such as `filter()` based on cell values. **However** as noted in the documentation - the `terra` package is faster!/ As a rule of thumb, if your raster has fewer than 10,000,000 data slots, for example `terra::ncell(your_rast) * terra::nlyr(your_rast)` < 1e7, tidyterra is a good fit.
+:::
+
 1. To access single layers within the stack:
 
 ```{r, cache=FALSE}
-
 # access the january layer
 worldclimtemp[[1]]
+```
 
+With `tidyterra`:
+
+```{r}
+library(tidyterra)
+
+worldclimtemp %>%
+  tidyterra::select(wc2.1_5m_tavg_01)
 ```
 
 1. We can also rename our layers within the stack:
@@ -362,17 +373,35 @@ month <- c("Jan", "Feb", "Mar", "Apr", "May", "Jun",
            "Jul", "Aug", "Sep", "Oct", "Nov", "Dec")
 
 names(worldclimtemp) <- month
-
 ```
 
-Last week we used `rename()` from the `dplyr` package, however, this isn't yet available for raster data `r emo::ji("frowning_face")`
+With `tidyterra`:
 
+```{r, eval=FALSE}
+worldclimtemp <- worldclimtemp%>%
+  tidyterra::rename(
+    Jan = wc2.1_5m_tavg_01,
+    Feb = wc2.1_5m_tavg_02,
+    Mar = wc2.1_5m_tavg_03,
+    Apr = wc2.1_5m_tavg_04,
+    May = wc2.1_5m_tavg_05,
+    Jun = wc2.1_5m_tavg_06,
+    Jul = wc2.1_5m_tavg_07,
+    Aug = wc2.1_5m_tavg_08,
+    Sep = wc2.1_5m_tavg_09,
+    Oct = wc2.1_5m_tavg_10,
+    Nov = wc2.1_5m_tavg_11,
+    Dec = wc2.1_5m_tavg_12
+    )
+```
 1. Now to get data for just January use our new layer name
 
 ```{r, cache=FALSE}
 worldclimtemp$Jan
-```
 
+worldclimtemp%>%
+  tidyterra::select(Jan)
+```
 ### Raster location
 
 1. Using a raster stack we can extract data with a single command!! For example let's make a dataframe of some sample sites --- Australian cities/towns.
@@ -526,7 +555,7 @@ plot(Austemp)
 
 You'll notice that whilst we have the whole of Australia the raster hasn't been perfectly clipped to the exact outline....the crop here just specifies an extent box that will cover the whole of the shape. 
 
-1. If want to just get raster data within the outline of the shape use trhge `mask()`function which uses a cookie cutter of the raster with the vector layer:
+1. If want to just get raster data within the outline of the shape use the `mask()`function which uses a cookie cutter of the raster with the vector layer:
 
 ```{r, cache=FALSE}
 exactAus<-terra::mask(Austemp, Ausoutline)
@@ -540,16 +569,38 @@ You could also run this using the original worldclimtemp raster, however, it may
 hist(exactAus[[3]], col="red", main ="March temperature")
 ```
 
+with `tidyterra`
+
+```{r}
+exactAus %>%
+  tidyterra::select(Mar)%>%
+  hist(., col="red", main ="March temperature")
+```
+
+
 However we have a bit more control with ```ggplot()```...
 
 ### Histogram with ggplot
 
-1. We need to make our raster into a data.frame to be compatible with ```ggplot2```, using a dataframe or tibble
+1. With `tidyterra` we can use rasters directly within `ggplot2` with the `geom_spatraster()` function. However, this is just for plotting the raster layer, for example a very basic plot....
+
+```{r}
+ggplot() +
+  # function from tidyterra
+  geom_spatraster(
+    # the raster 
+    data = exactAus,
+    # the layer within the raster
+    aes(fill = Mar)
+  )
+```
+For a histogram we need to make our raster into a data frame (or tibble) to be compatible with ```ggplot2```.
 
 ```{r, cache=FALSE}
 exactAusdf <- exactAus %>%
   as.data.frame()
 ```
+
 
 ```{r, warning=FALSE, message=FALSE, cache=FALSE}
 library(ggplot2)
