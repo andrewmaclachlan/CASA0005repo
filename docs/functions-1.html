@@ -23,7 +23,7 @@
 <meta name="author" content="Andy MacLachlan, Adam Dennett and Claire Dooley" />
 
 
-<meta name="date" content="2026-10-14" />
+<meta name="date" content="2026-10-16" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -1085,7 +1085,7 @@ div.csl-indent {
 <li class="chapter" data-level="4.5" data-path="git-github-and-rmarkdown.html"><a href="git-github-and-rmarkdown.html#git-and-github"><i class="fa fa-check"></i><b>4.5</b> Git and GitHub</a>
 <ul>
 <li class="chapter" data-level="4.5.1" data-path="git-github-and-rmarkdown.html"><a href="git-github-and-rmarkdown.html#the-three-ways"><i class="fa fa-check"></i><b>4.5.1</b> The three ways</a></li>
-<li class="chapter" data-level="4.5.2" data-path="git-github-and-rmarkdown.html"><a href="git-github-and-rmarkdown.html#set-up-your-github"><i class="fa fa-check"></i><b>4.5.2</b> Set up your GitHub</a></li>
+<li class="chapter" data-level="4.5.2" data-path="git-github-and-rmarkdown.html"><a href="git-github-and-rmarkdown.html#set-up-your-git-and-github"><i class="fa fa-check"></i><b>4.5.2</b> Set up your Git and GitHub</a></li>
 <li class="chapter" data-level="4.5.3" data-path="git-github-and-rmarkdown.html"><a href="git-github-and-rmarkdown.html#using-rstudio-with-git"><i class="fa fa-check"></i><b>4.5.3</b> Using RStudio with Git</a></li>
 <li class="chapter" data-level="4.5.4" data-path="git-github-and-rmarkdown.html"><a href="git-github-and-rmarkdown.html#using-the-git-gui---way-1"><i class="fa fa-check"></i><b>4.5.4</b> Using the Git GUI - way 1</a></li>
 <li class="chapter" data-level="4.5.5" data-path="git-github-and-rmarkdown.html"><a href="git-github-and-rmarkdown.html#create-a-new-version-control-in-rstudio---way-2"><i class="fa fa-check"></i><b>4.5.5</b> Create a new version control in RStudio - way 2</a></li>
@@ -1098,6 +1098,7 @@ div.csl-indent {
 <li class="chapter" data-level="4.5.12" data-path="git-github-and-rmarkdown.html"><a href="git-github-and-rmarkdown.html#fork-a-repository"><i class="fa fa-check"></i><b>4.5.12</b> Fork a repository</a></li>
 <li class="chapter" data-level="4.5.13" data-path="git-github-and-rmarkdown.html"><a href="git-github-and-rmarkdown.html#branches"><i class="fa fa-check"></i><b>4.5.13</b> Branches</a></li>
 <li class="chapter" data-level="4.5.14" data-path="git-github-and-rmarkdown.html"><a href="git-github-and-rmarkdown.html#health-warning"><i class="fa fa-check"></i><b>4.5.14</b> Health warning</a></li>
+<li class="chapter" data-level="4.5.15" data-path="git-github-and-rmarkdown.html"><a href="git-github-and-rmarkdown.html#exam-warning."><i class="fa fa-check"></i><b>4.5.15</b> Exam warning.</a></li>
 </ul></li>
 <li class="chapter" data-level="4.6" data-path="git-github-and-rmarkdown.html"><a href="git-github-and-rmarkdown.html#rmarkdown"><i class="fa fa-check"></i><b>4.6</b> RMarkdown</a>
 <ul>
@@ -1341,24 +1342,24 @@ div.csl-indent {
 </div>
 <p>In the mapping practical we applied the code above to two separate sf objects above. To make this more efficient we could develop our own function (like the ones we use all the time) and simply provide the relevant data. An example has been put here, but this is for interest only and not a requirement for the module.</p>
 <p>This is an example of creating a function for the spatial join and summarise.</p>
-<div class="sourceCode" id="cb513"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb513-1"><a href="functions-1.html#cb513-1" tabindex="-1"></a><span class="co"># make a function for the join</span></span>
-<span id="cb513-2"><a href="functions-1.html#cb513-2" tabindex="-1"></a><span class="co"># you have to do is replace data1 and data2</span></span>
-<span id="cb513-3"><a href="functions-1.html#cb513-3" tabindex="-1"></a><span class="co"># with the data you want to use</span></span>
-<span id="cb513-4"><a href="functions-1.html#cb513-4" tabindex="-1"></a></span>
-<span id="cb513-5"><a href="functions-1.html#cb513-5" tabindex="-1"></a>Joinfun <span class="ot">&lt;-</span> <span class="cf">function</span>(data1, data2){</span>
-<span id="cb513-6"><a href="functions-1.html#cb513-6" tabindex="-1"></a></span>
-<span id="cb513-7"><a href="functions-1.html#cb513-7" tabindex="-1"></a>output<span class="ot">&lt;-</span> data1<span class="sc">%&gt;%</span></span>
-<span id="cb513-8"><a href="functions-1.html#cb513-8" tabindex="-1"></a>  <span class="fu">st_join</span>(data2,.) <span class="sc">%&gt;%</span></span>
-<span id="cb513-9"><a href="functions-1.html#cb513-9" tabindex="-1"></a>  <span class="fu">add_count</span>(GSS_CODE, <span class="at">name=</span><span class="st">&quot;hotels_in_borough&quot;</span>) </span>
-<span id="cb513-10"><a href="functions-1.html#cb513-10" tabindex="-1"></a></span>
-<span id="cb513-11"><a href="functions-1.html#cb513-11" tabindex="-1"></a>  <span class="fu">return</span>(output)</span>
-<span id="cb513-12"><a href="functions-1.html#cb513-12" tabindex="-1"></a>}</span>
-<span id="cb513-13"><a href="functions-1.html#cb513-13" tabindex="-1"></a></span>
-<span id="cb513-14"><a href="functions-1.html#cb513-14" tabindex="-1"></a><span class="co"># use the function for hotels</span></span>
-<span id="cb513-15"><a href="functions-1.html#cb513-15" tabindex="-1"></a>Hotels <span class="ot">&lt;-</span> <span class="fu">Joinfun</span>(OSM, Londonborough)</span>
-<span id="cb513-16"><a href="functions-1.html#cb513-16" tabindex="-1"></a></span>
-<span id="cb513-17"><a href="functions-1.html#cb513-17" tabindex="-1"></a><span class="co"># then for airbnb</span></span>
-<span id="cb513-18"><a href="functions-1.html#cb513-18" tabindex="-1"></a>Airbnb <span class="ot">&lt;-</span> <span class="fu">Joinfun</span>(Airbnb, Londonborough)</span></code></pre></div>
+<div class="sourceCode" id="cb511"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb511-1"><a href="functions-1.html#cb511-1" tabindex="-1"></a><span class="co"># make a function for the join</span></span>
+<span id="cb511-2"><a href="functions-1.html#cb511-2" tabindex="-1"></a><span class="co"># you have to do is replace data1 and data2</span></span>
+<span id="cb511-3"><a href="functions-1.html#cb511-3" tabindex="-1"></a><span class="co"># with the data you want to use</span></span>
+<span id="cb511-4"><a href="functions-1.html#cb511-4" tabindex="-1"></a></span>
+<span id="cb511-5"><a href="functions-1.html#cb511-5" tabindex="-1"></a>Joinfun <span class="ot">&lt;-</span> <span class="cf">function</span>(data1, data2){</span>
+<span id="cb511-6"><a href="functions-1.html#cb511-6" tabindex="-1"></a></span>
+<span id="cb511-7"><a href="functions-1.html#cb511-7" tabindex="-1"></a>output<span class="ot">&lt;-</span> data1<span class="sc">%&gt;%</span></span>
+<span id="cb511-8"><a href="functions-1.html#cb511-8" tabindex="-1"></a>  <span class="fu">st_join</span>(data2,.) <span class="sc">%&gt;%</span></span>
+<span id="cb511-9"><a href="functions-1.html#cb511-9" tabindex="-1"></a>  <span class="fu">add_count</span>(GSS_CODE, <span class="at">name=</span><span class="st">&quot;hotels_in_borough&quot;</span>) </span>
+<span id="cb511-10"><a href="functions-1.html#cb511-10" tabindex="-1"></a></span>
+<span id="cb511-11"><a href="functions-1.html#cb511-11" tabindex="-1"></a>  <span class="fu">return</span>(output)</span>
+<span id="cb511-12"><a href="functions-1.html#cb511-12" tabindex="-1"></a>}</span>
+<span id="cb511-13"><a href="functions-1.html#cb511-13" tabindex="-1"></a></span>
+<span id="cb511-14"><a href="functions-1.html#cb511-14" tabindex="-1"></a><span class="co"># use the function for hotels</span></span>
+<span id="cb511-15"><a href="functions-1.html#cb511-15" tabindex="-1"></a>Hotels <span class="ot">&lt;-</span> <span class="fu">Joinfun</span>(OSM, Londonborough)</span>
+<span id="cb511-16"><a href="functions-1.html#cb511-16" tabindex="-1"></a></span>
+<span id="cb511-17"><a href="functions-1.html#cb511-17" tabindex="-1"></a><span class="co"># then for airbnb</span></span>
+<span id="cb511-18"><a href="functions-1.html#cb511-18" tabindex="-1"></a>Airbnb <span class="ot">&lt;-</span> <span class="fu">Joinfun</span>(Airbnb, Londonborough)</span></code></pre></div>
 
 </div>
             </section>

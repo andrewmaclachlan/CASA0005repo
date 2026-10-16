@@ -23,7 +23,7 @@
 <meta name="author" content="Andy MacLachlan, Adam Dennett and Claire Dooley" />
 
 
-<meta name="date" content="2026-10-14" />
+<meta name="date" content="2026-10-16" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -1085,7 +1085,7 @@ div.csl-indent {
 <li class="chapter" data-level="4.5" data-path="git-github-and-rmarkdown.html"><a href="git-github-and-rmarkdown.html#git-and-github"><i class="fa fa-check"></i><b>4.5</b> Git and GitHub</a>
 <ul>
 <li class="chapter" data-level="4.5.1" data-path="git-github-and-rmarkdown.html"><a href="git-github-and-rmarkdown.html#the-three-ways"><i class="fa fa-check"></i><b>4.5.1</b> The three ways</a></li>
-<li class="chapter" data-level="4.5.2" data-path="git-github-and-rmarkdown.html"><a href="git-github-and-rmarkdown.html#set-up-your-github"><i class="fa fa-check"></i><b>4.5.2</b> Set up your GitHub</a></li>
+<li class="chapter" data-level="4.5.2" data-path="git-github-and-rmarkdown.html"><a href="git-github-and-rmarkdown.html#set-up-your-git-and-github"><i class="fa fa-check"></i><b>4.5.2</b> Set up your Git and GitHub</a></li>
 <li class="chapter" data-level="4.5.3" data-path="git-github-and-rmarkdown.html"><a href="git-github-and-rmarkdown.html#using-rstudio-with-git"><i class="fa fa-check"></i><b>4.5.3</b> Using RStudio with Git</a></li>
 <li class="chapter" data-level="4.5.4" data-path="git-github-and-rmarkdown.html"><a href="git-github-and-rmarkdown.html#using-the-git-gui---way-1"><i class="fa fa-check"></i><b>4.5.4</b> Using the Git GUI - way 1</a></li>
 <li class="chapter" data-level="4.5.5" data-path="git-github-and-rmarkdown.html"><a href="git-github-and-rmarkdown.html#create-a-new-version-control-in-rstudio---way-2"><i class="fa fa-check"></i><b>4.5.5</b> Create a new version control in RStudio - way 2</a></li>
@@ -1098,6 +1098,7 @@ div.csl-indent {
 <li class="chapter" data-level="4.5.12" data-path="git-github-and-rmarkdown.html"><a href="git-github-and-rmarkdown.html#fork-a-repository"><i class="fa fa-check"></i><b>4.5.12</b> Fork a repository</a></li>
 <li class="chapter" data-level="4.5.13" data-path="git-github-and-rmarkdown.html"><a href="git-github-and-rmarkdown.html#branches"><i class="fa fa-check"></i><b>4.5.13</b> Branches</a></li>
 <li class="chapter" data-level="4.5.14" data-path="git-github-and-rmarkdown.html"><a href="git-github-and-rmarkdown.html#health-warning"><i class="fa fa-check"></i><b>4.5.14</b> Health warning</a></li>
+<li class="chapter" data-level="4.5.15" data-path="git-github-and-rmarkdown.html"><a href="git-github-and-rmarkdown.html#exam-warning."><i class="fa fa-check"></i><b>4.5.15</b> Exam warning.</a></li>
 </ul></li>
 <li class="chapter" data-level="4.6" data-path="git-github-and-rmarkdown.html"><a href="git-github-and-rmarkdown.html#rmarkdown"><i class="fa fa-check"></i><b>4.6</b> RMarkdown</a>
 <ul>
@@ -1392,7 +1393,7 @@ Each week we will provide a short task to test your knowledge, these should be u
 <p>The tools you will use are:</p>
 <ul>
 <li><p>RStudio is a graphical user interface (that you should already be familiar with) — it contains a number of features which make it excellent for authoring reproducible and open geographic data science work.</p></li>
-<li><p>RMarkdown is a version of the Markdown markup language which enables plain text to be formatted to contain links to data, code to run, text to explain what you a producing and metadata to tell your software what kinds of outputs to generate from your markdown code. For more information on RMarkdown look <a href="https://rmarkdown.rstudio.com/">here</a>.</p></li>
+<li><p>RMarkdown is a version of the Markdown markup language which enables plain text to be formatted to contain links to data, code to run, text to explain what you a producing and metadata to tell your software what kinds of outputs to generate from your markdown code.</p></li>
 <li><p>Git is a software version control system which allows you to keep track of the code you produce and the changes that you or others make to it.</p></li>
 <li><p>GitHub is an online repository that allows anyone to view the code you have produced (in whatever language you choose to program in) and use/scrutinize/contribute to/comment on it.</p></li>
 </ul>
@@ -1409,20 +1410,24 @@ Figure 4.1: A basic git workflow represented as two islands, one with local repo
 </div>
 <div id="the-three-ways" class="section level3 hasAnchor" number="4.5.1">
 <h3><span class="header-section-number">4.5.1</span> The three ways<a href="git-github-and-rmarkdown.html#the-three-ways" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>There are three ways to make your RStudio project work with GitHub</p>
+<p>There are three ways to make your RStudio project work with GitHub depends on your scenario:</p>
+<p>Starting fresh either from GitHub (like the exam) or RStudio (e.g. brand new project):</p>
 <ol style="list-style-type: decimal">
-<li>Set up the GitHub repository, clone it to your Git then load it in RStudio — using Git GUI. This shows Git is <strong>separate software</strong>, but i do not recommend this way</li>
-<li>Create a new RStudio project and link it to GitHub — new version control. In <em>this scenario</em> you might make a new RProject and know from the start you want to put it on GitHub</li>
+<li><p>From Github. Set up the GitHub repository, clone it to your Git then load it in RStudio. You can do this either using the GIT GUI or directly within RStudio.</p></li>
+<li><p>Create a new RStudio project and link it to GitHub — “new version control”. In <em>this scenario</em> you know from the start of the project you want to put it on GitHub</p></li>
+</ol>
+<p>Starting with an RStudio project you already have worked on (e.g. your currnet GIS RProject)</p>
+<ol start="3" style="list-style-type: decimal">
 <li>If you have an existing RProject then you can link them manually — existing project. In <em>this scenario</em> you might have already developed your project but then later decide to share it on GitHub.</li>
 </ol>
 <p>I will show you all three, you should be able to do way 1, then way 2 using the same repository. Way 3 will have merge issues, so start with a fresh GitHub repository. It is useful if you have produced some code then want to share it at a later date. Follow what i do in the lecture.</p>
-<p>My advice is to read the Git and GitHub parts of the practical before you start (until the <a href="git-github-and-rmarkdown.html#rmarkdown">RMarkdown</a> section).</p>
+<p>My advice is to read all of the instructions below then come back and start.</p>
 </div>
-<div id="set-up-your-github" class="section level3 hasAnchor" number="4.5.2">
-<h3><span class="header-section-number">4.5.2</span> Set up your GitHub<a href="git-github-and-rmarkdown.html#set-up-your-github" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="set-up-your-git-and-github" class="section level3 hasAnchor" number="4.5.2">
+<h3><span class="header-section-number">4.5.2</span> Set up your Git and GitHub<a href="git-github-and-rmarkdown.html#set-up-your-git-and-github" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <ol style="list-style-type: decimal">
-<li><p>If you are working on your own computer, you will first need to install Git — <a href="https://git-scm.com/" class="uri">https://git-scm.com/</a> — if you are working on the UCL Remote Desktop, you won’t need to do this as it is already installed for you.</p></li>
-<li><p>Go to <a href="http://github.com" class="uri">http://github.com</a>, create an account and create a new repository (call it anything you like - ‘gis_code’ or something similar):</p></li>
+<li><p>If you are working on your own computer, you will first need to install Git if you do not already have it — <a href="https://git-scm.com/" class="uri">https://git-scm.com/</a></p></li>
+<li><p>Next you need to make a free GitHub account. Go to <a href="http://github.com" class="uri">http://github.com</a>, create an account and create a new repository (call it anything you like - ‘gis_code’ or something similar):</p></li>
 </ol>
 <ul>
 <li>making sure it is public</li>
@@ -1431,7 +1436,7 @@ Figure 4.1: A basic git workflow represented as two islands, one with local repo
 </ul>
 <p><img src="prac4_images/github.png" alt="" width="700pt" style="display: block; margin: auto;" /></p>
 <ol style="list-style-type: decimal">
-<li>Your new repository (‘repo’) will be created and this is where you will be able to store your code online. You will notice that a README.md markdown file has also been created. This can be edited to tell people what they are likely to find in this repository.</li>
+<li>Your new repository (‘repo’) will be created and this is where you will be able to store your code online. You will notice that a README.md (markdown file) has also been created. This can be edited to tell people what they are likely to find in this repository.</li>
 </ol>
 </div>
 <div id="using-rstudio-with-git" class="section level3 hasAnchor" number="4.5.3">
@@ -1447,19 +1452,19 @@ Figure 4.1: A basic git workflow represented as two islands, one with local repo
 <p>Then, in the console, type the function <code>edit_git_config()</code></p>
 <p>A Git config will load and you need to change your name and email to match GitHub.</p>
 <p>If this is empty use the following template and save the file.</p>
-<div class="sourceCode" id="cb193"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb193-1"><a href="git-github-and-rmarkdown.html#cb193-1" tabindex="-1"></a>[user]</span>
-<span id="cb193-2"><a href="git-github-and-rmarkdown.html#cb193-2" tabindex="-1"></a>    name <span class="ot">=</span> </span>
-<span id="cb193-3"><a href="git-github-and-rmarkdown.html#cb193-3" tabindex="-1"></a>    email <span class="ot">=</span> </span>
-<span id="cb193-4"><a href="git-github-and-rmarkdown.html#cb193-4" tabindex="-1"></a>    username <span class="ot">=</span> </span></code></pre></div>
+<div class="sourceCode" id="cb191"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb191-1"><a href="git-github-and-rmarkdown.html#cb191-1" tabindex="-1"></a>[user]</span>
+<span id="cb191-2"><a href="git-github-and-rmarkdown.html#cb191-2" tabindex="-1"></a>    name <span class="ot">=</span> </span>
+<span id="cb191-3"><a href="git-github-and-rmarkdown.html#cb191-3" tabindex="-1"></a>    email <span class="ot">=</span> </span>
+<span id="cb191-4"><a href="git-github-and-rmarkdown.html#cb191-4" tabindex="-1"></a>    username <span class="ot">=</span> </span></code></pre></div>
 </div>
 <div id="start-your-git" class="section level4 hasAnchor" number="4.5.3.3">
 <h4><span class="header-section-number">4.5.3.3</span> Start your Git<a href="git-github-and-rmarkdown.html#start-your-git" class="anchor-section" aria-label="Anchor link to header"></a></h4>
-<p>To start Git you <strong>need to be in a RStudio project</strong>. You cannot start git without a project! Instructions below show you how to do this in various scenarios. For example, in the first Git way, we clone (copy) a remote repository (of our own) then if we wanted to make changes (to the remote) we would need to follow these instructions to link our Git to GitHub</p>
+<p>To start Git you <strong>need to be in a RStudio project</strong>. You cannot start git without a project! Instructions below show you how to do this in various scenarios. For example, in the first Git way, we clone (copy) a remote repository (of our own).</p>
 <p>In the first instance we just copy it from the remote (GitHub), that will have git ready to go - so don’t do this now….but a very simple way is to again load the <code>usethis</code> package in the console and the function <code>use_git()</code>, then type option 1. You would do this for a project that you have started, which doesn’t have git enabled.</p>
 <div class="infobox tip">
 <p>Remember that
-* Github has a maximum file size of 50mb
-* git does not</p>
+* Github has a <strong>maximum file size of 50mb</strong>
+* git does not have a file size limit</p>
 <p>This means if you have a file of 50mb or larger you must set the .gitignore to ignore the file or large data folder as soon as you add the data into the project, as shown in the session.</p>
 <p>For example, the following means ignore everything (*) in the data folder.</p>
 <p>data/*</p>
@@ -1467,8 +1472,8 @@ Figure 4.1: A basic git workflow represented as two islands, one with local repo
 </div>
 <div id="connect-git-to-github" class="section level4 hasAnchor" number="4.5.3.4">
 <h4><span class="header-section-number">4.5.3.4</span> Connect Git to GitHub<a href="git-github-and-rmarkdown.html#connect-git-to-github" class="anchor-section" aria-label="Anchor link to header"></a></h4>
-<p>Once we have an RStudio project with Git, either making it ourselves or downloading one from GitHub, we need to connect it to GitHub.</p>
-<p>From GitHub you need to generate a personal access token. You can use the function <code>create_github_token()</code> from the <code>usethis</code> package or also through</p>
+<p>Once we have an RStudio project with Git we need to connect it to GitHub.</p>
+<p>From GitHub you need to generate a personal access token. You can use the function <code>create_github_token()</code> from the <code>usethis</code> package <strong>or</strong> also through the GitHub website</p>
 <ul>
 <li>GitHub &gt; settings &gt; Developer settings &gt; personal access tokens &gt; generate new token.</li>
 </ul>
@@ -1491,7 +1496,7 @@ Figure 4.1: A basic git workflow represented as two islands, one with local repo
 </ol>
 <div class="infobox warning">
 <p><strong>Git Graphic user interfaces (GUIs)</strong></p>
-<p>Git GUI was downloaded with my version of Git on Windows. There are <a href="https://git-scm.com/downloads/guis/">many Git GUIs to select from</a>. However, the point here is that Git is not specific to programming languages (although it is primary used for code!). It can work on any folder on your computer.</p>
+<p>Git GUI was downloaded with my version of Git on Windows. There are <a href="https://git-scm.com/downloads/guis/">many Git GUIs to select from</a>. However, the point here is that Git is not specific to programming languages (although it is primarily used for code!). It can work on any folder on your computer.</p>
 </div>
 <ol style="list-style-type: decimal">
 <li>Select ‘Clone Existing Repository’ and paste the link from your GitHub account into the top box and the local directory that you want to create to store your repo in the bottom box (note, you will need to add a name for a new folder, once you have selected an existing directory, don’t create a new folder in windows explorer you have to specify it in the file path).</li>
@@ -1505,15 +1510,12 @@ Figure 4.1: A basic git workflow represented as two islands, one with local repo
 <ol style="list-style-type: decimal">
 <li>Set the project working directory to what you specified in the Git GUI target directory. You have now linked your project to your local Git</li>
 </ol>
-<blockquote>
-<p>Note for later, when we try to push to GitHub from RStudio the push button might be geyed out..this is most likely due to your local Git branch not tracking (following) the GitHub branch! I show you how to fix this in the greyed out push button section.</p>
-</blockquote>
 </div>
 <div id="create-a-new-version-control-in-rstudio---way-2" class="section level3 hasAnchor" number="4.5.5">
 <h3><span class="header-section-number">4.5.5</span> Create a new version control in RStudio - way 2<a href="git-github-and-rmarkdown.html#create-a-new-version-control-in-rstudio---way-2" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>There is an easier way to set up Git and GitHub with your project, but this assumes you are starting fresh (with no code in an RProject)!</p>
 <ol style="list-style-type: decimal">
-<li><p>Under <a href="git-github-and-rmarkdown.html#set-up-your-github">Set up your GitHub</a> we made a repository on GitHub. Copy that URL.</p></li>
+<li><p>Under [Set up your GitHub] we made a repository on GitHub. Copy that URL.</p></li>
 <li><p>Open RStudio &gt; File New Project &gt; Version Control &gt; Git</p></li>
 <li><p>Copy in the repository URL and provide a project directory name…but it should populate when you paste in the URL</p></li>
 </ol>
@@ -1522,17 +1524,28 @@ Figure 4.1: A basic git workflow represented as two islands, one with local repo
 <div id="if-have-an-existing-project---way-3" class="section level3 hasAnchor" number="4.5.6">
 <h3><span class="header-section-number">4.5.6</span> If have an existing project - way 3<a href="git-github-and-rmarkdown.html#if-have-an-existing-project---way-3" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <ol style="list-style-type: decimal">
-<li><p>Open RStudio and your existing project (or make a new one…i will make one here). In RStudio Tools &gt; Global Options, under ‘Git/SVN’ check the box to allow version control and locate the folder on your computer where the git.exe file is located — if you have installed git then this should be automatically there. If you make a new project make sure you create a file (<code>.R</code> or <code>.Rmd</code> through File &gt; New File), add something to it, then save it (File &gt; Save As) into your project folder. When it saves it should appear in the bottom right Files window.</p></li>
-<li><p>Next go Tools &gt; Project Options &gt; Git/SVN &gt; and select the version control system as Git. You should now see a git tab in the environment window of RStudio (top right) and the files also appear under the Git tab. It should look something like this….</p></li>
+<li>Open RStudio and your existing project (or make a new one…i will make one here). In RStudio Tools &gt; Global Options, under ‘Git/SVN’ check the box to allow version control and locate the folder on your computer where the git.exe file is located — if you have installed git then this should be automatically there.</li>
+</ol>
+<blockquote>
+<p>Note, you must install software on your computer not an external drive.</p>
+</blockquote>
+<p>If you make a new project make sure you create a file (<code>.Rmd</code> or <code>.Qmd</code> through File &gt; New File), add something to it, then save it (File &gt; Save As) into your project folder. When it saves it should appear in the bottom right Files window.</p>
+<ol style="list-style-type: decimal">
+<li>Next go Tools &gt; Project Options &gt; Git/SVN &gt; and select the version control system as Git. You should now see a git tab in the environment window of RStudio (top right) and the files also appear under the Git tab. It should look something like this….</li>
 </ol>
 <p><img src="prac4_images/makeafile.png" alt="" width="800pt" style="display: block; margin: auto;" /></p>
-<p>Now you will be able to use Git and GitHub as per the following instructions…</p>
+<p>You’ve now set up Git and GitHub with RStudio, we can use them, as per the following instructions…</p>
 </div>
 <div id="commiting-to-git" class="section level3 hasAnchor" number="4.5.7">
 <h3><span class="header-section-number">4.5.7</span> Commiting to Git<a href="git-github-and-rmarkdown.html#commiting-to-git" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <ol style="list-style-type: decimal">
-<li><p>As well as saving (as you normally do with any file), which saves a copy to our local directory, we will also ‘commit’ or create a save point for our work on git.</p></li>
-<li><p>To do this, you should click the ‘Git’ icon and up will pop a menu like the one below:</p></li>
+<li>As well as saving (as you normally do with any file), which saves a copy to our local directory, we will also ‘commit’ or create a save point for our work on git.</li>
+</ol>
+<blockquote>
+<p>Committing is like taking a snapshot of all your files.</p>
+</blockquote>
+<ol style="list-style-type: decimal">
+<li>To do this, you should click the ‘Git’ icon and up will pop a menu like the one below:</li>
 </ol>
 <p><img src="prac4_images/commit1.png" alt="" width="400pt" style="display: block; margin: auto;" /></p>
 <p>You can also click the Git tab that will have appeared in the top-right window of RStudio. Up will then pop another window that looks a little like the one below:</p>
@@ -1545,14 +1558,21 @@ Figure 4.1: A basic git workflow represented as two islands, one with local repo
 </div>
 <div id="push-to-github" class="section level3 hasAnchor" number="4.5.8">
 <h3><span class="header-section-number">4.5.8</span> Push to Github<a href="git-github-and-rmarkdown.html#push-to-github" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>We need to create a new GitHub repo for our local project. Luckily the <code>usethis</code> package can do this for us. Simply type the function <code>use_github()</code> in the console and a new GitHub repo will appear using the name of your project!</p>
+<p>We need to create a new GitHub repo for our local project (from way 3, existing project).</p>
+<p>There are two options here:</p>
+<ol style="list-style-type: decimal">
+<li><p>Luckily the <code>usethis</code> package can do this for us. Simply type the function <code>use_github()</code> in the console and a new GitHub repo will appear using the name of your project!</p></li>
+<li><p>My preferred way is to do this manually via the GitHub website to control the GitHub repo name. Make a new repo and ensure that no README is created. It must be an empty repo.</p></li>
+</ol>
+<p><img src="prac4_images/way3-newrepo.png" alt="" width="800pt" style="display: block; margin: auto;" /></p>
+<p>You will then be provided with code to copy into the terminal in RStudio. Assuming you have commited to git then the bottom code chunk is what you copy.</p>
+<p><img src="prac4_images/new-repo-terminal.png" alt="" width="800pt" style="display: block; margin: auto;" /></p>
 <p>Now we can push our changes to GitHub using the up arrow either in the RStudio Git tab (environment quadrant), or from the review changes box (opens when you click commit).</p>
-<p>But….if the push button is greyed out go to the section <a href="git-github-and-rmarkdown.html#greyed-out-push-button">Greyed out push button</a></p>
 </div>
 <div id="pull-from-github" class="section level3 hasAnchor" number="4.5.9">
 <h3><span class="header-section-number">4.5.9</span> Pull from GitHub<a href="git-github-and-rmarkdown.html#pull-from-github" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <ol style="list-style-type: decimal">
-<li><p>Pull will take any changes to the global repo and bring them into your local repo. Go to your example GitHub repo (online) and click on your test file &gt; edit this file.</p></li>
+<li><p>Pull will take any changes to the global repo and bring them into your local repo. Go to your example GitHub repo (online) and click on your test file &gt; edit this file. Or add a new file!</p></li>
 <li><p>Add a line of code or a comment, preview the changes then commit directly to the main branch.</p></li>
 </ol>
 <p><img src="prac4_images/pullexample.png" alt="" width="800pt" style="display: block; margin: auto;" /></p>
@@ -1563,8 +1583,8 @@ If you were to update your file on GitHub and your local one in RStudio separate
 </div>
 <div id="using-git-outside-rstudio" class="section level3 hasAnchor" number="4.5.10">
 <h3><span class="header-section-number">4.5.10</span> Using Git outside RStudio<a href="git-github-and-rmarkdown.html#using-git-outside-rstudio" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>Sometimes RStudio Git can be a bit temperamental. For example, when staging the files they can take some time to appear with the ticked box (I think this is because we are working from the Network). Normally in RStudio you click the commit button, select to stage all the files, wait a few seconds then close the review changes box and commit from the buttons in the Git tab in the environment quadrant.</p>
-<p>Alternatively if you would like to use Git but you’re working on the UCL Remote Desktop or you are experiening other problems with getting git working in RStudio, fear not, you can just use your raw Git installation.</p>
+<p>Sometimes RStudio Git can be a bit temperamental, although this isn’t such a problem anymore.</p>
+<p>As git is software you can just use your raw Git installation.</p>
 <ol style="list-style-type: decimal">
 <li><p>In the Start Menu, open the git GUI. Start &gt; Git &gt; Git GUI. You should open the existing repository that you have just created.</p></li>
 <li><p>Whenever you have made some changes to your files in your cloned repo, you can use git to review the changes and ‘Commit’ (save) them and then ‘Push’ them up to your main repository on GitHub.</p></li>
@@ -1581,11 +1601,10 @@ If you were to update your file on GitHub and your local one in RStudio separate
 <h3><span class="header-section-number">4.5.11</span> Troubleshooting<a href="git-github-and-rmarkdown.html#troubleshooting" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <div id="were-you-challenged-for-your-password" class="section level4 hasAnchor" number="4.5.11.1">
 <h4><span class="header-section-number">4.5.11.1</span> Were you challenged for your password?<a href="git-github-and-rmarkdown.html#were-you-challenged-for-your-password" class="anchor-section" aria-label="Anchor link to header"></a></h4>
-<p>As of January 2019 it is possible that Git will use a credential helper provided by the operating system. However, as of summer 2021 the token system has replaced this, so this is very unlikely.</p>
-<p>You can however set your username and email manually using the git prompt.</p>
+<p>This is very unlikely as of summer 2021 the token system has replaced passwords. However you canset your username and email manually using the git prompt.</p>
 <p>Click the “cog” icon under the git tab &gt; New Terminal and enter:</p>
-<div class="sourceCode" id="cb194"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb194-1"><a href="git-github-and-rmarkdown.html#cb194-1" tabindex="-1"></a>git config <span class="sc">--</span>global user.name <span class="st">&#39;yourGitHubUsername&#39;</span></span>
-<span id="cb194-2"><a href="git-github-and-rmarkdown.html#cb194-2" tabindex="-1"></a>git config <span class="sc">--</span>global user.email <span class="st">&#39;name@provider.com&#39;</span></span></code></pre></div>
+<div class="sourceCode" id="cb192"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb192-1"><a href="git-github-and-rmarkdown.html#cb192-1" tabindex="-1"></a>git config <span class="sc">--</span>global user.name <span class="st">&#39;yourGitHubUsername&#39;</span></span>
+<span id="cb192-2"><a href="git-github-and-rmarkdown.html#cb192-2" tabindex="-1"></a>git config <span class="sc">--</span>global user.email <span class="st">&#39;name@provider.com&#39;</span></span></code></pre></div>
 <p>These only need to be set once.</p>
 </div>
 <div id="greyed-out-push-button" class="section level4 hasAnchor" number="4.5.11.2">
@@ -1593,28 +1612,28 @@ If you were to update your file on GitHub and your local one in RStudio separate
 <p>Is your push button grayed out? Mine was when i tried to set it up within an existing project in the section [If have have an existing project] … Fear not….</p>
 <p>First, let’s check your local repository (Git) is connected to a remote one (GitHub).
 Open the Terminal again (Git tab &gt; cog &gt; New Terminal) and enter:</p>
-<div class="sourceCode" id="cb195"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb195-1"><a href="git-github-and-rmarkdown.html#cb195-1" tabindex="-1"></a>git remote <span class="sc">-</span>v</span>
-<span id="cb195-2"><a href="git-github-and-rmarkdown.html#cb195-2" tabindex="-1"></a><span class="do">## output</span></span>
-<span id="cb195-3"><a href="git-github-and-rmarkdown.html#cb195-3" tabindex="-1"></a></span>
-<span id="cb195-4"><a href="git-github-and-rmarkdown.html#cb195-4" tabindex="-1"></a>origin  https<span class="sc">:</span><span class="er">//</span>github.com<span class="sc">/</span>andrewmaclachlan<span class="sc">/</span><span class="fu">example.git</span> (fetch)</span>
-<span id="cb195-5"><a href="git-github-and-rmarkdown.html#cb195-5" tabindex="-1"></a>origin  https<span class="sc">:</span><span class="er">//</span>github.com<span class="sc">/</span>andrewmaclachlan<span class="sc">/</span><span class="fu">example.git</span> (push)</span></code></pre></div>
+<div class="sourceCode" id="cb193"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb193-1"><a href="git-github-and-rmarkdown.html#cb193-1" tabindex="-1"></a>git remote <span class="sc">-</span>v</span>
+<span id="cb193-2"><a href="git-github-and-rmarkdown.html#cb193-2" tabindex="-1"></a><span class="do">## output</span></span>
+<span id="cb193-3"><a href="git-github-and-rmarkdown.html#cb193-3" tabindex="-1"></a></span>
+<span id="cb193-4"><a href="git-github-and-rmarkdown.html#cb193-4" tabindex="-1"></a>origin  https<span class="sc">:</span><span class="er">//</span>github.com<span class="sc">/</span>andrewmaclachlan<span class="sc">/</span><span class="fu">example.git</span> (fetch)</span>
+<span id="cb193-5"><a href="git-github-and-rmarkdown.html#cb193-5" tabindex="-1"></a>origin  https<span class="sc">:</span><span class="er">//</span>github.com<span class="sc">/</span>andrewmaclachlan<span class="sc">/</span><span class="fu">example.git</span> (push)</span></code></pre></div>
 <p>The fetch and push should be your repository on GitHub. If you need to set the remote repo use:</p>
-<div class="sourceCode" id="cb196"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb196-1"><a href="git-github-and-rmarkdown.html#cb196-1" tabindex="-1"></a>git remote add origin https<span class="sc">:</span><span class="er">//</span>github.com<span class="sc">/</span>andrewmaclachlanc<span class="sc">/</span>myrepo.git</span></code></pre></div>
+<div class="sourceCode" id="cb194"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb194-1"><a href="git-github-and-rmarkdown.html#cb194-1" tabindex="-1"></a>git remote add origin https<span class="sc">:</span><span class="er">//</span>github.com<span class="sc">/</span>andrewmaclachlanc<span class="sc">/</span>myrepo.git</span></code></pre></div>
 <p><strong>Replace</strong> my name and myrepo with your account and repo — it’s the same URL that we cloned from GitHub…</p>
 <p>Was it setup correctly ? Yes…</p>
 <p>Then check the current branch in RStudio (and Git) is tracking a branch on the remote repo — mine wasn’t.</p>
-<div class="sourceCode" id="cb197"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb197-1"><a href="git-github-and-rmarkdown.html#cb197-1" tabindex="-1"></a>git branch <span class="sc">-</span>vv</span>
-<span id="cb197-2"><a href="git-github-and-rmarkdown.html#cb197-2" tabindex="-1"></a></span>
-<span id="cb197-3"><a href="git-github-and-rmarkdown.html#cb197-3" tabindex="-1"></a><span class="do">## output</span></span>
-<span id="cb197-4"><a href="git-github-and-rmarkdown.html#cb197-4" tabindex="-1"></a>main <span class="dv">3</span>abe929 [origin<span class="sc">/</span>main] test3</span></code></pre></div>
+<div class="sourceCode" id="cb195"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb195-1"><a href="git-github-and-rmarkdown.html#cb195-1" tabindex="-1"></a>git branch <span class="sc">-</span>vv</span>
+<span id="cb195-2"><a href="git-github-and-rmarkdown.html#cb195-2" tabindex="-1"></a></span>
+<span id="cb195-3"><a href="git-github-and-rmarkdown.html#cb195-3" tabindex="-1"></a><span class="do">## output</span></span>
+<span id="cb195-4"><a href="git-github-and-rmarkdown.html#cb195-4" tabindex="-1"></a>main <span class="dv">3</span>abe929 [origin<span class="sc">/</span>main] test3</span></code></pre></div>
 <p>Origin/main shows that the local main is tracking the origin/main on the remote repo. If you can’t see origin/main then set it using the following code. At the moment RStudio and git still defaults to the starting branch of master so the fist line below will change it to main — which is required to match with the remote (GitHub).</p>
-<div class="sourceCode" id="cb198"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb198-1"><a href="git-github-and-rmarkdown.html#cb198-1" tabindex="-1"></a>git branch <span class="sc">-</span>M main</span>
-<span id="cb198-2"><a href="git-github-and-rmarkdown.html#cb198-2" tabindex="-1"></a>git push <span class="sc">-</span>u origin main</span></code></pre></div>
+<div class="sourceCode" id="cb196"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb196-1"><a href="git-github-and-rmarkdown.html#cb196-1" tabindex="-1"></a>git branch <span class="sc">-</span>M main</span>
+<span id="cb196-2"><a href="git-github-and-rmarkdown.html#cb196-2" tabindex="-1"></a>git push <span class="sc">-</span>u origin main</span></code></pre></div>
 <blockquote>
 <p>Origin is the repository you cloned (from GitHub) and main is the name of the branch. You might see something like…your branch is ahead of origin/main by 1 commit. This means you have commited something you are working on in you local repo (Git) that hasn’t yet been pushed to GitHub (the origin) and main branch…GitHub defaults the first branch to be called main</p>
 </blockquote>
 <p>If you need to change the URL of your GitHub …. so where you push your local Git to the GitHub account (changing this), perhaps you have made a new GitHub repo…</p>
-<div class="sourceCode" id="cb199"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb199-1"><a href="git-github-and-rmarkdown.html#cb199-1" tabindex="-1"></a>git remote set<span class="sc">-</span>url origin [enter your cloned URL from GitHUB here]<span class="st">```</span></span></code></pre></div>
+<div class="sourceCode" id="cb197"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb197-1"><a href="git-github-and-rmarkdown.html#cb197-1" tabindex="-1"></a>git remote set<span class="sc">-</span>url origin [enter your cloned URL from GitHUB here]<span class="st">```</span></span></code></pre></div>
 <p>For more trouble shooting on Git and GitHub have a look at the book <a href="https://happygitwithr.com/rstudio-git-github.html">Happy Git and GitHub for the useR</a></p>
 </div>
 </div>
@@ -1624,7 +1643,7 @@ Open the Terminal again (Git tab &gt; cog &gt; New Terminal) and enter:</p>
 <ol style="list-style-type: decimal">
 <li>You can fork a GitHub example repository from: <a href="https://github.com/octocat/Spoon-Knife" class="uri">https://github.com/octocat/Spoon-Knife</a></li>
 </ol>
-<p>Once you fork it, you should see it in your repositories</p>
+<p>Once you fork it, you should see it in your repositories. You could then clone it into your own personal RProject.</p>
 </div>
 <div id="branches" class="section level3 hasAnchor" number="4.5.13">
 <h3><span class="header-section-number">4.5.13</span> Branches<a href="git-github-and-rmarkdown.html#branches" class="anchor-section" aria-label="Anchor link to header"></a></h3>
@@ -1669,16 +1688,34 @@ Open the Terminal again (Git tab &gt; cog &gt; New Terminal) and enter:</p>
 <h3><span class="header-section-number">4.5.14</span> Health warning<a href="git-github-and-rmarkdown.html#health-warning" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>To avoid merge conflicts be careful with your commits, pushes and pulls. Think about what you are doing each time. GitHub help pages are quite comprehensive… <a href="https://help.github.com/en/articles/resolving-a-merge-conflict-on-github" class="uri">https://help.github.com/en/articles/resolving-a-merge-conflict-on-github</a></p>
 </div>
+<div id="exam-warning." class="section level3 hasAnchor" number="4.5.15">
+<h3><span class="header-section-number">4.5.15</span> Exam warning.<a href="git-github-and-rmarkdown.html#exam-warning." class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Remember Git allows any file size, GitHub has a maximum of 50mb! If you have a project that has used Git (but not yet GitHub) on your first push to GitHub, all of the past commits will be pushed. <strong>Always</strong>:</p>
+<ol style="list-style-type: decimal">
+<li>Think about the size of your data</li>
+<li>Set your .gitignore</li>
+</ol>
+<p>If all else fails burn it all down (but not your files, make sure they are saved).</p>
+<ol style="list-style-type: decimal">
+<li>Delete your local .git. To see this. In the bottom right window. Files tab &gt; cog &gt; show hidden files. Delete this folder:</li>
+</ol>
+<p><img src="prac4_images/git-folder.png" alt="" width="800pt" style="display: block; margin: auto;" /></p>
+<ol style="list-style-type: decimal">
+<li>You might possible need to make a new GitHub repo (not always needed).</li>
+</ol>
+<blockquote>
+<p>Note, there are ways around this with git itself, however, for the purposes of this module this is my recommeded process.</p>
+</blockquote>
+</div>
 </div>
 <div id="rmarkdown" class="section level2 hasAnchor" number="4.6">
 <h2><span class="header-section-number">4.6</span> RMarkdown<a href="git-github-and-rmarkdown.html#rmarkdown" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>OK, so now you have set everything up so that you can become a reproducible research ninja! All that remains is to do some reproducible research!</p>
-<p>R Markdown is awesome as you can show code, explanations and results within the same document!!!! Often it could be very hard to reproduce results owing to a lack of information in the methodology / userguides or walkthrougts not matching up with the latest version of software. Think back to a time where you had to use software and consult a massive userguide in how to use it…for me it was a very painful experience. R Markdown is a big improvement as it puts all of the information in the same document, which can then be convereted into a range of different formats — html for webpages, word documents, PDFs, blogs, books — virtually everything!</p>
+<p>As we know R Markdown it puts all of the information in the same document, which can then be convereted into a range of different formats — html for webpages, word documents, PDFs, blogs, books — virtually everything!</p>
 <p><img src="allisonhorst_images/rmarkdown_rockstar.png" alt="" width="450pt" style="display: block; margin: auto;" /></p>
 <p>It’s also not limited to R code!!! To change the code language all you have to do is edit what is between the {} in a code chunk. In R by default you get {r}, put for python you just change this to {python}!!! COOL. You’ve also got to have all the python software installed and the R <code>reticulate()</code> package too..</p>
-<p>Now, earlier on in this exercise, I got you to open a new R Script. You now need to open a new R Markdown document, you could also select an R Notebook…They are both RMarkdown documents, the notebook originally let you run code chunks that could be executed independently, however you can also now do this if you select a markdown file. To my knowledge the only difference is that a R Notebook adds <code>output: html_notebook</code> in the output option in the header of the file that adds a Preview button in the tool bar. If you don’t have this then the preview option will be replaced with Knit.</p>
+<p>Now, earlier on in this exercise, I got you to open a new .Rmd. If you look in the top tool bar (just above the top of the script) you will see a Knit button, this will allow you to create different outputs from your code (note, all the code must work with no errors)</p>
 <p><img src="allisonhorst_images/knit-logo.png" alt="" width="300pt" style="display: block; margin: auto;" /></p>
-<p>But you can mix the output options in your header for the file to get the Preview button back if you wish to. Basically, there isn’t much difference and you can manually change it with one line of code. Have a look <a href="https://stackoverflow.com/questions/43820483/difference-between-r-markdown-and-r-notebook">at this stackoverflow question</a> for more infomation. For ease i’d just stick with R Markdown files</p>
 <p>There are two ways to create an RMarkdown document</p>
 <ol style="list-style-type: decimal">
 <li><p>File &gt; New File &gt; R Markdown</p></li>
@@ -1697,12 +1734,12 @@ Open the Terminal again (Git tab &gt; cog &gt; New Terminal) and enter:</p>
 <ol style="list-style-type: decimal">
 <li>A box will appear and in this box, you will be able to enter and run your R code. Try pasting in:</li>
 </ol>
-<div class="sourceCode" id="cb200"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb200-1"><a href="git-github-and-rmarkdown.html#cb200-1" tabindex="-1"></a><span class="fu">library</span>(terra)</span>
-<span id="cb200-2"><a href="git-github-and-rmarkdown.html#cb200-2" tabindex="-1"></a><span class="fu">library</span>(here)</span>
-<span id="cb200-3"><a href="git-github-and-rmarkdown.html#cb200-3" tabindex="-1"></a>jan<span class="ot">&lt;-</span>terra<span class="sc">::</span><span class="fu">rast</span>(<span class="fu">here</span>(<span class="st">&quot;prac3_data&quot;</span>, <span class="st">&quot;wc2.1_5m_tavg_01.tif&quot;</span>))</span>
-<span id="cb200-4"><a href="git-github-and-rmarkdown.html#cb200-4" tabindex="-1"></a><span class="co"># have a look at the raster layer jan</span></span>
-<span id="cb200-5"><a href="git-github-and-rmarkdown.html#cb200-5" tabindex="-1"></a><span class="fu">plot</span>(jan)</span></code></pre></div>
-<p><img src="CASA0005_files/figure-html/unnamed-chunk-212-1.png" alt="" width="672" /></p>
+<div class="sourceCode" id="cb198"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb198-1"><a href="git-github-and-rmarkdown.html#cb198-1" tabindex="-1"></a><span class="fu">library</span>(terra)</span>
+<span id="cb198-2"><a href="git-github-and-rmarkdown.html#cb198-2" tabindex="-1"></a><span class="fu">library</span>(here)</span>
+<span id="cb198-3"><a href="git-github-and-rmarkdown.html#cb198-3" tabindex="-1"></a>jan<span class="ot">&lt;-</span>terra<span class="sc">::</span><span class="fu">rast</span>(<span class="fu">here</span>(<span class="st">&quot;prac3_data&quot;</span>, <span class="st">&quot;wc2.1_5m_tavg_01.tif&quot;</span>))</span>
+<span id="cb198-4"><a href="git-github-and-rmarkdown.html#cb198-4" tabindex="-1"></a><span class="co"># have a look at the raster layer jan</span></span>
+<span id="cb198-5"><a href="git-github-and-rmarkdown.html#cb198-5" tabindex="-1"></a><span class="fu">plot</span>(jan)</span></code></pre></div>
+<p><img src="CASA0005_files/figure-html/unnamed-chunk-215-1.png" alt="" width="672" /></p>
 <p>When including code chunks in your work, there are various options that allow you to do things like include the code, but not run it: display the output but not the code, hide warnings etc. Most of these can be input automatically by clicking the cog icon in the top-right of the chunk, or you can specify them in the code header of the chunk…if you toggle the buttons you’ll see the code change in the chunk ‘header’. There are also two useful icons to the right of the settings cog, the first will run all code above the current chunk (play symbol facing downwards) and the second will run the current code chunk (regular play symbol)</p>
 <p><img src="prac4_images/code_chunk_options.png" alt="" width="800pt" style="display: block; margin: auto;" /></p>
 </div>
@@ -1716,7 +1753,6 @@ Open the Terminal again (Git tab &gt; cog &gt; New Terminal) and enter:</p>
 </div>
 <div id="shortcuts" class="section level3 hasAnchor" number="4.6.3">
 <h3><span class="header-section-number">4.6.3</span> Shortcuts<a href="git-github-and-rmarkdown.html#shortcuts" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>This <a href="https://twitter.com/WeAreRLadies/status/1250310603970732036">Twitter thread started by We are R-Ladies</a> is one of the best resources i’ve found for shortcuts using RMarkdown. Favorites that will help you are:</p>
 <p><strong>New code chunk</strong>
 CTRL + ALT + i</p>
 <p><strong>New comment in code</strong>
@@ -1725,13 +1761,11 @@ CTRL + SHIFT + c</p>
 CTRL+i</p>
 <p><strong>Format ugly code to nice looking code</strong>
 CTRL + SHIFT + A</p>
-<p><strong>Insert section label which is fold-able and navigable</strong> — this only works in a <code>.R</code> file not a <code>.Rmd</code> but is still useful
-CTRL + SHIFT + R</p>
 </div>
 </div>
 <div id="further-reading" class="section level2 hasAnchor" number="4.7">
 <h2><span class="header-section-number">4.7</span> Further reading<a href="git-github-and-rmarkdown.html#further-reading" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>Since starting this little guide, I have come across the book <a href="http://happygitwithr.com/">Happy Git and GitHub for the useR</a> on, well, using R and GitHub by Jenny Bryan and Jim Hester. It’s brilliant — get involved!</p>
+<p>Since starting this little guide, I have come across the book <a href="http://happygitwithr.com/">Happy Git and GitHub for the useR</a> on, well, using R and GitHub by Jenny Bryan and Jim Hester.</p>
 <p>…Also the <a href="https://guides.github.com/activities/hello-world/">GitHub guide</a></p>
 </div>
 <div id="feedback-3" class="section level2 hasAnchor" number="4.8">
