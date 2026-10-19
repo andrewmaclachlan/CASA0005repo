@@ -262,7 +262,6 @@ task-investigating-further---adding-more-explanatory-variables-into-a-multiple-r
 a-few-things-to-watch-out-for
 task-3---spatial-non-stationarity-and-geographically-weighted-regression-models-gwr
 feedback-7
-qgis-joining-data
 load-data-1
 join-data-1
 export-data-1

@@ -1,6 +1,6 @@
 # (PART\*) Extra {-}
 
-# QGIS joining data
+# QGIS joining data {-}
 
 ## Load data
 
@@ -13,7 +13,7 @@ knitr::include_graphics('prac1_images/qgis_datamanager.png')
 
 1.  Navigate to the `London_Borough_Excluding_MHW.shp` and add it, you then have to close the data source manager.
 
-You can right click on the layer to view the attribute table, however the `.csv` file must be loaded nto QGIS in order to join it to a shapefile.
+You can right click on the layer to view the attribute table, however the `.csv` file must be loaded into QGIS in order to join it to a shapefile.
 
 1.  Open the data source manager and select Delimited Text
 2.  Navigate to our `.csv` file and provide a suitable layer name

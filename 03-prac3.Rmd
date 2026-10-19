@@ -269,7 +269,6 @@ We are going to use WorldClim data --- this is a dataset of free global climate 
 1. Unzip and move the data to your project folder. Now load the data. We could do this individually....
 
 ```{r ,message=FALSE}
-library(raster)
 library(terra)
 jan<-terra::rast("prac3_data/wc2.1_5m_tavg_01.tif")
 # have a look at the raster layer jan
@@ -313,7 +312,7 @@ Ok, projections over. Let's move forward with the practical...
 
 1. But let's firstly explore what `dir_info()` does...
 
-```{r, cache=FALSE}
+```{r, cache=FALSE, warning=FALSE}
 # look in our folder, find the files that end with .tif and 
 library(fs)
 dir_info("prac3_data/") 
@@ -359,7 +358,7 @@ worldclimtemp[[1]]
 
 With `tidyterra`:
 
-```{r}
+```{r, warning=FALSE}
 library(tidyterra)
 
 worldclimtemp %>%
