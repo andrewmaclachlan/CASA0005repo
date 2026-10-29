@@ -31,7 +31,7 @@ For any country in the World produce descriptive statistics that show the differ
 
 This week: 
 
-* [Chapter 5 "Descriptive statistics"](https://learningstatisticswithr.com/book/descriptives.html) from Learning statistics with R: A tutorial for psychology students and other beginners by Navarro (2019)
+* [Chapter 5 "Descriptive statistics"]https://learningstatisticswithr.com/05-descriptives.html) from Learning statistics with R: A tutorial for psychology students and other beginners by Navarro (2019)
 
 * [Exploratory data analysis: using colour and layout for comparison](https://www.roger-beecham.com/comp-sds/class/04-class/) by Beecham (2021).
 

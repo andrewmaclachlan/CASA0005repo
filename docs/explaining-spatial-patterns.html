@@ -23,7 +23,7 @@
 <meta name="author" content="Andy MacLachlan, Adam Dennett and Claire Dooley" />
 
 
-<meta name="date" content="2026-10-21" />
+<meta name="date" content="2026-10-29" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -1489,7 +1489,7 @@ div.csl-indent {
 <span id="cb354-3"><a href="explaining-spatial-patterns.html#cb354-3" tabindex="-1"></a>                               <span class="at">locale =</span> <span class="fu">locale</span>(<span class="at">encoding =</span> <span class="st">&#39;Latin1&#39;</span>), </span>
 <span id="cb354-4"><a href="explaining-spatial-patterns.html#cb354-4" tabindex="-1"></a>                               <span class="at">col_names =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
 <pre><code>## Rows: 660 Columns: 67
-## ── Column specification ──────────────
+## ── Column specification ────────────────────────
 ## Delimiter: &quot;,&quot;
 ## chr  (3): Ward name, Old code, New code
 ## dbl (64): Population - 2015, Children aged 0-15 - 2015, Working-age (16-64) ...
@@ -1558,14 +1558,10 @@ The <em>null hypothesis</em> that I am going to test empirically with some model
 <div class="sourceCode" id="cb359"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb359-1"><a href="explaining-spatial-patterns.html#cb359-1" tabindex="-1"></a>q <span class="ot">&lt;-</span> <span class="fu">qplot</span>(<span class="at">x =</span> <span class="st">`</span><span class="at">Unauthorised Absence in All Schools (%) - 2013</span><span class="st">`</span>, </span>
 <span id="cb359-2"><a href="explaining-spatial-patterns.html#cb359-2" tabindex="-1"></a>           <span class="at">y =</span> <span class="st">`</span><span class="at">Average GCSE capped point scores - 2014</span><span class="st">`</span>, </span>
 <span id="cb359-3"><a href="explaining-spatial-patterns.html#cb359-3" tabindex="-1"></a>           <span class="at">data=</span>LonWardProfiles)</span></code></pre></div>
-<pre><code>## Warning: `qplot()` was deprecated in ggplot2
-## 3.4.0.
-## This warning is displayed once per
-## session.
-## Call
-## `lifecycle::last_lifecycle_warnings()`
-## to see where this warning was
-## generated.</code></pre>
+<pre><code>## Warning: `qplot()` was deprecated in ggplot2 3.4.0.
+## This warning is displayed once per session.
+## Call `lifecycle::last_lifecycle_warnings()` to
+## see where this warning was generated.</code></pre>
 <div class="sourceCode" id="cb361"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb361-1"><a href="explaining-spatial-patterns.html#cb361-1" tabindex="-1"></a><span class="co">#plot with a regression line - note, I&#39;ve added some jitter here as the x-scale is rounded</span></span>
 <span id="cb361-2"><a href="explaining-spatial-patterns.html#cb361-2" tabindex="-1"></a>q <span class="sc">+</span> <span class="fu">stat_smooth</span>(<span class="at">method=</span><span class="st">&quot;lm&quot;</span>, <span class="at">se=</span><span class="cn">FALSE</span>, <span class="at">size=</span><span class="dv">1</span>) <span class="sc">+</span> </span>
 <span id="cb361-3"><a href="explaining-spatial-patterns.html#cb361-3" tabindex="-1"></a>  <span class="fu">geom_jitter</span>()</span></code></pre></div>
@@ -1790,16 +1786,12 @@ As a rule of thumb, the smaller the p-value, the more significant that variable 
 <span id="cb389-6"><a href="explaining-spatial-patterns.html#cb389-6" tabindex="-1"></a>  <span class="fu">geom_density</span>(<span class="at">colour=</span><span class="st">&quot;red&quot;</span>, </span>
 <span id="cb389-7"><a href="explaining-spatial-patterns.html#cb389-7" tabindex="-1"></a>               <span class="at">size=</span><span class="dv">1</span>, </span>
 <span id="cb389-8"><a href="explaining-spatial-patterns.html#cb389-8" tabindex="-1"></a>               <span class="at">adjust=</span><span class="dv">1</span>)</span></code></pre></div>
-<pre><code>## Warning: The dot-dot notation (`..density..`)
-## was deprecated in ggplot2 3.4.0.
-## ℹ Please use `after_stat(density)`
-##   instead.
-## This warning is displayed once per
-## session.
-## Call
-## `lifecycle::last_lifecycle_warnings()`
-## to see where this warning was
-## generated.</code></pre>
+<pre><code>## Warning: The dot-dot notation (`..density..`) was
+## deprecated in ggplot2 3.4.0.
+## ℹ Please use `after_stat(density)` instead.
+## This warning is displayed once per session.
+## Call `lifecycle::last_lifecycle_warnings()` to
+## see where this warning was generated.</code></pre>
 <p><img src="CASA0005_files/figure-html/unnamed-chunk-332-1.png" alt="" width="672" /></p>
 <p>Here, adding <code>..density..</code> means that the histogram is a density plot, this plots the chance that any value in the data is equal to that value.</p>
 <div class="sourceCode" id="cb391"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb391-1"><a href="explaining-spatial-patterns.html#cb391-1" tabindex="-1"></a><span class="fu">ggplot</span>(LonWardProfiles, <span class="fu">aes</span>(<span class="at">x=</span><span class="st">`</span><span class="at">Unauthorised Absence in All Schools (%) - 2013</span><span class="st">`</span>)) <span class="sc">+</span></span>
@@ -1951,23 +1943,18 @@ Figure 8.1: Word anatomy of multicollinearity. Source: <a href="https://medium.c
 <span id="cb405-13"><a href="explaining-spatial-patterns.html#cb405-13" tabindex="-1"></a></span>
 <span id="cb405-14"><a href="explaining-spatial-patterns.html#cb405-14" tabindex="-1"></a><span class="co">#visualise the correlation matrix</span></span>
 <span id="cb405-15"><a href="explaining-spatial-patterns.html#cb405-15" tabindex="-1"></a><span class="fu">rplot</span>(Correlation)</span></code></pre></div>
-<pre><code>## Warning: `aes_string()` was deprecated in
-## ggplot2 3.0.0.
-## ℹ Please use tidy evaluation idioms
-##   with `aes()`.
-## ℹ See also
-##   `vignette(&quot;ggplot2-in-packages&quot;)`
+<pre><code>## Warning: `aes_string()` was deprecated in ggplot2 3.0.0.
+## ℹ Please use tidy evaluation idioms with
+##   `aes()`.
+## ℹ See also `vignette(&quot;ggplot2-in-packages&quot;)`
 ##   for more information.
-## ℹ The deprecated feature was likely
-##   used in the corrr package.
+## ℹ The deprecated feature was likely used in the
+##   corrr package.
 ##   Please report the issue at
 ##   &lt;https://github.com/tidymodels/corrr/issues&gt;.
-## This warning is displayed once per
-## session.
-## Call
-## `lifecycle::last_lifecycle_warnings()`
-## to see where this warning was
-## generated.</code></pre>
+## This warning is displayed once per session.
+## Call `lifecycle::last_lifecycle_warnings()` to
+## see where this warning was generated.</code></pre>
 <p><img src="CASA0005_files/figure-html/unnamed-chunk-345-1.png" alt="" width="672" /></p>
 <p>Looking at either the correlation matrix or the correlation plot of that matrix, it’s easy to see that there is a low correlation (around 30%) between our two independent variables. However, at this stage we might wish to introduce more variables into our model to improve our prediction of the dependent variable (GCSE scores), this is called <strong>Multiple Linear Regression (MLR)</strong>. If you are unfamiliar with multiple linear regression consult the brief multiple linear regression section under the Extra content.</p>
 <div id="variance-inflation-factor-vif" class="section level4 hasAnchor" number="8.5.10.1">
@@ -1986,11 +1973,9 @@ Figure 8.1: Word anatomy of multicollinearity. Source: <a href="https://medium.c
 <span id="cb409-4"><a href="explaining-spatial-patterns.html#cb409-4" tabindex="-1"></a>  <span class="fu">st_drop_geometry</span>()<span class="sc">%&gt;%</span></span>
 <span id="cb409-5"><a href="explaining-spatial-patterns.html#cb409-5" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(position)<span class="sc">%&gt;%</span></span>
 <span id="cb409-6"><a href="explaining-spatial-patterns.html#cb409-6" tabindex="-1"></a>    <span class="fu">correlate</span>()</span></code></pre></div>
-<pre><code>## Warning: Using an external vector in
-## selections was deprecated in
-## tidyselect 1.1.0.
-## ℹ Please use `all_of()` or `any_of()`
-##   instead.
+<pre><code>## Warning: Using an external vector in selections was
+## deprecated in tidyselect 1.1.0.
+## ℹ Please use `all_of()` or `any_of()` instead.
 ##   # Was:
 ##   data %&gt;% select(position)
 ## 
@@ -1999,12 +1984,9 @@ Figure 8.1: Word anatomy of multicollinearity. Source: <a href="https://medium.c
 ## 
 ## See
 ## &lt;https://tidyselect.r-lib.org/reference/faq-external-vector.html&gt;.
-## This warning is displayed once per
-## session.
-## Call
-## `lifecycle::last_lifecycle_warnings()`
-## to see where this warning was
-## generated.</code></pre>
+## This warning is displayed once per session.
+## Call `lifecycle::last_lifecycle_warnings()` to
+## see where this warning was generated.</code></pre>
 <div class="sourceCode" id="cb411"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb411-1"><a href="explaining-spatial-patterns.html#cb411-1" tabindex="-1"></a><span class="fu">rplot</span>(Correlation_all)</span></code></pre></div>
 <p><img src="CASA0005_files/figure-html/unnamed-chunk-347-1.png" alt="" width="672" /></p>
 </div>
