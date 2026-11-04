@@ -653,7 +653,7 @@ We can arrange our maps with a number of tools:
 
 We will focus on:
 
-2. `tm_inset()` function. However, at the moment `tm_inset()` does not work with a tmap object. Instead we can take an image of our inset map with `tm_grob()` but we have a little less control with placement. See 
+2. `tm_inset()` function. However, at the moment `tm_inset()` does not work with a tmap object. Instead we can take an image of our inset map with `tm_grob()` but we have a little less control with placement.
 
 ```{r warning=FALSE, message=FALSE, out.width = "800pt", cache=FALSE}
 
@@ -723,7 +723,7 @@ Here is the grid package, we:
 
 * plot our map (`tm2`)
 * then "print" over the study area map and violin plot with the x and y controlling placement on the page.
-* save the plot by 
+* save the plot by opening the png "device" (with file path and other parameters) and then closing it after
 
 ```{r warning=FALSE, message=FALSE, out.width = "800pt", cache=FALSE}
 library(grid)
@@ -746,7 +746,7 @@ Things to avoid:
 
 * Poor labeling --- don't present something as an output with the file name (e.g. layer_1_osm) in the legend --- name your layers properly, it's **really easy** to do and makes a **big** difference to the quality of the map.
 * No legend
-* Screenshot of the map --- export it properly, we've been doing this a while and can tell
+* Screenshot of the map --- export it properly
 * Change the values in the legend ... what is aesthetically more pleasing 31.99999 or 32?. Make it as easy as possible to interpret your map.
 * Too much data presented on one map --- be selective or plot multiple maps
 * Presented data is too small or too big --- be critical about what you produce, it should be easy to read and understand

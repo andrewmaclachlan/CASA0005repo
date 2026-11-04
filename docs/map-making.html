@@ -23,7 +23,7 @@
 <meta name="author" content="Andy MacLachlan, Adam Dennett and Claire Dooley" />
 
 
-<meta name="date" content="2026-10-29" />
+<meta name="date" content="2026-11-04" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -1980,7 +1980,7 @@ Figure 5.3: Topological relations between vector geometries. Source: <a href="ht
 </ol>
 <p>We will focus on:</p>
 <ol start="2" style="list-style-type: decimal">
-<li><code>tm_inset()</code> function. However, at the moment <code>tm_inset()</code> does not work with a tmap object. Instead we can take an image of our inset map with <code>tm_grob()</code> but we have a little less control with placement. See</li>
+<li><code>tm_inset()</code> function. However, at the moment <code>tm_inset()</code> does not work with a tmap object. Instead we can take an image of our inset map with <code>tm_grob()</code> but we have a little less control with placement.</li>
 </ol>
 <div class="sourceCode" id="cb231"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb231-1"><a href="map-making.html#cb231-1" tabindex="-1"></a>inset <span class="ot">&lt;-</span> <span class="fu">tmap_grob</span>(tm4, <span class="at">asp=</span><span class="fl">1.1</span>)</span>
 <span id="cb231-2"><a href="map-making.html#cb231-2" tabindex="-1"></a></span>
@@ -2036,7 +2036,7 @@ Figure 5.3: Topological relations between vector geometries. Source: <a href="ht
 <ul>
 <li>plot our map (<code>tm2</code>)</li>
 <li>then “print” over the study area map and violin plot with the x and y controlling placement on the page.</li>
-<li>save the plot by</li>
+<li>save the plot by opening the png “device” (with file path and other parameters) and then closing it after</li>
 </ul>
 <div class="sourceCode" id="cb234"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb234-1"><a href="map-making.html#cb234-1" tabindex="-1"></a><span class="fu">library</span>(grid)</span>
 <span id="cb234-2"><a href="map-making.html#cb234-2" tabindex="-1"></a></span>
@@ -2061,7 +2061,7 @@ Figure 5.3: Topological relations between vector geometries. Source: <a href="ht
 <ul>
 <li>Poor labeling — don’t present something as an output with the file name (e.g. layer_1_osm) in the legend — name your layers properly, it’s <strong>really easy</strong> to do and makes a <strong>big</strong> difference to the quality of the map.</li>
 <li>No legend</li>
-<li>Screenshot of the map — export it properly, we’ve been doing this a while and can tell</li>
+<li>Screenshot of the map — export it properly</li>
 <li>Change the values in the legend … what is aesthetically more pleasing 31.99999 or 32?. Make it as easy as possible to interpret your map.</li>
 <li>Too much data presented on one map — be selective or plot multiple maps</li>
 <li>Presented data is too small or too big — be critical about what you produce, it should be easy to read and understand</li>

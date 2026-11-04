@@ -23,7 +23,7 @@
 <meta name="author" content="Andy MacLachlan, Adam Dennett and Claire Dooley" />
 
 
-<meta name="date" content="2026-10-29" />
+<meta name="date" content="2026-11-04" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -1735,10 +1735,9 @@ Open the Terminal again (Git tab &gt; cog &gt; New Terminal) and enter:</p>
 <li>A box will appear and in this box, you will be able to enter and run your R code. Try pasting in:</li>
 </ol>
 <div class="sourceCode" id="cb189"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb189-1"><a href="git-github-and-rmarkdown.html#cb189-1" tabindex="-1"></a><span class="fu">library</span>(terra)</span>
-<span id="cb189-2"><a href="git-github-and-rmarkdown.html#cb189-2" tabindex="-1"></a><span class="fu">library</span>(here)</span>
-<span id="cb189-3"><a href="git-github-and-rmarkdown.html#cb189-3" tabindex="-1"></a>jan<span class="ot">&lt;-</span>terra<span class="sc">::</span><span class="fu">rast</span>(<span class="fu">here</span>(<span class="st">&quot;prac3_data&quot;</span>, <span class="st">&quot;wc2.1_5m_tavg_01.tif&quot;</span>))</span>
-<span id="cb189-4"><a href="git-github-and-rmarkdown.html#cb189-4" tabindex="-1"></a><span class="co"># have a look at the raster layer jan</span></span>
-<span id="cb189-5"><a href="git-github-and-rmarkdown.html#cb189-5" tabindex="-1"></a><span class="fu">plot</span>(jan)</span></code></pre></div>
+<span id="cb189-2"><a href="git-github-and-rmarkdown.html#cb189-2" tabindex="-1"></a>jan<span class="ot">&lt;-</span>terra<span class="sc">::</span><span class="fu">rast</span>(<span class="fu">here</span>(<span class="st">&quot;prac3_data&quot;</span>, <span class="st">&quot;wc2.1_5m_tavg_01.tif&quot;</span>))</span>
+<span id="cb189-3"><a href="git-github-and-rmarkdown.html#cb189-3" tabindex="-1"></a><span class="co"># have a look at the raster layer jan</span></span>
+<span id="cb189-4"><a href="git-github-and-rmarkdown.html#cb189-4" tabindex="-1"></a><span class="fu">plot</span>(jan)</span></code></pre></div>
 <p><img src="CASA0005_files/figure-html/unnamed-chunk-215-1.png" alt="" width="672" /></p>
 <p>When including code chunks in your work, there are various options that allow you to do things like include the code, but not run it: display the output but not the code, hide warnings etc. Most of these can be input automatically by clicking the cog icon in the top-right of the chunk, or you can specify them in the code header of the chunk…if you toggle the buttons you’ll see the code change in the chunk ‘header’. There are also two useful icons to the right of the settings cog, the first will run all code above the current chunk (play symbol facing downwards) and the second will run the current code chunk (regular play symbol)</p>
 <p><img src="prac4_images/code_chunk_options.png" alt="" width="800pt" style="display: block; margin: auto;" /></p>

@@ -524,7 +524,6 @@ knitr::include_graphics('prac4_images/code_chunk.png')
 
 ```{r warning=FALSE, cache=FALSE}
 library(terra)
-library(here)
 jan<-terra::rast(here("prac3_data", "wc2.1_5m_tavg_01.tif"))
 # have a look at the raster layer jan
 plot(jan)
