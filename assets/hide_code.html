@@ -314,9 +314,14 @@ window.initializeCodeFolding = function(show) {
       div.addClass('in');
     var id = 'rcode-643E0F36' + currentIndex++;
     div.attr('id', id);
-    $(this).before(div);
-    $(this).detach().appendTo(div);
 
+    // Wrap the whole div.sourceCode (when present) so the Hide/Code toggle
+    // sits outside the element the copy button reads its text from (#28)
+    var target = $(this).parent('div.sourceCode');
+    if (!target.length) target = $(this);
+    target.before(div);
+    target.detach().appendTo(div);
+    
     // add a show code button right above
     var showCodeText = $('<span>' + (show ? 'Hide' : 'Code') + '</span>');
     var showCodeButton = $('<button type="button" class="btn btn-default btn-xs code-folding-btn pull-right"></button>');
